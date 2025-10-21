@@ -1,7 +1,10 @@
 functionsDirectory = "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\New folder\\555\\netlify\\functions"
 functionsDirectoryOrigin = "ui"
-headersOrigin = "config"
-redirectsOrigin = "config"
+headersOrigin = "inline"
+redirectsOrigin = "inline"
+
+[images]
+remote_images = ["^(?:https:\\/\\/(?!\\.)[^/]*?\\.example\\.com(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$"]
 
 [functions]
 
@@ -10,6 +13,7 @@ redirectsOrigin = "config"
 [[plugins]]
 origin = "default"
 package = "@netlify/plugin-nextjs"
+pinned_version = "5"
 
 [plugins.inputs]
 
@@ -41,12 +45,6 @@ minify = true
 [build.services]
 
 [[headers]]
-for = "/_next/static/*"
-
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
 for = "/*"
 
 [headers.values]
@@ -55,6 +53,12 @@ X-XSS-Protection = "1; mode=block"
 X-Content-Type-Options = "nosniff"
 Referrer-Policy = "strict-origin-when-cross-origin"
 
+[[headers]]
+for = "/_next/static/*"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
 [[redirects]]
 from = "/*"
 to = "/index.html"
@@ -62,6 +66,36 @@ status = 200.0
 force = false
 
 [redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/_next/image"
+to = "/.netlify/images?url=:url&w=:width&q=:quality"
+status = 200.0
+force = false
+
+[redirects.query]
+url = ":url"
+w = ":width"
+q = ":quality"
+
+[redirects.conditions]
+
+[redirects.headers]
+
+[[redirects]]
+from = "/_ipx/*"
+to = "/.netlify/images?url=:url&w=:width&q=:quality"
+status = 200.0
+force = false
+
+[redirects.query]
+url = ":url"
+w = ":width"
+q = ":quality"
 
 [redirects.conditions]
 
