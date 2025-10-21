@@ -1,0 +1,16 @@
+(self.webpackChunk_N_E=self.webpackChunk_N_E||[]).push([[799],{94804:function(e,t,r){Promise.resolve().then(r.bind(r,14415))},78030:function(e,t,r){"use strict";r.d(t,{Z:function(){return d}});var n=r(2265);/**
+ * @license lucide-react v0.545.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let a=e=>e.replace(/([a-z0-9])([A-Z])/g,"$1-$2").toLowerCase(),i=e=>e.replace(/^([A-Z])|[\s-_]+(\w)/g,(e,t,r)=>r?r.toUpperCase():t.toLowerCase()),s=e=>{let t=i(e);return t.charAt(0).toUpperCase()+t.slice(1)},c=function(){for(var e=arguments.length,t=Array(e),r=0;r<e;r++)t[r]=arguments[r];return t.filter((e,t,r)=>!!e&&""!==e.trim()&&r.indexOf(e)===t).join(" ").trim()},o=e=>{for(let t in e)if(t.startsWith("aria-")||"role"===t||"title"===t)return!0};/**
+ * @license lucide-react v0.545.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */var l={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"};/**
+ * @license lucide-react v0.545.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */let u=(0,n.forwardRef)((e,t)=>{let{color:r="currentColor",size:a=24,strokeWidth:i=2,absoluteStrokeWidth:s,className:u="",children:d,iconNode:h,...m}=e;return(0,n.createElement)("svg",{ref:t,...l,width:a,height:a,stroke:r,strokeWidth:s?24*Number(i)/Number(a):i,className:c("lucide",u),...!d&&!o(m)&&{"aria-hidden":"true"},...m},[...h.map(e=>{let[t,r]=e;return(0,n.createElement)(t,r)}),...Array.isArray(d)?d:[d]])}),d=(e,t)=>{let r=(0,n.forwardRef)((r,i)=>{let{className:o,...l}=r;return(0,n.createElement)(u,{ref:i,iconNode:t,className:c("lucide-".concat(a(s(e))),"lucide-".concat(e),o),...l})});return r.displayName=s(e),r}},42421:function(e,t,r){"use strict";r.d(t,{Z:function(){return n}});let n=(0,r(78030).Z)("chevron-down",[["path",{d:"m6 9 6 6 6-6",key:"qrunsl"}]])},14415:function(e,t,r){"use strict";r.r(t),r.d(t,{default:function(){return s}});var n=r(57437),a=r(55343),i=r(60047);function s(){return(0,n.jsx)("div",{className:"min-h-screen bg-background parallax-slow",children:(0,n.jsxs)("div",{className:"grid-container py-12",children:[(0,n.jsxs)(a.E.div,{initial:{opacity:0,y:20},animate:{opacity:1,y:0},transition:{duration:.8},className:"text-center mb-8",children:[(0,n.jsx)("h1",{className:"heading-1 text-gradient-modern text-center mb-4",children:(0,n.jsx)("span",{className:"bg-gradient-to-r from-accent via-secondary-learn to-secondary-secure bg-clip-text text-transparent",children:"الأسئلة الشائعة - منصة خطى"})}),(0,n.jsx)("p",{className:"body-text text-text-secondary content-normal mx-auto",children:"إجابات شاملة على جميع استفساراتك حول منصة خطى التعليمية"})]}),(0,n.jsx)(i.Z,{})]})})}}},function(e){e.O(0,[5343,47,2971,7023,1744],function(){return e(e.s=94804)}),_N_E=e.O()}]);

@@ -1,0 +1,190 @@
+/* Dark Mode Specific Overrides */
+/* This file contains additional dark mode customizations beyond what's in globals.css */
+
+.dark {
+  /* Enhanced Dark Mode Color Variables */
+  --color-background: #0f172a; /* slate-900 */
+  --color-background-alt: #1e293b; /* slate-800 */
+  --color-background-subtle: #334155; /* slate-700 */
+  --color-surface: #1e293b; /* slate-800 */
+  --color-surface-alt: #334155; /* slate-700 */
+  --color-surface-elevated: #0f172a; /* slate-900 */
+
+  /* Enhanced Text Colors for Dark Mode */
+  --color-text-primary: #f8fafc; /* slate-50 */
+  --color-text-secondary: #e2e8f0; /* slate-200 */
+  --color-text-tertiary: #cbd5e1; /* slate-300 */
+  --color-text-muted: #94a3b8; /* slate-400 */
+
+  /* Enhanced Brand Colors for Dark Mode */
+  --color-primary: #4a5568; /* slate-600 */
+  --color-primary-light: #718096; /* slate-500 */
+  --color-primary-lighter: #a0aec0; /* slate-400 */
+  --color-accent: #63b3ed; /* blue-400 */
+  --color-accent-light: #90cdf4; /* blue-300 */
+  --color-accent-dark: #4a5568; /* slate-600 */
+
+  /* Enhanced Semantic Colors for Dark Mode */
+  --color-secondary-learn: #68d391; /* emerald-400 */
+  --color-secondary-expert: #63b3ed; /* blue-400 */
+  --color-secondary-innovate: #9f7aea; /* purple-400 */
+  --color-secondary-secure: #718096; /* slate-500 */
+
+  /* Enhanced Status Colors for Dark Mode */
+  --color-success: #4ade80; /* emerald-400 */
+  --color-success-light: #68d391; /* emerald-400 */
+  --color-warning: #fbbf24; /* amber-400 */
+  --color-warning-light: #fcd34d; /* amber-300 */
+  --color-error: #f87171; /* red-400 */
+  --color-error-light: #fca5a5; /* red-300 */
+  --color-info: #60a5fa; /* blue-400 */
+  --color-info-light: #93c5fd; /* blue-300 */
+
+  /* Dark Mode Specific Gradients */
+  --gradient-primary-smooth: linear-gradient(
+    135deg,
+    #4a5568 0%,
+    #63b3ed 50%,
+    #718096 100%
+  );
+  --gradient-accent-smooth: linear-gradient(
+    135deg,
+    #63b3ed 0%,
+    #90cdf4 50%,
+    #a0aec0 100%
+  );
+  --gradient-surface: linear-gradient(
+    135deg,
+    #1e293b 0%,
+    #334155 50%,
+    #475569 100%
+  );
+
+  /* Dark Mode Glass Morphism */
+  --glass-bg: rgba(30, 41, 59, 0.3);
+  --glass-border: rgba(148, 163, 184, 0.2);
+  --glass-blur: blur(20px);
+
+  /* Dark Mode Enhanced Shadows */
+  --shadow-glow-primary: 0 0 20px rgba(74, 85, 104, 0.4);
+  --shadow-glow-accent: 0 0 20px rgba(99, 179, 237, 0.4);
+  --shadow-inner-glow: inset 0 2px 4px 0 rgba(74, 85, 104, 0.2);
+  --shadow-3d: 0 10px 20px rgba(0, 0, 0, 0.4), 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark Mode Specific Component Overrides */
+.dark {
+  /* Enhanced Card Styles for Dark Mode */
+  .glass-card {
+    background: rgba(30, 41, 59, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+
+  .card {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    transform: translateY(-4px);
+  }
+
+  /* Enhanced Input Styles for Dark Mode */
+  .input-base {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+  }
+
+  .input-base:focus {
+    border-color: #63b3ed;
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.1);
+  }
+
+  .input-base::placeholder {
+    color: #94a3b8;
+  }
+
+  /* Enhanced Button Styles for Dark Mode */
+  .btn-primary-modern {
+    background: linear-gradient(135deg, #4a5568 0%, #63b3ed 100%);
+    box-shadow: 0 10px 25px rgba(74, 85, 104, 0.4);
+  }
+
+  .btn-primary-modern:hover {
+    box-shadow: 0 15px 35px rgba(74, 85, 104, 0.5);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .btn-secondary-modern {
+    border-color: #718096;
+    color: #e2e8f0;
+    background: rgba(113, 128, 150, 0.1);
+  }
+
+  .btn-secondary-modern:hover {
+    background: #4a5568;
+    border-color: #a0aec0;
+    color: #f8fafc;
+  }
+
+  /* Enhanced Skeleton Loading for Dark Mode */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      #1e293b 0%,
+      #334155 20%,
+      #1e293b 40%,
+      #1e293b 100%
+    );
+    background-size: 1000px 100%;
+  }
+
+  /* Dark Mode Specific Animation Enhancements */
+  @keyframes dark-mode-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(99, 179, 237, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(99, 179, 237, 0.6);
+    }
+  }
+
+  .animate-dark-glow {
+    animation: dark-mode-glow 2s ease-in-out infinite;
+  }
+
+  /* Enhanced Typography for Dark Mode */
+  .text-gradient-primary {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #63b3ed 0%, #90cdf4 50%, #bee3f8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+/* Dark Mode Responsive Enhancements */
+@media (prefers-color-scheme: dark) {
+  /* Additional dark mode specific responsive styles can go here */
+}
+
+/* High Contrast Dark Mode */
+@media (prefers-contrast: high) and (prefers-color-scheme: dark) {
+  .dark {
+    --color-background: #000000;
+    --color-text-primary: #ffffff;
+    --glass-bg: rgba(0, 0, 0, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.3);
+  }
+}

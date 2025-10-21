@@ -1,0 +1,94 @@
+/* Input Styles */
+.input-base {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-xl);
+  font-size: var(--text-base);
+  transition: all var(--duration-normal) var(--ease-in-out);
+  background: white;
+  min-height: var(--touch-targets-min);
+}
+
+.input-base:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-base::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input-modern {
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-base);
+  transition: all var(--duration-normal) var(--ease-in-out);
+  background: var(--color-background-alt);
+  min-height: var(--touch-targets-min);
+}
+
+.input-modern:hover {
+  background: white;
+}
+
+.input-modern:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  background: white;
+}
+
+.input-modern::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* Dark Mode Adjustments */
+.dark .input-base,
+.dark .input-modern {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dark .input-base:focus,
+.dark .input-modern:focus {
+  border-color: var(--color-accent);
+}
+
+/* Loading Skeleton Utilities */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #e0e0e0 20%,
+    #f0f0f0 40%,
+    #f0f0f0 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer var(--duration-slower) infinite var(--ease-linear);
+  border-radius: var(--radius-md);
+}
+
+.dark .skeleton {
+  background: linear-gradient(
+    90deg,
+    #1e293b 0%,
+    #334155 20%,
+    #1e293b 40%,
+    #1e293b 100%
+  );
+  background-size: 1000px 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}

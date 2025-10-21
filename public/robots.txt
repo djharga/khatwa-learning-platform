@@ -1,0 +1,6 @@
+# robots.txt for Khatwa Platform
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: /sitemap.xml

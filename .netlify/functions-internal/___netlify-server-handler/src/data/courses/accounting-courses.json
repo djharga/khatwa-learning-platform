@@ -1,0 +1,655 @@
+{
+  "courses": [
+    {
+      "id": "acc-1",
+      "title": "دورة التحليل المالى واعداد الميزانيات",
+      "description": "دورة شاملة في التحليل المالي وإعداد الميزانيات للمؤسسات المختلفة",
+      "instructor": {
+        "id": "inst-1",
+        "name": "د. أحمد السيد",
+        "title": "خبير التحليل المالي والميزانيات",
+        "avatar": "/avatars/instructor-financial.jpg",
+        "rating": 4.9,
+        "students": 850,
+        "courses": 8,
+        "bio": "خبير في التحليل المالي مع خبرة 12 عام في البنوك والمؤسسات المالية"
+      },
+      "level": "متقدم",
+      "category": "التحليل المالي",
+      "duration": "8 أسابيع",
+      "students": 850,
+      "rating": 4.9,
+      "reviewCount": 67,
+      "price": 599,
+      "image": "/banar-cours.png",
+      "filesCount": 12,
+      "isOngoing": true,
+      "progress": 0,
+      "totalFiles": 12,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-1-1",
+          "name": "مقدمة في التحليل المالي",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-1-1-1",
+              "name": "مفهوم التحليل المالي الأساسي",
+              "type": "document",
+              "size": "2.1 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-1-1-2",
+              "name": "أدوات التحليل المالي",
+              "type": "document",
+              "size": "1.8 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-1-1-3",
+              "name": "فيديو تعريفي بالتحليل المالي",
+              "type": "video",
+              "duration": "25:30",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-1-2",
+          "name": "إعداد الميزانيات التخطيطية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-1-2-1",
+              "name": "أنواع الميزانيات",
+              "type": "document",
+              "size": "3.2 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-1-2-2",
+              "name": "خطوات إعداد الميزانية",
+              "type": "document",
+              "size": "2.7 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-1-2-3",
+              "name": "تمارين عملية في إعداد الميزانيات",
+              "type": "excel",
+              "size": "1.5 MB",
+              "isNew": true,
+              "canEdit": true
+            }
+          ]
+        },
+        {
+          "id": "acc-1-3",
+          "name": "التحليل المالي للقوائم المالية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-1-3-1",
+              "name": "تحليل الميزانية العمومية",
+              "type": "document",
+              "size": "2.9 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-1-3-2",
+              "name": "تحليل قائمة الدخل",
+              "type": "document",
+              "size": "2.4 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-1-3-3",
+              "name": "نسب التحليل المالي",
+              "type": "excel",
+              "size": "1.2 MB",
+              "canEdit": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-2",
+      "title": "كورس ادارة تشغيل المطاعم",
+      "description": "دورة متخصصة في إدارة العمليات التشغيلية للمطاعم والمقاهي",
+      "instructor": {
+        "id": "inst-2",
+        "name": "د. فاطمة محمد",
+        "title": "خبيرة إدارة المطاعم والضيافة",
+        "avatar": "/avatars/instructor-restaurant.jpg",
+        "rating": 4.8,
+        "students": 620,
+        "courses": 5,
+        "bio": "خبيرة في إدارة المطاعم مع خبرة 10 سنوات في القطاع"
+      },
+      "level": "متوسط",
+      "category": "إدارة العمليات",
+      "duration": "6 أسابيع",
+      "students": 620,
+      "rating": 4.8,
+      "reviewCount": 45,
+      "price": 449,
+      "image": "/banar-cours.png",
+      "filesCount": 10,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 10,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-2-1",
+          "name": "أساسيات إدارة المطاعم",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-2-1-1",
+              "name": "تخطيط المطعم وتصميمه",
+              "type": "document",
+              "size": "2.3 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-2-1-2",
+              "name": "إدارة المخزون والمشتريات",
+              "type": "document",
+              "size": "1.9 MB",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-2-2",
+          "name": "العمليات اليومية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-2-2-1",
+              "name": "إدارة الورديات والعاملين",
+              "type": "document",
+              "size": "2.1 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-2-2-2",
+              "name": "خدمة العملاء والجودة",
+              "type": "video",
+              "duration": "18:45",
+              "isCompleted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-3",
+      "title": "كورس التسويات البنكية",
+      "description": "دورة عملية في التسويات البنكية ومطابقة الحسابات",
+      "instructor": {
+        "id": "inst-3",
+        "name": "د. محمد علي",
+        "title": "خبير التسويات المصرفية",
+        "avatar": "/avatars/instructor-banking.jpg",
+        "rating": 4.7,
+        "students": 540,
+        "courses": 6,
+        "bio": "خبير في التسويات البنكية مع خبرة في البنوك السعودية"
+      },
+      "level": "متوسط",
+      "category": "التسويات المصرفية",
+      "duration": "4 أسابيع",
+      "students": 540,
+      "rating": 4.7,
+      "reviewCount": 38,
+      "price": 349,
+      "image": "/banar-cours.png",
+      "filesCount": 8,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 8,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-3-1",
+          "name": "مفهوم التسويات البنكية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-3-1-1",
+              "name": "أهمية التسويات البنكية",
+              "type": "document",
+              "size": "1.7 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-3-1-2",
+              "name": "خطوات التسوية البنكية",
+              "type": "video",
+              "duration": "22:15",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-3-2",
+          "name": "التطبيق العملي",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-3-2-1",
+              "name": "نماذج التسويات البنكية",
+              "type": "excel",
+              "size": "1.3 MB",
+              "canEdit": true
+            },
+            {
+              "id": "acc-3-2-2",
+              "name": "حل المشاكل الشائعة",
+              "type": "document",
+              "size": "1.8 MB",
+              "isCompleted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-4",
+      "title": "كورس التسويات الجردية",
+      "description": "دورة متخصصة في التسويات الجردية وإدارة المخزون",
+      "instructor": {
+        "id": "inst-4",
+        "name": "د. سارة أحمد",
+        "title": "خبيرة الجرد والمخازن",
+        "avatar": "/avatars/instructor-inventory.jpg",
+        "rating": 4.6,
+        "students": 480,
+        "courses": 4,
+        "bio": "خبيرة في إدارة المخازن والجرد مع خبرة في الشركات الصناعية"
+      },
+      "level": "متوسط",
+      "category": "إدارة المخزون",
+      "duration": "5 أسابيع",
+      "students": 480,
+      "rating": 4.6,
+      "reviewCount": 32,
+      "price": 399,
+      "image": "/banar-cours.png",
+      "filesCount": 9,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 9,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-4-1",
+          "name": "أساسيات الجرد والتسويات",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-4-1-1",
+              "name": "أنواع الجرد وطرقه",
+              "type": "document",
+              "size": "2.2 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-4-1-2",
+              "name": "إجراءات الجرد الفعلي",
+              "type": "video",
+              "duration": "28:00",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-4-2",
+          "name": "التسويات الجردية العملية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-4-2-1",
+              "name": "حساب التسويات الجردية",
+              "type": "excel",
+              "size": "1.6 MB",
+              "canEdit": true
+            },
+            {
+              "id": "acc-4-2-2",
+              "name": "معالجة فروقات الجرد",
+              "type": "document",
+              "size": "1.9 MB",
+              "isCompleted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-5",
+      "title": "كورس التقارير المالية والمحاسبية",
+      "description": "دورة شاملة في إعداد وتحليل التقارير المالية والمحاسبية",
+      "instructor": {
+        "id": "inst-5",
+        "name": "د. خالد عبدالله",
+        "title": "خبير التقارير المالية",
+        "avatar": "/avatars/instructor-reports.jpg",
+        "rating": 4.9,
+        "students": 720,
+        "courses": 7,
+        "bio": "خبير في إعداد التقارير المالية مع خبرة في الشركات المدرجة"
+      },
+      "level": "متقدم",
+      "category": "التقارير المالية",
+      "duration": "7 أسابيع",
+      "students": 720,
+      "rating": 4.9,
+      "reviewCount": 58,
+      "price": 549,
+      "image": "/banar-cours.png",
+      "filesCount": 11,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 11,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-5-1",
+          "name": "أساسيات التقارير المالية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-5-1-1",
+              "name": "هيكل التقرير المالي",
+              "type": "document",
+              "size": "2.5 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-5-1-2",
+              "name": "معايير إعداد التقارير",
+              "type": "document",
+              "size": "2.1 MB",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-5-2",
+          "name": "إعداد القوائم المالية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-5-2-1",
+              "name": "إعداد الميزانية العمومية",
+              "type": "excel",
+              "size": "1.8 MB",
+              "canEdit": true
+            },
+            {
+              "id": "acc-5-2-2",
+              "name": "إعداد قائمة الدخل",
+              "type": "excel",
+              "size": "1.4 MB",
+              "canEdit": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-6",
+      "title": "كورس المخازن",
+      "description": "دورة متخصصة في إدارة المخازن وأنظمة الرقابة على المخزون",
+      "instructor": {
+        "id": "inst-6",
+        "name": "د. لينا محمود",
+        "title": "خبيرة إدارة المخازن واللوجستيات",
+        "avatar": "/avatars/instructor-warehouse.jpg",
+        "rating": 4.7,
+        "students": 590,
+        "courses": 5,
+        "bio": "خبيرة في إدارة المخازن مع خبرة في سلاسل التوريد"
+      },
+      "level": "متوسط",
+      "category": "إدارة المخزون",
+      "duration": "5 أسابيع",
+      "students": 590,
+      "rating": 4.7,
+      "reviewCount": 41,
+      "price": 429,
+      "image": "/banar-cours.png",
+      "filesCount": 9,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 9,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-6-1",
+          "name": "أساسيات إدارة المخازن",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-6-1-1",
+              "name": "تخطيط وتصميم المخزن",
+              "type": "document",
+              "size": "2.0 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-6-1-2",
+              "name": "أنظمة الرفوف والتخزين",
+              "type": "video",
+              "duration": "19:30",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-6-2",
+          "name": "العمليات التشغيلية",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-6-2-1",
+              "name": "إجراءات الاستلام والتسليم",
+              "type": "document",
+              "size": "1.8 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-6-2-2",
+              "name": "نظام مراقبة المخزون",
+              "type": "excel",
+              "size": "1.5 MB",
+              "canEdit": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-7",
+      "title": "كورس المشتريات",
+      "description": "دورة شاملة في إدارة عمليات المشتريات وتوريد المواد",
+      "instructor": {
+        "id": "inst-7",
+        "name": "د. عمر حسن",
+        "title": "خبير إدارة المشتريات والتوريد",
+        "avatar": "/avatars/instructor-procurement.jpg",
+        "rating": 4.8,
+        "students": 670,
+        "courses": 6,
+        "bio": "خبير في إدارة المشتريات مع خبرة في الشركات الكبرى"
+      },
+      "level": "متوسط",
+      "category": "إدارة المشتريات",
+      "duration": "6 أسابيع",
+      "students": 670,
+      "rating": 4.8,
+      "reviewCount": 49,
+      "price": 479,
+      "image": "/banar-cours.png",
+      "filesCount": 10,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 10,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-7-1",
+          "name": "أساسيات إدارة المشتريات",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-7-1-1",
+              "name": "دورة المشتريات في المؤسسة",
+              "type": "document",
+              "size": "2.3 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-7-1-2",
+              "name": "تخطيط احتياجات المواد",
+              "type": "document",
+              "size": "1.9 MB",
+              "isCompleted": false
+            }
+          ]
+        },
+        {
+          "id": "acc-7-2",
+          "name": "عمليات الشراء والتوريد",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-7-2-1",
+              "name": "إجراءات طلب العروض",
+              "type": "document",
+              "size": "2.1 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-7-2-2",
+              "name": "تقييم الموردين واختيارهم",
+              "type": "video",
+              "duration": "24:15",
+              "isCompleted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acc-8",
+      "title": "كورس تاسيس المالية",
+      "description": "دورة متخصصة في التأسيس المالي للشركات الناشئة والمشاريع",
+      "instructor": {
+        "id": "inst-8",
+        "name": "د. نورة السعد",
+        "title": "خبيرة التأسيس المالي والتمويل",
+        "avatar": "/avatars/instructor-startup.jpg",
+        "rating": 4.9,
+        "students": 780,
+        "courses": 8,
+        "bio": "خبيرة في التأسيس المالي للشركات الناشئة مع خبرة في الاستثمار"
+      },
+      "level": "مبتدئ",
+      "category": "التأسيس المالي",
+      "duration": "4 أسابيع",
+      "students": 780,
+      "rating": 4.9,
+      "reviewCount": 62,
+      "price": 349,
+      "image": "/banar-cours.png",
+      "filesCount": 8,
+      "isOngoing": false,
+      "progress": 0,
+      "totalFiles": 8,
+      "completedFiles": 0,
+      "certificate": {
+        "earned": false,
+        "type": "إتمام"
+      },
+      "files": [
+        {
+          "id": "acc-8-1",
+          "name": "التخطيط المالي للمشاريع الجديدة",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-8-1-1",
+              "name": "دراسة الجدوى المالية",
+              "type": "document",
+              "size": "2.4 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-8-1-2",
+              "name": "تقدير التكاليف والإيرادات",
+              "type": "excel",
+              "size": "1.7 MB",
+              "canEdit": true
+            }
+          ]
+        },
+        {
+          "id": "acc-8-2",
+          "name": "تمويل المشاريع الناشئة",
+          "type": "folder",
+          "children": [
+            {
+              "id": "acc-8-2-1",
+              "name": "مصادر التمويل المتاحة",
+              "type": "document",
+              "size": "2.0 MB",
+              "isCompleted": false
+            },
+            {
+              "id": "acc-8-2-2",
+              "name": "إعداد خطة التمويل",
+              "type": "document",
+              "size": "1.8 MB",
+              "isCompleted": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

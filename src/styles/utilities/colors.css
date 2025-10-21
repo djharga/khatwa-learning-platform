@@ -1,0 +1,190 @@
+/* Color Utilities */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-accent-light {
+  color: var(--color-accent-light);
+}
+
+.bg-accent-light {
+  background-color: var(--color-accent-light);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+/* Secondary Color Classes */
+.text-secondary-green {
+  color: var(--color-secondary-green);
+}
+
+.bg-secondary-green {
+  background-color: var(--color-secondary-green);
+}
+
+.text-secondary-teal {
+  color: var(--color-secondary-teal);
+}
+
+.bg-secondary-teal {
+  background-color: var(--color-secondary-teal);
+}
+
+.text-secondary-purple {
+  color: var(--color-secondary-purple);
+}
+
+.bg-secondary-purple {
+  background-color: var(--color-secondary-purple);
+}
+
+.text-secondary-learn {
+  color: var(--color-secondary-learn);
+}
+
+.bg-secondary-learn {
+  background-color: var(--color-secondary-learn);
+}
+
+.text-secondary-expert {
+  color: var(--color-secondary-expert);
+}
+
+.bg-secondary-expert {
+  background-color: var(--color-secondary-expert);
+}
+
+.text-secondary-innovate {
+  color: var(--color-secondary-innovate);
+}
+
+.bg-secondary-innovate {
+  background-color: var(--color-secondary-innovate);
+}
+
+.text-secondary-secure {
+  color: var(--color-secondary-secure);
+}
+
+.bg-secondary-secure {
+  background-color: var(--color-secondary-secure);
+}
+
+/* Enhanced Background Classes */
+.bg-background-alt {
+  background-color: var(--color-background-alt);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+.bg-surface-alt {
+  background-color: var(--color-surface-alt);
+}
+
+.bg-background-subtle {
+  background-color: var(--color-background-subtle);
+}
+
+.bg-surface-elevated {
+  background-color: var(--color-surface-elevated);
+}
+
+/* Enhanced Text Classes */
+.text-primary-light {
+  color: var(--color-primary-light);
+}
+
+.text-text-muted {
+  color: var(--color-text-muted);
+}
+
+.text-text-tertiary {
+  color: var(--color-text-tertiary);
+}
+
+.text-primary-lighter {
+  color: var(--color-primary-lighter);
+}
+
+.text-accent-dark {
+  color: var(--color-accent-dark);
+}
+
+.bg-accent-dark {
+  background-color: var(--color-accent-dark);
+}
+
+/* Status Classes */
+.text-success {
+  color: var(--color-success);
+}
+
+.bg-success {
+  background-color: var(--color-success);
+}
+
+.text-warning {
+  color: var(--color-warning);
+}
+
+.bg-warning {
+  background-color: var(--color-warning);
+}
+
+.text-error {
+  color: var(--color-error);
+}
+
+.bg-error {
+  background-color: var(--color-error);
+}
+
+.text-info {
+  color: var(--color-info);
+}
+
+.bg-info {
+  background-color: var(--color-info);
+}
+
+/* Gradient Utilities */
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
+}
+
+.gradient-primary-modern {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 50%,
+    var(--color-primary-light) 100%
+  );
+}
+
+.gradient-secondary-modern {
+  background: linear-gradient(
+    135deg,
+    var(--color-secondary-expert) 0%,
+    var(--color-secondary-innovate) 100%
+  );
+}
+
+.gradient-accent-modern {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-accent-light) 100%
+  );
+}
