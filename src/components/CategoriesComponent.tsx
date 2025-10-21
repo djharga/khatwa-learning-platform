@@ -16,50 +16,64 @@ interface CategoryCardProps {
   index: number;
 }
 
-const CategoryCard: React.FC<CategoryCardProps> = ({ category, index }) => (
-  <motion.article
-    key={category.title}
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.1 }}
-    viewport={{ once: true }}
-    whileHover={{ scale: 1.05, y: -8 }}
-    className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center border border-blue-100 transition-all duration-300"
-    role="listitem"
-  >
-    <motion.div
-      initial={{ scale: 0 }}
-      whileInView={{ scale: 1 }}
-      transition={{
-        delay: index * 0.1 + 0.3,
-        type: 'spring',
-        stiffness: 200,
-      }}
+const CategoryCard: React.FC<CategoryCardProps> = ({ category, index }) => {
+  const renderIcon = () => {
+    switch (category.title) {
+      case 'الدورات':
+        return <BookOpen className="w-10 h-10 text-primary transition-all duration-300" />;
+      case 'المراجعة الداخلية':
+        return <Shield className="w-10 h-10 text-primary transition-all duration-300" />;
+      case 'زمالة المراجعين':
+        return <Users className="w-10 h-10 text-primary transition-all duration-300" />;
+      case 'الذكاء الاصطناعي':
+        return <Brain className="w-10 h-10 text-primary transition-all duration-300" />;
+      default:
+        return <BookOpen className="w-10 h-10 text-primary transition-all duration-300" />;
+    }
+  };
+
+  return (
+    <motion.article
+      key={category.title}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6 transition-all duration-300"
-      aria-hidden="true"
+      whileHover={{ scale: 1.05, y: -8 }}
+      className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg hover:shadow-2xl p-8 text-center border border-blue-100 transition-all duration-300"
+      role="listitem"
     >
-      <category.icon
-        className="w-10 h-10 text-primary transition-all duration-300"
+      <motion.div
+        initial={{ scale: 0 }}
+        whileInView={{ scale: 1 }}
+        transition={{
+          delay: index * 0.1 + 0.3,
+          type: 'spring',
+          stiffness: 200,
+        }}
+        viewport={{ once: true }}
+        className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-full mb-6 transition-all duration-300"
         aria-hidden="true"
-      />
-    </motion.div>
-    <h3 className="text-xl lg:text-2xl font-bold text-primary mb-4 leading-tight">
-      {category.title}
-    </h3>
-    {category.levels && (
-      <p
-        className="text-sm text-blue-600 font-semibold mb-3"
-        aria-label={`يحتوي على ${category.levels}`}
       >
-        {category.levels}
+        {renderIcon()}
+      </motion.div>
+      <h3 className="text-xl lg:text-2xl font-bold text-primary mb-4 leading-tight">
+        {category.title}
+      </h3>
+      {category.levels && (
+        <p
+          className="text-sm text-blue-600 font-semibold mb-3"
+          aria-label={`يحتوي على ${category.levels}`}
+        >
+          {category.levels}
+        </p>
+      )}
+      <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+        {category.description}
       </p>
-    )}
-    <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-      {category.description}
-    </p>
-  </motion.article>
-);
+    </motion.article>
+  );
+};
 
 /**
  * Platform services/categories section displaying four main service areas: courses, internal auditing, auditors fellowship, and AI tools. Features animated cards with icons and descriptions.
