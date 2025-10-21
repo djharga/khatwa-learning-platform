@@ -168,7 +168,7 @@ const MegaMenuQuickLinks: React.FC<MegaMenuQuickLinksProps> = ({ quickLinks }) =
               href={link.href || '#'}
               className="flex flex-col items-center gap-2 p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors duration-200 group"
             >
-              <Icon name={link.icon} size="sm" className="text-blue-600" />
+              <Icon name={link.icon || 'help'} size="sm" className="text-blue-600" />
               <span className="font-medium text-gray-900 group-hover:text-blue-600 text-center">
                 {link.label}
               </span>

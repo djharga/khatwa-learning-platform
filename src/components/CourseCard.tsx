@@ -11,9 +11,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { CourseCardProps } from '../types/course';
 import { formatCoursePrice, getDifficultyEmoji } from '@/utils/courseUtils';
 import { useCourseCardState } from '@/hooks/useCourseCardState';
-import {CourseCardActionsProps } from '@/hooks/useCourseCardActions';
+import {CourseCardActionsProps, useCourseCardActions } from '@/hooks/useCourseCardActions';
 import { useRippleEffect } from '@/hooks/useRippleEffect';
-import { BadgeList, ProgressRing, PriceBadge, CourseImage, QuickActionButtons, InstructorInfoCard, CourseMeta, ActionButtons } from './CourseCard';
+import { BadgeList, ProgressRing, PriceBadge, CourseImage, QuickActionButtons, InstructorInfoCard, CourseMeta, ActionButtons } from './CourseCard/';
 
 /**
  * Course card component with two display variants (compact and default). Features animated progress indicators, interactive badges, instructor information with hover card, course statistics, file type breakdown, and action buttons. Supports bookmark, wishlist, compare, and enrollment actions with loading states and ripple effects.
@@ -145,7 +145,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
             <span>تم الإنشاء: {course.createdAt ? new Date(course.createdAt).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
           </motion.div>
 
-          <ActionButtons variant="compact" isBookmarked={isBookmarked} isWishlisted={isWishlisted} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={handleEnroll} onBookmark={handleBookmark} onWishlist={handleWishlist} onShare={handleShare} />
+          <ActionButtons variant="compact" isBookmarked={isBookmarked} isWishlisted={isWishlisted} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={(e) => handleEnroll(e as any)} onBookmark={(e) => handleBookmark(e as any)} onWishlist={(e) => handleWishlist(e as any)} onShare={(e) => handleShare(e as any)} />
         </div>
       </motion.div>
     );
@@ -243,7 +243,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
             <span>تم الإنشاء: {course.createdAt ? new Date(course.createdAt).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
           </motion.div>
 
-          <ActionButtons variant="default" isBookmarked={isBookmarked} isWishlisted={false} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={handleEnroll} onBookmark={handleBookmark} onWishlist={() => {}} onShare={() => {}} />
+          <ActionButtons variant="default" isBookmarked={isBookmarked} isWishlisted={false} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={(e) => handleEnroll(e as any)} onBookmark={(e) => handleBookmark(e as any)} onWishlist={() => {}} onShare={() => {}} />
         </div>
       </motion.div>
     );

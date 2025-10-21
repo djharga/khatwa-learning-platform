@@ -245,7 +245,7 @@ const UploadModal = ({
   isOpen: boolean;
   onClose: () => void;
   onFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  fileInputRef: React.RefObject<HTMLInputElement>;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
 }) => (
   <AnimatePresence>
     {isOpen && (

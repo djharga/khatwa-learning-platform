@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRightIcon } from '@heroicons/react/24/outline'; // Assuming Heroicons for icons
-// TODO: Replace Heroicons with lucide-react ChevronRight for consistency
+import { ChevronRight } from 'lucide-react';
 
 /**
  * Props for FlipCard component with front/back content and flip trigger
@@ -84,7 +83,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
               animate={{ rotate: isFlipped ? 180 : 0 }}
               transition={{ duration: 0.3 }}
             >
-              <ChevronRightIcon className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4" />
             </motion.div>
           </div>
         </motion.div>
@@ -101,7 +100,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
               animate={{ rotate: isFlipped ? 0 : 180 }}
               transition={{ duration: 0.3 }}
             >
-              <ChevronRightIcon className="w-4 h-4 transform rotate-180" />
+              <ChevronRight className="w-4 h-4 transform rotate-180" />
             </motion.div>
           </div>
         </motion.div>

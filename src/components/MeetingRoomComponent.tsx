@@ -136,7 +136,7 @@ interface ChatPanelProps {
   setNewMessage: (message: string) => void;
   sendMessage: () => void;
   handleKeyPress: (e: React.KeyboardEvent) => void;
-  fileInputRef: React.RefObject<HTMLInputElement>;
+  fileInputRef: React.RefObject<HTMLInputElement | null>;
   showChat: boolean;
   setShowChat: (show: boolean) => void;
 }

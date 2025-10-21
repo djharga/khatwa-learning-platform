@@ -46,23 +46,9 @@ export interface CourseCardActionsReturn {
 }
 
 /**
- * Custom hook for managing course card user interactions including bookmark, share, wishlist, compare, preview, and enroll actions. Handles loading states, error handling, and event propagation.
+ * Custom hook for managing course card user interactions
  * @param props - Configuration object with course ID and callback functions
  * @returns Object containing action states and memoized event handlers
- * @example
- * ```tsx
- * const actions = useCourseCardActions({
- *   courseId: course.id,
- *   isLoading: false,
- *   onBookmark: async (id) => { /* bookmark logic */ },
- *   async (id) => { /* share logic */ },
- *   async (id) => { /* enroll logic */ },
- *   () => { /* trigger ripple */ }
- * })
- * 
- * // Use in component
- * <button onClick={actions.handleBookmark}>Bookmark</button>
- * ```
  */
 export function useCourseCardActions(props: CourseCardActionsProps): CourseCardActionsReturn {
   const { courseId, isLoading = false, onBookmark, onShare, onEnroll, onRipple } = props;
@@ -121,7 +107,6 @@ export function useCourseCardActions(props: CourseCardActionsProps): CourseCardA
       setIsLoadingAction(true);
       try {
         setIsWishlisted(!isWishlisted);
-        // Add wishlist logic here
       } catch (error) {
         console.error('Failed to add to wishlist:', error);
       } finally {
@@ -141,7 +126,6 @@ export function useCourseCardActions(props: CourseCardActionsProps): CourseCardA
       setIsLoadingAction(true);
       try {
         setIsCompared(!isCompared);
-        // Add compare logic here
       } catch (error) {
         console.error('Failed to add to compare:', error);
       } finally {
@@ -155,7 +139,6 @@ export function useCourseCardActions(props: CourseCardActionsProps): CourseCardA
     (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      // Add preview logic here
       console.log('Preview course:', courseId);
     },
     [courseId]

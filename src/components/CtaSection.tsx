@@ -4,56 +4,10 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, Play, Users, Award } from 'lucide-react';
 
-/**
- * Animated statistic card with icon, title, and subtitle. Features hover scale effect and entrance animation.
- */
-interface StatCardProps {
-  stat: {
-    icon: React.ComponentType;
-    title: string;
-    subtitle: string;
-    delay: number;
-  };
-}
-
-const StatCard: React.FC<StatCardProps> = ({ stat }) => (
-  <motion.div
-    className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-white/50 hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl"
-    initial={{ opacity: 0, y: 30, scale: 0.95 }}
-    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ duration: 0.6, delay: stat.delay }}
-    viewport={{ once: true }}
-    whileHover={{ scale: 1.05 }}
-  >
-    <stat.icon className="w-10 h-10 sm:w-12 sm:h-12 text-blue-500 mx-auto mb-4 drop-shadow-sm" />
-    <motion.div
-      className="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-2"
-      whileHover={{ scale: 1.05 }}
-    >
-      {stat.title}
-    </motion.div>
-    <div className="text-base sm:text-lg text-gray-600 font-medium">{stat.subtitle}</div>
-  </motion.div>
-);
-
-/**
- * Call-to-action section encouraging user registration and course browsing. Features platform statistics, animated stat cards, and dual CTA buttons with gradient styling.
- */
 const CtaSection = () => {
-  // Platform statistics displayed in animated cards
-  const stats = [
-    { icon: Users, title: '50,000+', subtitle: 'طالب نشط', delay: 0.3 },
-    { icon: Award, title: '150+', subtitle: 'دورة تعليمية', delay: 0.4 },
-    { icon: Play, title: '24/7', subtitle: 'دعم فني', delay: 0.5 },
-  ];
-
   return (
     <section className="relative py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(147,197,253,0.1),transparent_60%)] pointer-events-none"></div>
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(196,181,253,0.05),transparent_60%)] pointer-events-none"></div>
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section title and description */}
         <motion.div
           className="text-center mb-8 sm:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -73,14 +27,6 @@ const CtaSection = () => {
           </p>
         </motion.div>
 
-        {/* Animated statistics cards with hover effects */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 lg:gap-14 mb-16 sm:mb-20 lg:mb-24 max-w-5xl mx-auto">
-          {stats.map((stat) => (
-            <StatCard key={stat.title} stat={stat} />
-          ))}
-        </div>
-
-        {/* Primary and secondary call-to-action buttons */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
             <Link
@@ -105,7 +51,6 @@ const CtaSection = () => {
           </motion.div>
         </div>
 
-        {/* Free trial offer message */}
         <motion.div
           className="mt-16 sm:mt-20 text-center"
           initial={{ opacity: 0 }}

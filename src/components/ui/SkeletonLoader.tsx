@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { JSX } from 'react';
 
 /**
  * Skeleton loader component for displaying placeholder content while data is loading. Supports multiple variants with customizable count and styling.
@@ -25,38 +25,37 @@ interface SkeletonLoaderProps {
  * @example <SkeletonLoader variant="text" />
  * @example <SkeletonLoader variant="avatar" count={5} />
  * @example <SkeletonLoader variant="button" count={2} />
- * 
+ *
  * Variant structures:
  * - card: Full card structure with image placeholder, text lines, and action buttons
  * - text: Three lines of text placeholders with varying widths
  * - avatar: Circular avatar placeholder
  * - button: Button-shaped placeholder
- * 
+ *
  * Usage patterns:
  * - Use while fetching data to show placeholder content
  * - Increase count to show multiple skeletons (e.g., for lists)
  * - Use className to customize spacing, margins, or other styles
  */
-const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
+const SkeletonLoader = ({
   variant,
   count = 1,
   className = '',
-}) => {
+}: SkeletonLoaderProps) => {
   /**
    * Renders a single skeleton instance based on the selected variant. Each variant has specific dimensions and structure.
-   * @param key - Unique key for React list rendering
    * @returns JSX element representing the skeleton placeholder
+   * @throws Error if variant is not supported
    */
-  const renderSkeleton = () => {
-    switch (variant) { // Render different skeleton structures based on variant type
-      case 'card': // Card variant: 256px height with image, text lines, and button placeholders
+  const renderSkeleton = (): JSX.Element => {
+    switch (variant) {
+      case 'card':
         return (
-          <div className={`w-full h-64 skeleton rounded-2xl ${className}`}> {/* 'skeleton' class provides the animated shimmer effect (defined in global CSS) */}
-            {/* Card skeleton structure */}
+          <div className={`w-full h-64 skeleton rounded-2xl ${className}`}>
             <div className="p-6 space-y-4">
               <div className="h-4 skeleton rounded w-3/4"></div>
               <div className="h-4 skeleton rounded w-1/2"></div>
-              <div className="h-32 skeleton rounded"></div> {/* Different border radius for different variants (rounded-2xl for cards, rounded-full for avatars) */}
+              <div className="h-32 skeleton rounded"></div>
               <div className="flex space-x-2">
                 <div className="h-8 w-16 skeleton rounded"></div>
                 <div className="h-8 w-16 skeleton rounded"></div>
@@ -64,7 +63,7 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
             </div>
           </div>
         );
-      case 'text': // Text variant: 3 lines of text with full width
+      case 'text':
         return (
           <div className={`space-y-2 ${className}`}>
             {Array.from({ length: 3 }, (_, i) => (
@@ -72,28 +71,26 @@ const SkeletonLoader: React.FC<SkeletonLoaderProps> = ({
             ))}
           </div>
         );
-      case 'avatar': // Avatar variant: 48px circular placeholder
+      case 'avatar':
         return (
-          <div className={`w-12 h-12 skeleton rounded-full ${className}`}></div> {/* Different border radius for different variants (rounded-2xl for cards, rounded-full for avatars) */}
-        )
-      case 'button': // Button variant: 40px height, 96px width button-shaped placeholder
+          <div className={`w-12 h-12 skeleton rounded-full ${className}`}></div>
+        );
+      case 'button':
         return (
           <div className={`h-10 skeleton rounded-lg w-24 ${className}`}></div>
         );
       default:
-        return null;
+        throw new Error(`Unsupported skeleton variant: ${variant}`);
     }
   };
 
   return (
-    <div role="status" aria-busy="true" aria-label="جاري التحميل"> {/* ARIA attributes for accessibility - announces loading state to screen readers */}
-      {/* role="status" and aria-busy="true" inform screen readers about loading state */}
-      {/* aria-label provides Arabic text for screen reader announcement */}
-      {Array.from({ length: count }, (_, i) => ( {/* Render multiple skeleton instances based on count prop */}
+    <div role="status" aria-busy="true" aria-label="جاري التحميل">
+      {Array.from({ length: count }, (_, i) => (
         <div key={i}>{renderSkeleton()}</div>
       ))}
     </div>
-  )
+  );
 };
 
 export default SkeletonLoader;

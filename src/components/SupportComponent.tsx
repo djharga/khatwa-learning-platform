@@ -64,9 +64,7 @@ const SupportComponent = () => {
   };
 
   /** Handles support ticket form submission. Shows success notification and resets form. */
-  const handleSubmitTicket = (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleSubmitTicket = (form: { name: string; email: string; issue: string }) => {
     // Show success notification
     addNotification({
       type: 'success',

@@ -18,7 +18,7 @@ import {
   Zap,
   Eye,
 } from 'lucide-react';
-import { Course, CourseFilters, CourseSortOptions } from '@/types/course';
+import { Course, CourseFilters, CourseSortOptions, CourseCategory } from '@/types/course';
 import { fuzzySearchCourses, filterCourses, sortCourses } from '@/utils/courseUtils';
 
 interface SearchFilters {
@@ -180,7 +180,7 @@ const SearchBar = ({
 
     let courseFilters: CourseFilters = {
       search: debouncedQuery,
-      category: filters.category || undefined,
+      category: (filters.category as CourseCategory) || undefined,
       level: filters.level as any || undefined,
       rating: filters.rating || undefined,
     };
@@ -454,7 +454,7 @@ const SearchBar = ({
                     <Icon className={`h-4 w-4 ${isSelected ? 'text-blue-500' : 'text-gray-400'}`} />
                     <span className="text-gray-700 flex-1">
                       {'highlight' in suggestion
-                        ? highlightText(suggestion.text, suggestion.highlight)
+                        ? highlightText(suggestion.text, suggestion.highlight as number)
                         : suggestion.text
                       }
                     </span>

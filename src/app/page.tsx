@@ -15,7 +15,7 @@ import FAQComponent from '../components/FAQComponent';
 import ContactComponent from '../components/ContactComponent';
 import ChatAssistantWidget from '../components/ChatAssistantWidget';
 import StatisticsComponent from '../components/StatisticsComponent';
-import CtaSection from '../components/CtaSection';
+import CtaSection from '@/components/CtaSection';
 import ProtectionToggle from '../components/ProtectionToggle';
 import SubscriptionCardsComponent from '../components/SubscriptionCardsComponent';
 
