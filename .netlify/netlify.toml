@@ -1,8 +1,7 @@
-headersOrigin = "inline"
-redirectsOrigin = "inline"
-
-[images]
-remote_images = ["^(?:https:\\/\\/(?!\\.)[^/]*?\\.example\\.com(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$"]
+functionsDirectory = "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\New folder\\555\\netlify\\functions"
+functionsDirectoryOrigin = "ui"
+headersOrigin = "config"
+redirectsOrigin = "config"
 
 [functions]
 
@@ -15,10 +14,11 @@ package = "@netlify/plugin-nextjs"
 [plugins.inputs]
 
 [build]
-publish = "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\New folder\\khatwa-project\\.next"
+publish = "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\New folder\\555\\.next"
 publishOrigin = "config"
 commandOrigin = "config"
 command = "npm run build"
+functions = "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\New folder\\555\\netlify\\functions"
 
 [build.environment]
 
@@ -41,6 +41,12 @@ minify = true
 [build.services]
 
 [[headers]]
+for = "/_next/static/*"
+
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
 for = "/*"
 
 [headers.values]
@@ -49,12 +55,6 @@ X-XSS-Protection = "1; mode=block"
 X-Content-Type-Options = "nosniff"
 Referrer-Policy = "strict-origin-when-cross-origin"
 
-[[headers]]
-for = "/_next/static/*"
-
-[headers.values]
-Cache-Control = "public, max-age=31536000, immutable"
-
 [[redirects]]
 from = "/*"
 to = "/index.html"
@@ -62,36 +62,6 @@ status = 200.0
 force = false
 
 [redirects.query]
-
-[redirects.conditions]
-
-[redirects.headers]
-
-[[redirects]]
-from = "/_next/image"
-to = "/.netlify/images?url=:url&w=:width&q=:quality"
-status = 200.0
-force = false
-
-[redirects.query]
-url = ":url"
-w = ":width"
-q = ":quality"
-
-[redirects.conditions]
-
-[redirects.headers]
-
-[[redirects]]
-from = "/_ipx/*"
-to = "/.netlify/images?url=:url&w=:width&q=:quality"
-status = 200.0
-force = false
-
-[redirects.query]
-url = ":url"
-w = ":width"
-q = ":quality"
 
 [redirects.conditions]
 
