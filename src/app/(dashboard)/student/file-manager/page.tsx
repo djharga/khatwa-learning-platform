@@ -544,7 +544,6 @@ export default function FileManagerPage() {
                   <input
                     type="file"
                     multiple
-                    webkitdirectory=""
                     onChange={(e) => e.target.files && handleFileUpload(e.target.files)}
                     className="hidden"
                   />
