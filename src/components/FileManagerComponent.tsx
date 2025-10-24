@@ -38,10 +38,10 @@ import {
   Settings,
 } from 'lucide-react';
 import SmartSearchComponent from './SmartSearchComponent';
-import VoiceNotesComponent from './VoiceNotesComponent';
-import ReadingTrackerComponent from './ReadingTrackerComponent';
-import EditTreeComponent from './EditTreeComponent';
-import FileSharingComponent from './FileSharingComponent';
+import VoiceNotesComponent from './files/VoiceNotesComponent';
+import ReadingTrackerComponent from './files/ReadingTrackerComponent';
+import EditTreeComponent from './files/EditTreeComponent';
+import FileSharingComponent from './files/FileSharingComponent';
 
 /**
  * File item with metadata, type classification, and sharing status

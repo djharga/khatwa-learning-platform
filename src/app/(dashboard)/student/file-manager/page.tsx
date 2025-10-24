@@ -34,7 +34,7 @@ import {
   Pause,
   Volume2,
 } from 'lucide-react';
-import SmartArchiveComponent from '../../../components/projects/SmartArchiveComponent';
+import SmartArchiveComponent from '../../../../components/projects/SmartArchiveComponent';
 
 interface FileItem {
   id: string;
