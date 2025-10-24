@@ -103,7 +103,7 @@ export default function RootLayout({
         <div
           className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-15 pointer-events-none z-0"
           style={{
-            backgroundImage: `url('/background-gradient-lights.jpg')`,
+            backgroundImage: `url('/assets/background.jpg')`,
           }}
         />
         <NotificationProvider>
