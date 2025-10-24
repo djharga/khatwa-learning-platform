@@ -19,6 +19,11 @@ import {
   Calendar,
   ArrowRight,
   X,
+  Briefcase,
+  Building,
+  User,
+  Clock,
+  DollarSign,
 } from 'lucide-react';
 
 interface SubscriptionPlan {
@@ -41,81 +46,98 @@ export default function SubscriptionPage() {
   const [showPaymentModal, setShowPaymentModal] = useState(false);
 
   const plans: SubscriptionPlan[] = [
+    // باقات الأفراد
     {
       id: 'free',
-      name: 'الباقة المجانية',
+      name: 'باقة مجانية (Free)',
       description: 'ابدأ رحلتك التعليمية مجاناً',
       price: 0,
       period: 'مجاناً للأبد',
-      icon: <Zap className="w-6 h-6" />,
+      icon: <User className="w-6 h-6" />,
       color: 'green',
       features: [
-        'وصول إلى 10 دورات أساسية مجانية',
-        'مساحة تخزين 500 ميجابايت',
-        'دعم مجتمعي',
-        'شهادات إتمام الدورات المجانية',
-        'محتوى تعليمي أساسي',
-        'إمكانية الترقية في أي وقت',
+        'دورة تعريفية أو محتوى محدود',
+        'مقاطع قصيرة ومقالات أساسية',
+        'بدون شهادات معتمدة',
+        'دعم محدود',
       ],
     },
     {
       id: 'basic',
-      name: 'الباقة الأساسية',
-      description: 'مثالية للبدء في التعلم',
-      price: billingCycle === 'monthly' ? 99 : 950,
-      originalPrice: billingCycle === 'monthly' ? 149 : 1190,
+      name: 'باقة أساسية (Basic)',
+      description: 'مثالية للمبتدئين في عالم المحاسبة والمراجعة',
+      price: billingCycle === 'monthly' ? 50 : 425,
       period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
       icon: <Star className="w-6 h-6" />,
       color: 'blue',
       features: [
-        'وصول إلى 50 دورة أساسية',
-        'مساحة تخزين 2 جيجابايت',
-        'دعم فني أساسي',
-        'شهادات إتمام الدورات',
-        'إمكانية الوصول مدى الحياة للدورات المشتركة',
-        'تحديثات المحتوى',
+        'وصول لعدد محدد من الكورسات (مثال: 2 شهرياً)',
+        'شهادة حضور إلكترونية',
+        'دعم عبر الإيميل',
+        'مساحة تخزين 2 جيجا',
       ],
     },
     {
       id: 'professional',
-      name: 'الباقة المهنية',
-      description: 'للمتعلمين الجادين والمحترفين',
-      price: billingCycle === 'monthly' ? 199 : 1990,
-      originalPrice: billingCycle === 'monthly' ? 299 : 3588,
+      name: 'باقة برو (Pro)',
+      description: 'الحل الأمثل للمتخصصين والمحترفين',
+      price: billingCycle === 'monthly' ? 100 : 850,
       period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
       icon: <Crown className="w-6 h-6" />,
       color: 'purple',
       popular: true,
       features: [
-        'وصول إلى جميع الدورات (200+ دورة)',
-        'مساحة تخزين 5 جيجابايت',
-        'دعم فني متقدم',
+        'وصول كامل لكورسات المحاسبة والمخازن والمشتريات',
         'شهادات معتمدة',
-        'جلسات مباشرة مع المدرسين',
-        'أولوية في الحجز للدورات الجديدة',
-        'محتوى حصري ومتقدم',
-        'إمكانية الوصول مدى الحياة',
+        'خصومات على خدمات الاستشارات',
+        'دعم مباشر عبر Zoom أو محادثة',
+        'مساحة تخزين 5 جيجا',
+      ],
+    },
+    // باقات الشركات والمؤسسات
+    {
+      id: 'enterprise-small',
+      name: 'الشركات الصغيرة',
+      description: 'للشركات الصغيرة والمتوسطة',
+      price: billingCycle === 'monthly' ? 200 : 1700,
+      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
+      icon: <Building className="w-6 h-6" />,
+      color: 'green',
+      features: [
+        'وصول لـ 5 موظفين',
+        'متابعة تقارير الأداء',
+        'مكتبة كورسات شاملة',
+        'دعم فني مخصص',
       ],
     },
     {
-      id: 'enterprise',
-      name: 'الباقة المؤسسية',
-      description: 'لحلول التعلم المؤسسي والشركات',
-      price: billingCycle === 'monthly' ? 499 : 4990,
-      originalPrice: billingCycle === 'monthly' ? 699 : 8388,
+      id: 'enterprise-medium',
+      name: 'الشركات المتوسطة',
+      description: 'للشركات المتوسطة والكبيرة',
+      price: billingCycle === 'monthly' ? 300 : 2550,
       period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
-      icon: <Shield className="w-6 h-6" />,
-      color: 'green',
+      icon: <Building className="w-6 h-6" />,
+      color: 'orange',
       features: [
-        'وصول كامل لجميع الدورات والمحتوى',
-        'مساحة تخزين 20 جيجابايت',
-        'دعم فني VIP مع مدير حساب مخصص',
-        'شهادات معتمدة مع ختم الشركة',
-        'جلسات مخصصة مع خبراء الصناعة',
-        'تدريب مخصص لفرق العمل',
-        'تقارير مفصلة عن التقدم',
+        'وصول لـ 15 موظف',
+        'ورش عمل مباشرة شهرية',
+        'تقارير تحليلية مفصلة',
+        'استشارات ربع سنوية',
+      ],
+    },
+    {
+      id: 'enterprise-large',
+      name: 'الشركات الكبيرة',
+      description: 'للشركات الكبيرة والمؤسسات',
+      price: billingCycle === 'monthly' ? 500 : 4250,
+      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
+      icon: <Building className="w-6 h-6" />,
+      color: 'red',
+      features: [
+        'وصول غير محدود للموظفين',
+        'برامج تدريب مخصصة',
+        'استشارات شهرية مجانية',
         'تكامل مع أنظمة الشركة',
-        'دورات مخصصة حسب احتياجات الشركة',
       ],
     },
   ];
@@ -169,14 +191,14 @@ export default function SubscriptionPage() {
             >
               سنوي
               <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                توفير 20%
+                توفير 15%
               </span>
             </button>
           </div>
         </motion.div>
 
         {/* خطط الاشتراك */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {plans.map((plan, index) => (
             <motion.div
               key={plan.id}
@@ -218,13 +240,13 @@ export default function SubscriptionPage() {
                       </span>
                     )}
                     <span className="text-4xl font-bold text-gray-900">
-                      {plan.price} ريال
+                      {plan.price} دولار
                     </span>
                   </div>
                   <p className="text-gray-600">{plan.period}</p>
                   {billingCycle === 'yearly' && plan.originalPrice && (
                     <p className="text-green-600 text-sm font-semibold mt-2">
-                      توفير {plan.originalPrice - plan.price} ريال سنوياً
+                      توفير {plan.originalPrice - plan.price} دولار سنوياً
                     </p>
                   )}
                 </div>
@@ -299,11 +321,90 @@ export default function SubscriptionPage() {
           </div>
         </motion.div>
 
-        {/* مميزات إضافية */}
+        {/* خدمات الاستشارات */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
+          className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl shadow-xl p-8 mb-8 border border-indigo-200"
+        >
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 bg-indigo-100 px-6 py-3 rounded-full mb-6">
+              <Briefcase className="w-6 h-6 text-indigo-600" />
+              <span className="text-indigo-700 font-bold">خدمات الاستشارات المهنية</span>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              استشارات متخصصة في المراجعة الداخلية
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              احصل على استشارات مهنية من خبراء المراجعة الداخلية لتطوير أعمالك
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">استشارة فردية</h4>
+              <p className="text-gray-600 text-sm mb-4">لقاء واحد مع مستشار مهني متخصص</p>
+              <div className="text-2xl font-bold text-blue-600 mb-4">50 دولار/ساعة</div>
+              <div className="space-y-2 text-sm text-gray-600 mb-4">
+                <div>✓ تحليل الوضع الحالي</div>
+                <div>✓ توصيات عملية</div>
+                <div>✓ خطة تنفيذية</div>
+              </div>
+              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                احجز استشارة
+              </button>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
+              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">استشارة شهرية</h4>
+              <p className="text-gray-600 text-sm mb-4">جلسات استشارية منتظمة شهرياً</p>
+              <div className="text-2xl font-bold text-green-600 mb-4">500 دولار/5 ساعات</div>
+              <div className="space-y-2 text-sm text-gray-600 mb-4">
+                <div>✓ جلسات منتظمة</div>
+                <div>✓ توصيات مكتوبة</div>
+                <div>✓ تقارير دورية</div>
+              </div>
+              <button className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors">
+                اشترك شهرياً
+              </button>
+            </div>
+
+            <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-500 text-center relative">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                  شامل
+                </span>
+              </div>
+              <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Building className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">استشارات الشركات</h4>
+              <p className="text-gray-600 text-sm mb-4">مراجعة شاملة للأنظمة والعمليات</p>
+              <div className="text-2xl font-bold text-purple-600 mb-4">1000 دولار/10 ساعات</div>
+              <div className="space-y-2 text-sm text-gray-600 mb-4">
+                <div>✓ مراجعة شاملة</div>
+                <div>✓ خطة تطوير مفصلة</div>
+                <div>✓ متابعة التنفيذ</div>
+              </div>
+              <button className="w-full bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors">
+                اطلب استشارة شاملة
+              </button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* مميزات إضافية */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
           className="bg-white rounded-2xl shadow-xl p-8 mb-16"
         >
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
@@ -345,11 +446,63 @@ export default function SubscriptionPage() {
           </div>
         </motion.div>
 
+        {/* مميزات إضافية */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl shadow-xl p-8 mb-8 border border-green-200"
+        >
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-3 bg-green-100 px-6 py-3 rounded-full mb-6">
+              <Shield className="w-6 h-6 text-green-600" />
+              <span className="text-green-700 font-bold">مميزات إضافية</span>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              مميزات تجعلنا الخيار الأفضل
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
+              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Calendar className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">فترة تجريبية مجانية</h4>
+              <p className="text-gray-600 text-sm">7 أيام مجاناً لجميع الباقات المدفوعة</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
+              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <DollarSign className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">ضمان استرداد المال</h4>
+              <p className="text-gray-600 text-sm">30 يوماً كاملة للاسترداد</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
+              <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <ArrowRight className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">ترقية وتخفيض الباقة</h4>
+              <p className="text-gray-600 text-sm">في أي وقت دون رسوم إضافية</p>
+            </div>
+
+            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
+              <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Headphones className="w-6 h-6" />
+              </div>
+              <h4 className="text-lg font-bold text-gray-900 mb-2">دعم فني متعدد اللغات</h4>
+              <p className="text-gray-600 text-sm">عربي وإنجليزي على مدار 24 ساعة</p>
+            </div>
+          </div>
+        </motion.div>
+
         {/* الأسئلة الشائعة */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.7 }}
           className="bg-white rounded-2xl shadow-xl p-8"
         >
           <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">
@@ -375,6 +528,15 @@ export default function SubscriptionPage() {
                   نعم، جميع شهاداتنا معتمدة من جهات دولية مرموقة ومعترف بها في سوق العمل.
                 </p>
               </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  كيف يمكنني ترقية أو تخفيض الباقة؟
+                </h3>
+                <p className="text-gray-600">
+                  يمكنك تغيير الباقة في أي وقت من خلال لوحة التحكم الخاصة بك دون رسوم إضافية.
+                </p>
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -393,6 +555,15 @@ export default function SubscriptionPage() {
                 </h3>
                 <p className="text-gray-600">
                   نعم، نقدم ضمان استرداد المال لمدة 30 يوماً إذا لم تكن راضياً عن الخدمة.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  هل الدعم الفني متوفر 24/7؟
+                </h3>
+                <p className="text-gray-600">
+                  نعم، فريق الدعم الفني متوفر على مدار 24 ساعة باللغتين العربية والإنجليزية.
                 </p>
               </div>
             </div>
@@ -432,7 +603,7 @@ export default function SubscriptionPage() {
               <div className="flex justify-between">
                 <span className="text-gray-600">المبلغ:</span>
                 <span className="font-bold text-lg">
-                  {plans.find(p => p.id === selectedPlan)?.price} ريال
+                  {plans.find(p => p.id === selectedPlan)?.price} دولار
                 </span>
               </div>
               <div className="flex justify-between">

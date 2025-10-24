@@ -1,281 +1,289 @@
-/**
- * صفحة الملف الشخصي - منصة خطى التعليمية
- * تتيح للمستخدم عرض وتعديل معلوماته الشخصية
- */
+'use client';
 
-import { Metadata } from 'next';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import Icon from '@/components/ui/icons/IconSystem';
+import { Button } from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import { Label } from '@/components/ui/Label';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
-export const metadata: Metadata = {
-  title: 'الملف الشخصي - منصة خطى التعليمية',
-  description: 'عرض وتعديل معلوماتك الشخصية في منصة خطى التعليمية',
-};
+export default function StudentProfilePage() {
+  const [profile, setProfile] = useState({
+    name: 'أحمد محمد',
+    email: 'ahmed@example.com',
+    phone: '+20 123 456 7890',
+    bio: 'مهتم بالمحاسبة والمراجعة الداخلية',
+    location: 'القاهرة، مصر',
+    website: 'https://example.com',
+    linkedin: 'https://linkedin.com/in/ahmed',
+    experience: '3 سنوات في المحاسبة',
+    education: 'بكالوريوس محاسبة - جامعة القاهرة',
+    certifications: ['CIA Part 1', 'CPA'],
+    skills: ['المحاسبة', 'المراجعة الداخلية', 'تحليل المخاطر', 'الامتثال'],
+  });
 
-export default function ProfilePage() {
+  const [stats] = useState({
+    completedCourses: 12,
+    totalCourses: 16,
+    certificates: 8,
+    hoursLearned: 156,
+    averageScore: 92,
+  });
+
+  const handleSaveProfile = () => {
+    alert('تم حفظ الملف الشخصي بنجاح');
+  };
+
   return (
-    <div className="space-y-6">
-      {/* رأس الصفحة */}
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-800">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-          الملف الشخصي
-        </h1>
-        <p className="text-gray-600 dark:text-gray-300">
-          إدارة معلوماتك الشخصية وتفضيلاتك في منصة خطى التعليمية
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* معلومات الحساب */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* بطاقة الملف الشخصي */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-              معلومات الحساب
-            </h2>
-
-            <div className="flex items-center space-x-6 rtl:space-x-reverse mb-6">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                أح
-              </div>
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                  أحمد محمد علي
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  طالب في المراجعة الداخلية
-                </p>
-                <p className="text-sm text-blue-600 dark:text-blue-400">
-                  ahmed@example.com
-                </p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  الاسم الكامل
-                </label>
-                <input
-                  type="text"
-                  defaultValue="أحمد محمد علي"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  البريد الإلكتروني
-                </label>
-                <input
-                  type="email"
-                  defaultValue="ahmed@example.com"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  رقم الهاتف
-                </label>
-                <input
-                  type="tel"
-                  defaultValue="+966501234567"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  تاريخ الميلاد
-                </label>
-                <input
-                  type="date"
-                  defaultValue="1990-01-01"
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-                />
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                نبذة عني
-              </label>
-              <textarea
-                rows={3}
-                placeholder="اكتب نبذة مختصرة عن نفسك..."
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
-              />
-            </div>
-
-            <div className="flex justify-end mt-6">
-              <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-200">
-                حفظ التغييرات
-              </button>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20">
+      <div className="container mx-auto px-4 py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="max-w-6xl mx-auto"
+        >
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              الملف الشخصي
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              إدارة معلومات ملفك الشخصي وإحصائيات التعلم
+            </p>
           </div>
 
-          {/* إعدادات الخصوصية */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
-              إعدادات الخصوصية
-            </h2>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Profile Overview */}
+            <div className="lg:col-span-1">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="user" size="sm" />
+                    نظرة عامة
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="text-center">
+                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
+                      {profile.name.charAt(0)}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                      {profile.name}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      {profile.email}
+                    </p>
+                  </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white">
-                    إظهار الملف الشخصي للعامة
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    السماح للمستخدمين الآخرين برؤية ملفك الشخصي
-                  </p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" defaultChecked />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                </label>
-              </div>
+                  {/* Stats */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                        {stats.completedCourses}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        دورة مكتملة
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                      <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+                        {stats.certificates}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        شهادة
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                        {stats.hoursLearned}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        ساعة تعلم
+                      </div>
+                    </div>
+                    <div className="text-center p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
+                      <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                        {stats.averageScore}%
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        متوسط الدرجات
+                      </div>
+                    </div>
+                  </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white">
-                    إشعارات البريد الإلكتروني
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    تلقي إشعارات حول الدورات والأنشطة الجديدة
-                  </p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" defaultChecked />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                </label>
-              </div>
+                  {/* Progress Bar */}
+                  <div>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span>التقدم العام</span>
+                      <span>{Math.round((stats.completedCourses / stats.totalCourses) * 100)}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 dark:bg-gray-700">
+                      <motion.div
+                        className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(stats.completedCourses / stats.totalCourses) * 100}%` }}
+                        transition={{ duration: 1, ease: 'easeOut' }}
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
 
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="font-medium text-gray-900 dark:text-white">
-                    إشعارات الهاتف المحمول
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    تلقي إشعارات فورية على هاتفك المحمول
-                  </p>
-                </div>
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" className="sr-only peer" />
-                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                </label>
+            {/* Profile Details */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Personal Information */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="user" size="sm" />
+                    المعلومات الشخصية
+                  </CardTitle>
+                  <CardDescription>
+                    تحديث معلوماتك الشخصية الأساسية
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">الاسم الكامل</Label>
+                      <Input
+                        id="name"
+                        value={profile.name}
+                        onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">البريد الإلكتروني</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={profile.email}
+                        onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">رقم الهاتف</Label>
+                      <Input
+                        id="phone"
+                        value={profile.phone}
+                        onChange={(e) => setProfile({ ...profile, phone: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="location">الموقع</Label>
+                      <Input
+                        id="location"
+                        value={profile.location}
+                        onChange={(e) => setProfile({ ...profile, location: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="bio">نبذة شخصية</Label>
+                    <textarea
+                      id="bio"
+                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      rows={4}
+                      value={profile.bio}
+                      onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
+                      placeholder="اكتب نبذة قصيرة عن نفسك..."
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Professional Information */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Icon name="briefcase" size="sm" />
+                    المعلومات المهنية
+                  </CardTitle>
+                  <CardDescription>
+                    معلوماتك المهنية والتعليمية
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="experience">الخبرة</Label>
+                      <Input
+                        id="experience"
+                        value={profile.experience}
+                        onChange={(e) => setProfile({ ...profile, experience: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="education">التعليم</Label>
+                      <Input
+                        id="education"
+                        value={profile.education}
+                        onChange={(e) => setProfile({ ...profile, education: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="website">الموقع الإلكتروني</Label>
+                      <Input
+                        id="website"
+                        value={profile.website}
+                        onChange={(e) => setProfile({ ...profile, website: e.target.value })}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="linkedin">LinkedIn</Label>
+                      <Input
+                        id="linkedin"
+                        value={profile.linkedin}
+                        onChange={(e) => setProfile({ ...profile, linkedin: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Skills */}
+                  <div className="space-y-2">
+                    <Label>المهارات</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {profile.skills.map((skill, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm dark:bg-blue-900/20 dark:text-blue-400"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Certifications */}
+                  <div className="space-y-2">
+                    <Label>الشهادات</Label>
+                    <div className="flex flex-wrap gap-2">
+                      {profile.certifications.map((cert, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm dark:bg-green-900/20 dark:text-green-400"
+                        >
+                          {cert}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Save Button */}
+              <div className="flex justify-end">
+                <Button onClick={handleSaveProfile} size="lg">
+                  <Icon name="save" size="sm" className="ml-2" />
+                  حفظ التغييرات
+                </Button>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* الشريط الجانبي */}
-        <div className="space-y-6">
-          {/* إحصائيات الحساب */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              إحصائيات الحساب
-            </h3>
-
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-400">الدورات المكتملة</span>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">12 دورة</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-400">الساعات الدراسية</span>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">156 ساعة</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-400">الشهادات المكتسبة</span>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">8 شهادات</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-400">معدل التقدم</span>
-                <span className="text-sm font-semibold text-green-600">87%</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600 dark:text-gray-400">تاريخ الانضمام</span>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">يناير 2024</span>
-              </div>
-            </div>
-          </div>
-
-          {/* الإنجازات الأخيرة */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              الإنجازات الأخيرة
-            </h3>
-
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                <div className="w-8 h-8 bg-yellow-100 dark:bg-yellow-900/20 rounded-full flex items-center justify-center">
-                  <span className="text-yellow-600">🏆</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    إكمال دورة المراجعة الداخلية
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    منذ يومين
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
-                  <span className="text-blue-600">📊</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    الحصول على شهادة جديدة
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    منذ أسبوع
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-3 rtl:space-x-reverse">
-                <div className="w-8 h-8 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center">
-                  <span className="text-green-600">✅</span>
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    إنجاز 100 ساعة دراسية
-                  </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    منذ أسبوعين
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* الإجراءات السريعة */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-              الإجراءات السريعة
-            </h3>
-
-            <div className="space-y-3">
-              <button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors duration-200">
-                تحديث كلمة المرور
-              </button>
-
-              <button className="w-full bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg font-semibold transition-colors duration-200">
-                تحميل البيانات
-              </button>
-
-              <button className="w-full bg-red-100 hover:bg-red-200 dark:bg-red-900/20 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 px-4 py-2 rounded-lg font-semibold transition-colors duration-200">
-                حذف الحساب
-              </button>
-            </div>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

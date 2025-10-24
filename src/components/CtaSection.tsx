@@ -8,12 +8,8 @@ const CtaSection = () => {
   return (
     <section className="relative py-20 sm:py-24 lg:py-32 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-100">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="text-center mb-8 sm:mb-12 lg:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
+          className="text-center mb-8 sm:mb-12 lg:mb-16 animate-fadeIn"
         >
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-6 sm:mb-8 leading-tight tracking-tight">
             ابدأ{' '}
@@ -25,7 +21,7 @@ const CtaSection = () => {
           <p className="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light">
             انضم إلى آلاف المتعلمين وطور مهاراتك في المراجعة الداخلية والمحاسبة مع منصة خطى التعليمية المتطورة
           </p>
-        </motion.div>
+        </div>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
@@ -51,18 +47,14 @@ const CtaSection = () => {
           </motion.div>
         </div>
 
-        <motion.div
-          className="mt-16 sm:mt-20 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          viewport={{ once: true }}
+        <div
+          className="mt-16 sm:mt-20 text-center animate-fadeIn"
         >
           <p className="text-gray-600 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed font-light">
             لا تفوت الفرصة! انضم إلينا اليوم واحصل على إمكانية الوصول الكامل لمدة{' '}
             <span className="text-blue-600 font-semibold">30 يوم مجاناً</span>
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

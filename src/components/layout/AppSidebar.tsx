@@ -158,14 +158,14 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
       className="p-6 border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-r from-blue-50/50 to-purple-50/50 dark:from-gray-800/50 dark:to-gray-700/50"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1, duration: 0.6 }}
+      transition={{ delay: 0.1, duration: 0.4 }} // تسريع ظهور الرأس
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <motion.div
             className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg"
-            whileHover={{ scale: 1.05, rotate: 5 }}
-            transition={{ duration: 0.3 }}
+            whileHover={{ scale: 1.03, rotate: 3 }} // تقليل شدة الحركة
+            transition={{ duration: 0.2 }}
           >
             <Home className="w-5 h-5 text-white" />
           </motion.div>
@@ -199,8 +199,8 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{
-          delay: itemIndex * 0.05,
-          duration: 0.3,
+          delay: itemIndex * 0.03, // تسريع ظهور العناصر
+          duration: 0.25,
         }}
       >
         {item.href && (
@@ -286,7 +286,7 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
           animate={{ height: 'auto', opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
           transition={{
-            duration: 0.4,
+            duration: 0.3, // تسريع فتح/إغلاق الفئات
             ease: 'easeInOut',
           }}
           className="ml-6 space-y-1 overflow-hidden"
@@ -305,7 +305,7 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
       className="p-4 border-t border-gray-200/60 dark:border-gray-700/60 bg-gray-50/50 dark:bg-gray-800/50"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.8, duration: 0.6 }}
+      transition={{ delay: 0.6, duration: 0.4 }} // تسريع ظهور التذييل
     >
       <div className="text-center space-y-3">
         <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
@@ -330,11 +330,11 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
         initial={false}
         animate={{ x: isOpen ? 0 : -320 }}
         transition={{
-          duration: 0.4,
+          duration: 0.3, // تسريع فتح/إغلاق الشريط الجانبي
           ease: 'easeInOut',
           type: 'spring',
-          stiffness: 300,
-          damping: 30,
+          stiffness: 400, // زيادة الصلابة للاستجابة السريعة
+          damping: 35,
         }}
         className="hidden lg:flex flex-col fixed left-0 top-20 h-[calc(100vh-5rem)] w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-r border-gray-200/60 dark:border-gray-700/60 shadow-2xl z-40 overflow-hidden"
         onMouseLeave={() => setIsOpen(false)}

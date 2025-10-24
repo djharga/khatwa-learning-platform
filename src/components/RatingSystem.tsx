@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Star,
   ThumbsUp,
@@ -274,11 +273,9 @@ const RatingSystem = ({
                     {stars} ⭐
                   </span>
                   <div className="flex-1 bg-gray-200 rounded-full h-2">
-                    <motion.div
-                      className="bg-yellow-500 h-2 rounded-full"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${percentage}%` }}
-                      transition={{ duration: 0.8, delay: 0.1 * stars }}
+                    <div
+                      className="bg-yellow-500 h-2 rounded-full transition-all duration-800 ease-out"
+                      style={{ width: `${percentage}%` }}
                     />
                   </div>
                   <span className="text-gray-600 w-8">
@@ -328,22 +325,15 @@ const RatingSystem = ({
       {allowReviews && (
         <div className="mb-8">
           {!showReviewForm ? (
-            <motion.button
+            <button
               onClick={() => setShowReviewForm(true)}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 hover-scale-subtle"
             >
               <MessageSquare className="w-5 h-5" />
               أضف مراجعتك
-            </motion.button>
+            </button>
           ) : (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="border border-gray-200 rounded-lg p-6 bg-gray-50"
-            >
+            <div className="border border-gray-200 rounded-lg p-6 bg-gray-50 animate-fadeIn">
               <h4 className="font-bold text-gray-900 mb-4">أضف مراجعتك</h4>
 
               {/* اختيار التقييم */}
@@ -353,17 +343,15 @@ const RatingSystem = ({
                 </label>
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((star) => (
-                    <motion.button
+                    <button
                       key={star}
                       onClick={() => setUserRating(star)}
-                      className={`p-1 rounded transition-colors ${
+                      className={`p-1 rounded transition-colors hover-scale-subtle ${
                         star <= userRating ? 'text-yellow-500' : 'text-gray-300'
                       }`}
-                      whileHover={{ scale: 1.2 }}
-                      whileTap={{ scale: 0.9 }}
                     >
                       <Star className="w-6 h-6 fill-current" />
-                    </motion.button>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -385,11 +373,10 @@ const RatingSystem = ({
 
               {/* أزرار التحكم */}
               <div className="flex gap-3">
-                <motion.button
+                <button
                   onClick={submitReview}
                   disabled={isSubmitting || userRating === 0}
-                  className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white py-2 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-                  whileHover={!isSubmitting && userRating > 0 ? { scale: 1.02 } : undefined}
+                  className="flex-1 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white py-2 px-4 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 hover-scale-subtle"
                 >
                   {isSubmitting ? (
                     <>
@@ -402,21 +389,20 @@ const RatingSystem = ({
                       إرسال المراجعة
                     </>
                   )}
-                </motion.button>
+                </button>
 
-                <motion.button
+                <button
                   onClick={() => {
                     setShowReviewForm(false);
                     setUserRating(0);
                     setUserReview('');
                   }}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors"
-                  whileHover={{ scale: 1.05 }}
+                  className="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors hover-scale-subtle"
                 >
                   إلغاء
-                </motion.button>
+                </button>
               </div>
-            </motion.div>
+            </div>
           )}
         </div>
       )}
@@ -424,12 +410,9 @@ const RatingSystem = ({
       {/* قائمة المراجعات */}
       <div className="space-y-6">
         {filteredReviews.map((review, index) => (
-          <motion.div
+          <div
             key={review.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+            className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow animate-fadeIn"
           >
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center gap-3">
@@ -439,6 +422,7 @@ const RatingSystem = ({
                       src={review.userAvatar}
                       alt={review.userName}
                       className="w-10 h-10 rounded-full object-cover"
+                      loading="lazy"
                     />
                   ) : (
                     <span className="text-blue-600 font-semibold">
@@ -478,51 +462,43 @@ const RatingSystem = ({
 
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <motion.button
+                <button
                   onClick={() => voteReview(review.id, true)}
-                  className="flex items-center gap-1 text-sm text-gray-600 hover:text-green-600 transition-colors"
-                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-1 text-sm text-gray-600 hover:text-green-600 transition-colors hover-scale-subtle"
                 >
                   <ThumbsUp className="w-4 h-4" />
                   مفيد ({review.helpful})
-                </motion.button>
+                </button>
 
-                <motion.button
+                <button
                   onClick={() => voteReview(review.id, false)}
-                  className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600 transition-colors"
-                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center gap-1 text-sm text-gray-600 hover:text-red-600 transition-colors hover-scale-subtle"
                 >
                   <ThumbsDown className="w-4 h-4" />
                   غير مفيد
-                </motion.button>
+                </button>
               </div>
 
               <div className="flex items-center gap-2">
-                <motion.button
-                  className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                  whileHover={{ scale: 1.1 }}
+                <button
+                  className="p-2 text-gray-400 hover:text-red-600 transition-colors hover-scale-subtle"
                 >
                   <Flag className="w-4 h-4" />
-                </motion.button>
+                </button>
 
-                <motion.button
-                  className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                  whileHover={{ scale: 1.1 }}
+                <button
+                  className="p-2 text-gray-400 hover:text-blue-600 transition-colors hover-scale-subtle"
                 >
                   <Share2 className="w-4 h-4" />
-                </motion.button>
+                </button>
               </div>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
 
       {filteredReviews.length === 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center py-12"
-        >
+        <div className="text-center py-12 animate-fadeIn">
           <MessageSquare className="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">
             لا توجد مراجعات بعد
@@ -530,7 +506,7 @@ const RatingSystem = ({
           <p className="text-gray-600">
             كن أول من يضيف مراجعة لهذا المحتوى
           </p>
-        </motion.div>
+        </div>
       )}
     </div>
   );

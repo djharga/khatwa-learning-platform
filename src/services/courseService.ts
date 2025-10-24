@@ -253,7 +253,7 @@ export class CourseService {
     if (!course) return false;
 
     const updateFileStatus = (files: any[]): boolean => {
-      for (let file of files) {
+      for (const file of files) {
         if (file.id === fileId) {
           file.isCompleted = isCompleted;
           return true;
@@ -293,7 +293,7 @@ export class CourseService {
    */
   private countTotalFiles(files: any[]): number {
     let count = 0;
-    for (let file of files) {
+    for (const file of files) {
       if (file.type !== 'folder') {
         count++;
       }
@@ -309,7 +309,7 @@ export class CourseService {
    */
   private countCompletedFiles(files: any[]): number {
     let count = 0;
-    for (let file of files) {
+    for (const file of files) {
       if (file.type !== 'folder' && file.isCompleted) {
         count++;
       }
@@ -330,7 +330,7 @@ export class CourseService {
     const path: string[] = [];
 
     const findFilePath = (files: any[], currentPath: string[]): boolean => {
-      for (let file of files) {
+      for (const file of files) {
         const newPath = [...currentPath, file.name];
         if (file.id === fileId) {
           path.push(...newPath);

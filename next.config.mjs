@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Enable bundle analyzer when ANALYZE=true
+  ...(process.env.ANALYZE && {
+    bundleAnalyzer: await import('@next/bundle-analyzer').then((m) => m.default({
+      enabled: true,
+    })),
+  }),
   images: {
     domains: ['www.theiia.org'],
     formats: ['image/avif', 'image/webp'],

@@ -1,5 +1,4 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 
 // ImageWithOverlay Component
 interface ImageWithOverlayProps {
@@ -8,6 +7,8 @@ interface ImageWithOverlayProps {
   overlay?: 'gradient' | 'solid' | 'none';
   overlayColor?: 'primary' | 'secondary' | 'accent' | string;
   className?: string;
+  width?: number;
+  height?: number;
 }
 
 export const ImageWithOverlay: React.FC<ImageWithOverlayProps> = ({
@@ -16,6 +17,8 @@ export const ImageWithOverlay: React.FC<ImageWithOverlayProps> = ({
   overlay = 'none',
   overlayColor = 'primary',
   className = '',
+  width,
+  height,
 }) => {
   const getOverlayStyles = () => {
     if (overlay === 'none') return {};
@@ -41,7 +44,14 @@ export const ImageWithOverlay: React.FC<ImageWithOverlayProps> = ({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <img src={src} alt={alt} className="w-full h-full object-cover" />
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover transition-smooth"
+        loading="lazy"
+        width={width}
+        height={height}
+      />
       {overlay !== 'none' && (
         <div
           className="absolute inset-0"
@@ -59,6 +69,8 @@ interface ImageWithZoomProps {
   zoomType?: 'hover' | 'click' | 'none';
   scale?: number;
   className?: string;
+  width?: number;
+  height?: number;
 }
 
 export const ImageWithZoom: React.FC<ImageWithZoomProps> = ({
@@ -67,41 +79,44 @@ export const ImageWithZoom: React.FC<ImageWithZoomProps> = ({
   zoomType = 'hover',
   scale = 1.2,
   className = '',
+  width,
+  height,
 }) => {
+  const [isZoomed, setIsZoomed] = React.useState(false);
+
   if (zoomType === 'none') {
     return (
       <div className={`overflow-hidden ${className}`}>
-        <img src={src} alt={alt} className="w-full h-full object-cover" />
-      </div>
-    );
-  }
-
-  if (zoomType === 'click') {
-    const [isZoomed, setIsZoomed] = React.useState(false);
-
-    return (
-      <div className={`overflow-hidden ${className}`}>
-        <motion.img
+        <img
           src={src}
           alt={alt}
-          className="w-full h-full object-cover cursor-pointer"
-          animate={{ scale: isZoomed ? scale : 1 }}
-          transition={{ duration: 0.3 }}
-          onClick={() => setIsZoomed(!isZoomed)}
+          className="w-full h-full object-cover transition-smooth"
+          loading="lazy"
+          width={width}
+          height={height}
         />
       </div>
     );
   }
 
-  // Default hover zoom
+  const zoomClass = zoomType === 'hover' ? 'hover-scale-subtle' : (isZoomed ? 'scale-110' : '');
+  const cursorClass = zoomType === 'click' ? 'cursor-pointer' : '';
+
   return (
-    <motion.div
-      className={`overflow-hidden ${className}`}
-      whileHover={{ scale }}
-      transition={{ duration: 0.3 }}
+    <div
+      className={`overflow-hidden ${className} ${zoomClass} ${cursorClass} transition-smooth`}
+      onClick={zoomType === 'click' ? () => setIsZoomed(!isZoomed) : undefined}
+      style={zoomType === 'click' && isZoomed ? { transform: `scale(${scale})` } : {}}
     >
-      <img src={src} alt={alt} className="w-full h-full object-cover" />
-    </motion.div>
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover"
+        loading="lazy"
+        width={width}
+        height={height}
+      />
+    </div>
   );
 };
 
@@ -111,6 +126,8 @@ interface ImageWithFilterProps {
   alt: string;
   filter?: 'none' | 'grayscale' | 'sepia' | 'vintage' | 'blur' | 'brightness' | string;
   className?: string;
+  width?: number;
+  height?: number;
 }
 
 export const ImageWithFilter: React.FC<ImageWithFilterProps> = ({
@@ -118,6 +135,8 @@ export const ImageWithFilter: React.FC<ImageWithFilterProps> = ({
   alt,
   filter = 'none',
   className = '',
+  width,
+  height,
 }) => {
   const getFilterStyles = () => {
     switch (filter) {
@@ -143,8 +162,11 @@ export const ImageWithFilter: React.FC<ImageWithFilterProps> = ({
       <img
         src={src}
         alt={alt}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover transition-smooth"
         style={{ filter: getFilterStyles() }}
+        loading="lazy"
+        width={width}
+        height={height}
       />
     </div>
   );
@@ -156,6 +178,8 @@ interface ImageRevealProps {
   alt: string;
   direction?: 'left' | 'right' | 'top' | 'bottom';
   className?: string;
+  width?: number;
+  height?: number;
 }
 
 export const ImageReveal: React.FC<ImageRevealProps> = ({
@@ -163,38 +187,20 @@ export const ImageReveal: React.FC<ImageRevealProps> = ({
   alt,
   direction = 'left',
   className = '',
+  width,
+  height,
 }) => {
-  const getInitialPosition = () => {
-    switch (direction) {
-      case 'left':
-        return { x: '-100%' };
-      case 'right':
-        return { x: '100%' };
-      case 'top':
-        return { y: '-100%' };
-      case 'bottom':
-        return { y: '100%' };
-      default:
-        return { x: '-100%' };
-    }
-  };
-
   return (
-    <motion.div
-      className={`overflow-hidden ${className}`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <motion.img
+    <div className={`overflow-hidden animate-fadeIn ${className}`}>
+      <img
         src={src}
         alt={alt}
         className="w-full h-full object-cover"
-        initial={getInitialPosition()}
-        animate={{ x: 0, y: 0 }}
-        transition={{ duration: 0.8, ease: 'easeOut' }}
+        loading="lazy"
+        width={width}
+        height={height}
       />
-    </motion.div>
+    </div>
   );
 };
 
@@ -205,6 +211,8 @@ interface ImageFrameProps {
   frameColor?: 'primary' | 'secondary' | 'accent' | string;
   frameWidth?: number;
   className?: string;
+  width?: number;
+  height?: number;
 }
 
 export const ImageFrame: React.FC<ImageFrameProps> = ({
@@ -213,6 +221,8 @@ export const ImageFrame: React.FC<ImageFrameProps> = ({
   frameColor = 'primary',
   frameWidth = 4,
   className = '',
+  width,
+  height,
 }) => {
   const getFrameColorValue = () => {
     const colorMap = {
@@ -232,7 +242,14 @@ export const ImageFrame: React.FC<ImageFrameProps> = ({
         borderRadius: '8px',
       }}
     >
-      <img src={src} alt={alt} className="w-full h-full object-cover rounded" />
+      <img
+        src={src}
+        alt={alt}
+        className="w-full h-full object-cover rounded transition-smooth"
+        loading="lazy"
+        width={width}
+        height={height}
+      />
     </div>
   );
 };

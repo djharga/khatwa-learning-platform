@@ -29,24 +29,22 @@ const FAQComponent = () => {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       viewport={{ once: true }}
-      className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl hover:shadow-2xl border border-slate-200/50 hover:border-slate-300/70 hover:scale-[1.01] transition-all duration-300"
-      style={{ padding: '0' }}
+      className="faq-card"
     >
       <button
         onClick={onToggle}
-        className="w-full text-right flex items-center justify-between transition-all duration-300"
-        style={{ padding: '1.5rem 2rem', minHeight: '4rem' }}
+        className="faq-question-button"
       >
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3, type: 'spring', stiffness: 200 }}
           className="flex-shrink-0 mr-4"
         >
-          <div className="bg-gradient-to-br from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 transition-all duration-200 p-2 rounded-xl">
-            <ChevronDown className="w-6 h-6 text-blue-600" />
+          <div className="faq-icon-wrapper">
+            <ChevronDown className="w-6 h-6 icon-contrast-primary" />
           </div>
         </motion.div>
-        <span className="text-xl font-semibold text-slate-800 group-hover:text-slate-900 transition-colors duration-200 flex-1 text-right leading-tight">
+        <span className="faq-question-text">
           {faq.question}
         </span>
       </button>
@@ -59,9 +57,8 @@ const FAQComponent = () => {
         transition={{ duration: 0.3, ease: 'easeInOut' }}
         className="overflow-hidden"
       >
-        <div style={{ padding: '0 2rem 1.5rem' }}>
-          <div className="w-full bg-gradient-to-r from-blue-200 to-purple-200 h-0.5 mb-4 opacity-60"></div>
-          <p className="text-slate-800 leading-relaxed text-base sm:text-lg">
+        <div className="faq-answer">
+          <p className="faq-answer-text">
             {faq.answer}
           </p>
         </div>
@@ -114,25 +111,24 @@ const FAQComponent = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mt-12 p-6 bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl border border-blue-200"
+          className="text-center mt-12 card-modern-spacious bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200"
         >
-          <div className="text-lg text-gray-700 mb-4">
-            <span className="font-semibold text-blue-600">إن لم تجد سؤالك</span> في قائمة الأسئلة الشائعة أعلاه،
+          <div className="text-lg text-contrast-secondary mb-4">
+            <span className="font-semibold accent-contrast-primary">إن لم تجد سؤالك</span> في قائمة الأسئلة الشائعة أعلاه،
           </div>
-          <p className="text-gray-600 mb-6">
+          <p className="text-contrast-tertiary mb-6">
             لا تتردد في التواصل معنا مباشرة. فريق الدعم متاح لمساعدتك في أي استفسار أو مشكلة تواجهها
           </p>
           <motion.button
             whileHover={{ scale: 1.05, y: -3 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary-modern relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl focus:ring-4 focus:ring-blue-300/50 group px-8 py-4 text-lg font-semibold rounded-2xl transition-all duration-300"
+            className="btn-contrast-primary group px-8 py-4 text-lg font-semibold"
             onClick={() => (window.location.href = '/contact')}
           >
             <span className="relative z-10 flex items-center gap-3">
               تواصل معنا الآن
               <HelpCircle className="w-6 h-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
             </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
           </motion.button>
         </motion.div>
       </div>

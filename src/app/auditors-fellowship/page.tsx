@@ -19,6 +19,10 @@ import {
   Eye,
   Lock,
   AlertTriangle,
+  ChevronDown,
+  ChevronRight,
+  Folder,
+  FolderOpen,
 } from 'lucide-react';
 import ContentProtection from '@/components/security/ContentProtection';
 import QuestionBank from '@/components/fellowship/QuestionBank';
@@ -30,6 +34,7 @@ const AuditorsFellowshipPage = () => {
   const [activePart, setActivePart] = useState<1 | 2 | 3>(1);
   const [showQuestionBank, setShowQuestionBank] = useState(false);
   const [selectedFile, setSelectedFile] = useState<any>(null);
+  const [expandedAxis, setExpandedAxis] = useState<string | null>(null);
 
   // بيانات الأجزاء الثلاثة للزمالة
   const fellowshipParts = [
@@ -44,7 +49,7 @@ const AuditorsFellowshipPage = () => {
           type: 'pdf' as const,
           size: '2.5 MB',
           description: 'دليل شامل لأساسيات المراجعة الداخلية',
-          isProtected: true,
+          isProtected: false,
           downloadAllowed: true,
           previewAvailable: true,
           url: '/files/internal-audit-basics.pdf'
@@ -55,7 +60,7 @@ const AuditorsFellowshipPage = () => {
           type: 'docx' as const,
           size: '1.8 MB',
           description: 'نماذج جاهزة لتقارير المراجعة البسيطة',
-          isProtected: true,
+          isProtected: false,
           downloadAllowed: true,
           previewAvailable: true,
           url: '/files/report-templates.docx'
@@ -252,10 +257,84 @@ const AuditorsFellowshipPage = () => {
                 زمالة المراجعين الداخليين
               </span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              برنامج تطوير مهني متكامل يشمل ثلاثة أجزاء متخصصة في المراجعة الداخلية
-            </p>
-          </motion.div>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            برنامج تطوير مهني متكامل يشمل ثلاثة أجزاء متخصصة في المراجعة الداخلية
+          </p>
+
+          {/* المحتوى التعريفي الإلزامي */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl p-8 mb-8 text-right max-w-5xl mx-auto">
+            <div className="space-y-6 text-gray-800 leading-relaxed">
+
+              {/* المقطع الافتتاحي - كسر الحواجز */}
+              <div className="border-r-4 border-blue-500 pr-6">
+                <p className="text-lg font-semibold text-blue-700 mb-2">كسر الحواجز التقليدية</p>
+                <p className="text-base">
+                  مهنة المراجعة الداخلية لم تعد حكراً على متخصصين محددين – إنها فرصة حقيقية لأي شخص يسعى لتطوير مساره المهني، حتى لو كنت تفكر في تغيير تخصصك الحالي او تطوير تخصصك واكتساب مهارات مطلوبة لسوق العمل.
+                </p>
+              </div>
+
+              {/* المقطع الثاني - التعريف الاستراتيجي */}
+              <div className="border-r-4 border-green-500 pr-6">
+                <p className="text-lg font-semibold text-green-700 mb-2">عين الإدارة اليقظة</p>
+                <p className="text-base">
+                  المراجعة الداخلية اليوم هي عين الإدارة اليقظة، التي ترى ما وراء الأرقام والبيانات، وتكشف المخاطر قبل أن تتحول إلى أزمات، وتحوّلها إلى فرص للتحسين والابتكار. إنها الشريك الصامت الذي يحمي مسيرة المؤسسة، ويقودها نحو التميز.
+                </p>
+              </div>
+
+              {/* المقطع الثالث - شرح الشراكة */}
+              <div className="border-r-4 border-purple-500 pr-6">
+                <p className="text-lg font-semibold text-purple-700 mb-2">الشراكة التكاملية</p>
+                <p className="text-base mb-3">
+                  المراجعة الداخلية والمراجع الداخلي… شراكة تصنع التفوق المؤسسي. معًا يشكلان قوة استراتيجية تدعم استقرار مؤسستك وتدفعها نحو الريادة. فالمراجعة الداخلية تمنحك الحماية والشفافية، بينما يحوّل المراجع الداخلي المحترف هذه الحماية إلى قيمة مستدامة تضمن التميز وتبقي مؤسستك دائمًا في موقع المبادرة، مستبقة للمخاطر، وسبّاقة لاغتنام الفرص.
+                </p>
+                <p className="text-sm font-medium text-purple-600 bg-purple-50 p-3 rounded-lg">
+                  إن الاستثمار في بناء منظومة مراجعة داخلية قوية، وتطوير كفاءات المراجع الداخلي، ليس رفاهية أو خيارًا تكميليًا… بل قرار استراتيجي يحمي أعمالك اليوم ويصنع نجاحك المستقبلي.
+                </p>
+              </div>
+
+              {/* المقطع الرابع - تعريف المراجع الحديث */}
+              <div className="border-r-4 border-orange-500 pr-6">
+                <p className="text-lg font-semibold text-orange-700 mb-3">المراجع الداخلي: قيمة مضافة لا تُقدّر بثمن</p>
+                <p className="text-base mb-4">
+                  المراجع الداخلي هو قيمة مضافة لا تُقدّر بثمن، وشريك استراتيجي للإدارة في رسم ملامح المستقبل. ليس مجرد مدقق يركز على الأخطاء، بل رائد يساهم بفعالية في:
+                </p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>الكشف المبكر وتحليل المخاطر قبل أن تتحول إلى أزمات.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>تقييم كفاءة وفعالية الضوابط الداخلية لضمان حماية المؤسسة.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>تقديم توصيات عملية ومبتكرة تعزز الأداء وتحقق التحسين المستمر.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                    <span>دعم الإدارة في تحقيق أهدافها الاستراتيجية بكفاءة وثقة.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* المقطع الخامس - عامل الاستعجال */}
+              <div className="border-r-4 border-red-500 pr-6">
+                <p className="text-lg font-semibold text-red-700 mb-2">التأمين المستدام لمستقبل أعمالك</p>
+                <p className="text-base">
+                  الاستثمار في تطوير قدرات المراجعة الداخلية يعني أكثر من حماية الأصول… إنه تأمين مستدام لمستقبل أعمالك. فالمراجع الداخلي المحترف يحول كل تقرير إلى خطة إنقاذ وتحسين فعّالة، تجعلك دائمًا على أتم الاستعداد لمواجهة التحديات. المستقبل لا ينتظر أحدًا، ومن يتأخر في بناء منظومة مراجعة قوية سيواجه تكاليف مضاعفة.
+                </p>
+              </div>
+
+              {/* المقطع الختامي - CTA */}
+              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-2xl text-center">
+                <p className="text-xl font-bold mb-2">احترف مهنة المراجعة الداخلية بالتدريب العملى</p>
+                <p className="text-base opacity-90">ابدأ رحلتك نحو التميز المهني اليوم</p>
+              </div>
+
+            </div>
+          </div>
+        </motion.div>
 
           {/* أزرار الأجزاء */}
           <motion.div
@@ -299,6 +378,76 @@ const AuditorsFellowshipPage = () => {
                 <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                   {currentPart.description}
                 </p>
+              </div>
+
+              {/* شجرة الملفات */}
+              <div className="mb-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <Folder className="w-6 h-6 text-blue-600" />
+                  شجرة الملفات والمحتوى
+                </h3>
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <div className="space-y-2">
+                    {[
+                      {
+                        id: 'axis1',
+                        title: 'المحور الأول: مفهوم المراجعة الداخلية',
+                        description: 'تعريف شامل للمراجعة الداخلية وأهميتها في المنظمات',
+                        files: ['دليل المراجعة الداخلية الأساسي.pdf', 'مقدمة في المراجعة الداخلية.mp4']
+                      },
+                      {
+                        id: 'axis2',
+                        title: 'المحور الثاني: إطار عمل المراجعة',
+                        description: 'المعايير والإطارات المرجعية للمراجعة الداخلية',
+                        files: ['نماذج التقارير الأساسية.docx', 'أساسيات إدارة المخاطر.mp4']
+                      },
+                      {
+                        id: 'axis3',
+                        title: 'المحور الثالث: عمليات المراجعة',
+                        description: 'خطوات وطرق إجراء المراجعة الداخلية',
+                        files: ['حوار مع خبير المراجعة الداخلية.mp3']
+                      }
+                    ].map((axis) => (
+                      <div key={axis.id} className="border border-gray-200 rounded-lg">
+                        <button
+                          onClick={() => setExpandedAxis(expandedAxis === axis.id ? null : axis.id)}
+                          className="w-full flex items-center justify-between p-4 hover:bg-gray-100 transition-colors"
+                        >
+                          <div className="flex items-center gap-3">
+                            {expandedAxis === axis.id ? (
+                              <ChevronDown className="w-5 h-5 text-blue-600" />
+                            ) : (
+                              <ChevronRight className="w-5 h-5 text-blue-600" />
+                            )}
+                            <span className="font-semibold text-gray-900">{axis.title}</span>
+                          </div>
+                          <span className="text-sm text-gray-600">{axis.files.length} ملف</span>
+                        </button>
+
+                        {expandedAxis === axis.id && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: 'auto', opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            className="border-t border-gray-200 bg-white"
+                          >
+                            <div className="p-4">
+                              <p className="text-gray-600 mb-4">{axis.description}</p>
+                              <div className="space-y-2">
+                                {axis.files.map((file, index) => (
+                                  <div key={index} className="flex items-center gap-3 p-2 bg-gray-50 rounded">
+                                    <FileText className="w-4 h-4 text-blue-600" />
+                                    <span className="text-sm text-gray-700">{file}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div className="grid lg:grid-cols-2 gap-8">
@@ -498,6 +647,7 @@ const AuditorsFellowshipPage = () => {
                       </div>
                     </div>
                     <motion.button
+                      onClick={() => window.open('/question-bank?tab=free', '_blank')}
                       className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -544,6 +694,7 @@ const AuditorsFellowshipPage = () => {
                     </div>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <motion.button
+                        onClick={() => window.open('/question-bank?tab=premium', '_blank')}
                         className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -551,6 +702,7 @@ const AuditorsFellowshipPage = () => {
                         اشترك في الباقة المميزة - 49 ريال
                       </motion.button>
                       <motion.button
+                        onClick={() => window.open('/question-bank?tab=premium', '_blank')}
                         className="bg-white text-purple-600 border-2 border-purple-600 hover:bg-purple-50 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
@@ -564,6 +716,151 @@ const AuditorsFellowshipPage = () => {
             </div>
           </motion.div>
 
+
+          {/* رابط موقع IIA الرسمي */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-12"
+          >
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 text-white text-center">
+              <div className="inline-flex items-center gap-3 bg-white/20 px-6 py-3 rounded-full mb-6">
+                <Shield className="w-6 h-6 text-white" />
+                <span className="text-white font-bold">معهد المدققين الداخليين</span>
+              </div>
+              <h2 className="text-3xl font-bold mb-4">
+                تعرف على معهد المدققين الداخليين (IIA)
+              </h2>
+              <p className="text-lg opacity-90 max-w-2xl mx-auto mb-8">
+                المرجع العالمي الرئيسي لمهنة المراجعة الداخلية - تعرف على المعايير الدولية والشهادات المعتمدة
+              </p>
+              <motion.a
+                href="https://www.theiia.org/en/internal-audit-foundation/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ExternalLink className="w-5 h-5" />
+                زيارة موقع IIA الرسمي
+                <ExternalLink className="w-5 h-5" />
+              </motion.a>
+            </div>
+          </motion.div>
+
+          {/* نظام الساعات المعتمدة (CPE Certificate System) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-12"
+          >
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-3xl p-8 border border-blue-200">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center gap-3 bg-blue-100 px-6 py-3 rounded-full mb-6">
+                  <Award className="w-6 h-6 text-blue-600" />
+                  <span className="text-blue-700 font-bold">نظام الساعات المعتمدة</span>
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  احصل على شهادة الساعات المعتمدة (CPE)
+                </h2>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+                  اختبر مهاراتك واحصل على شهادة الساعات المعتمدة معتمدة من IIA مع رسوم رمزية
+                </p>
+
+                {/* معلومات الشهادة */}
+                <div className="bg-white rounded-2xl p-6 mb-8 shadow-lg border border-gray-100">
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Award className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">شهادة معتمدة</h3>
+                      <p className="text-sm text-gray-600">معتمدة من IIA وجهات دولية</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <Target className="w-6 h-6 text-green-600" />
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">اختبار شامل</h3>
+                      <p className="text-sm text-gray-600">15 سؤال في الدورة المختارة</p>
+                    </div>
+                    <div className="text-center">
+                      <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <TrendingUp className="w-6 h-6 text-purple-600" />
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">تطوير مهني</h3>
+                      <p className="text-sm text-gray-600">تعزيز فرصك المهنية</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* نموذج طلب الشهادة */}
+                <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 max-w-2xl mx-auto">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">اطلب شهادتك الآن</h3>
+
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        اسم الدورة التدريبية
+                      </label>
+                      <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">اختر الدورة التي أكملتها</option>
+                        <option value="basics">أساسيات المراجعة الداخلية</option>
+                        <option value="advanced">المراجعة المتقدمة</option>
+                        <option value="international">المعايير الدولية</option>
+                        <option value="finance-basics">أساسيات المالية والمحاسبة</option>
+                        <option value="procurement">إدارة المشتريات والتوريدات</option>
+                        <option value="warehouse">إدارة المخازن والمستودعات</option>
+                        <option value="financial-analysis">التقارير المالية والمحاسبية</option>
+                        <option value="inventory-reconciliations">التسويات الجردية والرقابة</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        الفترة الزمنية للدورة
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="مثال: من 1/1/2024 إلى 31/1/2024"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+
+                    <div className="bg-blue-50 rounded-lg p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium text-blue-700">رسوم إصدار الشهادة</span>
+                        <span className="text-lg font-bold text-blue-700">5 دولار</span>
+                      </div>
+                      <p className="text-xs text-blue-600">
+                        الدفع بعد اجتياز الاختبار بنجاح
+                      </p>
+                    </div>
+
+                    <motion.button
+                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        // TODO: Implement CPE Certificate System flow
+                        alert('جارى التنفيذ - سيتم تفعيل نظام الساعات المعتمدة قريباً');
+                      }}
+                    >
+                      الساعات المعتمدة
+                      <span className="text-sm mr-2">(15 سؤال - 30 دقيقة)</span>
+                    </motion.button>
+                  </div>
+
+                  <p className="text-xs text-gray-500 mt-4 text-center">
+                    * سيتم إنشاء أسئلة الاختبار تلقائياً بناءً على الدورة المختارة باستخدام الذكاء الاصطناعي
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
         </div>
 

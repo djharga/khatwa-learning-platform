@@ -2,12 +2,16 @@
 // 🎨 Design Tokens - منصة خطى التعليمية
 // ============================================
 // نظام تصميم موحد ومحسّن لتجربة مستخدم متسقة
+// هذا هو الملف الوحيد لـ design tokens
+// مرجع لـ CSS Variables في globals.css
 // Arabic RTL Educational Platform (Accounting/Audit)
 
 export const colors = {
   // ============================================
   // 🎨 نظام الألوان المحسّن (موحد مع globals.css)
   // ============================================
+  // جميع الألوان هنا متزامنة مع CSS Variables في globals.css
+  // للحصول على أفضل الأداء والتوافق
 
   // Primary Brand Colors - أزرق احترافي (slate)
   primaryBrand: {
@@ -23,7 +27,7 @@ export const colors = {
     900: '#0f172a', // slate-900 - أغمق
   },
 
-  // Secondary Colors - ألوان وظيفية
+  // Secondary Colors - ألوان وظيفية للمحتوى التعليمي
   secondary: {
     learn: '#38a169', // green-500 - التعلم والنمو
     expert: '#3182ce', // blue-500 - الخبرة
@@ -31,7 +35,7 @@ export const colors = {
     secure: '#2d3748', // slate-700 - الأمان
   },
 
-  // Background Colors - هرمية محسّنة
+  // Background Colors - هرمية محسّنة للوضوح البصري
   background: {
     primary: '#ffffff', // أبيض نقي
     alt: '#f7fafc', // slate-50 - بديل خفيف
@@ -41,7 +45,7 @@ export const colors = {
     'surface-elevated': '#ffffff', // سطوح مرتفعة
   },
 
-  // Text Colors - تباين محسّن
+  // Text Colors - تباين محسّن لإمكانية القراءة
   text: {
     primary: '#1a202c', // slate-900 - نصوص أساسية
     secondary: '#4a5568', // slate-600 - نصوص ثانوية
@@ -49,7 +53,7 @@ export const colors = {
     muted: '#a0aec0', // slate-400 - نصوص خافتة
   },
 
-  // Status Colors - دلالية محسّنة
+  // Status Colors - دلالية محسّنة للحالات المختلفة
   status: {
     success: '#38a169', // green-500
     'success-light': '#68d391', // green-400
@@ -61,7 +65,7 @@ export const colors = {
     'info-light': '#63b3ed', // blue-400
   },
 
-  // Primary Palette - تدرج أزرق احترافي محسّن
+  // Primary Palette - تدرج أزرق احترافي محسّن للعلامة التجارية
   primary: {
     50: '#f0f4ff', // أفتح درجة - للخلفيات الخفيفة
     100: '#e0e7ff', // خلفيات ثانوية
@@ -75,7 +79,7 @@ export const colors = {
     900: '#312e81', // أغمق درجة - عناوين
   },
 
-  // Accent Palette - أزرق فاتح للتفاعلات
+  // Accent Palette - أزرق فاتح للتفاعلات والعناصر النشطة
   accent: {
     50: '#eff6ff',
     100: '#dbeafe',
@@ -89,7 +93,7 @@ export const colors = {
     900: '#1e3a8a',
   },
 
-  // Neutral Palette - رمادي متوازن
+  // Neutral Palette - رمادي متوازن للعناصر المحايدة
   neutral: {
     50: '#fafafa',
     100: '#f4f4f5',
@@ -103,7 +107,7 @@ export const colors = {
     900: '#18181b', // أغمق درجة
   },
 
-  // Semantic Colors - ألوان دلالية محسّنة
+  // Semantic Colors - ألوان دلالية محسّنة للحالات الوظيفية
   success: {
     50: '#f0fdf4',
     100: '#dcfce7',
@@ -156,7 +160,7 @@ export const colors = {
     900: '#1e3a8a',
   },
 
-  // Dark Mode Variants - ألوان الوضع المظلم
+  // Dark Mode Variants - ألوان الوضع المظلم المحسّنة
   dark: {
     primary: {
       50: '#312e81',
@@ -287,7 +291,7 @@ export const motion = {
     ease: 'ease',
     easeIn: 'cubic-bezier(0.4, 0, 1, 1)', // --ease-in
     easeOut: 'cubic-bezier(0, 0, 0.2, 1)', // --ease-out
-    easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)', // --ease-in-out
+    easeInOut: 'cubic-bezier(0, 0, 0.2, 1)', // --ease-in-out
     bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)', // --ease-bounce
     smooth: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', // --ease-smooth
   },
@@ -386,4 +390,19 @@ export const touchTargets = {
   min: '44px', // الحد الأدنى حسب WCAG 2.1
   comfortable: '48px',
   spacious: '56px',
+};
+
+// ============================================
+// 📦 Default Export - جميع التوكنات
+// ============================================
+
+export default {
+  colors,
+  spacing,
+  radius,
+  shadows,
+  motion,
+  typography,
+  iconSizes,
+  touchTargets,
 };

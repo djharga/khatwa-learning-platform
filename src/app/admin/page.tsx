@@ -2,182 +2,157 @@
 
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
-  Calendar,
-  Clock,
+  LayoutDashboard,
   Users,
   BookOpen,
-  TrendingUp,
-  Plus,
-  Edit,
-  Trash2,
-  Eye,
-  Filter,
-  Search,
-  Download,
-  Upload,
-  Settings,
+  FileText,
   BarChart3,
-  PieChart,
+  Settings,
+  TrendingUp,
   Activity,
   CheckCircle,
-  AlertCircle,
-  Info,
+  Clock,
+  AlertTriangle,
+  DollarSign,
+  GraduationCap,
+  Upload,
+  MessageSquare,
+  Shield,
+  Calendar,
+  Target,
+  Award,
+  PieChart,
+  UserCheck,
+  FileSpreadsheet,
+  Video,
+  Image,
+  Plus,
 } from 'lucide-react';
 
-interface Program {
-  id: string;
-  title: string;
-  category: string;
-  startDate: string;
-  endDate: string;
-  duration: string;
-  enrolledStudents: number;
-  maxStudents: number;
-  status: 'active' | 'completed' | 'upcoming' | 'cancelled';
-  instructor: string;
-  price: number;
-  description: string;
-}
+const AdminDashboard = () => {
+  const [selectedPeriod, setSelectedPeriod] = useState('month');
 
-const AdminPage = () => {
-  const [activeTab, setActiveTab] = useState('programs');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [showAddModal, setShowAddModal] = useState(false);
-
-  // بيانات تجريبية للبرامج التدريبية
-  const programs: Program[] = useMemo(
-    () => [
-      {
-        id: '1',
-        title: 'دورة التحليل المالى واعداد الميزانيات',
-        category: 'المراجعة والإدارة المالية والتشغيل',
-        startDate: '2024-01-15',
-        endDate: '2024-03-15',
-        duration: '8 أسابيع',
-        enrolledStudents: 45,
-        maxStudents: 50,
-        status: 'active',
-        instructor: 'د. أحمد السيد',
-        price: 599,
-        description: 'دورة شاملة في التحليل المالي وإعداد الميزانيات للمؤسسات المختلفة'
-      },
-      {
-        id: '2',
-        title: 'كورس ادارة تشغيل المطاعم',
-        category: 'إدارة العمليات',
-        startDate: '2024-02-01',
-        endDate: '2024-03-30',
-        duration: '6 أسابيع',
-        enrolledStudents: 28,
-        maxStudents: 30,
-        status: 'active',
-        instructor: 'د. فاطمة محمد',
-        price: 449,
-        description: 'دورة متخصصة في إدارة العمليات التشغيلية للمطاعم والمقاهي'
-      },
-      {
-        id: '3',
-        title: 'كورس التسويات البنكية',
-        category: 'التسويات المصرفية',
-        startDate: '2024-03-01',
-        endDate: '2024-04-01',
-        duration: '4 أسابيع',
-        enrolledStudents: 0,
-        maxStudents: 25,
-        status: 'upcoming',
-        instructor: 'د. محمد علي',
-        price: 349,
-        description: 'دورة عملية في التسويات البنكية ومطابقة الحسابات'
-      },
-      {
-        id: '4',
-        title: 'زمالة المراجعين الداخليين - الجزء الأول',
-        category: 'المراجعة الداخلية',
-        startDate: '2023-12-01',
-        endDate: '2024-02-01',
-        duration: '8 أسابيع',
-        enrolledStudents: 35,
-        maxStudents: 40,
-        status: 'completed',
-        instructor: 'د. سارة أحمد',
-        price: 799,
-        description: 'الجزء الأول من برنامج زمالة المراجعين الداخليين'
-      },
-      {
-        id: '5',
-        title: 'برنامج الإدارة المالية الاستراتيجية',
-        category: 'الإدارة المالية',
-        startDate: '2024-04-01',
-        endDate: '2024-06-01',
-        duration: '8 أسابيع',
-        enrolledStudents: 0,
-        maxStudents: 20,
-        status: 'upcoming',
-        instructor: 'د. خالد عبدالله',
-        price: 899,
-        description: 'برنامج شامل في الإدارة المالية الاستراتيجية'
-      }
-    ],
-    []
-  );
-
-  // فلترة البرامج حسب البحث والحالة
-  const filteredPrograms = useMemo(() => {
-    return programs.filter(program => {
-      const matchesSearch = program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           program.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           program.instructor.toLowerCase().includes(searchTerm.toLowerCase());
-
-      const matchesStatus = statusFilter === 'all' || program.status === statusFilter;
-
-      return matchesSearch && matchesStatus;
-    });
-  }, [programs, searchTerm, statusFilter]);
-
-  // إحصائيات البرامج
-  const stats = useMemo(() => {
-    const total = programs.length;
-    const active = programs.filter(p => p.status === 'active').length;
-    const completed = programs.filter(p => p.status === 'completed').length;
-    const upcoming = programs.filter(p => p.status === 'upcoming').length;
-    const totalStudents = programs.reduce((sum, p) => sum + p.enrolledStudents, 0);
-    const totalRevenue = programs.reduce((sum, p) => sum + (p.price * p.enrolledStudents), 0);
-
-    return { total, active, completed, upcoming, totalStudents, totalRevenue };
-  }, [programs]);
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active': return 'bg-green-100 text-green-800 border-green-200';
-      case 'completed': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'upcoming': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'cancelled': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+  // بيانات تجريبية شاملة للنظام
+  const systemStats = useMemo(() => ({
+    users: {
+      total: 2847,
+      active: 2156,
+      newThisMonth: 127,
+      premium: 234
+    },
+    programs: {
+      total: 47,
+      active: 38,
+      completed: 9,
+      upcoming: 12,
+      totalParticipants: 1856,
+      totalRevenue: 2850000
+    },
+    content: {
+      totalFiles: 1250,
+      totalSize: 1847, // GB
+      videos: 89,
+      documents: 894,
+      images: 267
+    },
+    system: {
+      uptime: 99.8,
+      responseTime: 245,
+      activeSessions: 156,
+      serverLoad: 34
     }
-  };
+  }), []);
 
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'active': return <Activity className="w-4 h-4" />;
-      case 'completed': return <CheckCircle className="w-4 h-4" />;
-      case 'upcoming': return <Clock className="w-4 h-4" />;
-      case 'cancelled': return <AlertCircle className="w-4 h-4" />;
-      default: return <Info className="w-4 h-4" />;
+  const recentActivities = [
+    {
+      id: 1,
+      type: 'user_registration',
+      title: 'مستخدم جديد مسجل',
+      description: 'أحمد محمد انضم للمنصة',
+      time: 'منذ 5 دقائق',
+      icon: Users,
+      color: 'text-green-600',
+      bgColor: 'bg-green-100'
+    },
+    {
+      id: 2,
+      type: 'program_completed',
+      title: 'برنامج مكتمل',
+      description: 'انتهى برنامج زمالة المراجعين بنجاح',
+      time: 'منذ 1 ساعة',
+      icon: Award,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-100'
+    },
+    {
+      id: 3,
+      type: 'content_uploaded',
+      title: 'محتوى جديد',
+      description: 'تم رفع 5 ملفات جديدة',
+      time: 'منذ 2 ساعات',
+      icon: Upload,
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-100'
+    },
+    {
+      id: 4,
+      type: 'payment_received',
+      title: 'دفعة جديدة',
+      description: 'تم استلام دفعة بقيمة 1500 ريال',
+      time: 'منذ 3 ساعات',
+      icon: DollarSign,
+      color: 'text-emerald-600',
+      bgColor: 'bg-emerald-100'
     }
-  };
+  ];
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('ar-SA', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+  const quickActions = [
+    {
+      title: 'إضافة برنامج جديد',
+      description: 'إنشاء برنامج تدريبي جديد',
+      icon: Plus,
+      href: '/admin/programs',
+      color: 'from-purple-600 to-blue-600',
+      bgColor: 'bg-purple-50'
+    },
+    {
+      title: 'إدارة المستخدمين',
+      description: 'مراجعة وعرض المستخدمين',
+      icon: Users,
+      href: '/admin/users',
+      color: 'from-green-600 to-emerald-600',
+      bgColor: 'bg-green-50'
+    },
+    {
+      title: 'رفع محتوى جديد',
+      description: 'إضافة ملفات وفيديوهات',
+      icon: Upload,
+      href: '/admin/content',
+      color: 'from-blue-600 to-indigo-600',
+      bgColor: 'bg-blue-50'
+    },
+    {
+      title: 'عرض التقارير',
+      description: 'تحليل الأداء والإحصائيات',
+      icon: BarChart3,
+      href: '/admin/reports',
+      color: 'from-orange-600 to-red-600',
+      bgColor: 'bg-orange-50'
+    }
+  ];
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('ar-SA', {
+      style: 'currency',
+      currency: 'SAR',
+      minimumFractionDigits: 0
+    }).format(amount);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
         <motion.div
@@ -185,232 +160,329 @@ const AdminPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
+          <div className="inline-flex items-center gap-3 bg-blue-100 px-6 py-3 rounded-full mb-6">
+            <LayoutDashboard className="w-6 h-6 text-blue-600" />
+            <span className="text-blue-700 font-bold">لوحة التحكم الرئيسية</span>
+          </div>
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              لوحة إدارة البرامج التدريبية
-            </span>
+            مرحباً بك في لوحة إدارة منصة خطى
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            إدارة شاملة للبرامج التدريبية مع تتبع الجداول الزمنية والمشاركين
+            نظرة شاملة على النظام مع جميع الأدوات والإحصائيات
           </p>
         </motion.div>
 
-        {/* الإحصائيات العامة */}
+        {/* الإحصائيات الرئيسية */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
         >
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">إجمالي البرامج</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                <p className="text-gray-600 text-sm">إجمالي المستخدمين</p>
+                <p className="text-3xl font-bold text-gray-900">{systemStats.users.total.toLocaleString()}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <TrendingUp className="w-4 h-4 text-green-500" />
+                  <span className="text-sm text-green-600">+{systemStats.users.newThisMonth} هذا الشهر</span>
+                </div>
               </div>
               <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-blue-600" />
+                <Users className="w-6 h-6 text-blue-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">البرامج النشطة</p>
-                <p className="text-3xl font-bold text-green-600">{stats.active}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <Activity className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي المشاركين</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.totalStudents}</p>
+                <p className="text-3xl font-bold text-purple-600">{systemStats.programs.active}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <Activity className="w-4 h-4 text-blue-500" />
+                  <span className="text-sm text-blue-600">من {systemStats.programs.total} إجمالي</span>
+                </div>
               </div>
               <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Users className="w-6 h-6 text-purple-600" />
+                <GraduationCap className="w-6 h-6 text-purple-600" />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">إجمالي الإيرادات</p>
-                <p className="text-3xl font-bold text-orange-600">{stats.totalRevenue.toLocaleString()} ريال</p>
+                <p className="text-3xl font-bold text-green-600">{formatCurrency(systemStats.programs.totalRevenue)}</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <DollarSign className="w-4 h-4 text-green-500" />
+                  <span className="text-sm text-green-600">+12.5% من الشهر الماضي</span>
+                </div>
+              </div>
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                <TrendingUp className="w-6 h-6 text-green-600" />
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-600 text-sm">أداء النظام</p>
+                <p className="text-3xl font-bold text-orange-600">{systemStats.system.uptime}%</p>
+                <div className="flex items-center gap-2 mt-2">
+                  <Activity className="w-4 h-4 text-orange-500" />
+                  <span className="text-sm text-orange-600">{systemStats.system.responseTime}ms استجابة</span>
+                </div>
               </div>
               <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-orange-600" />
+                <Shield className="w-6 h-6 text-orange-600" />
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* شريط التحكم */}
+        {/* الإحصائيات التفصيلية */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8"
         >
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
-            {/* شريط البحث */}
-            <div className="relative flex-1 max-w-md">
-              <input
-                type="text"
-                placeholder="ابحث في البرامج..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <BookOpen className="w-5 h-5 text-purple-600" />
+              إحصائيات البرامج
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">إجمالي المشاركين</span>
+                <span className="font-semibold text-purple-600">{systemStats.programs.totalParticipants.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">البرامج المكتملة</span>
+                <span className="font-semibold text-green-600">{systemStats.programs.completed}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">البرامج القادمة</span>
+                <span className="font-semibold text-blue-600">{systemStats.programs.upcoming}</span>
+              </div>
             </div>
-
-            {/* فلتر الحالة */}
-            <div className="flex items-center gap-3">
-              <Filter className="w-5 h-5 text-gray-600" />
-              <select
-                value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-              >
-                <option value="all">جميع الحالات</option>
-                <option value="active">نشط</option>
-                <option value="upcoming">قادم</option>
-                <option value="completed">مكتمل</option>
-                <option value="cancelled">ملغي</option>
-              </select>
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <Link href="/admin/programs" className="text-purple-600 hover:text-purple-800 text-sm font-medium">
+                إدارة البرامج →
+              </Link>
             </div>
+          </div>
 
-            {/* أزرار التحكم */}
-            <div className="flex items-center gap-3">
-              <motion.button
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowAddModal(true)}
-              >
-                <Plus className="w-5 h-5" />
-                إضافة برنامج جديد
-              </motion.button>
+          {/* إحصائيات المحتوى */}
+          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+            <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <FileText className="w-5 h-5 text-green-600" />
+              إحصائيات المحتوى
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">إجمالي الملفات</span>
+                <span className="font-semibold text-green-600">{systemStats.content.totalFiles.toLocaleString()}</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">مساحة التخزين</span>
+                <span className="font-semibold text-blue-600">{systemStats.content.totalSize} GB</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-gray-600">الفيديوهات</span>
+                <span className="font-semibold text-red-600">{systemStats.content.videos}</span>
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <Link href="/admin/content" className="text-green-600 hover:text-green-800 text-sm font-medium">
+                إدارة المحتوى →
+              </Link>
             </div>
           </div>
         </motion.div>
 
-        {/* جدول البرامج */}
+        {/* الإجراءات السريعة */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
+          className="bg-white rounded-2xl shadow-lg p-8 mb-8 border border-gray-100"
         >
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
-                <tr>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">اسم البرنامج</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">المجال</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">تاريخ البداية</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">تاريخ النهاية</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">المدة</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">المشاركين</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">الحالة</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">الإجراءات</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filteredPrograms.map((program, index) => (
-                  <motion.tr
-                    key={program.id}
+          <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">الإجراءات السريعة</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {quickActions.map((action, index) => {
+              const Icon = action.icon;
+              return (
+                <Link key={action.title} href={action.href}>
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="hover:bg-gray-50 transition-colors duration-200"
+                    className={`relative ${action.bgColor} rounded-2xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 cursor-pointer group`}
                   >
-                    <td className="px-6 py-4">
-                      <div>
-                        <div className="font-semibold text-gray-900">{program.title}</div>
-                        <div className="text-sm text-gray-600">{program.instructor}</div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{program.category}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{formatDate(program.startDate)}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{formatDate(program.endDate)}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{program.duration}</td>
-                    <td className="px-6 py-4">
-                      <div className="text-sm">
-                        <span className="font-semibold text-gray-900">{program.enrolledStudents}</span>
-                        <span className="text-gray-600"> / {program.maxStudents}</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                        <div
-                          className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${(program.enrolledStudents / program.maxStudents) * 100}%` }}
-                        ></div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(program.status)}`}>
-                        {getStatusIcon(program.status)}
-                        {program.status === 'active' ? 'نشط' :
-                         program.status === 'completed' ? 'مكتمل' :
-                         program.status === 'upcoming' ? 'قادم' : 'ملغي'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex items-center gap-2">
-                        <motion.button
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Eye className="w-4 h-4" />
-                        </motion.button>
-                        <motion.button
-                          className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </motion.button>
-                        <motion.button
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </motion.button>
-                      </div>
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
+                    <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 mb-2">{action.title}</h4>
+                    <p className="text-sm text-gray-600">{action.description}</p>
+                    <div className="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="w-2 h-2 bg-current rounded-full"></div>
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
           </div>
         </motion.div>
 
-        {/* رسالة عدم وجود نتائج */}
-        {filteredPrograms.length === 0 && (
+        {/* الأنشطة الأخيرة والتقارير */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* الأنشطة الأخيرة */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="text-center py-16 bg-white rounded-2xl shadow-lg border border-gray-100 mt-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100"
           >
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Search className="w-8 h-8 text-gray-400" />
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <Activity className="w-5 h-5 text-blue-600" />
+              الأنشطة الأخيرة
+            </h3>
+            <div className="space-y-4">
+              {recentActivities.map((activity, index) => {
+                const Icon = activity.icon;
+                return (
+                  <motion.div
+                    key={activity.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <div className={`w-10 h-10 ${activity.bgColor} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                      <Icon className={`w-5 h-5 ${activity.color}`} />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900">{activity.title}</h4>
+                      <p className="text-sm text-gray-600 mt-1">{activity.description}</p>
+                      <p className="text-xs text-gray-400 mt-2">{activity.time}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">لا توجد برامج متاحة</h3>
-            <p className="text-gray-600">لم نتمكن من العثور على أي برامج تطابق معايير البحث الخاصة بك</p>
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <Link href="/admin/reports" className="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                عرض جميع الأنشطة →
+              </Link>
+            </div>
           </motion.div>
-        )}
+
+          {/* ملخص سريع للنظام */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100"
+          >
+            <h3 className="text-lg font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <Target className="w-5 h-5 text-green-600" />
+              ملخص النظام
+            </h3>
+            <div className="space-y-6">
+              {/* حالة الخادم */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700">حالة الخادم</span>
+                  <span className="text-sm text-green-600 font-medium">ممتاز ✓</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="bg-green-500 h-2 rounded-full" style={{ width: '98%' }}></div>
+                </div>
+              </div>
+
+              {/* حمل الخادم */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700">حمل الخادم</span>
+                  <span className="text-sm text-orange-600 font-medium">{systemStats.system.serverLoad}%</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className={`h-2 rounded-full ${
+                    systemStats.system.serverLoad < 50 ? 'bg-green-500' :
+                    systemStats.system.serverLoad < 80 ? 'bg-yellow-500' : 'bg-red-500'
+                  }`} style={{ width: `${systemStats.system.serverLoad}%` }}></div>
+                </div>
+              </div>
+
+              {/* النسخ الاحتياطي الأخير */}
+              <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <Shield className="w-5 h-5 text-blue-600" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">آخر نسخة احتياطية</p>
+                    <p className="text-xs text-gray-600">منذ 2 ساعات</p>
+                  </div>
+                </div>
+                <CheckCircle className="w-5 h-5 text-green-600" />
+              </div>
+
+              {/* التحديثات */}
+              <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <Settings className="w-5 h-5 text-purple-600" />
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">آخر تحديث للنظام</p>
+                    <p className="text-xs text-gray-600">الإصدار 2.1.0</p>
+                  </div>
+                </div>
+                <Clock className="w-5 h-5 text-purple-600" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* روابط سريعة للأقسام الرئيسية */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="mt-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-white"
+        >
+          <h3 className="text-2xl font-bold mb-6 text-center">الوصول السريع للأقسام الرئيسية</h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {[
+              { name: 'إدارة البرامج', href: '/admin/programs', icon: GraduationCap },
+              { name: 'إدارة المستخدمين', href: '/admin/users', icon: Users },
+              { name: 'إدارة الدورات', href: '/admin/courses', icon: BookOpen },
+              { name: 'إدارة المحتوى', href: '/admin/content', icon: FileText },
+              { name: 'التقارير', href: '/admin/reports', icon: BarChart3 },
+              { name: 'التحكم العام', href: '/admin/controls', icon: Settings }
+            ].map((section, index) => {
+              const Icon = section.icon;
+              return (
+                <Link key={section.name} href={section.href}>
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="text-center p-4 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 cursor-pointer group"
+                  >
+                    <Icon className="w-8 h-8 mx-auto mb-2 group-hover:scale-110 transition-transform" />
+                    <p className="text-sm font-medium">{section.name}</p>
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </div>
   );
 };
 
-export default AdminPage;
+export default AdminDashboard;

@@ -1,4 +1,5 @@
-import { useState, memo } from 'react';
+import { memo } from 'react';
+import { motion } from 'framer-motion';
 import {
   Play,
   Clock,
@@ -7,7 +8,6 @@ import {
   Award,
 } from 'lucide-react';
 import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
 import { CourseCardProps } from '../types/course';
 import { formatCoursePrice, getDifficultyEmoji } from '@/utils/courseUtils';
 import { useCourseCardState } from '@/hooks/useCourseCardState';
@@ -32,173 +32,45 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
   const { showRipple, triggerRipple } = useRippleEffect();
   const actions = useCourseCardActions({ courseId: course.id, isLoading, onBookmark, onShare, onEnroll, onRipple: triggerRipple });
   const { isBookmarked, isWishlisted, isCompared, isLoadingAction, handleBookmark, handleShare, handleWishlist, handleCompare, handlePreview, handleEnroll } = actions;
-  const [isHovered, setIsHovered] = useState(false);
 
-  // Compact variant: Full-featured card with badges, progress ring, and detailed stats
-  if (variant === 'compact') {
-    return (
+  // Default variant: Simplified horizontal layout with side image
+  return (
+    <motion.div 
+      className="group relative bg-white rounded-2xl shadow-sm hover:shadow-xl border border-gray-100 hover:border-blue-200 transition-all duration-300 overflow-hidden"
+      whileHover={{ y: -4 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* تأثير الإضاءة عند التمرير */}
       <motion.div
-        className={`group relative rounded-xl overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 ${isNew ? 'ring-2 ring-yellow-400/50' : ''} ${isPopular ? 'ring-2 ring-purple-400/50' : ''}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        whileHover={{ scale: 1.02 }}
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-      >
-        <AnimatePresence>
-          {progressPercentage > 0 && <ProgressRing progress={progressPercentage} />}
-        </AnimatePresence>
-
-        <CourseImage src={course.image} alt={course.title} variant="compact" />
-
-        <QuickActionButtons isVisible={isHovered} isWishlisted={isWishlisted} isCompared={isCompared} onPreview={handlePreview} onWishlist={handleWishlist} onCompare={handleCompare} />
-
-        <BadgeList isNew={isNew} isPopular={isPopular} hasCertificate={hasCertificate} isBestseller={isBestseller} isLimitedTime={isLimitedTime} />
-
-        <PriceBadge price={course.price} />
-
-        <div className="p-6 space-y-4">
-          <motion.div
-            className="flex items-center justify-between text-sm"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-          >
-            <motion.span
-              className="bg-blue-100 text-blue-800 px-3 py-1.5 rounded-full font-medium border border-blue-200/50"
-            >
-              {course.category}
-            </motion.span>
-            <motion.span
-              className={`px-3 py-1.5 rounded-full font-medium border ${
-                course.level === 'مبتدئ'
-                  ? 'bg-green-100 text-green-800 border-green-200/50'
-                  : course.level === 'متوسط'
-                    ? 'bg-yellow-100 text-yellow-800 border-yellow-200/50'
-                    : 'bg-red-100 text-red-800 border-red-200/50'
-              }`}
-            >
-              {getDifficultyEmoji(course.level)} {course.level}
-            </motion.span>
-          </motion.div>
-
-          <motion.h3
-            className="text-xl font-bold text-gray-900 leading-tight line-clamp-2 group-hover:text-blue-600 transition-all duration-300 cursor-pointer"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.4 }}
-          >
-            {course.title}
-          </motion.h3>
-
-          <motion.p
-            className="text-gray-600 text-sm leading-relaxed line-clamp-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.4 }}
-          >
-            {course.description}
-          </motion.p>
-
-          <InstructorInfoCard instructor={course.instructor} rating={course.rating} reviewCount={course.reviewCount} isHovered={isHovered} />
-
-          <CourseMeta students={course.students} duration={course.duration} filesCount={course.filesCount} />
-
-          {progressPercentage > 0 && (
-            <motion.div
-              className="space-y-2"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.65, duration: 0.4 }}
-            >
-              <div className="flex justify-between items-center text-sm">
-                <span className="text-gray-700 font-medium">تقدم الدراسة</span>
-                <span className="text-blue-600 font-bold">{Math.round(progressPercentage)}%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                <motion.div
-                  className="h-full bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${progressPercentage}%` }}
-                  transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
-                />
-              </div>
-            </motion.div>
-          )}
-
-          <motion.div
-            className="flex items-center justify-between text-xs text-gray-500 mb-4 bg-gray-50 rounded-lg p-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.4 }}
-          >
-            <div className="flex items-center gap-2">
-              <span>آخر نشاط: {course.lastActivity || 'منذ يوم'}</span>
-              {hasCertificate && (
-                <span className="flex items-center gap-1 text-green-600">
-                  <Award className="w-3 h-3" />
-                  شهادة متوفرة
-                </span>
-              )}
-            </div>
-            <span>تم الإنشاء: {course.createdAt ? new Date(course.createdAt).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
-          </motion.div>
-
-          <ActionButtons variant="compact" isBookmarked={isBookmarked} isWishlisted={isWishlisted} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={(e) => handleEnroll(e as any)} onBookmark={(e) => handleBookmark(e as any)} onWishlist={(e) => handleWishlist(e as any)} onShare={(e) => handleShare(e as any)} />
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-50/50 to-transparent -translate-x-full group-hover:translate-x-full"
+        transition={{ duration: 0.8 }}
+      />
+      
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 relative z-10">
+        <div className="w-full sm:w-auto sm:flex-shrink-0">
+          <CourseImage src={course.image} alt={course.title} variant="default" progress={progressPercentage} />
         </div>
-      </motion.div>
-    );
-  } else {
-    // Default variant: Simplified horizontal layout with side image
-    return (
-      <motion.div
-        className="flex gap-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-      >
-        <CourseImage src={course.image} alt={course.title} variant="default" progress={progressPercentage} />
 
-        <div className="flex-1 p-4">
-          <motion.div
-            className="flex items-start justify-between mb-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.4 }}
-          >
+        <div className="flex-1 p-3 sm:p-4">
+          <div className="flex items-start justify-between mb-3">
             <div className="flex-1">
-              <motion.h3
-                className="text-lg font-bold text-gray-900 leading-tight mb-1 group-hover:text-blue-600 transition-all duration-300 cursor-pointer"
-                whileHover={{ scale: 1.02 }}
-              >
+              <h3 className="text-lg font-bold text-gray-900 leading-tight mb-1 group-hover:text-blue-600 transition-all duration-300 cursor-pointer">
                 {course.title}
-              </motion.h3>
-              <motion.p
-                className="text-sm text-gray-600 line-clamp-2 leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-              >
+              </h3>
+              <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
                 {course.description}
-              </motion.p>
+              </p>
             </div>
-            <motion.div
-              className="text-right ml-4"
-              whileHover={{ scale: 1.05 }}
-            >
+            <div className="text-right sm:ml-4 mt-2 sm:mt-0">
               <span className="text-lg font-bold text-blue-600 drop-shadow-sm">
                 {formatCoursePrice(course.price)}
               </span>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
-            className="flex items-center gap-4 text-sm text-gray-600 mb-4"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.4 }}
-          >
+          <div className="flex items-center gap-4 text-sm text-gray-600 mb-4">
             <span className="flex items-center gap-1">
               <User className="w-4 h-4" />
               {course.instructor.name}
@@ -211,26 +83,20 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
               <Star className="w-4 h-4 text-yellow-400 fill-current" />
               {course.rating}
             </span>
-            <motion.span
-              className={`px-2 py-1 rounded-full text-xs font-medium border ${
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-medium border hover-scale-subtle ${
                 course.level === 'مبتدئ'
                   ? 'bg-green-100 text-green-800 border-green-200/50'
                   : course.level === 'متوسط'
                     ? 'bg-yellow-100 text-yellow-800 border-yellow-200/50'
                     : 'bg-red-100 text-red-800 border-red-200/50'
               }`}
-              whileHover={{ scale: 1.05 }}
             >
               {course.level}
-            </motion.span>
-          </motion.div>
+            </span>
+          </div>
 
-          <motion.div
-            className="flex items-center justify-between text-xs text-gray-500 mb-4 bg-gray-50 rounded-lg p-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.4 }}
-          >
+          <div className="flex items-center justify-between text-xs text-gray-500 mb-4 bg-gray-50 rounded-lg p-3">
             <div className="flex items-center gap-2">
               <span>آخر نشاط: {course.lastActivity || 'منذ يوم'}</span>
               {hasCertificate && (
@@ -241,13 +107,13 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
               )}
             </div>
             <span>تم الإنشاء: {course.createdAt ? new Date(course.createdAt).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
-          </motion.div>
+          </div>
 
           <ActionButtons variant="default" isBookmarked={isBookmarked} isWishlisted={false} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={(e) => handleEnroll(e as any)} onBookmark={(e) => handleBookmark(e as any)} onWishlist={() => {}} onShare={() => {}} />
         </div>
-      </motion.div>
-    );
-  }
+      </div>
+    </motion.div>
+  );
 });
 
 CourseCard.displayName = 'CourseCard';

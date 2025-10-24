@@ -3,39 +3,47 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { LayoutDashboard, BookOpen, User, FileEdit, Users, TrendingUp } from 'lucide-react';
 
 /** Props for Sidebar component specifying user role for navigation items */
 interface SidebarProps {
   role?: 'student' | 'instructor' | 'admin';
 }
 
-/** Role-based sidebar navigation component displaying different menu items for students, instructors, and admins. Features active link highlighting and emoji icons. */
+/** Interface for navigation items */
+interface NavigationItem {
+  name: string;
+  href: string;
+  icon: React.ReactNode;
+}
+
+/** Role-based sidebar navigation component displaying different menu items for students, instructors, and admins. Features active link highlighting and SVG icons. */
 const Sidebar: React.FC<SidebarProps> = ({ role = 'student' }) => {
   const pathname = usePathname();
 
   // Navigation items grouped by user role (student, instructor, admin)
-  const navigationItems = {
+  const navigationItems: Record<string, NavigationItem[]> = {
     student: [
-      { name: 'لوحة التحكم', href: '/dashboard/student', icon: '📊' },
-      { name: 'الدورات', href: '/dashboard/student/courses', icon: '📚' },
-      { name: 'الملف الشخصي', href: '/dashboard/student/profile', icon: '👤' },
-      { name: 'الاختبارات', href: '/dashboard/student/exam', icon: '📝' },
+      { name: 'لوحة التحكم', href: '/dashboard/student', icon: <LayoutDashboard className="w-5 h-5" /> },
+      { name: 'الدورات', href: '/dashboard/student/courses', icon: <BookOpen className="w-5 h-5" /> },
+      { name: 'الملف الشخصي', href: '/dashboard/student/profile', icon: <User className="w-5 h-5" /> },
+      { name: 'الاختبارات', href: '/dashboard/student/exam', icon: <FileEdit className="w-5 h-5" /> },
     ],
     instructor: [
-      { name: 'لوحة التحكم', href: '/dashboard/instructor', icon: '📊' },
-      { name: 'دوراتي', href: '/dashboard/instructor/courses', icon: '📚' },
-      { name: 'الطلاب', href: '/dashboard/instructor/students', icon: '👥' },
+      { name: 'لوحة التحكم', href: '/dashboard/instructor', icon: <LayoutDashboard className="w-5 h-5" /> },
+      { name: 'دوراتي', href: '/dashboard/instructor/courses', icon: <BookOpen className="w-5 h-5" /> },
+      { name: 'الطلاب', href: '/dashboard/instructor/students', icon: <Users className="w-5 h-5" /> },
       {
         name: 'الملف الشخصي',
         href: '/dashboard/instructor/profile',
-        icon: '👤',
+        icon: <User className="w-5 h-5" />,
       },
     ],
     admin: [
-      { name: 'لوحة التحكم', href: '/admin/dashboard', icon: '📊' },
-      { name: 'المستخدمين', href: '/admin/users', icon: '👥' },
-      { name: 'الدورات', href: '/admin/courses', icon: '📚' },
-      { name: 'التقارير', href: '/admin/reports', icon: '📈' },
+      { name: 'لوحة التحكم', href: '/admin/dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
+      { name: 'المستخدمين', href: '/admin/users', icon: <Users className="w-5 h-5" /> },
+      { name: 'الدورات', href: '/admin/courses', icon: <BookOpen className="w-5 h-5" /> },
+      { name: 'التقارير', href: '/admin/reports', icon: <TrendingUp className="w-5 h-5" /> },
     ],
   };
 

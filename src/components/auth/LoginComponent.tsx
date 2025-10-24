@@ -6,6 +6,7 @@ import { Mail, Eye, EyeOff } from 'lucide-react';
 import { Input, Button, Checkbox, FormField } from '../ui';
 import { useFormValidation } from '../../lib/formHelpers';
 import { validateEmail, validateRequired } from '../../lib/validation';
+import { showToast, toastMessages } from '../../utils/toast';
 
 /**
  * Props for the SocialLoginButtons component
@@ -63,7 +64,8 @@ const LoginComponent = () => {
       password: [validateRequired],
     },
     (values) => {
-      alert('تم تسجيل الدخول بنجاح! سيتم توجيهك إلى لوحة التحكم.');
+      // Show success toast instead of alert
+      showToast.success(toastMessages.loginSuccessful);
       // Here you would typically send the data to your backend
     }
   );
@@ -72,7 +74,7 @@ const LoginComponent = () => {
    * Handles social authentication provider selection
    */
   const handleSocialLogin = (provider: string) => {
-    alert(`تسجيل الدخول عبر ${provider} قيد التطوير. سيتم إضافته قريبًا.`);
+    showToast.info(`تسجيل الدخول عبر ${provider} قيد التطوير. سيتم إضافته قريبًا.`);
     // Here you would integrate with OAuth providers
   };
 

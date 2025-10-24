@@ -4,58 +4,93 @@ import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
 /**
- * Class variance authority configuration for button variants. Defines visual styles for different button types, sizes, and states.
+ * BRUTALIST ELEGANCE BUTTON COMPONENT
+ * Master architect Kain's design philosophy: Brutal, honest structure with impeccable execution
+ * 
+ * A solid block of power that commands respect through sheer presence.
+ * No compromises. Raw. Strong. Unbreakable structure.
  *
- * @variant primary - Modern design system button style (uses btn-primary CSS class)
- * @variant legacy - Legacy gradient button with hover lift effect
- * @variant secondary - Subtle gray button for secondary actions
- * @variant success - Green button for positive actions
- * @variant warning - Yellow/orange button for warning actions
- * @variant danger - Red button for destructive actions
- * @variant outline - Transparent button with border
- * @variant ghost - Minimal button with no border
- * @variant link - Text-only button styled as a link
- *
- * @size xs - 32px height
- * @size sm - 36px height
- * @size md - 40px height (default)
- * @size lg - 48px height
- * @size xl - 56px height
- * @size icon - 40x40px square
- *
- * @fullWidth - Expands button to full container width
+ * @variant brutalist - The primary brutalist button: solid blue block with hard shadow
+ * @variant brutalist-secondary - Concrete block with steel text
+ * @variant brutalist-outline - Steel frame with void interior
+ * @variant brutalist-ghost - Minimal steel text on concrete
+ * @variant brutalist-danger - Warning red block for destructive actions
+ * 
+ * Legacy variants maintained for backward compatibility
  */
-// تعريف المتغيرات باستخدام نظام التصميم
+
+// BRUTALIST BUTTON VARIANTS: Monolithic blocks of digital concrete
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg',
+  // Base: Uncompromising foundation
+  'inline-flex items-center justify-center gap-brutalist-2 font-brutalist-body font-bold uppercase tracking-wide border-brutalist border-brutalist-steel transition-brutalist focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed select-none',
   {
     variants: {
       variant: {
-        primary: 'btn-primary', // النمط الجديد
-        // Note: primary-* colors require custom Tailwind theme configuration
-        legacy: `bg-gradient-to-r from-primary-500 to-primary-600 text-white hover:shadow-primary-500/30 focus:ring-primary-500 hover:-translate-y-0.5`, // القديم
-        secondary: 'bg-gray-100 text-gray-800 hover:bg-gray-200 focus:ring-gray-400',
-        success: 'bg-success-500 text-white hover:bg-success-600 focus:ring-success-500',
-        warning: 'bg-warning-500 text-white hover:bg-warning-600 focus:ring-warning-500',
-        danger: 'bg-error-500 text-white hover:bg-error-600 focus:ring-error-500',
-        outline: 'border border-gray-300 bg-transparent hover:bg-gray-50 focus:ring-gray-400',
-        ghost: 'bg-transparent hover:bg-gray-100 focus:ring-gray-400',
-        link: 'bg-transparent text-primary-600 hover:underline focus:ring-primary-500',
+        // THE BRUTALIST CORE: Solid blocks of power
+        brutalist: [
+          'bg-brutalist-power text-brutalist-pure',
+          'shadow-brutalist border-brutalist-void',
+          'hover:translate-x-1 hover:translate-y-1 hover:shadow-brutalist-pressed',
+          'active:translate-x-1 active:translate-y-1 active:shadow-brutalist-pressed',
+          'focus:ring-2 focus:ring-brutalist-void focus:ring-offset-2'
+        ].join(' '),
+        
+        'brutalist-secondary': [
+          'bg-brutalist-concrete text-brutalist-steel',
+          'shadow-brutalist border-brutalist-steel',
+          'hover:translate-x-1 hover:translate-y-1 hover:shadow-brutalist-pressed',
+          'active:translate-x-1 active:translate-y-1 active:shadow-brutalist-pressed',
+          'focus:ring-2 focus:ring-brutalist-steel focus:ring-offset-2'
+        ].join(' '),
+        
+        'brutalist-outline': [
+          'bg-brutalist-concrete text-brutalist-steel border-brutalist-steel',
+          'shadow-brutalist',
+          'hover:bg-brutalist-steel hover:text-brutalist-pure',
+          'hover:translate-x-1 hover:translate-y-1 hover:shadow-brutalist-pressed',
+          'active:translate-x-1 active:translate-y-1 active:shadow-brutalist-pressed',
+          'focus:ring-2 focus:ring-brutalist-steel focus:ring-offset-2'
+        ].join(' '),
+        
+        'brutalist-ghost': [
+          'bg-transparent text-brutalist-steel border-transparent',
+          'hover:bg-brutalist-concrete hover:border-brutalist-steel hover:shadow-brutalist-sm',
+          'focus:ring-2 focus:ring-brutalist-steel focus:ring-offset-2'
+        ].join(' '),
+        
+        'brutalist-danger': [
+          'bg-red-600 text-brutalist-pure border-brutalist-void',
+          'shadow-brutalist',
+          'hover:translate-x-1 hover:translate-y-1 hover:shadow-brutalist-pressed',
+          'active:translate-x-1 active:translate-y-1 active:shadow-brutalist-pressed',
+          'focus:ring-2 focus:ring-red-600 focus:ring-offset-2'
+        ].join(' '),
+
+        // LEGACY VARIANTS: Maintained for backward compatibility
+        primary: 'bg-primary-600 text-white border-primary-700 shadow-lg hover:bg-primary-700 focus:ring-primary-500',
+        secondary: 'bg-gray-100 text-gray-800 border-gray-300 hover:bg-gray-200 focus:ring-gray-400',
+        success: 'bg-green-600 text-white border-green-700 hover:bg-green-700 focus:ring-green-500',
+        warning: 'bg-yellow-500 text-white border-yellow-600 hover:bg-yellow-600 focus:ring-yellow-400',
+        danger: 'bg-red-600 text-white border-red-700 hover:bg-red-700 focus:ring-red-500',
+        outline: 'border-gray-300 bg-transparent hover:bg-gray-50 focus:ring-gray-400',
+        ghost: 'bg-transparent hover:bg-gray-100 focus:ring-gray-400 border-transparent',
+        link: 'bg-transparent text-primary-600 hover:underline focus:ring-primary-500 border-transparent',
       },
       size: {
-        xs: 'h-8 px-3 text-xs',
-        sm: 'h-9 px-4 text-sm',
-        md: 'h-10 px-5 text-base',
-        lg: 'h-12 px-6 text-lg',
-        xl: 'h-14 px-8 text-xl',
-        icon: 'h-10 w-10 p-0',
+        // BRUTALIST SIZES: Based on 4px grid system
+        xs: 'h-brutalist-8 px-brutalist-3 text-xs',
+        sm: 'h-brutalist-12 px-brutalist-4 text-sm',
+        md: 'h-brutalist-16 px-brutalist-6 text-base',
+        lg: 'h-20 px-brutalist-8 text-lg',
+        xl: 'h-24 px-brutalist-12 text-xl',
+        icon: 'h-brutalist-16 w-brutalist-16 p-0',
       },
       fullWidth: {
         true: 'w-full',
       },
     },
     defaultVariants: {
-      variant: 'primary',
+      variant: 'brutalist',
       size: 'md',
       fullWidth: false,
     },

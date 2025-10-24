@@ -48,7 +48,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   internalAuditors: {
     id: 'internal-auditors',
     label: 'المراجعون الداخليون',
-    href: '/internal-auditors',
+    href: '/internal-audit',
     icon: 'audit',
     description: 'كورسات المراجعة الداخلية والمسار المهني',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -105,6 +105,88 @@ export const navigationItems: Record<string, NavigationItem> = {
     description: 'برامج متخصصة في الإدارة المالية والتشغيل',
     roles: ['public', 'student', 'instructor', 'admin'],
     priority: 6,
+  },
+
+  // الدورات الجديدة
+  financeBasics: {
+    id: 'finance-basics',
+    label: 'أساسيات المالية والمحاسبة',
+    href: '/finance-basics',
+    icon: 'calculator',
+    description: 'تعلم أساسيات المالية والمحاسبة من الصفر',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 6.1,
+  },
+
+  procurementManagement: {
+    id: 'procurement-management',
+    label: 'إدارة المشتريات والتوريدات',
+    href: '/procurement-management',
+    icon: 'truck',
+    description: 'تعلم إدارة المشتريات والتوريدات بكفاءة',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 6.2,
+  },
+
+  warehouseManagement: {
+    id: 'warehouse-management',
+    label: 'إدارة المخازن والمستودعات',
+    href: '/warehouse-management',
+    icon: 'warehouse',
+    description: 'نظام شامل لإدارة المخازن والمخزون',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 6.3,
+  },
+
+  financialReporting: {
+    id: 'financial-reporting',
+    label: 'التقارير المالية والمحاسبية',
+    href: '/financial-reporting',
+    icon: 'file-text',
+    description: 'إعداد التقارير المالية وفقاً للمعايير الدولية',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 6.4,
+  },
+
+  inventoryReconciliations: {
+    id: 'inventory-reconciliations',
+    label: 'التسويات الجردية والرقابة',
+    href: '/inventory-reconciliations',
+    icon: 'calculator',
+    description: 'إجراء التسويات الجردية وإدارة الرقابة الداخلية',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 6.5,
+  },
+
+  restaurantManagement: {
+    id: 'restaurant-management',
+    label: 'إدارة وتشغيل المطاعم',
+    href: '/restaurant-management',
+    icon: 'chef-hat',
+    description: 'إدارة المطاعم والمنشآت الغذائية بكفاءة',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 6.6,
+  },
+
+  // الميزات المتقدمة
+  questionBank: {
+    id: 'question-bank',
+    label: 'بنك الأسئلة التفاعلي',
+    href: '/question-bank',
+    icon: 'book-open',
+    description: 'بنك أسئلة تفاعلي مع ذكاء اصطناعي',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 16,
+  },
+
+  advancedFeatures: {
+    id: 'advanced-features',
+    label: 'الميزات المتقدمة',
+    href: '/advanced-features',
+    icon: 'brain',
+    description: 'أحدث التقنيات والذكاء الاصطناعي',
+    roles: ['public', 'student', 'instructor', 'admin'],
+    priority: 17,
   },
 
 
@@ -376,6 +458,12 @@ export const navigationSections: NavigationSection[] = [
       navigationItems.learningPaths,
       navigationItems.community,
       navigationItems.financialManagement,
+      navigationItems.financeBasics,
+      navigationItems.procurementManagement,
+      navigationItems.warehouseManagement,
+      navigationItems.financialReporting,
+      navigationItems.inventoryReconciliations,
+      navigationItems.restaurantManagement,
       navigationItems.blog,
       navigationItems.resources,
     ],
@@ -471,40 +559,56 @@ export const getNavigationForUser = (userRole?: string, isAuthenticated = false)
     .sort((a, b) => a.priority - b.priority);
 };
 
-// الحصول على روابط الـ Navbar للزوار
+// الحصول على روابط الـ Navbar للزوار - مُبسّطة مع قائمة "المزيد"
 export const getPublicNavbarItems = () => [
   navigationItems.home,
+  navigationItems.internalAuditors,
+  navigationItems.courses,
+  navigationItems.learningPaths,
+  navigationItems.community,
   {
-    id: 'learning-dropdown',
-    label: 'المحتوى التعليمي',
-    icon: 'learning',
+    id: 'more-dropdown',
+    label: 'المزيد',
+    icon: 'more',
     children: [
-      navigationItems.internalAuditors,
-      navigationItems.auditorsFellowship,
-      navigationItems.courses,
-      navigationItems.learningPaths,
-      navigationItems.community,
-      navigationItems.financialManagement,
-      navigationItems.blog,
-      navigationItems.resources,
-    ],
-  },
-  {
-    id: 'services-dropdown',
-    label: 'الخدمات',
-    icon: 'services',
-    children: [
-      navigationItems.consulting,
-      navigationItems.subscription,
-    ],
-  },
-  {
-    id: 'support-dropdown',
-    label: 'الدعم',
-    icon: 'support',
-    children: [
-      navigationItems.faq,
-      navigationItems.contact,
+      {
+        id: 'learning-section',
+        label: 'المحتوى التعليمي',
+        icon: 'learning',
+        children: [
+          navigationItems.auditorsFellowship,
+          navigationItems.financialManagement,
+          navigationItems.financeBasics,
+          navigationItems.procurementManagement,
+          navigationItems.warehouseManagement,
+          navigationItems.financialReporting,
+          navigationItems.inventoryReconciliations,
+          navigationItems.restaurantManagement,
+          navigationItems.questionBank,
+          navigationItems.advancedFeatures,
+          navigationItems.blog,
+          navigationItems.resources,
+        ],
+      },
+      {
+        id: 'services-section',
+        label: 'الخدمات',
+        icon: 'services',
+        children: [
+          navigationItems.consulting,
+          navigationItems.subscription,
+        ],
+      },
+      {
+        id: 'support-section',
+        label: 'الدعم والمساعدة',
+        icon: 'support',
+        children: [
+          navigationItems.faq,
+          navigationItems.contact,
+          navigationItems.support,
+        ],
+      },
     ],
   },
 ];
@@ -524,15 +628,16 @@ export const getSidebarItems = (userRole: string = 'student') => {
   }));
 };
 
-// روابط الملاحة السفلية للهواتف المحمولة
+// روابط الملاحة السفلية للهواتف المحمولة - مُبسّطة ومُركّزة
 export const getBottomNavigationItems = (userRole?: string, isAuthenticated = false) => {
   const role = isAuthenticated ? userRole || 'student' : 'public';
 
+  // تبسيط العناصر للتركيز على الأساسيات فقط
   const flows: Record<string, string[]> = {
-    public: ['home', 'courses', 'community', 'subscription', 'support'],
-    student: ['home', 'courses', 'community', 'student-exam', 'certificates', 'support'],
-    instructor: ['home', 'courses', 'community', 'my-courses', 'meeting-room', 'support'],
-    admin: ['home', 'courses', 'community', 'admin-dashboard', 'admin-users', 'support'],
+    public: ['home', 'courses', 'community', 'contact'],
+    student: ['home', 'courses', 'student-dashboard', 'certificates'],
+    instructor: ['home', 'courses', 'my-courses', 'meeting-room'],
+    admin: ['home', 'admin-dashboard', 'admin-courses', 'admin-users'],
   };
 
   const flowIds = flows[role] || flows.public;
@@ -556,8 +661,8 @@ export const getBreadcrumbs = (pathname: string) => {
   const breadcrumbs = [{ label: 'الرئيسية', href: '/' }];
 
   // إضافة مسارات بناءً على المسار الحالي
-  if (pathname.startsWith('/internal-auditors')) {
-    breadcrumbs.push({ label: 'المراجعون الداخليون', href: '/internal-auditors' });
+  if (pathname.startsWith('/internal-audit')) {
+    breadcrumbs.push({ label: 'المراجعون الداخليون', href: '/internal-audit' });
   } else if (pathname.startsWith('/auditors-fellowship')) {
     breadcrumbs.push({ label: 'زمالة المراجعين الداخليين', href: '/auditors-fellowship' });
   } else if (pathname.startsWith('/courses')) {
@@ -593,6 +698,22 @@ export const getBreadcrumbs = (pathname: string) => {
     breadcrumbs.push({ label: 'ملفاتي', href: '/files' });
   } else if (pathname.startsWith('/financial-management')) {
     breadcrumbs.push({ label: 'برامج الإدارة المالية', href: '/financial-management' });
+  } else if (pathname.startsWith('/finance-basics')) {
+    breadcrumbs.push({ label: 'أساسيات المالية والمحاسبة', href: '/finance-basics' });
+  } else if (pathname.startsWith('/procurement-management')) {
+    breadcrumbs.push({ label: 'إدارة المشتريات والتوريدات', href: '/procurement-management' });
+  } else if (pathname.startsWith('/warehouse-management')) {
+    breadcrumbs.push({ label: 'إدارة المخازن والمستودعات', href: '/warehouse-management' });
+  } else if (pathname.startsWith('/financial-reporting')) {
+    breadcrumbs.push({ label: 'التقارير المالية والمحاسبية', href: '/financial-reporting' });
+  } else if (pathname.startsWith('/inventory-reconciliations')) {
+    breadcrumbs.push({ label: 'التسويات الجردية والرقابة', href: '/inventory-reconciliations' });
+  } else if (pathname.startsWith('/restaurant-management')) {
+    breadcrumbs.push({ label: 'إدارة وتشغيل المطاعم', href: '/restaurant-management' });
+  } else if (pathname.startsWith('/question-bank')) {
+    breadcrumbs.push({ label: 'بنك الأسئلة التفاعلي', href: '/question-bank' });
+  } else if (pathname.startsWith('/advanced-features')) {
+    breadcrumbs.push({ label: 'الميزات المتقدمة', href: '/advanced-features' });
   }
 
   return breadcrumbs;

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, Star, Zap, Crown, Rocket } from 'lucide-react';
+import { Check, Star, Zap, Crown, Rocket, CreditCard, Sparkles, Scale, DollarSign, ShieldCheck, MessageCircle } from 'lucide-react';
 
 interface SubscriptionPlan {
   id: string;
@@ -91,316 +91,198 @@ const subscriptionPlans: SubscriptionPlan[] = [
 
 const SubscriptionCardsComponent: React.FC = () => {
   return (
-    <motion.section
-      className="relative py-16 sm:py-20 lg:py-24 xl:py-28 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 overflow-hidden"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, margin: "-100px" }}
+    <section
+      className="relative py-16 sm:py-20 lg:py-24 xl:py-28 bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/50 overflow-hidden animate-fadeIn"
     >
-      {/* خلفية متحركة */}
-      <motion.div
-        className="absolute inset-0 opacity-5"
-        animate={{
-          backgroundPosition: ["0% 0%", "100% 100%"],
-        }}
-        transition={{
-          duration: 30,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        style={{
-          backgroundImage: "radial-gradient(circle at 25% 75%, #3b82f6 0%, transparent 50%), radial-gradient(circle at 75% 25%, #8b5cf6 0%, transparent 50%)",
-          backgroundSize: "150% 150%",
-        }}
-      />
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* العنوان الرئيسي */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
+        <div
+          className="text-center mb-16 animate-fadeIn"
         >
-          <motion.div
+          <div
             className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500/20 to-blue-500/20 backdrop-blur-sm px-6 py-3 rounded-full border border-green-200/50 mb-8"
-            whileHover={{ scale: 1.05 }}
           >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            >
-              <span className="text-2xl">💳</span>
-            </motion.div>
+            <CreditCard className="w-6 h-6" />
             <span className="text-green-700 font-semibold">باقات اشتراك مرنة</span>
-          </motion.div>
+          </div>
 
-          <motion.h2
+          <h2
             className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 bg-gradient-to-r from-green-600 via-blue-600 to-purple-600 bg-clip-text text-transparent"
-            whileHover={{ scale: 1.02 }}
           >
             اختر الباقة المناسبة لك
-          </motion.h2>
+          </h2>
 
-          <motion.p
+          <p
             className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            viewport={{ once: true }}
           >
             باقات متنوعة تناسب جميع المستويات والاحتياجات مع إمكانية الترقية في أي وقت
-          </motion.p>
+          </p>
 
-          <motion.div
+          <div
             className="w-32 h-1 bg-gradient-to-r from-green-500 to-blue-500 mx-auto rounded-full mb-12"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            viewport={{ once: true }}
           />
-        </motion.div>
+        </div>
 
         {/* كروت الباقات */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 mb-16">
           {subscriptionPlans.map((plan, index) => (
-            <motion.div
+            <div
               key={plan.id}
-              className={`group relative bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/50 hover:border-white/70 ${
-                plan.popular ? 'ring-2 ring-purple-500/50 scale-105' : ''
-              }`}
-              whileHover={{ scale: plan.popular ? 1.08 : 1.05, y: -10, rotateY: index % 2 === 0 ? 3 : -3 }}
-              whileTap={{ scale: 0.95 }}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-              viewport={{ once: true }}
-              style={{ transformStyle: "preserve-3d" }}
+              className={`group pricing-card ${
+                plan.popular ? 'pricing-card--popular' : ''
+              } animate-fadeIn hover-scale-subtle`}
             >
               {/* شارة الأكثر شعبية */}
               {plan.popular && (
-                <motion.div
-                  className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-lg"
-                  initial={{ opacity: 0, scale: 0 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  viewport={{ once: true }}
+                <div
+                  className="pricing-badge"
                 >
                   <span className="flex items-center gap-2">
                     <Rocket className="w-4 h-4" />
                     الأكثر شعبية
                   </span>
-                </motion.div>
+                </div>
               )}
 
-              <motion.div
+              <div
                 className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/10 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                initial={false}
               />
 
-              <motion.div
-                className="relative z-10 text-center"
-                whileHover={{ scale: 1.05 }}
-              >
+              <div className="pricing-header">
                 {/* أيقونة الباقة */}
-                <motion.div
-                  className={`w-20 h-20 bg-gradient-to-br ${plan.color} rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg group-hover:shadow-xl transition-all duration-300`}
-                  whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
+                <div
+                  className={`pricing-icon bg-gradient-to-br ${plan.color}`}
                 >
                   <div className="text-white">
                     {plan.icon}
                   </div>
-                </motion.div>
+                </div>
 
                 {/* اسم الباقة */}
-                <motion.h3
-                  className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-gray-800 transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                >
+                <h3 className="pricing-name">
                   {plan.name}
-                </motion.h3>
+                </h3>
 
                 {/* وصف الباقة */}
-                <motion.p
-                  className="text-gray-600 text-sm leading-relaxed mb-6 group-hover:text-gray-700 transition-colors duration-300"
-                  whileHover={{ scale: 1.02 }}
-                >
+                <p className="pricing-description">
                   {plan.description}
-                </motion.p>
+                </p>
+              </div>
 
-                {/* السعر */}
-                <motion.div
-                  className="mb-6"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <div className="flex items-center justify-center gap-3 mb-2">
-                    {plan.originalPrice && (
-                      <span className="text-lg text-gray-400 line-through">
-                        ${plan.originalPrice}
-                      </span>
-                    )}
-                    <span className={`text-4xl font-bold bg-gradient-to-r ${plan.color} bg-clip-text text-transparent`}>
-                      ${plan.price}
-                    </span>
-                    <span className="text-gray-600 text-lg">
-                      {plan.period}
+              {/* السعر */}
+              <div className="pricing-price-wrapper">
+                {plan.originalPrice && (
+                  <div className="pricing-price-original">
+                    ${plan.originalPrice}
+                  </div>
+                )}
+                <div className="flex items-center justify-center gap-2">
+                  <span className={`pricing-price-current bg-gradient-to-r ${plan.color} bg-clip-text text-transparent`}>
+                    ${plan.price}
+                  </span>
+                  <span className="pricing-price-period">
+                    {plan.period}
+                  </span>
+                </div>
+
+                {plan.savings && (
+                  <div
+                    className="pricing-savings"
+                  >
+                    <Sparkles className="w-4 h-4" />
+                    <span>{plan.savings}</span>
+                  </div>
+                )}
+              </div>
+
+              {/* قائمة الميزات */}
+              <div className="pricing-features">
+                {plan.features.map((feature, featureIndex) => (
+                  <div
+                    key={featureIndex}
+                    className="pricing-feature-item"
+                  >
+                    <div
+                      className={`pricing-feature-check bg-gradient-to-r ${plan.color}`}
+                    >
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="pricing-feature-text">
+                      {feature}
                     </span>
                   </div>
+                ))}
+              </div>
 
-                  {plan.savings && (
-                    <motion.div
-                      className="inline-flex items-center gap-2 bg-gradient-to-r from-green-100 to-green-200 text-green-700 px-3 py-1 rounded-full text-sm font-semibold"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <span>🎉</span>
-                      <span>{plan.savings}</span>
-                    </motion.div>
-                  )}
-                </motion.div>
-
-                {/* قائمة الميزات */}
-                <motion.div
-                  className="space-y-3 mb-8 text-left"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-                  viewport={{ once: true }}
-                >
-                  {plan.features.map((feature, featureIndex) => (
-                    <motion.div
-                      key={featureIndex}
-                      className="flex items-start gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.4, delay: 0.6 + featureIndex * 0.05 }}
-                      viewport={{ once: true }}
-                    >
-                      <motion.div
-                        className={`w-5 h-5 bg-gradient-to-r ${plan.color} rounded-full flex items-center justify-center mt-0.5 flex-shrink-0`}
-                        whileHover={{ scale: 1.2, rotate: 360 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <Check className="w-3 h-3 text-white" />
-                      </motion.div>
-                      <span className="text-gray-700 text-sm leading-relaxed">
-                        {feature}
-                      </span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                {/* زر الاشتراك */}
-                <motion.button
-                  className={`w-full py-4 px-6 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white'
-                      : `bg-gradient-to-r ${plan.color} hover:opacity-90 text-white`
-                  }`}
-                  whileHover={{ scale: 1.02, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <span className="flex items-center justify-center gap-2">
-                    {plan.buttonText}
-                    <motion.span
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity }}
-                    >
-                      →
-                    </motion.span>
-                  </span>
-                </motion.button>
-
-                {/* خط زخرفي */}
-                <motion.div
-                  className="mt-6 flex justify-center"
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <motion.div
-                    className={`w-12 h-1 bg-gradient-to-r ${plan.color} rounded-full group-hover:w-16 transition-all duration-500`}
-                    initial={false}
-                  />
-                </motion.div>
-              </motion.div>
-            </motion.div>
+              {/* زر الاشتراك */}
+              <button
+                className={`w-full hover-scale-subtle transition-smooth ${
+                  plan.popular
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
+                    : `bg-gradient-to-r ${plan.color} hover:opacity-90`
+                } text-white py-4 px-6 rounded-2xl font-bold text-lg`}
+              >
+                <span className="flex items-center justify-center gap-2">
+                  {plan.buttonText}
+                  →
+                </span>
+              </button>
+            </div>
           ))}
         </div>
 
         {/* قسم المقارنة */}
-        <motion.div
-          className="bg-gradient-to-r from-green-50 to-blue-50 backdrop-blur-sm rounded-3xl p-8 border border-green-200/50 mb-12"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          viewport={{ once: true }}
+        <div
+          className="bg-gradient-to-r from-green-50 to-blue-50 backdrop-blur-sm rounded-3xl p-8 border border-green-200/50 mb-12 animate-fadeIn"
         >
-          <motion.div
+          <div
             className="text-center mb-8"
-            whileHover={{ scale: 1.02 }}
           >
-            <motion.div
+            <div
               className="inline-flex items-center gap-3 bg-gradient-to-r from-green-500 to-blue-500 px-6 py-3 rounded-full mb-6"
-              whileHover={{ scale: 1.05 }}
             >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              >
-                <span className="text-2xl">⚖️</span>
-              </motion.div>
+              <Scale className="w-6 h-6" />
               <span className="text-white font-bold">مقارنة الباقات</span>
-            </motion.div>
+            </div>
 
             <h3 className="text-3xl font-bold text-gray-900 mb-4">لماذا تختار باقاتنا؟</h3>
             <p className="text-gray-700 text-lg max-w-3xl mx-auto leading-relaxed">
               نقدم أسعار تنافسية مع جودة عالية وقيمة استثنائية لكل دولار تدفعه
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="grid md:grid-cols-3 gap-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.0 }}
-            viewport={{ once: true }}
+          <div
+            className="grid md:grid-cols-3 gap-8 animate-fadeIn"
           >
             {[
               {
-                icon: "💰",
+                icon: <DollarSign className="w-6 h-6" />,
                 title: "أسعار تنافسية",
                 description: "أفضل الأسعار في السوق مع خصومات تصل إلى 40%",
                 color: "from-green-500 to-green-600"
               },
               {
-                icon: "🔒",
+                icon: <ShieldCheck className="w-6 h-6" />,
                 title: "ضمان استرداد 30 يوم",
                 description: "جرب خدماتنا بدون مخاطر مع ضمان استرداد كامل",
                 color: "from-blue-500 to-blue-600"
               },
               {
-                icon: "🚀",
+                icon: <Rocket className="w-6 h-6" />,
                 title: "ترقية مجانية",
                 description: "يمكنك الترقية إلى باقة أعلى في أي وقت بدون رسوم إضافية",
                 color: "from-purple-500 to-purple-600"
               }
             ].map((advantage, index) => (
-              <motion.div
+              <div
                 key={advantage.title}
-                className="text-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.1 + index * 0.1 }}
-                viewport={{ once: true }}
+                className="text-center animate-fadeIn"
               >
-                <motion.div
+                <div
                   className={`w-16 h-16 bg-gradient-to-br ${advantage.color} rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg`}
-                  whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
-                  transition={{ duration: 0.5 }}
                 >
-                  <span className="text-2xl">{advantage.icon}</span>
-                </motion.div>
+                  {advantage.icon}
+                </div>
 
                 <h4 className="text-xl font-bold text-gray-900 mb-3">
                   {advantage.title}
@@ -409,33 +291,24 @@ const SubscriptionCardsComponent: React.FC = () => {
                 <p className="text-gray-600 leading-relaxed">
                   {advantage.description}
                 </p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* أسئلة شائعة حول الباقات */}
-        <motion.div
-          className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/50"
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 1.2 }}
-          viewport={{ once: true }}
+        <div
+          className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 border border-white/50 animate-fadeIn"
         >
-          <motion.div
+          <div
             className="text-center mb-8"
-            whileHover={{ scale: 1.02 }}
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-4">أسئلة شائعة حول الباقات</h3>
             <p className="text-gray-600">إجابات سريعة على أهم استفساراتك</p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            className="grid md:grid-cols-2 gap-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-            viewport={{ once: true }}
+          <div
+            className="grid md:grid-cols-2 gap-6 animate-fadeIn"
           >
             {[
               {
@@ -455,63 +328,39 @@ const SubscriptionCardsComponent: React.FC = () => {
                 answer: "نعم، جميع شهاداتنا معتمدة من IIA وجهات دولية مرموقة أخرى."
               }
             ].map((faq, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="bg-gray-50/50 rounded-2xl p-6 border border-gray-200/50"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 1.5 + index * 0.1 }}
-                viewport={{ once: true }}
+                className="bg-gray-50/50 rounded-2xl p-6 border border-gray-200/50 animate-fadeIn"
               >
                 <h4 className="font-bold text-gray-900 mb-2">{faq.question}</h4>
                 <p className="text-gray-600 text-sm">{faq.answer}</p>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* زر التواصل للاستفسارات */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1.6 }}
-          viewport={{ once: true }}
+        <div
+          className="text-center mt-12 animate-fadeIn"
         >
-          <motion.button
-            className="group relative bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl"
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
+          <button
+            className="group relative bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-smooth shadow-lg hover:shadow-xl hover-scale-subtle"
           >
             <span className="flex items-center gap-3">
-              <motion.span
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                💬
-              </motion.span>
+              <MessageCircle className="w-5 h-5" />
               تواصل معنا للاستفسارات
-              <motion.span
-                animate={{ x: [0, 3, 0] }}
-                transition={{ duration: 1.2, repeat: Infinity }}
-              >
-                →
-              </motion.span>
+              →
             </span>
-          </motion.button>
+          </button>
 
-          <motion.p
+          <p
             className="text-gray-600 mt-4 text-sm"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.8 }}
-            viewport={{ once: true }}
           >
             فريق المبيعات متاح لمساعدتك في اختيار الباقة المناسبة
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

@@ -1,19 +1,21 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Send,
-  AlertCircle,
-  CheckCircle,
   MessageSquare,
+  Send,
+
+  
 } from 'lucide-react';
 import { contactInfo, ContactInfo } from './contact-data';
+import { showToast, toastMessages } from '../utils/toast';
 
 /**
  * Contact information card with icon, title, and content. Supports clickable links for phone and email.
  */
-const ContactInfoCard = ({ info }: { info: ContactInfo }) => (
+const ContactInfoCard = React.memo(({ info }: { info: ContactInfo }) => (
   <div
     className={`group bg-gradient-to-r ${info.bgGradient} p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-all duration-300`}
   >
@@ -33,7 +35,9 @@ const ContactInfoCard = ({ info }: { info: ContactInfo }) => (
       </div>
     </div>
   </div>
-);
+));
+
+ContactInfoCard.displayName = 'ContactInfoCard';
 
 /**
  * Contact form component with submission handling and contact information display. Features form validation, loading states, success/error feedback, and animated contact info cards with gradient styling.
@@ -46,9 +50,8 @@ const ContactComponent = () => {
     subject: '',
     message: '',
   });
-  // Loading and status states for form submission feedback
+  // Loading state for form submission feedback
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   /**
    * Updates form data state when input values change
@@ -60,19 +63,30 @@ const ContactComponent = () => {
   };
 
   /**
-   * Handles form submission with simulated API call. Shows success/error status and resets form on success.
+   * Handles form submission with simulated API call. Shows success/error toast notifications and resets form on success.
    */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     try {
+      // Show loading toast
+      const loadingToast = showToast.loading('جاري إرسال الرسالة...');
+
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       // TODO: Integrate with actual contact API endpoint - POST to /api/contact
-      setSubmitStatus('success');
+
+      // Dismiss loading toast and show success
+      showToast.dismiss(loadingToast);
+      showToast.success(toastMessages.formSubmitted);
+
+      // Reset form on success
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch {
-      setSubmitStatus('error');
+    } catch (error) {
+      // Show error toast
+      showToast.error('حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
     } finally {
       setIsSubmitting(false);
     }
@@ -215,18 +229,6 @@ const ContactComponent = () => {
                 )}
               </motion.button>
 
-              {submitStatus === 'success' && (
-                <div className="flex items-center justify-center gap-2 text-green-700 bg-green-50 px-4 py-3 rounded-xl mt-4">
-                  <CheckCircle className="w-5 h-5" />
-                  <span className="font-medium">تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.</span>
-                </div>
-              )}
-              {submitStatus === 'error' && (
-                <div className="flex items-center justify-center gap-2 text-red-700 bg-red-50 px-4 py-3 rounded-xl mt-4">
-                  <AlertCircle className="w-5 h-5" />
-                  <span className="font-medium">حدث خطأ أثناء الإرسال. حاول مرة أخرى.</span>
-                </div>
-              )}
             </form>
           </motion.div>
 

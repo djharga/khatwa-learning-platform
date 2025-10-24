@@ -2,78 +2,82 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
-  User,
-  Settings,
-  BookOpen,
-  Clock,
-  Users,
-  Star,
-  Calendar,
-  Globe,
-  Bell,
-  Save,
-  Camera,
+  Activity,
   AlertCircle,
-  FileText,
-  CheckCircle,
-  Play,
-  Brain,
+  Archive,
   Award,
-  TrendingUp,
-  FileCheck,
-  Video,
-  MessageCircle,
-  XCircle,
-  File,
+  BarChart3,
+  Battery,
+  BatteryLow,
+  Bell,
+  BookOpen,
+  Brain,
+  Calendar,
+  Camera,
+  CheckCircle,
+  ChevronDown,
+  ChevronRight,
+  Clock,
+  Copy,
   Download,
   Edit,
-  Trash2,
-  Share,
+  ExternalLink,
   Eye,
   EyeOff,
-  Plus,
-  Search,
+  File,
+  FileCheck,
+  FileText,
   Filter,
-  Grid,
-  List,
-  BarChart3,
-  PieChart,
-  Activity,
-  Target,
-  Zap,
-  Shield,
-  Heart,
-  ThumbsUp,
-  MessageSquare,
-  Share2,
-  MapPin,
-  Loader2,
-  Grid3X3,
-  ExternalLink,
-  Copy,
-  RefreshCw,
-  Upload,
-  Image,
-  Video as VideoIcon,
-  Music,
-  Archive,
   Folder,
   FolderOpen,
-  ChevronRight,
-  ChevronDown,
-  MoreVertical,
-  Sun,
+  Globe,
+  Grid,
+  Grid3X3,
+  GraduationCap,
+  Heart,
+  Image,
+  Laptop,
+  List,
+  Loader2,
+  MapPin,
+  MessageCircle,
+  MessageSquare,
+  Monitor,
   Moon,
+  MoreVertical,
+  Music,
   Palette,
+  PieChart,
+  Play,
+  Plus,
+  RefreshCw,
+  Save,
+  Search,
+  Settings,
+  Share,
+  Share2,
+  Shield,
+  Smartphone,
+  Star,
+  Sun,
+  Tablet,
+  Target,
+  ThumbsUp,
+  TrendingUp,
+  Trash2,
+  Upload,
+  User,
+  Users,
+  Video,
+  Video as VideoIcon,
   Volume2,
   VolumeX,
   Wifi,
   WifiOff,
-  Battery,
-  BatteryLow,
-  Smartphone,
-  Monitor,
-  Tablet,
+  XCircle,
+  Zap,
+  Trophy,
+  QrCode,
 } from 'lucide-react';
 import Link from 'next/link';
 import { Input, Button, Checkbox, Select, FormField } from './ui';
@@ -146,6 +150,8 @@ const ProfileComponent = () => {
   const [activeTab, setActiveTab] = useState<
     | 'profile'
     | 'courses'
+    | 'achievements'
+    | 'digital-card'
     | 'certificates'
     | 'exams'
     | 'badges'
@@ -260,12 +266,116 @@ const ProfileComponent = () => {
     },
   ];
 
+  // بيانات التقييمات والاختبارات
+  const assessments = [
+    {
+      id: '1',
+      title: 'اختبار أساسيات البرمجة',
+      courseName: 'مقدمة في البرمجة',
+      score: 85,
+      maxScore: 100,
+      grade: 'ممتاز',
+      date: '2023-10-10',
+      duration: '45 دقيقة',
+      questionsCount: 20,
+      correctAnswers: 17,
+      strengths: ['المتغيرات', 'الحلقات', 'الدوال'],
+      weaknesses: ['الأخطاء الشائعة'],
+      recommendations: ['مراجعة أساسيات البرمجة', 'حل تمارين إضافية'],
+    },
+    {
+      id: '2',
+      title: 'اختبار React المتقدم',
+      courseName: 'تطوير الويب بـ React',
+      score: 92,
+      maxScore: 100,
+      grade: 'امتياز',
+      date: '2023-11-15',
+      duration: '60 دقيقة',
+      questionsCount: 25,
+      correctAnswers: 23,
+      strengths: ['Hooks', 'State Management', 'Components'],
+      weaknesses: ['Performance Optimization'],
+      recommendations: ['دراسة React Performance', 'تطبيق مشاريع عملية'],
+    },
+  ];
+
+  // المشاريع المنجزة
+  const completedProjects = [
+    {
+      id: '1',
+      title: 'تطبيق إدارة المهام',
+      courseName: 'تطوير الويب بـ React',
+      description: 'تطبيق ويب لإدارة المهام اليومية مع إمكانية إضافة وتعديل وحذف المهام',
+      technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Local Storage'],
+      completionDate: '2023-11-10',
+      grade: 'A+',
+      githubUrl: 'https://github.com/user/task-manager',
+      demoUrl: 'https://task-manager-demo.vercel.app',
+      image: '/api/placeholder/400/300',
+      features: ['إضافة مهمة', 'تعديل مهمة', 'حذف مهمة', 'فلترة المهام', 'تخزين محلي'],
+      challenges: ['إدارة الحالة المعقدة', 'تصميم واجهة مستخدم جذابة'],
+      learnings: ['إدارة الحالة في React', 'استخدام TypeScript', 'تصميم متجاوب'],
+    },
+    {
+      id: '2',
+      title: 'نظام إدارة المكتبة',
+      courseName: 'قواعد البيانات',
+      description: 'نظام شامل لإدارة المكتبات مع إمكانية البحث والإعارة وإدارة الكتب',
+      technologies: ['Node.js', 'Express', 'MongoDB', 'EJS'],
+      completionDate: '2023-12-05',
+      grade: 'A',
+      githubUrl: 'https://github.com/user/library-system',
+      demoUrl: 'https://library-system-demo.herokuapp.com',
+      image: '/api/placeholder/400/300',
+      features: ['إدارة الكتب', 'نظام الإعارة', 'البحث المتقدم', 'إدارة المستخدمين'],
+      challenges: ['تصميم قاعدة البيانات', 'إدارة العلاقات المعقدة'],
+      learnings: ['MongoDB', 'Express.js', 'RESTful APIs', 'Authentication'],
+    },
+  ];
+
+  // التقارير المُنشأة
+  const createdReports = [
+    {
+      id: '1',
+      title: 'تقرير تحليل الأداء الشهري',
+      type: 'تحليل أداء',
+      createdDate: '2023-12-01',
+      lastModified: '2023-12-15',
+      size: '2.3 MB',
+      format: 'PDF',
+      status: 'مكتمل',
+      description: 'تقرير شامل عن أداء الشركة خلال الشهر الماضي مع تحليل المبيعات والأرباح',
+      tags: ['تحليل', 'أداء', 'شهري'],
+      collaborators: ['أحمد محمد', 'سارة علي'],
+      views: 45,
+      downloads: 12,
+      comments: 8,
+    },
+    {
+      id: '2',
+      title: 'دراسة جدوى مشروع جديد',
+      type: 'دراسة جدوى',
+      createdDate: '2023-11-20',
+      lastModified: '2023-11-25',
+      size: '5.7 MB',
+      format: 'Word',
+      status: 'قيد المراجعة',
+      description: 'دراسة شاملة لجدوى إطلاق مشروع تطبيق جوال جديد في السوق المحلي',
+      tags: ['جدوى', 'مشروع', 'دراسة'],
+      collaborators: ['أحمد محمد', 'محمد حسن', 'فاطمة خالد'],
+      views: 23,
+      downloads: 5,
+      comments: 15,
+    },
+  ];
+
   const badges = [
     {
       id: '1',
       title: 'المتعلم المثابر',
       description: 'أكمل 3 دورات متتالية',
-      icon: '🏆',
+      icon: <Award className="w-6 h-6" />,
       earnedDate: '2024-10-10',
       category: 'achievement',
       rarity: 'common',
@@ -276,7 +386,7 @@ const ProfileComponent = () => {
       id: '2',
       title: 'مطور الويب',
       description: 'أكمل دورة تطوير الويب',
-      icon: '💻',
+      icon: <Laptop className="w-6 h-6" />,
       earnedDate: '2024-10-10',
       category: 'skill',
       rarity: 'rare',
@@ -287,7 +397,7 @@ const ProfileComponent = () => {
       id: '3',
       title: 'المشارك النشط',
       description: 'شارك في 10 مناقشات',
-      icon: '💬',
+      icon: <MessageCircle className="w-6 h-6" />,
       earnedDate: null,
       category: 'social',
       rarity: 'common',
@@ -330,7 +440,7 @@ const ProfileComponent = () => {
       title: 'أكملت دورة تطوير تطبيقات الويب',
       description: 'تهانينا! لقد أكملت الدورة بنجاح',
       timestamp: '2024-10-10T14:30:00Z',
-      icon: '🎓',
+      icon: <GraduationCap className="w-5 h-5" />,
       category: 'achievement',
       metadata: { courseId: '2', grade: 'A+' },
     },
@@ -340,7 +450,7 @@ const ProfileComponent = () => {
       title: 'حصلت على شارة المطور',
       description: 'مبروك على إنجازك الجديد!',
       timestamp: '2024-10-10T14:35:00Z',
-      icon: '🏆',
+      icon: <Award className="w-5 h-5" />,
       category: 'badge',
       metadata: { badgeId: '2' },
     },
@@ -350,7 +460,7 @@ const ProfileComponent = () => {
       title: 'دخلت درس المتغيرات والدوال',
       description: 'استمر في التقدم!',
       timestamp: '2024-10-15T09:15:00Z',
-      icon: '📚',
+      icon: <BookOpen className="w-5 h-5" />,
       category: 'learning',
       metadata: { courseId: '1', lessonId: '5' },
     },
@@ -692,14 +802,26 @@ const ProfileComponent = () => {
                 color: 'green',
               },
               {
-                id: 'certificates',
-                label: 'الشهادات',
-                icon: Award,
+                id: 'achievements',
+                label: 'الإنجازات',
+                icon: Trophy,
                 color: 'yellow',
               },
               {
+                id: 'digital-card',
+                label: 'البطاقة الرقمية',
+                icon: Shield,
+                color: 'emerald',
+              },
+              {
+                id: 'certificates',
+                label: 'الشهادات',
+                icon: Award,
+                color: 'orange',
+              },
+              {
                 id: 'exams',
-                label: 'الاختبارات',
+                label: 'التقييمات',
                 icon: FileCheck,
                 color: 'purple',
               },
@@ -893,6 +1015,395 @@ const ProfileComponent = () => {
                     totalHours={totalHours}
                     averageProgress={averageProgress}
                   />
+                </motion.div>
+              )}
+
+              {activeTab === 'achievements' && (
+                <motion.div
+                  key="achievements"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="space-y-8">
+                    {/* التقييمات والاختبارات */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                        <FileCheck className="w-8 h-8 text-purple-600" />
+                        التقييمات والاختبارات
+                      </h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {assessments.map((assessment) => (
+                          <motion.div
+                            key={assessment.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 rounded-lg p-6 border border-purple-200 dark:border-purple-700"
+                          >
+                            <div className="flex items-center justify-between mb-4">
+                              <h4 className="font-bold text-gray-900 dark:text-white">{assessment.title}</h4>
+                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                assessment.grade === 'امتياز' ? 'bg-green-100 text-green-800' :
+                                assessment.grade === 'ممتاز' ? 'bg-blue-100 text-blue-800' :
+                                'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {assessment.grade}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{assessment.courseName}</p>
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">النتيجة:</span>
+                                <div className="font-semibold text-gray-900 dark:text-white">
+                                  {assessment.score}/{assessment.maxScore}
+                                </div>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">التاريخ:</span>
+                                <div className="font-semibold text-gray-900 dark:text-white">{assessment.date}</div>
+                              </div>
+                            </div>
+                            <div className="mt-4">
+                              <div className="text-sm text-gray-500 mb-2">نقاط القوة:</div>
+                              <div className="flex flex-wrap gap-1">
+                                {assessment.strengths.map((strength, idx) => (
+                                  <span key={idx} className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs">
+                                    {strength}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* المشاريع المنجزة */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                        <Target className="w-8 h-8 text-green-600" />
+                        المشاريع المنجزة
+                      </h3>
+                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {completedProjects.map((project) => (
+                          <motion.div
+                            key={project.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-lg p-6 border border-green-200 dark:border-green-700"
+                          >
+                            <div className="flex items-center justify-between mb-4">
+                              <h4 className="font-bold text-gray-900 dark:text-white">{project.title}</h4>
+                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                project.grade === 'A+' ? 'bg-green-100 text-green-800' :
+                                project.grade === 'A' ? 'bg-blue-100 text-blue-800' :
+                                'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {project.grade}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">{project.description}</p>
+                            <div className="mb-4">
+                              <div className="text-sm text-gray-500 mb-2">التقنيات المستخدمة:</div>
+                              <div className="flex flex-wrap gap-1">
+                                {project.technologies.map((tech, idx) => (
+                                  <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
+                                    {tech}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="flex gap-2">
+                              {project.githubUrl && (
+                                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer"
+                                   className="flex items-center gap-2 px-3 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm">
+                                  <ExternalLink className="w-4 h-4" />
+                                  GitHub
+                                </a>
+                              )}
+                              {project.demoUrl && (
+                                <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                                   className="flex items-center gap-2 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                                  <Eye className="w-4 h-4" />
+                                  Demo
+                                </a>
+                              )}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* التقارير المُنشأة */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                        <FileText className="w-8 h-8 text-orange-600" />
+                        التقارير المُنشأة
+                      </h3>
+                      <div className="space-y-4">
+                        {createdReports.map((report) => (
+                          <motion.div
+                            key={report.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-lg p-6 border border-orange-200 dark:border-orange-700"
+                          >
+                            <div className="flex items-center justify-between mb-4">
+                              <div>
+                                <h4 className="font-bold text-gray-900 dark:text-white">{report.title}</h4>
+                                <p className="text-sm text-gray-600 dark:text-gray-300">{report.description}</p>
+                              </div>
+                              <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                report.status === 'مكتمل' ? 'bg-green-100 text-green-800' :
+                                'bg-yellow-100 text-yellow-800'
+                              }`}>
+                                {report.status}
+                              </span>
+                            </div>
+                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mb-4">
+                              <div>
+                                <span className="text-gray-500">النوع:</span>
+                                <div className="font-semibold text-gray-900 dark:text-white">{report.type}</div>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الحجم:</span>
+                                <div className="font-semibold text-gray-900 dark:text-white">{report.size}</div>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">التنسيق:</span>
+                                <div className="font-semibold text-gray-900 dark:text-white">{report.format}</div>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">الإنشاء:</span>
+                                <div className="font-semibold text-gray-900 dark:text-white">{report.createdDate}</div>
+                              </div>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+                                <span>👁️ {report.views}</span>
+                                <span>⬇️ {report.downloads}</span>
+                                <span>💬 {report.comments}</span>
+                              </div>
+                              <div className="flex gap-2">
+                                <button className="px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                                  عرض
+                                </button>
+                                <button className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors text-sm">
+                                  تحميل
+                                </button>
+                              </div>
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {activeTab === 'digital-card' && (
+                <motion.div
+                  key="digital-card"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="space-y-8">
+                    {/* مقدمة البطاقة الرقمية */}
+                    <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 rounded-xl p-8 border border-emerald-200 dark:border-emerald-700">
+                      <div className="text-center mb-8">
+                        <Shield className="w-16 h-16 text-emerald-600 mx-auto mb-4" />
+                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                          بطاقة الأعمال الرقمية المهنية
+                        </h2>
+                        <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                          بطاقة أعمال رقمية احترافية تجمع كافة إنجازاتك واعتماداتك المهنية في رابط واحد قابل للمشاركة
+                        </p>
+                      </div>
+
+                      {/* معاينة البطاقة */}
+                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-2xl mx-auto">
+                        <div className="flex items-center gap-6 mb-6">
+                          <img
+                            src={userData.profileImage}
+                            alt={userData.name}
+                            className="w-20 h-20 rounded-full border-4 border-emerald-500"
+                          />
+                          <div className="flex-1">
+                            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{userData.name}</h3>
+                            <p className="text-emerald-600 font-medium">محاسب ومراجع داخلي معتمد</p>
+                            <p className="text-gray-600 dark:text-gray-300">{userData.bio}</p>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-emerald-600">{certificates.length}</div>
+                            <div className="text-sm text-gray-600 dark:text-gray-300">شهادات</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-blue-600">{completedProjects.length}</div>
+                            <div className="text-sm text-gray-600 dark:text-gray-300">مشاريع</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-purple-600">{assessments.length}</div>
+                            <div className="text-sm text-gray-600 dark:text-gray-300">تقييمات</div>
+                          </div>
+                          <div className="text-center">
+                            <div className="text-2xl font-bold text-orange-600">{createdReports.length}</div>
+                            <div className="text-sm text-gray-600 dark:text-gray-300">تقارير</div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          <span className="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm">المراجعة الداخلية</span>
+                          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">المحاسبة المالية</span>
+                          <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">إدارة المخاطر</span>
+                          <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm">الامتثال</span>
+                        </div>
+
+                        <div className="text-center">
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                            آخر تحديث: {new Date().toLocaleDateString('ar-EG')}
+                          </p>
+                          <div className="flex justify-center gap-4">
+                            <button className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                              <Share2 className="w-4 h-4" />
+                              مشاركة البطاقة
+                            </button>
+                            <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                              <Download className="w-4 h-4" />
+                              تحميل PDF
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* إعدادات البطاقة */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                        <Settings className="w-8 h-8 text-emerald-600" />
+                        إعدادات البطاقة الرقمية
+                      </h3>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              عنوان البطاقة
+                            </label>
+                            <input
+                              type="text"
+                              defaultValue="محاسب ومراجع داخلي معتمد"
+                              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              المهارات الرئيسية (مفصولة بفواصل)
+                            </label>
+                            <textarea
+                              defaultValue="المراجعة الداخلية, المحاسبة المالية, إدارة المخاطر, الامتثال"
+                              rows={3}
+                              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              لون البطاقة
+                            </label>
+                            <select className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                              <option value="emerald">زمردي</option>
+                              <option value="blue">أزرق</option>
+                              <option value="purple">بنفسجي</option>
+                              <option value="orange">برتقالي</option>
+                            </select>
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                              إعدادات الخصوصية
+                            </label>
+                            <div className="space-y-2">
+                              <label className="flex items-center">
+                                <input type="checkbox" defaultChecked className="ml-2" />
+                                <span className="text-sm text-gray-700 dark:text-gray-300">عرض الشهادات</span>
+                              </label>
+                              <label className="flex items-center">
+                                <input type="checkbox" defaultChecked className="ml-2" />
+                                <span className="text-sm text-gray-700 dark:text-gray-300">عرض المشاريع</span>
+                              </label>
+                              <label className="flex items-center">
+                                <input type="checkbox" defaultChecked className="ml-2" />
+                                <span className="text-sm text-gray-700 dark:text-gray-300">عرض التقييمات</span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-4 mt-6">
+                        <button className="flex items-center gap-2 px-6 py-3 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors">
+                          <Save className="w-5 h-5" />
+                          حفظ التغييرات
+                        </button>
+                        <button className="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                          <Eye className="w-5 h-5" />
+                          معاينة البطاقة
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* روابط المشاركة */}
+                    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                        <Share2 className="w-8 h-8 text-emerald-600" />
+                        روابط المشاركة
+                      </h3>
+
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white">رابط البطاقة العام</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">https://khatwa.edu/card/ahmed-mohamed</p>
+                          </div>
+                          <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                            <Copy className="w-4 h-4" />
+                            نسخ
+                          </button>
+                        </div>
+
+                        <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white">رابط PDF قابل للتحميل</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">https://khatwa.edu/card/ahmed-mohamed.pdf</p>
+                          </div>
+                          <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
+                            <Download className="w-4 h-4" />
+                            تحميل
+                          </button>
+                        </div>
+
+                        <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                          <div>
+                            <h4 className="font-semibold text-gray-900 dark:text-white">رمز QR</h4>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">للمشاركة عبر الهاتف المحمول</p>
+                          </div>
+                          <button className="flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                            <QrCode className="w-4 h-4" />
+                            عرض
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </motion.div>
               )}
 

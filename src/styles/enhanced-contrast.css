@@ -1,0 +1,499 @@
+/* ==========================================
+   🎨 ENHANCED CONTRAST SYSTEM - نظام التباين المحسّن
+   ========================================== */
+
+/* ==========================================
+   TEXT CONTRAST - تباين النصوص
+   ========================================== */
+
+/* Primary Text - 4.5:1+ contrast on white */
+.text-contrast-primary {
+  color: #0f172a;
+}
+
+/* Secondary Text - 4.5:1+ contrast on light backgrounds */
+.text-contrast-secondary {
+  color: #1f2937;
+}
+
+/* Tertiary Text - 4.5:1+ contrast */
+.text-contrast-tertiary {
+  color: #6b7280;
+}
+
+/* Muted Text - 3:1+ contrast (for large text only) */
+.text-contrast-muted {
+  color: #a0aec0;
+}
+
+/* ==========================================
+   UI ELEMENTS CONTRAST - تباين عناصر الواجهة
+   ========================================== */
+
+/* Primary Accent - 3:1+ contrast for UI elements */
+.accent-contrast-primary {
+  color: #3182ce;
+}
+
+.bg-accent-contrast-primary {
+  background-color: #3182ce;
+}
+
+/* Success Color - 3:1+ contrast */
+.accent-contrast-success {
+  color: #38a169;
+}
+
+.bg-accent-contrast-success {
+  background-color: #38a169;
+}
+
+/* Warning Color - 3:1+ contrast */
+.accent-contrast-warning {
+  color: #d69e2e;
+}
+
+.bg-accent-contrast-warning {
+  background-color: #d69e2e;
+}
+
+/* Error Color - 3:1+ contrast */
+.accent-contrast-error {
+  color: #e53e3e;
+}
+
+.bg-accent-contrast-error {
+  background-color: #e53e3e;
+}
+
+/* Info Color - 3:1+ contrast */
+.accent-contrast-info {
+  color: #3182ce;
+}
+
+.bg-accent-contrast-info {
+  background-color: #3182ce;
+}
+
+/* ==========================================
+   ICON CONTRAST - تباين الأيقونات
+   ========================================== */
+
+/* Icon colors with 3:1+ contrast */
+.icon-contrast-primary {
+  color: #1d4ed8;
+}
+
+.icon-contrast-success {
+  color: #15803d;
+}
+
+.icon-contrast-warning {
+  color: #d97706;
+}
+
+.icon-contrast-error {
+  color: #dc2626;
+}
+
+/* Icon backgrounds with sufficient contrast */
+.icon-bg-primary {
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+
+.icon-bg-success {
+  background-color: #f0fdf4;
+  color: #166534;
+}
+
+.icon-bg-warning {
+  background-color: #fffbeb;
+  color: #92400e;
+}
+
+.icon-bg-error {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+/* ==========================================
+   INTERACTIVE STATES - حالات التفاعل
+   ========================================== */
+
+/* Hover States with High Contrast */
+.interactive-hover:hover {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Focus States with High Contrast */
+.interactive-focus:focus-visible {
+  outline: 3px solid #3182ce;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Active States */
+.interactive-active:active {
+  outline: 2px solid #1e40af;
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   BUTTON CONTRAST - تباين الأزرار
+   ========================================== */
+
+/* Primary Button - High Contrast */
+.btn-contrast-primary {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 200ms ease;
+}
+
+.btn-contrast-primary:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
+  box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-contrast-primary:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+}
+
+/* Secondary Button - High Contrast */
+.btn-contrast-secondary {
+  background: transparent;
+  color: #1e40af;
+  border: 2px solid #3b82f6;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 200ms ease;
+}
+
+.btn-contrast-secondary:hover {
+  background: #eff6ff;
+  border-color: #1e40af;
+  color: #1e40af;
+}
+
+.btn-contrast-secondary:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+}
+
+/* ==========================================
+   LINK CONTRAST - تباين الروابط
+   ========================================== */
+
+.link-contrast {
+  color: #1e40af;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  transition: all 150ms ease;
+}
+
+.link-contrast:hover {
+  color: #1e3a8a;
+  text-decoration-thickness: 3px;
+}
+
+.link-contrast:focus-visible {
+  outline: 3px solid #3182ce;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   BADGE CONTRAST - تباين الشارات
+   ========================================== */
+
+.badge-contrast-primary {
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #93c5fd;
+}
+
+.badge-contrast-success {
+  background-color: #dcfce7;
+  color: #15803d;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #86efac;
+}
+
+.badge-contrast-warning {
+  background-color: #fef3c7;
+  color: #b45309;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #fcd34d;
+}
+
+.badge-contrast-error {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #fca5a5;
+}
+
+/* ==========================================
+   FORM ELEMENTS CONTRAST - تباين عناصر النماذج
+   ========================================== */
+
+.input-contrast {
+  background: #ffffff;
+  border: 2px solid #d1d5db;
+  color: #0f172a;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 200ms ease;
+}
+
+.input-contrast::placeholder {
+  color: #6b7280;
+}
+
+.input-contrast:hover {
+  border-color: #9ca3af;
+}
+
+.input-contrast:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.input-contrast:disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+/* Label Contrast */
+.label-contrast {
+  color: #1a202c;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* Error State */
+.input-contrast-error {
+  border-color: #e53e3e;
+}
+
+.input-contrast-error:focus {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message-contrast {
+  color: #b91c1c;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================
+   CARD BORDER CONTRAST - تباين حدود البطاقات
+   ========================================== */
+
+.card-border-contrast {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.card-border-contrast:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================
+   DIVIDER CONTRAST - تباين الفواصل
+   ========================================== */
+
+.divider-contrast {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.08);
+  margin: 24px 0;
+}
+
+.divider-contrast-thick {
+  height: 2px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 32px 0;
+}
+
+/* ==========================================
+   DARK MODE CONTRAST - تباين الوضع المظلم
+   ========================================== */
+
+.dark .text-contrast-primary {
+  color: #f1f5f9;
+}
+
+.dark .text-contrast-secondary {
+  color: #cbd5e1;
+}
+
+.dark .text-contrast-tertiary {
+  color: #94a3b8;
+}
+
+.dark .text-contrast-muted {
+  color: #64748b;
+}
+
+.dark .accent-contrast-primary {
+  color: #60a5fa;
+}
+
+.dark .bg-accent-contrast-primary {
+  background-color: #60a5fa;
+}
+
+.dark .icon-bg-primary {
+  background-color: #1e3a8a;
+  color: #93c5fd;
+}
+
+.dark .icon-bg-success {
+  background-color: #14532d;
+  color: #86efac;
+}
+
+.dark .icon-bg-warning {
+  background-color: #78350f;
+  color: #fcd34d;
+}
+
+.dark .icon-bg-error {
+  background-color: #7f1d1d;
+  color: #fca5a5;
+}
+
+.dark .btn-contrast-primary {
+  background: linear-gradient(135deg, #2563eb 0%, #60a5fa 100%);
+}
+
+.dark .btn-contrast-primary:hover {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+.dark .btn-contrast-secondary {
+  color: #93c5fd;
+  border-color: #60a5fa;
+}
+
+.dark .btn-contrast-secondary:hover {
+  background: #1e3a8a;
+  border-color: #93c5fd;
+  color: #dbeafe;
+}
+
+.dark .link-contrast {
+  color: #93c5fd;
+}
+
+.dark .link-contrast:hover {
+  color: #dbeafe;
+}
+
+.dark .input-contrast {
+  background: #1e293b;
+  border-color: #475569;
+  color: #f1f5f9;
+}
+
+.dark .input-contrast::placeholder {
+  color: #64748b;
+}
+
+.dark .input-contrast:hover {
+  border-color: #64748b;
+}
+
+.dark .input-contrast:focus {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+}
+
+.dark .label-contrast {
+  color: #f1f5f9;
+}
+
+.dark .card-border-contrast {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .card-border-contrast:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark .divider-contrast {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .divider-contrast-thick {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ==========================================
+   ACCESSIBILITY HELPERS - مساعدات الوصولية
+   ========================================== */
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .text-contrast-primary,
+  .text-contrast-secondary {
+    color: #000000;
+  }
+  
+  .card-border-contrast {
+    border-width: 2px;
+    border-color: #000000;
+  }
+  
+  .btn-contrast-primary,
+  .btn-contrast-secondary {
+    border-width: 3px;
+  }
+  
+  .interactive-focus:focus-visible {
+    outline-width: 4px;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .btn-contrast-primary,
+  .btn-contrast-secondary,
+  .input-contrast,
+  .link-contrast {
+    transition: none;
+  }
+}

@@ -1,7 +1,10 @@
+import React from 'react';
+import { Users, BookOpen, GraduationCap, Star } from 'lucide-react';
+
 export interface HeroStat {
   readonly number: string;
   readonly label: string;
-  readonly icon?: string;
+  readonly icon?: React.ComponentType;
   readonly trend?: string;
 }
 
@@ -45,10 +48,10 @@ export const heroHomeFeatures: ReadonlyArray<HeroFeature> = [
 ];
 
 export const heroCatalogStats: ReadonlyArray<HeroStat> = [
-  { number: '10,000+', label: 'طالب نشط', icon: '👥', trend: '+15%' },
-  { number: '500+', label: 'ساعة محتوى', icon: '📚', trend: '+8%' },
-  { number: '50+', label: 'دورة متخصصة', icon: '🎓', trend: '+12%' },
-  { number: '95%', label: 'معدل الرضا', icon: '⭐', trend: '+3%' },
+  { number: '10,000+', label: 'طالب نشط', icon: Users, trend: '+15%' },
+  { number: '500+', label: 'ساعة محتوى', icon: BookOpen, trend: '+8%' },
+  { number: '50+', label: 'دورة متخصصة', icon: GraduationCap, trend: '+12%' },
+  { number: '95%', label: 'معدل الرضا', icon: Star, trend: '+3%' },
 ];
 
 export const heroCatalogFeatures: ReadonlyArray<HeroFeature> = [

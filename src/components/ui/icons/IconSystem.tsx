@@ -41,6 +41,9 @@ import {
   CreditCard,
   MessageCircle,
   Video,
+  Truck,
+  Warehouse,
+  ChefHat,
 } from 'lucide-react';
 
 interface IconProps {
@@ -130,21 +133,27 @@ const Icon: React.FC<IconProps> = ({ name, size = 'sm', color, className }) => {
     menu: Menu,
     external: ExternalLink,
     arrowRight: ArrowRight,
-    pen: PenTool,
-    map: Map,
-    clipboard: ClipboardCheck,
-    fileCheck: FileCheck,
-    star: Star
+    truck: Truck,
+    warehouse: Warehouse,
+    'chef-hat': ChefHat,
+    login: User,
+    register: User,
   };
 
   const IconComponent = iconMap[name];
 
   if (!IconComponent) {
-    console.warn(`Icon "${name}" not found`);
-    return null;
+    console.warn(`Icon "${name}" not found, falling back to default`);
+    // Fallback to a default icon
+    return <HelpCircle {...iconProps} />;
   }
 
-  return <IconComponent {...iconProps} />;
+  try {
+    return <IconComponent {...iconProps} />;
+  } catch (error) {
+    console.error(`Error rendering icon "${name}":`, error);
+    return <HelpCircle {...iconProps} />;
+  }
 };
 
 export default Icon;

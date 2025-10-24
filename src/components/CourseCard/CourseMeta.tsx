@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { User, Clock, FileText } from 'lucide-react';
+import { User, Clock, FileText, FileEdit, Sheet, Video, Music } from 'lucide-react';
 
 /**
  * Props for the CourseMeta component
@@ -97,11 +97,11 @@ const CourseMeta = ({
           </h4>
           <div className="grid grid-cols-5 gap-2">
             {[
-              { type: 'pdf', icon: '📄', label: 'PDF', count: Math.floor(filesCount * 0.4) },
-              { type: 'docx', icon: '📝', label: 'Word', count: Math.floor(filesCount * 0.3) },
-              { type: 'xlsx', icon: '📊', label: 'Excel', count: Math.floor(filesCount * 0.2) },
-              { type: 'video', icon: '🎥', label: 'فيديو', count: Math.floor(filesCount * 0.05) },
-              { type: 'audio', icon: '🎵', label: 'صوتي', count: Math.floor(filesCount * 0.05) }
+              { type: 'pdf', icon: <FileText className="w-5 h-5" />, label: 'PDF', count: Math.floor(filesCount * 0.4) },
+              { type: 'docx', icon: <FileEdit className="w-5 h-5" />, label: 'Word', count: Math.floor(filesCount * 0.3) },
+              { type: 'xlsx', icon: <Sheet className="w-5 h-5" />, label: 'Excel', count: Math.floor(filesCount * 0.2) },
+              { type: 'video', icon: <Video className="w-5 h-5" />, label: 'فيديو', count: Math.floor(filesCount * 0.05) },
+              { type: 'audio', icon: <Music className="w-5 h-5" />, label: 'صوتي', count: Math.floor(filesCount * 0.05) }
             ].map((fileType, index) => (
               <motion.div
                 key={fileType.type}

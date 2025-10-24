@@ -63,10 +63,12 @@ interface NotificationItem {
 interface NotificationCenterProps {
   isOpen: boolean;
   onClose: () => void;
+  /** Progressive disclosure mode - shows only count/preview initially */
+  progressiveMode?: boolean;
 }
 
 const NotificationCenter: React.FC<NotificationCenterProps> = memo(
-  ({ isOpen, onClose }) => {
+  ({ isOpen, onClose, progressiveMode = false }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'priority'>(
       'newest'
@@ -421,17 +423,51 @@ const NotificationCenter: React.FC<NotificationCenterProps> = memo(
       }
     };
 
+    // Progressive disclosure mode - show compact preview
+    if (progressiveMode && !isOpen) {
+      return (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative"
+        >
+          <button
+            onClick={() => onClose()}
+            className="relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+            aria-label={`الإشعارات - ${unreadCount} غير مقروء`}
+          >
+            <Bell className="w-5 h-5" />
+            {unreadCount > 0 && (
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium"
+              >
+                {unreadCount > 9 ? '9+' : unreadCount}
+              </motion.span>
+            )}
+          </button>
+        </motion.div>
+      );
+    }
+
     if (!isOpen) return null;
 
     return (
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 flex items-end justify-center z-50 p-4"
+        className="fixed inset-0 bg-black bg-opacity-30 flex items-end justify-center z-50 p-4 backdrop-blur-sm"
         onClick={onClose}
       >
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 100 }}
+          transition={{ 
+            type: 'spring', 
+            damping: 25, 
+            stiffness: 300,
+            duration: 0.4 // تقليل مدة الحركة للاستجابة السريعة
+          }}
           className="bg-white dark:bg-gray-800 rounded-t-3xl shadow-2xl w-full max-w-md max-h-[80vh] overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >

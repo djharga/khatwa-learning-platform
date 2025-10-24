@@ -1,0 +1,595 @@
+/* ==========================================
+   🎨 PROFESSIONAL REFINEMENTS - التحسينات الاحترافية
+   ========================================== */
+
+/* ==========================================
+   EMOJI REPLACEMENT SYSTEM - نظام استبدال الإيموجي
+   ========================================== */
+
+/* Icon Badges - شارات الأيقونات */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
+}
+
+.icon-badge:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.icon-badge-sm {
+  width: 24px;
+  height: 24px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+
+.icon-badge-lg {
+  width: 48px;
+  height: 48px;
+  font-size: 1.125rem;
+  border-radius: 12px;
+}
+
+/* Professional Icon Backgrounds */
+.icon-badge-primary {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1d4ed8;
+  border: 1.5px solid #93c5fd;
+}
+
+.icon-badge-success {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #166534;
+  border: 1.5px solid #86efac;
+}
+
+.icon-badge-warning {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #92400e;
+  border: 1.5px solid #fcd34d;
+}
+
+.icon-badge-info {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1d4ed8;
+  border: 1.5px solid #60a5fa;
+}
+
+.icon-badge-neutral {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #334155;
+  border: 1.5px solid #94a3b8;
+}
+
+/* Text Badges - شارات نصية */
+.text-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid;
+  transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.text-badge:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.10);
+}
+
+.text-badge-primary {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+.text-badge-success {
+  background-color: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.text-badge-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+  border-color: #fcd34d;
+}
+
+.text-badge-certified {
+  background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+  color: #166534;
+  border-color: #4ade80;
+}
+
+/* ==========================================
+   PROFESSIONAL CARD ENHANCEMENTS - تحسينات البطاقات الاحترافية
+   ========================================== */
+
+/* Unified Card Heights */
+.card-equal-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-content-grow {
+  flex: 1;
+}
+
+/* Professional Shadows */
+.shadow-professional {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.shadow-professional-hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.shadow-professional-elevated {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Professional Borders */
+.border-professional {
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.border-professional-hover {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================
+   VISUAL HIERARCHY - الهرمية البصرية
+   ========================================== */
+
+/* Card Header */
+.card-header-professional {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card-header-icon {
+  flex-shrink: 0;
+}
+
+.card-header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Card Title Hierarchy */
+.card-title-primary-professional {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.card-title-secondary-professional {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a202c;
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+/* Card Meta Information */
+.card-meta-professional {
+  font-size: 0.75rem;
+  color: #718096;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+/* Card Description */
+.card-description-professional {
+  font-size: 0.875rem;
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Card Content Section */
+.card-content-professional {
+  margin-bottom: 16px;
+}
+
+/* Card Footer */
+.card-footer-professional {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* ==========================================
+   PROFESSIONAL SPACING SYSTEM - نظام المسافات الاحترافي
+   ========================================== */
+
+/* Consistent Internal Spacing */
+.spacing-card-internal-compact {
+  padding: 16px;
+}
+
+.spacing-card-internal-base {
+  padding: 20px;
+}
+
+.spacing-card-internal-comfortable {
+  padding: 24px;
+}
+
+/* Section Spacing */
+.spacing-section-professional {
+  padding: 64px 0;
+}
+
+@media (max-width: 768px) {
+  .spacing-section-professional {
+    padding: 32px 0;
+  }
+}
+
+/* Grid Gaps Professional */
+.gap-cards-professional {
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .gap-cards-professional {
+    gap: 28px;
+  }
+}
+
+/* Element Spacing */
+.spacing-element-professional-xs {
+  margin-bottom: 8px;
+}
+
+.spacing-element-professional-sm {
+  margin-bottom: 12px;
+}
+
+.spacing-element-professional-base {
+  margin-bottom: 16px;
+}
+
+.spacing-element-professional-lg {
+  margin-bottom: 24px;
+}
+
+/* ==========================================
+   PROFESSIONAL INTERACTIVE STATES - الحالات التفاعلية الاحترافية
+   ========================================== */
+
+/* Subtle Hover Effects */
+.hover-professional {
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-professional:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* Focus States Professional */
+.focus-professional:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+  border-radius: 4px;
+}
+
+/* Active States */
+.active-professional:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================
+   PROFESSIONAL BUTTONS - الأزرار الاحترافية
+   ========================================== */
+
+.btn-professional-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 10px;
+  border: none;
+  min-height: 44px;
+  transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1), box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-professional-primary:hover {
+  background: linear-gradient(135deg, #1d3557 0%, #1d4ed8 100%);
+  box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
+}
+
+.btn-professional-primary:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+.btn-professional-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: transparent;
+  color: #1d4ed8;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  border-radius: 10px;
+  border: 2px solid #2563eb;
+  min-height: 44px;
+  transition: background 200ms cubic-bezier(0.4, 0, 0.2, 1), border-color 200ms cubic-bezier(0.4, 0, 0.2, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.btn-professional-secondary:hover {
+  background: #eff6ff;
+  border-color: #1d4ed8;
+  color: #1e3a8a;
+}
+
+.btn-professional-secondary:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+/* ==========================================
+   PROFESSIONAL LISTS - القوائم الاحترافية
+   ========================================== */
+
+.list-professional {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item-professional {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.list-item-icon-professional {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.list-item-text-professional {
+  flex: 1;
+  font-size: 0.875rem;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+/* Check Icon Replacement */
+.check-icon-professional {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #bbf7d0 0%, #86efac 100%);
+  border: 1px solid #4ade80;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #166534;
+  font-size: 0.75rem;
+  font-weight: 700;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* ==========================================
+   PROFESSIONAL BADGES & TAGS - الشارات والوسوم الاحترافية
+   ========================================== */
+
+.badge-professional {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid;
+  transition: all 150ms ease;
+}
+
+.badge-professional-certified {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #15803d;
+  border-color: #86efac;
+}
+
+.badge-professional-popular {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  color: #b45309;
+  border-color: #fcd34d;
+}
+
+.badge-professional-new {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+/* ==========================================
+   PROFESSIONAL DIVIDERS - الفواصل الاحترافية
+   ========================================== */
+
+.divider-professional {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.06) 50%, transparent 100%);
+  margin: 24px 0;
+}
+
+.divider-professional-vertical {
+  width: 1px;
+  background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.06) 50%, transparent 100%);
+  margin: 0 16px;
+}
+
+/* ==========================================
+   PROFESSIONAL GRID LAYOUTS - شبكات احترافية
+   ========================================== */
+
+.grid-professional-equal-height {
+  display: grid;
+  grid-auto-rows: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .grid-professional-equal-height {
+    gap: 28px;
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY ENHANCEMENTS - تحسينات الوصولية
+   ========================================== */
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+  .card-modern-base,
+  .card-modern-compact,
+  .card-modern-spacious {
+    border-width: 2px;
+    border-color: #000000;
+  }
+  
+  .btn-professional-primary,
+  .btn-professional-secondary {
+    border-width: 3px;
+  }
+  
+  .text-badge,
+  .badge-professional {
+    border-width: 2px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .hover-professional,
+  .btn-professional-primary,
+  .btn-professional-secondary,
+  .icon-badge,
+  .text-badge {
+    transition: none;
+  }
+  
+  .hover-professional:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================
+   RTL SUPPORT - دعم RTL
+   ========================================== */
+
+[dir="rtl"] .card-header-professional {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .list-item-professional {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .badge-professional,
+[dir="rtl"] .text-badge {
+  flex-direction: row-reverse;
+}
+
+/* ==========================================
+   DARK MODE SUPPORT - دعم الوضع المظلم
+   ========================================== */
+
+.dark .icon-badge-primary {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  color: #93c5fd;
+  border-color: #3b82f6;
+}
+
+.dark .icon-badge-success {
+  background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+  color: #86efac;
+  border-color: #22c55e;
+}
+
+.dark .icon-badge-warning {
+  background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+  color: #fcd34d;
+  border-color: #f59e0b;
+}
+
+.dark .text-badge-primary {
+  background-color: #1e3a8a;
+  color: #93c5fd;
+  border-color: #3b82f6;
+}
+
+.dark .text-badge-success {
+  background-color: #14532d;
+  color: #86efac;
+  border-color: #22c55e;
+}
+
+.dark .text-badge-warning {
+  background-color: #78350f;
+  color: #fcd34d;
+  border-color: #f59e0b;
+}
+
+.dark .card-title-primary-professional,
+.dark .card-title-secondary-professional {
+  color: #f1f5f9;
+}
+
+.dark .card-description-professional,
+.dark .list-item-text-professional {
+  color: #cbd5e1;
+}
+
+.dark .card-meta-professional {
+  color: #94a3b8;
+}
+
+.dark .divider-professional {
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+}
+
+.dark .check-icon-professional {
+  background: linear-gradient(135deg, #14532d 0%, #166534 100%);
+  border-color: #22c55e;
+  color: #86efac;
+}

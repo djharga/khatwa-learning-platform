@@ -13,7 +13,9 @@ import WhatsappFloatButton from '../components/WhatsappFloatButton';
 import { Toaster } from 'react-hot-toast';
 import NotificationProvider from '../components/NotificationProvider';
 import AppSidebar from '../components/layout/AppSidebar';
+import { SkipLink as AccessibleSkipLink } from '@/components/ui/accessibility';
 import Script from 'next/script';
+import ServiceWorkerProvider from '../components/ServiceWorkerProvider';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -21,21 +23,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'منصة خطى - بيئة تعليمية متكاملة للمراجعة الداخلية والمحاسبة',
+  title: 'خطى للتدريب والاستشارات - بيئة تعليمية متكاملة للمراجعة الداخلية والمحاسبة',
   description:
-    'منصة خطى هي بيئة تعليمية متكاملة مخصصة للمراجعة الداخلية والمحاسبة، تهدف لتقديم تجربة تعليمية متطورة وشاملة للمدققين والمحاسبين',
-  keywords: ['خطى', 'تعليم', 'محاسبة', 'مراجعة داخلية', 'دورات', 'شهادات'],
-  authors: [{ name: 'منصة خطى' }],
+    'خطى للتدريب والاستشارات هي بيئة تعليمية متكاملة مخصصة للمراجعة الداخلية والمحاسبة، تهدف لتقديم تجربة تعليمية متطورة وشاملة للمدققين والمحاسبين',
+  keywords: ['خطى', 'تدريب', 'استشارات', 'محاسبة', 'مراجعة داخلية', 'دورات', 'شهادات'],
+  authors: [{ name: 'خطى للتدريب والاستشارات' }],
   openGraph: {
-    title: 'منصة خطى التعليمية',
+    title: 'خطى للتدريب والاستشارات',
     description: 'بيئة تعليمية متكاملة للمراجعة الداخلية والمحاسبة',
     type: 'website',
     locale: 'ar_EG',
-    siteName: 'منصة خطى',
+    siteName: 'خطى للتدريب والاستشارات',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'منصة خطى التعليمية',
+    title: 'خطى للتدريب والاستشارات',
     description: 'بيئة تعليمية متكاملة للمراجعة الداخلية والمحاسبة',
     creator: '@khata_platform',
   },
@@ -43,7 +45,7 @@ export const metadata: Metadata = {
     'application/ld+json': JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'EducationalOrganization',
-      name: 'منصة خطى',
+      name: 'خطى للتدريب والاستشارات',
       description: 'بيئة تعليمية متكاملة للمراجعة الداخلية والمحاسبة',
       url: 'https://khata-platform.com',
       logo: 'https://khata-platform.com/globe.svg',
@@ -81,8 +83,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
 
-        {/* DNS Prefetch for better performance */}
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        {/* Preload critical images */}
+        <link rel="preload" as="image" href="/banar-cours.webp" />
+        <link rel="preload" as="image" href="/globe.svg" />
 
         {/* Manifest and Icons */}
         <link rel="manifest" href="/manifest.json" />
@@ -93,11 +96,22 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="خطى" />
       </head>
       <body
-        className={`${inter.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto]`}
+        className={`${inter.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative`}
         style={{ fontFeatureSettings: '"rlig" 1, "calt" 1' }}
       >
+        {/* Subtle Background Image for all pages */}
+        <div
+          className="fixed inset-0 bg-cover bg-center bg-no-repeat opacity-15 pointer-events-none z-0"
+          style={{
+            backgroundImage: `url('/background-gradient-lights.jpg')`,
+          }}
+        />
         <NotificationProvider>
+          <ServiceWorkerProvider />
           <SkipLink />
+          <AccessibleSkipLink href="#main-content">
+            تخطي إلى المحتوى الرئيسي
+          </AccessibleSkipLink>
           <NavbarComponent />
           <AppSidebar />
           <Script src="/theme-init.js" strategy="beforeInteractive" />
@@ -135,7 +149,7 @@ export default function RootLayout({
           <QuickAccess userRole="student" isAuthenticated={true} />
           <WhatsappFloatButton />
           <footer className="text-center p-4 text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} منصة خطى. جميع الحقوق محفوظة.<br />
+            &copy; {new Date().getFullYear()} خطى للتدريب والاستشارات. جميع الحقوق محفوظة.<br />
             تصميم: ICODE - تطوير بواسطة WINDSURFER AI
           </footer>
         </NotificationProvider>
