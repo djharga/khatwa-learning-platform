@@ -27,7 +27,7 @@ import {
   Brain,
   BarChart3,
   FileSpreadsheet,
-  FileWord,
+
   Calculator,
   Table,
   Bold,
@@ -559,7 +559,7 @@ const QuestionManager = ({
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <FileWord className="w-4 h-4" />
+                <FileText className="w-4 h-4" />
                 تصدير Word
               </motion.button>
 
