@@ -79,6 +79,7 @@ interface Reader {
 
 export default function FileManagerPage() {
   const [activeTab, setActiveTab] = useState<'files' | 'projects'>('files');
+  const [isProjectsTab, setIsProjectsTab] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPath, setCurrentPath] = useState('الرئيسية');
   const [searchTerm, setSearchTerm] = useState('');
@@ -398,7 +399,7 @@ export default function FileManagerPage() {
               <button
                 onClick={() => setActiveTab('projects')}
                 className={`px-6 py-3 font-medium ${
-                  activeTab === 'projects'
+                  isProjectsTab
                     ? 'text-blue-600 border-b-2 border-blue-600'
                     : 'text-gray-500 hover:text-gray-700'
                 }`}
