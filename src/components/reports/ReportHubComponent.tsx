@@ -210,7 +210,7 @@ const ReportHubComponent = () => {
    */
   const handleHighlight = () => {
     const selection = window.getSelection();
-    if (selection && selection.toString()) {
+    if (selection?.toString()) {
       setHighlightedText(selection.toString());
     }
   };
