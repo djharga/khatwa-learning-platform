@@ -70,7 +70,7 @@ const Breadcrumbs = ({
    * @param maxLength - Maximum character length before truncation (default: 20)
    * @returns string - Truncated label with ellipsis or original label
    */
-  const truncateLabel = (label: string, maxLength: number = 20) => {
+  const truncateLabel = (label: string, maxLength = 20) => {
     if (label.length <= maxLength) return label;
     return `${label.substring(0, maxLength)}...`;
   };

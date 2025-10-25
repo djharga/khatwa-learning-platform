@@ -28,7 +28,7 @@ interface RippleEffectReturn {
  * );
  * ```
  */
-export function useRippleEffect(duration: number = 600): RippleEffectReturn {
+export function useRippleEffect(duration = 600): RippleEffectReturn {
   const [showRipple, setShowRipple] = useState<boolean>(false);
   const timeoutRef = useRef<number | null>(null);
 
