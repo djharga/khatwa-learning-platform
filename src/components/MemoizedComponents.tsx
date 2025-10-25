@@ -61,7 +61,7 @@ export const MemoizedButton = memo(
       }, [variant, size, className]);
 
       return (
-        // @ts-ignore - motion.button types conflict with HTMLButtonElement
+        // @ts-expect-error - motion.button types conflict with HTMLButtonElement
         <motion.button
           ref={ref}
           className={buttonClasses}
