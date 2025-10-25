@@ -132,7 +132,7 @@ const RatingSystem = ({
     const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
 
     reviews.forEach(review => {
-      distribution[review.rating as keyof typeof distribution]++;
+      undefined+=1;
     });
 
     return distribution;

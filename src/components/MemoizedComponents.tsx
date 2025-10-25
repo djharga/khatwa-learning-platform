@@ -456,7 +456,7 @@ export const usePerformanceOptimization = () => {
   const lastRenderTime = useRef(performance.now());
 
   useEffect(() => {
-    renderCount.current++;
+    undefined+=1;
     const now = performance.now();
     const timeSinceLastRender = now - lastRenderTime.current;
     lastRenderTime.current = now;

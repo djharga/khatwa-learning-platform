@@ -147,8 +147,7 @@ async function optimizeAllImages() {
     for (const imagePath of images) {
       const tempPath = imagePath + '.temp';
       await optimizeImage(imagePath, tempPath);
-      totalImages++;
-    }
+      tototalImages+=1    }
 
     console.log('');
   }

@@ -295,7 +295,7 @@ export class CourseService {
     let count = 0;
     for (const file of files) {
       if (file.type !== 'folder') {
-        count++;
+        count+=1;
       }
       if (file.children) {
         count += this.countTotalFiles(file.children);
@@ -311,7 +311,7 @@ export class CourseService {
     let count = 0;
     for (const file of files) {
       if (file.type !== 'folder' && file.isCompleted) {
-        count++;
+        count+=1;
       }
       if (file.children) {
         count += this.countCompletedFiles(file.children);

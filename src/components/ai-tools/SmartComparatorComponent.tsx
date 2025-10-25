@@ -147,7 +147,7 @@ const SmartComparatorComponent = () => {
       let modifications = 0;
       let unchanged = 0;
 
-      for (let i = 0; i < maxLines; i++) {
+      for (let i = 0; i < maxLines; i+=1) {
         const line1 = file1.content[i];
         const line2 = file2.content[i];
 
@@ -158,7 +158,7 @@ const SmartComparatorComponent = () => {
             content: line2,
             file2Content: line2,
           });
-          additions++;
+          additions+=1;
         } else if (line1 && !line2) {
           results.push({
             lineIndex: i,
@@ -166,7 +166,7 @@ const SmartComparatorComponent = () => {
             content: line1,
             file1Content: line1,
           });
-          deletions++;
+          deletions+=1;
         } else if (line1 !== line2) {
           results.push({
             lineIndex: i,
@@ -175,14 +175,14 @@ const SmartComparatorComponent = () => {
             file1Content: line1,
             file2Content: line2,
           });
-          modifications++;
+          modifications+=1;
         } else {
           results.push({
             lineIndex: i,
             type: 'unchanged',
             content: line1,
           });
-          unchanged++;
+          unchanged+=1;
         }
       }
 

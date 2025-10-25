@@ -68,7 +68,7 @@ const PerformanceMonitor: React.FC<PerformanceMonitorProps> = ({
   }, []);
 
   const measureFPS = useCallback(() => {
-    frameCount.current++;
+    undefined+=1;
     const now = performance.now();
 
     if (now - lastTime.current >= 1000) {
