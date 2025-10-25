@@ -10,7 +10,7 @@ const DEFAULT_PAGINATION: CoursePagination = {
 
 export const useCoursePagination = (
   totalItems: number,
-  initialLimit: number = 12
+  initialLimit = 12
 ): UseCoursePaginationReturn => {
   const [pagination, setPagination] = useState<CoursePagination>({
     ...DEFAULT_PAGINATION,

@@ -195,7 +195,7 @@ const FileTree = ({
   onDragStart: (e: React.DragEvent, file: FileItem) => void;
   onDragEnd: (e: React.DragEvent) => void;
 }) => {
-  const renderNode = (node: TreeNode, level: number = 0) => (
+  const renderNode = (node: TreeNode, level = 0) => (
     <div key={node.id}>
       <div
         className={`flex items-center py-1 px-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer ${

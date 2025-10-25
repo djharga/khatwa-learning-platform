@@ -614,7 +614,7 @@ export const getPublicNavbarItems = () => [
 ];
 
 // الحصول على روابط الـ Sidebar للمستخدمين المسجلين
-export const getSidebarItems = (userRole: string = 'student') => {
+export const getSidebarItems = (userRole = 'student') => {
   const userNav = getNavigationForUser(userRole, true);
   return userNav.map(section => ({
     category: section.id,
