@@ -72,7 +72,7 @@ export default function RootLayout({
     <html lang="ar" dir="rtl">
       <head>
         {/* Font Optimization */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com&display=optional" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
