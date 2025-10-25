@@ -29,7 +29,7 @@
     "handsontable": "^16.1.1",
     "lucide-react": "^0.545.0",
     "mammoth": "^1.11.0",
-    "next": "14.2.7",
+    "next": "14.2.10",
     "quill": "^2.0.3",
     "react": "^18.3.1",
     "react-countup": "^6.5.3",
