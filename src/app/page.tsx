@@ -17,7 +17,7 @@ const CoursesBannerSection = () => (
     <div
       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: `url('/herobanar.jpg')`,
+        backgroundImage: "url('/herobanar.jpg')",
         filter: 'brightness(0.4) contrast(0.8)'
       }}
     ></div>

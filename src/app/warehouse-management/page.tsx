@@ -571,7 +571,7 @@ const WarehouseManagementPage = () => {
                 <h2 className="text-3xl font-bold mb-2">{modules[activeModule].title}</h2>
                 <p className="text-lg opacity-90">{modules[activeModule].description}</p>
               </div>
-              <div className={`w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur`}>
+              <div className={"w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur"}>
                 {(() => {
                   const Icon = modules[activeModule].icon;
                   return <Icon className="w-8 h-8" />;
