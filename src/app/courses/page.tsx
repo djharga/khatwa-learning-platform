@@ -481,7 +481,7 @@ export default function CoursesPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('/cours-banar.jpg')`,
+            backgroundImage: "url('/cours-banar.jpg')",
           }}
         >
           {/* Overlay for better text readability - More transparent at bottom */}

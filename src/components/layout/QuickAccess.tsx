@@ -75,7 +75,7 @@ const QuickLinkItem: React.FC<QuickLinkItemProps> = ({ link, index, onClose }) =
         className="flex items-center gap-3 p-3 hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 dark:hover:text-blue-400 rounded-lg transition-all duration-200 group"
         onClick={onClose}
       >
-        <div className={`p-2 rounded-lg bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors`}>
+        <div className={"p-2 rounded-lg bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors"}>
           <div className="w-4 h-4 text-gray-600 dark:text-gray-400">
             {/* TODO: Implement icon mapping based on link.icon property - similar to iconMap in AppSidebar */}
           </div>

@@ -98,7 +98,7 @@ const UnifiedModal: React.FC<UnifiedModalProps> = ({
   return (
     <AnimatePresence>
       <div
-        className={`fixed inset-0 flex items-center justify-center p-4`}
+        className={"fixed inset-0 flex items-center justify-center p-4"}
         style={{ zIndex }}
       >
         {/* Backdrop with stack level indicator */}
