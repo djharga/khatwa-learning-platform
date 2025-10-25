@@ -146,7 +146,7 @@ export default function RootLayout({
             }}
           />
           <BottomNavigation />
-          <QuickAccess userRole="student" isAuthenticated={true} />
+          <QuickAccess userRole="student" isAuthenticated />
           <WhatsappFloatButton />
           <footer className="text-center p-4 text-sm text-gray-500">
             &copy; {new Date().getFullYear()} خطى للتدريب والاستشارات. جميع الحقوق محفوظة.<br />

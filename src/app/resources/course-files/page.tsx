@@ -25,8 +25,8 @@ export default function CourseFilesPage() {
         >
           <CourseTreeView 
             mode="files"
-            showDownloadButtons={true}
-            showCourseFilter={true}
+            showDownloadButtons
+            showCourseFilter
           />
         </motion.div>
       </div>

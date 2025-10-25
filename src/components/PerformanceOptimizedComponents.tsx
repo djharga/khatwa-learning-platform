@@ -62,7 +62,7 @@ export const withPerformanceMonitoring = <P extends Record<string, any> = object
       <PerformanceMonitor
         enabled={process.env.NODE_ENV === 'development'}
         position="top-right"
-        compact={true}
+        compact
       />
       <Component {...(props as P)} ref={ref} />
     </ErrorBoundary>

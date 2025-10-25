@@ -180,7 +180,7 @@ const PremiumSection = ({ questions, onQuizComplete, isSubscribed = false }: Pre
         <QuestionBank
           questions={selectedQuestions}
           timeLimit={config.timeLimit}
-          showResults={true}
+          showResults
           onComplete={handleQuizComplete}
         />
       </motion.div>

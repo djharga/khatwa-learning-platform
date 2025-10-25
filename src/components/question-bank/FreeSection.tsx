@@ -126,7 +126,7 @@ const FreeSection = ({ questions, onQuizComplete }: FreeSectionProps) => {
         <QuestionBank
           questions={selectedQuestions}
           timeLimit={0} // بدون توقيت
-          showResults={true}
+          showResults
           onComplete={handleQuizComplete}
         />
       </motion.div>

@@ -802,7 +802,7 @@ const QuestionBankPage = () => {
               <QuestionBank
                 questions={selectedQuestions}
                 timeLimit={30}
-                showResults={true}
+                showResults
                 onComplete={(results) => {
                   console.log('Quiz completed:', results);
                   setShowQuizModal(false);
