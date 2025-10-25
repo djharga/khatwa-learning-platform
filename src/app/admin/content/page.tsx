@@ -177,7 +177,7 @@ const AdminContentPage = () => {
     return { totalFiles, totalSize, videos, documents, images, totalDownloads, totalViews };
   }, [files]);
 
-  const getFileIcon = (type: string, size: string = 'w-8 h-8') => {
+  const getFileIcon = (type: string, size = 'w-8 h-8') => {
     const iconClass = `${size} rounded-lg flex items-center justify-center`;
     switch (type) {
       case 'word':

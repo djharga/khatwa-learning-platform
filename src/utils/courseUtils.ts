@@ -423,7 +423,7 @@ export const validateCourse = (
  */
 export const formatCoursePrice = (
   price: number,
-  currency: string = 'ريال'
+  currency = 'ريال'
 ): string => {
   return `${price.toLocaleString()} ${currency}`;
 };
