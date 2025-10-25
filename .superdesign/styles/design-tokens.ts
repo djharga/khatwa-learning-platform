@@ -264,9 +264,9 @@ export const gradients = {
   warning: `linear-gradient(135deg, ${colors.warning[500]} 0%, ${colors.warning[700]} 100%)`,
   error: `linear-gradient(135deg, ${colors.error[500]} 0%, ${colors.error[700]} 100%)`,
   modernPrimary: `linear-gradient(135deg, ${colors.primary[400]} 0%, ${colors.primary[600]} 50%, ${colors.primary[800]} 100%)`, // تدرج أساسي عصري
-  sunset: `linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ff6b6b 100%)`, // تدرج غروب الشمس
-  ocean: `linear-gradient(135deg, #2193b0 0%, #6dd5ed 50%, #2193b0 100%)`, // تدرج المحيط
-  forest: `linear-gradient(135deg, #134e5e 0%, #71b280 50%, #134e5e 100%)`, // تدرج الغابة
+  sunset: "linear-gradient(135deg, #ff7e5f 0%, #feb47b 50%, #ff6b6b 100%)", // تدرج غروب الشمس
+  ocean: "linear-gradient(135deg, #2193b0 0%, #6dd5ed 50%, #2193b0 100%)", // تدرج المحيط
+  forest: "linear-gradient(135deg, #134e5e 0%, #71b280 50%, #134e5e 100%)", // تدرج الغابة
 };
 
 // تأثيرات الحركة

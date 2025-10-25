@@ -305,7 +305,7 @@ const TreeView = ({
         return (
           <div key={item.id}>
             <div
-              className={`flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer`}
+              className={"flex items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"}
               style={{ paddingLeft: `${level * 20 + 16}px` }}
               onClick={() => onToggleFolder(item.id)}
             >

@@ -40,7 +40,7 @@ const StatsCard: React.FC<StatsCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2 }}
-      className={`rounded-2xl shadow-lg p-6 bg-white dark:bg-slate-800 hover:scale-[1.02] hover:shadow-xl transition-all duration-300`}
+      className={"rounded-2xl shadow-lg p-6 bg-white dark:bg-slate-800 hover:scale-[1.02] hover:shadow-xl transition-all duration-300"}
     >
       <div className="relative z-10">
         <h3 className="text-lg font-semibold text-[var(--color-text-primary)] dark:text-neutral-100 mb-4">

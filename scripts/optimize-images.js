@@ -138,7 +138,7 @@ async function optimizeAllImages() {
     const images = getImageFiles(dir);
 
     if (images.length === 0) {
-      console.log(`   لا توجد صور في هذا المجلد\n`);
+      console.log("   لا توجد صور في هذا المجلد\n");
       continue;
     }
 
