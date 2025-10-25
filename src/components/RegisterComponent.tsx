@@ -149,7 +149,7 @@ const RegisterComponent = () => {
                 leftIcon={User}
                 variant="modern"
                 aria-required="true"
-                aria-invalid={!!errors.name}
+                aria-invalid={Boolean(errors.name)}
                 aria-describedby={errors.name ? 'name-error' : undefined}
                 placeholder="أدخل اسمك الكامل"
               />
@@ -174,7 +174,7 @@ const RegisterComponent = () => {
                 leftIcon={Mail}
                 variant="modern"
                 aria-required="true"
-                aria-invalid={!!errors.email}
+                aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 placeholder="أدخل بريدك الإلكتروني"
               />
@@ -200,7 +200,7 @@ const RegisterComponent = () => {
                 rightIcon={showPassword ? EyeOff : Eye}
                 variant="modern"
                 aria-required="true"
-                aria-invalid={!!errors.password}
+                aria-invalid={Boolean(errors.password)}
                 aria-describedby={
                   errors.password
                     ? 'password-error password-hint'
@@ -231,7 +231,7 @@ const RegisterComponent = () => {
                 rightIcon={showConfirmPassword ? EyeOff : Eye}
                 variant="modern"
                 aria-required="true"
-                aria-invalid={!!errors.confirmPassword}
+                aria-invalid={Boolean(errors.confirmPassword)}
                 aria-describedby={
                   errors.confirmPassword ? 'confirm-password-error' : undefined
                 }
@@ -269,7 +269,7 @@ const RegisterComponent = () => {
               </>
             }
             aria-required="true"
-            aria-invalid={!!errors.agreeToTerms}
+            aria-invalid={Boolean(errors.agreeToTerms)}
             aria-describedby={errors.agreeToTerms ? 'terms-error' : undefined}
           />
           {errors.agreeToTerms && (

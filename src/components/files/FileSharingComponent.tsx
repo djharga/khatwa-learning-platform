@@ -218,7 +218,7 @@ const FileSharingComponent = ({
     setPermissions(link.permissions);
     setExpiresAt(link.expiresAt.split('T')[0]); // Date only for input
     setPassword(link.password || '');
-    setUsePassword(!!link.password);
+    setUsePassword(Boolean(link.password));
   };
 
   /**

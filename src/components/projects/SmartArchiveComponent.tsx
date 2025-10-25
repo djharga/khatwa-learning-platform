@@ -208,7 +208,7 @@ const FileTree = ({
             onFileClick(node.file);
           }
         }}
-        draggable={node.type === 'file' && !!node.file}
+        draggable={node.type === 'file' && Boolean(node.file)}
         onDragStart={(e) => {
           if (node.file) {
             onDragStart(e, node.file);

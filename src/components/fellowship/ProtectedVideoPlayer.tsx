@@ -330,7 +330,7 @@ const ProtectedVideoPlayer = ({
   // مراقبة حالة ملء الشاشة
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      setIsFullscreen(Boolean(document.fullscreenElement));
     };
 
     document.addEventListener('fullscreenchange', handleFullscreenChange);
