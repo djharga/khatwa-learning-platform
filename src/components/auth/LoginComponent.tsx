@@ -144,7 +144,7 @@ const LoginComponent = () => {
                 leftIcon={Mail}
                 variant="modern"
                 aria-required="true"
-                aria-invalid={!!errors.email}
+                aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 placeholder="أدخل بريدك الإلكتروني"
               />
@@ -169,7 +169,7 @@ const LoginComponent = () => {
                 rightIcon={showPassword ? EyeOff : Eye}
                 variant="modern"
                 aria-required="true"
-                aria-invalid={!!errors.password}
+                aria-invalid={Boolean(errors.password)}
                 aria-describedby={
                   errors.password ? 'password-error' : undefined
                 }

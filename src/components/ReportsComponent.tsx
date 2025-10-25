@@ -652,7 +652,7 @@ const ReportsComponent = () => {
       />
 
       <CommentsModal
-        isOpen={!!showComments}
+        isOpen={Boolean(showComments)}
         onClose={() => setShowComments(null)}
         newComment={newComment}
         setNewComment={setNewComment}

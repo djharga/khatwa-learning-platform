@@ -62,6 +62,6 @@ export const useCourseFilters = (
     updateFilters,
     resetFilters,
     clearFilters,
-    hasActiveFilters: !!hasActiveFilters,
+    hasActiveFilters: Boolean(hasActiveFilters),
   };
 };

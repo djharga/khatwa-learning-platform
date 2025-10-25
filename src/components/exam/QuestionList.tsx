@@ -94,7 +94,7 @@ export const QuestionList: React.FC<QuestionListProps> = ({
             question={question}
             index={index}
             isCurrent={index === examState.currentQuestion}
-            isAnswered={!!examState.answers[question.id]}
+            isAnswered={Boolean(examState.answers[question.id])}
             isMarked={examState.markedQuestions.has(question.id)}
             onNavigate={onNavigate}
           />
