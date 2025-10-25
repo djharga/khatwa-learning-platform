@@ -7,6 +7,16 @@ Khatwa is a Next.js 14-based educational platform (Arabic language) for financia
 
 ## Recent Changes
 
+### October 25, 2025 - Visual Design Enhancements
+- **Enhanced Shadows**: Added colored shadows and glow effects (shadow-colored, shadow-glow)
+- **Glassmorphism Effects**: Implemented glass, glass-dark, and glass-primary effects
+- **Modern Gradients**: Added multiple gradient utilities (gradient-mesh, gradient-ocean, gradient-sunset)
+- **Premium Cards**: Created card-glow and card-premium with advanced hover effects
+- **Enhanced Buttons**: Improved btn-primary, btn-gradient, and btn-glass with smooth animations
+- **Text Effects**: Added text-shine and text-shadow-glow utilities
+- **Glow & Shine**: Implemented hover-based glow and shine effects
+- **Improved Hover States**: Enhanced card and button hover animations with scale and lift effects
+
 ### October 25, 2025 - Vercel to Replit Migration
 - Configured Next.js to run on port 5000 and bind to 0.0.0.0 for Replit compatibility
 - Removed Netlify configuration files (.netlify folder, netlify.toml)

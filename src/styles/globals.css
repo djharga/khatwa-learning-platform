@@ -121,13 +121,16 @@
   --radius-xl: 1.5rem;   /* 24px */
   --radius-2xl: 2rem;    /* 32px */
 
-  /* Shadows - Soft & Subtle */
+  /* Shadows - Enhanced Modern Depth */
   --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.08);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.08);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.08);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.08);
-  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.12);
+  --shadow-sm: 0 2px 4px 0 rgb(0 0 0 / 0.06), 0 1px 2px 0 rgb(0 0 0 / 0.03);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.05);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+  --shadow-colored: 0 10px 40px -10px rgba(0, 102, 255, 0.25);
+  --shadow-colored-lg: 0 20px 60px -15px rgba(0, 102, 255, 0.3);
+  --shadow-glow: 0 0 20px rgba(0, 102, 255, 0.15), 0 0 40px rgba(0, 102, 255, 0.1);
 
   /* Motion & Animation Variables - Functional Only */
   --duration-instant: 75ms;
@@ -360,23 +363,45 @@ select:focus-visible {
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  border-radius: 12px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 14px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  min-height: 44px;
+  min-height: 48px;
   font-size: 1rem;
   border: none;
   gap: 0.5rem;
   overflow: hidden;
-  background: linear-gradient(135deg, #0052CC 0%, #0066FF 100%);
+  background: linear-gradient(135deg, #0052CC 0%, #0066FF 50%, #3399FF 100%);
+  background-size: 200% 200%;
   color: white;
-  padding: 0.75rem 1.5rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  padding: 0.875rem 2rem;
+  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.25);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transform: translateY(-3px) scale(1.02);
+  background-position: 100% 50%;
+  box-shadow: 0 8px 25px rgba(0, 102, 255, 0.35);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.98);
 }
 
 .btn-secondary {
@@ -432,17 +457,34 @@ select:focus-visible {
   position: relative;
   background: white;
   border-radius: 24px;
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.06), 0 1px 3px -1px rgb(0 0 0 / 0.04);
   border: 1px solid rgba(229, 231, 235, 0.8);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   padding: 1.5rem;
   overflow: hidden;
 }
 
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(0, 102, 255, 0.05), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
 .card:hover {
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  transform: translateY(-4px);
-  border-color: rgba(0, 102, 255, 0.2);
+  box-shadow: 0 12px 24px -8px rgba(0, 102, 255, 0.15), 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+  transform: translateY(-6px) scale(1.01);
+  border-color: rgba(0, 102, 255, 0.3);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .card-compact {
@@ -572,12 +614,308 @@ select:focus-visible {
   background-clip: text;
 }
 
-/* Hover Effects - Subtle Only */
+/* Hover Effects - Enhanced & Smooth */
 .hover-lift {
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-lift:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ==========================================
+   GLASSMORPHISM EFFECTS - MODERN UI
+   ========================================== */
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+}
+
+.glass-dark {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.glass-primary {
+  background: linear-gradient(135deg, rgba(0, 82, 204, 0.85), rgba(0, 102, 255, 0.75));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 102, 255, 0.25);
+}
+
+/* ==========================================
+   GRADIENT UTILITIES - VIBRANT & MODERN
+   ========================================== */
+
+.gradient-primary {
+  background: linear-gradient(135deg, #0052CC 0%, #0066FF 50%, #3399FF 100%);
+}
+
+.gradient-primary-soft {
+  background: linear-gradient(135deg, rgba(0, 82, 204, 0.1) 0%, rgba(0, 102, 255, 0.05) 100%);
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+}
+
+.gradient-purple {
+  background: linear-gradient(135deg, #8B5CF6 0%, #A78BFA 100%);
+}
+
+.gradient-sunset {
+  background: linear-gradient(135deg, #FF6B6B 0%, #FFB347 50%, #FFEB99 100%);
+}
+
+.gradient-ocean {
+  background: linear-gradient(135deg, #0052CC 0%, #00C9FF 100%);
+}
+
+.gradient-mesh {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+/* Animated Gradients */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.gradient-animated {
+  background: linear-gradient(270deg, #0052CC, #0066FF, #3399FF, #66B2FF);
+  background-size: 800% 800%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* ==========================================
+   ENHANCED CARD EFFECTS
+   ========================================== */
+
+.card-glow {
+  position: relative;
+  background: white;
+  border-radius: 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(0, 102, 255, 0.1), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.card-glow:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-colored-lg);
+  border-color: rgba(0, 102, 255, 0.3);
+}
+
+.card-glow:hover::before {
+  opacity: 1;
+}
+
+.card-premium {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(249, 250, 251, 0.9));
+  backdrop-filter: blur(10px);
+  border-radius: 28px;
+  border: 2px solid rgba(0, 102, 255, 0.1);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.card-premium::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(0, 102, 255, 0.05), transparent);
+  transform: rotate(0deg);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-premium:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px -15px rgba(0, 102, 255, 0.2);
+  border-color: rgba(0, 102, 255, 0.3);
+}
+
+.card-premium:hover::after {
+  transform: rotate(180deg);
+}
+
+/* ==========================================
+   BUTTON ENHANCEMENTS
+   ========================================== */
+
+.btn-gradient {
+  position: relative;
+  background: linear-gradient(135deg, #0052CC 0%, #0066FF 50%, #3399FF 100%);
+  background-size: 200% 200%;
+  color: white;
+  padding: 0.875rem 2rem;
+  border-radius: 14px;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.btn-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-gradient:hover {
+  background-position: 100% 0;
   transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
+}
+
+.btn-gradient:hover::before {
+  left: 100%;
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-text-primary);
+  padding: 0.875rem 2rem;
+  border-radius: 14px;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   GLOW & SHINE EFFECTS
+   ========================================== */
+
+.glow-on-hover {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glow-on-hover:hover {
+  box-shadow: var(--shadow-glow);
+}
+
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: rotateZ(60deg) translate(-1em, 7.5em);
+  opacity: 0;
+}
+
+.shine-effect:hover::after {
+  animation: shine 0.75s forwards;
+  opacity: 1;
+}
+
+@keyframes shine {
+  0% {
+    transform: rotateZ(60deg) translate(-1em, 7.5em);
+  }
+  100% {
+    transform: rotateZ(60deg) translate(1em, -12em);
+  }
+}
+
+/* ==========================================
+   MODERN BORDER EFFECTS
+   ========================================== */
+
+.border-gradient {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 2px;
+  background: linear-gradient(135deg, #0052CC, #0066FF, #3399FF);
+}
+
+.border-gradient-inner {
+  background: white;
+  border-radius: 18px;
+  padding: 1.5rem;
+}
+
+.border-animated {
+  position: relative;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white), linear-gradient(135deg, #0052CC, #0066FF, #3399FF);
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+}
+
+/* ==========================================
+   TEXT EFFECTS
+   ========================================== */
+
+.text-shine {
+  background: linear-gradient(135deg, #0052CC 0%, #0066FF 50%, #3399FF 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: text-shine 3s linear infinite;
+}
+
+@keyframes text-shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.text-shadow-glow {
+  text-shadow: 0 0 20px rgba(0, 102, 255, 0.5), 0 0 40px rgba(0, 102, 255, 0.3);
 }
