@@ -24,7 +24,7 @@ export default function ExamPage() {
               اختبر معرفتك وتابع تقدمك في رحلتك التعليمية
             </p>
           </motion.div>
-          <ExamInterface isAuthenticated={true} />
+          <ExamInterface isAuthenticated />
         </div>
 
         {/* بنك الأسئلة */}

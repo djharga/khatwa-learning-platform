@@ -330,7 +330,7 @@ export default function DashboardPage() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <LoadingStates.CustomLoader
-          showLogo={true}
+          showLogo
           message="جاري تحميل لوحة التحكم..."
           size="lg"
         />
