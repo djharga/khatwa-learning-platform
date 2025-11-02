@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
-import { UserPlus, Search, Play, Award, Sparkles, ArrowRight } from 'lucide-react';
+import { UserPlus, BookOpen, Play, Award, Sparkles, ArrowRight } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 
 /**
@@ -23,35 +23,24 @@ const CreativeHowItWorksSection = () => {
   const steps = [
     {
       number: 1,
-      icon: UserPlus,
-      title: 'سجّل',
-      description: 'إنشاء حساب في ثوانٍ',
+      icon: BookOpen,
+      title: 'سجّل واختر الدورة',
+      description: 'إنشاء حساب في ثوانٍ واختر الدورة التي تناسبك',
       color: 'from-blue-500 to-cyan-500',
-      position: { top: '10%', right: '50%' },
     },
     {
       number: 2,
-      icon: Search,
-      title: 'اختر',
-      description: 'تصفح واختر ما يناسبك',
+      icon: Play,
+      title: 'تعلم في وتيرتك',
+      description: 'ابدأ التعلم فوراً في الوقت والمكان المناسبين لك',
       color: 'from-purple-500 to-pink-500',
-      position: { top: '30%', right: '20%' },
     },
     {
       number: 3,
-      icon: Play,
-      title: 'تعلم',
-      description: 'ابدأ التعلم فوراً',
-      color: 'from-emerald-500 to-teal-500',
-      position: { top: '60%', right: '10%' },
-    },
-    {
-      number: 4,
       icon: Award,
-      title: 'احصل',
-      description: 'شهادة معتمدة',
-      color: 'from-orange-500 to-yellow-500',
-      position: { top: '75%', right: '40%' },
+      title: 'احصل على الشهادة',
+      description: 'أكمل الدورة واحصل على شهادة معتمدة',
+      color: 'from-emerald-500 to-teal-500',
     },
   ];
 
@@ -148,11 +137,11 @@ const CreativeHowItWorksSection = () => {
             </div>
           </motion.div>
 
-          {/* Orbital Steps */}
+          {/* Orbital Steps - Simplified for 3 steps */}
           {steps.map((step, index) => {
             const Icon = step.icon;
-            const angle = (index * 90) * (Math.PI / 180);
-            const radius = 250;
+            const angle = (index * 120) * (Math.PI / 180) - (Math.PI / 2); // Start from top
+            const radius = 280;
             const x = Math.cos(angle) * radius;
             const y = Math.sin(angle) * radius;
 

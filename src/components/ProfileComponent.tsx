@@ -4,16 +4,12 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Activity,
   AlertCircle,
-  Archive,
   Award,
   BarChart3,
-  Battery,
-  BatteryLow,
   Bell,
   BookOpen,
   Brain,
   Calendar,
-  Camera,
   CheckCircle,
   ChevronDown,
   ChevronRight,
@@ -30,23 +26,17 @@ import {
   Filter,
   Folder,
   FolderOpen,
-  Globe,
   Grid,
-  Grid3X3,
   GraduationCap,
   Heart,
-  Image,
   Laptop,
   List,
   Loader2,
   MapPin,
   MessageCircle,
   MessageSquare,
-  Monitor,
   Moon,
   MoreVertical,
-  Music,
-  Palette,
   PieChart,
   Play,
   Plus,
@@ -57,10 +47,8 @@ import {
   Share,
   Share2,
   Shield,
-  Smartphone,
   Star,
   Sun,
-  Tablet,
   Target,
   ThumbsUp,
   TrendingUp,
@@ -69,12 +57,6 @@ import {
   User,
   Users,
   Video,
-  Video as VideoIcon,
-  Volume2,
-  VolumeX,
-  Wifi,
-  WifiOff,
-  XCircle,
   Zap,
   Trophy,
   QrCode,
@@ -89,11 +71,8 @@ import {
 } from '../lib/validation';
 import StudentAIToolsComponent from './StudentAIToolsComponent';
 import BadgeSystem from './BadgeSystem';
-// import { readFile } from 'fs';
 import mammoth from 'mammoth';
 import * as XLSX from 'xlsx';
-import Handsontable from 'handsontable';
-import { toEnglishDigits } from '../lib/numberUtils';
 import ProfileHeader from "./ProfileComponent/ProfileHeader";
 import { ProfileInfoTab } from './ProfileComponent/ProfileInfoTab';
 import { CoursesTab } from './ProfileComponent/CoursesTab';
@@ -201,7 +180,6 @@ const ProfileComponent = () => {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [fileContent, setFileContent] = useState<string>('');
   const [fileType, setFileType] = useState<'word' | 'excel' | null>(null);
-  const [wordEditor, setWordEditor] = useState<unknown>(null);
   const [excelData, setExcelData] = useState<unknown[][]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isEditing, setIsEditing] = useState(false);
@@ -568,8 +546,6 @@ const ProfileComponent = () => {
     a.download = `profile-data-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
     URL.revokeObjectURL(url);
-
-    console.log('Data exported successfully');
   }, [userData, courses, certificates]);
 
   const handleDeleteAccount = useCallback(() => {
@@ -578,7 +554,7 @@ const ProfileComponent = () => {
         'هل أنت متأكد من حذف الحساب؟ هذا الإجراء لا يمكن التراجع عنه.'
       )
     ) {
-      console.log('Account deletion requested');
+      // TODO: Implement account deletion API call
     }
   }, []);
 
@@ -586,7 +562,7 @@ const ProfileComponent = () => {
     setIsLoading(true);
     setTimeout(() => {
       setIsLoading(false);
-      console.log('AI insight generated');
+      // TODO: Implement AI insight generation API call
     }, 2000);
   }, []);
 

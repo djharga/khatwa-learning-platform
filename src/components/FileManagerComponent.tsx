@@ -20,7 +20,6 @@ import {
   AlertCircle,
   Plus,
   Star,
-  Star as StarIcon2,
   Mic,
   Eye,
   Download,
@@ -170,7 +169,7 @@ const FileListView = ({
 
             <div className="flex items-center space-x-2 space-x-reverse">
               {file.starred && (
-                <StarIcon2 className="w-4 h-4 text-yellow-500 fill-current" />
+                <Star className="w-4 h-4 text-yellow-500 fill-current" />
               )}
               {file.shared && (
                 <Share2 className="w-4 h-4 text-blue-500" />
@@ -729,12 +728,16 @@ const FileManagerComponent = () => {
       {
         label: 'معاينة',
         icon: <Eye className="w-4 h-4" />,
-        action: () => console.log('Preview', file.name),
+        action: () => {
+          // TODO: Implement file preview functionality
+        },
       },
       {
         label: 'تحميل',
         icon: <Download className="w-4 h-4" />,
-        action: () => console.log('Download', file.name),
+        action: () => {
+          // TODO: Implement file download functionality
+        },
       },
       {
         label: 'مشاركة',
@@ -749,17 +752,23 @@ const FileManagerComponent = () => {
       {
         label: 'إعادة تسمية',
         icon: <Edit className="w-4 h-4" />,
-        action: () => console.log('Rename', file.name),
+        action: () => {
+          // TODO: Implement file rename functionality
+        },
       },
       {
         label: 'نقل',
         icon: <Move className="w-4 h-4" />,
-        action: () => console.log('Move', file.name),
+        action: () => {
+          // TODO: Implement file move functionality
+        },
       },
       {
         label: 'نسخ',
         icon: <Copy className="w-4 h-4" />,
-        action: () => console.log('Copy', file.name),
+        action: () => {
+          // TODO: Implement file copy functionality
+        },
       },
       {
         label: 'إضافة ملاحظة صوتية',

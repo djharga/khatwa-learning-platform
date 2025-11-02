@@ -27,7 +27,6 @@ const existingPages = [
   '/internal-auditors',
   '/auditors-fellowship',
   '/courses',
-  '/learning-paths',
   '/subscription',
   '/certificates',
   '/meeting-room',

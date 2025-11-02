@@ -499,7 +499,7 @@ export default function StudentCertificatesPage() {
                 لم تحصل على شهادات بعد
               </h3>
               <p className="text-gray-600 mb-6 text-lg">
-                ابدأ رحلتك التعليمية واكمل الدورات للحصول على شهادات معتمدة
+                أكمل الدورات للحصول على شهادات معتمدة
               </p>
               <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600">
                 <Target className="w-5 h-5 ml-2" />

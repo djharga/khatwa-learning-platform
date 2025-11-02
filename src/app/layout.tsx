@@ -6,13 +6,12 @@ import EnhancedNavbar from '../components/layout/EnhancedNavbar';
 import FooterComponent from '../components/layout/FooterComponent';
 import BottomNavigation from '../components/layout/BottomNavigation';
 import Breadcrumbs from '../components/layout/Breadcrumbs';
-import SkipLink from '../components/SkipLink';
 import WhatsappFloatButton from '../components/WhatsappFloatButton';
 import ChatAssistantWidget from '../components/ChatAssistantWidget';
 import { Toaster } from 'react-hot-toast';
 import NotificationProvider from '../components/NotificationProvider';
 import AppSidebar from '../components/layout/AppSidebar';
-import { SkipLink as AccessibleSkipLink } from '@/components/ui/accessibility';
+import { SkipLink } from '@/components/ui/accessibility';
 import Script from 'next/script';
 import ServiceWorkerProvider from '../components/ServiceWorkerProvider';
 
@@ -108,8 +107,6 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl">
       <head>
-        {/* Font Optimization */}
-
         {/* Preload critical images */}
         <link rel="preload" as="image" href="/banar-cours.webp" />
         <link rel="preload" as="image" href="/globe.svg" />
@@ -135,10 +132,9 @@ export default function RootLayout({
         />
         <NotificationProvider>
           <ServiceWorkerProvider />
-          <SkipLink />
-          <AccessibleSkipLink href="#main-content">
+          <SkipLink href="#main-content">
             تخطي إلى المحتوى الرئيسي
-          </AccessibleSkipLink>
+          </SkipLink>
           <EnhancedNavbar />
           <AppSidebar />
           <Script src="/theme-init.js" strategy="beforeInteractive" />

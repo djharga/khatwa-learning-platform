@@ -9,22 +9,22 @@ const CreativeHeroSection = dynamic(
   () => import('@/components/homepage/CreativeHeroSection'),
   { 
     ssr: true, // Keep SSR for Hero (above the fold)
-    loading: () => <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-primary-900" />
+    loading: () => <div className="min-h-[85vh] bg-gradient-to-br from-neutral-900 via-neutral-800 to-primary-900" />
   }
 );
 
-const AIToolsSection = dynamic(
-  () => import('@/components/homepage/AIToolsSection'),
+const QuickStatsBar = dynamic(
+  () => import('@/components/homepage/QuickStatsBar'),
   { ssr: false }
 );
 
-const SectionsNavigation = dynamic(
-  () => import('@/components/homepage/SectionsNavigation'),
+const FeaturedCoursesSection = dynamic(
+  () => import('@/components/homepage/FeaturedCoursesSection'),
   { ssr: false }
 );
 
-const IntroVideoSection = dynamic(
-  () => import('@/components/homepage/IntroVideoSection'),
+const CIASpotlightSection = dynamic(
+  () => import('@/components/homepage/CIASpotlightSection'),
   { ssr: false }
 );
 
@@ -33,33 +33,13 @@ const CreativeFeaturesSection = dynamic(
   { ssr: false }
 );
 
-const CreativeHowItWorksSection = dynamic(
-  () => import('@/components/homepage/CreativeHowItWorksSection'),
-  { ssr: false }
-);
-
-const CreativeTestimonialsSection = dynamic(
-  () => import('@/components/homepage/CreativeTestimonialsSection'),
-  { ssr: false }
-);
-
-const PricingSection = dynamic(
-  () => import('@/components/homepage/PricingSection'),
-  { ssr: false }
-);
-
-const LatestContentSection = dynamic(
-  () => import('@/components/homepage/LatestContentSection'),
+const FAQSection = dynamic(
+  () => import('@/components/homepage/FAQSection'),
   { ssr: false }
 );
 
 const CTASection = dynamic(
   () => import('@/components/homepage/CTASection'),
-  { ssr: false }
-);
-
-const FAQSection = dynamic(
-  () => import('@/components/homepage/FAQSection'),
   { ssr: false }
 );
 
@@ -126,35 +106,23 @@ export default function HomePage() {
         {/* 1. Hero Section - Above the fold, SSR */}
         <CreativeHeroSection />
 
-        {/* 2. AI Tools Section */}
-        <AIToolsSection />
+        {/* 2. Quick Stats Bar */}
+        <QuickStatsBar />
 
-        {/* 3. Sections Navigation */}
-        <SectionsNavigation />
+        {/* 3. Featured Courses Section - Priority Section */}
+        <FeaturedCoursesSection />
 
-        {/* 4. Intro Video Section */}
-        <IntroVideoSection />
+        {/* 4. CIA Fellowship Spotlight */}
+        <CIASpotlightSection />
 
-        {/* 5. Creative Features */}
+        {/* 5. Key Features */}
         <CreativeFeaturesSection />
 
-        {/* 6. Creative How It Works */}
-        <CreativeHowItWorksSection />
-
-        {/* 7. Creative Testimonials */}
-        <CreativeTestimonialsSection />
-
-        {/* 8. Pricing */}
-        <PricingSection />
-
-        {/* 9. Latest Content */}
-        <LatestContentSection />
-
-        {/* 10. CTA Section */}
-        <CTASection />
-
-        {/* 11. FAQ */}
+        {/* 6. FAQ */}
         <FAQSection />
+
+        {/* 7. Final CTA */}
+        <CTASection />
       </div>
 
       {/* Modern Scroll to Top Button - Enhanced */}

@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { BookOpen, Users, MessageCircle, Library } from 'lucide-react';
+import { BookOpen, Users, MessageCircle } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 
 /**
@@ -24,7 +24,7 @@ const SectionsNavigation = () => {
     {
       id: 'courses',
       name: 'الكورسات',
-      description: 'استكشف مجموعتنا الكاملة من الدورات التدريبية',
+      description: 'استكشف مجموعتنا الكاملة من الدورات التدريبية والمحتوى التعليمي المتخصص',
       href: '/courses',
       icon: BookOpen,
       gradient: 'from-blue-500 to-cyan-600',
@@ -32,7 +32,7 @@ const SectionsNavigation = () => {
     {
       id: 'fellowship',
       name: 'الزمالة',
-      description: 'انضم إلى برنامج زمالة المراجعين الداخليين',
+      description: 'انضم إلى برنامج زمالة المراجعين الداخليين CIA واحصل على شهادة معتمدة',
       href: '/cia',
       icon: Users,
       gradient: 'from-purple-500 to-pink-600',
@@ -40,18 +40,10 @@ const SectionsNavigation = () => {
     {
       id: 'consultations',
       name: 'الاستشارات',
-      description: 'احصل على استشارات مهنية مخصصة',
+      description: 'احصل على استشارات مهنية مخصصة من خبراء المجال',
       href: '/packages-and-consulting?tab=consulting',
       icon: MessageCircle,
       gradient: 'from-emerald-500 to-teal-600',
-    },
-    {
-      id: 'library',
-      name: 'المكتبة',
-      description: 'تصفح الموارد التعليمية والمقالات',
-      href: '/resources',
-      icon: Library,
-      gradient: 'from-orange-500 to-amber-600',
     },
   ];
 
@@ -81,12 +73,12 @@ const SectionsNavigation = () => {
             </span>
           </h2>
           <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-            اختر القسم الذي يناسب احتياجاتك التعليمية والمهنية وابدأ رحلتك نحو التميز
+            اختر القسم الذي يناسب احتياجاتك التعليمية والمهنية
           </p>
         </motion.div>
 
-        {/* Sections Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        {/* Sections Grid - 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {sections.map((section, index) => {
             const Icon = section.icon;
             return (

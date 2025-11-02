@@ -2,7 +2,7 @@
  * أنواع البيانات لنظام إدارة الدورات والمحتوى (CMS)
  */
 
-import type { CourseInstructor, CourseLevel, CourseCategory } from '@/courses/types/course';
+import type { CourseInstructor, CourseLevel, CourseCategory } from '@/types/course';
 
 // ==================== أنواع الحالة ====================
 export type CourseStatus = 'draft' | 'published' | 'scheduled' | 'archived' | 'suspended';

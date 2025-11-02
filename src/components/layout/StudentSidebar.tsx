@@ -23,6 +23,9 @@ import {
   X,
   Menu,
   Shield,
+  Crown,
+  RefreshCw,
+  Package,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -55,6 +58,9 @@ export default function StudentSidebar() {
     {
       title: 'التعليم',
       links: [
+        { href: '/courses', label: 'الكورسات', icon: BookOpen },
+        { href: '/cia', label: 'زمالة CIA', icon: Crown },
+        { href: '/review', label: 'المراجعة', icon: RefreshCw },
         { href: '/student/exam', label: 'الامتحانات', icon: Edit },
         { href: '/student/certificates', label: 'شهاداتي', icon: Award },
         { href: '/student/file-manager', label: 'ملفاتي', icon: Folder },
@@ -65,6 +71,7 @@ export default function StudentSidebar() {
     {
       title: 'الخدمات',
       links: [
+        { href: '/packages-and-consulting', label: 'الباقات', icon: Package },
         { href: '/student/consulting', label: 'الاستشارات', icon: MessageCircle },
         { href: '/student/support', label: 'الدعم الفني', icon: Headphones },
       ],

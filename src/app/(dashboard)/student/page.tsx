@@ -56,6 +56,8 @@ import {
 } from 'lucide-react';
 import LoadingStates from '../../../components/ui/LoadingStates';
 import { LearningPathVisual, PathProgressTracker } from '@/components/ui/learning-paths';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface StatCard {
   id: string;
@@ -114,6 +116,7 @@ interface Event {
 }
 
 export default function DashboardPage() {
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
   const [isLoading, setIsLoading] = useState(true);
@@ -128,6 +131,9 @@ export default function DashboardPage() {
     streak: 7,
     role: 'طالب',
   };
+
+  // بيانات الإشعارات غير المقروءة
+  const unreadNotifications = 5; // في التطبيق الحقيقي، سيتم جلبها من API
 
   const stats: StatCard[] = [
     {
@@ -175,6 +181,17 @@ export default function DashboardPage() {
       sparkline: [8, 9, 11, 12, 13, 14, 15],
     },
   ];
+
+  // ملخص حالة الحساب الشامل
+  const accountSummary = {
+    totalProgress: 73,
+    activeCourses: 5,
+    completedCourses: 3,
+    totalCertificates: 8,
+    studyHours: 156,
+    upcomingDeadlines: 3,
+    averageScore: 92,
+  };
 
   const currentCourses: Course[] = [
     {
@@ -537,6 +554,25 @@ export default function DashboardPage() {
 
                   {/* Quick Actions */}
                   <div className="flex flex-wrap gap-3">
+                    {/* إشعارات جديدة */}
+                    {unreadNotifications > 0 && (
+                      <motion.button
+                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => router.push('/notifications')}
+                        className="group relative overflow-hidden bg-gradient-to-r from-orange-500 to-red-500 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="relative z-10 flex items-center gap-2">
+                          <Bell className="w-5 h-5 relative z-10" />
+                          <span className="relative z-10">الإشعارات</span>
+                          <span className="relative z-10 bg-white text-orange-600 rounded-full px-2 py-0.5 text-xs font-bold animate-pulse">
+                            {unreadNotifications}
+                          </span>
+                        </div>
+                        <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                      </motion.button>
+                    )}
                     <motion.button
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
@@ -570,6 +606,68 @@ export default function DashboardPage() {
               </div>
             </motion.div>
 
+            {/* ملخص حالة الحساب الشامل */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mb-8"
+            >
+              <div className="glass-card p-6 rounded-2xl bg-gradient-to-br from-blue-50/50 via-purple-50/50 to-indigo-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-indigo-900/10 border-2 border-primary-200/50 dark:border-primary-800/50">
+                <div className="flex items-center justify-between mb-6">
+                  <div>
+                    <h2 className="text-2xl font-bold text-text-primary mb-2">
+                      ملخص حالة الحساب
+                    </h2>
+                    <p className="text-text-secondary text-sm">
+                      نظرة شاملة على تقدمك وإنجازاتك في المنصة
+                    </p>
+                  </div>
+                  <div className="hidden lg:flex items-center gap-4">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-primary-600 dark:text-primary-400">
+                        {accountSummary.totalProgress}%
+                      </div>
+                      <div className="text-xs text-text-secondary">إجمالي التقدم</div>
+                    </div>
+                    <div className="h-12 w-px bg-glass-border"></div>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-green-600">
+                        {accountSummary.averageScore}%
+                      </div>
+                      <div className="text-xs text-text-secondary">متوسط الدرجات</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm rounded-xl p-4 border border-glass-border">
+                    <div className="text-sm text-text-secondary mb-1">الدورات النشطة</div>
+                    <div className="text-2xl font-bold text-primary-600 dark:text-primary-400">
+                      {accountSummary.activeCourses}
+                    </div>
+                  </div>
+                  <div className="bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm rounded-xl p-4 border border-glass-border">
+                    <div className="text-sm text-text-secondary mb-1">الدورات المكتملة</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      {accountSummary.completedCourses}
+                    </div>
+                  </div>
+                  <div className="bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm rounded-xl p-4 border border-glass-border">
+                    <div className="text-sm text-text-secondary mb-1">الشهادات</div>
+                    <div className="text-2xl font-bold text-purple-600">
+                      {accountSummary.totalCertificates}
+                    </div>
+                  </div>
+                  <div className="bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm rounded-xl p-4 border border-glass-border">
+                    <div className="text-sm text-text-secondary mb-1">ساعات الدراسة</div>
+                    <div className="text-2xl font-bold text-orange-600">
+                      {accountSummary.studyHours}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Stats Cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -577,9 +675,21 @@ export default function DashboardPage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-8"
             >
-              <h2 className="text-xl font-bold text-text-primary mb-6">
-                إحصائيات سريعة
-              </h2>
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-text-primary">
+                  إحصائيات سريعة
+                </h2>
+                {unreadNotifications > 0 && (
+                  <Link
+                    href="/notifications"
+                    className="flex items-center gap-2 text-primary hover:text-primary-light transition-colors font-medium"
+                  >
+                    <Bell className="w-5 h-5" />
+                    <span>إشعارات جديدة ({unreadNotifications})</span>
+                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                  </Link>
+                )}
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {stats.map((stat, index) => (
                   <motion.div
@@ -690,20 +800,69 @@ export default function DashboardPage() {
                       </div>
                     </div>
 
+                    {/* شريط الإنجاز المحسّن */}
                     <div className="mb-4">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="text-text-secondary">التقدم</span>
-                        <span className="font-medium text-text-primary">
-                          {course.progress}%
-                        </span>
+                      <div className="flex justify-between text-sm mb-3">
+                        <span className="text-text-secondary font-medium">التقدم في الدورة</span>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold text-text-primary">
+                            {course.progress}%
+                          </span>
+                          <span className="text-xs text-text-muted">
+                            ({course.completedLessons}/{course.totalLessons})
+                          </span>
+                        </div>
                       </div>
-                      <div className="w-full bg-background-subtle rounded-full h-2">
+                      <div className="relative w-full bg-background-subtle rounded-full h-3 overflow-hidden shadow-inner">
+                        {/* خلفية الشريط */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700"></div>
+                        {/* شريط التقدم */}
                         <motion.div
-                          className="bg-gradient-primary-smooth h-2 rounded-full"
+                          className={`relative h-3 rounded-full ${
+                            course.progress >= 75
+                              ? 'bg-gradient-to-r from-green-500 to-green-600'
+                              : course.progress >= 50
+                                ? 'bg-gradient-to-r from-blue-500 to-blue-600'
+                                : course.progress >= 25
+                                  ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
+                                  : 'bg-gradient-to-r from-red-400 to-red-500'
+                          } shadow-lg`}
                           initial={{ width: 0 }}
                           animate={{ width: `${course.progress}%` }}
                           transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
-                        />
+                        >
+                          {/* تأثير توهج */}
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                            animate={{
+                              x: ['-100%', '100%'],
+                            }}
+                            transition={{
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'linear',
+                            }}
+                            style={{
+                              width: '50%',
+                            }}
+                          />
+                        </motion.div>
+                        {/* علامات مرجعية */}
+                        {[25, 50, 75, 100].map((milestone) => (
+                          <div
+                            key={milestone}
+                            className="absolute top-0 bottom-0 w-px bg-white/30"
+                            style={{ right: `${100 - milestone}%` }}
+                          ></div>
+                        ))}
+                      </div>
+                      {/* معلومات إضافية */}
+                      <div className="flex items-center justify-between mt-2 text-xs text-text-muted">
+                        <span>آخر نشاط: {course.dueDate}</span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="w-3 h-3" />
+                          متبقي {course.totalLessons - course.completedLessons} درس
+                        </span>
                       </div>
                     </div>
 

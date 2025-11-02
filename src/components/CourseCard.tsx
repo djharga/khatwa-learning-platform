@@ -96,20 +96,100 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
             </span>
           </div>
 
-          <div className="flex items-center justify-between text-xs text-gray-500 mb-4 bg-gray-50 rounded-lg p-3">
-            <div className="flex items-center gap-2">
-              <span>آخر نشاط: {course.lastActivity || 'منذ يوم'}</span>
-              {hasCertificate && (
-                <span className="flex items-center gap-1 text-green-600">
-                  <Award className="w-3 h-3" />
-                  شهادة متوفرة
+          {/* حالة الدورة والتقدم */}
+          <div className="mb-4 space-y-3">
+            {/* حالة الدورة */}
+            {course.progress !== undefined && (
+              <div className="bg-gray-50 rounded-lg p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                      course.progress === 100
+                        ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                        : course.progress > 0
+                          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                          : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                    }`}>
+                      {course.progress === 100
+                        ? '✓ مكتملة'
+                        : course.progress > 0
+                          ? '⏳ قيد التنفيذ'
+                          : '○ لم تبدأ'}
+                    </span>
+                    {hasCertificate && (
+                      <span className="flex items-center gap-1 text-green-600 dark:text-green-400">
+                        <Award className="w-3 h-3" />
+                        <span className="text-xs">شهادة</span>
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs text-gray-500">
+                    آخر نشاط: {course.lastActivity || 'منذ يوم'}
+                  </span>
+                </div>
+                {/* شريط التقدم */}
+                {course.progress > 0 && (
+                  <div className="relative w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      className={`h-2 rounded-full ${
+                        course.progress === 100
+                          ? 'bg-gradient-to-r from-green-500 to-green-600'
+                          : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                      }`}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${course.progress}%` }}
+                      transition={{ duration: 1, delay: 0.3 }}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+                        {course.progress}%
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+            
+            {/* معلومات إضافية */}
+            <div className="flex items-center justify-between text-xs text-gray-500">
+              <span>تم الإنشاء: {course.createdAt ? new Date(course.createdAt).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
+              {course.isOngoing && (
+                <span className="px-2 py-1 bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 rounded-full">
+                  دورة جارية
                 </span>
               )}
             </div>
-            <span>تم الإنشاء: {course.createdAt ? new Date(course.createdAt).toLocaleDateString('ar-SA') : 'غير محدد'}</span>
           </div>
 
-          <ActionButtons variant="default" isBookmarked={isBookmarked} isWishlisted={false} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={(e) => handleEnroll(e as any)} onBookmark={(e) => handleBookmark(e as any)} onWishlist={() => {}} onShare={() => {}} />
+          {/* أزرار الإجراءات المحسنة */}
+          <div className="flex items-center gap-2">
+            {course.progress !== undefined && course.progress > 0 && course.progress < 100 ? (
+              <Link
+                href={`/student/courses/${course.id}`}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+              >
+                <Play className="w-4 h-4" />
+                <span>استكمل التعلم</span>
+              </Link>
+            ) : course.progress === 100 ? (
+              <Link
+                href={`/certificates`}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+              >
+                <Award className="w-4 h-4" />
+                <span>عرض الشهادة</span>
+              </Link>
+            ) : (
+              <Link
+                href={`/student/courses/${course.id}`}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+              >
+                <Play className="w-4 h-4" />
+                <span>ابدأ الدورة</span>
+              </Link>
+            )}
+            <ActionButtons variant="default" isBookmarked={isBookmarked} isWishlisted={false} isLoading={isLoading} isLoadingAction={isLoadingAction} showRipple={showRipple} onEnroll={(e) => handleEnroll(e as any)} onBookmark={(e) => handleBookmark(e as any)} onWishlist={() => {}} onShare={() => {}} />
+          </div>
         </div>
       </div>
     </motion.div>

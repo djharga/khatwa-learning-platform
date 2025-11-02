@@ -72,12 +72,6 @@ const navigationMenuItems = {
         icon: TrendingUp,
         description: 'دورات متخصصة في الإدارة المالية'
       },
-      { 
-        label: 'المسارات التعليمية', 
-        href: '/learning-paths', 
-        icon: GraduationCap,
-        description: 'مسار تعليمي منظم'
-      },
     ] as Array<{
       label: string;
       href: string;
@@ -249,7 +243,6 @@ const EnhancedNavbar = () => {
   const searchSuggestions = searchQuery.length > 0 ? [
     { label: `البحث عن "${searchQuery}"`, href: `/search?q=${searchQuery}`, icon: Search },
     { label: 'كورسات المراجعة الداخلية', href: '/courses?category=internal-audit', icon: BookOpen },
-    { label: 'المسارات التعليمية', href: '/learning-paths', icon: GraduationCap },
   ].slice(0, 5) : [];
 
   return (

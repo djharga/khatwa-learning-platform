@@ -146,16 +146,6 @@ export const navigationItems: Record<string, NavigationItem> = {
     priority: 4,
   },
 
-  learningPaths: {
-    id: 'learning-paths',
-    label: 'مسارات التعلم',
-    href: '/learning-paths',
-    icon: 'paths',
-    description: 'مسارات تعليمية منظمة',
-    roles: ['public', 'student', 'instructor', 'admin'],
-    priority: 5,
-  },
-
   community: {
     id: 'community',
     label: 'المجتمع التعليمي',
@@ -620,7 +610,6 @@ export const navigationSections: NavigationSection[] = [
     items: [
       navigationItems.courses,
       navigationItems.internalAuditors,
-      navigationItems.learningPaths,
       navigationItems.financialManagement,
       navigationItems.financeBasics,
       navigationItems.procurementManagement,
@@ -753,7 +742,6 @@ export const getPublicNavbarItems = () => [
   navigationItems.internalAuditors,
   navigationItems.auditorsFellowship,
   navigationItems.courses,
-  navigationItems.learningPaths,
   navigationItems.community,
   {
     id: 'more-dropdown',
@@ -907,20 +895,28 @@ export const getBreadcrumbs = (pathname: string) => {
     } else if (pathname.startsWith('/cia/materials')) {
       breadcrumbs.push({ label: 'المواد التعليمية', href: '/cia/materials' });
     }
-  } else if (pathname.startsWith('/question-bank')) {
-    breadcrumbs.push({ label: 'زمالة CIA', href: '/cia' });
-    breadcrumbs.push({ label: 'بنك الأسئلة', href: '/question-bank' });
   } else if (pathname.startsWith('/courses')) {
     breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
     // مسارات فرعية للكورسات
     if (pathname.startsWith('/courses/financial')) {
       breadcrumbs.push({ label: 'المحاسبة المالية', href: '/courses/financial' });
+    } else if (pathname.startsWith('/courses/ai-audit')) {
+      breadcrumbs.push({ label: 'المراجعة بالذكاء الاصطناعي', href: '/courses/ai-audit' });
+    } else if (pathname.startsWith('/courses/basics')) {
+      breadcrumbs.push({ label: 'أساسيات المحاسبة', href: '/courses/basics' });
+    } else if (pathname.startsWith('/courses/cia-preparation')) {
+      breadcrumbs.push({ label: 'تحضير شهادة CIA', href: '/courses/cia-preparation' });
+    } else if (pathname.startsWith('/courses/compliance')) {
+      breadcrumbs.push({ label: 'الامتثال والالتزام', href: '/courses/compliance' });
+    } else if (pathname.startsWith('/courses/digital-audit')) {
+      breadcrumbs.push({ label: 'المراجعة الرقمية', href: '/courses/digital-audit' });
+    } else if (pathname.startsWith('/courses/financial-projects')) {
+      breadcrumbs.push({ label: 'المشاريع المالية', href: '/courses/financial-projects' });
+    } else if (pathname.startsWith('/courses/risk-analysis')) {
+      breadcrumbs.push({ label: 'تحليل المخاطر', href: '/courses/risk-analysis' });
     }
   } else if (pathname.startsWith('/browse-courses')) {
     breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-  } else if (pathname.startsWith('/learning-paths')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'المسارات التعليمية', href: '/learning-paths' });
   } else if (pathname.startsWith('/packages-and-consulting')) {
     breadcrumbs.push({ label: 'الباقات والاستشارات', href: '/packages-and-consulting' });
     const tab = pathname.includes('tab=packages') || pathname.includes('tab=consulting')
@@ -955,8 +951,6 @@ export const getBreadcrumbs = (pathname: string) => {
     } else if (pathname.startsWith('/resources/tools')) {
       breadcrumbs.push({ label: 'الأدوات', href: '/resources/tools' });
     }
-  } else if (pathname.startsWith('/learning-paths')) {
-    breadcrumbs.push({ label: 'مسارات التعلم', href: '/learning-paths' });
   } else if (pathname.startsWith('/community')) {
     breadcrumbs.push({ label: 'المجتمع التعليمي', href: '/community' });
   } else if (
@@ -978,14 +972,6 @@ export const getBreadcrumbs = (pathname: string) => {
     breadcrumbs.push({ label: 'المدونة', href: '/blog' });
   } else if (pathname.startsWith('/services')) {
     breadcrumbs.push({ label: 'الباقات والاستشارات', href: '/packages-and-consulting' });
-  } else if (pathname.startsWith('/resources')) {
-    breadcrumbs.push({ label: 'المكتبة', href: '/resources' });
-    if (pathname.startsWith('/resources/course-files')) {
-      breadcrumbs.push({
-        label: 'ملفات الكورسات',
-        href: '/resources/course-files',
-      });
-    }
   } else if (pathname.startsWith('/files')) {
     breadcrumbs.push({ label: 'ملفاتي', href: '/files' });
   } else if (pathname.startsWith('/financial-management')) {
@@ -1024,6 +1010,7 @@ export const getBreadcrumbs = (pathname: string) => {
       href: '/restaurant-management',
     });
   } else if (pathname.startsWith('/question-bank')) {
+    breadcrumbs.push({ label: 'زمالة CIA', href: '/cia' });
     breadcrumbs.push({ label: 'بنك الأسئلة التفاعلي', href: '/question-bank' });
   } else if (pathname.startsWith('/review')) {
     breadcrumbs.push({ label: 'بنك الأسئلة التفاعلي', href: '/review' });
@@ -1035,27 +1022,6 @@ export const getBreadcrumbs = (pathname: string) => {
     breadcrumbs.push({ label: 'عرض توضيحي للبدء', href: '/onboarding-demo' });
   } else if (pathname.startsWith('/meeting-room')) {
     breadcrumbs.push({ label: 'غرفة الاجتماعات', href: '/meeting-room' });
-  } else if (pathname.startsWith('/courses/ai-audit')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'المراجعة بالذكاء الاصطناعي', href: '/courses/ai-audit' });
-  } else if (pathname.startsWith('/courses/basics')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'أساسيات المحاسبة', href: '/courses/basics' });
-  } else if (pathname.startsWith('/courses/cia-preparation')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'تحضير شهادة CIA', href: '/courses/cia-preparation' });
-  } else if (pathname.startsWith('/courses/compliance')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'الامتثال والالتزام', href: '/courses/compliance' });
-  } else if (pathname.startsWith('/courses/digital-audit')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'المراجعة الرقمية', href: '/courses/digital-audit' });
-  } else if (pathname.startsWith('/courses/financial-projects')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'المشاريع المالية', href: '/courses/financial-projects' });
-  } else if (pathname.startsWith('/courses/risk-analysis')) {
-    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    breadcrumbs.push({ label: 'تحليل المخاطر', href: '/courses/risk-analysis' });
   } else if (pathname.startsWith('/learning-hub')) {
     breadcrumbs.push({ label: 'مركز التعلم', href: '/learning-hub' });
   } else if (pathname.startsWith('/workshops')) {

@@ -73,7 +73,7 @@ function PackagesAndConsultingContent() {
     {
       id: 'free',
       name: 'باقة مجانية',
-      description: 'ابدأ رحلتك التعليمية مجاناً',
+      description: 'ابدأ التعلم مجاناً',
       price: 0,
       period: 'مجاناً للأبد',
       duration: 'مدى الحياة',

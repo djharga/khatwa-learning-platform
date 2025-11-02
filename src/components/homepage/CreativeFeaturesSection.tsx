@@ -8,10 +8,7 @@ import {
   Award,
   TrendingUp,
   MessageCircle,
-  Smartphone,
-  Shield,
   Sparkles,
-  Zap,
   Target,
   ArrowRight,
 } from 'lucide-react';
@@ -39,49 +36,33 @@ const CreativeFeaturesSection = () => {
     {
       icon: BookOpen,
       title: 'دورات تفاعلية',
-      description: 'محتوى متطور يدمج التكنولوجيا الحديثة مع الخبرة العملية',
+      description: 'محتوى متطور يدمج التكنولوجيا الحديثة مع الخبرة العملية لتحقيق أفضل النتائج التعليمية',
       gradient: 'from-blue-500 via-cyan-500 to-teal-500',
       delay: 0,
       position: 'left',
     },
     {
       icon: Award,
-      title: 'شهادات عالمية',
-      description: 'اعتمادات دولية معترف بها في جميع أنحاء العالم',
+      title: 'شهادات معتمدة',
+      description: 'احصل على شهادات عالمية معترف بها في جميع أنحاء العالم تعزز مسيرتك المهنية',
       gradient: 'from-purple-500 via-pink-500 to-rose-500',
       delay: 0.2,
-      position: 'center',
-    },
-    {
-      icon: TrendingUp,
-      title: 'تتبع ذكي',
-      description: 'تحليلات متقدمة لمتابعة تقدمك وتحسين تجربتك',
-      gradient: 'from-emerald-500 via-green-500 to-lime-500',
-      delay: 0.4,
       position: 'right',
     },
     {
-      icon: MessageCircle,
-      title: 'دعم ذكي',
-      description: 'مساعد ذكي متاح 24/7 لتقديم المساعدة الفورية',
-      gradient: 'from-orange-500 via-amber-500 to-yellow-500',
-      delay: 0.6,
+      icon: TrendingUp,
+      title: 'تتبع التقدم',
+      description: 'تحليلات متقدمة لمتابعة تقدمك بشكل دقيق وتحسين تجربتك التعليمية',
+      gradient: 'from-emerald-500 via-green-500 to-lime-500',
+      delay: 0.4,
       position: 'left',
     },
     {
-      icon: Smartphone,
-      title: 'تعلم متعدد',
-      description: 'منصة واحدة تعمل بسلاسة على جميع الأجهزة',
-      gradient: 'from-indigo-500 via-blue-500 to-cyan-500',
-      delay: 0.8,
-      position: 'center',
-    },
-    {
-      icon: Shield,
-      title: 'أمان متقدم',
-      description: 'حماية شاملة للمحتوى والبيانات بأحدث التقنيات',
-      gradient: 'from-red-500 via-rose-500 to-pink-500',
-      delay: 1,
+      icon: MessageCircle,
+      title: 'دعم فني',
+      description: 'فريق دعم متاح 24/7 لتقديم المساعدة الفورية والإجابة على جميع استفساراتك',
+      gradient: 'from-orange-500 via-amber-500 to-yellow-500',
+      delay: 0.6,
       position: 'right',
     },
   ];
@@ -130,34 +111,32 @@ const CreativeFeaturesSection = () => {
           </p>
         </motion.div>
 
-        {/* Features Grid - Non-traditional Layout */}
-        <div ref={ref} className="space-y-8 lg:space-y-12">
+        {/* Features Grid - Simplified Layout */}
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
           {features.map((feature, index) => {
             const Icon = feature.icon;
-            const isEven = index % 2 === 0;
 
             return (
               <motion.div
                 key={index}
-                className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 ${
-                  isEven ? 'lg:flex-row-reverse' : ''
-                }`}
-                initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                className="flex flex-col items-center text-center p-6 lg:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ delay: feature.delay, duration: 0.8 }}
+                whileHover={{ y: -5 }}
               >
                 {/* Icon with Animation */}
                 <motion.div
-                  className={`flex-shrink-0 ${isEven ? 'lg:order-2' : ''}`}
-                  whileHover={{ scale: 1.1, rotate: [0, -10, 10, 0] }}
+                  className="mb-6"
+                  whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
                   transition={{ duration: 0.5 }}
                 >
                   <div className="relative">
                     {/* Glow Effect */}
                     <motion.div
-                      className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} rounded-3xl blur-2xl opacity-50`}
+                      className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} rounded-2xl blur-xl opacity-40`}
                       animate={{
-                        opacity: [0.3, 0.6, 0.3],
+                        opacity: [0.3, 0.5, 0.3],
                         scale: [1, 1.1, 1],
                       }}
                       transition={{
@@ -167,67 +146,22 @@ const CreativeFeaturesSection = () => {
                       }}
                     />
                     
-                    {/* Enhanced Icon Container */}
-                    <div className={`relative w-32 h-32 md:w-36 md:h-36 bg-gradient-to-br ${feature.gradient} rounded-3xl flex items-center justify-center shadow-xl shadow-indigo-500/30 hover:shadow-2xl hover:shadow-indigo-500/40 transition-all duration-300`}>
-                      <Icon className="w-16 h-16 md:w-20 md:h-20 text-white" />
-                      
-                      {/* Subtle Animated Border - Less intensive */}
-                      <motion.div
-                        className="absolute inset-0 rounded-3xl border-2 border-white/40"
-                        animate={{
-                          rotate: [0, 360],
-                        }}
-                        transition={{
-                          duration: 30,
-                          repeat: Infinity,
-                          ease: 'linear',
-                        }}
-                      />
+                    {/* Icon Container */}
+                    <div className={`relative w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center shadow-lg`}>
+                      <Icon className="w-10 h-10 lg:w-12 lg:h-12 text-white" />
                     </div>
-
-                    {/* Reduced Floating Particles for Performance */}
-                    {[...Array(2)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        className={`absolute w-2 h-2 bg-gradient-to-r ${feature.gradient} rounded-full opacity-60`}
-                        style={{
-                          top: `${30 + i * 40}%`,
-                          right: `${-15 + i * 10}%`,
-                        }}
-                        animate={{
-                          y: [0, -15, 0],
-                          opacity: [0.3, 0.6, 0.3],
-                          scale: [1, 1.3, 1],
-                        }}
-                        transition={{
-                          duration: 3 + i * 0.5,
-                          repeat: Infinity,
-                          delay: i * 0.4,
-                          ease: 'easeInOut',
-                        }}
-                      />
-                    ))}
                   </div>
                 </motion.div>
 
-                {/* Enhanced Content */}
-                <motion.div
-                  className={`flex-1 text-center lg:text-right ${isEven ? 'lg:text-left' : ''}`}
-                  whileHover={{ x: isEven ? -3 : 3 }}
-                  transition={{ duration: 0.2, type: 'spring', stiffness: 300 }}
-                >
-                  <div className="inline-flex items-center gap-3 mb-4">
-                    <div className="p-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg">
-                      <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    </div>
-                    <h3 className="text-2xl lg:text-3xl xl:text-4xl font-bold text-neutral-900 dark:text-white">
-                      {feature.title}
-                    </h3>
-                  </div>
-                  <p className="text-base lg:text-lg xl:text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-md mx-auto lg:mx-0">
+                {/* Content */}
+                <div className="space-y-3">
+                  <h3 className="text-xl lg:text-2xl font-bold text-neutral-900 dark:text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {feature.description}
                   </p>
-                </motion.div>
+                </div>
               </motion.div>
             );
           })}

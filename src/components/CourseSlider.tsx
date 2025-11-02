@@ -1,13 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Bookmark, Star } from 'lucide-react';
-import { CourseSliderProps, Course } from '@/types/course';
-
-interface CourseSliderState {
-  currentIndex: number;
-}
+import { CourseSliderProps } from '@/types/course';
 
 const CourseSlider = (props: CourseSliderProps & { visibleCards?: number }) => {
   const { courses = [], visibleCards = 3 } = props;
@@ -51,7 +47,7 @@ const CourseSlider = (props: CourseSliderProps & { visibleCards?: number }) => {
           <motion.div
             className="flex gap-6"
             animate={{ x: -currentIndex * (cardWidth + 24) }}
-            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 20, duration: 0.8 }}
           >
             {courses.map((course) => (
               <motion.div

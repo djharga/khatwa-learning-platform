@@ -20,6 +20,7 @@ import {
   List,
   ChevronDown,
   ChevronRight,
+  ChevronLeft,
   Play,
   CheckCircle,
   Target,
@@ -73,6 +74,7 @@ import {
   Star as StarIcon,
   StarHalf,
   StarOff,
+  Headphones,
 } from 'lucide-react';
 
 // Import existing components
@@ -606,92 +608,157 @@ export default function LearningHubPage() {
     </div>
   );
 
-  const renderLearningPathTab = () => (
-    <div className="space-y-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6"
-      >
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">المسار التعليمي</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            اتبع خطة تعليمية منظمة لتطوير مهاراتك في المحاسبة والمراجعة
-          </p>
-        </div>
+  const renderLearningPathTab = () => {
+    // Import courses data
+    const { getAllCourses } = require('@/data/courses/all-courses');
+    const allCoursesData = getAllCourses() || [];
+    
+    return (
+      <div className="space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6"
+        >
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">رحلة المسارات التعليمية</h1>
+          </div>
 
-        <div className="space-y-6">
-          {mockLearningPath.map((path, index) => (
-            <motion.div
-              key={path.id}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className={`p-6 rounded-2xl border-2 ${
-                path.completed ? 'border-green-200 bg-green-50 dark:bg-green-900/20' :
-                path.current ? 'border-primary bg-primary/5' :
-                'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
-              }`}
-            >
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                    path.completed ? 'bg-green-500 text-white' :
-                    path.current ? 'bg-primary text-white' :
-                    'bg-gray-300 dark:bg-gray-600 text-gray-600'
-                  }`}>
-                    {path.completed ? <CheckCircle className="w-6 h-6" /> :
-                     path.current ? <Play className="w-6 h-6" /> :
-                     <Clock className="w-6 h-6" />}
+          {/* الدورات والمسارات مجمعة */}
+          <div className="space-y-8">
+            {/* عرض الدورات بشكل أفقي مع أيقونات */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">الدورات المتاحة</h2>
+              <div className="overflow-x-auto pb-4">
+                <div className="flex gap-6 min-w-max">
+                  {allCoursesData.slice(0, 10).map((course: any, index: number) => (
+                    <motion.div
+                      key={course.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="min-w-[280px] bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow"
+                    >
+                      <div className="p-4">
+                        <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-lg">{course.title}</h3>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                            <div className="flex items-center gap-1">
+                              <FileText className="w-4 h-4" />
+                              <span>{course.files}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Video className="w-4 h-4" />
+                              <span>{course.videos}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Headphones className="w-4 h-4" />
+                              <span>{course.audios}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                            <span className="font-semibold">{course.rating}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-lg font-bold text-primary">{course.price}</span>
+                          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                            ابدأ الآن
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+              {/* أسهم التنقل */}
+              <div className="flex justify-center gap-4 mt-4">
+                <button className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                <button className="p-2 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* المسارات */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">المسارات التعليمية</h2>
+              {mockLearningPath.map((path, index) => (
+                <motion.div
+                  key={path.id}
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`p-6 rounded-2xl border-2 ${
+                    path.completed ? 'border-green-200 bg-green-50 dark:bg-green-900/20' :
+                    path.current ? 'border-primary bg-primary/5' :
+                    'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                        path.completed ? 'bg-green-500 text-white' :
+                        path.current ? 'bg-primary text-white' :
+                        'bg-gray-300 dark:bg-gray-600 text-gray-600'
+                      }`}>
+                        {path.completed ? <CheckCircle className="w-6 h-6" /> :
+                         path.current ? <Play className="w-6 h-6" /> :
+                         <Clock className="w-6 h-6" />}
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{path.title}</h3>
+                        <p className="text-gray-600 dark:text-gray-400">{path.description}</p>
+                      </div>
+                    </div>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                      path.level === 'مبتدئ' ? 'bg-green-100 text-green-800' :
+                      path.level === 'متوسط' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {path.level}
+                    </span>
                   </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{path.title}</h3>
-                    <p className="text-gray-600 dark:text-gray-400">{path.description}</p>
+
+                  <div className="mb-4">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-gray-600 dark:text-gray-400">التقدم</span>
+                      <span className="font-semibold text-gray-900 dark:text-white">{path.progress}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                      <motion.div
+                        className={`h-3 rounded-full ${
+                          path.completed ? 'bg-green-500' :
+                          path.current ? 'bg-primary' : 'bg-gray-400'
+                        }`}
+                        initial={{ width: 0 }}
+                        animate={{ width: `${path.progress}%` }}
+                        transition={{ duration: 1, delay: index * 0.2 }}
+                      />
+                    </div>
                   </div>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  path.level === 'مبتدئ' ? 'bg-green-100 text-green-800' :
-                  path.level === 'متوسط' ? 'bg-yellow-100 text-yellow-800' :
-                  'bg-red-100 text-red-800'
-                }`}>
-                  {path.level}
-                </span>
-              </div>
 
-              <div className="mb-4">
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-gray-600 dark:text-gray-400">التقدم</span>
-                  <span className="font-semibold text-gray-900 dark:text-white">{path.progress}%</span>
-                </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
-                  <motion.div
-                    className={`h-3 rounded-full ${
-                      path.completed ? 'bg-green-500' :
-                      path.current ? 'bg-primary' : 'bg-gray-400'
-                    }`}
-                    initial={{ width: 0 }}
-                    animate={{ width: `${path.progress}%` }}
-                    transition={{ duration: 1, delay: index * 0.2 }}
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {path.courses.map((course, courseIndex) => (
-                  <span
-                    key={courseIndex}
-                    className="px-3 py-1 bg-white dark:bg-gray-700 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
-                  >
-                    {course}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </div>
-  );
+                  <div className="flex flex-wrap gap-2">
+                    {path.courses.map((course, courseIndex) => (
+                      <span
+                        key={courseIndex}
+                        className="px-3 py-1 bg-white dark:bg-gray-700 rounded-lg text-sm text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600"
+                      >
+                        {course}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  };
 
   const renderConsultingTab = () => (
     <motion.div

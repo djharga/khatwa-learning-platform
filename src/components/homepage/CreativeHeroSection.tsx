@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import { Play, ArrowLeft } from 'lucide-react';
+import { Play, ArrowLeft, Users, BookOpen, Star, Award, Search } from 'lucide-react';
 import Icon from '@/components/ui/icons/IconSystem';
 import { Button } from '@/components/ui/primitives';
 import { Container } from '@/components/ui/primitives';
@@ -50,20 +50,31 @@ const CreativeHeroSection = () => {
   return (
     <section
       data-hero
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-primary-900"
+      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-700 via-slate-600 to-indigo-800"
     >
-      {/* Hero Banner Image Background */}
+      {/* Hero Video Background - استبدال الصورة بالفيديو الخطي */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/assets/hero-main-banner.png"
-          alt="خطى للتدريب والاستشارات - منصة التعلم المهني"
-          fill
-          priority
-          className="object-cover"
-          quality={90}
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          poster="/assets/hero-main-banner.png"
+        >
+          <source src="/videos/hero-video.mp4" type="video/mp4" />
+          {/* Fallback to image if video not available */}
+          <Image
+            src="/assets/hero-main-banner.png"
+            alt="خطى للتدريب والاستشارات - منصة التعلم المهني"
+            fill
+            priority
+            className="object-cover"
+            quality={90}
+          />
+        </video>
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900/70 via-neutral-800/60 to-primary-900/70" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/70 via-slate-600/60 to-indigo-800/70" />
       </div>
 
       {/* Optimized Background Particles - Reduced count for performance */}
@@ -170,7 +181,52 @@ const CreativeHeroSection = () => {
               </div>
             </motion.div>
 
-            {/* CTA Buttons - Enhanced with dual action */}
+            {/* Quick Stats - Inline Stats */}
+            <motion.div
+              className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+            >
+              {[
+                { icon: Users, value: '15,420', label: 'طالب نشط' },
+                { icon: BookOpen, value: '15+', label: 'دورة' },
+                { icon: Star, value: '4.8', label: 'التقييم' },
+                { icon: Award, value: '95%', label: 'الرضا' },
+              ].map((stat, idx) => {
+                const StatIcon = stat.icon;
+                return (
+                  <div key={idx} className="flex flex-col items-center lg:items-start text-center lg:text-right p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl">
+                    <div className="flex items-center gap-2 mb-1">
+                      <StatIcon className="w-4 h-4 text-indigo-300" />
+                      <span className="text-xl font-bold text-white">{stat.value}</span>
+                    </div>
+                    <span className="text-xs text-white/80">{stat.label}</span>
+                  </div>
+                );
+              })}
+            </motion.div>
+
+            {/* Search Bar - Quick Course Search */}
+            <motion.div
+              className="mt-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.75, duration: 0.6 }}
+            >
+              <Link href="/courses">
+                <div className="relative w-full max-w-md mx-auto lg:mx-0">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                    <Search className="w-5 h-5 text-white/70" />
+                  </div>
+                  <div className="w-full px-6 pr-14 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white/90 placeholder-white/60 hover:bg-white/15 transition-all cursor-pointer">
+                    ابحث عن دورة...
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* CTA Buttons - Enhanced with primary focus */}
             <motion.div
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-6"
               initial={{ opacity: 0, y: 20 }}
@@ -181,20 +237,20 @@ const CreativeHeroSection = () => {
                 <Button
                   size="lg"
                   variant="primary"
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white border-0 shadow-xl shadow-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/60 text-lg px-8 py-6 font-bold transition-all duration-300"
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white border-0 shadow-xl shadow-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/60 text-lg px-10 py-6 font-bold transition-all duration-300"
                 >
                   <Icon name="learning" size="md" className="text-white ml-2" />
-                  <span>ابدأ رحلتك الآن</span>
+                  <span>استكشف الدورات</span>
                 </Button>
               </Link>
-              <Link href="/demo">
+              <Link href="/student">
                 <Button
                   size="lg"
                   variant="outline"
                   className="w-full sm:w-auto border-2 border-white/30 text-white bg-white/10 backdrop-blur-md hover:bg-white/20 hover:border-white/50 text-lg px-8 py-6 font-semibold"
                 >
                   <Play className="w-5 h-5 ml-2" />
-                  <span>شاهد الفيديو</span>
+                  <span>ابدأ الآن</span>
                 </Button>
               </Link>
             </motion.div>

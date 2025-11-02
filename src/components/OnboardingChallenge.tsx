@@ -3,26 +3,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-/**
- * Onboarding Challenge Modal - Brutalist Elegance
- * A single, full-screen modal that challenges users to prove themselves
- * No welcome mat, no tours, no excuses - just pure commitment
- */
 interface OnboardingChallengeProps {
   isOpen: boolean;
-  onComplete: () => void;
+  onComplete?: () => void;
 }
 
 const OnboardingChallenge: React.FC<OnboardingChallengeProps> = ({ isOpen, onComplete }) => {
-  const [isRevealed, setIsRevealed] = useState(false);
-  const [buttonPressed, setButtonPressed] = useState(false);
   const [countdown, setCountdown] = useState(3);
 
   // Reset state when modal opens
   useEffect(() => {
     if (isOpen) {
-      setIsRevealed(false);
-      setButtonPressed(false);
       setCountdown(3);
     }
   }, [isOpen]);

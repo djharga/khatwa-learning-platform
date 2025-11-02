@@ -27,7 +27,6 @@ export const footerSections: FooterSection[] = [
     title: "المنصة التعليمية",
     links: [
       { href: "/courses", text: "الدورات التدريبية" },
-      { href: "/learning-paths", text: "مسارات التعلم" },
       { href: "/learning-hub", text: "مركز التعلم" },
       { href: "/resources", text: "الموارد التعليمية" },
       { href: "/certificates", text: "الشهادات" },

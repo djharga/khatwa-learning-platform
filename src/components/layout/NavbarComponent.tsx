@@ -23,7 +23,6 @@ const NavbarComponent = () => {
   const navLinks = [
     { href: '/', label: 'الرئيسية', icon: Home },
     { href: '/courses', label: 'الدورات', icon: BookOpen },
-    { href: '/learning-paths', label: 'المسارات', icon: Settings },
     { href: '/resources', label: 'المكتبة', icon: BookOpen },
     { href: '/community', label: 'المجتمع', icon: Users },
     { href: '/consulting', label: 'الاستشارات', icon: MessageSquare },

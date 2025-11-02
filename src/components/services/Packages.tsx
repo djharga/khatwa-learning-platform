@@ -45,7 +45,7 @@ export default function Packages() {
     {
       id: 'free',
       name: 'باقة مجانية (Free)',
-      description: 'ابدأ رحلتك التعليمية مجاناً',
+      description: 'ابدأ التعلم مجاناً',
       price: 0,
       period: 'مجاناً للأبد',
       icon: <User className="w-6 h-6" />,

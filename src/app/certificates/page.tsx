@@ -20,7 +20,13 @@ import {
   Search,
   Grid,
   List,
+  Zap,
+  TrendingUp,
+  Target,
+  Sparkles,
 } from 'lucide-react';
+import { generateQRCodeFromNumber } from '@/lib/certificates/generateQR';
+import { calculateLevel, POINTS_REWARDS, AVAILABLE_BADGES } from '@/lib/gamification/points';
 
 interface Certificate {
   id: string;
@@ -107,6 +113,24 @@ export default function CertificatesPage() {
     },
   ]);
 
+  // بيانات Gamification
+  const userPoints = {
+    totalPoints: 12500,
+    level: calculateLevel(12500),
+    certificatesEarned: certificates.filter(c => c.status === 'earned').length,
+  };
+
+  // الشارات المكتسبة
+  const earnedBadges = AVAILABLE_BADGES.filter(badge => {
+    switch (badge.id) {
+      case 'first-step':
+      case 'certificate-collector':
+        return userPoints.certificatesEarned >= 10;
+      default:
+        return false;
+    }
+  }).slice(0, 3); // عرض أول 3 شارات فقط كمثال
+
   // فلترة الشهادات
   const filteredCertificates = certificates.filter(cert => {
     const matchesFilter = filter === 'all' || cert.status === filter;
@@ -153,9 +177,44 @@ export default function CertificatesPage() {
   };
 
   // تحميل الشهادة
-  const downloadCertificate = (certificate: Certificate) => {
-    // محاكاة تحميل الشهادة
-    alert(`سيتم تحميل شهادة ${certificate.title} بتنسيق PDF`);
+  const downloadCertificate = async (certificate: Certificate) => {
+    try {
+      // في التطبيق الحقيقي، سيتم استدعاء API لتحميل الشهادة كـ PDF
+      // هنا نحاكي العملية
+      
+      // إنشاء PDF للشهادة
+      const pdfData = {
+        title: certificate.title,
+        courseName: certificate.courseName,
+        studentName: 'أحمد محمد', // سيتم جلبها من المستخدم الحالي
+        issueDate: certificate.issueDate,
+        certificateNumber: certificate.certificateNumber,
+        grade: certificate.grade,
+        qrCode: certificate.qrCode,
+      };
+
+      // محاكاة إنشاء PDF
+      // في الإنتاج، يمكن استخدام مكتبة مثل jsPDF أو html2pdf
+      console.log('توليد PDF للشهادة:', pdfData);
+      
+      // عرض رسالة نجاح
+      alert(`تم تحميل شهادة ${certificate.title} بنجاح!\n\nسيتم حفظ الملف في مجلد التحميلات.`);
+      
+      // في التطبيق الحقيقي:
+      // const response = await fetch(`/api/certificates/${certificate.id}/download`);
+      // const blob = await response.blob();
+      // const url = window.URL.createObjectURL(blob);
+      // const a = document.createElement('a');
+      // a.href = url;
+      // a.download = `شهادة_${certificate.certificateNumber}.pdf`;
+      // document.body.appendChild(a);
+      // a.click();
+      // document.body.removeChild(a);
+      // window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('خطأ في تحميل الشهادة:', error);
+      alert('حدث خطأ أثناء تحميل الشهادة. يرجى المحاولة مرة أخرى.');
+    }
   };
 
   return (
@@ -528,47 +587,160 @@ export default function CertificatesPage() {
           </motion.div>
         )}
 
-        {/* إحصائيات الشهادات */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="mt-12 bg-white rounded-2xl shadow-xl p-8"
-        >
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
-            إحصائيات الشهادات
-          </h2>
+        {/* إحصائيات الشهادات مع Gamification */}
+        <div className="mt-12 space-y-6">
+          {/* إحصائيات الشهادات */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="bg-white rounded-2xl shadow-xl p-8"
+          >
+            <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">
+              إحصائيات الشهادات
+            </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">
-                {certificates.filter(c => c.status === 'earned').length}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-green-600 mb-2">
+                  {certificates.filter(c => c.status === 'earned').length}
+                </div>
+                <div className="text-gray-600">شهادات مكتسبة</div>
               </div>
-              <div className="text-gray-600">شهادات مكتسبة</div>
-            </div>
 
-            <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-600 mb-2">
-                {certificates.filter(c => c.status === 'pending').length}
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-600 mb-2">
+                  {certificates.filter(c => c.status === 'pending').length}
+                </div>
+                <div className="text-gray-600">شهادات معلقة</div>
               </div>
-              <div className="text-gray-600">شهادات معلقة</div>
-            </div>
 
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">
-                {certificates.filter(c => c.type === 'excellence').length}
+              <div className="text-center">
+                <div className="text-3xl font-bold text-blue-600 mb-2">
+                  {certificates.filter(c => c.type === 'excellence').length}
+                </div>
+                <div className="text-gray-600">شهادات تفوق</div>
               </div>
-              <div className="text-gray-600">شهادات تفوق</div>
-            </div>
 
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">
-                {certificates.filter(c => c.template === 'gold' || c.template === 'platinum').length}
+              <div className="text-center">
+                <div className="text-3xl font-bold text-purple-600 mb-2">
+                  {certificates.filter(c => c.template === 'gold' || c.template === 'platinum').length}
+                </div>
+                <div className="text-gray-600">شهادات ذهبية</div>
               </div>
-              <div className="text-gray-600">شهادات ذهبية</div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+
+          {/* نظام النقاط والشارات (Gamification) */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-2xl shadow-xl p-8 border-2 border-indigo-200 dark:border-indigo-800"
+          >
+            <h2 className="text-2xl font-bold text-center text-gray-900 dark:text-white mb-8 flex items-center justify-center gap-2">
+              <Sparkles className="w-6 h-6 text-indigo-600" />
+              نقاطك وإنجازاتك
+            </h2>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* النقاط والمستوى */}
+              <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">المستوى والنقاط</h3>
+                  <Zap className="w-6 h-6 text-yellow-500" />
+                </div>
+                
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-600 dark:text-gray-400">المستوى {userPoints.level}</span>
+                    <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                      {userPoints.totalPoints.toLocaleString()} نقطة
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                    <motion.div
+                      className="bg-gradient-to-r from-indigo-600 to-purple-600 h-3 rounded-full"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${((userPoints.totalPoints % 1000) / 1000) * 100}%` }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                    />
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">
+                    {1000 - (userPoints.totalPoints % 1000)} نقطة للمستوى التالي
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-indigo-50 dark:bg-indigo-900/30 rounded-lg p-3">
+                    <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                      {userPoints.certificatesEarned}
+                    </div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">شهادات</div>
+                  </div>
+                  <div className="bg-purple-50 dark:bg-purple-900/30 rounded-lg p-3">
+                    <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                      {POINTS_REWARDS.CERTIFICATE_EARNED * userPoints.certificatesEarned}
+                    </div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400">نقاط من الشهادات</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* الشارات */}
+              <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">الشارات المكتسبة</h3>
+                  <Trophy className="w-6 h-6 text-yellow-500" />
+                </div>
+                
+                <div className="space-y-3">
+                  {earnedBadges.length > 0 ? (
+                    earnedBadges.map((badge, index) => (
+                      <motion.div
+                        key={badge.id}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-lg border border-yellow-200 dark:border-yellow-800"
+                      >
+                        <div className="text-3xl">{badge.icon}</div>
+                        <div className="flex-1">
+                          <div className="font-semibold text-gray-900 dark:text-white">
+                            {badge.title}
+                          </div>
+                          <div className="text-xs text-gray-600 dark:text-gray-400">
+                            {badge.description}
+                          </div>
+                        </div>
+                        <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                          +{badge.points}
+                        </div>
+                      </motion.div>
+                    ))
+                  ) : (
+                    <div className="text-center py-4 text-gray-500 dark:text-gray-400">
+                      <Trophy className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                      <p>لا توجد شارات بعد</p>
+                      <p className="text-xs mt-1">استمر في التعلم لكسب شارات جديدة!</p>
+                    </div>
+                  )}
+                </div>
+
+                {earnedBadges.length < AVAILABLE_BADGES.length && (
+                  <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <div className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-400">
+                      <Target className="w-4 h-4" />
+                      <span>
+                        {AVAILABLE_BADGES.length - earnedBadges.length} شارة متاحة لكسبها
+                      </span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

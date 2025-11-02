@@ -21,7 +21,6 @@ export default function DiscussionBoard() {
           <DiscussionFilter currentFilter={filter} onFilterChange={setFilter} />
         </div>
       </div>
-      // Renders the list of discussion posts
       <div className="divide-y divide-gray-100">
         {discussionPosts.map((post) => (
           <DiscussionPost key={post.id} post={post} />

@@ -13,6 +13,10 @@ import {
   Award,
   ChevronLeft,
   ChevronRight,
+  AlertTriangle,
+  Brain,
+  BarChart3,
+  PieChart,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -386,29 +390,124 @@ const QuestionBank = ({
         </div>
 
         {/* Detailed Analysis */}
-        <div className="bg-gray-50 dark:bg-neutral-900 rounded-xl p-6 mb-8">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <TrendingUp className="w-6 h-6 text-primary-600" />
-            التحليل التفصيلي
-          </h3>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">معدل الإجابة الصحيحة:</span>
-              <span className="font-bold text-gray-900 dark:text-white">
-                {Math.round((results.correctAnswers / results.totalQuestions) * 100)}%
-              </span>
+        <div className="space-y-6 mb-8">
+          <div className="bg-gray-50 dark:bg-neutral-900 rounded-xl p-6">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+              <BarChart3 className="w-6 h-6 text-primary-600" />
+              التحليل التفصيلي للنتائج
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-gray-200 dark:border-neutral-700">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <TrendingUp className="w-5 h-5 text-green-600" />
+                    نقاط القوة
+                  </h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                      <span>معدل الإجابة الصحيحة: {Math.round((results.correctAnswers / results.totalQuestions) * 100)}%</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                      <Clock className="w-4 h-4 text-blue-600" />
+                      <span>متوسط الوقت للسؤال: {Math.round(results.timeSpent / results.totalQuestions)} ثانية</span>
+                    </li>
+                    <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                      <Target className="w-4 h-4 text-purple-600" />
+                      <span>التقييم النهائي: {performance.rating} ({getGrade()})</span>
+                    </li>
+                  </ul>
+                </div>
+                <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-gray-200 dark:border-neutral-700">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <AlertTriangle className="w-5 h-5 text-orange-600" />
+                    نقاط تحتاج تحسين
+                  </h4>
+                  <ul className="space-y-2">
+                    <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                      <XCircle className="w-4 h-4 text-red-600" />
+                      <span>الإجابات الخاطئة: {results.wrongAnswers} ({Math.round((results.wrongAnswers / results.totalQuestions) * 100)}%)</span>
+                    </li>
+                    {results.score < 80 && (
+                      <li className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                        <Target className="w-4 h-4 text-yellow-600" />
+                        <span>يُنصح بالوصول إلى نسبة 80% للحصول على تقييم ممتاز</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              </div>
+              <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-gray-200 dark:border-neutral-700">
+                <h4 className="font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-indigo-600" />
+                  التوصيات والتوجيهات
+                </h4>
+                <div className="space-y-3">
+                  {results.score >= 90 && (
+                    <p className="text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
+                      <strong>ممتاز!</strong> أداؤك رائع جداً. استمر في الممارسة للحفاظ على هذا المستوى العالي.
+                    </p>
+                  )}
+                  {results.score >= 70 && results.score < 90 && (
+                    <p className="text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg">
+                      <strong>جيد!</strong> أداؤك جيد، لكن يمكنك تحسينه من خلال مراجعة الأسئلة الخاطئة وممارسة المزيد.
+                    </p>
+                  )}
+                  {results.score < 70 && (
+                    <p className="text-orange-700 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
+                      <strong>يحتاج تحسين.</strong> نوصي بمراجعة المواد التعليمية ذات الصلة ثم إعادة المحاولة.
+                    </p>
+                  )}
+                  <div className="mt-4 pt-4 border-t border-gray-200 dark:border-neutral-700">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                      <strong>نصائح للتحسين:</strong>
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                      <li>راجع الأسئلة الخاطئة وتأكد من فهم التفسيرات</li>
+                      <li>مارس الاختبارات بشكل منتظم لتحسين سرعة التفكير</li>
+                      <li>ركز على الفئات التي تحتاج تحسين</li>
+                      <li>استخدم أدوات المراجعة المتاحة في المنصة</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">متوسط الوقت للسؤال:</span>
-              <span className="font-bold text-gray-900 dark:text-white">
-                {Math.round(results.timeSpent / results.totalQuestions)} ثانية
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-700 dark:text-gray-300">التقييم النهائي:</span>
-              <span className={`font-bold ${performance.color}`}>
-                {performance.rating} ({getGrade()})
-              </span>
+          </div>
+          
+          {/* Performance by Category */}
+          <div className="bg-gray-50 dark:bg-neutral-900 rounded-xl p-6">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+              <PieChart className="w-6 h-6 text-primary-600" />
+              الأداء حسب الفئات
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {/* سيتم ملء هذه البيانات من إجابات المستخدم */}
+              <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-gray-200 dark:border-neutral-700">
+                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">الفئات المتميزة</div>
+                <div className="flex flex-wrap gap-2">
+                  {questions.filter((q, idx) => idx < 3 && userAnswers.some(a => a.questionId === q.id && a.isCorrect)).map(q => (
+                    <span key={q.id} className="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded text-xs">
+                      {q.category}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-gray-200 dark:border-neutral-700">
+                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">الفئات التي تحتاج مراجعة</div>
+                <div className="flex flex-wrap gap-2">
+                  {questions.filter((q, idx) => idx < 3 && userAnswers.some(a => a.questionId === q.id && !a.isCorrect)).map(q => (
+                    <span key={q.id} className="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300 rounded text-xs">
+                      {q.category}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 border border-gray-200 dark:border-neutral-700">
+                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">متوسط الوقت للفئة</div>
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {Math.round(results.timeSpent / results.totalQuestions)} ث
+                </div>
+              </div>
             </div>
           </div>
         </div>
