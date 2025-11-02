@@ -107,6 +107,70 @@ export default function ReviewHubPage() {
     linkElement.click();
   };
 
+  // دوال الذكاء الاصطناعي المطلوبة لـ AISection
+  const handleGenerateQuestions = async (params: {
+    topic: string;
+    difficulty: 'سهل' | 'متوسط' | 'صعب';
+    count: number;
+    category: string;
+    includeExplanations: boolean;
+  }): Promise<Question[]> => {
+    // محاكاة توليد الأسئلة
+    const generatedQuestions: Question[] = Array.from({ length: params.count }, (_, i) => ({
+      id: `ai_${Date.now()}_${i}`,
+      question: `سؤال مولد بالذكاء الاصطناعي حول ${params.topic} - ${i + 1}`,
+      options: ['الإجابة الصحيحة', 'إجابة خاطئة 1', 'إجابة خاطئة 2', 'إجابة خاطئة 3'],
+      correctAnswer: 0,
+      explanation: params.includeExplanations ? 'تفسير مفصل مولد بالذكاء الاصطناعي' : '',
+      difficulty: params.difficulty,
+      category: params.category || 'مولد بالذكاء الاصطناعي',
+      points: 10,
+      tags: ['ذكاء اصطناعي', params.topic],
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      usageCount: 0,
+      successRate: 0,
+      aiGenerated: true,
+      isActive: true
+    }));
+
+    return generatedQuestions;
+  };
+
+  const handleAnalyzePerformance = async (userId: string) => {
+    // محاكاة تحليل الأداء
+    return {
+      strengths: ['فهم جيد للأساسيات', 'سرعة في الإجابة', 'دقة عالية في الأسئلة السهلة'],
+      weaknesses: ['صعوبة في الأسئلة المتقدمة', 'حاجة للمزيد من التدريب في إدارة المخاطر'],
+      recommendedTopics: ['إدارة المخاطر المتقدمة', 'تحليل البيانات', 'المعايير الدولية'],
+      improvementScore: 75
+    };
+  };
+
+  const handleGetRecommendations = async (userId: string) => {
+    // محاكاة التوصيات
+    return [
+      {
+        type: 'topic' as const,
+        title: 'ركز على إدارة المخاطر',
+        description: 'تحتاج لتحسين مهاراتك في هذا المجال',
+        priority: 'high' as const
+      },
+      {
+        type: 'difficulty' as const,
+        title: 'زيادة مستوى الصعوبة تدريجياً',
+        description: 'جرب الأسئلة الأصعب لتحسين أدائك',
+        priority: 'medium' as const
+      },
+      {
+        type: 'practice' as const,
+        title: 'تمرن أكثر على الأسئلة العملية',
+        description: 'الممارسة المنتظمة ستحسن أداءك',
+        priority: 'high' as const
+      }
+    ];
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -258,7 +322,13 @@ export default function ReviewHubPage() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                     >
-                      <AISection />
+                      <AISection
+                        questions={questions}
+                        onGenerateQuestions={handleGenerateQuestions}
+                        onAnalyzePerformance={handleAnalyzePerformance}
+                        onGetRecommendations={handleGetRecommendations}
+                        isSubscribed={isSubscribed}
+                      />
                     </motion.div>
                   )}
                 </AnimatePresence>
