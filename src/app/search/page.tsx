@@ -35,14 +35,14 @@ export default function SearchPage() {
           {
             id: '1',
             title: 'أساسيات المراجعة الداخلية',
-            type: 'course',
+            type: 'course' as const,
             url: '/courses/internal-audit-basics',
             description: 'دورة شاملة في أساسيات المراجعة الداخلية',
           },
           {
             id: '2',
             title: 'دليل المراجعة الداخلية',
-            type: 'resource',
+            type: 'resource' as const,
             url: '/resources/internal-audit-guide',
             description: 'مرجع شامل لمعايير المراجعة الداخلية',
           },
