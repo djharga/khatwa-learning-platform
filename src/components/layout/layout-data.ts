@@ -27,41 +27,16 @@ export const footerSections: FooterSection[] = [
     title: "المنصة التعليمية",
     links: [
       { href: "/courses", text: "الدورات التدريبية" },
-      { href: "/learning-hub", text: "مركز التعلم" },
       { href: "/resources", text: "الموارد التعليمية" },
       { href: "/certificates", text: "الشهادات" },
-      { href: "/blog", text: "المدونة" },
-    ],
-  },
-  {
-    title: "الدورات",
-    links: [
-      { href: "/courses/ai-audit", text: "المراجعة بالذكاء الاصطناعي" },
-      { href: "/courses/basics", text: "أساسيات المحاسبة" },
-      { href: "/courses/cia-preparation", text: "تحضير شهادة CIA" },
-      { href: "/financial-management", text: "الإدارة المالية" },
-      { href: "/finance-basics", text: "أساسيات المالية" },
-      { href: "/financial-reporting", text: "التقارير المالية" },
-    ],
-  },
-  {
-    title: "البرامج المالية",
-    links: [
-      { href: "/procurement-management", text: "إدارة المشتريات" },
-      { href: "/warehouse-management", text: "إدارة المخازن" },
-      { href: "/inventory-reconciliations", text: "التسويات الجردية" },
-      { href: "/restaurant-management", text: "إدارة المطاعم" },
     ],
   },
   {
     title: "المراجعة والاستشارات",
     links: [
-      { href: "/internal-audit", text: "المراجعون الداخليون" },
       { href: "/cia", text: "زمالة CIA" },
       { href: "/question-bank", text: "بنك الأسئلة" },
       { href: "/consulting", text: "الاستشارات" },
-      { href: "/meeting-room", text: "غرفة الاجتماعات" },
-      { href: "/workshops", text: "ورش العمل" },
     ],
   },
   {
@@ -70,19 +45,6 @@ export const footerSections: FooterSection[] = [
       { href: "/support", text: "الدعم الفني" },
       { href: "/contact", text: "تواصل معنا" },
       { href: "/faq", text: "الأسئلة الشائعة" },
-      { href: "/community", text: "المجتمع" },
-      { href: "/files", text: "الملفات" },
-      { href: "/about", text: "من نحن" },
-    ],
-  },
-  {
-    title: "القانونية",
-    links: [
-      { href: "/privacy", text: "سياسة الخصوصية" },
-      { href: "/terms", text: "شروط الاستخدام" },
-      { href: "/cookies", text: "سياسة الكوكيز" },
-      { href: "/refund-policy", text: "سياسة الاسترداد" },
-      { href: "/usage-policy", text: "سياسة الاستخدام" },
     ],
   },
 ];
