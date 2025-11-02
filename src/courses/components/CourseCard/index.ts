@@ -11,6 +11,10 @@ export { default as InstructorInfoCard } from './InstructorInfoCard';
 export { default as CourseMeta } from './CourseMeta';
 export { default as ActionButtons } from './ActionButtons';
 
+// Default export for compatibility
+// Note: CourseCard is exported from @/components/CourseCard, not from this directory
+// This index file only exports subcomponents
+
 export type { BadgeListProps } from './BadgeList';
 export type { ProgressRingProps } from './ProgressRing';
 export type { PriceBadgeProps } from './PriceBadge';

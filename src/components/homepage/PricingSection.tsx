@@ -211,17 +211,15 @@ const PricingSection = () => {
                   </ul>
 
                   {/* CTA */}
-                  <Button
-                    asChild
-                    variant={plan.popular ? 'primary' : 'outline'}
-                    size="lg"
-                    className="w-full"
-                    animated
-                  >
-                    <Link href={`/register?plan=${plan.id}`}>
+                  <Link href={`/register?plan=${plan.id}`}>
+                    <Button
+                      variant={plan.popular ? 'primary' : 'outline'}
+                      size="lg"
+                      className="w-full"
+                    >
                       {plan.id === 'enterprise' ? 'تواصل معنا' : 'اشترك الآن'}
-                    </Link>
-                  </Button>
+                    </Button>
+                  </Link>
                 </Card>
               </motion.div>
             );

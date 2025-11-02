@@ -21,7 +21,7 @@ interface UseStorageReturn {
   refresh: () => Promise<void>;
   uploadFile: (file: File, options?: { folderId?: string }) => Promise<void>;
   deleteFile: (fileId: string) => Promise<void>;
-  createPersonalCopy: (sourceFileId: string, options?: { folderId?: string; newName?: string }) => Promise<void>;
+  createPersonalCopy: (sourceFileId: string, options?: { folderId?: string; newName?: string }) => Promise<PersonalFile>;
 }
 
 export function useStorage(options: UseStorageOptions): UseStorageReturn {
@@ -177,8 +177,33 @@ export function useStorage(options: UseStorageOptions): UseStorageReturn {
           throw new Error(errorData.error || 'فشل نسخ الملف');
         }
 
+        const data = await response.json();
+        const personalFile: PersonalFile = data.file || {
+          id: `copy-${Date.now()}`,
+          userId,
+          originalFileId: sourceFileId,
+          name: copyOptions?.newName || `copy-${sourceFileId}`,
+          type: 'document',
+          size: 0,
+          mimeType: 'application/pdf',
+          storageProvider: 's3',
+          storageKey: `users/${userId}/copies/${Date.now()}`,
+          folderId: copyOptions?.folderId,
+          permissions: {
+            canRead: true,
+            canWrite: true,
+            canDelete: true,
+            canShare: false,
+          },
+          version: 1,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        };
+
         // تحديث البيانات
         await refresh();
+        
+        return personalFile;
       } catch (err: any) {
         console.error('Error creating personal copy:', err);
         setError(err.message || 'فشل نسخ الملف');

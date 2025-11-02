@@ -242,8 +242,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
         ref={ref}
         disabled={isDisabled}
-        {...(animated ? motionProps : {})}
-        {...props}
+        {...(animated ? (motionProps as any) : {})}
+        {...(props as any)}
       >
         {loading && (
           <Loader2 

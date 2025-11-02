@@ -245,31 +245,27 @@ const CTASection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            <Button
-              asChild
-              size="lg"
-              variant="secondary"
-              className="bg-white text-primary-600 hover:bg-neutral-100 border-0 shadow-2xl hover:shadow-white/50 transition-all min-w-[200px]"
-              animated
-            >
-              <Link href="/register" className="flex items-center gap-2">
+            <Link href="/register">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="bg-white text-primary-600 hover:bg-neutral-100 border-0 shadow-2xl hover:shadow-white/50 transition-all min-w-[200px]"
+              >
                 <span className="font-bold">إنشاء حساب مجاني</span>
                 <ArrowLeft className="w-5 h-5" />
-              </Link>
-            </Button>
+              </Button>
+            </Link>
 
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="bg-transparent border-2 border-white text-white hover:bg-white/20 backdrop-blur-sm min-w-[200px]"
-              animated
-            >
-              <Link href="/demo" className="flex items-center gap-2">
+            <Link href="/demo">
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-2 border-white text-white hover:bg-white/20 backdrop-blur-sm min-w-[200px]"
+              >
                 <Play className="w-5 h-5" />
                 <span>شاهد العرض التوضيحي</span>
-              </Link>
-            </Button>
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Trust Indicators - Enhanced */}

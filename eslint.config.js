@@ -8,6 +8,7 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     files: ["**/*.{ts,tsx,js,jsx}"],
+    ignores: [".next/**", "node_modules/**", "dist/**"],
     languageOptions: {
       globals: globals.browser,
       parserOptions: {
@@ -26,6 +27,7 @@ export default tseslint.config(
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "off",
       "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-require-imports": "off",
       "no-undef": "off",
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",

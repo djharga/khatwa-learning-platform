@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -49,7 +49,7 @@ interface ConsultationPackage {
   popular?: boolean;
 }
 
-export default function PackagesAndConsultingPage() {
+function PackagesAndConsultingContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'packages' | 'consulting'>('packages');
@@ -530,5 +530,20 @@ export default function PackagesAndConsultingPage() {
         </AnimatePresence>
       </div>
     </div>
+  );
+}
+
+export default function PackagesAndConsultingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 py-10 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-200 border-t-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">جاري التحميل...</p>
+        </div>
+      </div>
+    }>
+      <PackagesAndConsultingContent />
+    </Suspense>
   );
 }

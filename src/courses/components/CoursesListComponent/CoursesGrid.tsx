@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Course } from '@/types/course';
-import CourseCard from '../CourseCard';
+import CourseCard from '@/components/CourseCard';
 
 /**
  * Courses grid component that handles loading states and course card rendering. Supports both grid and list view modes with staggered entrance animations. Displays skeleton loaders during data fetching.

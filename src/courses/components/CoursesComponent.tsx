@@ -12,7 +12,7 @@ import {
   List,
   Star,
 } from 'lucide-react';
-import CourseCard from './CourseCard';
+import CourseCard from '@/components/CourseCard';
 import { Course, CourseCategory } from '@/types/course';
 import { useCourseFilters } from '@/hooks/useCourseFilters';
 import { useCourseSort } from '@/hooks/useCourseSort';

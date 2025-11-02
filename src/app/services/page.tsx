@@ -1,13 +1,13 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import Packages from '@/components/services/Packages';
 import ConsultingComponent from '@/components/ConsultingComponent';
 
-export default function ServicesHubPage() {
+function ServicesContent() {
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get('tab') as 'consulting' | 'packages') || 'consulting';
   const [tab, setTab] = useState<'consulting' | 'packages'>(initialTab);
@@ -78,5 +78,20 @@ export default function ServicesHubPage() {
         </motion.div>
       </div>
     </div>
+  );
+}
+
+export default function ServicesHubPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-blue-50 to-cyan-50 py-10 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-200 border-t-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">جاري التحميل...</p>
+        </div>
+      </div>
+    }>
+      <ServicesContent />
+    </Suspense>
   );
 }

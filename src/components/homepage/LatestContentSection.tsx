@@ -79,12 +79,12 @@ const LatestContentSection = () => {
               اطلع على آخر المحتوى التعليمي والمقالات المتخصصة
             </p>
           </div>
-          <Button asChild variant="outline" className="hidden lg:flex">
-            <Link href="/resources">
+          <Link href="/resources" className="hidden lg:flex">
+            <Button variant="outline">
               <span>عرض المكتبة</span>
               <ArrowLeft className="w-5 h-5" />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </motion.div>
 
         {/* Content Grid */}
@@ -149,12 +149,12 @@ const LatestContentSection = () => {
 
         {/* Mobile CTA */}
         <div className="text-center mt-8 lg:hidden">
-          <Button asChild variant="outline">
-            <Link href="/resources">
+          <Link href="/resources">
+            <Button variant="outline">
               <span>عرض المكتبة الكاملة</span>
               <ArrowLeft className="w-5 h-5" />
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </div>
       </Container>
     </section>

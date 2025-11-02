@@ -41,8 +41,10 @@ const CreativeHeroSection = () => {
     };
 
     const hero = document.querySelector('[data-hero]');
-    hero?.addEventListener('mousemove', handleMouseMove);
-    return () => hero?.removeEventListener('mousemove', handleMouseMove);
+    if (hero) {
+      hero.addEventListener('mousemove', handleMouseMove as EventListener);
+      return () => hero.removeEventListener('mousemove', handleMouseMove as EventListener);
+    }
   }, [x, y]);
 
   return (
@@ -175,28 +177,26 @@ const CreativeHeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.6 }}
             >
-              <Button
-                asChild
-                size="lg"
-                variant="primary"
-                className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white border-0 shadow-xl shadow-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/60 text-lg px-8 py-6 font-bold transition-all duration-300"
-              >
-                <Link href="/courses">
+              <Link href="/courses">
+                <Button
+                  size="lg"
+                  variant="primary"
+                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white border-0 shadow-xl shadow-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/60 text-lg px-8 py-6 font-bold transition-all duration-300"
+                >
                   <Icon name="learning" size="md" className="text-white ml-2" />
                   <span>ابدأ رحلتك الآن</span>
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="w-full sm:w-auto border-2 border-white/30 text-white bg-white/10 backdrop-blur-md hover:bg-white/20 hover:border-white/50 text-lg px-8 py-6 font-semibold"
-              >
-                <Link href="/courses">
+                </Button>
+              </Link>
+              <Link href="/demo">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto border-2 border-white/30 text-white bg-white/10 backdrop-blur-md hover:bg-white/20 hover:border-white/50 text-lg px-8 py-6 font-semibold"
+                >
                   <Play className="w-5 h-5 ml-2" />
                   <span>شاهد الفيديو</span>
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
 

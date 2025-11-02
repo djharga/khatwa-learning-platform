@@ -57,14 +57,14 @@ const navigationMenuItems = {
         href: '/courses', 
         icon: BookOpen,
         description: 'تصفح جميع الدورات المتاحة',
-        badge: 'جديد'
+        badge: 'جديد' as const
       },
       { 
         label: 'المراجعة الداخلية', 
         href: '/internal-audit', 
         icon: FileText,
         description: 'دورات متخصصة في المراجعة الداخلية',
-        featured: true
+        featured: true as const
       },
       { 
         label: 'الإدارة المالية', 
@@ -78,7 +78,14 @@ const navigationMenuItems = {
         icon: GraduationCap,
         description: 'مسار تعليمي منظم'
       },
-    ],
+    ] as Array<{
+      label: string;
+      href: string;
+      icon: any;
+      description: string;
+      badge?: string;
+      featured?: boolean;
+    }>,
   },
   cia: {
     label: 'زمالة CIA',
@@ -478,7 +485,7 @@ const EnhancedNavbar = () => {
                                         )}>
                                           {child.label}
                                         </span>
-                                        {child.badge && (
+                                        {'badge' in child && child.badge && (
                                           <span className={cn(
                                             "px-2 py-0.5 text-xs font-bold rounded-full",
                                             child.badge === 'جديد' 
@@ -488,7 +495,7 @@ const EnhancedNavbar = () => {
                                             {child.badge}
                                           </span>
                                         )}
-                                        {child.featured && (
+                                        {'featured' in child && child.featured && (
                                           <Sparkles className="w-4 h-4 text-secondary-innovate-500" />
                                         )}
                                       </div>

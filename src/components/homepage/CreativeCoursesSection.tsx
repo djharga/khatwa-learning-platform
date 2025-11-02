@@ -37,6 +37,7 @@ const CreativeCoursesSection = () => {
         rating: 4.8,
         students: 1250,
         courses: 5,
+        bio: 'خبير في المحاسبة والمراجعة الداخلية مع أكثر من 15 عاماً من الخبرة',
       },
       level: 'متوسط' as any,
       category: 'المراجعة الداخلية' as any,

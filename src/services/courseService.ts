@@ -33,7 +33,6 @@ export class CourseService {
       }
 
       // تحويل البيانات لتتوافق مع أنواع TypeScript
-      // @ts-expect-error - تجاهل فحص الأنواع مؤقتاً لحل مشكلة تعريف الأنواع في JSON
       this.courses = accountingCoursesData.courses as Course[];
 
       // التحقق من صحة البيانات

@@ -22,6 +22,7 @@ export interface OptimizedImageProps {
   objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
   placeholder?: 'blur' | 'empty';
   blurDataURL?: string;
+  // Note: Next.js Image placeholder must be 'blur' or undefined
   loading?: 'lazy' | 'eager';
 }
 
@@ -89,7 +90,7 @@ export function OptimizedImage({
           height,
         }),
     style: objectFit !== 'cover' ? { objectFit } : undefined,
-    ...(placeholder === 'blur' && blurDataURL && { placeholder: 'blur', blurDataURL }),
+    ...(placeholder === 'blur' && blurDataURL ? { placeholder: 'blur' as const, blurDataURL } : {}),
     loading: imageLoading,
   };
 
