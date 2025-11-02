@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>قسم الاتصال - محسن</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .icon-shadow {
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 min-h-screen"
+  >
+    <section class="relative py-20 sm:py-24 lg:py-32 overflow-hidden">
+      <!-- خلفية متدرجة خفيفة وأنيقة -->
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-white via-blue-50/20 to-purple-50/30 pointer-events-none"
+      ></div>
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.05),transparent_50%)] pointer-events-none"
+      ></div>
+      <div
+        class="absolute top-20 right-20 w-64 h-64 bg-blue-100/20 rounded-full blur-3xl animate-pulse"
+      ></div>
+      <div
+        class="absolute bottom-20 left-20 w-48 h-48 bg-purple-100/20 rounded-full blur-3xl animate-pulse delay-1000"
+      ></div>
+      <div
+        class="absolute top-1/3 left-1/3 w-32 h-32 bg-indigo-100/15 rounded-full blur-2xl animate-pulse delay-500"
+      ></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 sm:mb-20 lg:mb-24">
+          <div
+            class="inline-flex items-center gap-3 px-4 py-2 bg-blue-50/80 backdrop-blur-sm rounded-full text-blue-700 text-sm font-medium mb-6 border border-blue-200/50"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-message-square w-4 h-4"
+            >
+              <path
+                d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"
+              ></path>
+            </svg>
+            تواصل معنا
+          </div>
+          <h2
+            class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight text-gray-900"
+          >
+            <span
+              class="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
+              >نحن هنا لمساعدتك</span
+            >
+          </h2>
+          <p
+            class="text-xl sm:text-2xl text-gray-700 max-w-4xl mx-auto leading-relaxed font-light"
+          >
+            لديك أسئلة حول المنصة؟ تحتاج لدعم فني؟ أو تريد التعاون معنا؟<br />
+            نحن هنا لنساعدك في كل خطوة من رحلتك التعليمية
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 lg:gap-12">
+          <div class="xl:col-span-7">
+            <div
+              class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200/50 p-8 sm:p-10 lg:p-12"
+            >
+              <div class="flex items-center gap-4 mb-8">
+                <div
+                  class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-send w-6 h-6 text-white icon-shadow"
+                  >
+                    <path
+                      d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+                    ></path>
+                    <path d="m21.854 2.147-10.94 10.939"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-2xl sm:text-3xl font-bold text-gray-900">
+                    أرسل رسالة
+                  </h3>
+                  <p class="text-gray-600 text-sm sm:text-base">
+                    سنرد عليك في أقرب وقت ممكن
+                  </p>
+                </div>
+              </div>
+
+              <form class="space-y-6 sm:space-y-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                  <div>
+                    <label
+                      class="block text-sm font-semibold text-gray-900 mb-3"
+                      >الاسم الكامل *</label
+                    >
+                    <input
+                      required
+                      class="w-full px-4 sm:px-6 py-4 bg-white border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 focus:bg-blue-50/50 rounded-2xl focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-sm sm:text-base placeholder-gray-400 shadow-sm"
+                      placeholder="أدخل اسمك الكامل"
+                      type="text"
+                      name="name"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="block text-sm font-semibold text-gray-900 mb-3"
+                      >البريد الإلكتروني *</label
+                    >
+                    <input
+                      required
+                      class="w-full px-4 sm:px-6 py-4 bg-white border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 focus:bg-blue-50/50 rounded-2xl focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-sm sm:text-base placeholder-gray-400 shadow-sm"
+                      placeholder="example@email.com"
+                      type="email"
+                      name="email"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-3"
+                    >موضوع الرسالة *</label
+                  >
+                  <select
+                    name="subject"
+                    required
+                    class="w-full px-4 sm:px-6 py-4 bg-white border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 focus:bg-blue-50/50 rounded-2xl focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-sm sm:text-base shadow-sm"
+                  >
+                    <option value="">اختر موضوع الرسالة</option>
+                    <option value="support">دعم فني</option>
+                    <option value="partnership">شراكة</option>
+                    <option value="feedback">ملاحظات واقتراحات</option>
+                    <option value="billing">الفواتير والدفع</option>
+                    <option value="other">أخرى</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-semibold text-gray-900 mb-3"
+                    >الرسالة *</label
+                  >
+                  <textarea
+                    name="message"
+                    required
+                    rows="6"
+                    class="w-full px-4 sm:px-6 py-4 bg-white border-2 border-gray-200 hover:border-blue-300 focus:border-blue-500 focus:bg-blue-50/50 rounded-2xl focus:ring-4 focus:ring-blue-500/20 transition-all duration-300 text-sm sm:text-base placeholder-gray-400 resize-none shadow-sm"
+                    placeholder="اكتب رسالتك التفصيلية هنا..."
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 sm:py-5 px-8 rounded-2xl transition-all duration-300 hover:shadow-xl hover:scale-105 focus:ring-4 focus:ring-blue-500/50"
+                >
+                  <div class="flex items-center justify-center gap-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-send w-5 h-5 icon-shadow"
+                    >
+                      <path
+                        d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+                      ></path>
+                      <path d="m21.854 2.147-10.94 10.939"></path>
+                    </svg>
+                    إرسال الرسالة
+                  </div>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="xl:col-span-5 space-y-6">
+            <div
+              class="group bg-gradient-to-r from-red-50 to-pink-50 p-6 sm:p-8 rounded-3xl border-2 border-gray-200/50 hover:border-red-300 transition-all duration-300 hover:shadow-xl cursor-pointer"
+            >
+              <div class="flex items-start gap-4 sm:gap-6">
+                <div
+                  class="flex-shrink-0 p-4 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-map-pin w-6 h-6 sm:w-8 sm:h-8 text-white icon-shadow"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    ></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <div class="flex-1 space-y-2">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-red-700 transition-colors duration-300"
+                  >
+                    المكتب الرئيسي
+                  </h3>
+                  <p class="text-gray-700 text-sm sm:text-base font-medium">
+                    الرياض، المملكة العربية السعودية
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group bg-gradient-to-r from-green-50 to-emerald-50 p-6 sm:p-8 rounded-3xl border-2 border-gray-200/50 hover:border-green-300 transition-all duration-300 hover:shadow-xl cursor-pointer"
+            >
+              <div class="flex items-start gap-4 sm:gap-6">
+                <div
+                  class="flex-shrink-0 p-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-phone w-6 h-6 sm:w-8 sm:h-8 text-white icon-shadow"
+                  >
+                    <path
+                      d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"
+                    ></path>
+                  </svg>
+                </div>
+                <div class="flex-1 space-y-2">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-green-700 transition-colors duration-300"
+                  >
+                    الهاتف
+                  </h3>
+                  <a
+                    href="tel:+966501234567"
+                    class="text-gray-600 hover:text-green-600 transition-colors duration-300 text-sm sm:text-base font-medium hover:underline"
+                    >+966 50 123 4567</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group bg-gradient-to-r from-blue-50 to-indigo-50 p-6 sm:p-8 rounded-3xl border-2 border-gray-200/50 hover:border-blue-300 transition-all duration-300 hover:shadow-xl cursor-pointer"
+            >
+              <div class="flex items-start gap-4 sm:gap-6">
+                <div
+                  class="flex-shrink-0 p-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-mail w-6 h-6 sm:w-8 sm:h-8 text-white icon-shadow"
+                  >
+                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  </svg>
+                </div>
+                <div class="flex-1 space-y-2">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors duration-300"
+                  >
+                    البريد الإلكتروني
+                  </h3>
+                  <a
+                    href="mailto:support@khatwa.com"
+                    class="text-gray-600 hover:text-blue-600 transition-colors duration-300 text-sm sm:text-base font-medium hover:underline"
+                    >support@khatwa.com</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group bg-gradient-to-r from-purple-50 to-violet-50 p-6 sm:p-8 rounded-3xl border-2 border-gray-200/50 hover:border-purple-300 transition-all duration-300 hover:shadow-xl cursor-pointer"
+            >
+              <div class="flex items-start gap-4 sm:gap-6">
+                <div
+                  class="flex-shrink-0 p-4 bg-gradient-to-br from-purple-500 to-violet-600 rounded-2xl shadow-lg"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-clock w-6 h-6 sm:w-8 sm:h-8 text-white icon-shadow"
+                  >
+                    <path d="M12 6v6l4 2"></path>
+                    <circle cx="12" cy="12" r="10"></circle>
+                  </svg>
+                </div>
+                <div class="flex-1 space-y-2">
+                  <h3
+                    class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-purple-700 transition-colors duration-300"
+                  >
+                    ساعات العمل
+                  </h3>
+                  <p class="text-gray-700 text-sm sm:text-base font-medium">
+                    الأحد - الخميس: 9:00 - 18:00
+                  </p>
+                  <div class="flex items-center gap-2 mt-3">
+                    <div
+                      class="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+                    ></div>
+                    <span class="text-xs text-gray-500">متاح الآن</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-gray-200/50 p-6 sm:p-8"
+            >
+              <div class="text-center space-y-4">
+                <div
+                  class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50/80 rounded-full text-blue-700 text-sm font-medium border border-blue-200/50"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-users w-4 h-4 icon-shadow"
+                  >
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                  </svg>
+                  إحصائيات سريعة
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="text-center">
+                    <div
+                      class="text-2xl sm:text-3xl font-bold text-blue-600 mb-1"
+                    >
+                      50K+
+                    </div>
+                    <div class="text-xs sm:text-sm text-gray-600">طالب نشط</div>
+                  </div>
+                  <div class="text-center">
+                    <div
+                      class="text-2xl sm:text-3xl font-bold text-purple-600 mb-1"
+                    >
+                      24/7
+                    </div>
+                    <div class="text-xs sm:text-sm text-gray-600">
+                      دعم متواصل
+                    </div>
+                  </div>
+                </div>
+                <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  نحن ملتزمون بتقديم أفضل خدمة لمجتمعنا التعليمي العربي
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

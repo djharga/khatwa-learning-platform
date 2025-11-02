@@ -1,0 +1,558 @@
+/* Utilities CSS - Unified helper classes for spacing, typography, colors, interactions, and layout */
+/* نظام المسافات الموحد - 8px Grid System */
+
+/* ========================================
+   SPACING UTILITIES - من tokens.ts
+   ======================================== */
+
+/* Section Spacing - مسافات الأقسام */
+.space-section {
+  padding-top: var(--spacing-section-normal);
+  padding-bottom: var(--spacing-section-normal);
+}
+
+@media (min-width: 768px) {
+  .space-section {
+    padding-top: var(--spacing-section-relaxed);
+    padding-bottom: var(--spacing-section-relaxed);
+  }
+}
+
+@media (min-width: 1024px) {
+  .space-section {
+    padding-top: var(--spacing-section-spacious);
+    padding-bottom: var(--spacing-section-spacious);
+  }
+}
+
+/* Component Spacing - مسافات المكونات */
+.space-component {
+  padding-top: var(--spacing-component-normal);
+  padding-bottom: var(--spacing-component-normal);
+}
+
+@media (min-width: 768px) {
+  .space-component {
+    padding-top: var(--spacing-component-relaxed);
+    padding-bottom: var(--spacing-component-relaxed);
+  }
+}
+
+@media (min-width: 1024px) {
+  .space-component {
+    padding-top: var(--spacing-component-spacious);
+    padding-bottom: var(--spacing-component-spacious);
+  }
+}
+
+/* Element Spacing - مسافات العناصر */
+.space-element {
+  margin-bottom: var(--spacing-margin-sm);
+}
+
+.space-element-lg {
+  margin-bottom: var(--spacing-margin-md);
+}
+
+.space-element-xl {
+  margin-bottom: var(--spacing-margin-lg);
+}
+
+/* Gap Utilities - مسافات الفجوات */
+.gap-section {
+  gap: var(--spacing-gap-normal);
+}
+
+@media (min-width: 768px) {
+  .gap-section {
+    gap: var(--spacing-gap-relaxed);
+  }
+}
+
+@media (min-width: 1024px) {
+  .gap-section {
+    gap: var(--spacing-gap-spacious);
+  }
+}
+
+.gap-component {
+  gap: var(--spacing-gap-normal);
+}
+
+.gap-element {
+  gap: var(--spacing-gap-tight);
+}
+
+/* Padding Utilities - استخدام Semantic Spacing */
+.p-component {
+  padding: var(--spacing-padding-md);
+}
+
+.p-component-tight {
+  padding: var(--spacing-padding-sm);
+}
+
+.p-component-relaxed {
+  padding: var(--spacing-padding-lg);
+}
+
+.p-component-spacious {
+  padding: var(--spacing-padding-xl);
+}
+
+/* ========================================
+   LAYOUT UTILITIES - من tokens.ts
+   ======================================== */
+
+/* Container - حاوية موحدة متجاوبة */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-padding-md);
+  padding-right: var(--spacing-padding-md);
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: var(--spacing-padding-lg);
+    padding-right: var(--spacing-padding-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: var(--spacing-padding-xl);
+    padding-right: var(--spacing-padding-xl);
+  }
+}
+
+/* Container Sizes - أحجام مختلفة للحاويات */
+.container-xs {
+  max-width: 480px;
+}
+
+.container-sm {
+  max-width: 640px;
+}
+
+.container-md {
+  max-width: 768px;
+}
+
+.container-lg {
+  max-width: 1024px;
+}
+
+.container-xl {
+  max-width: 1280px;
+}
+
+.container-2xl {
+  max-width: 1536px;
+}
+
+.container-full {
+  max-width: 100%;
+}
+
+.container-prose {
+  max-width: 65ch; /* للمحتوى النصي */
+}
+
+/* Grid Container - متجاوب مع 8px Grid (Legacy - للتوافق) */
+.grid-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: var(--spacing-padding-md);
+  padding-right: var(--spacing-padding-md);
+}
+
+@media (min-width: 640px) {
+  .grid-container {
+    padding-left: var(--spacing-padding-lg);
+    padding-right: var(--spacing-padding-lg);
+  }
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    padding-left: var(--spacing-padding-lg);
+    padding-right: var(--spacing-padding-lg);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-container {
+    padding-left: var(--spacing-padding-xl);
+    padding-right: var(--spacing-padding-xl);
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid-container {
+    padding-left: var(--spacing-padding-xl);
+    padding-right: var(--spacing-padding-xl);
+  }
+}
+
+/* Grid Utilities - أدوات الشبكة */
+.grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-gap-normal);
+}
+
+.grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-gap-normal);
+}
+
+/* Flexbox Utilities */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-start {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex-end {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ========================================
+   TEXT UTILITIES
+   ======================================== */
+
+.heading-1 {
+  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+
+.heading-2 {
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+}
+
+.heading-3 {
+  font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-snug);
+}
+
+.heading-4 {
+  font-size: clamp(var(--text-lg), 2.5vw, var(--text-2xl));
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-snug);
+}
+
+.heading-5 {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-normal);
+}
+
+.heading-6 {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-normal);
+}
+
+.body-text {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-normal);
+}
+
+.body-text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  font-weight: var(--font-normal);
+}
+
+.line-clamp-1 {
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========================================
+   COLOR UTILITIES - WCAG Compliant
+   ======================================== */
+
+/* Text Colors - آمنة للاستخدام */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.text-secondary {
+  color: var(--color-text-secondary);
+}
+
+/* Safe Text Combinations - تركيبات نص آمنة */
+.text-on-white {
+  color: var(--color-text-primary); /* AAA contrast */
+}
+
+.text-on-white-secondary {
+  color: var(--color-text-secondary); /* AAA contrast */
+}
+
+.text-on-dark {
+  color: var(--color-text-inverse); /* أبيض على خلفيات داكنة */
+}
+
+/* Background Colors */
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+.bg-surface {
+  background-color: var(--color-surface);
+}
+
+/* Safe Background/Text Combinations */
+.bg-primary-text-white {
+  background-color: var(--color-primary-600); /* AA contrast */
+  color: var(--color-text-inverse);
+}
+
+.bg-accent-text-white {
+  background-color: var(--color-accent-600); /* AA contrast */
+  color: var(--color-text-inverse);
+}
+
+.bg-success-text-white {
+  background-color: var(--color-success-600); /* AA contrast */
+  color: var(--color-text-inverse);
+}
+
+.bg-danger-text-white {
+  background-color: var(--color-danger-600); /* AA contrast */
+  color: var(--color-text-inverse);
+}
+
+.gradient-primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
+}
+
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ========================================
+   SHADOW UTILITIES - من tokens.ts
+   ======================================== */
+
+/* Base Shadow Classes */
+.shadow-elevation-0 {
+  box-shadow: var(--shadow-elevation-0);
+}
+
+.shadow-elevation-1 {
+  box-shadow: var(--shadow-elevation-1);
+}
+
+.shadow-elevation-2 {
+  box-shadow: var(--shadow-elevation-2);
+}
+
+.shadow-elevation-3 {
+  box-shadow: var(--shadow-elevation-3);
+}
+
+.shadow-elevation-4 {
+  box-shadow: var(--shadow-elevation-4);
+}
+
+.shadow-elevation-5 {
+  box-shadow: var(--shadow-elevation-5);
+}
+
+.shadow-elevation-6 {
+  box-shadow: var(--shadow-elevation-6);
+}
+
+/* Colored Shadow Classes */
+.shadow-colored-primary {
+  box-shadow: var(--shadow-primary);
+}
+
+.shadow-colored-primary-lg {
+  box-shadow: var(--shadow-primary-lg);
+}
+
+.shadow-colored-accent {
+  box-shadow: var(--shadow-accent);
+}
+
+.shadow-colored-success {
+  box-shadow: var(--shadow-success);
+}
+
+.shadow-colored-warning {
+  box-shadow: var(--shadow-warning);
+}
+
+.shadow-colored-error {
+  box-shadow: var(--shadow-error);
+}
+
+/* Glow Effect Classes */
+.shadow-glow-primary {
+  box-shadow: var(--shadow-glow-primary);
+}
+
+.shadow-glow-accent {
+  box-shadow: var(--shadow-glow-accent);
+}
+
+.shadow-glow-success {
+  box-shadow: var(--shadow-glow-success);
+}
+
+.shadow-glow-warning {
+  box-shadow: var(--shadow-glow-warning);
+}
+
+.shadow-glow-error {
+  box-shadow: var(--shadow-glow-error);
+}
+
+/* Hover Shadow Effects */
+.shadow-hover-elevate {
+  transition: box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.shadow-hover-elevate:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.shadow-hover-colored-primary:hover {
+  box-shadow: var(--shadow-primary-lg);
+}
+
+.shadow-hover-colored-accent:hover {
+  box-shadow: var(--shadow-accent-lg);
+}
+
+.shadow-hover-glow-primary:hover {
+  box-shadow: var(--shadow-glow-primary-lg);
+}
+
+/* ========================================
+   INTERACTIVE UTILITIES
+   ======================================== */
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.hover-lift-sm {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift-sm:hover {
+  transform: translateY(-2px);
+}
+
+.hover-lift-smooth {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift-smooth:hover {
+  transform: translateY(-6px);
+}
+
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+.transition-fast {
+  transition: all 0.15s ease;
+}
+
+/* ========================================
+   LAYOUT UTILITIES
+   ======================================== */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

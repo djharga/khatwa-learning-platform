@@ -1,0 +1,1096 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================
+   CSS VARIABLES FROM TOKENS.TS (VIA GLOBALS.CSS)
+   ========================================== */
+
+:root {
+  /* ============================================
+     🎨 CSS VARIABLES - متزامنة مع src/tokens.ts
+     ============================================ */
+  
+  /* Primary Colors - من tokens.ts */
+  --color-primary-50: #f0f4ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary: var(--color-primary-500);
+  --color-primary-light: var(--color-primary-400);
+  --color-primary-dark: var(--color-primary-700);
+
+  /* Accent Colors - من tokens.ts */
+  --color-accent-50: #eff6ff;
+  --color-accent-100: #dbeafe;
+  --color-accent-200: #bfdbfe;
+  --color-accent-300: #93c5fd;
+  --color-accent-400: #60a5fa;
+  --color-accent-500: #3b82f6;
+  --color-accent-600: #2563eb;
+  --color-accent-700: #1d4ed8;
+  --color-accent-800: #1e40af;
+  --color-accent-900: #1e3a8a;
+  --color-accent: var(--color-accent-500);
+  --color-accent-light: var(--color-accent-400);
+  --color-accent-dark: var(--color-accent-700);
+
+  /* Secondary Semantic Colors - من tokens.ts (مع درجات كاملة) */
+  /* Learn (أخضر - التعلم) */
+  --color-secondary-learn-50: #f0fdf4;
+  --color-secondary-learn-100: #dcfce7;
+  --color-secondary-learn-200: #bbf7d0;
+  --color-secondary-learn-300: #86efac;
+  --color-secondary-learn-400: #4ade80;
+  --color-secondary-learn-500: #38a169;
+  --color-secondary-learn-600: #16a34a;
+  --color-secondary-learn-700: #15803d;
+  --color-secondary-learn-800: #166534;
+  --color-secondary-learn-900: #14532d;
+  --color-secondary-learn: var(--color-secondary-learn-500);
+  
+  /* Expert (أزرق - الخبرة) */
+  --color-secondary-expert-50: #eff6ff;
+  --color-secondary-expert-100: #dbeafe;
+  --color-secondary-expert-200: #bfdbfe;
+  --color-secondary-expert-300: #93c5fd;
+  --color-secondary-expert-400: #60a5fa;
+  --color-secondary-expert-500: #3182ce;
+  --color-secondary-expert-600: #2563eb;
+  --color-secondary-expert-700: #1d4ed8;
+  --color-secondary-expert-800: #1e40af;
+  --color-secondary-expert-900: #1e3a8a;
+  --color-secondary-expert: var(--color-secondary-expert-500);
+  
+  /* Innovate (بنفسجي - الابتكار) */
+  --color-secondary-innovate-50: #faf5ff;
+  --color-secondary-innovate-100: #f3e8ff;
+  --color-secondary-innovate-200: #e9d5ff;
+  --color-secondary-innovate-300: #d8b4fe;
+  --color-secondary-innovate-400: #c084fc;
+  --color-secondary-innovate-500: #805ad5;
+  --color-secondary-innovate-600: #7c3aed;
+  --color-secondary-innovate-700: #6d28d9;
+  --color-secondary-innovate-800: #5b21b6;
+  --color-secondary-innovate-900: #4c1d95;
+  --color-secondary-innovate: var(--color-secondary-innovate-500);
+  
+  /* Secure (رمادي - الأمان) */
+  --color-secondary-secure-50: #f8fafc;
+  --color-secondary-secure-100: #f1f5f9;
+  --color-secondary-secure-200: #e2e8f0;
+  --color-secondary-secure-300: #cbd5e1;
+  --color-secondary-secure-400: #94a3b8;
+  --color-secondary-secure-500: #2d3748;
+  --color-secondary-secure-600: #1a202c;
+  --color-secondary-secure-700: #171923;
+  --color-secondary-secure-800: #0f1419;
+  --color-secondary-secure-900: #0a0e14;
+  --color-secondary-secure: var(--color-secondary-secure-500);
+
+  /* Background Colors - من tokens.ts */
+  --color-background-primary: #ffffff;
+  --color-background-alt: #f7fafc;
+  --color-background-subtle: #edf2f7;
+  --color-background: var(--color-background-primary);
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7fafc;
+  --color-surface-elevated: #ffffff;
+
+  /* Text Colors - من tokens.ts (WCAG AA/AAA compliant) */
+  --color-text-primary: #1a202c;    /* Contrast: 16.76:1 - AAA ✅ */
+  --color-text-secondary: #4a5568;  /* Contrast: 7.52:1 - AAA ✅ */
+  --color-text-tertiary: #718096;   /* Contrast: 4.67:1 - AA ✅ */
+  --color-text-muted: #a0aec0;      /* Contrast: 2.91:1 - للعناصر غير النصية فقط ⚠️ */
+  --color-text-inverse: #ffffff;    /* أبيض - للنصوص على خلفيات داكنة */
+
+  /* Status Colors - من tokens.ts */
+  --color-success: #38a169;
+  --color-success-light: #68d391;
+  --color-warning: #d69e2e;
+  --color-warning-light: #fbbf24;
+  --color-error: #e53e3e;
+  --color-error-light: #fc8181;
+  --color-info: #3182ce;
+  --color-info-light: #63b3ed;
+
+  /* Typography - من tokens.ts */
+  /* ملاحظة: CSS Variables للخطوط تستخدم var(--font-cairo) و var(--font-tajawal) من layout.tsx */
+  --font-sans: var(--font-cairo), 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: var(--font-cairo), 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: var(--font-tajawal), 'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-arabic: var(--font-cairo), 'Cairo', 'Tajawal', system-ui, sans-serif;
+  --font-english: 'Inter', 'Roboto', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  /* Line Heights - من tokens.ts (محسّنة للعربية) */
+  --line-height-none: 1;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 1.75;
+  --line-height-body: var(--line-height-relaxed);
+  --line-height-heading: var(--line-height-tight);
+
+  /* Spacing Scale - من tokens.ts (8px Grid System) */
+  /* جميع القيم مضاعفات 8px */
+  --space-0: 0;
+  --space-0_5: 0.125rem;  /* 2px */
+  --space-1: 0.25rem;     /* 4px */
+  --space-1_5: 0.375rem;  /* 6px */
+  --space-2: 0.5rem;      /* 8px - الوحدة الأساسية ⭐ */
+  --space-2_5: 0.625rem;  /* 10px */
+  --space-3: 0.75rem;     /* 12px */
+  --space-3_5: 0.875rem;  /* 14px */
+  --space-4: 1rem;        /* 16px (2x) */
+  --space-5: 1.25rem;     /* 20px */
+  --space-6: 1.5rem;      /* 24px (3x) */
+  --space-7: 1.75rem;     /* 28px */
+  --space-8: 2rem;        /* 32px (4x) */
+  --space-9: 2.25rem;     /* 36px */
+  --space-10: 2.5rem;     /* 40px (5x) */
+  --space-11: 2.75rem;    /* 44px */
+  --space-12: 3rem;       /* 48px (6x) */
+  --space-14: 3.5rem;     /* 56px (7x) */
+  --space-16: 4rem;       /* 64px (8x) */
+  --space-20: 5rem;       /* 80px (10x) */
+  --space-24: 6rem;       /* 96px (12x) */
+  --space-28: 7rem;       /* 112px (14x) */
+  --space-32: 8rem;       /* 128px (16x) */
+  --space-36: 9rem;       /* 144px (18x) */
+  --space-40: 10rem;      /* 160px (20x) */
+  --space-44: 11rem;      /* 176px (22x) */
+  --space-48: 12rem;      /* 192px (24x) */
+  --space-52: 13rem;      /* 208px (26x) */
+  --space-56: 14rem;      /* 224px (28x) */
+  --space-60: 15rem;      /* 240px (30x) */
+  --space-64: 16rem;      /* 256px (32x) */
+  --space-72: 18rem;      /* 288px (36x) */
+  --space-80: 20rem;      /* 320px (40x) */
+  --space-96: 24rem;      /* 384px (48x) */
+
+  /* Semantic Spacing - مسافات دلالية */
+  --spacing-component-tight: var(--space-2);
+  --spacing-component-normal: var(--space-4);
+  --spacing-component-relaxed: var(--space-6);
+  --spacing-component-spacious: var(--space-8);
+  
+  --spacing-section-compact: var(--space-12);
+  --spacing-section-normal: var(--space-16);
+  --spacing-section-relaxed: var(--space-20);
+  --spacing-section-spacious: var(--space-24);
+  
+  --spacing-gap-tight: var(--space-2);
+  --spacing-gap-normal: var(--space-4);
+  --spacing-gap-relaxed: var(--space-6);
+  --spacing-gap-spacious: var(--space-8);
+  
+  --spacing-padding-xs: var(--space-1);
+  --spacing-padding-sm: var(--space-2);
+  --spacing-padding-md: var(--space-4);
+  --spacing-padding-lg: var(--space-6);
+  --spacing-padding-xl: var(--space-8);
+  
+  --spacing-margin-xs: var(--space-2);
+  --spacing-margin-sm: var(--space-4);
+  --spacing-margin-md: var(--space-6);
+  --spacing-margin-lg: var(--space-8);
+  --spacing-margin-xl: var(--space-12);
+
+  /* Typography Scale - من tokens.ts (responsive with clamp) */
+  --text-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --text-base: clamp(1rem, 3vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 4vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 5vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 6vw, 2.25rem);
+  --text-4xl: clamp(2.25rem, 7vw, 3rem);
+  --text-5xl: clamp(3rem, 8vw, 3.75rem);
+  --text-6xl: clamp(3.75rem, 9vw, 4.5rem);
+  --text-7xl: clamp(4.5rem, 10vw, 5.25rem);
+
+  /* Font Weights - من tokens.ts (متوافقة مع Cairo و Tajawal) */
+  --font-thin: 100;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Letter Spacing - من tokens.ts */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* Font Feature Settings - للخطوط العربية */
+  --font-features-arabic: 'rlig' 1, 'calt' 1;
+  --font-features-default: 'rlig' 1, 'calt' 1;
+
+  /* Border Radius - من tokens.ts */
+  --radius-none: 0;
+  --radius-sm: 0.375rem;   /* 6px */
+  --radius-md: 0.5rem;     /* 8px */
+  --radius-lg: 0.75rem;    /* 12px */
+  --radius-xl: 1rem;       /* 16px */
+  --radius-2xl: 1.5rem;     /* 24px */
+  --radius-3xl: 2rem;       /* 32px */
+  --radius-full: 9999px;
+
+  /* Shadows - من tokens.ts (نظام شامل للظلال) */
+  /* Base Shadows - ظلال أساسية */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Inner Shadows - ظلال داخلية */
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-inner-sm: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-inner-md: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-inner-lg: inset 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+  
+  /* Colored Shadows - Primary (Indigo) */
+  --shadow-primary-sm: 0 2px 8px rgba(99, 102, 241, 0.2);
+  --shadow-primary-md: 0 4px 12px rgba(99, 102, 241, 0.3);
+  --shadow-primary-lg: 0 8px 24px rgba(99, 102, 241, 0.4);
+  --shadow-primary-xl: 0 12px 32px rgba(99, 102, 241, 0.5);
+  --shadow-primary: var(--shadow-primary-md);
+  
+  /* Colored Shadows - Accent (Blue) */
+  --shadow-accent-sm: 0 2px 8px rgba(59, 130, 246, 0.2);
+  --shadow-accent-md: 0 4px 12px rgba(59, 130, 246, 0.3);
+  --shadow-accent-lg: 0 8px 24px rgba(59, 130, 246, 0.4);
+  --shadow-accent-xl: 0 12px 32px rgba(59, 130, 246, 0.5);
+  --shadow-accent: var(--shadow-accent-md);
+  
+  /* Colored Shadows - Success (Green) */
+  --shadow-success-sm: 0 2px 8px rgba(34, 197, 94, 0.2);
+  --shadow-success-md: 0 4px 12px rgba(34, 197, 94, 0.3);
+  --shadow-success-lg: 0 8px 24px rgba(34, 197, 94, 0.4);
+  --shadow-success-xl: 0 12px 32px rgba(34, 197, 94, 0.5);
+  --shadow-success: var(--shadow-success-md);
+  
+  /* Colored Shadows - Warning (Amber) */
+  --shadow-warning-sm: 0 2px 8px rgba(245, 158, 11, 0.2);
+  --shadow-warning-md: 0 4px 12px rgba(245, 158, 11, 0.3);
+  --shadow-warning-lg: 0 8px 24px rgba(245, 158, 11, 0.4);
+  --shadow-warning-xl: 0 12px 32px rgba(245, 158, 11, 0.5);
+  --shadow-warning: var(--shadow-warning-md);
+  
+  /* Colored Shadows - Error (Red) */
+  --shadow-error-sm: 0 2px 8px rgba(239, 68, 68, 0.2);
+  --shadow-error-md: 0 4px 12px rgba(239, 68, 68, 0.3);
+  --shadow-error-lg: 0 8px 24px rgba(239, 68, 68, 0.4);
+  --shadow-error-xl: 0 12px 32px rgba(239, 68, 68, 0.5);
+  --shadow-error: var(--shadow-error-md);
+  
+  /* Glow Effects - تأثيرات الإضاءة */
+  --shadow-glow-primary-sm: 0 0 10px rgba(99, 102, 241, 0.3);
+  --shadow-glow-primary-md: 0 0 20px rgba(99, 102, 241, 0.5);
+  --shadow-glow-primary-lg: 0 0 30px rgba(99, 102, 241, 0.7);
+  --shadow-glow-primary: var(--shadow-glow-primary-md);
+  
+  --shadow-glow-accent-sm: 0 0 10px rgba(59, 130, 246, 0.3);
+  --shadow-glow-accent-md: 0 0 20px rgba(59, 130, 246, 0.5);
+  --shadow-glow-accent-lg: 0 0 30px rgba(59, 130, 246, 0.7);
+  --shadow-glow-accent: var(--shadow-glow-accent-md);
+  
+  --shadow-glow-success: 0 0 20px rgba(34, 197, 94, 0.5);
+  --shadow-glow-warning: 0 0 20px rgba(245, 158, 11, 0.5);
+  --shadow-glow-error: 0 0 20px rgba(239, 68, 68, 0.5);
+  
+  /* Elevation System - نظام الارتفاع */
+  --shadow-elevation-0: none;
+  --shadow-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-elevation-2: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+  --shadow-elevation-3: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-elevation-4: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+  --shadow-elevation-5: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --shadow-elevation-6: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* Motion & Animation - من tokens.ts */
+  --duration-instant: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* Easing Functions - من tokens.ts */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* Icon Sizes - من tokens.ts */
+  --icon-xs: 1rem;      /* 16px */
+  --icon-sm: 1.25rem;   /* 20px */
+  --icon-md: 1.5rem;    /* 24px */
+  --icon-lg: 2rem;      /* 32px */
+  --icon-xl: 2.5rem;    /* 40px */
+
+  /* Touch Targets - من tokens.ts (WCAG 2.1) */
+  --touch-target-min: 44px;
+  --touch-target-comfortable: 48px;
+  --touch-target-spacious: 56px;
+
+  /* Gradients - من tokens.ts */
+  --gradient-primary-smooth: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+  --gradient-primary: linear-gradient(to right, #6366f1, #4f46e5);
+  --gradient-accent-modern: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+
+  /* Glass Effects - من tokens.ts */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-blur: blur(10px);
+}
+
+.dark {
+  /* ============================================
+     🌙 Dark Mode - متزامن مع tokens.ts
+     ============================================ */
+  
+  /* Primary Colors - Dark Mode (معكوس من tokens.ts) */
+  --color-primary-50: #312e81;
+  --color-primary-100: #3730a3;
+  --color-primary-200: #4338ca;
+  --color-primary-300: #4f46e5;
+  --color-primary-400: #6366f1;
+  --color-primary-500: #818cf8;
+  --color-primary-600: #a5b4fc;
+  --color-primary-700: #c7d2fe;
+  --color-primary-800: #e0e7ff;
+  --color-primary-900: #f0f4ff;
+  --color-primary: var(--color-primary-500);
+  --color-primary-light: var(--color-primary-600);
+  --color-primary-dark: var(--color-primary-400);
+
+  /* Accent Colors - Dark Mode */
+  --color-accent-50: #1e3a8a;
+  --color-accent-100: #1e40af;
+  --color-accent-200: #1d4ed8;
+  --color-accent-300: #2563eb;
+  --color-accent-400: #3b82f6;
+  --color-accent-500: #60a5fa;
+  --color-accent-600: #93c5fd;
+  --color-accent-700: #bfdbfe;
+  --color-accent-800: #dbeafe;
+  --color-accent-900: #eff6ff;
+  --color-accent: var(--color-accent-500);
+  --color-accent-light: var(--color-accent-600);
+  --color-accent-dark: var(--color-accent-400);
+
+  /* Background Colors - Dark Mode (من neutral dark) */
+  --color-background-primary: #18181b; /* neutral-50 */
+  --color-background-alt: #27272a; /* neutral-100 */
+  --color-background-subtle: #3f3f46; /* neutral-200 */
+  --color-background: var(--color-background-primary);
+  --color-surface: #27272a;
+  --color-surface-alt: #3f3f46;
+  --color-surface-elevated: #18181b;
+
+  /* Text Colors - Dark Mode (معكوس - WCAG compliant) */
+  --color-text-primary: #fafafa;      /* Contrast: ~16:1 على #18181b - AAA ✅ */
+  --color-text-secondary: #e4e4e7;    /* Contrast: ~9:1 على #18181b - AAA ✅ */
+  --color-text-tertiary: #d4d4d8;     /* Contrast: ~7:1 على #18181b - AAA ✅ */
+  --color-text-muted: #a1a1aa;        /* Contrast: ~4:1 على #18181b - AA ✅ */
+  --color-text-inverse: #18181b;      /* داكن - للنصوص على خلفيات فاتحة في Dark Mode */
+
+  /* Status Colors - Dark Mode (أفتح) */
+  --color-success: #68d391;
+  --color-success-light: #86efac;
+  --color-warning: #fbbf24;
+  --color-warning-light: #fcd34d;
+  --color-error: #fc8181;
+  --color-error-light: #fca5a5;
+  --color-info: #63b3ed;
+  --color-info-light: #93c5fd;
+  
+  /* Dark Mode Shadows - ظلال محسّنة للوضع المظلم */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  
+  /* Dark Mode Colored Shadows - أفتح وأكثر وضوحاً */
+  --shadow-primary-md: 0 4px 12px rgba(129, 140, 248, 0.4);
+  --shadow-accent-md: 0 4px 12px rgba(96, 165, 250, 0.4);
+  --shadow-success-md: 0 4px 12px rgba(104, 211, 145, 0.4);
+  --shadow-warning-md: 0 4px 12px rgba(251, 191, 36, 0.4);
+  --shadow-error-md: 0 4px 12px rgba(252, 129, 129, 0.4);
+  
+  /* Dark Mode Glow Effects */
+  --shadow-glow-primary: 0 0 20px rgba(129, 140, 248, 0.6);
+  --shadow-glow-accent: 0 0 20px rgba(96, 165, 250, 0.6);
+  --shadow-glow-success: 0 0 20px rgba(104, 211, 145, 0.6);
+}
+
+/* ==========================================
+   RESET & BASE STYLES (FROM BASE/RESET.CSS)
+   ========================================== */
+
+html {
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  line-height: var(--line-height-body);
+  font-feature-settings: var(--font-features-arabic);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-tight);
+  font-feature-settings: var(--font-features-arabic);
+}
+
+/* ==========================================
+   SMOOTH TRANSITIONS - FUNCTIONAL ONLY
+   ========================================== */
+
+* {
+  transition-property: color, background-color, border-color, opacity, transform;
+  transition-timing-function: var(--ease-out);
+  transition-duration: var(--duration-fast);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================
+   FOCUS STYLES - ENHANCED ACCESSIBILITY
+   ========================================== */
+
+*:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+}
+
+/* ==========================================
+   SCROLLBAR STYLES
+   ========================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent);
+  border-radius: var(--radius-lg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Selection Styles */
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+/* ==========================================
+   BUTTONS (USED CLASSES ONLY FROM COMPONENTS/BUTTONS.CSS)
+   ========================================== */
+
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  min-height: 44px;
+  font-size: 1rem;
+  border: none;
+  text-decoration: none;
+  gap: var(--spacing-gap-tight);
+  overflow: hidden;
+  background: var(--gradient-primary);
+  background-size: 200% 200%;
+  color: white;
+  padding: var(--spacing-padding-md) var(--spacing-padding-xl);
+  box-shadow: var(--shadow-primary-md);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform var(--duration-slow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  background-position: 100% 50%;
+  box-shadow: var(--shadow-primary-lg);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-primary:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.btn-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  min-height: 44px;
+  font-size: 1rem;
+  text-decoration: none;
+  gap: var(--spacing-gap-tight);
+  border: 2px solid var(--color-primary-500);
+  color: var(--color-primary-600);
+  padding: var(--spacing-padding-md) var(--spacing-padding-lg);
+  background: transparent;
+  overflow: hidden;
+}
+
+.btn-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-primary-500);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-out);
+  z-index: -1;
+}
+
+.btn-secondary:hover {
+  color: white;
+  border-color: var(--color-primary-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-2);
+}
+
+.btn-secondary:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.btn-secondary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: var(--radius-lg);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  min-height: 44px;
+  font-size: 1rem;
+  border: none;
+  text-decoration: none;
+  gap: var(--spacing-gap-tight);
+  color: var(--color-text-primary);
+  padding: var(--spacing-padding-md) var(--spacing-padding-lg);
+  background: transparent;
+}
+
+.btn-ghost:hover {
+  background: var(--color-primary-50);
+  color: var(--color-primary-600);
+  transform: translateY(-1px);
+}
+
+.btn-ghost:active {
+  transform: scale(0.98);
+}
+
+.btn-outline {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: var(--radius-xl);
+  transition: all var(--duration-normal) var(--ease-out);
+  cursor: pointer;
+  min-height: 44px;
+  font-size: 1rem;
+  text-decoration: none;
+  gap: var(--spacing-gap-tight);
+  border: 2px solid var(--color-primary-500);
+  color: var(--color-primary-600);
+  padding: var(--spacing-padding-md) var(--spacing-padding-lg);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--color-primary-50);
+  border-color: var(--color-primary-600);
+  color: var(--color-primary-700);
+  box-shadow: var(--shadow-elevation-2);
+  transform: translateY(-2px);
+}
+
+.btn-outline:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ==========================================
+   CARDS - من tokens.ts (نظام موحد)
+   ========================================== */
+
+/* Card Base - أساسي لجميع البطاقات */
+.card-base {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-padding-lg);
+  box-shadow: var(--shadow-elevation-2);
+  border: 1px solid var(--color-neutral-200);
+  transition: all var(--duration-normal) var(--ease-out);
+  overflow: hidden;
+}
+
+/* Card Modern - بطاقة حديثة مع تأثيرات */
+.card-modern {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-padding-lg);
+  box-shadow: var(--shadow-elevation-4);
+  border: 1px solid var(--color-neutral-200);
+  transition: all var(--duration-normal) var(--ease-out);
+  overflow: hidden;
+}
+
+.card-modern::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.card-modern:hover {
+  box-shadow: var(--shadow-elevation-5);
+  transform: translateY(-4px);
+  border-color: var(--color-primary-300);
+}
+
+.card-modern:hover::after {
+  opacity: 1;
+}
+
+/* Card Compact - بطاقة مضغوطة */
+.card-compact {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-padding-md);
+  box-shadow: var(--shadow-elevation-1);
+  border: 1px solid var(--color-neutral-200);
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.card-compact:hover {
+  box-shadow: var(--shadow-elevation-3);
+  transform: translateY(-2px);
+  border-color: var(--color-primary-300);
+}
+
+/* Card Elevated - بطاقة مرتفعة */
+.card-elevated {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-padding-lg);
+  box-shadow: var(--shadow-elevation-4);
+  border: none;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.card-elevated:hover {
+  box-shadow: var(--shadow-elevation-6);
+  transform: translateY(-4px);
+}
+
+/* Card Glass - بطاقة زجاجية */
+.card-glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-padding-lg);
+  box-shadow: var(--shadow-elevation-4);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.card-glass:hover {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: var(--shadow-elevation-5);
+  transform: translateY(-2px);
+}
+
+/* Card Spacious - بطاقة واسعة */
+.card-spacious {
+  padding: var(--spacing-padding-xl);
+  border-radius: var(--radius-2xl);
+}
+
+@media (min-width: 1024px) {
+  .card-spacious {
+    padding: var(--spacing-component-spacious);
+    border-radius: var(--radius-3xl);
+  }
+}
+
+/* ==========================================
+   GLASS CARD (FROM DARK-MODE.CSS & GLOBALS.CSS)
+   ========================================== */
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================
+   ANIMATIONS (USED CLASSES ONLY FROM ANIMATIONS-UNIFIED.CSS)
+   ========================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out;
+}
+
+/* ==========================================
+   TEXT GRADIENT (FROM GLOBALS.CSS)
+   ========================================== */
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   BG GRADIENT (FROM GLOBALS.CSS)
+   ========================================== */
+
+.bg-gradient-primary-smooth {
+  background: linear-gradient(135deg, rgba(0, 82, 204, 0.1) 0%, rgba(0, 102, 255, 0.05) 100%);
+}
+
+/* ==========================================
+   HOVER EFFECTS (FROM GLOBALS.CSS & CARDS.CSS)
+   ========================================== */
+
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--shadow-xl);
+}
+
+.hover-lift-sm {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* ==========================================
+   SPACING UTILITIES (USED FROM GLOBALS.CSS)
+   ========================================== */
+
+.space-section {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (min-width: 1024px) {
+  .space-section {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+}
+
+.space-component {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 1024px) {
+  .space-component {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* ==========================================
+   DARK MODE (FROM DARK-MODE.CSS)
+   ========================================== */
+
+.dark {
+  /* Enhanced Dark Mode Color Variables */
+  --color-background: #0f172a;
+  --color-background-alt: #1e293b;
+  --color-background-subtle: #334155;
+  --color-surface: #1e293b;
+  --color-surface-alt: #334155;
+  --color-surface-elevated: #0f172a;
+
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-tertiary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+
+  --color-primary: #4a5568;
+  --color-primary-light: #718096;
+  --color-primary-lighter: #a0aec0;
+  --color-accent: #63b3ed;
+  --color-accent-light: #90cdf4;
+  --color-accent-dark: #4a5568;
+
+  --color-secondary-learn: #68d391;
+  --color-secondary-expert: #63b3ed;
+  --color-secondary-innovate: var(--color-secondary-innovate-500); /* #805ad5 - متزامن مع tokens.ts */
+  --color-secondary-secure: #718096;
+
+  --color-success: #4ade80;
+  --color-success-light: #68d391;
+  --color-warning: #fbbf24;
+  --color-warning-light: #fcd34d;
+  --color-error: #f87171;
+  --color-error-light: #fca5a5;
+  --color-info: #60a5fa;
+  --color-info-light: #93c5fd;
+
+  --gradient-primary-smooth: linear-gradient(
+    135deg,
+    #4a5568 0%,
+    #63b3ed 50%,
+    #718096 100%
+  );
+  --gradient-accent-smooth: linear-gradient(
+    135deg,
+    #63b3ed 0%,
+    #90cdf4 50%,
+    #a0aec0 100%
+  );
+  --gradient-surface: linear-gradient(
+    135deg,
+    #1e293b 0%,
+    #334155 50%,
+    #475569 100%
+  );
+
+  --glass-bg: rgba(30, 41, 59, 0.3);
+  --glass-border: rgba(148, 163, 184, 0.2);
+  --glass-blur: blur(20px);
+
+  --shadow-glow-primary: 0 0 20px rgba(74, 85, 104, 0.4);
+  --shadow-glow-accent: 0 0 20px rgba(99, 179, 237, 0.4);
+  --shadow-inner-glow: inset 0 2px 4px 0 rgba(74, 85, 104, 0.2);
+  --shadow-3d: 0 10px 20px rgba(0, 0, 0, 0.4), 0 6px 6px rgba(0, 0, 0, 0.3);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark Mode Card Adjustments */
+.dark .card-base,
+.dark .card-modern,
+.dark .card-compact,
+.dark .card-elevated {
+  background: var(--color-surface);
+  border-color: var(--color-neutral-700);
+}
+
+.dark .card-modern:hover,
+.dark .card-compact:hover,
+.dark .card-elevated:hover {
+  border-color: var(--color-primary-500);
+  box-shadow: var(--shadow-elevation-5);
+}
+
+.dark .card-glass {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .card-glass:hover {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Dark Mode Button Adjustments */
+.dark .btn-primary {
+  box-shadow: var(--shadow-primary-md);
+}
+
+.dark .btn-primary:hover {
+  box-shadow: var(--shadow-primary-lg);
+}
+
+.dark .btn-secondary {
+  border-color: var(--color-primary-400);
+  color: var(--color-primary-400);
+}
+
+.dark .btn-secondary:hover {
+  background: var(--color-primary-500);
+  color: white;
+  border-color: var(--color-primary-500);
+}
+
+.dark .btn-ghost {
+  color: var(--color-text-primary);
+}
+
+.dark .btn-ghost:hover {
+  background: var(--color-neutral-800);
+  color: var(--color-primary-400);
+}
+
+.dark .btn-outline {
+  border-color: var(--color-primary-400);
+  color: var(--color-primary-400);
+}
+
+.dark .btn-outline:hover {
+  background: var(--color-primary-900);
+  border-color: var(--color-primary-500);
+  color: var(--color-primary-300);
+}
+
+.dark .text-gradient-primary {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ==========================================
+   ACCESSIBILITY (FROM RESET.CSS)
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  * {
+    border-width: 2px;
+  }
+
+  button,
+  a {
+    outline: 2px solid currentColor;
+  }
+}

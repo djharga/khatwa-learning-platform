@@ -1,0 +1,158 @@
+:root {
+  /* Enhanced Color Palette - Professional & Modern */
+  /* Primary Brand Colors - Deep Professional Blue */
+  --color-primary: #1a365d;
+  --color-primary-light: #2d3748;
+  --color-primary-lighter: #4a5568;
+
+  /* Core Accent Colors - Vibrant & Modern */
+  --color-accent: #3182ce;
+  --color-accent-light: #63b3ed;
+  --color-accent-dark: #2c5282;
+
+  /* Spacing Scale - 8px base grid */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.25rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+  --spacing-24: 6rem;
+  --spacing-32: 8rem;
+
+  /* Secondary Semantic Colors - Category Based */
+  --color-secondary-learn: #38a169;
+  --color-secondary-expert: #3182ce;
+  --color-secondary-innovate: #805ad5;
+  --color-secondary-secure: #2d3748;
+
+  /* Neutral Background Colors - Enhanced Hierarchy */
+  --color-background: #ffffff;
+  --color-background-alt: #f7fafc;
+  --color-background-subtle: #edf2f7;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7fafc;
+  --color-surface-elevated: #ffffff;
+
+  /* Enhanced Text Colors - Better Contrast */
+  --color-text-primary: #1a202c;
+  --color-text-secondary: #4a5568;
+  --color-text-tertiary: #718096;
+  --color-text-muted: #a0aec0;
+
+  /* Typography */
+  --font-sans:
+    'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  --font-heading:
+    'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  --font-body:
+    'Tajawal', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+
+  /* Line Heights */
+  --line-height-body: 1.6;
+  --line-height-heading: 1.2;
+
+  /* Typography Scale - Perfect Fourth (1.333) */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --text-9xl: 8rem;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Font Weights */
+  --font-thin: 100;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Border Radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Motion & Animation Variables */
+  --duration-instant: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+
+  /* Easing Function Variables */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.dark {
+  /* Enhanced Dark Mode Color Palette */
+  /* Primary Brand Colors - Dark Mode */
+  --color-primary: #4a5568;
+  --color-primary-light: #718096;
+  --color-primary-lighter: #a0aec0;
+
+  /* Core Accent Colors - Dark Mode */
+  --color-accent: #63b3ed;
+  --color-accent-light: #90cdf4;
+  --color-accent-dark: #4a5568;
+
+  /* Secondary Semantic Colors - Dark Mode */
+  --color-secondary-learn: #68d391;
+  --color-secondary-expert: #63b3ed;
+  --color-secondary-innovate: #9f7aea;
+  --color-secondary-secure: #718096;
+
+  /* Background Colors - Dark Mode */
+  --color-background: #1a202c;
+  --color-background-alt: #2d3748;
+  --color-background-subtle: #4a5568;
+  --color-surface: #2d3748;
+  --color-surface-alt: #4a5568;
+  --color-surface-elevated: #1a202c;
+
+  /* Text Colors - Dark Mode */
+  --color-text-primary: #f7fafc;
+  --color-text-secondary: #e2e8f0;
+  --color-text-tertiary: #cbd5e0;
+  --color-text-muted: #a0aec0;
+}

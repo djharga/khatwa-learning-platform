@@ -1,0 +1,22 @@
+{
+  "name": "puter-windsurf-api",
+  "version": "1.0.0",
+  "description": "Puter.js API bridge for Windsurf - مجاني غير محدود",
+  "main": "puter-server.js",
+  "scripts": {
+    "start": "node puter-server.js",
+    "dev": "nodemon puter-server.js",
+    "install-deps": "npm install"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "puppeteer": "^23.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

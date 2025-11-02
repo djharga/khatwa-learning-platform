@@ -1,0 +1,25 @@
+# robots.txt for Khatwa Platform
+# خطى للتدريب والاستشارات
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /student/
+Disallow: /_next/
+Disallow: /404
+Disallow: /500
+
+# Allow important paths
+Allow: /courses
+Allow: /learning-paths
+Allow: /community
+Allow: /services
+Allow: /contact
+Allow: /about
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://khata-platform.com/sitemap.xml
