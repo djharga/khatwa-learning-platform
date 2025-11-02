@@ -55,7 +55,6 @@ export interface BadgeProps
 // For clickable badges, add onClick handler and cursor-pointer class
 // For interactive badges, consider adding role="button" and keyboard handlers
 // Badge size is determined by text size (xs) and padding (2.5 horizontal, 0.5 vertical)
-// TODO: Consider adding size variants (sm, md, lg) for different use cases
 /**
  * Flexible badge component for labels, status indicators, and counts. Uses pill-shaped design with multiple color variants. Supports focus states for interactive badges.
  *

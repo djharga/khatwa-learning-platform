@@ -307,13 +307,14 @@ const EnhancedNavbar = () => {
                     key={href}
                     href={href}
                     className={cn(
-                      "px-4 py-2.5",
-                      "text-sm font-semibold",
-                      "transition-all duration-300 ease-out",
-                      "flex items-center gap-2",
-                      "rounded-xl",
+                      "px-4 py-2",
+                      "text-xs font-semibold",
+                      "transition-all duration-300 ease-in-out",
+                      "flex items-center gap-1.5",
+                      "rounded-full",
                       "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
                       "relative group",
+                      "hover:scale-105 active:scale-95",
                       isActive
                         ? "text-primary-600 dark:text-primary-400"
                         : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
@@ -323,12 +324,12 @@ const EnhancedNavbar = () => {
                     {isActive && (
                       <motion.div
                         layoutId="activeNavIndicator"
-                        className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-xl"
+                        className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-full shadow-md"
                         initial={false}
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
-                    <Icon icon={IconComponent} size="sm" className="relative z-10 text-current" />
+                    <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-4 h-4" />
                     <span className="relative z-10">{label}</span>
                   </Link>
                 );
@@ -351,13 +352,14 @@ const EnhancedNavbar = () => {
                     <Link
                       href={menu.href}
                       className={cn(
-                        "px-4 py-2.5",
-                        "text-sm font-semibold",
-                        "transition-all duration-300 ease-out",
-                        "flex items-center gap-2",
-                        "rounded-xl",
+                        "px-4 py-2",
+                        "text-xs font-semibold",
+                        "transition-all duration-300 ease-in-out",
+                        "flex items-center gap-1.5",
+                        "rounded-full",
                         "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
                         "relative group",
+                        "hover:scale-105 active:scale-95",
                         isActive
                           ? "text-primary-600 dark:text-primary-400"
                           : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
@@ -367,16 +369,16 @@ const EnhancedNavbar = () => {
                       {isActive && (
                         <motion.div
                           layoutId="activeNavIndicator"
-                          className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-xl"
+                          className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-full shadow-md"
                           initial={false}
                           transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                         />
                       )}
-                      <Icon icon={IconComponent} size="sm" className="relative z-10 text-current" />
+                      <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-4 h-4" />
                       <span className="relative z-10">{menu.label}</span>
                       <ChevronDown 
                         className={cn(
-                          "w-4 h-4 transition-transform duration-300 relative z-10",
+                          "w-3.5 h-3.5 transition-transform duration-300 relative z-10",
                           isOpen && "rotate-180"
                         )}
                       />
@@ -526,10 +528,11 @@ const EnhancedNavbar = () => {
                     setTimeout(() => searchRef.current?.focus(), 100);
                   }}
                   className={cn(
-                    "p-2.5 rounded-xl",
+                    "p-2.5 rounded-full",
                     "text-neutral-700 dark:text-neutral-300",
                     "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                    "transition-all duration-200",
+                    "transition-all duration-300 ease-in-out",
+                    "hover:scale-110 active:scale-95",
                     "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
                     "relative group"
                   )}
@@ -583,10 +586,11 @@ const EnhancedNavbar = () => {
               {/* Notifications */}
               <button
                 className={cn(
-                  "p-2.5 rounded-xl relative",
+                  "p-2.5 rounded-full relative",
                   "text-neutral-700 dark:text-neutral-300",
                   "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                  "transition-all duration-200",
+                  "transition-all duration-300 ease-in-out",
+                  "hover:scale-110 active:scale-95",
                   "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
                 )}
                 aria-label="الإشعارات"
@@ -604,32 +608,34 @@ const EnhancedNavbar = () => {
                     <Link
                       href="/login"
                       className={cn(
-                        "px-4 py-2.5 rounded-xl",
-                        "text-sm font-semibold",
+                        "px-4 py-2 rounded-full",
+                        "text-xs font-semibold",
                         "bg-transparent border-2 border-primary-600 dark:border-primary-400",
                         "text-primary-600 dark:text-primary-400",
                         "hover:bg-primary-50 dark:hover:bg-primary-900/20",
-                        "transition-all duration-200",
-                        "flex items-center gap-2"
+                        "transition-all duration-300 ease-in-out",
+                        "hover:scale-105 active:scale-95",
+                        "flex items-center gap-1.5"
                       )}
                     >
-                      <Icon icon={LogIn} size="sm" className="text-current" />
+                      <Icon icon={LogIn} size="sm" className="text-current w-4 h-4" />
                       <span>تسجيل الدخول</span>
                     </Link>
                     <Link
                       href="/register"
                       className={cn(
-                        "px-4 py-2.5 rounded-xl",
-                        "text-sm font-semibold",
+                        "px-4 py-2 rounded-full",
+                        "text-xs font-semibold",
                         "bg-gradient-to-r from-primary-600 to-primary-700",
                         "text-white",
                         "hover:from-primary-700 hover:to-primary-800",
                         "shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40",
-                        "transition-all duration-200",
-                        "flex items-center gap-2"
+                        "transition-all duration-300 ease-in-out",
+                        "hover:scale-105 active:scale-95",
+                        "flex items-center gap-1.5"
                       )}
                     >
-                      <Icon icon={UserPlus} size="sm" className="text-white" />
+                      <Icon icon={UserPlus} size="sm" className="text-white w-4 h-4" />
                       <span>التسجيل</span>
                     </Link>
                   </>
@@ -644,7 +650,8 @@ const EnhancedNavbar = () => {
                 "lg:hidden p-2.5",
                 "text-neutral-700 dark:text-neutral-300",
                 "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                "rounded-xl transition-colors duration-200",
+                "rounded-full transition-all duration-300 ease-in-out",
+                "hover:scale-110 active:scale-95",
                 "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
               )}
               aria-label={isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
@@ -680,12 +687,12 @@ const EnhancedNavbar = () => {
                       }}
                       onFocus={() => setShowSearchSuggestions(searchQuery.length > 0)}
                       placeholder="ابحث في الكورسات، المكتبة، والموارد... (Ctrl+K)"
-                      className="w-full pr-10 pl-12 py-3 border-2 border-neutral-300 dark:border-neutral-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-all duration-200"
+                      className="w-full pr-10 pl-12 py-3 border-2 border-neutral-300 dark:border-neutral-600 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-all duration-200"
                       dir="rtl"
                     />
                     <button
                       type="submit"
-                      className="absolute left-3 top-1/2 -translate-y-1/2 px-4 py-1.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:from-primary-700 hover:to-primary-800 text-sm font-medium transition-all duration-200 shadow-md"
+                      className="absolute left-3 top-1/2 -translate-y-1/2 px-5 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 text-sm font-semibold transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
                     >
                       بحث
                     </button>
@@ -715,14 +722,14 @@ const EnhancedNavbar = () => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="ابحث..."
-                      className="w-full pr-10 pl-12 py-2.5 border-2 border-neutral-300 dark:border-neutral-600 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200"
+                      className="w-full pr-10 pl-12 py-3 border-2 border-neutral-300 dark:border-neutral-600 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200"
                       dir="rtl"
                     />
                   </div>
                 </form>
 
                 {/* Main Navigation Items */}
-                {mainNavItems.map(({ href, label, icon: IconComponent }) => {
+                  {mainNavItems.map(({ href, label, icon: IconComponent }) => {
                   const isActive = isActiveLink(href);
                   return (
                     <Link
@@ -730,11 +737,13 @@ const EnhancedNavbar = () => {
                       href={href}
                       onClick={() => setMobileMenu(false)}
                       className={cn(
-                        "flex items-center gap-3 px-4 py-3 rounded-xl",
+                        "flex items-center gap-3 px-5 py-3.5 rounded-2xl",
                         "text-neutral-700 dark:text-neutral-300",
+                        "transition-all duration-300 ease-in-out",
+                        "hover:scale-[1.02] active:scale-[0.98]",
                         isActive
-                          ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
-                          : "hover:bg-white dark:hover:bg-neutral-800"
+                          ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 shadow-md"
+                          : "hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm"
                       )}
                     >
                       <Icon icon={IconComponent} size="md" />
@@ -753,18 +762,20 @@ const EnhancedNavbar = () => {
                       <button
                         onClick={() => setOpenDropdown(isOpen ? null : key)}
                         className={cn(
-                          "w-full flex items-center justify-between gap-3 px-4 py-3 rounded-xl",
+                          "w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl",
                           "text-neutral-700 dark:text-neutral-300",
+                          "transition-all duration-300 ease-in-out",
+                          "hover:scale-[1.02] active:scale-[0.98]",
                           isActive
-                            ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
-                            : "hover:bg-white dark:hover:bg-neutral-800"
+                            ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 shadow-md"
+                            : "hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm"
                         )}
                       >
                         <div className="flex items-center gap-3">
                           <Icon icon={menu.icon} size="md" />
                           <span className="font-semibold">{menu.label}</span>
                         </div>
-                        <ChevronDown className={cn("w-4 h-4 transition-transform duration-200", isOpen && "rotate-180")} />
+                        <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isOpen && "rotate-180")} />
                       </button>
                       <AnimatePresence>
                         {isOpen && (
@@ -817,14 +828,14 @@ const EnhancedNavbar = () => {
                       <Link
                         href="/login"
                         onClick={() => setMobileMenu(false)}
-                        className="block w-full text-center px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 mb-2 transition-all duration-200 shadow-md"
+                        className="block w-full text-center px-5 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-2xl font-semibold hover:from-primary-700 hover:to-primary-800 mb-2 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-sm"
                       >
                         تسجيل الدخول
                       </Link>
                       <Link
                         href="/register"
                         onClick={() => setMobileMenu(false)}
-                        className="block w-full text-center px-4 py-3 border-2 border-primary-600 text-primary-600 rounded-xl font-semibold hover:bg-primary-50 transition-all duration-200"
+                        className="block w-full text-center px-6 py-3.5 border-2 border-primary-600 text-primary-600 rounded-2xl font-semibold hover:bg-primary-50 transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98]"
                       >
                         التسجيل
                       </Link>

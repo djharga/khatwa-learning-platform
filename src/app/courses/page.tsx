@@ -18,9 +18,7 @@ export default function CoursesPage() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedLevel, setSelectedLevel] = useState('all');
   const [expandedCourses, setExpandedCourses] = useState<Set<number>>(new Set());
-  const [quickFilter, setQuickFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('popular');
 
   // ═══════════════════════════════════════════════════
@@ -503,12 +501,6 @@ export default function CoursesPage() {
     { id: 'إدارة وتشغيل المطاعم', label: 'إدارة وتشغيل المطاعم', count: courses.filter(c => c.category === 'إدارة وتشغيل المطاعم').length }
   ];
 
-  const levels = [
-    { id: 'all', label: 'جميع المستويات', count: courses.length },
-    { id: 'مبتدئ', label: 'مبتدئ', count: courses.filter(c => c.level === 'مبتدئ').length },
-    { id: 'متوسط', label: 'متوسط', count: courses.filter(c => c.level === 'متوسط').length },
-    { id: 'متقدم', label: 'متقدم', count: courses.filter(c => c.level === 'متقدم').length }
-  ];
 
   // ═══════════════════════════════════════════════════
   // Functions
@@ -518,8 +510,7 @@ export default function CoursesPage() {
     const matchesSearch = course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          course.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
-    const matchesLevel = selectedLevel === 'all' || course.level === selectedLevel;
-    return matchesSearch && matchesCategory && matchesLevel;
+    return matchesSearch && matchesCategory;
   });
 
   const toggleCourseExpansion = (courseId: number) => {
@@ -633,77 +624,6 @@ export default function CoursesPage() {
         <div className="absolute bottom-10 right-10 w-32 h-32 bg-primary-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
       </div>
 
-      {/* Quick Filters Bar - NEW */}
-      <div className="sticky top-16 z-40 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-lg border-b border-neutral-200 dark:border-neutral-700 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide pb-2">
-            <motion.button
-              onClick={() => setQuickFilter('all')}
-              className={`px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all ${
-                quickFilter === 'all'
-                  ? 'bg-gradient-to-r from-primary-600 to-secondary-innovate-600 text-white shadow-lg'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              جميع الدورات
-            </motion.button>
-            <motion.button
-              onClick={() => setQuickFilter('featured')}
-              className={`px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all flex items-center gap-2 ${
-                quickFilter === 'featured'
-                  ? 'bg-gradient-to-r from-warning-500 to-warning-600 text-white shadow-lg'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Star className="w-4 h-4" />
-              مميزة
-            </motion.button>
-            <motion.button
-              onClick={() => setQuickFilter('popular')}
-              className={`px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all flex items-center gap-2 ${
-                quickFilter === 'popular'
-                  ? 'bg-gradient-to-r from-danger-500 to-danger-600 text-white shadow-lg'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <TrendingUp className="w-4 h-4" />
-              الأكثر شعبية
-            </motion.button>
-            <motion.button
-              onClick={() => setQuickFilter('highest-rated')}
-              className={`px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all flex items-center gap-2 ${
-                quickFilter === 'highest-rated'
-                  ? 'bg-gradient-to-r from-success-500 to-success-600 text-white shadow-lg'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Star className="w-4 h-4" />
-              الأعلى تقييماً
-            </motion.button>
-            <motion.button
-              onClick={() => setQuickFilter('beginner')}
-              className={`px-4 py-2 rounded-full font-medium text-sm whitespace-nowrap transition-all flex items-center gap-2 ${
-                quickFilter === 'beginner'
-                  ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg'
-                  : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Target className="w-4 h-4" />
-              للمبتدئين
-            </motion.button>
-          </div>
-        </div>
-      </div>
 
       <div id="courses-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Search and Filters Bar */}
@@ -722,49 +642,6 @@ export default function CoursesPage() {
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
             </div>
 
-            {/* Quick Filters */}
-            <div className="flex flex-col md:flex-row gap-4 items-end">
-              {/* Level Filter */}
-              <div className="flex-1">
-                <label className="block text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">المستوى</label>
-                <div className="flex gap-2 flex-wrap">
-                  {levels.map((level) => (
-                    <motion.button
-                      key={level.id}
-                      onClick={() => setSelectedLevel(level.id)}
-                      className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ${
-                        selectedLevel === level.id
-                          ? 'bg-gradient-to-r from-primary-500 to-accent-500 text-white shadow-lg'
-                          : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
-                      }`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {level.label}
-                      <span className={`ml-2 text-xs ${selectedLevel === level.id ? 'text-white/80' : 'text-neutral-500 dark:text-neutral-400'}`}>
-                        ({level.count})
-                      </span>
-                    </motion.button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Reset Button */}
-              {(searchQuery || selectedCategory !== 'all' || selectedLevel !== 'all') && (
-                <motion.button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setSelectedCategory('all');
-                    setSelectedLevel('all');
-                  }}
-                  className="px-4 py-2 bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 font-medium rounded-lg transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  إعادة تعيين
-                </motion.button>
-              )}
-            </div>
           </div>
         </div>
 

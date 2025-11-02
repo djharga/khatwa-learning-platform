@@ -77,15 +77,12 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
 
     return (
-      // Flex container with RTL support for checkbox and label layout
       <div className="flex items-start space-x-3 rtl:space-x-reverse">
-        // Native checkbox supports Space key to toggle and Tab navigation
         <input
           type="checkbox"
           id={checkboxId}
           className={cn(
             checkboxVariants({ size, error }),
-            // text-primary sets the checked state color
             'mt-0.5 bg-white text-primary focus:ring-primary',
             className
           )}
@@ -93,16 +90,13 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           ref={ref}
           {...props}
         />
-        // Render label and description only if provided
         {(label || description) && (
           <div className="flex-1 min-w-0">
             {label && (
-              // Label is properly associated with checkbox via htmlFor and id
               <label
                 htmlFor={checkboxId}
                 className={cn(
                   'text-sm font-medium leading-none cursor-pointer',
-                  // Cursor changes to not-allowed when disabled
                   disabled && 'opacity-50 cursor-not-allowed',
                   'text-gray-900'
                 )}
@@ -111,7 +105,6 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               </label>
             )}
             {description && (
-              // TODO: Consider adding aria-describedby to link description text for screen readers
               <p className="text-sm text-gray-500 mt-1">{description}</p>
             )}
           </div>

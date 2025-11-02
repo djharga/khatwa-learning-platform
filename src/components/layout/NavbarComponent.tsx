@@ -109,18 +109,19 @@ const NavbarComponent = () => {
                     href={href}
                     className={cn(
                       "px-4 py-2",
-                      "text-sm font-medium",
-                      "transition-all duration-200 ease-out",
-                      "flex items-center gap-2",
-                      "rounded-xl",
+                      "text-xs font-semibold",
+                      "transition-all duration-300 ease-in-out",
+                      "flex items-center gap-1.5",
+                      "rounded-full",
                       "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+                      "hover:scale-105 active:scale-95",
                       isActive
-                        ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-elevation-1"
-                        : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                        ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
+                        : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <Icon icon={IconComponent} size="sm" className="text-current" />
+                    <Icon icon={IconComponent} size="sm" className="text-current w-4 h-4" />
                     <span>{label}</span>
                   </Link>
                 );
@@ -135,23 +136,28 @@ const NavbarComponent = () => {
                     <Link
                       href="/login"
                       className={cn(
-                        "btn-ghost px-5 py-2.5",
-                        "flex items-center gap-2",
-                        "text-sm font-medium"
+                        "btn-ghost px-4 py-2 rounded-full",
+                        "flex items-center gap-1.5",
+                        "text-xs font-semibold",
+                        "transition-all duration-300 ease-in-out",
+                        "hover:scale-105 active:scale-95"
                       )}
                     >
-                      <Icon icon={LogIn} size="sm" className="text-current" />
+                      <Icon icon={LogIn} size="sm" className="text-current w-4 h-4" />
                       <span>تسجيل الدخول</span>
                     </Link>
                     <Link
                       href="/register"
                       className={cn(
-                        "btn-primary px-5 py-2.5",
-                        "flex items-center gap-2",
-                        "text-sm font-medium"
+                        "btn-primary px-4 py-2 rounded-full",
+                        "flex items-center gap-1.5",
+                        "text-xs font-semibold",
+                        "transition-all duration-300 ease-in-out",
+                        "hover:scale-105 active:scale-95",
+                        "shadow-lg hover:shadow-xl"
                       )}
                     >
-                      <Icon icon={UserPlus} size="sm" className="text-white" />
+                      <Icon icon={UserPlus} size="sm" className="text-white w-4 h-4" />
                       <span>التسجيل</span>
                     </Link>
                   </>
@@ -163,10 +169,11 @@ const NavbarComponent = () => {
             <button
               onClick={() => setMobileMenu(!isMobileMenuOpen)}
               className={cn(
-                "md:hidden p-2",
+                "md:hidden p-2.5",
                 "text-neutral-700 dark:text-neutral-300",
                 "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                "rounded-xl transition-colors duration-200",
+                "rounded-full transition-all duration-300 ease-in-out",
+                "hover:scale-110 active:scale-95",
                 "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
               )}
               aria-label={isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
@@ -211,18 +218,19 @@ const NavbarComponent = () => {
                         href={href}
                         onClick={() => setMobileMenu(false)}
                         className={cn(
-                          "flex items-center gap-3 px-4 py-3",
+                          "flex items-center gap-3 px-5 py-3.5",
                           "text-neutral-700 dark:text-neutral-300",
-                          "rounded-xl transition-colors duration-200",
+                          "rounded-2xl transition-all duration-300 ease-in-out",
                           "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+                          "hover:scale-[1.02] active:scale-[0.98]",
                           isActive
-                            ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400"
-                            : "hover:bg-white dark:hover:bg-neutral-800"
+                            ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 shadow-md"
+                            : "hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm"
                         )}
                         aria-current={isActive ? 'page' : undefined}
                       >
                         <Icon icon={IconComponent} size="md" className="text-current" />
-                        <span className="font-medium">{label}</span>
+                        <span className="font-semibold">{label}</span>
                       </Link>
                     </motion.div>
                   );
@@ -239,12 +247,14 @@ const NavbarComponent = () => {
                     href="/login"
                     onClick={() => setMobileMenu(false)}
                     className={cn(
-                      "btn-ghost w-full justify-start",
-                      "flex items-center gap-3",
-                      "text-base font-medium"
+                      "btn-ghost w-full justify-start rounded-2xl py-3",
+                      "flex items-center gap-2.5",
+                      "text-sm font-semibold",
+                      "transition-all duration-300 ease-in-out",
+                      "hover:scale-[1.02] active:scale-[0.98]"
                     )}
                   >
-                    <Icon icon={LogIn} size="md" className="text-current" />
+                    <Icon icon={LogIn} size="sm" className="text-current" />
                     <span>تسجيل الدخول</span>
                   </Link>
                 </motion.div>
@@ -257,9 +267,12 @@ const NavbarComponent = () => {
                     href="/register"
                     onClick={() => setMobileMenu(false)}
                     className={cn(
-                      "btn-primary w-full",
+                      "btn-primary w-full rounded-2xl py-3.5",
                       "flex items-center gap-3",
-                      "text-base font-medium"
+                      "text-base font-semibold",
+                      "transition-all duration-300 ease-in-out",
+                      "hover:scale-[1.02] active:scale-[0.98]",
+                      "shadow-lg hover:shadow-xl"
                     )}
                   >
                     <Icon icon={UserPlus} size="md" className="text-white" />

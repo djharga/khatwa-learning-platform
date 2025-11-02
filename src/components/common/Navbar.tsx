@@ -12,29 +12,29 @@ const Navbar = () => {
           <div className="flex items-center">
             {/* Profile Dropdown */}
             <div className="relative">
-              <button className="flex items-center space-x-4 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+              <button className="flex items-center space-x-4 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 rounded-full p-2">
                 <span className="sr-only">Open user menu</span>
-                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-md">
                   👤
                 </div>
-                <span className="text-sm font-medium">اسم المستخدم</span>
+                <span className="text-sm font-semibold">اسم المستخدم</span>
               </button>
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-2">
             {/* Notifications */}
-            <button className="text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+            <button className="p-2.5 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all duration-300 ease-in-out hover:scale-110 active:scale-95">
               🔔
             </button>
 
             {/* Messages */}
-            <button className="text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+            <button className="p-2.5 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all duration-300 ease-in-out hover:scale-110 active:scale-95">
               ✉️
             </button>
 
             {/* Settings */}
-            <button className="text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400">
+            <button className="p-2.5 text-gray-700 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-all duration-300 ease-in-out hover:scale-110 active:scale-95">
               ⚙️
             </button>
           </div>

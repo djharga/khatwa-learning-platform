@@ -74,6 +74,18 @@ export default function StudentSettingsPage() {
     loginAlerts: true,
   });
 
+  // تعريب مفاتيح الإشعارات وعرضها بشكل منطقي
+  const notificationText: Record<string, { label: string; description: string }> = {
+    email: { label: 'البريد الإلكتروني', description: 'استلام تنبيهات عبر البريد الإلكتروني' },
+    push: { label: 'إشعارات المنصة', description: 'تنبيهات تظهر داخل المنصة أثناء الاستخدام' },
+    sms: { label: 'رسائل SMS', description: 'تنبيهات قصيرة تصل إلى هاتفك' },
+    courseUpdates: { label: 'تحديثات الدورات', description: 'تنبيه عند إضافة دروس أو تغييرات في الدورات' },
+    examReminders: { label: 'تذكيرات الامتحانات', description: 'تذكير بمواعيد الاختبارات والواجبات' },
+    newContent: { label: 'محتوى جديد', description: 'تنبيه عند إضافة محتوى أو موارد جديدة' },
+    achievements: { label: 'الإنجازات', description: 'تنبيه عند الحصول على شارة أو إنجاز' },
+    messages: { label: 'الرسائل', description: 'تنبيه عند وصول رسالة جديدة' },
+  };
+
   const handleSave = () => {
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
@@ -355,11 +367,11 @@ export default function StudentSettingsPage() {
                         className="flex items-center justify-between p-5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl hover:shadow-lg transition-all group"
                       >
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 mb-1 capitalize">
-                            {key.replace(/([A-Z])/g, ' $1').trim()}
+                          <h4 className="font-semibold text-gray-900 mb-1">
+                            {(notificationText[key]?.label) || key}
                           </h4>
                           <p className="text-sm text-gray-600">
-                            تلقى إشعارات حول {key}
+                            {(notificationText[key]?.description) || 'تحكم في هذا النوع من الإشعارات'}
                           </p>
                         </div>
                         <motion.button
@@ -432,7 +444,15 @@ export default function StudentSettingsPage() {
                              key === 'searchable' ? 'ظهور في البحث' : key}
                           </h4>
                           <p className="text-sm text-gray-600">
-                            {typeof value === 'boolean' ? (value ? 'مفعل' : 'معطل') : value}
+                            {typeof value === 'boolean'
+                              ? (value ? 'مفعل' : 'معطل')
+                              : value === 'public'
+                                ? 'عام'
+                                : value === 'private'
+                                  ? 'خاص'
+                                  : value === 'friends'
+                                    ? 'الأصدقاء فقط'
+                                    : String(value)}
                           </p>
                         </div>
                         {typeof value === 'boolean' ? (
@@ -516,7 +536,7 @@ export default function StudentSettingsPage() {
                           className="w-full p-4 border-2 border-orange-200 rounded-xl focus:ring-2 focus:ring-orange-500 text-lg bg-white"
                         >
                           <option value="ar">العربية</option>
-                          <option value="en">English</option>
+                          <option value="en">الإنجليزية</option>
                         </select>
                       </div>
 

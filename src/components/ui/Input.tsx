@@ -102,7 +102,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="relative">
         {LeftIcon && (
-          // Absolute positioned icon container (non-interactive)
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <LeftIcon className="h-5 w-5 text-gray-400" />
           </div>
@@ -111,7 +110,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           type={type}
           className={cn(
             inputVariants({ variant, size, error }),
-            // Add left padding when left icon is present, right padding when right icon is present
             hasIcon && LeftIcon && 'pl-10',
             hasIcon && RightIcon && 'pr-10',
             className
@@ -119,10 +117,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        // TODO: Consider adding aria-invalid={error} for better accessibility
-        // TODO: Support aria-describedby for linking to error message elements
         {RightIcon && (
-          // Absolute positioned icon container (non-interactive)
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             <RightIcon className="h-5 w-5 text-gray-400" />
           </div>

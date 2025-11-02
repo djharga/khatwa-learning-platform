@@ -39,11 +39,6 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
  */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
-    // Use placeholder for hints, not as a replacement for labels
-    // Consider adding aria-label or associating with a Label component
-    // Textarea is resizable by default (browser behavior), can be controlled with CSS
-    // Typically used with Label component for accessibility
-    // Works seamlessly with form libraries like React Hook Form
     return (
       <textarea
         className={`flex min-h-[80px] /* Minimum height of 80px ensures textarea is always visible */ w-full /* Full width by default, can be overridden with className prop */ rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 /* Focus ring only appears on keyboard focus, not mouse click */ /* Ring offset creates space between focus ring and border */ disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
@@ -51,8 +46,6 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         {...props}
       />
     );
-    // Custom className is merged with default styles using template literal
-    // TODO: Consider using cn() utility for better className merging
   }
 );
 
