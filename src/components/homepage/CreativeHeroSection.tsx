@@ -99,7 +99,9 @@ const CreativeHeroSection = () => {
           <div className="space-y-8 text-center lg:text-right">
                                     {/* Badge - Enhanced with Glow */}
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-xl border border-white/30 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-white/15 hover:border-white/40 transition-all duration-300">               
-              <Icon name="learning" size="md" className="text-blue-400" style={{ filter: 'drop-shadow(0 0 10px rgba(59,130,246,0.6))' }} />   
+              <div style={{ filter: 'drop-shadow(0 0 10px rgba(59,130,246,0.6))' }}>
+                <Icon name="learning" size="md" className="text-blue-400" />
+              </div>
               <span className="text-white font-semibold text-sm tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                 منصة التعلم المهني الرائدة
               </span>
