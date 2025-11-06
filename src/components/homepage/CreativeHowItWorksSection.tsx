@@ -165,12 +165,12 @@ const CreativeHowItWorksSection = () => {
                     style={{
                       rotate: `${angle * (180 / Math.PI)}deg`,
                       backgroundColor: 'rgba(99, 102, 241, 0.3)',
+                      scaleX: 1,
                     }}
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.02 + 0.05, duration: 0.15 }}
-                    style={{ scaleX: 1 }}
                   />
 
                   {/* Enhanced Step Card */}
