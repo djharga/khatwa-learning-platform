@@ -24,6 +24,14 @@ interface EnrollmentStatus {
   hasAccess: boolean;
 }
 
+// Type definitions for lessons
+type LessonObj = { 
+  title: string; 
+  duration?: string; 
+};
+
+type Lesson = string | LessonObj;
+
 export default function CourseLandingPage() {
   const params = useParams();
   const router = useRouter();
@@ -121,9 +129,10 @@ export default function CourseLandingPage() {
   const handleTryFreeLesson = () => {
     // Find first preview lesson
     const firstModule = course?.modules[0];
-    const firstLesson = firstModule?.lessons[0];
+    const firstLesson = firstModule?.lessons[0] as Lesson | undefined;
     if (firstLesson && course) {
-      router.push(`/student/courses/${course.id}/lesson/${firstLesson}`);
+      const lessonId = typeof firstLesson === 'string' ? firstLesson : firstLesson.title;
+      router.push(`/student/courses/${course.id}/lesson/${lessonId}`);
     }
   };
 
@@ -160,19 +169,24 @@ export default function CourseLandingPage() {
     
     if (!course?.modules) return [];
     
-    return course.modules.map((module, index) => ({
-      id: module.id.toString(),
-      title: module.title,
-      description: `الوحدة ${index + 1}: ${module.title}`,
-      lessons: module.lessons.map((lesson, lessonIndex) => ({
-        id: `${module.id}-${lessonIndex}`,
-        title: typeof lesson === 'string' ? lesson : lesson.title,
-        duration: typeof lesson === 'string' ? '15 دقيقة' : lesson.duration || '15 دقيقة',
-        type: 'video' as const,
-        isPreview: lessonIndex === 0, // First lesson is preview
-        isLocked: !hasAccess && lessonIndex > 0,
-      })),
-    }));
+    return course.modules.map((module, index) => {
+      // Type assertion for lessons array to handle both string and object types
+      const lessonsArray: Lesson[] = module.lessons as unknown as Lesson[];
+      
+      return {
+        id: module.id.toString(),
+        title: module.title,
+        description: `الوحدة ${index + 1}: ${module.title}`,
+        lessons: lessonsArray.map((lesson: Lesson, lessonIndex) => ({
+          id: `${module.id}-${lessonIndex}`,
+          title: typeof lesson === 'string' ? lesson : lesson.title,
+          duration: typeof lesson === 'string' ? '15 دقيقة' : (lesson.duration || '15 دقيقة'),
+          type: 'video' as const,
+          isPreview: lessonIndex === 0, // First lesson is preview
+          isLocked: !hasAccess && lessonIndex > 0,
+        })),
+      };
+    });
   }, [course?.modules, enrollmentStatus?.hasAccess]);
 
   // Prepare FAQ data
