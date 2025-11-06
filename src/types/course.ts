@@ -110,6 +110,7 @@ export interface CourseCurriculum {
 export interface Course {
   id: string;
   title: string;
+  slug?: string;
   description: string;
   instructor: CourseInstructor;
   level: CourseLevel;
