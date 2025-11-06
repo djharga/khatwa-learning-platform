@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import StyledStyledButton from '@/components/ui/StyledStyledButton';
+import StyledButton from '@/components/ui/StyledButton';
 import DiscussionPost from './DiscussionPost';
 import DiscussionFilter from './DiscussionFilter';
 import { discussionPosts, DiscussionPost as PostType } from './community-data';

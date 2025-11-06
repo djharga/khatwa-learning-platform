@@ -86,18 +86,18 @@ export default function DiscussionPost({ post }: DiscussionPostProps) {
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" className="flex items-center gap-1.5 text-sm font-bold text-gray-700 hover:text-indigo-600 hover:bg-indigo-50">
+            <StyledButton variant="ghost" className="flex items-center gap-1.5 text-sm font-bold text-gray-700 hover:text-indigo-600 hover:bg-indigo-50">
               <MessageCircle className="w-4 h-4" />
               <span>{post.comments}</span>
-            </Button>
-            <Button variant="ghost" className="flex items-center gap-1.5 text-sm font-bold text-gray-700 hover:text-blue-600 hover:bg-blue-50">
+            </StyledButton>
+            <StyledButton variant="ghost" className="flex items-center gap-1.5 text-sm font-bold text-gray-700 hover:text-blue-600 hover:bg-blue-50">
               <Share2 className="w-4 h-4" />
               <span>مشاركة</span>
-            </Button>
-            <Button variant="ghost" className="flex items-center gap-1.5 text-sm font-bold text-gray-700 hover:text-purple-600 hover:bg-purple-50">
+            </StyledButton>
+            <StyledButton variant="ghost" className="flex items-center gap-1.5 text-sm font-bold text-gray-700 hover:text-purple-600 hover:bg-purple-50">
               <Bookmark className="w-4 h-4" />
               <span>حفظ</span>
-            </Button>
+            </StyledButton>
           </div>
         </div>
       </div>

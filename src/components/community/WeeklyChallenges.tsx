@@ -77,10 +77,10 @@ export default function WeeklyChallenges() {
           </div>
         </div>
         
-        <Button className="w-full bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-lg">
+        <StyledButton className="w-full bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-lg">
           <Award className="w-4 h-4 mr-2" />
           عرض جميع التحديات
-        </Button>
+        </StyledButton>
       </div>
 
       {/* Challenges List */}
@@ -156,8 +156,8 @@ export default function WeeklyChallenges() {
               </div>
 
               {/* Action Button */}
-              <Button
-                variant={isJoined ? 'outline' : 'default'}
+              <StyledButton
+                variant={isJoined ? 'outline' : 'primary'}
                 className={`w-full font-bold ${
                   isJoined
                     ? 'border-2 border-green-500 text-green-700 hover:bg-green-500 hover:text-white'
@@ -176,7 +176,7 @@ export default function WeeklyChallenges() {
                     انضم للتحدي
                   </>
                 )}
-              </Button>
+              </StyledButton>
             </div>
           );
         })}
