@@ -18,16 +18,27 @@ export interface LinkStatus {
   status: 'valid' | 'missing' | 'redirect';
 }
 
-// قائمة الصفحات الموجودة فعلياً في المشروع (38+ صفحة محدثة)
+// قائمة الصفحات الموجودة فعلياً في المشروع (82+ صفحة محدثة)
 const existingPages = [
   // الصفحة الرئيسية
   '/',
   
   // صفحات عامة (Public Pages)
-  '/internal-auditors',
+  '/about',
+  '/internal-audit',
+  '/cia',
   '/auditors-fellowship',
   '/courses',
-  '/subscription',
+  '/courses/[slug]',
+  '/question-bank',
+  '/financial-management',
+  '/finance-basics',
+  '/procurement-management',
+  '/warehouse-management',
+  '/financial-reporting',
+  '/inventory-reconciliations',
+  '/restaurant-management',
+  '/packages-and-consulting',
   '/certificates',
   '/meeting-room',
   '/faq',
@@ -36,16 +47,28 @@ const existingPages = [
   '/blog',
   '/consulting',
   '/resources',
+  '/resources/course-files',
   '/files',
-  '/course-files',
-  '/slider-demo',
+  '/community',
+  '/learning-hub',
+  '/workshops',
+  '/ai-tools',
+  '/advanced-features',
+  '/onboarding-demo',
+  '/search',
+  '/notifications',
+  '/review',
+  '/services',
   
   // صفحات المصادقة (Auth)
   '/login',
   '/register',
+  '/forgot-password',
+  '/auth',
   
   // لوحة الطالب (Student Dashboard)
   '/student',
+  '/student/dashboard',
   '/student/file-manager',
   '/student/certificates',
   '/student/courses',
@@ -56,6 +79,14 @@ const existingPages = [
   '/student/profile/cms',
   '/student/settings',
   '/student/reports',
+  '/student/course-files',
+  '/student/accounting-simulation',
+  '/student/storage-calculator',
+  '/student/gallery',
+  '/student/inbox',
+  '/student/progress',
+  '/student/consulting',
+  '/student/support',
   
   // لوحة المدرس (Instructor Dashboard)
   '/instructor',
@@ -63,10 +94,21 @@ const existingPages = [
   '/instructor/students',
   
   // لوحة الأدمن (Admin Dashboard)
+  '/admin',
   '/admin/dashboard',
   '/admin/courses',
   '/admin/users',
   '/admin/reports',
+  '/admin/content',
+  '/admin/controls',
+  '/admin/programs',
+  
+  // صفحات إضافية
+  '/privacy',
+  '/terms',
+  '/cookies',
+  '/refund-policy',
+  '/usage-policy',
 ];
 
 // التحقق من وجود الصفحات بدون استخدام fs

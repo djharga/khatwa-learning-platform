@@ -12,13 +12,13 @@ import { Container } from '@/components/ui/primitives';
 
 const CreativeHowItWorksSection = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
+  // Removed scroll-based animations - reduced motion
+  // const { scrollYProgress } = useScroll({
+  //   target: ref,
+  //   offset: ['start end', 'end start'],
+  // });
+  // const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 1, 0]);
+  // const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 1, 0.8]);
 
   const steps = [
     {
@@ -53,7 +53,7 @@ const CreativeHowItWorksSection = () => {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           className="absolute top-1/2 left-1/2 w-[900px] h-[900px] bg-gradient-to-r from-indigo-200/25 via-indigo-300/20 to-indigo-200/25 rounded-full blur-3xl"
-          style={{ opacity, scale }}
+          style={{ opacity: 0.15, scale: 0.8 }}
           animate={{
             rotate: [0, 360],
           }}
@@ -63,9 +63,9 @@ const CreativeHowItWorksSection = () => {
             ease: 'linear',
           }}
         />
-        {/* Additional subtle gradients */}
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-100/20 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-gradient-to-tl from-indigo-100/20 to-transparent rounded-full blur-3xl" />
+        {/* Additional subtle gradients - Very Light */}
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-100/10 to-transparent dark:from-indigo-900/6 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-gradient-to-tl from-indigo-100/10 to-transparent dark:from-indigo-900/6 rounded-full blur-3xl" />
       </div>
 
       <Container size="xl" className="relative z-10">
@@ -131,7 +131,7 @@ const CreativeHowItWorksSection = () => {
               <motion.div
                 className="absolute inset-2 rounded-full bg-gradient-to-br from-white/20 to-transparent"
               />
-              <span className="text-5xl lg:text-7xl font-extrabold text-white relative z-10 drop-shadow-lg">
+              <span className="text-5xl lg:text-7xl font-extrabold text-neutral-900 dark:text-white relative z-10 drop-shadow-lg">
                 خطى
               </span>
             </div>
@@ -149,27 +149,15 @@ const CreativeHowItWorksSection = () => {
               <motion.div
                 key={step.number}
                 className="absolute top-1/2 left-1/2"
-                style={{
-                  x: -x,
-                  y: -y,
-                }}
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.2, duration: 0.6 }}
-                whileHover={{ scale: 1.1 }}
+                transition={{ delay: index * 0.02, duration: 0.15 }}
               >
                 <motion.div
                   className="relative"
-                  animate={{
-                    y: [0, -10, 0],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.3,
-                    ease: 'easeInOut',
-                  }}
+                  animate={{}}
+                  transition={{ duration: 0 }}
                 >
                   {/* Connection Line */}
                   <motion.div
@@ -178,10 +166,11 @@ const CreativeHowItWorksSection = () => {
                       rotate: `${angle * (180 / Math.PI)}deg`,
                       backgroundColor: 'rgba(99, 102, 241, 0.3)',
                     }}
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
-                    transition={{ delay: index * 0.2 + 0.3, duration: 0.8 }}
+                    transition={{ delay: index * 0.02 + 0.05, duration: 0.15 }}
+                    style={{ scaleX: 1 }}
                   />
 
                   {/* Enhanced Step Card */}
@@ -190,15 +179,9 @@ const CreativeHowItWorksSection = () => {
                     <motion.div
                       className={`absolute -inset-3 bg-gradient-to-r ${step.color} rounded-3xl blur-2xl opacity-40`}
                       animate={{
-                        opacity: [0.2, 0.5, 0.2],
-                        scale: [1, 1.08, 1],
+                        opacity: 0.35,
                       }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        delay: index * 0.4,
-                        ease: 'easeInOut',
-                      }}
+                                            transition={{ duration: 0 }}
                     />
 
                     <div className="relative bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm rounded-3xl p-6 lg:p-8 text-center shadow-xl border border-neutral-200/50 dark:border-neutral-700/50">

@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import {
   User,
   Mail,
@@ -22,7 +23,7 @@ import {
   Settings,
   Play,
 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 import Input from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -32,6 +33,7 @@ export default function StudentProfilePage() {
   const [editMode, setEditMode] = useState(false);
   const [saved, setSaved] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  const [formattedDate, setFormattedDate] = useState<string>('يناير 2023');
 
   const [profile, setProfile] = useState({
     name: 'أحمد محمد',
@@ -55,6 +57,22 @@ export default function StudentProfilePage() {
     averageScore: 92,
     joinedDate: '2023-01-15',
   });
+  
+  // Fix hydration error - format date only on client
+  useEffect(() => {
+    try {
+      const date = new Date(stats.joinedDate);
+      const formatted = date.toLocaleDateString('ar-SA', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      setFormattedDate(formatted);
+    } catch (error) {
+      // Fallback if date parsing fails
+      setFormattedDate('يناير 2023');
+    }
+  }, [stats.joinedDate]);
 
   const handleSaveProfile = () => {
     setSaved(true);
@@ -65,30 +83,30 @@ export default function StudentProfilePage() {
   const completionPercentage = (stats.completedCourses / stats.totalCourses) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-6xl mx-auto"
+          className="max-w-6xl mx-auto w-full"
         >
           {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-8 lg:p-12"
+            className="mb-6 sm:mb-8 relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white p-6 sm:p-8 lg:p-12"
           >
             <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/20 to-transparent rounded-full blur-3xl"></div>
             <div className="relative z-10">
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
+                <div className="flex items-center gap-4 sm:gap-6">
                   <motion.div
                     whileHover={{ scale: 1.1 }}
-                    className="relative group cursor-pointer"
+                    className="relative group cursor-pointer flex-shrink-0"
                   >
-                    <div className="w-32 h-32 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-extrabold border-4 border-white shadow-2xl">
+                    <div className="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold border-4 border-white shadow-2xl">
                       {profile.name.charAt(0)}
                     </div>
                     {editMode && (
@@ -102,7 +120,7 @@ export default function StudentProfilePage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 }}
-                      className="text-3xl md:text-4xl font-extrabold mb-2"
+                      className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2 break-words"
                     >
                       {profile.name}
                     </motion.h1>
@@ -110,17 +128,17 @@ export default function StudentProfilePage() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.2 }}
-                      className="text-lg text-indigo-100 mb-2"
+                      className="text-base sm:text-lg text-indigo-100 mb-2 break-all"
                     >
                       {profile.email}
                     </motion.p>
-                    <div className="flex items-center gap-4 text-sm">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                       <span className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        {profile.location}
+                        <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <span className="break-words">{profile.location}</span>
                       </span>
-                      <span>•</span>
-                      <span>عضو منذ {new Date(stats.joinedDate).toLocaleDateString('ar-SA')}</span>
+                      <span className="hidden sm:inline">•</span>
+                      <span>عضو منذ {formattedDate}</span>
                     </div>
                   </div>
                 </div>
@@ -161,32 +179,34 @@ export default function StudentProfilePage() {
               </div>
 
               {/* Stats Bar */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border-2 border-white/30">
-                  <div className="text-3xl font-extrabold mb-1">{stats.completedCourses}</div>
-                  <div className="text-sm text-indigo-100">دورة مكتملة</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30">
+                  <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.completedCourses}</div>
+                  <div className="text-xs sm:text-sm text-indigo-100">دورة مكتملة</div>
                 </div>
-                <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border-2 border-white/30">
-                  <div className="text-3xl font-extrabold mb-1">{stats.certificates}</div>
-                  <div className="text-sm text-indigo-100">شهادة</div>
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30">
+                  <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.certificates}</div>
+                  <div className="text-xs sm:text-sm text-indigo-100">شهادة</div>
                 </div>
-                <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border-2 border-white/30">
-                  <div className="text-3xl font-extrabold mb-1">{stats.hoursLearned}</div>
-                  <div className="text-sm text-indigo-100">ساعة تعلم</div>
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30">
+                  <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.hoursLearned}</div>
+                  <div className="text-xs sm:text-sm text-indigo-100">ساعة تعلم</div>
                 </div>
-                <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border-2 border-white/30">
-                  <div className="text-3xl font-extrabold mb-1">{stats.averageScore}%</div>
-                  <div className="text-sm text-indigo-100">متوسط الدرجات</div>
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30">
+                  <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.averageScore}%</div>
+                  <div className="text-xs sm:text-sm text-indigo-100">متوسط الدرجات</div>
                 </div>
               </div>
             </div>
           </motion.div>
 
           {/* Modern Tabs Navigation */}
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8 w-full">
             <ModernTabs
               tabs={[
                 { id: 'overview', label: 'نظرة عامة', icon: User, count: undefined },
+                { id: 'personal', label: 'المعلومات الشخصية', icon: User, count: undefined },
+                { id: 'professional', label: 'المهنية', icon: Briefcase, count: undefined },
                 { id: 'achievements', label: 'الإنجازات', icon: Award, count: stats.certificates },
                 { id: 'certificates', label: 'الشهادات', icon: Award, count: stats.certificates },
                 { id: 'activity', label: 'الأنشطة', icon: Activity, count: undefined },
@@ -195,14 +215,14 @@ export default function StudentProfilePage() {
               activeTab={activeTab}
               onChange={setActiveTab}
               variant="default"
-              size="lg"
-              fullWidth={false}
+              size="md"
+              fullWidth={true}
             />
           </div>
 
           {/* Tab Content */}
           <ModernTabContent value="overview" activeValue={activeTab}>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
             {/* Profile Sidebar */}
             <div className="lg:col-span-1 space-y-6">
               {/* About */}
@@ -290,9 +310,94 @@ export default function StudentProfilePage() {
               </Card>
             </div>
 
-            {/* Profile Main Content */}
+            {/* Profile Main Content - Overview Tab */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Personal Information */}
+              {/* Quick Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-4 text-center shadow-lg"
+                >
+                  <div className="text-3xl font-bold mb-1">{stats.completedCourses}</div>
+                  <div className="text-sm text-blue-100">دورة مكتملة</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.2 }}
+                  className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-4 text-center shadow-lg"
+                >
+                  <div className="text-3xl font-bold mb-1">{stats.certificates}</div>
+                  <div className="text-sm text-green-100">شهادة</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-4 text-center shadow-lg"
+                >
+                  <div className="text-3xl font-bold mb-1">{stats.hoursLearned}</div>
+                  <div className="text-sm text-purple-100">ساعة تعلم</div>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl p-4 text-center shadow-lg"
+                >
+                  <div className="text-3xl font-bold mb-1">{stats.averageScore}%</div>
+                  <div className="text-sm text-orange-100">متوسط الدرجات</div>
+                </motion.div>
+              </div>
+
+              {/* Recent Activity Preview */}
+              <Card className="shadow-xl border-0">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Activity className="w-5 h-5 text-blue-600" />
+                    النشاط الأخير
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {[
+                      { action: 'أكملت دورة', course: 'أساسيات المراجعة الداخلية', date: 'منذ يومين', icon: CheckCircle2, color: 'text-green-600' },
+                      { action: 'حصلت على شهادة', course: 'CIA Part 1', date: 'منذ أسبوع', icon: Award, color: 'text-yellow-600' },
+                      { action: 'بدأت دورة جديدة', course: 'تحليل المخاطر', date: 'منذ أسبوعين', icon: Play, color: 'text-blue-600' },
+                    ].map((activity, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+                      >
+                        <activity.icon className={`w-6 h-6 ${activity.color}`} />
+                        <div className="flex-1">
+                          <p className="font-semibold text-gray-900">{activity.action}</p>
+                          <p className="text-sm text-gray-600">{activity.course}</p>
+                        </div>
+                        <span className="text-sm text-gray-500">{activity.date}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                  <Link
+                    href="/student/profile?tab=activity"
+                    onClick={() => setActiveTab('activity')}
+                    className="block mt-4 text-center text-primary-600 hover:text-primary-700 font-medium"
+                  >
+                    عرض جميع الأنشطة →
+                  </Link>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+          </ModernTabContent>
+
+          {/* Personal Information Tab */}
+          <ModernTabContent value="personal" activeValue={activeTab}>
               <Card className="shadow-xl border-0 overflow-hidden">
                 <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white">
                   <CardHeader>
@@ -438,10 +543,43 @@ export default function StudentProfilePage() {
                       </div>
                     )}
                   </motion.div>
+
+                {editMode && (
+                  <div className="flex justify-end gap-3 pt-4">
+                    <StyledButton
+                      variant="secondary"
+                      size="large"
+                      onClick={() => setEditMode(false)}
+                      className="text-lg px-8"
+                    >
+                      إلغاء
+                    </StyledButton>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleSaveProfile}
+                      className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold text-lg shadow-xl"
+                    >
+                      {saved ? (
+                        <>
+                          <CheckCircle2 className="w-5 h-5 inline ml-2" />
+                          تم الحفظ
+                        </>
+                      ) : (
+                        <>
+                          <Save className="w-5 h-5 inline ml-2" />
+                          حفظ التغييرات
+                        </>
+                      )}
+                    </motion.button>
+                  </div>
+                )}
                 </CardContent>
               </Card>
+          </ModernTabContent>
 
-              {/* Professional Information */}
+          {/* Professional Information Tab */}
+          <ModernTabContent value="professional" activeValue={activeTab}>
               <Card className="shadow-xl border-0 overflow-hidden">
                 <div className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white">
                   <CardHeader>
@@ -460,7 +598,7 @@ export default function StudentProfilePage() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 }}
+                  transition={{ delay: 0.2 }}
                     className="space-y-2"
                   >
                     <Label htmlFor="experience" className="text-base font-semibold flex items-center gap-2">
@@ -484,7 +622,7 @@ export default function StudentProfilePage() {
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
+                  transition={{ delay: 0.3 }}
                     className="space-y-2"
                   >
                     <Label htmlFor="education" className="text-base font-semibold flex items-center gap-2">
@@ -504,25 +642,77 @@ export default function StudentProfilePage() {
                       </div>
                     )}
                   </motion.div>
-                </CardContent>
-              </Card>
 
-              {/* Save Button */}
+                {/* Skills */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="space-y-2"
+                >
+                  <Label className="text-base font-semibold flex items-center gap-2">
+                    <Star className="w-4 h-4 text-orange-600" />
+                    المهارات
+                  </Label>
+                  <div className="flex flex-wrap gap-2">
+                    {profile.skills.map((skill, index) => (
+                      <motion.span
+                        key={index}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="px-4 py-2 bg-gradient-to-r from-orange-50 to-amber-50 border-2 border-orange-200 text-orange-700 rounded-xl text-sm font-bold"
+                      >
+                        {skill}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+
+                {/* Certifications */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="space-y-2"
+                >
+                  <Label className="text-base font-semibold flex items-center gap-2">
+                    <Award className="w-4 h-4 text-yellow-600" />
+                    الشهادات المهنية
+                  </Label>
+                  <div className="space-y-3">
+                    {profile.certifications.map((cert, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-200 rounded-xl"
+                      >
+                        <div className="p-2 bg-yellow-500 rounded-lg">
+                          <Award className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="font-bold text-gray-900">{cert}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+
               {editMode && (
-                <div className="flex justify-end gap-3">
-                  <Button
-                    variant="outline"
-                    size="lg"
+                  <div className="flex justify-end gap-3 pt-4">
+                  <StyledButton
+                    variant="secondary"
+                    size="large"
                     onClick={() => setEditMode(false)}
                     className="text-lg px-8"
                   >
                     إلغاء
-                  </Button>
+                  </StyledButton>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleSaveProfile}
-                    className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold text-lg shadow-xl"
+                      className="px-8 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-bold text-lg shadow-xl"
                   >
                     {saved ? (
                       <>
@@ -538,8 +728,8 @@ export default function StudentProfilePage() {
                   </motion.button>
                 </div>
               )}
-            </div>
-          </div>
+              </CardContent>
+            </Card>
           </ModernTabContent>
 
           <ModernTabContent value="achievements" activeValue={activeTab}>
@@ -599,9 +789,9 @@ export default function StudentProfilePage() {
                         <h3 className="text-xl font-bold text-gray-900 mb-1">{cert}</h3>
                         <p className="text-gray-600">شهادة معتمدة من منصة خطى</p>
                       </div>
-                      <Button variant="outline" className="border-yellow-500 text-yellow-700 hover:bg-yellow-50">
+                      <StyledButton variant="secondary" className="border-yellow-500 text-yellow-700 hover:bg-yellow-50">
                         عرض
-                      </Button>
+                      </StyledButton>
                     </motion.div>
                   ))}
                 </div>
@@ -684,9 +874,9 @@ export default function StudentProfilePage() {
                   </div>
                 </div>
                 <div className="pt-4 border-t">
-                  <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+                  <StyledButton variant="primary" className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
                     حفظ الإعدادات
-                  </Button>
+                  </StyledButton>
                 </div>
               </CardContent>
             </Card>

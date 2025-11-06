@@ -1,5 +1,6 @@
 export { default as Input } from './Input';
-export { Button } from './Button';
+export { default as Button } from './StyledButton';
+export { default as StyledButton } from './StyledButton';
 export { default as Checkbox } from './Checkbox';
 export { default as Select } from './Select';
 export { default as FormField } from './FormField';

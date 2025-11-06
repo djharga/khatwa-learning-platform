@@ -564,6 +564,7 @@ export const navigationItems: Record<string, NavigationItem> = {
     priority: 19.5,
   },
 
+
   workshops: {
     id: 'workshops',
     label: 'ورش العمل',
@@ -892,8 +893,6 @@ export const getBreadcrumbs = (pathname: string) => {
     // إضافة مسارات فرعية لزمالة CIA
     if (pathname.startsWith('/cia/exams')) {
       breadcrumbs.push({ label: 'الاختبارات', href: '/cia/exams' });
-    } else if (pathname.startsWith('/cia/materials')) {
-      breadcrumbs.push({ label: 'المواد التعليمية', href: '/cia/materials' });
     }
   } else if (pathname.startsWith('/courses')) {
     breadcrumbs.push({ label: 'الكورسات', href: '/courses' });

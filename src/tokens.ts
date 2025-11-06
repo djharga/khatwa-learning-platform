@@ -716,35 +716,35 @@ export const typography = {
     mono: '"JetBrains Mono", "Courier New", monospace',
   },
 
-  // Font Sizes - Responsive Typography Scale
+  // Font Sizes - Responsive Typography Scale - Reduced by 15%
   // يستخدم clamp للاستجابة مع الشاشات المختلفة
   fontSize: {
-    xs: 'clamp(0.75rem, 2vw, 0.875rem)', // 12-14px
-    sm: 'clamp(0.875rem, 2.5vw, 1rem)', // 14-16px
-    base: 'clamp(1rem, 3vw, 1.125rem)', // 16-18px - الحجم الافتراضي
-    lg: 'clamp(1.125rem, 3.5vw, 1.25rem)', // 18-20px
-    xl: 'clamp(1.25rem, 4vw, 1.5rem)', // 20-24px
-    '2xl': 'clamp(1.5rem, 5vw, 1.875rem)', // 24-30px
-    '3xl': 'clamp(1.875rem, 6vw, 2.25rem)', // 30-36px
-    '4xl': 'clamp(2.25rem, 7vw, 3rem)', // 36-48px
-    '5xl': 'clamp(3rem, 8vw, 3.75rem)', // 48-60px
-    '6xl': 'clamp(3.75rem, 9vw, 4.5rem)', // 60-72px
-    '7xl': 'clamp(4.5rem, 10vw, 5.25rem)', // 72-84px
+    xs: 'clamp(0.531rem, 1.445vw, 0.638rem)', // 8.5-10.2px
+    sm: 'clamp(0.638rem, 1.7vw, 0.744rem)', // 10.2-11.9px
+    base: 'clamp(0.744rem, 2.125vw, 0.85rem)', // 11.9-13.6px - الحجم الافتراضي
+    lg: 'clamp(0.85rem, 2.55vw, 0.956rem)', // 13.6-15.3px
+    xl: 'clamp(0.956rem, 2.975vw, 1.169rem)', // 15.3-18.7px
+    '2xl': 'clamp(1.063rem, 3.4vw, 1.381rem)', // 17-22.1px
+    '3xl': 'clamp(1.275rem, 4.25vw, 1.7rem)', // 20.4-27.2px
+    '4xl': 'clamp(1.594rem, 5.1vw, 2.231rem)', // 25.5-35.7px
+    '5xl': 'clamp(1.913rem, 5.95vw, 2.869rem)', // 30.6-45.9px
+    '6xl': 'clamp(2.338rem, 6.8vw, 3.825rem)', // 37.4-61.2px
+    '7xl': 'clamp(2.763rem, 7.65vw, 4.675rem)', // 44.2-74.8px
   },
 
-  // Font Sizes (Fixed) - للاستخدام عند الحاجة لحجم ثابت
+  // Font Sizes (Fixed) - للاستخدام عند الحاجة لحجم ثابت - Reduced by 15%
   fontSizeFixed: {
-    xs: '0.75rem', // 12px
-    sm: '0.875rem', // 14px
-    base: '1rem', // 16px
-    lg: '1.125rem', // 18px
-    xl: '1.25rem', // 20px
-    '2xl': '1.5rem', // 24px
-    '3xl': '1.875rem', // 30px
-    '4xl': '2.25rem', // 36px
-    '5xl': '3rem', // 48px
-    '6xl': '3.75rem', // 60px
-    '7xl': '4.5rem', // 72px
+    xs: '0.531rem', // 8.5px
+    sm: '0.638rem', // 10.2px
+    base: '0.744rem', // 11.9px
+    lg: '0.85rem', // 13.6px
+    xl: '0.956rem', // 15.3px
+    '2xl': '1.063rem', // 17px
+    '3xl': '1.275rem', // 20.4px
+    '4xl': '1.594rem', // 25.5px
+    '5xl': '1.913rem', // 30.6px
+    '6xl': '2.338rem', // 37.4px
+    '7xl': '2.763rem', // 44.2px
   },
 
   // Line Heights - محسّنة للنصوص العربية
@@ -794,13 +794,13 @@ export const typography = {
 // ============================================
 
 export const iconSizes = {
-  xs: '1rem', // 16px
-  sm: '1.25rem', // 20px
-  md: '1.5rem', // 24px - الحجم الافتراضي
-  lg: '2rem', // 32px
-  xl: '2.5rem', // 40px
-  '2xl': '3rem', // 48px
-  '3xl': '4rem', // 64px
+  xs: '0.875rem', // 14px
+  sm: '1rem', // 16px
+  md: '1.25rem', // 20px - الحجم الافتراضي
+  lg: '1.5rem', // 24px
+  xl: '2rem', // 32px
+  '2xl': '2.5rem', // 40px
+  '3xl': '3rem', // 48px
 };
 
 // ============================================
@@ -808,10 +808,10 @@ export const iconSizes = {
 // ============================================
 
 export const touchTargets = {
-  min: '44px', // الحد الأدنى حسب WCAG 2.1
-  comfortable: '48px',
-  spacious: '56px',
-  'extra-spacious': '64px',
+  min: '40px', // الحد الأدنى حسب WCAG 2.1
+  comfortable: '44px',
+  spacious: '48px',
+  'extra-spacious': '56px',
 };
 
 // ============================================

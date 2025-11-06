@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft, FileText, BookOpen, Calendar } from 'lucide-react';
-import { Container, Card, Grid, Button } from '@/components/ui/primitives';
+import { Container, Card, Grid } from '@/components/ui/primitives';
+import StyledButton from '@/components/ui/StyledButton';
 import Image from 'next/image';
 
 /**
@@ -80,10 +81,10 @@ const LatestContentSection = () => {
             </p>
           </div>
           <Link href="/resources" className="hidden lg:flex">
-            <Button variant="outline">
+            <StyledButton variant="secondary">
               <span>عرض المكتبة</span>
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
+              <ArrowLeft className="w-5 h-5 inline-block mr-2" />
+            </StyledButton>
           </Link>
         </motion.div>
 
@@ -150,10 +151,10 @@ const LatestContentSection = () => {
         {/* Mobile CTA */}
         <div className="text-center mt-8 lg:hidden">
           <Link href="/resources">
-            <Button variant="outline">
+            <StyledButton variant="secondary">
               <span>عرض المكتبة الكاملة</span>
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
+              <ArrowLeft className="w-5 h-5 inline-block mr-2" />
+            </StyledButton>
           </Link>
         </div>
       </Container>

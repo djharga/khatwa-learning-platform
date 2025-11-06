@@ -20,6 +20,7 @@ const nextConfig = {
   reactStrictMode: true,
   compiler: {
     removeConsole: process.env.NODE_ENV === 'production',
+    styledComponents: true,
   },
   experimental: {
     optimizePackageImports: [
@@ -140,6 +141,18 @@ const nextConfig = {
       { source: '/courses/compliance', destination: '/courses?category=المحاسبة المالية&highlight=compliance', permanent: false },
       // Note: Individual course pages under /courses/[slug] are handled dynamically
       // Old standalone course pages redirects removed - now using /courses/[slug] pattern
+      
+      // Fix broken dashboard links - redirect to correct paths
+      { source: '/student-dashboard', destination: '/student', permanent: true },
+      { source: '/my-courses', destination: '/student/courses', permanent: true },
+      { source: '/instructor-dashboard', destination: '/instructor', permanent: true },
+      { source: '/my-students', destination: '/instructor/students', permanent: true },
+      { source: '/admin-dashboard', destination: '/admin/dashboard', permanent: true },
+      { source: '/admin-courses', destination: '/admin/courses', permanent: true },
+      { source: '/admin-users', destination: '/admin/users', permanent: true },
+      
+      // Fix navigation links mismatch
+      { source: '/internal-auditors', destination: '/internal-audit', permanent: true },
     ];
   },
 };

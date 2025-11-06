@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui';
+import StyledButton from '@/components/ui/StyledButton';
 import {
   Dialog,
   DialogContent,
@@ -39,7 +39,7 @@ export default function ComposeMessage() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button>رسالة جديدة</Button>
+        <StyledButton variant="primary" size="medium">رسالة جديدة</StyledButton>
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
@@ -69,10 +69,10 @@ export default function ComposeMessage() {
             rows={5}
           />
           <div className="flex justify-end gap-2">
-            <Button variant="outline" onClick={() => setIsOpen(false)}>
+            <StyledButton variant="secondary" onClick={() => setIsOpen(false)} size="medium">
               إلغاء
-            </Button>
-            <Button onClick={handleSend}>إرسال</Button>
+            </StyledButton>
+            <StyledButton onClick={handleSend} variant="primary" size="medium">إرسال</StyledButton>
           </div>
         </div>
       </DialogContent>

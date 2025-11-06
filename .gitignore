@@ -49,3 +49,6 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+src/fonts/microsoft-powertoys-0-95-1.exe
+src/fonts/microsoft-powertoys-0-95-1.exe
+*.exe

@@ -21,16 +21,19 @@ export default function DiscussionFilter({ currentFilter, onFilterChange }: Disc
   ];
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 flex-wrap">
       {filters.map((filter) => (
-        <Button
+        <button
           key={filter.id}
-          variant={currentFilter === filter.id ? 'primary' : 'outline'}
-          size="sm"
           onClick={() => onFilterChange(filter.id)}
+          className={`px-4 py-2 rounded-lg text-sm font-bold transition-all ${
+            currentFilter === filter.id
+              ? 'bg-white text-indigo-700 shadow-lg border-2 border-white'
+              : 'bg-white/20 text-white hover:bg-white/30 border-2 border-white/30'
+          }`}
         >
           {filter.label}
-        </Button>
+        </button>
       ))}
     </div>
   );

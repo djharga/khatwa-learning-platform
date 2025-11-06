@@ -69,31 +69,30 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   return (
     <motion.div
       className={`flex ${isCompact ? 'gap-3 pt-2' : 'gap-2'} ${className}`}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: isCompact ? 0.7 : 0.5, duration: 0.4 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.1, duration: 0.15 }}
     >
       {/* Enroll button */}
       <motion.button
         className={`relative ${
           isCompact
-            ? 'flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg focus:ring-4 focus:ring-blue-500/50 overflow-hidden'
-            : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 hover:shadow-lg hover:scale-105 focus:ring-2 focus:ring-blue-500/50 overflow-hidden'
+            ? 'flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-3 rounded-xl font-semibold transition-all duration-150 hover:shadow-lg focus:ring-4 focus:ring-blue-500/50 overflow-hidden'
+            : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-2 rounded-lg font-medium text-sm transition-all duration-150 hover:shadow-lg focus:ring-2 focus:ring-blue-500/50 overflow-hidden'
         }`}
-        whileTap={{ scale: 0.95 }}
-        whileHover={isCompact ? undefined : { scale: 1.05 }}
+        whileTap={{ scale: 0.99 }}
         onClick={onEnroll}
         disabled={isLoading}
       >
-        {/* Ripple Effect */}
+        {/* Ripple Effect - minimized */}
         <AnimatePresence>
           {showRipple && (
             <motion.div
-              className={`absolute inset-0 bg-white/30 ${isCompact ? 'rounded-xl' : 'rounded-lg'}`}
+              className={`absolute inset-0 bg-white/20 ${isCompact ? 'rounded-xl' : 'rounded-lg'}`}
               initial={{ scale: 0, opacity: 1 }}
-              animate={{ scale: 4, opacity: 0 }}
+              animate={{ scale: 2, opacity: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.3 }}
             />
           )}
         </AnimatePresence>
@@ -119,7 +118,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       {/* Bookmark button (compact only) */}
       {isCompact && (
         <motion.button
-          className={`relative p-3 rounded-xl border-2 transition-all duration-300 hover:shadow-md overflow-hidden ${
+          className={`relative p-3 rounded-xl border-2 transition-all duration-300 hover:shadow-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:ring-offset-2 ${
             isBookmarked
               ? 'bg-yellow-50 border-yellow-300 text-yellow-700'
               : 'border-gray-300 text-gray-600 hover:bg-gray-50'
@@ -127,9 +126,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           whileTap={{ scale: 0.95 }}
           onClick={onBookmark}
           disabled={isLoading}
+          aria-label={isBookmarked ? "إزالة من المفضلة" : "إضافة للمفضلة"}
+          aria-pressed={isBookmarked}
         >
           <Bookmark
             className={`w-5 h-5 transition-all duration-300 ${isBookmarked ? 'fill-current' : ''}`}
+            aria-hidden="true"
           />
         </motion.button>
       )}
@@ -137,7 +139,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       {/* Wishlist button (compact only) */}
       {isCompact && (
         <motion.button
-          className={`relative p-3 rounded-xl border-2 transition-all duration-300 hover:shadow-md overflow-hidden ${
+          className={`relative p-3 rounded-xl border-2 transition-all duration-300 hover:shadow-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 ${
             isWishlisted
               ? 'bg-red-50 border-red-300 text-red-700'
               : 'border-gray-300 text-gray-600 hover:bg-gray-50'
@@ -145,9 +147,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           whileTap={{ scale: 0.95 }}
           onClick={onWishlist}
           disabled={isLoading}
+          aria-label={isWishlisted ? "إزالة من قائمة الأمنيات" : "إضافة إلى قائمة الأمنيات"}
+          aria-pressed={isWishlisted}
         >
           <Heart
             className={`w-5 h-5 transition-all duration-300 ${isWishlisted ? 'fill-current' : ''}`}
+            aria-hidden="true"
           />
         </motion.button>
       )}
@@ -155,19 +160,20 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
       {/* Share button (compact only) */}
       {isCompact && (
         <motion.button
-          className="relative p-3 rounded-xl border-2 border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 hover:shadow-md overflow-hidden"
+          className="relative p-3 rounded-xl border-2 border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 hover:shadow-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-gray-500/50 focus:ring-offset-2"
           whileTap={{ scale: 0.95 }}
           onClick={onShare}
           disabled={isLoading}
+          aria-label="مشاركة الدورة"
         >
-          <Share className="w-5 h-5" />
+          <Share className="w-5 h-5" aria-hidden="true" />
         </motion.button>
       )}
 
       {/* Bookmark button (default variant) */}
       {!isCompact && (
         <motion.button
-          className={`relative p-2 rounded-lg border transition-all duration-300 hover:shadow-md overflow-hidden ${
+          className={`relative p-2 rounded-lg border transition-all duration-300 hover:shadow-md overflow-hidden focus:outline-none focus:ring-2 focus:ring-yellow-500/50 focus:ring-offset-2 ${
             isBookmarked
               ? 'bg-yellow-50 border-yellow-300 text-yellow-700'
               : 'border-gray-300 text-gray-600 hover:bg-gray-50'
@@ -176,9 +182,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
           whileTap={{ scale: 0.95 }}
           onClick={onBookmark}
           disabled={isLoading}
+          aria-label={isBookmarked ? "إزالة من المفضلة" : "إضافة للمفضلة"}
+          aria-pressed={isBookmarked}
         >
           <Bookmark
             className={`w-4 h-4 transition-all duration-300 ${isBookmarked ? 'fill-current scale-110' : ''}`}
+            aria-hidden="true"
           />
         </motion.button>
       )}

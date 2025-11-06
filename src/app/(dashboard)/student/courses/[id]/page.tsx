@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { AlertCircle, Lock as LockIcon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -197,12 +198,36 @@ const CoursePage = () => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'overview' | 'lessons' | 'resources' | 'exams' | 'discussions'>('overview');
   const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set(['1']));
+  const [enrollmentStatus, setEnrollmentStatus] = useState<{ hasAccess: boolean; hasSubscription: boolean; hasEnrollment: boolean | null } | null>(null);
+  const [checkingStatus, setCheckingStatus] = useState(true);
 
   // تحويل id إلى string إذا كانت مصفوفة
   const courseId = Array.isArray(id) ? id[0] : id;
 
   // محاكاة بيانات الكورس
   const courseData = coursesData[courseId];
+
+  // التحقق من حالة الاشتراك/الالتحاق
+  useEffect(() => {
+    const checkStatus = async () => {
+      if (!courseId) {
+        setCheckingStatus(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/enrollment-status?courseId=${courseId}`);
+        const status = await response.json();
+        setEnrollmentStatus(status);
+      } catch (error) {
+        console.error('Error checking enrollment status:', error);
+      } finally {
+        setCheckingStatus(false);
+      }
+    };
+
+    checkStatus();
+  }, [courseId]);
 
   const toggleModule = (moduleId: string) => {
     setExpandedModules(prev => {
@@ -262,11 +287,51 @@ const CoursePage = () => {
     );
   }
 
+  // التحقق من الوصول
+  const hasAccess = enrollmentStatus?.hasAccess ?? true; // Default to true if status not loaded yet
+  const showAccessWarning = !checkingStatus && !hasAccess;
+
   const nextLesson = getNextLesson();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* تحذير الوصول */}
+        {showAccessWarning && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-6"
+          >
+            <div className="flex items-start gap-4">
+              <LockIcon className="w-6 h-6 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-1" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-yellow-900 dark:text-yellow-200 mb-2">
+                  الوصول غير متاح
+                </h3>
+                <p className="text-yellow-800 dark:text-yellow-300 mb-4">
+                  {!enrollmentStatus?.hasSubscription && !enrollmentStatus?.hasEnrollment
+                    ? 'يجب عليك الاشتراك أو شراء هذه الدورة للوصول إلى المحتوى.'
+                    : 'ليس لديك وصول إلى هذه الدورة حالياً.'}
+                </p>
+                <div className="flex gap-3">
+                  <Link
+                    href="/packages-and-consulting?tab=packages"
+                    className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+                  >
+                    اشترك الآن
+                  </Link>
+                  <Link
+                    href="/courses"
+                    className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-lg font-medium transition-colors"
+                  >
+                    تصفح الدورات
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
         {/* رأس الصفحة */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -427,7 +492,10 @@ const CoursePage = () => {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab(tab.id as 'overview' | 'lessons' | 'resources' | 'exams' | 'discussions');
+                  }}
                   className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
                     activeTab === tab.id
                       ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'

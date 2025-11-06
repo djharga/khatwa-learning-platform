@@ -20,7 +20,7 @@ import {
   Sparkles,
   Target,
 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
 export default function StudentCertificatesPage() {
@@ -464,14 +464,14 @@ export default function StudentCertificatesPage() {
                         لقد أكملت {certificates.length} دورة بنجاح وحصلت على شهادات معتمدة
                       </p>
                       <div className="flex justify-center md:justify-start gap-3">
-                        <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600">
-                          <Share2 className="w-5 h-5 ml-2" />
+                        <StyledButton size="large" variant="primary">
+                          <Share2 className="w-5 h-5 inline-block mr-2" />
                           مشاركة الإنجازات
-                        </Button>
-                        <Button size="lg" variant="outline" className="border-2 border-gray-300">
-                          <ExternalLink className="w-5 h-5 ml-2" />
+                        </StyledButton>
+                        <StyledButton size="large" variant="secondary">
+                          <ExternalLink className="w-5 h-5 inline-block mr-2" />
                           استكشاف دورات جديدة
-                        </Button>
+                        </StyledButton>
                       </div>
                     </div>
                   </div>
@@ -501,10 +501,10 @@ export default function StudentCertificatesPage() {
               <p className="text-gray-600 mb-6 text-lg">
                 أكمل الدورات للحصول على شهادات معتمدة
               </p>
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-indigo-600">
+              <StyledButton size="large" variant="primary" className="bg-gradient-to-r from-blue-600 to-indigo-600">
                 <Target className="w-5 h-5 ml-2" />
                 استكشاف الدورات
-              </Button>
+              </StyledButton>
             </motion.div>
           )}
         </motion.div>

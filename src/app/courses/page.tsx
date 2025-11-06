@@ -4,8 +4,9 @@ import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Grid3x3, List, ChevronDown, ChevronRight, BookOpen, Clock, Users, Star, Link, GraduationCap, Shield, Building, Award, Calculator, Warehouse, TrendingUp, Download, Play, FileText, Video, Headphones, CheckCircle, ArrowLeft, Share2, Heart, Sparkles, Target, Grid, Crown } from 'lucide-react';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 import { ModernTabs, ModernTabContent } from '@/components/ui/ModernTabs';
 import { 
   getAllCourses, 
@@ -78,98 +79,95 @@ export default function CoursesPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 relative">
       {/* Page-specific background removed since it's now in layout */}
-      {/* Page Header with Banner */}
-      <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Background Banner Image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/assets/Professional educational platform hero banner.png')",
-          }}
-        >
-          {/* Overlay for better text readability - More transparent at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900/70 via-slate-900/40 to-slate-900/20 backdrop-blur-[1px]"></div>
-          {/* Additional gradient overlay for mobile - Less opaque at bottom */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-slate-900/30"></div>
+      {/* Hero Section */}
+      <div className="relative bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-950 text-white overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/Professional educational platform hero banner.png"
+            alt="الدورات التدريبية"
+            fill
+            priority
+            quality={90}
+            className="object-cover"
+            style={{ objectPosition: 'center' }}
+          />
+          {/* Simple Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-indigo-900/80 to-blue-900/85"></div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-          <div className="animate-in fade-in slide-in-from-top-4 duration-1000">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-2xl">
-              الدورات التدريبية
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-8 drop-shadow-lg font-light">
-              اكتشف دوراتنا المتخصصة في المحاسبة والمراجعة الداخلية مع أحدث الطرق التعليمية والمحتوى التفاعلي
-            </p>
-
-            {/* Enhanced Stats Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 max-w-4xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="flex flex-col items-center gap-2 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 shadow-xl border border-white/20 hover:bg-white/15 transition-all"
-              >
-                <Users className="w-8 h-8 text-primary-300 mb-1" />
-                <div className="text-3xl font-bold text-white">15,420</div>
-                <div className="text-sm text-white/80 font-medium">طالب نشط</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="flex flex-col items-center gap-2 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 shadow-xl border border-white/20 hover:bg-white/15 transition-all"
-              >
-                <Star className="w-8 h-8 text-warning-300 fill-current mb-1" />
-                <div className="text-3xl font-bold text-white">4.8</div>
-                <div className="text-sm text-white/80 font-medium">متوسط التقييم</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="flex flex-col items-center gap-2 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 shadow-xl border border-white/20 hover:bg-white/15 transition-all"
-              >
-                <BookOpen className="w-8 h-8 text-success-300 mb-1" />
-                <div className="text-3xl font-bold text-white">15+</div>
-                <div className="text-sm text-white/80 font-medium">دورة متخصصة</div>
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col items-center gap-2 bg-white/10 backdrop-blur-md rounded-2xl px-6 py-4 shadow-xl border border-white/20 hover:bg-white/15 transition-all"
-              >
-                <Award className="w-8 h-8 text-secondary-innovate-300 mb-1" />
-                <div className="text-3xl font-bold text-white">95%</div>
-                <div className="text-sm text-white/80 font-medium">معدل الرضا</div>
-              </motion.div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          <div className="text-center">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-2 mb-6 border border-white/20">
+              <BookOpen className="w-5 h-5 text-white" />
+              <span className="font-semibold text-sm tracking-wide">برامج تعليمية متخصصة</span>
             </div>
 
-            {/* Call to Action Button */}
-            <div className="mt-12">
-              <motion.button
-                onClick={() => document.getElementById('courses-section')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group/btn relative inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-md text-white font-bold rounded-2xl border border-white/30 shadow-2xl hover:shadow-white/20 transition-all duration-300 text-lg overflow-hidden"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></span>
-                <span className="relative flex items-center gap-3">
-                  <GraduationCap className="w-6 h-6" />
-                  استكشف الدورات
-                  <ChevronDown className="w-5 h-5 group-hover/btn:translate-y-1 transition-transform duration-300" />
-                </span>
-              </motion.button>
+            {/* Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              الدورات التدريبية
+            </h1>
+
+            {/* Description */}
+            <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed">
+              اكتشف دوراتنا المتخصصة في المحاسبة والمراجعة الداخلية والإدارة المالية مع محتوى تعليمي احترافي ومعتمد
+            </p>
+
+            {/* Statistics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-10">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-2 bg-blue-600/30 rounded-lg">
+                    <Users className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <div className="text-3xl font-bold mb-1">15,420+</div>
+                <div className="text-sm text-blue-100 font-medium">طالب نشط</div>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-2 bg-blue-600/30 rounded-lg">
+                    <BookOpen className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <div className="text-3xl font-bold mb-1">15+</div>
+                <div className="text-sm text-blue-100 font-medium">دورة متخصصة</div>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-2 bg-blue-600/30 rounded-lg">
+                    <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                  </div>
+                </div>
+                <div className="text-3xl font-bold mb-1">4.8</div>
+                <div className="text-sm text-blue-100 font-medium">متوسط التقييم</div>
+              </div>
+              
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="flex items-center justify-center mb-3">
+                  <div className="p-2 bg-blue-600/30 rounded-lg">
+                    <Award className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <div className="text-3xl font-bold mb-1">95%</div>
+                <div className="text-sm text-blue-100 font-medium">معدل الرضا</div>
+              </div>
+            </div>
+
+            {/* Scroll Indicator */}
+            <div className="flex items-center justify-center gap-2 text-blue-200 text-sm">
+              <span>استكشف الدورات</span>
+              <ChevronDown className="w-5 h-5" />
             </div>
           </div>
         </div>
 
-        {/* Decorative Elements */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
-        <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-primary-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        {/* Bottom Gradient Transition */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
       </div>
 
 
@@ -428,7 +426,7 @@ export default function CoursesPage() {
                                 </div>
                               </div>
 
-                              {/* Price and Buttons */}
+                              {/* Price and StyledButtons */}
                               <div className={`space-y-3 mt-auto ${viewMode === 'list' ? 'flex flex-row items-center justify-between' : ''}`}>
                                 <div className={`font-bold text-primary ${viewMode === 'list' ? 'text-2xl' : 'text-lg text-center'}`}>
                                   {course.price}
@@ -461,8 +459,8 @@ export default function CoursesPage() {
             {filteredCourses.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-neutral-600 dark:text-neutral-400 text-lg">لم يتم العثور على دورات مطابقة</p>
-                <Button
-                  variant="outline"
+                <StyledButton
+                  variant="secondary"
                   className="mt-4"
                   onClick={() => {
                     setSearchQuery('');
@@ -470,7 +468,7 @@ export default function CoursesPage() {
                   }}
                 >
                   إعادة تعيين الفلاتر
-                </Button>
+                </StyledButton>
               </div>
             )}
           </main>

@@ -98,8 +98,8 @@ const NavbarComponent = () => {
               <span className="text-primary-600 dark:text-primary-400">خطى</span>
             </Link>
 
-            {/* روابط سطح المكتب */}
-            <div className="hidden md:flex items-center gap-1">
+                        {/* روابط سطح المكتب */}
+            <div className="hidden md:flex items-center gap-2">
               {navLinks.map(({ href, label, icon: IconComponent }) => {
                 const isActive = isActiveLink(href);
                 return (
@@ -107,11 +107,11 @@ const NavbarComponent = () => {
                     key={href}
                     href={href}
                     className={cn(
-                      "px-4 py-2",
-                      "text-xs font-semibold",
+                      "h-[44px] px-5 py-2.5",
+                      "text-sm font-semibold",
                       "transition-all duration-300 ease-in-out",
-                      "flex items-center gap-1.5",
-                      "rounded-full",
+                      "flex items-center justify-center gap-2",
+                      "rounded-xl",
                       "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
                       "hover:scale-105 active:scale-95",
                       isActive
@@ -120,14 +120,14 @@ const NavbarComponent = () => {
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
-                    <Icon icon={IconComponent} size="sm" className="text-current w-4 h-4" />
+                    <Icon icon={IconComponent} size="sm" className="text-current w-[18px] h-[18px]" />
                     <span>{label}</span>
                   </Link>
                 );
               })}
-              
+
               {/* أزرار التسجيل */}
-              <div className="flex items-center gap-2 mr-4 pr-4 border-r border-neutral-200 dark:border-neutral-800">
+              <div className="flex items-center gap-2.5 mr-3 pr-3 border-r border-neutral-200 dark:border-neutral-800">
                 {isLoggedIn ? (
                   <UserMenu />
                 ) : (
@@ -135,28 +135,34 @@ const NavbarComponent = () => {
                     <Link
                       href="/login"
                       className={cn(
-                        "btn-ghost px-4 py-2 rounded-full",
-                        "flex items-center gap-1.5",
-                        "text-xs font-semibold",
+                        "h-[42px] px-5 py-2.5 rounded-xl",
+                        "text-sm font-semibold whitespace-nowrap",
+                        "bg-transparent border-2 border-primary-600 dark:border-primary-400",
+                        "text-primary-600 dark:text-primary-400",
+                        "hover:bg-primary-50 dark:hover:bg-primary-900/20",
+                        "flex items-center justify-center gap-2",
                         "transition-all duration-300 ease-in-out",
                         "hover:scale-105 active:scale-95"
                       )}
                     >
-                      <Icon icon={LogIn} size="sm" className="text-current w-4 h-4" />
+                      <LogIn className="w-[18px] h-[18px]" />
                       <span>تسجيل الدخول</span>
                     </Link>
                     <Link
                       href="/register"
                       className={cn(
-                        "btn-primary px-4 py-2 rounded-full",
-                        "flex items-center gap-1.5",
-                        "text-xs font-semibold",
+                        "h-[42px] px-5 py-2.5 rounded-xl",
+                        "text-sm font-semibold whitespace-nowrap",
+                        "bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600",
+                        "text-white",
+                        "hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-600 dark:hover:to-primary-700",
+                        "shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/50",
+                        "flex items-center justify-center gap-2",
                         "transition-all duration-300 ease-in-out",
-                        "hover:scale-105 active:scale-95",
-                        "shadow-lg hover:shadow-xl"
+                        "hover:scale-105 active:scale-95"
                       )}
                     >
-                      <Icon icon={UserPlus} size="sm" className="text-white w-4 h-4" />
+                      <UserPlus className="w-[18px] h-[18px]" />
                       <span>التسجيل</span>
                     </Link>
                   </>
@@ -168,21 +174,22 @@ const NavbarComponent = () => {
             <button
               onClick={() => setMobileMenu(!isMobileMenuOpen)}
               className={cn(
-                "md:hidden p-2.5",
+                "md:hidden h-[44px] w-[44px] p-2.5",
                 "text-neutral-700 dark:text-neutral-300",
                 "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                "rounded-full transition-all duration-300 ease-in-out",
+                "rounded-xl transition-all duration-300 ease-in-out",
                 "hover:scale-110 active:scale-95",
-                "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+                "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+                "flex items-center justify-center"
               )}
               aria-label={isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
               aria-expanded={isMobileMenuOpen}
               aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? (
-                <Icon icon={X} size="lg" className="text-current" />
+                <Icon icon={X} size="lg" className="text-current w-[22px] h-[22px]" />
               ) : (
-                <Icon icon={Menu} size="lg" className="text-current" />
+                <Icon icon={Menu} size="lg" className="text-current w-[22px] h-[22px]" />
               )}
             </button>
           </div>
@@ -217,9 +224,10 @@ const NavbarComponent = () => {
                         href={href}
                         onClick={() => setMobileMenu(false)}
                         className={cn(
-                          "flex items-center gap-3 px-5 py-3.5",
+                          "h-[48px] flex items-center gap-3 px-5 py-3",
+                          "text-sm font-semibold",
                           "text-neutral-700 dark:text-neutral-300",
-                          "rounded-2xl transition-all duration-300 ease-in-out",
+                          "rounded-xl transition-all duration-300 ease-in-out",
                           "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
                           "hover:scale-[1.02] active:scale-[0.98]",
                           isActive
@@ -228,14 +236,14 @@ const NavbarComponent = () => {
                         )}
                         aria-current={isActive ? 'page' : undefined}
                       >
-                        <Icon icon={IconComponent} size="md" className="text-current" />
-                        <span className="font-semibold">{label}</span>
+                        <Icon icon={IconComponent} size="md" className="text-current w-[20px] h-[20px]" />
+                        <span>{label}</span>
                       </Link>
                     </motion.div>
                   );
                 })}
                 
-                <div className="border-t border-neutral-200 dark:border-neutral-800 my-2" />
+                <div className="border-t border-neutral-200 dark:border-neutral-800 my-3 pt-3 space-y-2" />
                 
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
@@ -246,14 +254,18 @@ const NavbarComponent = () => {
                     href="/login"
                     onClick={() => setMobileMenu(false)}
                     className={cn(
-                      "btn-ghost w-full justify-start rounded-2xl py-3",
-                      "flex items-center gap-2.5",
-                      "text-sm font-semibold",
+                      "h-[50px] w-full px-5 py-3 rounded-xl",
+                      "bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600",
+                      "text-white font-semibold",
+                      "hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-600 dark:hover:to-primary-700",
+                      "shadow-lg hover:shadow-xl",
+                      "flex items-center justify-center gap-2.5",
+                      "text-sm",
                       "transition-all duration-300 ease-in-out",
                       "hover:scale-[1.02] active:scale-[0.98]"
                     )}
                   >
-                    <Icon icon={LogIn} size="sm" className="text-current" />
+                    <LogIn className="w-[19px] h-[19px]" />
                     <span>تسجيل الدخول</span>
                   </Link>
                 </motion.div>
@@ -266,16 +278,19 @@ const NavbarComponent = () => {
                     href="/register"
                     onClick={() => setMobileMenu(false)}
                     className={cn(
-                      "btn-primary w-full rounded-2xl py-3.5",
-                      "flex items-center gap-3",
-                      "text-base font-semibold",
+                      "h-[50px] w-full px-5 py-3 rounded-xl",
+                      "border-2 border-primary-600 dark:border-primary-400",
+                      "text-primary-600 dark:text-primary-400 font-semibold",
+                      "bg-white dark:bg-neutral-800",
+                      "hover:bg-primary-50 dark:hover:bg-primary-900/20",
+                      "flex items-center justify-center gap-2.5",
+                      "text-sm",
                       "transition-all duration-300 ease-in-out",
-                      "hover:scale-[1.02] active:scale-[0.98]",
-                      "shadow-lg hover:shadow-xl"
+                      "hover:scale-[1.02] active:scale-[0.98]"
                     )}
                   >
-                    <Icon icon={UserPlus} size="md" className="text-white" />
-                    <span>التسجيل</span>
+                    <UserPlus className="w-[19px] h-[19px]" />
+                    <span>إنشاء حساب جديد</span>
                   </Link>
                 </motion.div>
               </div>

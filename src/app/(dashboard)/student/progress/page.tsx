@@ -25,7 +25,7 @@ import {
   Play,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 
 export default function ProgressPage() {
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'year'>('month');
@@ -178,13 +178,14 @@ export default function ProgressPage() {
                   تتبع تقدمك وحقق أهدافك التعليمية
                 </motion.p>
               </div>
-              <Button
-                size="lg"
+              <StyledButton
+                variant="secondary"
+                size="large"
                 className="bg-white text-purple-600 hover:bg-purple-50 hidden md:flex"
               >
                 <Download className="w-5 h-5 mr-2" />
                 تصدير التقرير
-              </Button>
+              </StyledButton>
             </div>
           </motion.div>
 
@@ -614,10 +615,10 @@ export default function ProgressPage() {
                         {rec.priority === 'high' ? 'أولوية عالية 🔥' : 'مستحسن ⭐'}
                       </span>
                     </div>
-                    <Button size="sm" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
+                    <StyledButton variant="primary" size="small" className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700">
                       <Play className="w-4 h-4 mr-2" />
                       ابدأ الآن
-                    </Button>
+                    </StyledButton>
                   </motion.div>
                 ))}
               </CardContent>

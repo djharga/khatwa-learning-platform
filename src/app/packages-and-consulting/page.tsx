@@ -22,6 +22,7 @@ import {
   TrendingUp,
 } from 'lucide-react';
 import ConsultingComponent from '@/components/ConsultingComponent';
+import StyledButton from '@/components/ui/StyledButton';
 
 interface SubscriptionPlan {
   id: string;
@@ -54,6 +55,8 @@ function PackagesAndConsultingContent() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'packages' | 'consulting'>('packages');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [subscriptionStatus, setSubscriptionStatus] = useState<{ hasSubscription: boolean; subscriptionPlan: string | null } | null>(null);
+  const [loading, setLoading] = useState(false);
 
   // Read tab from URL params
   useEffect(() => {
@@ -62,6 +65,20 @@ function PackagesAndConsultingContent() {
       setActiveTab(tab);
     }
   }, [searchParams]);
+
+  // Check subscription status
+  useEffect(() => {
+    const checkStatus = async () => {
+      try {
+        const response = await fetch('/api/enrollment-status');
+        const status = await response.json();
+        setSubscriptionStatus(status);
+      } catch (error) {
+        console.error('Error checking subscription status:', error);
+      }
+    };
+    checkStatus();
+  }, []);
 
   // Update URL when tab changes
   const handleTabChange = (tab: 'packages' | 'consulting') => {
@@ -190,8 +207,60 @@ function PackagesAndConsultingContent() {
     },
   ];
 
-  const handleSubscribe = (planId: string) => {
-    alert(`سيتم توجيهك لبوابة الدفع الآمنة للباقة: ${plans.find(p => p.id === planId)?.name}`);
+  const handleSubscribe = async (planId: string) => {
+    const plan = plans.find(p => p.id === planId);
+    if (!plan) return;
+
+    // Skip free plan
+    if (plan.id === 'free') {
+      alert('الباقة المجانية متاحة دائماً. يمكنك البدء الآن!');
+      return;
+    }
+
+    // Check if already subscribed to this plan
+    if (subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id) {
+      alert(`أنت مشترك بالفعل في ${plan.name}!`);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Create payment intent
+      await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          planId: plan.id, 
+          amount: plan.price 
+        }),
+      });
+
+      // Subscribe
+      const subscribeResponse = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planId: plan.id,
+          paymentIntentId: `mock_payment_${Date.now()}`,
+        }),
+      });
+
+      if (subscribeResponse.ok) {
+        const result = await subscribeResponse.json();
+        // Update subscription status
+        setSubscriptionStatus({ hasSubscription: true, subscriptionPlan: plan.id });
+        alert(`تم الاشتراك بنجاح في ${plan.name}! سيتم توجيهك إلى صفحة الدورات...`);
+        router.push('/student/courses');
+      } else {
+        const error = await subscribeResponse.json();
+        alert(`فشل الاشتراك: ${error.error || 'حدث خطأ غير متوقع'}`);
+      }
+    } catch (error) {
+      console.error('Error subscribing:', error);
+      alert('حدث خطأ في معالجة الاشتراك. يرجى المحاولة مرة أخرى.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleBookConsultation = (packageId: string) => {
@@ -275,6 +344,36 @@ function PackagesAndConsultingContent() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
+              {/* Current Subscription Status */}
+              {subscriptionStatus?.hasSubscription && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mb-8 bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-xl p-6"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <Check className="w-8 h-8 text-green-600" />
+                      <div>
+                        <h3 className="font-bold text-green-900 text-lg">
+                          أنت مشترك حالياً
+                        </h3>
+                        <p className="text-green-700 text-sm">
+                          الباقة: {plans.find(p => p.id === subscriptionStatus.subscriptionPlan)?.name || 'غير معروف'}
+                        </p>
+                      </div>
+                    </div>
+                    <StyledButton
+                      onClick={() => router.push('/student/courses')}
+                      variant="success"
+                      size="medium"
+                    >
+                      عرض الدورات
+                    </StyledButton>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Billing Cycle Toggle */}
               <div className="flex justify-center mb-12">
                 <div className="inline-flex items-center bg-white rounded-xl shadow-lg p-1 border border-gray-200">
@@ -374,23 +473,32 @@ function PackagesAndConsultingContent() {
                       ))}
                     </div>
 
-                    <motion.button
+                    <StyledButton
                       onClick={() => handleSubscribe(plan.id)}
-                      className={`
-                        w-full py-4 px-6 rounded-xl font-bold text-lg transition-all
-                        flex items-center justify-center gap-2
-                        ${plan.popular
-                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700'
-                          : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700'
-                        }
-                        shadow-lg hover:shadow-xl
-                      `}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                      disabled={plan.id === 'free' || loading || (subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id)}
+                      variant={plan.id === 'free' ? 'secondary' : subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id ? 'success' : 'primary'}
+                      size="large"
+                      fullWidth
                     >
-                      احجز الآن
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.button>
+                      {loading ? (
+                        <>
+                          <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent inline-block mr-2"></div>
+                          جاري المعالجة...
+                        </>
+                      ) : subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id ? (
+                        <>
+                          <Check className="w-5 h-5 inline-block mr-2" />
+                          مشترك حالياً
+                        </>
+                      ) : plan.id === 'free' ? (
+                        'متاح الآن'
+                      ) : (
+                        <>
+                          اشترك الآن
+                          <ArrowRight className="w-5 h-5 inline-block mr-2" />
+                        </>
+                      )}
+                    </StyledButton>
                   </motion.div>
                 ))}
               </div>
@@ -496,23 +604,15 @@ function PackagesAndConsultingContent() {
                         ))}
                       </div>
 
-                      <motion.button
+                      <StyledButton
                         onClick={() => handleBookConsultation(pkg.id)}
-                        className={`
-                          w-full py-4 px-6 rounded-xl font-bold text-lg transition-all
-                          flex items-center justify-center gap-2
-                          ${pkg.popular
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700'
-                            : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700'
-                          }
-                          shadow-lg hover:shadow-xl
-                        `}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        variant="primary"
+                        size="large"
+                        fullWidth
                       >
                         ابدأ استشارتك
-                        <MessageSquare className="w-5 h-5" />
-                      </motion.button>
+                        <MessageSquare className="w-5 h-5 inline-block mr-2" />
+                      </StyledButton>
                     </motion.div>
                   ))}
                 </div>

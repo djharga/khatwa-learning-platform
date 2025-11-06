@@ -193,7 +193,7 @@ const AdminGeneralControlPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
         <motion.div
@@ -201,16 +201,30 @@ const AdminGeneralControlPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-indigo-100 px-6 py-3 rounded-full mb-6">
-            <Settings className="w-6 h-6 text-indigo-600" />
-            <span className="text-indigo-700 font-bold">التحكم العام والإعدادات</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/30 dark:to-purple-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-indigo-200/50 dark:border-indigo-700/50"
+          >
+            <Settings className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-indigo-700 dark:text-indigo-300 font-bold">التحكم العام والإعدادات</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-gray-900 via-indigo-900 to-purple-900 dark:from-white dark:via-indigo-100 dark:to-purple-100 bg-clip-text text-transparent mb-4"
+          >
             نظام التحكم العام للمنصة
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
             إدارة شاملة لإعدادات المنصة والتحكم في العمليات
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* التبويبات */}

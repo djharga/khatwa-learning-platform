@@ -19,7 +19,7 @@ import {
   Send,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 
 interface Consultant {
   id: string;
@@ -198,7 +198,8 @@ export default function ConsultingPage() {
                               <DollarSign className="w-5 h-5" />
                               <span>${consultant.hourlyRate}/ساعة</span>
                             </div>
-                            <Button
+                            <StyledButton
+                              variant="primary"
                               onClick={() => {
                                 setSelectedConsultant(consultant);
                                 setShowBookingModal(true);
@@ -206,7 +207,7 @@ export default function ConsultingPage() {
                             >
                               <Calendar className="w-4 h-4 ml-2" />
                               احجز جلسة
-                            </Button>
+                            </StyledButton>
                           </div>
 
                           <div className="mt-3 text-sm text-gray-600 dark:text-gray-400">
@@ -256,13 +257,13 @@ export default function ConsultingPage() {
                           {session.duration} دقيقة
                         </div>
                         <div className="mt-3 flex gap-2">
-                          <Button size="sm" variant="outline" className="flex-1">
+                          <StyledButton size="small" variant="secondary" className="flex-1">
                             <Video className="w-4 h-4 ml-1" />
                             انضم
-                          </Button>
-                          <Button size="sm" variant="outline">
+                          </StyledButton>
+                          <StyledButton size="small" variant="secondary">
                             <X className="w-4 h-4" />
-                          </Button>
+                          </StyledButton>
                         </div>
                       </div>
                     ))}
@@ -471,22 +472,23 @@ export default function ConsultingPage() {
 
               {/* أزرار الإجراءات */}
               <div className="flex gap-3 pt-4">
-                <Button
+                <StyledButton
+                  variant="primary"
                   className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600"
                   onClick={handleBooking}
                   disabled={!selectedDate || !selectedTime}
                 >
                   تأكيد الحجز
-                </Button>
-                <Button
-                  variant="outline"
+                </StyledButton>
+                <StyledButton
+                  variant="secondary"
                   onClick={() => {
                     setShowBookingModal(false);
                     setSelectedConsultant(null);
                   }}
                 >
                   إلغاء
-                </Button>
+                </StyledButton>
               </div>
             </div>
           </motion.div>

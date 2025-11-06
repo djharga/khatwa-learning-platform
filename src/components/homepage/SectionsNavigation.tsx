@@ -49,10 +49,10 @@ const SectionsNavigation = () => {
 
   return (
     <section className="relative py-20 lg:py-28 bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 overflow-hidden">
-      {/* Enhanced Background Effects */}
+      {/* Enhanced Background Effects - Very Subtle */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-200/30 via-transparent to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-indigo-200/30 via-transparent to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-gradient-to-br from-indigo-100/12 via-transparent to-transparent dark:from-indigo-900/8 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-indigo-100/12 via-transparent to-transparent dark:from-indigo-900/8 rounded-full blur-3xl" />
         {/* Grid pattern overlay */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)]" />
       </div>
@@ -84,11 +84,10 @@ const SectionsNavigation = () => {
             return (
               <motion.div
                 key={section.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
-                whileHover={{ y: -5 }}
+                transition={{ delay: index * 0.02, duration: 0.15 }}
               >
                 <Link href={section.href} className="block h-full group">
                   <div className="relative h-full p-6 lg:p-8 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 hover:border-indigo-400 dark:hover:border-indigo-500 transition-all duration-300 shadow-sm hover:shadow-2xl hover:shadow-indigo-500/20 group cursor-pointer overflow-hidden">
@@ -104,8 +103,7 @@ const SectionsNavigation = () => {
                     <div className="relative mb-5">
                       <motion.div 
                         className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${section.gradient} shadow-lg shadow-indigo-500/30 group-hover:shadow-xl group-hover:shadow-indigo-500/50 transition-all duration-300`}
-                        whileHover={{ scale: 1.1, rotate: 5 }}
-                        transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+
                       >
                         <Icon className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                       </motion.div>

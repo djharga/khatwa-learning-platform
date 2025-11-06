@@ -367,7 +367,10 @@ const QuestionBankPage = () => {
               return (
                 <motion.button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab(tab.id as 'free' | 'premium' | 'questions' | 'analytics' | 'ai-tools');
+                  }}
                   className={`px-4 lg:px-6 py-3 lg:py-4 rounded-xl font-bold text-sm lg:text-lg transition-all duration-300 flex items-center gap-2 whitespace-nowrap ${
                     isActive
                       ? `bg-gradient-to-r ${tab.color} text-white shadow-lg`

@@ -39,10 +39,10 @@ const IntroVideoSection = () => {
           {/* Left Column - Content */}
           <motion.div
             className="space-y-6 text-center lg:text-right"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.15 }}
           >
             <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white">
               اكتشف منصة

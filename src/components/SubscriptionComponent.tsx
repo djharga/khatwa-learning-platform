@@ -95,9 +95,80 @@ const PlanCard = ({
 );
 
 /**
+ * Mock checkout form component (no Stripe required)
+ */
+const MockCheckoutForm = ({
+  plan,
+  onSuccess,
+}: {
+  plan: any;
+  onSuccess: () => void;
+}) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      // Mock mode: directly subscribe without payment confirmation
+      await fetch('/api/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId: plan.id, amount: plan.price }),
+      });
+
+      // Subscribe directly
+      const subscribeResponse = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          planId: plan.id,
+          paymentIntentId: `mock_payment_${Date.now()}`,
+        }),
+      });
+
+      if (!subscribeResponse.ok) {
+        throw new Error('فشل في الاشتراك');
+      }
+
+      onSuccess();
+    } catch (err) {
+      setError('حدث خطأ في المعالجة');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <p className="text-sm text-blue-800">
+          <strong>وضع تجريبي:</strong> سيتم تفعيل الاشتراك بدون دفع فعلي
+        </p>
+      </div>
+
+      {error && <div className="text-red-500 text-sm">{error}</div>}
+
+      <button
+        type="submit"
+        disabled={loading}
+        className="w-full bg-blue-500 text-white py-3 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+      >
+        {loading
+          ? 'جاري المعالجة...'
+          : `اشتراك بـ ${plan.price} ${plan.currency}`}
+      </button>
+    </form>
+  );
+};
+
+/**
  * Stripe checkout form component handling payment card input and submission. Integrates with Stripe API to create payment intent and confirm card payment.
  */
-const CheckoutForm = ({
+const StripeCheckoutForm = ({
   plan,
   onSuccess,
 }: {
@@ -109,9 +180,6 @@ const CheckoutForm = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  /**
-   * Handles payment form submission. Creates payment intent, confirms card payment with Stripe, and updates user subscription on success.
-   */
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -121,7 +189,6 @@ const CheckoutForm = ({
     setError('');
 
     try {
-      // إرسال طلب إلى الخادم لإنشاء PaymentIntent
       const response = await fetch('/api/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -255,9 +322,18 @@ const SubscriptionComponent = ({ onClose }: { onClose: () => void }) => {
               <h3 className="text-xl font-bold mb-4">
                 الدفع لـ {selectedPlan?.name}
               </h3>
-              <Elements stripe={stripePromise}>
-                <CheckoutForm plan={selectedPlan} onSuccess={handleSuccess} />
-              </Elements>
+              {(() => {
+                const isMockMode = !process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || 
+                                   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === 'pk_test_...';
+                if (isMockMode) {
+                  return <MockCheckoutForm plan={selectedPlan} onSuccess={handleSuccess} />;
+                }
+                return (
+                  <Elements stripe={stripePromise}>
+                    <StripeCheckoutForm plan={selectedPlan} onSuccess={handleSuccess} />
+                  </Elements>
+                );
+              })()}
             </div>
           </div>
         )}

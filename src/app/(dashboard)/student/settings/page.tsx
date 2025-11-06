@@ -25,7 +25,7 @@ import {
   Trash2,
   Download,
 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 import Input from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -389,9 +389,10 @@ export default function StudentSettingsPage() {
                         </motion.button>
                       </motion.div>
                     ))}
-                    <Button
+                    <StyledButton
+                      variant="success"
                       onClick={handleSave}
-                      size="lg"
+                      size="large"
                       className="w-full md:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-lg px-8"
                     >
                       {saved ? (
@@ -405,7 +406,7 @@ export default function StudentSettingsPage() {
                           حفظ الإعدادات
                         </>
                       )}
-                    </Button>
+                    </StyledButton>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -482,9 +483,9 @@ export default function StudentSettingsPage() {
                         )}
                       </motion.div>
                     ))}
-                    <Button
+                    <StyledButton
                       onClick={handleSave}
-                      size="lg"
+                      size="large"
                       className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg px-8"
                     >
                       {saved ? (
@@ -498,7 +499,7 @@ export default function StudentSettingsPage() {
                           حفظ الإعدادات
                         </>
                       )}
-                    </Button>
+                    </StyledButton>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -589,9 +590,9 @@ export default function StudentSettingsPage() {
                       </div>
                     </motion.div>
 
-                    <Button
+                    <StyledButton
                       onClick={handleSave}
-                      size="lg"
+                      size="large"
                       className="w-full md:w-auto bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-lg px-8"
                     >
                       {saved ? (
@@ -605,7 +606,7 @@ export default function StudentSettingsPage() {
                           حفظ التفضيلات
                         </>
                       )}
-                    </Button>
+                    </StyledButton>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -682,9 +683,9 @@ export default function StudentSettingsPage() {
                       </motion.button>
                     </div>
 
-                    <Button
+                    <StyledButton
                       onClick={handleSave}
-                      size="lg"
+                      size="large"
                       className="w-full md:w-auto bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-lg px-8"
                     >
                       {saved ? (
@@ -698,7 +699,7 @@ export default function StudentSettingsPage() {
                           حفظ الإعدادات
                         </>
                       )}
-                    </Button>
+                    </StyledButton>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -725,12 +726,12 @@ export default function StudentSettingsPage() {
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">اشتراك مميز</h3>
                       <p className="text-gray-600 mb-6">أنت مشترك حالياً في الخطة المميزة</p>
                       <div className="flex items-center justify-center gap-4">
-                        <Button size="lg" variant="outline">
+                        <StyledButton size="large" variant="secondary">
                           إدارة الاشتراك
-                        </Button>
-                        <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600">
+                        </StyledButton>
+                        <StyledButton size="large" variant="primary" className="bg-gradient-to-r from-indigo-600 to-purple-600">
                           ترقية الخطة
-                        </Button>
+                        </StyledButton>
                       </div>
                     </div>
                   </CardContent>

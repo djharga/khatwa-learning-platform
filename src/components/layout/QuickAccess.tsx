@@ -131,9 +131,9 @@ const QuickLinkItem: React.FC<QuickLinkItemProps> = ({ link, index, onClose }) =
   return (
     <motion.div
       key={link.id}
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: index * 0.1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: index * 0.02, duration: 0.1 }}
     >
       {link.href && (
         <Link

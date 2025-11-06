@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plus,
@@ -55,9 +55,11 @@ export default function AdminUsersPage() {
   const [userTypeFilter, setUserTypeFilter] = useState('all');
   const [statusFilter, setStatusFilter] = useState('all');
   const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // بيانات تجريبية للمستخدمين
+  // بيانات المستخدمين - يتم تحميلها من API
   const [users, setUsers] = useState<User[]>([
     {
       id: '1',
@@ -111,6 +113,34 @@ export default function AdminUsersPage() {
       isPremium: true
     }
   ]);
+
+  // تحميل المستخدمين من API
+  useEffect(() => {
+    loadUsers();
+  }, [userTypeFilter, statusFilter, searchTerm]);
+
+  const loadUsers = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('search', searchTerm);
+      if (userTypeFilter !== 'all') params.append('userType', userTypeFilter);
+      if (statusFilter !== 'all') params.append('status', statusFilter);
+
+      const response = await fetch(`/api/admin/users?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setUsers(result.users || []);
+      } else {
+        console.error('Error loading users:', result.error);
+      }
+    } catch (error) {
+      console.error('Error loading users:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredUsers = useMemo(() => {
     return users.filter(user => {
@@ -181,8 +211,126 @@ export default function AdminUsersPage() {
     }
   };
 
+  // إضافة مستخدم جديد
+  const handleAddUser = async (userData: Partial<User>) => {
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
+
+              const result = await response.json();
+        if (result.success) {
+          setUsers([result.user, ...users]);
+          setShowAddUserModal(false);
+          alert('تم إضافة المستخدم بنجاح');
+          // إعادة تحميل المستخدمين للتأكد من التحديث
+          loadUsers();
+        } else {
+          alert(result.error || 'فشل إضافة المستخدم');
+        }
+    } catch (error) {
+      console.error('Error adding user:', error);
+      alert('حدث خطأ أثناء إضافة المستخدم');
+    }
+  };
+
+  // تعديل مستخدم
+  const handleEditUser = async (userId: string, userData: Partial<User>) => {
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setUsers(users.map(u => u.id === userId ? { ...u, ...userData } : u));
+        setSelectedUser(null);
+        alert('تم تحديث المستخدم بنجاح');
+        // إعادة تحميل المستخدمين للتأكد من التحديث
+        loadUsers();
+      } else {
+        alert(result.error || 'فشل تحديث المستخدم');
+      }
+    } catch (error) {
+      console.error('Error updating user:', error);
+      alert('حدث خطأ أثناء تحديث المستخدم');
+    }
+  };
+
+  // حذف مستخدم
+  const handleDeleteUser = async (userId: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذا المستخدم؟')) return;
+
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setUsers(users.filter(u => u.id !== userId));
+        if (selectedUser?.id === userId) setSelectedUser(null);
+        alert('تم حذف المستخدم بنجاح');
+        // إعادة تحميل المستخدمين للتأكد من التحديث
+        loadUsers();
+      } else {
+        alert(result.error || 'فشل حذف المستخدم');
+      }
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      alert('حدث خطأ أثناء حذف المستخدم');
+    }
+  };
+
+  // تحديث حالة المستخدم
+  const handleUpdateUserStatus = async (userId: string, status: 'active' | 'inactive' | 'suspended') => {
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setUsers(users.map(u => u.id === userId ? { ...u, status } : u));
+        alert('تم تحديث حالة المستخدم بنجاح');
+      } else {
+        alert(result.error || 'فشل تحديث حالة المستخدم');
+      }
+    } catch (error) {
+      console.error('Error updating user status:', error);
+      alert('حدث خطأ أثناء تحديث حالة المستخدم');
+    }
+  };
+
+  // تصدير قائمة المستخدمين
+  const handleExportUsers = () => {
+    const csvContent = [
+      ['الاسم', 'البريد الإلكتروني', 'الهاتف', 'النوع', 'الحالة', 'التاريخ'],
+      ...filteredUsers.map(user => [
+        user.name,
+        user.email,
+        user.phone,
+        getUserTypeLabel(user.userType),
+        user.status === 'active' ? 'نشط' : user.status === 'inactive' ? 'غير نشط' : 'معلق',
+        user.joinDate
+      ])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `المستخدمين_${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
         <motion.div
@@ -190,16 +338,30 @@ export default function AdminUsersPage() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-red-100 px-6 py-3 rounded-full mb-6">
-            <Shield className="w-6 h-6 text-red-600" />
-            <span className="text-red-700 font-bold">إدارة المستخدمين والعملاء</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-red-100 to-pink-100 dark:from-red-900/30 dark:to-pink-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-red-200/50 dark:border-red-700/50"
+          >
+            <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <span className="text-red-700 dark:text-red-300 font-bold">إدارة المستخدمين والعملاء</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-gray-900 via-red-900 to-pink-900 dark:from-white dark:via-red-100 dark:to-pink-100 bg-clip-text text-transparent mb-4"
+          >
             نظام إدارة المستخدمين الشامل
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
             إدارة شاملة للمستخدمين مع صلاحيات متنوعة وإعدادات مخصصة
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* الإحصائيات */}
@@ -352,14 +514,15 @@ export default function AdminUsersPage() {
                 إضافة مستخدم جديد
               </motion.button>
 
-              <motion.button
-                className="bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Download className="w-5 h-5" />
-                تصدير البيانات
-              </motion.button>
+                              <motion.button
+                  className="bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"    
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleExportUsers}
+                >
+                  <Download className="w-5 h-5" />
+                  تصدير البيانات
+                </motion.button>
             </div>
           </div>
         </motion.div>
@@ -488,20 +651,27 @@ export default function AdminUsersPage() {
                         >
                           <Send className="w-4 h-4" />
                         </motion.button>
-                        <motion.button
-                          className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </motion.button>
-                        <motion.button
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </motion.button>
+                                                  <motion.button
+                            className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors duration-200"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => {
+                              setSelectedUser(user);
+                              setShowEditUserModal(true);
+                            }}
+                            title="عرض/تعديل"
+                          >
+                            <Edit className="w-4 h-4" />
+                          </motion.button>
+                          <motion.button
+                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => handleDeleteUser(user.id)}
+                            title="حذف"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </motion.button>
                       </div>
                     </td>
                   </motion.tr>
@@ -611,24 +781,41 @@ export default function AdminUsersPage() {
                     </div>
                   )}
 
-                  <div className="flex gap-3">
+                                    <div className="flex gap-3 flex-wrap">
                     <motion.button
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"                          
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                                              onClick={() => {
+                          if (selectedUser) {
+                            setShowEditUserModal(true);
+                          }
+                        }}
                     >
                       تعديل البيانات
                     </motion.button>
                     <motion.button
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"                        
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() => handleSendInvitation(selectedUser)}
+                      onClick={() => handleSendInvitation(selectedUser)}        
                     >
                       إرسال دعوة
                     </motion.button>
                     <motion.button
-                      className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"                            
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        if (selectedUser) {
+                          handleDeleteUser(selectedUser.id);
+                        }
+                      }}
+                    >
+                      حذف المستخدم
+                    </motion.button>
+                    <motion.button
+                      className="flex-1 bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"                            
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setSelectedUser(null)}
@@ -641,7 +828,450 @@ export default function AdminUsersPage() {
             </motion.div>
           )}
         </AnimatePresence>
+
+                  {/* نافذة إضافة/تعديل مستخدم */}
+          <AnimatePresence>
+            {showAddUserModal && (
+              <AddUserModal
+                onClose={() => setShowAddUserModal(false)}
+                onSave={handleAddUser}
+              />
+            )}
+            {showEditUserModal && selectedUser && (
+              <EditUserModal
+                user={selectedUser}
+                onClose={() => {
+                  setShowEditUserModal(false);
+                  setSelectedUser(null);
+                }}
+                onSave={handleEditUser}
+              />
+            )}
+          </AnimatePresence>
       </div>
     </div>
+  );
+}
+
+ // نموذج إضافة مستخدم جديد
+ function AddUserModal({ onClose, onSave }: { onClose: () => void; onSave: (data: Partial<User>) => void }) {
+   const [formData, setFormData] = useState({
+     name: '',
+     email: '',
+     phone: '',
+     userType: 'student' as 'student' | 'company' | 'admin',
+     companyName: '',
+     storageLimit: 5120,
+   });
+   const [loading, setLoading] = useState(false);
+   const [errors, setErrors] = useState<Record<string, string>>({});
+
+   const validate = () => {
+     const newErrors: Record<string, string> = {};
+     
+     if (!formData.name.trim()) {
+       newErrors.name = 'الاسم مطلوب';
+     }
+     
+     if (!formData.email.trim()) {
+       newErrors.email = 'البريد الإلكتروني مطلوب';
+     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+       newErrors.email = 'البريد الإلكتروني غير صحيح';
+     }
+     
+     if (!formData.phone.trim()) {
+       newErrors.phone = 'رقم الهاتف مطلوب';
+     } else if (!/^\+?[0-9]{10,15}$/.test(formData.phone.replace(/\s/g, ''))) {
+       newErrors.phone = 'رقم الهاتف غير صحيح';
+     }
+     
+     if (formData.userType === 'company' && !formData.companyName.trim()) {
+       newErrors.companyName = 'اسم الشركة مطلوب';
+     }
+     
+     setErrors(newErrors);
+     return Object.keys(newErrors).length === 0;
+   };
+
+     const handleSubmit = async (e: React.FormEvent) => {
+     e.preventDefault();
+     if (!validate()) return;
+     
+     setLoading(true);
+     try {
+       await onSave(formData);
+     } finally {
+       setLoading(false);
+     }
+   };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-900">إضافة مستخدم جديد</h3>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-gray-100 rounded-lg"
+            >
+              <XCircle className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">الاسم *</label>
+                         <input
+               type="text"
+               required
+               value={formData.name}
+               onChange={(e) => {
+                 setFormData({ ...formData, name: e.target.value });
+                 if (errors.name) setErrors({ ...errors, name: '' });
+               }}
+               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                 errors.name ? 'border-red-500' : 'border-gray-300'
+               }`}
+             />
+             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+           </div>
+
+           <div>
+             <label className="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني *</label>
+             <input
+               type="email"
+               required
+               value={formData.email}
+               onChange={(e) => {
+                 setFormData({ ...formData, email: e.target.value });
+                 if (errors.email) setErrors({ ...errors, email: '' });
+               }}
+               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                 errors.email ? 'border-red-500' : 'border-gray-300'
+               }`}
+             />
+             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+           </div>
+
+           <div>
+             <label className="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف *</label>
+             <input
+               type="tel"
+               required
+               value={formData.phone}
+               onChange={(e) => {
+                 setFormData({ ...formData, phone: e.target.value });
+                 if (errors.phone) setErrors({ ...errors, phone: '' });
+               }}
+               className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                 errors.phone ? 'border-red-500' : 'border-gray-300'
+               }`}
+               placeholder="+966501234567"
+             />
+             {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+           </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">نوع المستخدم *</label>
+            <select
+              required
+              value={formData.userType}
+              onChange={(e) => setFormData({ ...formData, userType: e.target.value as any })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="student">متدرب فردي</option>
+              <option value="company">شركة/مؤسسة</option>
+              <option value="admin">مدير نظام</option>
+            </select>
+          </div>
+
+                     {formData.userType === 'company' && (
+             <div>
+               <label className="block text-sm font-medium text-gray-700 mb-2">اسم الشركة *</label>
+               <input
+                 type="text"
+                 value={formData.companyName}
+                 onChange={(e) => {
+                   setFormData({ ...formData, companyName: e.target.value });
+                   if (errors.companyName) setErrors({ ...errors, companyName: '' });
+                 }}
+                 className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                   errors.companyName ? 'border-red-500' : 'border-gray-300'
+                 }`}
+               />
+               {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName}</p>}
+             </div>
+           )}
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">حد التخزين (MB)</label>
+            <input
+              type="number"
+              value={formData.storageLimit}
+              onChange={(e) => setFormData({ ...formData, storageLimit: parseInt(e.target.value) || 5120 })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <motion.button
+              type="submit"
+              disabled={loading}
+              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors disabled:opacity-50"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {loading ? 'جاري الإضافة...' : 'إضافة'}
+            </motion.button>
+            <motion.button
+              type="button"
+              onClick={onClose}
+              className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 px-6 rounded-lg font-semibold transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              إلغاء
+            </motion.button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// نموذج تعديل مستخدم
+function EditUserModal({ 
+  user, 
+  onClose, 
+  onSave 
+}: { 
+  user: User; 
+  onClose: () => void; 
+  onSave: (userId: string, data: Partial<User>) => void;
+}) {
+  const [formData, setFormData] = useState({
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    userType: user.userType,
+    companyName: user.companyName || '',
+    storageLimit: user.storageLimit,
+    status: user.status,
+  });
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'الاسم مطلوب';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'البريد الإلكتروني مطلوب';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'البريد الإلكتروني غير صحيح';
+    }
+    
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'رقم الهاتف مطلوب';
+    } else if (!/^\+?[0-9]{10,15}$/.test(formData.phone.replace(/\s/g, ''))) {
+      newErrors.phone = 'رقم الهاتف غير صحيح';
+    }
+    
+    if (formData.userType === 'company' && !formData.companyName.trim()) {
+      newErrors.companyName = 'اسم الشركة مطلوب';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    
+    setLoading(true);
+    try {
+      await onSave(user.id, formData);
+      onClose();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-900">تعديل مستخدم</h3>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-gray-100 rounded-lg"
+            >
+              <XCircle className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">الاسم *</label>
+            <input
+              type="text"
+              required
+              value={formData.name}
+              onChange={(e) => {
+                setFormData({ ...formData, name: e.target.value });
+                if (errors.name) setErrors({ ...errors, name: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.name ? 'border-red-500' : 'border-gray-300'
+              }`}
+            />
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">البريد الإلكتروني *</label>
+            <input
+              type="email"
+              required
+              value={formData.email}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value });
+                if (errors.email) setErrors({ ...errors, email: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.email ? 'border-red-500' : 'border-gray-300'
+              }`}
+            />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">رقم الهاتف *</label>
+            <input
+              type="tel"
+              required
+              value={formData.phone}
+              onChange={(e) => {
+                setFormData({ ...formData, phone: e.target.value });
+                if (errors.phone) setErrors({ ...errors, phone: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.phone ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="+966501234567"
+            />
+            {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">نوع المستخدم *</label>
+            <select
+              value={formData.userType}
+              onChange={(e) => setFormData({ ...formData, userType: e.target.value as any })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="student">متدرب فردي</option>
+              <option value="company">شركة/مؤسسة</option>
+              <option value="admin">مدير نظام</option>
+            </select>
+          </div>
+
+          {formData.userType === 'company' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">اسم الشركة *</label>
+              <input
+                type="text"
+                value={formData.companyName}
+                onChange={(e) => {
+                  setFormData({ ...formData, companyName: e.target.value });
+                  if (errors.companyName) setErrors({ ...errors, companyName: '' });
+                }}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.companyName ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.companyName && <p className="text-red-500 text-sm mt-1">{errors.companyName}</p>}
+            </div>
+          )}
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">حالة المستخدم *</label>
+            <select
+              value={formData.status}
+              onChange={(e) => setFormData({ ...formData, status: e.target.value as any })}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            >
+              <option value="active">نشط</option>
+              <option value="inactive">غير نشط</option>
+              <option value="suspended">معلق</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              حد التخزين (MB) - {formData.storageLimit / 1024} GB
+            </label>
+            <input
+              type="range"
+              min="1024"
+              max="51200"
+              step="1024"
+              value={formData.storageLimit}
+              onChange={(e) => setFormData({ ...formData, storageLimit: parseInt(e.target.value) })}
+              className="w-full"
+            />
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              إلغاء
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            >
+              {loading ? 'جاري الحفظ...' : 'حفظ التغييرات'}
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.div>
   );
 }

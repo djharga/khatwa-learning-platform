@@ -74,20 +74,16 @@ const LessonCard = ({
   currentLessonId,
   index,
 }: LessonCardProps) => (
-  <motion.div
-    initial={{ opacity: 0, x: -20 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{
-      delay: index * 0.1,
-      duration: 0.6,
-      ease: 'easeOut',
-    }}
-    whileHover={{
-      scale: lesson.locked ? 1 : 1.02,
-      transition: { duration: 0.2 },
-    }}
-    className="group"
-  >
+      <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        delay: index * 0.02,
+        duration: 0.15,
+        ease: 'easeOut',
+      }}
+      className="group"
+    >
     <Link
       href={
         lesson.locked ? '#' : `/courses/${courseId}/lesson/${lesson.id}`
@@ -96,7 +92,7 @@ const LessonCard = ({
         lesson.locked
           ? 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 cursor-not-allowed opacity-60'
           : lesson.id === currentLessonId
-            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg scale-105'
+            ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20 shadow-lg'
             : 'border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/50 dark:hover:bg-blue-900/10'
       }`}
       onClick={(e) => lesson.locked && e.preventDefault()}
@@ -361,9 +357,9 @@ const SidebarComponent = ({
   return (
     <motion.aside
       className="w-80 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 h-screen sticky top-0 overflow-hidden flex flex-col shadow-2xl"
-      initial={{ x: 320 }}
-      animate={{ x: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.15, ease: 'easeOut' }}
     >
       <ProgressHeader lessonCount={lessons.length} overallProgress={overallProgress} />
 

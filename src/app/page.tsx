@@ -28,11 +28,6 @@ const CIASpotlightSection = dynamic(
   { ssr: false }
 );
 
-const CreativeFeaturesSection = dynamic(
-  () => import('@/components/homepage/CreativeFeaturesSection'),
-  { ssr: false }
-);
-
 const FAQSection = dynamic(
   () => import('@/components/homepage/FAQSection'),
   { ssr: false }
@@ -40,6 +35,37 @@ const FAQSection = dynamic(
 
 const CTASection = dynamic(
   () => import('@/components/homepage/CTASection'),
+  { ssr: false }
+);
+
+// Introduction Sections - أقسام التعريف بالمنصة
+const IntroductionSection = dynamic(
+  () => import('@/components/homepage/IntroductionSection'),
+  { ssr: false }
+);
+
+const VisionSection = dynamic(
+  () => import('@/components/homepage/VisionSection'),
+  { ssr: false }
+);
+
+const MissionSection = dynamic(
+  () => import('@/components/homepage/MissionSection'),
+  { ssr: false }
+);
+
+const GoalsSection = dynamic(
+  () => import('@/components/homepage/GoalsSection'),
+  { ssr: false }
+);
+
+const ValuesSection = dynamic(
+  () => import('@/components/homepage/ValuesSection'),
+  { ssr: false }
+);
+
+const CTAJoinSection = dynamic(
+  () => import('@/components/homepage/CTAJoinSection'),
   { ssr: false }
 );
 
@@ -88,16 +114,15 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      {/* Modern Scroll Progress Bar - Enhanced */}
-      <div className="fixed top-0 left-0 right-0 h-0.5 z-50 bg-neutral-200/50 dark:bg-neutral-700/50">
-        <motion.div
+    <div className="relative min-h-screen bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">  
+      {/* Modern Scroll Progress Bar - Reduced Animation */}
+      <div className="fixed top-0 left-0 right-0 h-0.5 z-50 bg-neutral-200/50 dark:bg-neutral-700/50">                                                          
+        <div
           className="h-full bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600"
           style={{
-            scaleX: scrollProgress / 100,
+            width: `${scrollProgress}%`,
             transformOrigin: 'left',
           }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         />
       </div>
 
@@ -106,36 +131,45 @@ export default function HomePage() {
         {/* 1. Hero Section - Above the fold, SSR */}
         <CreativeHeroSection />
 
-        {/* 2. Quick Stats Bar */}
+        {/* 2. Introduction Section - التعريف بالمنصة */}
+        <IntroductionSection />
+
+        {/* 3. Vision Section - الرؤية */}
+        <VisionSection />
+
+        {/* 4. Mission Section - الرسالة */}
+        <MissionSection />
+
+        {/* 5. Goals Section - الأهداف */}
+        <GoalsSection />
+
+        {/* 6. Values Section - القيم والهدف */}
+        <ValuesSection />
+
+        {/* 7. CTA Join Section - دعوة للانضمام */}
+        <CTAJoinSection />
+
+        {/* 9. Quick Stats Bar */}
         <QuickStatsBar />
 
-        {/* 3. Featured Courses Section - Priority Section */}
+        {/* 10. Featured Courses Section - Priority Section */}
         <FeaturedCoursesSection />
 
-        {/* 4. CIA Fellowship Spotlight */}
+        {/* 11. CIA Fellowship Spotlight */}
         <CIASpotlightSection />
 
-        {/* 5. Key Features */}
-        <CreativeFeaturesSection />
-
-        {/* 6. FAQ */}
+        {/* 12. FAQ */}
         <FAQSection />
 
-        {/* 7. Final CTA */}
+        {/* 13. Final CTA */}
         <CTASection />
       </div>
 
-      {/* Modern Scroll to Top Button - Enhanced */}
+      {/* Modern Scroll to Top Button - Reduced Animation */}
       {showScrollToTop && (
-        <motion.button
+        <button
           onClick={scrollToTop}
-          className="fixed bottom-6 left-6 z-50 w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-indigo-600 to-indigo-500 dark:from-indigo-500 dark:to-indigo-400 text-white rounded-full shadow-lg shadow-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/60 flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2"
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          className="fixed bottom-24 left-6 z-40 w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-indigo-600 to-indigo-500 dark:from-indigo-500 dark:to-indigo-400 text-white rounded-full shadow-lg shadow-indigo-500/50 hover:shadow-xl hover:shadow-indigo-500/60 flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:ring-offset-2"
           aria-label="العودة إلى الأعلى"
         >
           <svg
@@ -151,7 +185,7 @@ export default function HomePage() {
               d="M5 10l7-7m0 0l7 7m-7-7v18"
             />
           </svg>
-        </motion.button>
+        </button>
       )}
     </div>
   );

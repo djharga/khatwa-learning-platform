@@ -1,189 +1,399 @@
 'use client';
 
-import { notFound, useParams } from 'next/navigation';
+import { useState, useEffect, useMemo } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import Script from 'next/script';
+import { getCourseBySlug, type Course } from '@/data/courses/all-courses';
+import {
+  CourseHero,
+  StickyCheckout,
+  LearningOutcomes,
+  AudiencePrereqs,
+  Curriculum,
+  SocialProof,
+  InstructorCard,
+  FAQ,
+} from '@/components/course-details';
+import { generateStructuredData } from '@/lib/seo';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowLeft, BookOpen, Clock, Users, Star, FileText, Video, Headphones, ChevronRight } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/Card';
-import { getCourseBySlug } from '@/data/courses/all-courses';
 
-export default function CourseDetailPage() {
+interface EnrollmentStatus {
+  hasSubscription: boolean;
+  subscriptionPlan: string | null;
+  hasEnrollment: boolean | null;
+  hasAccess: boolean;
+}
+
+export default function CourseLandingPage() {
   const params = useParams();
-  const slug = params.slug as string;
-  const course = getCourseBySlug(slug);
+  const router = useRouter();
+  const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+  
+  const [course, setCourse] = useState<Course | undefined>(undefined);
+  const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [enrolling, setEnrolling] = useState(false);
+  const [purchasing, setPurchasing] = useState(false);
 
-  if (!course) {
-    notFound();
+  useEffect(() => {
+    if (slug) {
+      const foundCourse = getCourseBySlug(slug);
+      setCourse(foundCourse);
+      checkEnrollmentStatus(foundCourse?.id.toString());
+    }
+  }, [slug]);
+
+  const checkEnrollmentStatus = async (courseId?: string) => {
+    if (!courseId) {
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/enrollment-status?courseId=${courseId}`);
+      const status = await response.json();
+      setEnrollmentStatus(status);
+    } catch (error) {
+      console.error('Error checking enrollment status:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEnroll = async () => {
+    if (!course || enrolling) return;
+
+    setEnrolling(true);
+    try {
+      const response = await fetch('/api/enroll', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ courseId: course.id.toString() }),
+      });
+
+      if (response.ok) {
+        router.push(`/student/courses/${course.id}`);
+      } else {
+        alert('فشل في التسجيل. يرجى المحاولة مرة أخرى.');
+      }
+    } catch (error) {
+      console.error('Error enrolling:', error);
+      alert('حدث خطأ في التسجيل');
+    } finally {
+      setEnrolling(false);
+    }
+  };
+
+  const handlePurchase = async () => {
+    if (!course || purchasing) return;
+
+    setPurchasing(true);
+    try {
+      const price = parseInt(course.price.replace(/[^0-9]/g, ''));
+      const response = await fetch('/api/purchase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          courseId: course.id.toString(),
+          amount: price,
+        }),
+      });
+
+      if (response.ok) {
+        router.push(`/student/courses/${course.id}`);
+      } else {
+        alert('فشل في الشراء. يرجى المحاولة مرة أخرى.');
+      }
+    } catch (error) {
+      console.error('Error purchasing:', error);
+      alert('حدث خطأ في الشراء');
+    } finally {
+      setPurchasing(false);
+    }
+  };
+
+  const handleStartLearning = () => {
+    if (course) {
+      router.push(`/student/courses/${course.id}`);
+    }
+  };
+
+  const handleTryFreeLesson = () => {
+    // Find first preview lesson
+    const firstModule = course?.modules[0];
+    const firstLesson = firstModule?.lessons[0];
+    if (firstLesson && course) {
+      router.push(`/student/courses/${course.id}/lesson/${firstLesson}`);
+    }
+  };
+
+  const handlePreviewLesson = (lessonId: string) => {
+    if (course) {
+      router.push(`/student/courses/${course.id}/lesson/${lessonId}`);
+    }
+  };
+
+  // Prepare course data for components
+  const learningOutcomes = [
+    'فهم أساسيات ومبادئ الموضوع بشكل شامل',
+    'تطبيق المعرفة في مواقف عملية حقيقية',
+    'اكتساب المهارات اللازمة للنجاح في المجال',
+    'الحصول على شهادة معتمدة عند إكمال الدورة',
+  ];
+
+  const audience = [
+    'المهنيون الراغبون في تطوير مهاراتهم',
+    'الطلاب والخريجون الجدد',
+    'أصحاب المشاريع والشركات الناشئة',
+    'أي شخص يريد تعلم مجال جديد',
+  ];
+
+  const prerequisites = [
+    'لا توجد متطلبات مسبقة',
+    'الرغبة في التعلم والتحسين',
+  ];
+
+  // Prepare curriculum data with useMemo to avoid reference issues
+  // Calculate hasAccess inside useMemo to ensure proper initialization
+  const curriculumModules = useMemo(() => {
+    const hasAccess = enrollmentStatus?.hasAccess || false;
+    
+    if (!course?.modules) return [];
+    
+    return course.modules.map((module, index) => ({
+      id: module.id.toString(),
+      title: module.title,
+      description: `الوحدة ${index + 1}: ${module.title}`,
+      lessons: module.lessons.map((lesson, lessonIndex) => ({
+        id: `${module.id}-${lessonIndex}`,
+        title: typeof lesson === 'string' ? lesson : lesson.title,
+        duration: typeof lesson === 'string' ? '15 دقيقة' : lesson.duration || '15 دقيقة',
+        type: 'video' as const,
+        isPreview: lessonIndex === 0, // First lesson is preview
+        isLocked: !hasAccess && lessonIndex > 0,
+      })),
+    }));
+  }, [course?.modules, enrollmentStatus?.hasAccess]);
+
+  // Prepare FAQ data
+  const faqItems = [
+    {
+      id: '1',
+      question: 'هل يمكنني الوصول للمحتوى بعد انتهاء الدورة؟',
+      answer: 'نعم، ستحصل على وصول مدى الحياة لجميع مواد الدورة بعد التسجيل.',
+    },
+    {
+      id: '2',
+      question: 'هل توجد شهادة معتمدة عند إكمال الدورة؟',
+      answer: 'نعم، ستحصل على شهادة إتمام معتمدة يمكنك مشاركتها على LinkedIn وملفك الشخصي.',
+    },
+    {
+      id: '3',
+      question: 'ماذا لو لم أكن راضياً عن الدورة؟',
+      answer: 'نوفر ضمان استرجاع الأموال خلال 30 يوم من تاريخ الشراء.',
+    },
+    {
+      id: '4',
+      question: 'كم مدة الدورة؟',
+      answer: `مدة الدورة ${course?.duration || '8 أسابيع'} وتتضمن ${course?.lessons || 10} دروس.`,
+    },
+  ];
+
+  // Prepare testimonials
+  const testimonials = [
+    {
+      id: '1',
+      name: 'أحمد محمد',
+      avatar: '/api/placeholder/48/48',
+      role: 'محاسب',
+      rating: 5,
+      comment: 'دورة رائعة ومفيدة جداً، ساعدتني في تطوير مهاراتي بشكل كبير.',
+      verified: true,
+    },
+    {
+      id: '2',
+      name: 'فاطمة علي',
+      avatar: '/api/placeholder/48/48',
+      role: 'مديرة مالية',
+      rating: 5,
+      comment: 'المحتوى شامل ومفصل، والشرح واضح جداً. أنصح بها بشدة.',
+      verified: true,
+    },
+  ];
+
+  // Prepare instructor data
+  const instructorData = {
+    id: '1',
+    name: 'د. محمود أحمد',
+    title: 'خبير في المحاسبة المالية',
+    avatar: '/api/placeholder/96/96',
+    bio: 'خبير في مجال المحاسبة المالية مع أكثر من 15 عاماً من الخبرة العملية في الشركات الكبرى.',
+    rating: course?.rating || 4.8,
+    students: course?.students || 1500,
+    courses: 5,
+  };
+
+  // Extract price
+  const price = course?.price ? parseInt(course.price.replace(/[^0-9]/g, '')) || 0 : 0;
+  const originalPrice = price > 0 ? Math.round(price * 1.3) : undefined;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">جاري التحميل...</p>
+        </div>
+      </div>
+    );
   }
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <Link
-            href="/courses"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            <span>العودة إلى الدورات</span>
+  if (!course) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">الدورة غير موجودة</h2>
+          <Link href="/courses" className="text-blue-600 hover:text-blue-700">
+            العودة إلى قائمة الدورات
           </Link>
         </div>
       </div>
+    );
+  }
 
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="space-y-6"
-              >
-                <div className="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium">
-                  {course.category}
-                </div>
-                <h1 className="text-4xl lg:text-5xl font-bold text-white leading-tight">
-                  {course.title}
-                </h1>
-                <p className="text-xl text-white/90 leading-relaxed">
-                  {course.description}
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                    <Star className="w-5 h-5 text-yellow-300 fill-current" />
-                    <span className="text-white font-semibold">{course.rating}</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                    <Users className="w-5 h-5 text-white" />
-                    <span className="text-white">{course.students.toLocaleString()} طالب</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                    <Clock className="w-5 h-5 text-white" />
-                    <span className="text-white">{course.duration}</span>
-                  </div>
-                  <div className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm rounded-lg">
-                    <span className="text-white font-bold">{course.price}</span>
-                  </div>
-                </div>
-              </motion.div>
+  // Get hasAccess after loading check
+  const hasAccess = enrollmentStatus?.hasAccess || false;
+
+  // Generate structured data for SEO
+  const courseStructuredData = generateStructuredData('course', {
+    name: course.title,
+    description: course.description,
+    provider: {
+      '@type': 'Organization',
+      name: 'خطى للتدريب والاستشارات',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: course.rating.toString(),
+      reviewCount: course.students.toString(),
+    },
+    courseCode: course.id.toString(),
+    educationalLevel: course.level,
+  });
+
+  const faqStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map(item => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
+  const breadcrumbData = generateStructuredData('breadcrumb', {
+    items: [
+      { name: 'الرئيسية', url: '/' },
+      { name: 'الكورسات', url: '/courses' },
+      { name: course.title, url: `/courses/${course.slug}` },
+    ],
+  });
+
+  return (
+    <>
+      {/* SEO Structured Data */}
+      <Script
+        id="course-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseStructuredData) }}
+      />
+      <Script
+        id="faq-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
+      />
+      <Script
+        id="breadcrumb-structured-data"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
+      />
+
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        {/* Hero Section */}
+        <CourseHero
+          title={course.title}
+          description={course.description}
+          rating={course.rating}
+          students={course.students}
+          duration={course.duration}
+          lessons={course.lessons}
+          level={course.level}
+          category={course.category}
+          image={course.image}
+          instructor={{
+            name: instructorData.name,
+            avatar: instructorData.avatar,
+          }}
+          onTryFreeLesson={handleTryFreeLesson}
+        />
+
+        {/* Main Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Main Content */}
+            <div className="lg:col-span-2 space-y-8">
+              {/* Learning Outcomes */}
+              <LearningOutcomes outcomes={learningOutcomes} />
+
+              {/* Audience & Prerequisites */}
+              <AudiencePrereqs audience={audience} prerequisites={prerequisites} />
+
+              {/* Curriculum */}
+              <Curriculum
+                modules={curriculumModules}
+                courseId={course.id.toString()}
+                hasAccess={hasAccess}
+                onPreviewLesson={handlePreviewLesson}
+              />
+
+              {/* Social Proof */}
+              <SocialProof
+                stats={{
+                  graduates: course.students,
+                  satisfaction: 98,
+                  companies: 150,
+                }}
+                testimonials={testimonials}
+              />
+
+              {/* Instructor */}
+              <InstructorCard instructor={instructorData} />
+
+              {/* FAQ */}
+              <FAQ items={faqItems} />
             </div>
-            <div className="relative">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="relative rounded-2xl overflow-hidden shadow-2xl"
-              >
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  className="w-full h-auto object-cover"
-                />
-              </motion.div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
+              <StickyCheckout
+                price={price}
+                originalPrice={originalPrice}
+                hasAccess={hasAccess}
+                onEnroll={handleEnroll}
+                onPurchase={handlePurchase}
+                onStartLearning={handleStartLearning}
+                duration={course.duration}
+                lessons={course.lessons}
+                students={course.students}
+                courseId={course.id.toString()}
+              />
             </div>
           </div>
         </div>
       </div>
-
-      {/* Course Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Course Stats */}
-            <Card>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-3 gap-6">
-                  <div className="text-center">
-                    <FileText className="w-8 h-8 text-blue-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-900">{course.files}</div>
-                    <div className="text-sm text-gray-600">ملف</div>
-                  </div>
-                  <div className="text-center">
-                    <Video className="w-8 h-8 text-purple-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-900">{course.videos}</div>
-                    <div className="text-sm text-gray-600">فيديو</div>
-                  </div>
-                  <div className="text-center">
-                    <Headphones className="w-8 h-8 text-pink-600 mx-auto mb-2" />
-                    <div className="text-2xl font-bold text-gray-900">{course.audios}</div>
-                    <div className="text-sm text-gray-600">صوتي</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Modules */}
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">محاور الدورة</h2>
-                <div className="space-y-4">
-                  {course.modules.map((module, moduleIndex) => (
-                    <motion.div
-                      key={module.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: moduleIndex * 0.1 }}
-                      className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                          <span className="text-blue-600 font-bold">{moduleIndex + 1}</span>
-                        </div>
-                        <div className="flex-1">
-                          <h3 className="font-bold text-gray-900 mb-3">{module.title}</h3>
-                          <ul className="space-y-2">
-                            {module.lessons.map((lesson, lessonIndex) => (
-                              <li key={lessonIndex} className="flex items-center gap-2 text-gray-600">
-                                <ChevronRight className="w-4 h-4 text-blue-500" />
-                                <span>{lesson}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            <Card>
-              <CardContent className="p-6">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-bold text-gray-900 mb-2">المستوى</h3>
-                    <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-                      course.level === 'مبتدئ' ? 'bg-green-100 text-green-700' :
-                      course.level === 'متوسط' ? 'bg-blue-100 text-blue-700' :
-                      'bg-purple-100 text-purple-700'
-                    }`}>
-                      {course.level}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 mb-2">عدد الدروس</h3>
-                    <p className="text-gray-600">{course.lessons} درس</p>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-gray-900 mb-2">المدة</h3>
-                    <p className="text-gray-600">{course.duration}</p>
-                  </div>
-                  <button className="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all">
-                    سجل في الدورة الآن
-                  </button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 }
-

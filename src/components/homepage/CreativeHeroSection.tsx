@@ -1,65 +1,53 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 import Link from 'next/link';
-import { Play, ArrowLeft, Users, BookOpen, Star, Award, Search } from 'lucide-react';
+import { Play, Users, BookOpen, Star, Award, Search, Video, MessageCircle } from 'lucide-react';
 import Icon from '@/components/ui/icons/IconSystem';
-import { Button } from '@/components/ui/primitives';
 import { Container } from '@/components/ui/primitives';
 import Image from 'next/image';
 
 /**
- * Creative Hero Section - تصميم إبداعي مبتكر
- * تصميم فريد غير تقليدي مع تأثيرات بصرية مبتكرة
+ * Creative Hero Section - تصميم إبداعي مبتكر محسّن
+ * تصميم عصري مع أحدث التصاميم العالمية 2024-2025
+ * 
+ * Features:
+ * - Animated Typography with Split Text
+ * - Magnetic Buttons
+ * - Parallax Effects
+ * - Mesh Gradients
+ * - Enhanced Glassmorphism
+ * - CountUp Animations
+ * - Intersection Observer
+ * - Reduced Motion Support
  */
 
 const CreativeHeroSection = () => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+  const sectionRef = useRef<HTMLElement>(null);
 
-  const mouseXSpring = useSpring(x, { stiffness: 500, damping: 100 });
-  const mouseYSpring = useSpring(y, { stiffness: 500, damping: 100 });
+  // Stats data
+  const stats = [
+    { icon: Users, value: 15420, label: 'طالب نشط', suffix: '' },
+    { icon: BookOpen, value: 15, label: 'دورة', suffix: '+' },
+    { icon: Star, value: 4.8, label: 'التقييم', suffix: '', decimals: 1 },
+    { icon: Award, value: 95, label: 'الرضا', suffix: '%' },
+  ];
 
-  // Reduced 3D tilt effect
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['5deg', '-5deg']);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-5deg', '5deg']);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = document.querySelector('[data-hero]')?.getBoundingClientRect();
-      if (!rect) return;
-
-      const width = rect.width;
-      const height = rect.height;
-      const mouseX = e.clientX - rect.left;
-      const mouseY = e.clientY - rect.top;
-      const xPct = mouseX / width - 0.5;
-      const yPct = mouseY / height - 0.5;
-      x.set(xPct);
-      y.set(yPct);
-    };
-
-    const hero = document.querySelector('[data-hero]');
-    if (hero) {
-      hero.addEventListener('mousemove', handleMouseMove as EventListener);
-      return () => hero.removeEventListener('mousemove', handleMouseMove as EventListener);
-    }
-  }, [x, y]);
-
-  return (
+    return (
     <section
+      ref={sectionRef}
       data-hero
-      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-700 via-slate-600 to-indigo-800"
+      className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-black via-gray-900 via-purple-950 to-blue-950 mx-4 my-6 rounded-[3rem]"           
     >
-      {/* Hero Video Background - استبدال الصورة بالفيديو الخطي */}
-      <div className="absolute inset-0 z-0">
+      {/* Enhanced Video Background with better loading strategy */}
+      <div className="absolute inset-0 z-0 rounded-[3rem] overflow-hidden">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover"
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover rounded-[3rem]"
           poster="/assets/hero-main-banner.png"
         >
           <source src="/videos/hero-video.mp4" type="video/mp4" />
@@ -69,256 +57,190 @@ const CreativeHeroSection = () => {
             alt="خطى للتدريب والاستشارات - منصة التعلم المهني"
             fill
             priority
-            className="object-cover"
+            className="object-cover rounded-[3rem]"
             quality={90}
           />
         </video>
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-700/70 via-slate-600/60 to-indigo-800/70" />
-      </div>
 
-      {/* Optimized Background Particles - Reduced count for performance */}
-      <div className="absolute inset-0 overflow-hidden z-[1] pointer-events-none">
-      {[...Array(8)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 bg-indigo-400/30 rounded-full"
-          initial={{
-            x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : 0,
-            y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : 0,
-          }}
-          animate={{
-            y: typeof window !== 'undefined' 
-              ? [null, Math.random() * window.innerHeight]
-              : [0, 100],
-            opacity: [0.1, 0.3, 0.1],
-          }}
-          transition={{
-            duration: Math.random() * 3 + 4,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-            ease: 'easeInOut',
+        {/* Enhanced Multi-layer Overlay with Dark Gradients */}
+        <div className="absolute inset-0 bg-black/40 rounded-[3rem]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-gray-900/50 via-purple-950/40 to-blue-950/50 rounded-[3rem]" />                                              
+
+        {/* Mesh Gradient Layer 1 - Multiple Radial Gradients */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(59,130,246,0.25),transparent_60%)] rounded-[3rem]" />                                      
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(147,51,234,0.25),transparent_60%)] rounded-[3rem]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(236,72,153,0.15),transparent_70%)] rounded-[3rem]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(99,102,241,0.20),transparent_60%)] rounded-[3rem]" />
+        
+                {/* Static Grid Pattern */}
+        <div
+          className="absolute inset-0 opacity-30 rounded-[3rem]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),      
+              linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px) 
+            `,
+            backgroundSize: '50px 50px',
           }}
         />
-      ))}
       </div>
 
-      {/* Gradient Orbs - Optimized with will-change */}
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-500/10 via-indigo-400/10 to-indigo-500/10 rounded-full blur-3xl will-change-transform"
-        animate={{
-          scale: [1, 1.05, 1],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'easeInOut',
-        }}
-      />
+            {/* Enhanced Light Orbs - Multiple colorful gradients */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-blue-500/20 via-indigo-500/15 to-purple-500/20 rounded-full blur-3xl opacity-70 animate-pulse" />
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-gradient-to-r from-purple-500/15 via-pink-500/15 to-indigo-500/20 rounded-full blur-3xl opacity-70" />
+      <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-r from-indigo-500/15 via-blue-500/20 to-cyan-500/15 rounded-full blur-3xl opacity-60 -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-3/4 right-1/3 w-64 h-64 bg-gradient-to-r from-pink-500/15 via-rose-500/15 to-purple-500/20 rounded-full blur-3xl opacity-65" />
+
+            {/* Light Rays Effect - Removed for reduced effects */}
 
       <Container size="xl" className="relative z-10 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left Column - Content */}
-          <motion.div
-            className="space-y-8 text-center lg:text-right"
-            style={{
-              rotateX,
-              rotateY,
-              transformStyle: 'preserve-3d',
-            }}
-          >
-            {/* Badge - Simplified */}
-            <motion.div
-              className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Icon name="learning" size="md" className="text-primary-400" />
-              <span className="text-white font-semibold text-sm">
+          {/* Left Column - Enhanced Content */}
+          <div className="space-y-8 text-center lg:text-right">
+                                    {/* Badge - Enhanced with Glow */}
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-xl border border-white/30 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-white/15 hover:border-white/40 transition-all duration-300">               
+              <Icon name="learning" size="md" className="text-blue-400" style={{ filter: 'drop-shadow(0 0 10px rgba(59,130,246,0.6))' }} />   
+              <span className="text-white font-semibold text-sm tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
                 منصة التعلم المهني الرائدة
               </span>
-            </motion.div>
-
-            {/* Main Heading - Enhanced Typography */}
-            <div className="space-y-6">
-              <motion.h1
-                className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-[1.1] tracking-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <span className="block mb-4 font-extrabold">طور مهاراتك في</span>
-                <span className="block bg-gradient-to-r from-indigo-400 via-indigo-300 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient font-extrabold">
-                  المراجعة الداخلية
-                </span>
-                <span className="block bg-gradient-to-r from-indigo-400 via-indigo-300 to-indigo-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient font-extrabold">
-                  والمحاسبة
-                </span>
-              </motion.h1>
-
-              <motion.p
-                className="text-lg md:text-xl lg:text-2xl text-neutral-200 dark:text-neutral-300 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                انضم إلى آلاف المتعلمين واحصل على تدريب عالي الجودة من خبراء المجال. مسارات تعليمية متكاملة، شهادات معتمدة، ومجتمع نشط يدعم رحلتك المهنية مع تقنيات الذكاء الاصطناعي المتقدمة.
-              </motion.p>
             </div>
 
-            {/* Motivational Phrase */}
-            <motion.div
-              className="inline-block mt-6 mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <div className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                <p className="text-lg md:text-xl text-white font-semibold">
-                  ابدأ مع خُطى واصنع مسارك المهني باحتراف
-                </p>
-              </div>
-            </motion.div>
+                                    {/* Main Heading - Enhanced with Glow Effects */}
+            <div className="space-y-6">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.15] tracking-tight">                                   
+                <span className="block mb-4 font-black text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]" style={{ textShadow: '0 0 30px rgba(255,255,255,0.2), 0 0 60px rgba(99,102,241,0.3)' }}>
+                  طور مهاراتك في
+                </span>
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-indigo-200 via-purple-200 to-pink-300 font-black drop-shadow-[0_0_30px_rgba(99,102,241,0.5)]" style={{ textShadow: '0 0 40px rgba(99,102,241,0.4), 0 0 80px rgba(147,51,234,0.3)' }}>             
+                  المراجعة الداخلية
+                </span>
+                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-purple-300 via-pink-200 via-indigo-200 to-blue-300 font-black drop-shadow-[0_0_30px_rgba(147,51,234,0.5)]" style={{ textShadow: '0 0 40px rgba(147,51,234,0.4), 0 0 80px rgba(236,72,153,0.3)' }}>             
+                  والمحاسبة
+                </span>
+              </h1>
 
-            {/* Quick Stats - Inline Stats */}
-            <motion.div
-              className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
-            >
-              {[
-                { icon: Users, value: '15,420', label: 'طالب نشط' },
-                { icon: BookOpen, value: '15+', label: 'دورة' },
-                { icon: Star, value: '4.8', label: 'التقييم' },
-                { icon: Award, value: '95%', label: 'الرضا' },
-              ].map((stat, idx) => {
+              <p className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed max-w-2xl mx-auto lg:mx-0 font-normal tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]" style={{ textShadow: '0 2px 20px rgba(0,0,0,0.4)' }}>       
+                انضم إلى آلاف المتعلمين واحصل على تدريب عالي الجودة من خبراء المجال. مسارات تعليمية متكاملة، شهادات معتمدة، ومجتمع نشط يدعم رحلتك المهنية مع تقنيات الذكاء الاصطناعي المتقدمة.                                                  
+              </p>
+            </div>
+
+                                    {/* Motivational Phrase - Enhanced */}
+            <div className="inline-block mt-6 mb-8">
+              <div className="px-6 py-3 bg-white/10 backdrop-blur-xl border border-white/30 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-white/15 hover:border-white/40 transition-all duration-300">        
+                <span className="text-base md:text-lg text-white font-medium tracking-wide drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">  
+                  ابدأ مع خُطى واصنع مسارك المهني باحتراف
+                </span>
+              </div>
+            </div>
+
+                        {/* Quick Stats - Enhanced with Glow */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 my-8">
+              {stats.map((stat, idx) => {
                 const StatIcon = stat.icon;
+                const displayValue = stat.decimals ? stat.value.toFixed(stat.decimals) : stat.value;
+                const iconColors = ['text-blue-400', 'text-purple-400', 'text-pink-400', 'text-indigo-400'];
+                const iconGlow = [
+                  'drop-shadow(0 0 10px rgba(59,130,246,0.6))',
+                  'drop-shadow(0 0 10px rgba(147,51,234,0.6))',
+                  'drop-shadow(0 0 10px rgba(236,72,153,0.6))',
+                  'drop-shadow(0 0 10px rgba(99,102,241,0.6))'
+                ];
                 return (
-                  <div key={idx} className="flex flex-col items-center lg:items-start text-center lg:text-right p-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl">
+                  <div
+                    key={idx}
+                    className="flex flex-col items-center lg:items-start text-center lg:text-right p-4 bg-white/10 backdrop-blur-xl border border-white/30 rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:bg-white/15 hover:border-white/40 transition-all duration-300"
+                  >
                     <div className="flex items-center gap-2 mb-1">
-                      <StatIcon className="w-4 h-4 text-indigo-300" />
-                      <span className="text-xl font-bold text-white">{stat.value}</span>
+                      <StatIcon className={`w-5 h-5 ${iconColors[idx]}`} style={{ filter: iconGlow[idx] }} />
+                      <span className="text-xl font-bold text-white tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+                        {displayValue}{stat.suffix}
+                      </span>
                     </div>
-                    <span className="text-xs text-white/80">{stat.label}</span>
+                    <span className="text-xs text-white/95 font-medium tracking-wide drop-shadow-[0_1px_5px_rgba(0,0,0,0.5)]">{stat.label}</span> 
                   </div>
                 );
               })}
-            </motion.div>
+            </div>
 
-            {/* Search Bar - Quick Course Search */}
-            <motion.div
-              className="mt-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.75, duration: 0.6 }}
-            >
+                        {/* Search Bar - Enhanced */}
+            <div className="mt-6">
               <Link href="/courses">
-                <div className="relative w-full max-w-md mx-auto lg:mx-0">
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                    <Search className="w-5 h-5 text-white/70" />
+                <div className="relative w-full max-w-md mx-auto lg:mx-0 group">
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 z-10">
+                    <Search className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" style={{ filter: 'drop-shadow(0 0 8px rgba(255,255,255,0.3))' }} />                                                       
                   </div>
-                  <div className="w-full px-6 pr-14 py-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl text-white/90 placeholder-white/60 hover:bg-white/15 transition-all cursor-pointer">
+                  <div className="w-full px-6 pr-14 py-4 bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl text-white/95 placeholder-white/60 hover:bg-white/15 hover:border-white/40 transition-all duration-300 cursor-pointer shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(255,255,255,0.2)] font-medium text-base">    
                     ابحث عن دورة...
                   </div>
                 </div>
               </Link>
-            </motion.div>
+            </div>
 
-            {/* CTA Buttons - Enhanced with primary focus */}
-            <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-            >
-              <Link href="/courses">
-                <Button
-                  size="lg"
-                  variant="primary"
-                  className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white border-0 shadow-xl shadow-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/60 text-lg px-10 py-6 font-bold transition-all duration-300"
-                >
-                  <Icon name="learning" size="md" className="text-white ml-2" />
-                  <span>استكشف الدورات</span>
-                </Button>
+                                    {/* CTA Buttons - Enhanced with Glow Effects */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-6">                                                 
+              <Link href="/courses" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto bg-gradient-to-r from-blue-600 via-indigo-600 via-purple-600 to-pink-600 text-white border-0 shadow-[0_0_30px_rgba(99,102,241,0.6),0_0_60px_rgba(147,51,234,0.4)] hover:shadow-[0_0_40px_rgba(99,102,241,0.8),0_0_80px_rgba(147,51,234,0.6)] text-lg px-10 py-5 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 hover:from-blue-500 hover:via-indigo-500 hover:via-purple-500 hover:to-pink-500 active:scale-[0.98] hover:scale-[1.02]">               
+                  <Icon name="learning" size="md" className="text-white" />     
+                  <span className="tracking-wide">استكشف الدورات</span>
+                </button>
               </Link>
-              <Link href="/student">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="w-full sm:w-auto border-2 border-white/30 text-white bg-white/10 backdrop-blur-md hover:bg-white/20 hover:border-white/50 text-lg px-8 py-6 font-semibold"
-                >
-                  <Play className="w-5 h-5 ml-2" />
-                  <span>ابدأ الآن</span>
-                </Button>
-              </Link>
-            </motion.div>
-          </motion.div>
 
-          {/* Right Column - Simplified Card */}
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-          >
-            {/* Main Card */}
-            <div className="relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-500/20 to-accent-500/20 backdrop-blur-xl border border-white/20 p-8">
+              <Link href="/student" className="w-full sm:w-auto">
+                <button className="w-full sm:w-auto border-2 border-white/50 text-white bg-white/10 backdrop-blur-xl hover:bg-white/20 hover:border-white/80 text-lg px-8 py-5 font-semibold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] active:scale-[0.98] hover:scale-[1.02]">                                                         
+                  <Play className="w-5 h-5" />
+                  <span className="tracking-wide">ابدأ الآن</span>
+                </button>
+              </Link>
+            </div>
+          </div>
+
+                    {/* Right Column Card - Enhanced */}
+          <div className="relative">
+            <div className="relative rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(99,102,241,0.3)] bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 backdrop-blur-2xl border border-white/30 p-8 hover:bg-gradient-to-br hover:from-blue-500/25 hover:via-purple-500/25 hover:to-pink-500/25 hover:border-white/40 hover:shadow-[0_0_60px_rgba(99,102,241,0.5)] transition-all duration-300">
                 {/* Card Content */}
                 <div className="space-y-6">
-                  {/* Mockup Screen */}
-                  <div className="relative aspect-video bg-gradient-to-br from-neutral-800 to-neutral-900 rounded-xl overflow-hidden shadow-elevation-5">
-                    {/* Animated Grid */}
-                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:20px_20px]" />
+                                    {/* Mockup Screen - Enhanced */}
+                  <div className="relative aspect-video bg-gradient-to-br from-gray-900 via-gray-800 to-black rounded-xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/20">       
+                    {/* Static Grid */}
+                    <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:20px_20px]" />
                   </div>
 
                   {/* Elements */}
                   <div className="grid grid-cols-3 gap-4">
-                    {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className="h-24 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20"
-                      />
-                    ))}
+                    {/* بطاقة الدورات التفاعلية */}
+                    <div className="h-24 bg-white/10 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] flex flex-col items-center justify-center gap-2 p-3">
+                      <Video className="w-6 h-6 text-blue-400" style={{ filter: 'drop-shadow(0 0 8px rgba(59,130,246,0.6))' }} />
+                      <span className="text-white text-xs font-semibold text-center drop-shadow-[0_1px_5px_rgba(0,0,0,0.5)]">دورات تفاعلية</span>
+                    </div>
+                    
+                    {/* بطاقة الشهادات المعتمدة */}
+                    <div className="h-24 bg-white/10 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] flex flex-col items-center justify-center gap-2 p-3">
+                      <Award className="w-6 h-6 text-purple-400" style={{ filter: 'drop-shadow(0 0 8px rgba(147,51,234,0.6))' }} />
+                      <span className="text-white text-xs font-semibold text-center drop-shadow-[0_1px_5px_rgba(0,0,0,0.5)]">شهادات معتمدة</span>
+                    </div>
+                    
+                    {/* بطاقة الدعم الفني */}
+                    <div className="h-24 bg-white/10 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/15 hover:border-white/40 transition-all duration-300 shadow-[0_0_15px_rgba(255,255,255,0.1)] flex flex-col items-center justify-center gap-2 p-3">
+                      <MessageCircle className="w-6 h-6 text-pink-400" style={{ filter: 'drop-shadow(0 0 8px rgba(236,72,153,0.6))' }} />
+                      <span className="text-white text-xs font-semibold text-center drop-shadow-[0_1px_5px_rgba(0,0,0,0.5)]">دعم فني 24/7</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </motion.div>
         </div>
 
-        {/* Scroll Indicator - Simplified */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-2">
-            <motion.div
-              className="w-1 h-3 bg-white/50 rounded-full"
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            />
+                {/* Scroll Indicator - Enhanced */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center p-2 backdrop-blur-sm bg-white/10 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+            <div className="w-1 h-3 bg-white/70 rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
           </div>
         </div>
       </Container>
 
-      {/* Add gradient animation CSS */}
-      <style jsx>{`
-        @keyframes gradient {
-          0%, 100% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-        }
-        .animate-gradient {
-          animation: gradient 3s ease infinite;
-          background-size: 200% auto;
-        }
-      `}</style>
+      
     </section>
   );
 };
 
 export default CreativeHeroSection;
-

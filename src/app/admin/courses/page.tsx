@@ -5,7 +5,7 @@
  * تتيح للمدير إدارة جميع الدورات في المنصة
  */
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plus,
@@ -100,11 +100,13 @@ const AdminCoursesPage = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
   const [showAddCourseModal, setShowAddCourseModal] = useState(false);
+  const [showEditCourseModal, setShowEditCourseModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [showCourseDetails, setShowCourseDetails] = useState(false);
   const [showFileManager, setShowFileManager] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // بيانات تجريبية للدورات
+  // بيانات الدورات - يتم تحميلها من API
   const [courses, setCourses] = useState<Course[]>([
     {
       id: '1',
@@ -209,6 +211,34 @@ const AdminCoursesPage = () => {
     }
   ]);
 
+  // تحميل الدورات من API
+  useEffect(() => {
+    loadCourses();
+  }, [statusFilter, typeFilter, searchTerm]);
+
+  const loadCourses = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('search', searchTerm);
+      if (statusFilter !== 'all') params.append('status', statusFilter);
+      if (typeFilter !== 'all') params.append('type', typeFilter);
+
+      const response = await fetch(`/api/admin/courses?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setCourses(result.courses || []);
+      } else {
+        console.error('Error loading courses:', result.error);
+      }
+    } catch (error) {
+      console.error('Error loading courses:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const filteredCourses = useMemo(() => {
     return courses.filter(course => {
       const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -269,32 +299,141 @@ const AdminCoursesPage = () => {
     }
   };
 
-  const handleLockCourse = (courseId: string, lock: boolean) => {
-    setCourses(courses.map(c => c.id === courseId ? { ...c, isLocked: lock } : c));
-  };
+  const handleLockCourse = async (courseId: string, lock: boolean) => {
+    try {
+      const response = await fetch(`/api/admin/courses/${courseId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isLocked: lock }),
+      });
 
-  const handleDeleteCourse = (courseId: string) => {
-    if (confirm('هل أنت متأكد من حذف هذه الدورة؟ سيتم حذف جميع الملفات والمحتوى المرتبط بها.')) {
-      setCourses(courses.filter(c => c.id !== courseId));
+      const result = await response.json();
+      if (result.success) {
+        setCourses(courses.map(c => c.id === courseId ? { ...c, isLocked: lock } : c));
+        alert(lock ? 'تم قفل الدورة بنجاح' : 'تم فتح الدورة بنجاح');
+      } else {
+        alert(result.error || 'فشل تحديث حالة الدورة');
+      }
+    } catch (error) {
+      console.error('Error updating course lock:', error);
+      alert('حدث خطأ أثناء تحديث حالة الدورة');
     }
   };
 
-  const handleDuplicateCourse = (course: Course) => {
-    const newCourse: Course = {
-      ...course,
-      id: Date.now().toString(),
+  const handleDeleteCourse = async (courseId: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذه الدورة؟ سيتم حذف جميع الملفات والمحتوى المرتبط بها.')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/courses/${courseId}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setCourses(courses.filter(c => c.id !== courseId));
+        if (selectedCourse?.id === courseId) {
+          setSelectedCourse(null);
+          setShowCourseDetails(false);
+        }
+        alert('تم حذف الدورة بنجاح');
+      } else {
+        alert(result.error || 'فشل حذف الدورة');
+      }
+    } catch (error) {
+      console.error('Error deleting course:', error);
+      alert('حدث خطأ أثناء حذف الدورة');
+    }
+  };
+
+  const handleAddCourse = async (courseData: Partial<Course> & { imageFile?: File }) => {
+    try {
+      const formData = new FormData();
+      formData.append('title', courseData.title || '');
+      formData.append('description', courseData.description || '');
+      formData.append('instructor', courseData.instructor || '');
+      formData.append('type', courseData.type || 'short');
+      if (courseData.startDate) formData.append('startDate', courseData.startDate);
+      if (courseData.endDate) formData.append('endDate', courseData.endDate);
+      if (courseData.imageFile) {
+        formData.append('image', courseData.imageFile);
+      } else if (courseData.image) {
+        formData.append('imageUrl', courseData.image);
+      }
+
+      const response = await fetch('/api/admin/courses', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setCourses([result.course, ...courses]);
+        setShowAddCourseModal(false);
+        alert('تم إضافة الدورة بنجاح');
+        loadCourses(); // إعادة تحميل الدورات
+      } else {
+        alert(result.error || 'فشل إضافة الدورة');
+      }
+    } catch (error) {
+      console.error('Error adding course:', error);
+      alert('حدث خطأ أثناء إضافة الدورة');
+    }
+  };
+
+  const handleEditCourse = async (courseId: string, courseData: Partial<Course> & { imageFile?: File }) => {
+    try {
+      const formData = new FormData();
+      if (courseData.title) formData.append('title', courseData.title);
+      if (courseData.description) formData.append('description', courseData.description);
+      if (courseData.instructor) formData.append('instructor', courseData.instructor);
+      if (courseData.type) formData.append('type', courseData.type);
+      if (courseData.startDate) formData.append('startDate', courseData.startDate);
+      if (courseData.endDate) formData.append('endDate', courseData.endDate);
+      if (courseData.imageFile) {
+        formData.append('image', courseData.imageFile);
+      } else if (courseData.image) {
+        formData.append('imageUrl', courseData.image);
+      }
+
+      const response = await fetch(`/api/admin/courses/${courseId}`, {
+        method: 'PUT',
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setCourses(courses.map(c => c.id === courseId ? { ...c, ...courseData } : c));
+        if (selectedCourse?.id === courseId) {
+          setSelectedCourse({ ...selectedCourse, ...courseData });
+        }
+        alert('تم تحديث الدورة بنجاح');
+        loadCourses(); // إعادة تحميل الدورات
+      } else {
+        alert(result.error || 'فشل تحديث الدورة');
+      }
+    } catch (error) {
+      console.error('Error updating course:', error);
+      alert('حدث خطأ أثناء تحديث الدورة');
+    }
+  };
+
+  const handleDuplicateCourse = async (course: Course) => {
+    const courseData = {
       title: `${course.title} (نسخة)`,
-      status: 'review',
-      enrolledStudents: 0,
-      completedStudents: 0,
-      createdAt: new Date().toISOString().split('T')[0],
-      lastModified: new Date().toISOString().split('T')[0],
+      description: course.description,
+      instructor: course.instructor,
+      type: course.type,
+      image: course.image,
+      startDate: course.startDate,
+      endDate: course.endDate,
     };
-    setCourses([...courses, newCourse]);
+    await handleAddCourse(courseData);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
         <motion.div
@@ -302,16 +441,30 @@ const AdminCoursesPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-purple-100 px-6 py-3 rounded-full mb-6">
-            <BookOpen className="w-6 h-6 text-purple-600" />
-            <span className="text-purple-700 font-bold">إدارة الدورات والمحتوى</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-purple-200/50 dark:border-purple-700/50"
+          >
+            <BookOpen className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            <span className="text-purple-700 dark:text-purple-300 font-bold">إدارة الدورات والمحتوى</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-gray-900 via-purple-900 to-indigo-900 dark:from-white dark:via-purple-100 dark:to-indigo-100 bg-clip-text text-transparent mb-4"
+          >
             نظام إدارة الدورات الشامل
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
             إدارة شاملة للدورات والمحتوى والملفات مع جميع أدوات التحكم
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* الإحصائيات */}
@@ -655,14 +808,18 @@ const AdminCoursesPage = () => {
                     نسخ
                   </motion.button>
 
-                  <motion.button
-                    className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-1"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Edit className="w-4 h-4" />
-                    تعديل
-                  </motion.button>
+                                      <motion.button
+                      className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-1"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        setSelectedCourse(course);
+                        setShowEditCourseModal(true);
+                      }}
+                    >
+                      <Edit className="w-4 h-4" />
+                      تعديل
+                    </motion.button>
                 </div>
 
                 {/* أزرار إضافية */}
@@ -815,12 +972,15 @@ const AdminCoursesPage = () => {
 
                   <div className="flex gap-3">
                     <motion.button
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      تعديل الدورة
-                    </motion.button>
+                                              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                          setShowEditCourseModal(true);
+                        }}
+                      >
+                        تعديل الدورة
+                      </motion.button>
                     <motion.button
                       className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
                       whileHover={{ scale: 1.05 }}
@@ -842,10 +1002,537 @@ const AdminCoursesPage = () => {
               </motion.div>
             </motion.div>
           )}
+
+          {/* نافذة إضافة/تعديل دورة */}
+          <AnimatePresence>
+            {showAddCourseModal && (
+              <AddCourseModal
+                onClose={() => setShowAddCourseModal(false)}
+                onSave={handleAddCourse}
+              />
+            )}
+            {showEditCourseModal && selectedCourse && (
+              <EditCourseModal
+                course={selectedCourse}
+                onClose={() => {
+                  setShowEditCourseModal(false);
+                  setSelectedCourse(null);
+                }}
+                onSave={handleEditCourse}
+              />
+            )}
+          </AnimatePresence>
         </AnimatePresence>
       </div>
     </div>
   );
 };
+
+// نموذج إضافة دورة جديدة
+function AddCourseModal({ 
+  onClose, 
+  onSave 
+}: { 
+  onClose: () => void; 
+  onSave: (data: Partial<Course> & { imageFile?: File }) => void;
+}) {
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    instructor: '',
+    type: 'short' as 'short' | 'long',
+    startDate: '',
+    endDate: '',
+    image: '',
+  });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.title.trim()) {
+      newErrors.title = 'عنوان الدورة مطلوب';
+    }
+    
+    if (!formData.description.trim()) {
+      newErrors.description = 'وصف الدورة مطلوب';
+    } else if (formData.description.trim().length < 50) {
+      newErrors.description = 'الوصف يجب أن يكون 50 حرفاً على الأقل';
+    }
+    
+    if (!formData.instructor.trim()) {
+      newErrors.instructor = 'اسم المعلم مطلوب';
+    }
+    
+    if (formData.type === 'long' && !formData.endDate) {
+      newErrors.endDate = 'تاريخ الانتهاء مطلوب للدورات الطويلة';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB
+        setErrors({ ...errors, image: 'حجم الصورة يجب أن يكون أقل من 5MB' });
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        setErrors({ ...errors, image: 'يجب أن يكون الملف صورة' });
+        return;
+      }
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      if (errors.image) setErrors({ ...errors, image: '' });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    
+    setLoading(true);
+    try {
+      await onSave({
+        ...formData,
+        imageFile: imageFile || undefined,
+        image: imagePreview || formData.image,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-900">إضافة دورة جديدة</h3>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-gray-100 rounded-lg"
+            >
+              <XCircle className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">عنوان الدورة *</label>
+            <input
+              type="text"
+              required
+              value={formData.title}
+              onChange={(e) => {
+                setFormData({ ...formData, title: e.target.value });
+                if (errors.title) setErrors({ ...errors, title: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.title ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="مثال: دورة المراجعة الداخلية المستوى الأول"
+            />
+            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">وصف الدورة *</label>
+            <textarea
+              required
+              rows={4}
+              value={formData.description}
+              onChange={(e) => {
+                setFormData({ ...formData, description: e.target.value });
+                if (errors.description) setErrors({ ...errors, description: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.description ? 'border-red-500' : 'border-gray-300'
+              }`}
+              placeholder="وصف شامل للدورة..."
+            />
+            {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">اسم المعلم *</label>
+              <input
+                type="text"
+                required
+                value={formData.instructor}
+                onChange={(e) => {
+                  setFormData({ ...formData, instructor: e.target.value });
+                  if (errors.instructor) setErrors({ ...errors, instructor: '' });
+                }}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.instructor ? 'border-red-500' : 'border-gray-300'
+                }`}
+                placeholder="مثال: د. أحمد محمد"
+              />
+              {errors.instructor && <p className="text-red-500 text-sm mt-1">{errors.instructor}</p>}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">نوع الدورة *</label>
+              <select
+                value={formData.type}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value as 'short' | 'long' })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="short">قصيرة المدى</option>
+                <option value="long">طويلة المدى</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">تاريخ البداية</label>
+              <input
+                type="date"
+                value={formData.startDate}
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">تاريخ الانتهاء {formData.type === 'long' && '*'}</label>
+              <input
+                type="date"
+                required={formData.type === 'long'}
+                value={formData.endDate}
+                onChange={(e) => {
+                  setFormData({ ...formData, endDate: e.target.value });
+                  if (errors.endDate) setErrors({ ...errors, endDate: '' });
+                }}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.endDate ? 'border-red-500' : 'border-gray-300'
+                }`}
+                min={formData.startDate}
+              />
+              {errors.endDate && <p className="text-red-500 text-sm mt-1">{errors.endDate}</p>}
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">صورة الدورة</label>
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+                id="course-image-upload"
+              />
+              <label
+                htmlFor="course-image-upload"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 text-center"
+              >
+                {imageFile ? 'تغيير الصورة' : 'اختر صورة'}
+              </label>
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+              )}
+            </div>
+            {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              إلغاء
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            >
+              {loading ? 'جاري الإضافة...' : 'إضافة الدورة'}
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// نموذج تعديل دورة
+function EditCourseModal({ 
+  course, 
+  onClose, 
+  onSave 
+}: { 
+  course: Course; 
+  onClose: () => void; 
+  onSave: (courseId: string, data: Partial<Course> & { imageFile?: File }) => void;
+}) {
+  const [formData, setFormData] = useState({
+    title: course.title,
+    description: course.description,
+    instructor: course.instructor,
+    type: course.type,
+    startDate: course.startDate,
+    endDate: course.endDate,
+    image: course.image,
+  });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string>(course.image);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validate = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.title.trim()) {
+      newErrors.title = 'عنوان الدورة مطلوب';
+    }
+    
+    if (!formData.description.trim()) {
+      newErrors.description = 'وصف الدورة مطلوب';
+    } else if (formData.description.trim().length < 50) {
+      newErrors.description = 'الوصف يجب أن يكون 50 حرفاً على الأقل';
+    }
+    
+    if (!formData.instructor.trim()) {
+      newErrors.instructor = 'اسم المعلم مطلوب';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors({ ...errors, image: 'حجم الصورة يجب أن يكون أقل من 5MB' });
+        return;
+      }
+      if (!file.type.startsWith('image/')) {
+        setErrors({ ...errors, image: 'يجب أن يكون الملف صورة' });
+        return;
+      }
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+      if (errors.image) setErrors({ ...errors, image: '' });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    
+    setLoading(true);
+    try {
+      await onSave(course.id, {
+        ...formData,
+        imageFile: imageFile || undefined,
+        image: imagePreview,
+      });
+      onClose();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <h3 className="text-2xl font-bold text-gray-900">تعديل دورة</h3>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-gray-100 rounded-lg"
+            >
+              <XCircle className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">عنوان الدورة *</label>
+            <input
+              type="text"
+              required
+              value={formData.title}
+              onChange={(e) => {
+                setFormData({ ...formData, title: e.target.value });
+                if (errors.title) setErrors({ ...errors, title: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.title ? 'border-red-500' : 'border-gray-300'
+              }`}
+            />
+            {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">وصف الدورة *</label>
+            <textarea
+              required
+              rows={4}
+              value={formData.description}
+              onChange={(e) => {
+                setFormData({ ...formData, description: e.target.value });
+                if (errors.description) setErrors({ ...errors, description: '' });
+              }}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                errors.description ? 'border-red-500' : 'border-gray-300'
+              }`}
+            />
+            {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">اسم المعلم *</label>
+              <input
+                type="text"
+                required
+                value={formData.instructor}
+                onChange={(e) => {
+                  setFormData({ ...formData, instructor: e.target.value });
+                  if (errors.instructor) setErrors({ ...errors, instructor: '' });
+                }}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                  errors.instructor ? 'border-red-500' : 'border-gray-300'
+                }`}
+              />
+              {errors.instructor && <p className="text-red-500 text-sm mt-1">{errors.instructor}</p>}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">نوع الدورة *</label>
+              <select
+                value={formData.type}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value as 'short' | 'long' })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              >
+                <option value="short">قصيرة المدى</option>
+                <option value="long">طويلة المدى</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">تاريخ البداية</label>
+              <input
+                type="date"
+                value={formData.startDate}
+                onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">تاريخ الانتهاء</label>
+              <input
+                type="date"
+                value={formData.endDate}
+                onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                min={formData.startDate}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">صورة الدورة</label>
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+                id="edit-course-image-upload"
+              />
+              <label
+                htmlFor="edit-course-image-upload"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 text-center"
+              >
+                {imageFile ? 'تغيير الصورة' : 'اختر صورة جديدة'}
+              </label>
+              {imagePreview && (
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+              )}
+            </div>
+            {errors.image && <p className="text-red-500 text-sm mt-1">{errors.image}</p>}
+          </div>
+
+          <div className="flex gap-3 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+            >
+              إلغاء
+            </button>
+            <button
+              type="submit"
+              disabled={loading}
+              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50"
+            >
+              {loading ? 'جاري الحفظ...' : 'حفظ التغييرات'}
+            </button>
+          </div>
+        </form>
+      </motion.div>
+    </motion.div>
+  );
+}
 
 export default AdminCoursesPage;

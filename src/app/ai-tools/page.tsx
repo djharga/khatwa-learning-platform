@@ -23,7 +23,10 @@ export default function AIToolsHubPage() {
             ].map((t) => (
               <button
                 key={t.id}
-                onClick={() => setTab(t.id as any)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setTab(t.id as 'advanced' | 'recommendations');
+                }}
                 className={`px-5 py-3 rounded-xl font-semibold transition-all ${
                   tab === t.id
                     ? 'bg-gradient-to-r from-gray-900 to-gray-700 text-white shadow'

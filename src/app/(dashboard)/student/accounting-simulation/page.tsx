@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 import Input from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
@@ -86,34 +86,42 @@ const AccountingSimulation = () => {
             <CardTitle className="text-lg">أدوات المحاسب</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <Button
-              variant={currentStep === 1 ? "primary" : "outline"}
-              className="w-full justify-start"
+            <StyledButton
+              variant={currentStep === 1 ? "primary" : "secondary"}
+              size="medium"
+              fullWidth
               onClick={() => setCurrentStep(1)}
+              className="justify-start"
             >
               تحليل القوائم المالية
-            </Button>
-            <Button
-              variant={currentStep === 2 ? "primary" : "outline"}
-              className="w-full justify-start"
+            </StyledButton>
+            <StyledButton
+              variant={currentStep === 2 ? "primary" : "secondary"}
+              size="medium"
+              fullWidth
               onClick={() => setCurrentStep(2)}
+              className="justify-start"
             >
               اكتشاف الأخطاء
-            </Button>
-            <Button
-              variant={currentStep === 3 ? "primary" : "outline"}
-              className="w-full justify-start"
+            </StyledButton>
+            <StyledButton
+              variant={currentStep === 3 ? "primary" : "secondary"}
+              size="medium"
+              fullWidth
               onClick={() => setCurrentStep(3)}
+              className="justify-start"
             >
               تطبيق IFRS/GAAP
-            </Button>
-            <Button
-              variant={currentStep === 4 ? "primary" : "outline"}
-              className="w-full justify-start"
+            </StyledButton>
+            <StyledButton
+              variant={currentStep === 4 ? "primary" : "secondary"}
+              size="medium"
+              fullWidth
               onClick={() => setCurrentStep(4)}
+              className="justify-start"
             >
               تقارير وتوصيات
-            </Button>
+            </StyledButton>
           </CardContent>
         </Card>
 
@@ -244,13 +252,13 @@ const AccountingSimulation = () => {
                       <p className="font-semibold">{error.description}</p>
                       <Badge variant="destructive" className="mt-1">{error.severity}</Badge>
                     </div>
-                    <Button
-                      size="sm"
-                      variant="outline"
+                    <StyledButton
+                      size="small"
+                      variant="secondary"
                       onClick={() => handleErrorCorrection(error.type)}
                     >
                       تصحيح
-                    </Button>
+                    </StyledButton>
                   </div>
                 ))}
               </CardContent>
@@ -260,19 +268,19 @@ const AccountingSimulation = () => {
           {/* أزرار التحكم */}
           <div className="flex justify-center gap-4">
             {currentStep === 1 && (
-              <Button onClick={handleAnalysis} size="lg" className="px-8">
+              <StyledButton onClick={handleAnalysis} size="large" variant="primary" className="px-8">
                 بدء التحليل
-              </Button>
+              </StyledButton>
             )}
             {currentStep === 2 && (
-              <Button onClick={() => setCurrentStep(3)} size="lg" className="px-8">
+              <StyledButton onClick={() => setCurrentStep(3)} size="large" variant="primary" className="px-8">
                 تطبيق المعايير
-              </Button>
+              </StyledButton>
             )}
             {currentStep === 3 && (
-              <Button onClick={() => setCurrentStep(4)} size="lg" className="px-8">
+              <StyledButton onClick={() => setCurrentStep(4)} size="large" variant="primary" className="px-8">
                 إنشاء التقرير
-              </Button>
+              </StyledButton>
             )}
           </div>
         </div>

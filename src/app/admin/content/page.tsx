@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload,
@@ -78,8 +78,9 @@ const AdminContentPage = () => {
   const [showFileDetails, setShowFileDetails] = useState(false);
   const [selectedFile, setSelectedFile] = useState<ContentFile | null>(null);
   const [currentFolder, setCurrentFolder] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  // بيانات تجريبية للملفات
+  // بيانات الملفات - يتم تحميلها من API
   const [files, setFiles] = useState<ContentFile[]>([
     {
       id: '1',
@@ -152,6 +153,53 @@ const AdminContentPage = () => {
     }
   ]);
 
+  // تحميل الملفات من API
+  useEffect(() => {
+    loadFiles();
+  }, [typeFilter, courseFilter, searchTerm]);
+
+  const loadFiles = async () => {
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (searchTerm) params.append('search', searchTerm);
+      if (typeFilter !== 'all') params.append('type', typeFilter);
+      if (courseFilter !== 'all') params.append('courseId', courseFilter);
+
+      const response = await fetch(`/api/admin/content?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        // تحويل البيانات من API إلى شكل ContentFile
+        const mappedFiles = result.files.map((f: any) => ({
+          id: f.id,
+          name: f.name,
+          type: f.type === 'video' ? 'video' : 
+                f.type === 'pdf' ? 'pdf' :
+                f.type === 'excel' ? 'excel' :
+                f.type === 'word' ? 'word' : 'other',
+          size: Math.round(f.size / 1024), // تحويل من bytes إلى KB
+          uploadedAt: f.uploadedAt ? f.uploadedAt.split('T')[0] : new Date().toISOString().split('T')[0],
+          uploadedBy: f.uploadedBy || 'غير معروف',
+          courseId: f.courseId,
+          tags: [],
+          downloads: f.downloads || 0,
+          views: 0,
+          isPublic: true,
+          version: 1,
+          lastModified: f.lastModified ? f.lastModified.split('T')[0] : new Date().toISOString().split('T')[0],
+        }));
+        setFiles(mappedFiles || []);
+      } else {
+        console.error('Error loading files:', result.error);
+      }
+    } catch (error) {
+      console.error('Error loading files:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const filteredFiles = useMemo(() => {
     return files.filter(file => {
       const matchesSearch = file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -217,16 +265,57 @@ const AdminContentPage = () => {
     );
   };
 
-  const handleDeleteFile = (fileId: string) => {
-    if (confirm('هل أنت متأكد من حذف هذا الملف؟')) {
-      setFiles(files.filter(f => f.id !== fileId));
+    const handleDeleteFile = async (fileId: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذا الملف؟')) return;
+
+    try {
+      const response = await fetch(`/api/admin/content/${fileId}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setFiles(files.filter(f => f.id !== fileId));
+        if (selectedFile?.id === fileId) {
+          setSelectedFile(null);
+          setShowFileDetails(false);
+        }
+        alert('تم حذف الملف بنجاح');
+        loadFiles(); // إعادة تحميل الملفات
+      } else {
+        alert(result.error || 'فشل حذف الملف');
+      }
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      alert('حدث خطأ أثناء حذف الملف');
     }
   };
 
-  const handleBulkDelete = () => {
-    if (confirm(`هل أنت متأكد من حذف ${selectedFiles.length} ملف؟`)) {
-      setFiles(files.filter(f => !selectedFiles.includes(f.id)));
-      setSelectedFiles([]);
+  const handleBulkDelete = async () => {
+    if (!confirm(`هل أنت متأكد من حذف ${selectedFiles.length} ملف؟`)) return;
+
+    try {
+      // حذف جميع الملفات المحددة
+      const deletePromises = selectedFiles.map(fileId =>
+        fetch(`/api/admin/content/${fileId}`, { method: 'DELETE' })
+      );
+      
+      const results = await Promise.all(deletePromises);
+      const jsonResults = await Promise.all(results.map(res => res.json()));
+      const allSuccess = jsonResults.every(data => data.success);
+
+      if (allSuccess) {
+        setFiles(files.filter(f => !selectedFiles.includes(f.id)));
+        setSelectedFiles([]);
+        alert(`تم حذف ${selectedFiles.length} ملف بنجاح`);
+        loadFiles(); // إعادة تحميل الملفات
+      } else {
+        alert('حدث خطأ أثناء حذف بعض الملفات');
+        loadFiles(); // إعادة تحميل للتأكد من الحالة الصحيحة
+      }
+    } catch (error) {
+      console.error('Error bulk deleting files:', error);
+      alert('حدث خطأ أثناء حذف الملفات');
     }
   };
 
@@ -236,7 +325,7 @@ const AdminContentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
         <motion.div
@@ -244,16 +333,30 @@ const AdminContentPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-green-100 px-6 py-3 rounded-full mb-6">
-            <Upload className="w-6 h-6 text-green-600" />
-            <span className="text-green-700 font-bold">إدارة المحتوى والملفات</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-green-200/50 dark:border-green-700/50"
+          >
+            <Upload className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <span className="text-green-700 dark:text-green-300 font-bold">إدارة المحتوى والملفات</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-gray-900 via-green-900 to-emerald-900 dark:from-white dark:via-green-100 dark:to-emerald-100 bg-clip-text text-transparent mb-4"
+          >
             نظام إدارة المحتوى الشامل
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
             رفع وإدارة الملفات والفيديوهات والمحتوى التعليمي
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* الإحصائيات */}

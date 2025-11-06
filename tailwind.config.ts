@@ -167,15 +167,23 @@ export default {
         },
       },
 
-      // Typography System - من tokens.ts
+      // Typography System - نظام خطوط متطور ومتعدد الطبقات
       fontFamily: {
-        // Arabic Fonts - Cairo للعناوين، Tajawal للنصوص
-        sans: ['var(--font-cairo)', 'Cairo', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-cairo)', 'Cairo', 'system-ui', 'sans-serif'],
-        body: ['var(--font-tajawal)', 'Tajawal', 'system-ui', 'sans-serif'],
+        // Primary Arabic Fonts - الخطوط الأساسية
+        sans: ['var(--font-cairo)', 'Cairo', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['var(--font-cairo)', 'Cairo', 'system-ui', '-apple-system', 'sans-serif'],
+        body: ['var(--font-tajawal)', 'Tajawal', 'Azer', 'system-ui', '-apple-system', 'sans-serif'],
+        
+        // Specialized Fonts - خطوط متخصصة
+        display: ['var(--font-cairo)', 'Cairo', 'system-ui', 'sans-serif'],
+        technical: ['var(--font-ibm-plex)', 'IBM Plex Sans Arabic', 'system-ui', 'sans-serif'],
+        button: ['var(--font-almarai)', 'Almarai', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
+        
+        // Generic Fonts - خطوط عامة
         arabic: ['var(--font-cairo)', 'Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
         english: ['Inter', 'Roboto', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Courier New', 'monospace'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+        
         // BRUTALIST TYPOGRAPHY: Legacy compatibility
         'brutalist-heading': ['Mabry Pro', 'Neue Haas Grotesk', 'Arial Black', 'sans-serif'],
         'brutalist-body': ['Helvetica Now', 'Inter', 'system-ui', 'sans-serif'],
@@ -276,24 +284,40 @@ export default {
       },
 
       fontSize: {
-        // Responsive Typography - من tokens.ts
-        xs: tokens.typography.fontSize.xs,
-        sm: tokens.typography.fontSize.sm,
-        base: tokens.typography.fontSize.base,
-        lg: tokens.typography.fontSize.lg,
-        xl: tokens.typography.fontSize.xl,
-        '2xl': tokens.typography.fontSize['2xl'],
-        '3xl': tokens.typography.fontSize['3xl'],
-        '4xl': tokens.typography.fontSize['4xl'],
-        '5xl': tokens.typography.fontSize['5xl'],
-        '6xl': tokens.typography.fontSize['6xl'],
-        '7xl': tokens.typography.fontSize['7xl'],
-        // Fixed sizes for specific use cases
+        // Responsive Typography - Fluid Typography with clamp() - Reduced by 15%
+        xs: 'clamp(0.531rem, 0.51rem + 0.17vw, 0.638rem)',
+        sm: 'clamp(0.638rem, 0.595rem + 0.21vw, 0.744rem)',
+        base: 'clamp(0.744rem, 0.68rem + 0.21vw, 0.85rem)',
+        lg: 'clamp(0.85rem, 0.765rem + 0.26vw, 0.956rem)',
+        xl: 'clamp(0.956rem, 0.85rem + 0.34vw, 1.169rem)',
+        '2xl': 'clamp(1.063rem, 0.978rem + 0.51vw, 1.381rem)',
+        '3xl': 'clamp(1.275rem, 1.19rem + 0.77vw, 1.7rem)',
+        '4xl': 'clamp(1.594rem, 1.403rem + 1.02vw, 2.231rem)',
+        '5xl': 'clamp(1.913rem, 1.7rem + 1.7vw, 2.869rem)',
+        '6xl': 'clamp(2.338rem, 2.125rem + 2.55vw, 3.825rem)',
+        '7xl': 'clamp(2.763rem, 2.55rem + 3.4vw, 4.675rem)',
+        
+        // Display Sizes - للعناوين الضخمة - Reduced by 15%
+        'display-sm': 'clamp(1.913rem, 1.7rem + 1.7vw, 2.869rem)',
+        'display-md': 'clamp(2.55rem, 2.125rem + 3.4vw, 4.144rem)',
+        'display-lg': 'clamp(3.188rem, 2.55rem + 5.1vw, 5.738rem)',
+        
+        // Fixed sizes for specific use cases - من tokens.ts
         'xs-fixed': tokens.typography.fontSizeFixed.xs,
         'sm-fixed': tokens.typography.fontSizeFixed.sm,
         'base-fixed': tokens.typography.fontSizeFixed.base,
       },
-      lineHeight: tokens.typography.lineHeight,
+      lineHeight: {
+        ...tokens.typography.lineHeight,
+        // Enhanced line heights for Arabic text
+        tight: '1.25',
+        snug: '1.4',
+        normal: '1.5',
+        relaxed: '1.7',
+        loose: '1.85',
+        'extra-loose': '2',
+        display: '1.15',
+      },
       fontWeight: tokens.typography.fontWeight,
       letterSpacing: tokens.typography.letterSpacing,
 

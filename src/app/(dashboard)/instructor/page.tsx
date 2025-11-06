@@ -162,7 +162,10 @@ export default function InstructorDashboard() {
               ].map((tab) => (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab(tab.id as 'overview' | 'courses' | 'students' | 'messages');
+                  }}
                   className={`flex items-center gap-2 py-4 px-2 border-b-2 font-medium text-sm transition-colors ${
                     activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'

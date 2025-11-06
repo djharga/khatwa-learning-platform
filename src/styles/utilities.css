@@ -235,57 +235,330 @@
 }
 
 /* ========================================
-   TEXT UTILITIES
+   TYPOGRAPHY UTILITIES - نظام طباعة متطور
    ======================================== */
 
-.heading-1 {
-  font-size: clamp(var(--text-3xl), 5vw, var(--text-5xl));
+/* ===== Display Headings - عناوين ضخمة للصفحات الرئيسية ===== */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: var(--font-black);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.display-lg {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: var(--font-extrabold);
+  line-height: var(--line-height-display);
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.display-md {
+  font-family: var(--font-display);
+  font-size: var(--text-display-sm);
   font-weight: var(--font-bold);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.02em;
+  line-height: 1.2;
+  letter-spacing: var(--letter-spacing-tight);
 }
 
-.heading-2 {
-  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+/* ===== Standard Headings - عناوين قياسية ===== */
+.heading-1,
+.h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
   font-weight: var(--font-bold);
-  line-height: var(--leading-tight);
-  letter-spacing: -0.01em;
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
 }
 
-.heading-3 {
-  font-size: clamp(var(--text-xl), 3vw, var(--text-3xl));
+.heading-2,
+.h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.heading-3,
+.h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
   font-weight: var(--font-semibold);
-  line-height: var(--leading-snug);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
-.heading-4 {
-  font-size: clamp(var(--text-lg), 2.5vw, var(--text-2xl));
+.heading-4,
+.h4 {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
   font-weight: var(--font-semibold);
-  line-height: var(--leading-snug);
+  line-height: var(--line-height-snug);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
-.heading-5 {
-  font-size: var(--text-base);
+.heading-5,
+.h5 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
   font-weight: var(--font-semibold);
-  line-height: var(--leading-normal);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
-.heading-6 {
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
-  line-height: var(--leading-normal);
+.heading-6,
+.h6 {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-normal);
 }
 
+/* ===== Body Text - نصوص أساسية ===== */
+.body-text-xl {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-normal);
+}
+
+.body-text-lg,
 .body-text {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-normal);
+}
+
+.body-text-base {
+  font-family: var(--font-body);
   font-size: var(--text-base);
-  line-height: var(--leading-relaxed);
+  line-height: var(--line-height-relaxed);
   font-weight: var(--font-normal);
 }
 
 .body-text-sm {
+  font-family: var(--font-body);
   font-size: var(--text-sm);
-  line-height: var(--leading-relaxed);
+  line-height: var(--line-height-relaxed);
   font-weight: var(--font-normal);
+}
+
+.body-text-xs {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-normal);
+}
+
+/* ===== Technical Text - نصوص تقنية ===== */
+.technical-text {
+  font-family: var(--font-technical);
+  font-size: var(--text-base);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-normal);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.technical-text-sm {
+  font-family: var(--font-technical);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-normal);
+  font-weight: var(--font-normal);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ===== Button Text - نصوص الأزرار ===== */
+.button-text {
+  font-family: var(--font-button);
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+  line-height: 1;
+}
+
+.button-text-lg {
+  font-family: var(--font-button);
+  font-size: var(--text-lg);
+  font-weight: var(--font-bold);
+  letter-spacing: var(--letter-spacing-wider);
+  line-height: 1;
+}
+
+.button-text-sm {
+  font-family: var(--font-button);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  line-height: 1;
+}
+
+/* ===== Specialized Text Styles - أنماط نصوص متخصصة ===== */
+.lead-text {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  font-weight: var(--font-normal);
+  line-height: var(--line-height-loose);
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.caption-text {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  line-height: var(--line-height-normal);
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-tertiary);
+}
+
+.label-text {
+  font-family: var(--font-button);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  line-height: 1;
+  letter-spacing: var(--letter-spacing-wider);
+  text-transform: uppercase;
+}
+
+.quote-text {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-medium);
+  line-height: var(--line-height-loose);
+  font-style: italic;
+}
+
+/* ===== Font Family Utilities ===== */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-technical {
+  font-family: var(--font-technical);
+}
+
+.font-button {
+  font-family: var(--font-button);
+}
+
+/* ===== Font Weight Utilities ===== */
+.font-thin {
+  font-weight: var(--font-thin);
+}
+
+.font-light {
+  font-weight: var(--font-light);
+}
+
+.font-normal {
+  font-weight: var(--font-normal);
+}
+
+.font-medium {
+  font-weight: var(--font-medium);
+}
+
+.font-semibold {
+  font-weight: var(--font-semibold);
+}
+
+.font-bold {
+  font-weight: var(--font-bold);
+}
+
+.font-extrabold {
+  font-weight: var(--font-extrabold);
+}
+
+.font-black {
+  font-weight: var(--font-black);
+}
+
+/* ===== Line Height Utilities ===== */
+.leading-none {
+  line-height: var(--line-height-none);
+}
+
+.leading-tight {
+  line-height: var(--line-height-tight);
+}
+
+.leading-snug {
+  line-height: var(--line-height-snug);
+}
+
+.leading-normal {
+  line-height: var(--line-height-normal);
+}
+
+.leading-relaxed {
+  line-height: var(--line-height-relaxed);
+}
+
+.leading-loose {
+  line-height: var(--line-height-loose);
+}
+
+.leading-extra-loose {
+  line-height: var(--line-height-extra-loose);
+}
+
+/* ===== Letter Spacing Utilities ===== */
+.tracking-tighter {
+  letter-spacing: var(--letter-spacing-tighter);
+}
+
+.tracking-tight {
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.tracking-normal {
+  letter-spacing: var(--letter-spacing-normal);
+}
+
+.tracking-wide {
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.tracking-wider {
+  letter-spacing: var(--letter-spacing-wider);
+}
+
+.tracking-widest {
+  letter-spacing: var(--letter-spacing-widest);
+}
+
+.tracking-super-wide {
+  letter-spacing: var(--letter-spacing-super-wide);
+}
+
+/* ===== Text Optimization - تحسين عرض النصوص ===== */
+.text-optimize-legibility {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'rlig' 1, 'calt' 1, 'liga' 1, 'kern' 1;
+}
+
+.text-optimize-speed {
+  text-rendering: optimizeSpeed;
+}
+
+.text-sharp {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
 }
 
 .line-clamp-1 {
@@ -500,36 +773,40 @@
    ======================================== */
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.15s ease-out;
 }
 
 .hover-lift:hover {
-  transform: translateY(-4px);
+  /* Removed transform - reduced motion */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .hover-lift-sm {
-  transition: transform 0.2s ease;
+  transition: box-shadow 0.15s ease-out;
 }
 
 .hover-lift-sm:hover {
-  transform: translateY(-2px);
+  /* Removed transform - reduced motion */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .hover-lift-smooth {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: box-shadow 0.15s ease-out;
 }
 
 .hover-lift-smooth:hover {
-  transform: translateY(-6px);
+  /* Removed transform - reduced motion */
+  box-shadow: var(--shadow-2xl);
 }
 
 .transition-smooth {
-  transition: all 0.3s ease;
+  transition: color, background-color, border-color, opacity 0.15s ease-out;
+  /* Removed 'all' and transform - reduced motion */
 }
 
 .transition-fast {
-  transition: all 0.15s ease;
+  transition: color, background-color, border-color, opacity 0.1s ease-out;
+  /* Removed 'all' and transform - reduced motion */
 }
 
 /* ========================================

@@ -181,25 +181,23 @@ const CoursesComponent = () => {
   }, []);
 
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* العنوان والوصف */}
         <motion.div
-          className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-lg border border-gray-100 mb-8 sm:mb-12 lg:mb-16"
+          className="text-center mb-10 sm:mb-12 lg:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              دوراتنا المتخصصة
-            </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-5 leading-tight">
+            <span className="text-blue-600">دوراتنا المتخصصة</span>
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
+          <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6">
             اكتشف دوراتنا المتخصصة في المجالات التالية:
           </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-4">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-5">
             {[
               'دورة التحليل المالى واعداد الميزانيات',
               'كورس ادارة تشغيل المطاعم',
@@ -212,69 +210,68 @@ const CoursesComponent = () => {
             ].map((courseName, index) => (
               <motion.span
                 key={index}
-                className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium"
-                initial={{ opacity: 0, scale: 0.8 }}
+                className="bg-gray-50 text-gray-700 px-3 py-1.5 rounded-lg text-sm font-medium border border-gray-200 hover:bg-blue-50 hover:border-blue-200 hover:text-blue-700 transition-colors duration-200"
+                initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                whileHover={{ scale: 1.05 }}
               >
                 {courseName}
               </motion.span>
             ))}
           </div>
-          <p className="text-sm text-gray-500 text-center">
+          <p className="text-sm text-gray-500">
             وفقاً للمعايير الدولية مع نخبة من أفضل الخبراء والمختصين
           </p>
         </motion.div>
 
         {/* شريط التحكم */}
         <motion.div
-          className="bg-white rounded-3xl p-6 sm:p-8 lg:p-10 shadow-lg border border-gray-100 mb-8 sm:mb-12 lg:mb-16"
+          className="bg-gray-50 rounded-xl p-5 sm:p-6 border border-gray-200 mb-8 sm:mb-10"
         >
-          <div className="flex flex-col lg:flex-row justify-between items-center gap-6">
+          <div className="flex flex-col lg:flex-row justify-between items-center gap-4 lg:gap-6">
             {/* شريط البحث */}
             <div className="relative w-full lg:w-96">
               <div className="relative">
                 <input
                   type="text"
                   placeholder="ابحث عن دورة محاسبية متخصصة..."
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 text-lg placeholder-gray-500"
+                  className="w-full pl-11 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-base placeholder-gray-400"
                 />
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute left-3.5 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
             </div>
 
             {/* أزرار التحكم */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <motion.button
                 onClick={() =>
                   setState((prev) => ({ ...prev, viewMode: 'grid' }))
                 }
-                className={`p-3 rounded-2xl transition-all duration-300 ${
+                className={`p-2.5 rounded-lg transition-all duration-200 ${
                   state.viewMode === 'grid'
-                    ? 'bg-blue-100 text-blue-600 shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-300'
                 }`}
                 whileTap={{ scale: 0.95 }}
                 aria-label="عرض شبكة"
               >
-                <Grid className="w-5 h-5" />
+                <Grid className="w-4 h-4" />
               </motion.button>
 
               <motion.button
                 onClick={() =>
                   setState((prev) => ({ ...prev, viewMode: 'list' }))
                 }
-                className={`p-3 rounded-2xl transition-all duration-300 ${
+                className={`p-2.5 rounded-lg transition-all duration-200 ${
                   state.viewMode === 'list'
-                    ? 'bg-blue-100 text-blue-600 shadow-lg'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-300'
                 }`}
                 whileTap={{ scale: 0.95 }}
                 aria-label="عرض قائمة"
               >
-                <List className="w-5 h-5" />
+                <List className="w-4 h-4" />
               </motion.button>
 
               <motion.button
@@ -284,15 +281,15 @@ const CoursesComponent = () => {
                     showFilters: !prev.showFilters,
                   }))
                 }
-                className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-semibold text-lg transition-all duration-300 ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm transition-all duration-200 ${
                   state.showFilters
-                    ? 'bg-blue-600 text-white shadow-lg'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
                 }`}
                 whileTap={{ scale: 0.95 }}
               >
-                <Filter className="w-5 h-5" />
-                <span>فلاتر البحث</span>
+                <Filter className="w-4 h-4" />
+                <span>فلاتر</span>
               </motion.button>
             </div>
           </div>
@@ -300,18 +297,18 @@ const CoursesComponent = () => {
           {/* لوحة الفلاتر */}
           {state.showFilters && (
             <motion.div
-              className="mt-8 p-6 bg-gray-50 rounded-2xl border border-gray-200"
+              className="mt-5 p-5 bg-white rounded-lg border border-gray-200"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-5">
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">
+                  <h3 className="font-semibold text-gray-900 mb-3 text-base">
                     نوع المحاسبة
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {['مالية', 'إدارية', 'حكومية', 'ضريبية'].map((type) => (
                       <label
                         key={type}
@@ -321,9 +318,9 @@ const CoursesComponent = () => {
                           type="checkbox"
                           checked={state.localFilters.accountingTypes.includes(type)}
                           onChange={() => handleCheckboxChange('accountingTypes', type)}
-                          className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                          className="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-1"
                         />
-                        <span className="ml-3 text-gray-700 group-hover:text-gray-900 transition-colors">
+                        <span className="ml-2.5 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
                           {type}
                         </span>
                       </label>
@@ -332,10 +329,10 @@ const CoursesComponent = () => {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">
+                  <h3 className="font-semibold text-gray-900 mb-3 text-base">
                     المعيار المحاسبي
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {['IFRS', 'GAAP', 'المحلية', 'الدولية'].map((standard) => (
                       <label
                         key={standard}
@@ -345,9 +342,9 @@ const CoursesComponent = () => {
                           type="checkbox"
                           checked={state.localFilters.standards.includes(standard)}
                           onChange={() => handleCheckboxChange('standards', standard)}
-                          className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                          className="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-1"
                         />
-                        <span className="ml-3 text-gray-700 group-hover:text-gray-900 transition-colors">
+                        <span className="ml-2.5 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
                           {standard}
                         </span>
                       </label>
@@ -356,10 +353,10 @@ const CoursesComponent = () => {
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-gray-900 mb-3 text-lg">
+                  <h3 className="font-semibold text-gray-900 mb-3 text-base">
                     مجال المراجعة
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {['داخلية', 'خارجية', 'حكومية', 'بنكية'].map(
                       (auditType) => (
                         <label
@@ -370,9 +367,9 @@ const CoursesComponent = () => {
                             type="checkbox"
                             checked={state.localFilters.auditTypes.includes(auditType)}
                             onChange={() => handleCheckboxChange('auditTypes', auditType)}
-                            className="w-5 h-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                            className="w-4 h-4 text-blue-600 bg-white border-gray-300 rounded focus:ring-blue-500 focus:ring-1"
                           />
-                          <span className="ml-3 text-gray-700 group-hover:text-gray-900 transition-colors">
+                          <span className="ml-2.5 text-sm text-gray-700 group-hover:text-gray-900 transition-colors">
                             {auditType}
                           </span>
                         </label>
@@ -382,17 +379,17 @@ const CoursesComponent = () => {
                 </div>
               </div>
 
-              <div className="flex justify-end gap-4 pt-4 border-t border-gray-200">
+              <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
                 <motion.button
                   onClick={handleResetFilters}
-                  className="px-6 py-3 text-gray-600 hover:text-gray-800 font-semibold transition-colors duration-300"
+                  className="px-5 py-2 text-sm text-gray-600 hover:text-gray-800 font-medium transition-colors duration-200"
                   whileTap={{ scale: 0.95 }}
                 >
                   إعادة تعيين
                 </motion.button>
                 <motion.button
                   onClick={handleApplyFilters}
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-2xl font-semibold transition-all duration-300 hover:shadow-lg"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:shadow-sm"
                   whileTap={{ scale: 0.95 }}
                 >
                   تطبيق الفلاتر
@@ -404,27 +401,27 @@ const CoursesComponent = () => {
 
         {/* الدورات */}
         {state.isLoading ? (
-          <div className="flex flex-col items-center justify-center py-20">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600 mb-6"></div>
-            <p className="text-xl text-gray-600">جاري تحميل الدورات...</p>
+          <div className="flex flex-col items-center justify-center py-16">
+            <div className="animate-spin rounded-full h-12 w-12 border-3 border-blue-200 border-t-blue-600 mb-4"></div>
+            <p className="text-base text-gray-600">جاري تحميل الدورات...</p>
           </div>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
           >
             <div
-              className={`${state.viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10' : 'space-y-6 sm:space-y-8'}`}
+              className={`${state.viewMode === 'grid' ? 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6' : 'space-y-5 sm:space-y-6'}`}
             >
               {filteredAndSortedCourses.map((course, index) => (
                 <motion.div
                   key={course.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   transition={{
-                    delay: index * 0.1,
-                    duration: 0.6,
+                    delay: index * 0.02,
+                    duration: 0.15,
                     ease: 'easeOut',
                   }}
                   viewport={{ once: true, margin: '-50px' }}
@@ -442,37 +439,37 @@ const CoursesComponent = () => {
             {/* التصفح */}
             {pagination.totalPages > 1 && (
               <motion.div
-                className="mt-16 sm:mt-20 lg:mt-24 flex flex-col items-center gap-6"
-                initial={{ opacity: 0, y: 30 }}
+                className="mt-12 sm:mt-14 flex flex-col items-center gap-4"
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.6 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
                 viewport={{ once: true }}
               >
-                <div className="flex items-center gap-2 bg-white rounded-2xl p-2 shadow-lg border border-gray-100">
+                <div className="flex items-center gap-1.5 bg-white rounded-lg p-1.5 border border-gray-200 shadow-sm">
                   <motion.button
                     onClick={prevPage}
                     disabled={pagination.page === 1}
-                    className={`p-3 rounded-xl transition-all duration-300 ${
+                    className={`p-2 rounded-md transition-all duration-200 ${
                       pagination.page > 1
-                        ? 'bg-blue-100 text-blue-600 hover:bg-blue-200 shadow-md'
-                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        ? 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                        : 'bg-gray-50 text-gray-400 cursor-not-allowed'
                     }`}
                     whileTap={pagination.page > 1 ? { scale: 0.95 } : undefined}
                     aria-label="الصفحة السابقة"
                   >
-                    <ChevronRight className="w-5 h-5" />
+                    <ChevronRight className="w-4 h-4" />
                   </motion.button>
 
-                  <div className="flex items-center gap-1 px-4">
+                  <div className="flex items-center gap-1 px-3">
                     {pagination.totalPages > 5 ? (
                       <>
                         {pagination.page > 2 && (
                           <motion.button
                             onClick={() => goToPage(1)}
-                            className={`w-12 h-12 rounded-xl font-semibold transition-all duration-300 ${
+                            className={`w-9 h-9 rounded-md text-sm font-medium transition-all duration-200 ${
                               pagination.page === 1
-                                ? 'bg-blue-600 text-white shadow-lg'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -480,7 +477,7 @@ const CoursesComponent = () => {
                           </motion.button>
                         )}
                         {pagination.page > 3 && (
-                          <span className="w-12 h-12 flex items-center justify-center text-gray-500">
+                          <span className="w-9 h-9 flex items-center justify-center text-sm text-gray-400">
                             ...
                           </span>
                         )}
@@ -497,10 +494,10 @@ const CoursesComponent = () => {
                             <motion.button
                               key={page}
                               onClick={() => goToPage(page)}
-                              className={`w-12 h-12 rounded-xl font-semibold transition-all duration-300 ${
+                              className={`w-9 h-9 rounded-md text-sm font-medium transition-all duration-200 ${
                                 pagination.page === page
-                                  ? 'bg-blue-600 text-white shadow-lg'
-                                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                  ? 'bg-blue-600 text-white'
+                                  : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                               }`}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -509,17 +506,17 @@ const CoursesComponent = () => {
                           ))}
 
                         {pagination.page < pagination.totalPages - 2 && (
-                          <span className="w-12 h-12 flex items-center justify-center text-gray-500">
+                          <span className="w-9 h-9 flex items-center justify-center text-sm text-gray-400">
                             ...
                           </span>
                         )}
                         {pagination.page < pagination.totalPages - 1 && (
                           <motion.button
                             onClick={() => goToPage(pagination.totalPages)}
-                            className={`w-12 h-12 rounded-xl font-semibold transition-all duration-300 ${
+                            className={`w-9 h-9 rounded-md text-sm font-medium transition-all duration-200 ${
                               pagination.page === pagination.totalPages
-                                ? 'bg-blue-600 text-white shadow-lg'
-                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                             }`}
                             whileTap={{ scale: 0.95 }}
                           >
@@ -535,10 +532,10 @@ const CoursesComponent = () => {
                         <motion.button
                           key={page}
                           onClick={() => goToPage(page)}
-                          className={`w-12 h-12 rounded-xl font-semibold transition-all duration-300 ${
+                          className={`w-9 h-9 rounded-md text-sm font-medium transition-all duration-200 ${
                             pagination.page === page
-                              ? 'bg-blue-600 text-white shadow-lg'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                              ? 'bg-blue-600 text-white'
+                              : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                           }`}
                           whileTap={{ scale: 0.95 }}
                         >
@@ -551,10 +548,10 @@ const CoursesComponent = () => {
                   <motion.button
                     onClick={nextPage}
                     disabled={pagination.page === pagination.totalPages}
-                    className={`p-3 rounded-xl transition-all duration-300 ${
+                    className={`p-2 rounded-md transition-all duration-200 ${
                       pagination.page < pagination.totalPages
-                        ? 'bg-blue-100 text-blue-600 hover:bg-blue-200 shadow-md'
-                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        ? 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                        : 'bg-gray-50 text-gray-400 cursor-not-allowed'
                     }`}
                     whileTap={
                       pagination.page < pagination.totalPages
@@ -563,11 +560,11 @@ const CoursesComponent = () => {
                     }
                     aria-label="الصفحة التالية"
                   >
-                    <ChevronLeft className="w-5 h-5" />
+                    <ChevronLeft className="w-4 h-4" />
                   </motion.button>
                 </div>
 
-                <div className="text-lg text-gray-600 font-medium">
+                <div className="text-sm text-gray-600 font-medium">
                   الصفحة {pagination.page} من {pagination.totalPages}
                 </div>
               </motion.div>

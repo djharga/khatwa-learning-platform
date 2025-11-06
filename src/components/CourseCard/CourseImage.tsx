@@ -53,8 +53,8 @@ const CourseImage: React.FC<CourseImageProps> = ({ src, alt, variant = 'compact'
         src={src}
         alt={alt}
         className={variant === 'compact'
-          ? `w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110 group-hover:contrast-105 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`
-          : `w-full h-full object-cover rounded-l-xl transition-all duration-500 group-hover:scale-105 group-hover:brightness-110 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`
+          ? `w-full h-full object-cover transition-all duration-150 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`
+          : `w-full h-full object-cover rounded-l-xl transition-all duration-150 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`
         }
         loading="lazy"
         onLoad={() => setImageLoaded(true)}

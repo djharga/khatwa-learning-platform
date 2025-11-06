@@ -25,6 +25,7 @@ import {
   LibraryBig,
   Calculator,
   ShieldCheck,
+  X,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { getSidebarItems, isActiveLink } from '@/lib/navigation';
@@ -129,96 +130,33 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
 
   const isActive = (href: string) => isActiveLink(href, pathname);
 
-  /** Floating toggle button for opening the sidebar. Displays keyboard shortcut hint on hover. Hidden when sidebar is open. */
-  const ToggleButton = ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
-    <motion.button
-      onClick={onClick}
-      title="فتح القائمة الجانبية (Ctrl+B)"
-      className={`hidden lg:flex fixed left-0 top-1/2 transform -translate-y-1/2 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white p-3 rounded-r-2xl shadow-2xl transition-all duration-500 hover:shadow-blue-500/25 group min-w-12 min-h-12 ${
-        isOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      }`}
-      aria-label="فتح قائمة التنقل"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <Menu className="w-5 h-5" />
-      <motion.span
-        className="absolute left-full ml-3 px-3 py-2 bg-gray-900/90 backdrop-blur-sm text-white text-xs rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-gray-700/50"
-        initial={{ x: -10 }}
-        whileHover={{ x: 0 }}
-      >
-        Ctrl+B للفتح
-      </motion.span>
-    </motion.button>
-  );
-
-  /** Sidebar header with title, description, and close button. Features gradient background and animated icon. */
-  const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
-    <motion.div
-      className="p-6 border-b border-gray-200/60 dark:border-gray-700/60 bg-gradient-to-r from-blue-50/50 to-purple-50/50 dark:from-gray-800/50 dark:to-gray-700/50"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.1, duration: 0.4 }} // تسريع ظهور الرأس
-    >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <motion.div
-            className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg"
-            whileHover={{ scale: 1.03, rotate: 3 }} // تقليل شدة الحركة
-            transition={{ duration: 0.2 }}
-          >
-            <Home className="w-5 h-5 text-white" />
-          </motion.div>
-          <div>
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white leading-tight drop-shadow-sm">
-              قائمة التنقل
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              استكشف المنصة
-            </p>
-          </div>
-        </div>
-        <motion.button
-          onClick={onClose}
-          className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-700 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300"
-          aria-label="إغلاق قائمة التنقل"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          ×
-        </motion.button>
-      </div>
-    </motion.div>
-  );
-
   /** Individual navigation link item with icon, label, and active state indicator. Features hover effects, scale animations, and gradient background for active state. */
   const NavigationItem = ({ item, isActive, itemIndex }: { item: any; isActive: boolean; itemIndex: number }) => {
     const IconComponent = iconMap[item.icon as keyof typeof iconMap] || Home;
     return (
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         transition={{
-          delay: itemIndex * 0.03, // تسريع ظهور العناصر
-          duration: 0.25,
+          delay: itemIndex * 0.01, // Reduced delay - minimal motion
+          duration: 0.1,
         }}
       >
         {item.href && (
           <Link
             href={item.href}
-            className={`group flex items-center gap-3 p-3 text-sm rounded-xl transition-all duration-300 min-h-12 hover:translate-x-2 hover:shadow-lg hover:shadow-blue-500/25 ${
+            className={`group flex items-center gap-3 p-3 text-sm rounded-xl transition-all duration-150 min-h-12 hover:shadow-lg hover:shadow-blue-500/25 ${
               isActive
-                ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg scale-105'
+                ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg'
                 : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-blue-400/25'
             }`}
           >
-            <motion.div
-              className={`p-1.5 rounded-lg transition-all duration-300 ${
+            <div
+              className={`p-1.5 rounded-lg transition-all duration-150 ${
                 isActive
                   ? 'bg-white/20'
                   : 'bg-gray-100 dark:bg-gray-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50'
               }`}
-              whileHover={{ scale: 1.1 }}
             >
               <IconComponent
                 className={`w-4 h-4 transition-colors duration-300 ${
@@ -227,14 +165,14 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
                     : 'text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400'
                 }`}
               />
-            </motion.div>
+            </div>
             <span className="font-medium">{item.name}</span>
             {isActive && (
               <motion.div
                 className="ml-auto w-2 h-2 bg-white rounded-full"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.2, duration: 0.1 }}
               />
             )}
           </Link>
@@ -246,79 +184,84 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
   /** Collapsible navigation category section with animated expand/collapse. Displays category title and nested navigation items. Supports active link highlighting and smooth transitions. */
   const CategorySection = ({ section, isOpen, onToggle, pathname, sectionIndex }: { section: any; isOpen: boolean; onToggle: () => void; pathname: string; sectionIndex: number }) => (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: sectionIndex * 0.1, duration: 0.5 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: sectionIndex * 0.02, duration: 0.1 }}
       className="space-y-2"
     >
       {/* Category Header */}
-      <motion.button
+      <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 text-sm font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:shadow-lg hover:shadow-blue-500/25 rounded-2xl transition-all duration-300 group min-h-14 dark:hover:shadow-blue-400/25"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        className="w-full flex items-center justify-between p-4 text-sm font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:shadow-lg hover:shadow-blue-500/25 rounded-2xl transition-all duration-150 group min-h-14 dark:hover:shadow-blue-400/25"
       >
         <span className="flex items-center gap-3">
-          <motion.div
-            animate={{
-              rotate: isOpen ? 0 : -90,
-            }}
-            transition={{ duration: 0.3 }}
+          <div
+            className="transition-transform duration-100"
+            style={{ transform: `rotate(${isOpen ? 0 : -90}deg)` }}
           >
             <ChevronRight className="w-4 h-4 text-blue-500" />
-          </motion.div>
+          </div>
           {section.title}
         </span>
-        <motion.div
-          animate={{
-            rotate: isOpen ? 180 : 0,
-          }}
-          transition={{ duration: 0.3 }}
+        <div
+          className="transition-transform duration-100"
+          style={{ transform: `rotate(${isOpen ? 180 : 0}deg)` }}
         >
-          <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
-        </motion.div>
-      </motion.button>
+          <ChevronDown className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors duration-150" />
+        </div>
+      </button>
 
       {/* Category Items */}
       {isOpen && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 'auto', opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={{
-            duration: 0.3, // تسريع فتح/إغلاق الفئات
-            ease: 'easeInOut',
-          }}
-          className="ml-6 space-y-1 overflow-hidden"
-        >
+        <div className="space-y-1 pr-4">
           {section.items.map((item: any, itemIndex: number) => (
-            <NavigationItem key={item.href || item.name} item={item} isActive={item.href ? isActiveLink(item.href, pathname) : false} itemIndex={itemIndex} />
+            <NavigationItem
+              key={item.href || item.id}
+              item={item}
+              isActive={isActive(item.href)}
+              itemIndex={itemIndex}
+            />
           ))}
-        </motion.div>
+        </div>
       )}
     </motion.div>
   );
 
-  /** Sidebar footer with copyright notice and branding. Displays platform name and creation year. */
+  const ToggleButton = ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => {
+    if (isOpen) return null;
+    return (
+      <motion.button
+        onClick={onClick}
+        className="fixed left-6 top-24 z-50 p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors duration-150"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.1 }}
+        aria-label="فتح القائمة الجانبية"
+      >
+        <Menu className="w-5 h-5" />
+      </motion.button>
+    );
+  };
+
+  const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
+    <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+      <h2 className="text-lg font-bold text-gray-900 dark:text-white">القائمة</h2>
+      <button
+        onClick={onClose}
+        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-150"
+        aria-label="إغلاق القائمة"
+      >
+        <X className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+      </button>
+    </div>
+  );
+
   const SidebarFooter = () => (
-    <motion.div
-      className="p-4 border-t border-gray-200/60 dark:border-gray-700/60 bg-gray-50/50 dark:bg-gray-800/50"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.6, duration: 0.4 }} // تسريع ظهور التذييل
-    >
-      <div className="text-center space-y-3">
-        <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-          © 2025 منصة خطى التعليمية
-          <br />
-          جميع الحقوق محفوظة
-        </p>
-        <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-          <span>🎓</span>
-          <span>صنع بـ ❤️ للمجتمع التعليمي</span>
-        </div>
-      </div>
-    </motion.div>
+    <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+      <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        © 2024 خطى للتدريب والاستشارات
+      </p>
+    </div>
   );
 
   return (
@@ -330,11 +273,8 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
         initial={false}
         animate={{ x: isOpen ? 0 : -320 }}
         transition={{
-          duration: 0.3, // تسريع فتح/إغلاق الشريط الجانبي
-          ease: 'easeInOut',
-          type: 'spring',
-          stiffness: 400, // زيادة الصلابة للاستجابة السريعة
-          damping: 35,
+          duration: 0.15, // Reduced motion - faster
+          ease: 'easeOut',
         }}
         className="hidden lg:flex flex-col fixed left-0 top-20 h-[calc(100vh-5rem)] w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border-r border-gray-200/60 dark:border-gray-700/60 shadow-2xl z-40 overflow-hidden"
         onMouseLeave={() => setIsOpen(false)}

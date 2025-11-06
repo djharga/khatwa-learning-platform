@@ -30,7 +30,7 @@ import {
   Heart,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 
 interface ImageItem {
   id: string;
@@ -423,23 +423,23 @@ export default function GalleryPage() {
 
                 {/* أزرار الإجراءات */}
                 <div className="flex gap-3">
-                  <Button className="flex-1">
+                  <StyledButton variant="primary" className="flex-1">
                     <Download className="w-4 h-4 ml-2" />
                     تحميل
-                  </Button>
-                  <Button variant="outline" className="flex-1">
+                  </StyledButton>
+                  <StyledButton variant="secondary" className="flex-1">
                     <Share2 className="w-4 h-4 ml-2" />
                     مشاركة
-                  </Button>
-                  <Button
-                    variant="outline"
+                  </StyledButton>
+                  <StyledButton
+                    variant="secondary"
                     onClick={() => {
                       setShowEditor(true);
                     }}
                   >
                     <Edit className="w-4 h-4 ml-2" />
                     تعديل
-                  </Button>
+                  </StyledButton>
                 </div>
               </div>
             </motion.div>
@@ -514,18 +514,18 @@ export default function GalleryPage() {
 
                 {/* أزرار الحفظ */}
                 <div className="flex gap-3">
-                  <Button className="flex-1 bg-purple-600 hover:bg-purple-700">
+                  <StyledButton variant="primary" className="flex-1 bg-purple-600 hover:bg-purple-700">
                     <Download className="w-4 h-4 ml-2" />
                     حفظ التغييرات
-                  </Button>
-                  <Button
-                    variant="outline"
+                  </StyledButton>
+                  <StyledButton
+                    variant="secondary"
                     onClick={() => {
                       setShowEditor(false);
                     }}
                   >
                     إلغاء
-                  </Button>
+                  </StyledButton>
                 </div>
               </div>
             </motion.div>

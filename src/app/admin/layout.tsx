@@ -21,6 +21,7 @@ import {
   Shield,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
+import FlyonMenu from '@/components/ui/FlyonMenu';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -187,38 +188,21 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </div>
       </div>
 
-      {/* Horizontal Navigation Bar */}
+      {/* Horizontal Navigation Bar - FlyonUI Menu */}
       <div className="bg-white shadow-sm border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <nav className="flex justify-center">
-            <div className="flex items-center gap-2 bg-gray-100 rounded-2xl p-2">
-              {navigationItems.map((item) => {
-                const isActive = pathname === item.href;
-                const Icon = item.icon;
-
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`group flex items-center px-6 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
-                      isActive
-                        ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
-                        : 'text-gray-600 hover:bg-white hover:text-gray-900 hover:shadow-sm'
-                    }`}
-                  >
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center ml-2 ${
-                      isActive ? 'bg-white/20' : 'bg-gray-200 group-hover:bg-gray-300'
-                    }`}>
-                      <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-500'}`} />
-                    </div>
-                    <div className="mr-3 text-right">
-                      <div className="font-semibold">{item.name}</div>
-                      <div className="text-xs opacity-80">{item.description}</div>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
+            <FlyonMenu
+              items={navigationItems.map((item) => ({
+                href: item.href,
+                label: item.name,
+                icon: item.icon,
+                status: pathname === item.href ? 'active' : undefined,
+              }))}
+              orientation="horizontal"
+              className="bg-base-200 rounded-2xl p-2"
+              autoActive={true}
+            />
           </nav>
         </div>
       </div>

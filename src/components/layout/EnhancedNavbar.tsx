@@ -15,15 +15,17 @@ import {
   Menu, 
   X, 
   ChevronDown,
-  Search,
   FileText,
   Award,
   Users,
   MessageSquare,
   Briefcase,
   TrendingUp,
-  Bell,
   Sparkles,
+  MoreHorizontal,
+  Info,
+  HelpCircle,
+  Shield,
 } from 'lucide-react';
 import UserMenu from './UserMenu';
 import { Icon } from '@/components/ui/Icon';
@@ -66,12 +68,6 @@ const navigationMenuItems = {
         description: 'دورات متخصصة في المراجعة الداخلية',
         featured: true as const
       },
-      { 
-        label: 'الإدارة المالية', 
-        href: '/financial-management', 
-        icon: TrendingUp,
-        description: 'دورات متخصصة في الإدارة المالية'
-      },
     ] as Array<{
       label: string;
       href: string;
@@ -101,12 +97,6 @@ const navigationMenuItems = {
         description: 'أسئلة تدريبية شاملة',
         badge: 'مميز'
       },
-      { 
-        label: 'المواد التعليمية', 
-        href: '/cia', 
-        icon: Library,
-        description: 'مواد تعليمية شاملة'
-      },
     ],
   },
   packages: {
@@ -130,24 +120,37 @@ const navigationMenuItems = {
       },
     ],
   },
-  library: {
-    label: 'المكتبة',
-    icon: Library,
-    href: '/resources',
-    color: 'secondary-learn',
-    description: 'موارد تعليمية شاملة',
+  more: {
+    label: 'المزيد',
+    icon: MoreHorizontal,
+    href: '#',
+    color: 'neutral',
+    description: 'مزيد من الخيارات والروابط',
     children: [
       { 
-        label: 'جميع الموارد', 
+        label: 'المكتبة', 
         href: '/resources', 
         icon: Library,
-        description: 'تصفح جميع الموارد'
+        description: 'موارد تعليمية شاملة',
+        featured: true
       },
       { 
-        label: 'ملفات الكورسات', 
-        href: '/resources/course-files', 
-        icon: FileText,
-        description: 'ملفات ومواد الكورسات'
+        label: 'المجتمع', 
+        href: '/community', 
+        icon: Users,
+        description: 'تواصل مع الزملاء'
+      },
+      { 
+        label: 'من نحن', 
+        href: '/about', 
+        icon: Info,
+        description: 'تعرف على منصة خطى'
+      },
+      { 
+        label: 'الأسئلة الشائعة', 
+        href: '/faq', 
+        icon: HelpCircle,
+        description: 'إجابات على أسئلتك'
       },
     ],
   },
@@ -161,15 +164,9 @@ const EnhancedNavbar = () => {
   const [isMobileMenuOpen, setMobileMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showSearch, setShowSearch] = useState(false);
-  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const searchRef = useRef<HTMLInputElement>(null);
-  const searchDropdownRef = useRef<HTMLDivElement>(null);
 
   // Handle scroll effect
   useEffect(() => {
@@ -187,16 +184,8 @@ const EnhancedNavbar = () => {
   // Handle keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Ctrl+K or Cmd+K for search
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        setShowSearch(true);
-        setTimeout(() => searchRef.current?.focus(), 100);
-      }
       // Escape to close
       if (e.key === 'Escape') {
-        setShowSearch(false);
-        setShowSearchSuggestions(false);
         setOpenDropdown(null);
         if (isMobileMenuOpen) setMobileMenu(false);
       }
@@ -211,24 +200,10 @@ const EnhancedNavbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
       }
-      if (searchDropdownRef.current && !searchDropdownRef.current.contains(event.target as Node)) {
-        setShowSearchSuggestions(false);
-      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-
-  // Handle search
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setShowSearch(false);
-      setShowSearchSuggestions(false);
-      setSearchQuery('');
-    }
-  };
 
   const isActiveLink = (href: string) => {
     if (href === '/') return pathname === '/';
@@ -238,12 +213,6 @@ const EnhancedNavbar = () => {
   const isDropdownActive = (children: typeof navigationMenuItems.courses.children) => {
     return children.some(child => isActiveLink(child.href));
   };
-
-  // Search suggestions (mock data - replace with real API)
-  const searchSuggestions = searchQuery.length > 0 ? [
-    { label: `البحث عن "${searchQuery}"`, href: `/search?q=${searchQuery}`, icon: Search },
-    { label: 'كورسات المراجعة الداخلية', href: '/courses?category=internal-audit', icon: BookOpen },
-  ].slice(0, 5) : [];
 
   return (
     <>
@@ -269,7 +238,6 @@ const EnhancedNavbar = () => {
               href="/" 
               className={cn(
                 "text-2xl lg:text-3xl font-bold",
-                "text-neutral-900 dark:text-white",
                 "hover:text-primary-600 dark:hover:text-primary-400",
                 "transition-all duration-300",
                 "flex items-center gap-2",
@@ -278,20 +246,13 @@ const EnhancedNavbar = () => {
               )}
               aria-label="الصفحة الرئيسية - خطى"
             >
-              <motion.div
-                className="relative"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Sparkles className="w-6 h-6 lg:w-8 lg:h-8 text-primary-600 dark:text-primary-400" />
-              </motion.div>
-              <span className="bg-gradient-to-r from-primary-600 to-secondary-innovate-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-innovate-600 bg-clip-text text-transparent font-black tracking-tight">
                 خطى
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1 flex-1 justify-center mx-8">
+            <div className="hidden lg:flex items-center gap-2 flex-1 justify-center mx-8">
               {/* الرئيسية */}
               {mainNavItems.map(({ href, label, icon: IconComponent }) => {
                 const isActive = isActiveLink(href);
@@ -300,29 +261,29 @@ const EnhancedNavbar = () => {
                     key={href}
                     href={href}
                     className={cn(
-                      "px-4 py-2",
-                      "text-xs font-semibold",
+                      "h-[44px] px-5 py-2.5",
+                      "text-sm font-semibold",
                       "transition-all duration-300 ease-in-out",
-                      "flex items-center gap-1.5",
-                      "rounded-full",
+                      "flex items-center justify-center gap-2",
+                      "rounded-xl",
                       "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
                       "relative group",
                       "hover:scale-105 active:scale-95",
                       isActive
-                        ? "text-primary-600 dark:text-primary-400"
-                        : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
+                        ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
+                        : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
                     )}
                     aria-current={isActive ? 'page' : undefined}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeNavIndicator"
-                        className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-full shadow-md"
+                        className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-xl shadow-md"
                         initial={false}
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
-                    <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-4 h-4" />
+                    <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-[18px] h-[18px]" />
                     <span className="relative z-10">{label}</span>
                   </Link>
                 );
@@ -330,7 +291,7 @@ const EnhancedNavbar = () => {
 
               {/* القوائم الفرعية - محسّنة */}
               {Object.entries(navigationMenuItems).map(([key, menu]) => {
-                const isActive = isActiveLink(menu.href) || isDropdownActive(menu.children);
+                const isActive = menu.href !== '#' && (isActiveLink(menu.href) || isDropdownActive(menu.children));
                 const isOpen = openDropdown === key;
                 const IconComponent = menu.icon;
 
@@ -342,40 +303,69 @@ const EnhancedNavbar = () => {
                     onMouseEnter={() => setOpenDropdown(key)}
                     onMouseLeave={() => setOpenDropdown(null)}
                   >
-                    <Link
-                      href={menu.href}
-                      className={cn(
-                        "px-4 py-2",
-                        "text-xs font-semibold",
-                        "transition-all duration-300 ease-in-out",
-                        "flex items-center gap-1.5",
-                        "rounded-full",
-                        "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
-                        "relative group",
-                        "hover:scale-105 active:scale-95",
-                        isActive
-                          ? "text-primary-600 dark:text-primary-400"
-                          : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400"
-                      )}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      {isActive && (
-                        <motion.div
-                          layoutId="activeNavIndicator"
-                          className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-full shadow-md"
-                          initial={false}
-                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                        />
-                      )}
-                      <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-4 h-4" />
-                      <span className="relative z-10">{menu.label}</span>
-                      <ChevronDown 
+                                        {menu.href === '#' ? (
+                      <button
+                        type="button"
+                        onClick={() => setOpenDropdown(isOpen ? null : key)}
                         className={cn(
-                          "w-3.5 h-3.5 transition-transform duration-300 relative z-10",
-                          isOpen && "rotate-180"
+                          "h-[44px] px-5 py-2.5",
+                          "text-sm font-semibold",
+                          "transition-all duration-300 ease-in-out",
+                          "flex items-center justify-center gap-2",
+                          "rounded-xl",
+                          "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+                          "relative group",
+                          "hover:scale-105 active:scale-95",
+                          isActive
+                            ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
+                            : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
                         )}
-                      />
-                    </Link>
+                      >
+                        <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-[18px] h-[18px]" />
+                        <span className="relative z-10">{menu.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            "w-[16px] h-[16px] transition-transform duration-300 relative z-10",
+                            isOpen && "rotate-180"
+                          )}
+                        />
+                      </button>
+                    ) : (
+                      <Link
+                        href={menu.href}
+                        className={cn(
+                          "h-[44px] px-5 py-2.5",
+                          "text-sm font-semibold",
+                          "transition-all duration-300 ease-in-out",
+                          "flex items-center justify-center gap-2",
+                          "rounded-xl",
+                          "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+                          "relative group",
+                          "hover:scale-105 active:scale-95",
+                          isActive
+                            ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
+                            : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
+                        )}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeNavIndicator"
+                            className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-xl shadow-md"
+                            initial={false}
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                          />
+                        )}
+                        <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-[18px] h-[18px]" />
+                        <span className="relative z-10">{menu.label}</span>
+                        <ChevronDown
+                          className={cn(
+                            "w-[16px] h-[16px] transition-transform duration-300 relative z-10",
+                            isOpen && "rotate-180"
+                          )}
+                        />
+                      </Link>
+                    )}
 
                     {/* Enhanced Dropdown Menu */}
                     <AnimatePresence>
@@ -511,124 +501,78 @@ const EnhancedNavbar = () => {
               })}
             </div>
 
-            {/* Search Bar & Auth Buttons */}
+            {/* Auth Buttons */}
             <div className="hidden lg:flex items-center gap-3">
-              {/* Search Button */}
-              <div className="relative" ref={searchDropdownRef}>
-                <button
-                  onClick={() => {
-                    setShowSearch(!showSearch);
-                    setTimeout(() => searchRef.current?.focus(), 100);
-                  }}
-                  className={cn(
-                    "p-2.5 rounded-full",
-                    "text-neutral-700 dark:text-neutral-300",
-                    "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                    "transition-all duration-300 ease-in-out",
-                    "hover:scale-110 active:scale-95",
-                    "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
-                    "relative group"
-                  )}
-                  aria-label="بحث"
-                >
-                  <Search className="w-5 h-5" />
-                  <span className="absolute -top-1 -left-1 px-1.5 py-0.5 text-xs bg-primary-500 text-white rounded-md opacity-0 group-hover:opacity-100 transition-opacity">
-                    Ctrl+K
-                  </span>
-                </button>
-
-                {/* Search Suggestions Dropdown */}
-                <AnimatePresence>
-                  {showSearchSuggestions && searchQuery && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
+              <div className="flex items-center gap-2.5">
+                {isLoggedIn ? (
+                  <>
+                    {/* زر لوحة الإدارة */}
+                    <Link
+                      href="/admin/dashboard"
                       className={cn(
-                        "absolute top-full mt-2 left-0 w-96",
-                        "bg-white dark:bg-neutral-800",
-                        "rounded-2xl shadow-elevation-5",
-                        "border border-neutral-200 dark:border-neutral-700",
-                        "overflow-hidden z-50"
+                        "h-[42px] px-4 py-2.5 rounded-xl",
+                        "text-sm font-semibold whitespace-nowrap",
+                        "bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-700 dark:via-indigo-700 dark:to-blue-700",
+                        "text-white",
+                        "hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700 dark:hover:from-purple-800 dark:hover:via-indigo-800 dark:hover:to-blue-800",
+                        "shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/50",
+                        "transition-all duration-300 ease-in-out",
+                        "hover:scale-105 active:scale-95",
+                        "flex items-center justify-center gap-2",
+                        "relative group overflow-hidden",
+                        pathname?.startsWith('/admin') && "ring-2 ring-purple-400 ring-offset-2"
                       )}
                     >
-                      {searchSuggestions.map((suggestion, idx) => (
-                        <Link
-                          key={idx}
-                          href={suggestion.href}
-                          onClick={() => {
-                            setShowSearchSuggestions(false);
-                            setSearchQuery('');
-                          }}
-                          className={cn(
-                            "flex items-center gap-3 px-4 py-3",
-                            "hover:bg-neutral-100 dark:hover:bg-neutral-700",
-                            "transition-colors duration-200",
-                            "border-b border-neutral-100 dark:border-neutral-700 last:border-0"
-                          )}
-                        >
-                          <Icon icon={suggestion.icon} size="sm" className="text-neutral-400" />
-                          <span className="text-sm text-neutral-700 dark:text-neutral-300">{suggestion.label}</span>
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Notifications */}
-              <button
-                className={cn(
-                  "p-2.5 rounded-full relative",
-                  "text-neutral-700 dark:text-neutral-300",
-                  "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                  "transition-all duration-300 ease-in-out",
-                  "hover:scale-110 active:scale-95",
-                  "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-                )}
-                aria-label="الإشعارات"
-              >
-                <Bell className="w-5 h-5" />
-                <span className="absolute top-1 left-1 w-2 h-2 bg-danger-500 rounded-full animate-pulse" />
-              </button>
-
-              {/* Auth Buttons */}
-              <div className="flex items-center gap-2 border-r border-neutral-200 dark:border-neutral-800 pr-3">
-                {isLoggedIn ? (
-                  <UserMenu />
+                      {/* تأثير لامع */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                        animate={{
+                          x: ['-100%', '200%'],
+                        }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 3,
+                          ease: 'linear',
+                        }}
+                      />
+                      <Shield className="w-[18px] h-[18px] relative z-10" />
+                      <span className="relative z-10">لوحة الإدارة</span>
+                    </Link>
+                    <UserMenu />
+                  </>
                 ) : (
                   <>
                     <Link
                       href="/login"
                       className={cn(
-                        "px-4 py-2 rounded-full",
-                        "text-xs font-semibold",
+                        "h-[42px] px-5 py-2.5 rounded-xl",
+                        "text-sm font-semibold whitespace-nowrap",
                         "bg-transparent border-2 border-primary-600 dark:border-primary-400",
                         "text-primary-600 dark:text-primary-400",
                         "hover:bg-primary-50 dark:hover:bg-primary-900/20",
                         "transition-all duration-300 ease-in-out",
                         "hover:scale-105 active:scale-95",
-                        "flex items-center gap-1.5"
+                        "flex items-center justify-center gap-2"
                       )}
                     >
-                      <Icon icon={LogIn} size="sm" className="text-current w-4 h-4" />
+                      <LogIn className="w-[18px] h-[18px]" />
                       <span>تسجيل الدخول</span>
                     </Link>
                     <Link
                       href="/register"
                       className={cn(
-                        "px-4 py-2 rounded-full",
-                        "text-xs font-semibold",
-                        "bg-gradient-to-r from-primary-600 to-primary-700",
+                        "h-[42px] px-5 py-2.5 rounded-xl",
+                        "text-sm font-semibold whitespace-nowrap",
+                        "bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600",
                         "text-white",
-                        "hover:from-primary-700 hover:to-primary-800",
-                        "shadow-lg shadow-primary-500/25 hover:shadow-xl hover:shadow-primary-500/40",
+                        "hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-600 dark:hover:to-primary-700",
+                        "shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/50",
                         "transition-all duration-300 ease-in-out",
                         "hover:scale-105 active:scale-95",
-                        "flex items-center gap-1.5"
+                        "flex items-center justify-center gap-2"
                       )}
                     >
-                      <Icon icon={UserPlus} size="sm" className="text-white w-4 h-4" />
+                      <UserPlus className="w-[18px] h-[18px]" />
                       <span>التسجيل</span>
                     </Link>
                   </>
@@ -640,60 +584,25 @@ const EnhancedNavbar = () => {
             <button
               onClick={() => setMobileMenu(!isMobileMenuOpen)}
               className={cn(
-                "lg:hidden p-2.5",
+                "lg:hidden h-[44px] w-[44px] p-2.5",
                 "text-neutral-700 dark:text-neutral-300",
                 "hover:bg-neutral-100 dark:hover:bg-neutral-800",
-                "rounded-full transition-all duration-300 ease-in-out",
+                "rounded-xl transition-all duration-300 ease-in-out",
                 "hover:scale-110 active:scale-95",
-                "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
+                "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+                "flex items-center justify-center"
               )}
               aria-label={isMobileMenuOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
               aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-[22px] h-[22px]" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-[22px] h-[22px]" />
               )}
             </button>
           </div>
 
-          {/* Search Bar (Expandable) */}
-          <AnimatePresence>
-            {showSearch && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                className="overflow-hidden border-t border-neutral-200 dark:border-neutral-800"
-              >
-                <form onSubmit={handleSearch} className="py-4">
-                  <div className="relative">
-                    <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                    <input
-                      ref={searchRef}
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => {
-                        setSearchQuery(e.target.value);
-                        setShowSearchSuggestions(e.target.value.length > 0);
-                      }}
-                      onFocus={() => setShowSearchSuggestions(searchQuery.length > 0)}
-                      placeholder="ابحث في الكورسات، المكتبة، والموارد... (Ctrl+K)"
-                      className="w-full pr-10 pl-12 py-3 border-2 border-neutral-300 dark:border-neutral-600 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-all duration-200"
-                      dir="rtl"
-                    />
-                    <button
-                      type="submit"
-                      className="absolute left-3 top-1/2 -translate-y-1/2 px-5 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-full hover:from-primary-700 hover:to-primary-800 text-sm font-semibold transition-all duration-300 ease-in-out shadow-md hover:shadow-lg hover:scale-105 active:scale-95"
-                    >
-                      بحث
-                    </button>
-                  </div>
-                </form>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
 
         {/* Mobile Menu */}
@@ -706,21 +615,6 @@ const EnhancedNavbar = () => {
               className="lg:hidden overflow-hidden border-t border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900"
             >
               <div className="px-4 py-4 space-y-2 max-h-[calc(100vh-4rem)] overflow-y-auto">
-                {/* Search in Mobile */}
-                <form onSubmit={handleSearch} className="mb-4">
-                  <div className="relative">
-                    <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      placeholder="ابحث..."
-                      className="w-full pr-10 pl-12 py-3 border-2 border-neutral-300 dark:border-neutral-600 rounded-2xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200"
-                      dir="rtl"
-                    />
-                  </div>
-                </form>
-
                 {/* Main Navigation Items */}
                   {mainNavItems.map(({ href, label, icon: IconComponent }) => {
                   const isActive = isActiveLink(href);
@@ -730,7 +624,8 @@ const EnhancedNavbar = () => {
                       href={href}
                       onClick={() => setMobileMenu(false)}
                       className={cn(
-                        "flex items-center gap-3 px-5 py-3.5 rounded-2xl",
+                        "h-[48px] flex items-center gap-3 px-5 py-3 rounded-xl",
+                        "text-sm font-semibold",
                         "text-neutral-700 dark:text-neutral-300",
                         "transition-all duration-300 ease-in-out",
                         "hover:scale-[1.02] active:scale-[0.98]",
@@ -739,8 +634,8 @@ const EnhancedNavbar = () => {
                           : "hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm"
                       )}
                     >
-                      <Icon icon={IconComponent} size="md" />
-                      <span className="font-semibold">{label}</span>
+                      <Icon icon={IconComponent} size="md" className="w-[20px] h-[20px]" />
+                      <span>{label}</span>
                     </Link>
                   );
                 })}
@@ -755,7 +650,8 @@ const EnhancedNavbar = () => {
                       <button
                         onClick={() => setOpenDropdown(isOpen ? null : key)}
                         className={cn(
-                          "w-full flex items-center justify-between gap-3 px-5 py-3.5 rounded-2xl",
+                          "h-[48px] w-full flex items-center justify-between gap-3 px-5 py-3 rounded-xl",
+                          "text-sm font-semibold",
                           "text-neutral-700 dark:text-neutral-300",
                           "transition-all duration-300 ease-in-out",
                           "hover:scale-[1.02] active:scale-[0.98]",
@@ -765,10 +661,10 @@ const EnhancedNavbar = () => {
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <Icon icon={menu.icon} size="md" />
-                          <span className="font-semibold">{menu.label}</span>
+                          <Icon icon={menu.icon} size="md" className="w-[20px] h-[20px]" />
+                          <span>{menu.label}</span>
                         </div>
-                        <ChevronDown className={cn("w-4 h-4 transition-transform duration-300", isOpen && "rotate-180")} />
+                        <ChevronDown className={cn("w-[18px] h-[18px] transition-transform duration-300", isOpen && "rotate-180")} />
                       </button>
                       <AnimatePresence>
                         {isOpen && (
@@ -815,22 +711,59 @@ const EnhancedNavbar = () => {
                   );
                 })}
 
-                <div className="border-t border-neutral-200 dark:border-neutral-800 my-2 pt-2">
-                  {!isLoggedIn && (
+                <div className="border-t border-neutral-200 dark:border-neutral-800 my-3 pt-3 space-y-2">
+                  {isLoggedIn ? (
+                    <>
+                      {/* زر لوحة الإدارة للموبايل */}
+                      <Link
+                        href="/admin/dashboard"
+                        onClick={() => setMobileMenu(false)}
+                        className={cn(
+                          "h-[50px] w-full px-5 py-3 rounded-xl font-semibold",
+                          "bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-700 dark:via-indigo-700 dark:to-blue-700",
+                          "text-white",
+                          "hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700 dark:hover:from-purple-800 dark:hover:via-indigo-800 dark:hover:to-blue-800",
+                          "shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/50",
+                          "transition-all duration-300 ease-in-out",
+                          "hover:scale-[1.02] active:scale-[0.98]",
+                          "text-sm flex items-center justify-center gap-2.5",
+                          "relative group overflow-hidden",
+                          pathname?.startsWith('/admin') && "ring-2 ring-purple-400 ring-offset-2"
+                        )}
+                      >
+                        {/* تأثير لامع */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                          animate={{
+                            x: ['-100%', '200%'],
+                          }}
+                          transition={{
+                            repeat: Infinity,
+                            duration: 3,
+                            ease: 'linear',
+                          }}
+                        />
+                        <Shield className="w-[19px] h-[19px] relative z-10" />
+                        <span className="relative z-10">لوحة الإدارة</span>
+                      </Link>
+                    </>
+                  ) : (
                     <>
                       <Link
                         href="/login"
                         onClick={() => setMobileMenu(false)}
-                        className="block w-full text-center px-5 py-3 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-2xl font-semibold hover:from-primary-700 hover:to-primary-800 mb-2 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-sm"
+                        className="h-[50px] w-full px-5 py-3 bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-600 dark:hover:to-primary-700 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-sm flex items-center justify-center gap-2.5"
                       >
-                        تسجيل الدخول
+                        <LogIn className="w-[19px] h-[19px]" />
+                        <span>تسجيل الدخول</span>
                       </Link>
                       <Link
                         href="/register"
                         onClick={() => setMobileMenu(false)}
-                        className="block w-full text-center px-6 py-3.5 border-2 border-primary-600 text-primary-600 rounded-2xl font-semibold hover:bg-primary-50 transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98]"
+                        className="h-[50px] w-full px-5 py-3 border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 bg-white dark:bg-neutral-800 rounded-xl font-semibold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98] text-sm flex items-center justify-center gap-2.5"
                       >
-                        التسجيل
+                        <UserPlus className="w-[19px] h-[19px]" />
+                        <span>إنشاء حساب جديد</span>
                       </Link>
                     </>
                   )}

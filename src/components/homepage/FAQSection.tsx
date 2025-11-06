@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Container, Card } from '@/components/ui/primitives';
 import { cn } from '@/lib/utils';
@@ -58,13 +57,7 @@ const FAQSection = () => {
     <section className="relative py-16 lg:py-24 bg-neutral-50 dark:bg-neutral-800/50">
       <Container size="xl">
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 lg:mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <div className="text-center mb-12 lg:mb-16">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full mb-6">
             <HelpCircle className="w-8 h-8 text-primary-600 dark:text-primary-400" />
           </div>
@@ -74,23 +67,17 @@ const FAQSection = () => {
           <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
             أجوبة على الأسئلة الأكثر شيوعاً حول المنصة والخدمات
           </p>
-        </motion.div>
+        </div>
 
         {/* FAQ Items */}
         <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1, duration: 0.5 }}
-            >
+            <div key={index}>
               <Card
                 variant={openIndex === index ? 'elevated' : 'default'}
                 size="md"
                 className={cn(
-                  'transition-all duration-300',
+                  'transition-all duration-200',
                   openIndex === index && 'border-primary-300 dark:border-primary-700'
                 )}
               >
@@ -99,58 +86,28 @@ const FAQSection = () => {
                   className="w-full flex items-center justify-between gap-4 text-right"
                   aria-expanded={openIndex === index}
                 >
-                  <motion.div
-                    animate={{ rotate: openIndex === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex-shrink-0"
+                  <div
+                    className="flex-shrink-0 transition-transform duration-200"
+                    style={{ transform: `rotate(${openIndex === index ? 180 : 0}deg)` }}
                   >
                     <ChevronDown className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
-                  </motion.div>
+                  </div>
                   <h3 className="text-lg font-semibold text-neutral-900 dark:text-white flex-1">
                     {faq.question}
                   </h3>
                 </button>
 
-                <AnimatePresence>
-                  {openIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="pt-4 mt-4 border-t border-neutral-200 dark:border-neutral-700">
-                        <p className="text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {openIndex === index && (
+                  <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
+                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
               </Card>
-            </motion.div>
+            </div>
           ))}
         </div>
-
-        {/* CTA */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-        >
-          <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-            لم تجد إجابة لسؤالك؟
-          </p>
-          <a
-            href="/contact"
-            className="text-primary-600 dark:text-primary-400 font-semibold hover:text-primary-700 dark:hover:text-primary-300 transition-colors"
-          >
-            تواصل معنا →
-          </a>
-        </motion.div>
       </Container>
     </section>
   );

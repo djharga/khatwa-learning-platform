@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FileText, Upload, Save } from 'lucide-react';
-import { Button } from '../ui';
+import StyledButton from '../ui/StyledButton';
 
 export interface FileEditorTabProps {
   uploadedFile: File | null;

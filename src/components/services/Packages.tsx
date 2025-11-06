@@ -168,9 +168,24 @@ export default function Packages() {
                 ))}
               </div>
 
-              <motion.button onClick={() => handleSubscribe(plan.id)} className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 ${plan.popular ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700' : 'bg-gray-900 text-white hover:bg-gray-800'}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                اشترك الآن
-                <ArrowRight className="w-5 h-5" />
+              <motion.button 
+                onClick={() => handleSubscribe(plan.id)} 
+                className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 relative overflow-hidden group ${
+                  plan.popular 
+                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40' 
+                    : 'bg-gray-900 text-white hover:bg-gray-800 shadow-md hover:shadow-lg'
+                }`} 
+                whileHover={{ scale: 1.02 }} 
+                whileTap={{ scale: 0.98 }}
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  {plan.id === 'free' ? 'ابدأ مجاناً' : plan.id === 'enterprise-small' || plan.id === 'enterprise-large' ? 'تواصل معنا' : 'اشترك الآن'}
+                  {plan.popular && <Crown className="w-5 h-5" />}
+                  {!plan.popular && <ArrowRight className="w-5 h-5" />}
+                </span>
+                {plan.popular && (
+                  <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                )}
               </motion.button>
             </motion.div>
           ))}

@@ -231,9 +231,11 @@ export default function StudentSidebar() {
         {/* زر الإدارة - بارز وواضح */}
         <div className="p-4 border-t border-gray-200 dark:border-gray-800">
           <Link
-            href="/admin"
+            href="/admin/dashboard"
             onClick={() => setIsOpen(false)}
-            className="group relative block w-full p-4 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+            className={`group relative block w-full p-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-700 dark:via-indigo-700 dark:to-blue-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden ${
+              pathname?.startsWith('/admin') ? 'ring-2 ring-purple-400 ring-offset-2' : ''
+            }`}
           >
             {/* خلفية متحركة */}
             <motion.div
@@ -242,30 +244,30 @@ export default function StudentSidebar() {
             />
             
             {/* محتوى الزر */}
-            <div className="relative flex items-center gap-3">
+            <div className="relative flex items-center gap-2.5">
               <motion.div
                 whileHover={{ rotate: [0, -10, 10, -10, 0] }}
                 transition={{ duration: 0.5 }}
-                className="p-2 bg-white/20 backdrop-blur-sm rounded-lg"
+                className="p-1.5 bg-white/20 backdrop-blur-sm rounded-lg"
               >
-                <Shield className="w-6 h-6" />
+                <Shield className="w-5 h-5" />
               </motion.div>
               <div className="flex-1 text-right">
-                <p className="text-base font-bold mb-0.5">لوحة الإدارة</p>
+                <p className="text-sm font-bold mb-0.5">لوحة الإدارة</p>
                 <p className="text-xs text-white/80">التحكم الكامل في النظام</p>
               </div>
               <motion.div
-                animate={{ x: [0, 5, 0] }}
+                animate={{ x: [0, 3, 0] }}
                 transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
                 className="opacity-80"
               >
-                <LayoutDashboard className="w-5 h-5" />
+                <LayoutDashboard className="w-4 h-4" />
               </motion.div>
             </div>
             
             {/* تأثير لامع */}
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent"
               animate={{
                 x: ['-100%', '200%'],
               }}

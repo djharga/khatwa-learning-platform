@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Mail, Eye, EyeOff } from 'lucide-react';
-import { Input, Button, Checkbox, FormField } from '../ui';
+import { Input, Checkbox, FormField } from '../ui';
+import StyledButton from '../ui/StyledButton';
 import { useFormValidation } from '../../lib/formHelpers';
 import { validateEmail, validateRequired } from '../../lib/validation';
 import { showToast, toastMessages } from '../../utils/toast';
@@ -21,32 +22,32 @@ interface SocialLoginButtonsProps {
 const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({ onSocialLogin }) => {
   return (
     <div className="space-y-4">
-      <Button
+      <StyledButton
         onClick={() => onSocialLogin('Google')}
-        variant="outline"
+        variant="secondary"
         fullWidth
         aria-label="تسجيل الدخول عبر Google"
       >
         تسجيل الدخول عبر Google
-      </Button>
+      </StyledButton>
 
-      <Button
+      <StyledButton
         onClick={() => onSocialLogin('Facebook')}
-        variant="outline"
+        variant="secondary"
         fullWidth
         aria-label="تسجيل الدخول عبر Facebook"
       >
         تسجيل الدخول عبر Facebook
-      </Button>
+      </StyledButton>
 
-      <Button
+      <StyledButton
         onClick={() => onSocialLogin('Twitter')}
-        variant="outline"
+        variant="secondary"
         fullWidth
         aria-label="تسجيل الدخول عبر Twitter"
       >
         تسجيل الدخول عبر Twitter
-      </Button>
+      </StyledButton>
     </div>
   );
 };
@@ -213,15 +214,15 @@ const LoginComponent = () => {
           </div>
 
           <div>
-            <Button
+            <StyledButton
               type="submit"
               variant="primary"
-              size="lg"
+              size="large"
               fullWidth
               aria-label="تسجيل الدخول إلى حسابك"
             >
               تسجيل الدخول
-            </Button>
+            </StyledButton>
           </div>
         </form>
       </motion.div>

@@ -69,10 +69,10 @@ const CreativeFeaturesSection = () => {
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      {/* Enhanced Abstract Background */}
+      {/* Enhanced Abstract Background - Very Subtle */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-indigo-200/30 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-to-tr from-indigo-200/30 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-indigo-100/12 to-transparent dark:from-indigo-900/8 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-to-tr from-indigo-100/12 to-transparent dark:from-indigo-900/8 rounded-full blur-3xl" />
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
       </div>
@@ -81,10 +81,10 @@ const CreativeFeaturesSection = () => {
         {/* Header */}
         <motion.div
           className="text-center mb-16 lg:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.15 }}
         >
           <motion.div
             className="inline-flex items-center gap-3 mb-6 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50"
@@ -129,7 +129,7 @@ const CreativeFeaturesSection = () => {
                 <motion.div
                   className="mb-6"
                   whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                  transition={{ duration: 0.5 }}
+                  transition={{ duration: 0.15 }}
                 >
                   <div className="relative">
                     {/* Glow Effect */}
@@ -170,15 +170,14 @@ const CreativeFeaturesSection = () => {
         {/* Bottom CTA */}
         <motion.div
           className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 0.1, duration: 0.15 }}
         >
           <motion.div
             className="inline-block"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+
           >
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 rounded-2xl blur-xl opacity-40 group-hover:opacity-60 transition duration-500" />

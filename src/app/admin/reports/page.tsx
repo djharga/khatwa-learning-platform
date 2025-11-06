@@ -104,7 +104,7 @@ const AdminReportsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
         <motion.div
@@ -112,16 +112,30 @@ const AdminReportsPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-red-100 px-6 py-3 rounded-full mb-6">
-            <BarChart3 className="w-6 h-6 text-red-600" />
-            <span className="text-red-700 font-bold">التقارير والإحصائيات</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-red-100 to-orange-100 dark:from-red-900/30 dark:to-orange-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-red-200/50 dark:border-red-700/50"
+          >
+            <BarChart3 className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <span className="text-red-700 dark:text-red-300 font-bold">التقارير والإحصائيات</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-gray-900 via-red-900 to-orange-900 dark:from-white dark:via-red-100 dark:to-orange-100 bg-clip-text text-transparent mb-4"
+          >
             نظام التقارير المتقدم
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
             تحليل شامل لأداء النظام والاتجاهات والإحصائيات التفصيلية
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* شريط التحكم */}

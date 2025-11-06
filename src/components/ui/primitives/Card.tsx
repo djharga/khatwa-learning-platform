@@ -94,13 +94,13 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   }, ref) => {
     const MotionDiv = hover ? motion.div : 'div';
     const motionProps = hover ? {
-      whileHover: { y: -6, scale: 1.01 },
-      whileTap: { scale: 0.98 },
-      initial: { opacity: 0, y: 20 },
-      animate: { opacity: 1, y: 0 },
+      whileHover: { y: -2 }, // Reduced from -6
+      whileTap: { scale: 0.99 }, // Reduced from 0.98
+      initial: { opacity: 0 }, // Removed y movement
+      animate: { opacity: 1 }, // Removed y movement
       transition: { 
-        duration: 0.2,
-        ease: [0.4, 0, 0.2, 1]
+        duration: 0.15, // Faster
+        ease: 'easeOut'
       }
     } : {};
 

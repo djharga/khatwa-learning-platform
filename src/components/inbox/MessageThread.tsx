@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui';
+import StyledButton from '@/components/ui/StyledButton';
 import { Send, Paperclip, Smile } from 'lucide-react';
 import { initialMessages } from '../inbox-data';
 
@@ -79,12 +79,12 @@ export default function MessageThread() {
       {/* Message input area with attachment, emoji, and send controls */}
       <div className="p-4 border-t border-gray-200">
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon">
-            <Paperclip className="w-5 h-5" />
-          </Button>
-          <Button variant="ghost" size="icon">
-            <Smile className="w-5 h-5" />
-          </Button>
+          <StyledButton variant="secondary" size="small">
+            <Paperclip className="w-5 h-5 inline-block mr-2" />
+          </StyledButton>
+          <StyledButton variant="secondary" size="small">
+            <Smile className="w-5 h-5 inline-block mr-2" />
+          </StyledButton>
           <input
             type="text"
             value={newMessage}
@@ -93,10 +93,10 @@ export default function MessageThread() {
             className="flex-1 border border-gray-300 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
           />
-          <Button onClick={handleSend}>
-            <Send className="w-5 h-5 mr-2" />
+          <StyledButton onClick={handleSend} variant="primary" size="medium">
+            <Send className="w-5 h-5 inline-block mr-2" />
             إرسال
-          </Button>
+          </StyledButton>
         </div>
       </div>
     </div>

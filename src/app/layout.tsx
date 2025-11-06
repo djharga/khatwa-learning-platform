@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Cairo, Tajawal } from 'next/font/google';
+import { Cairo, Tajawal, IBM_Plex_Sans_Arabic, Almarai } from 'next/font/google';
 import '../styles/core.css';
 import '../styles/utilities.css';
 import EnhancedNavbar from '../components/layout/EnhancedNavbar';
@@ -14,17 +14,45 @@ import AppSidebar from '../components/layout/AppSidebar';
 import { SkipLink } from '@/components/ui/accessibility';
 import Script from 'next/script';
 import ServiceWorkerProvider from '../components/ServiceWorkerProvider';
+import LayoutWrapper from './LayoutWrapper';
+import ConditionalFooter, { ConditionalBottomNav, ConditionalWidgets } from './ConditionalFooter';
 
+// خط Cairo - للعناوين الرئيسية (أنيق وعصري)
 const cairo = Cairo({
-  subsets: ['arabic'],
+  subsets: ['arabic', 'latin'],
   variable: '--font-cairo',
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
 });
 
+// خط Tajawal - للنصوص الأساسية (واضح وسهل القراءة)
 const tajawal = Tajawal({
-  subsets: ['arabic'],
+  subsets: ['arabic', 'latin'],
   variable: '--font-tajawal',
-  weight: ['300', '400', '500', '700'],
+  weight: ['300', '400', '500', '700', '800', '900'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
+});
+
+// خط IBM Plex Sans Arabic - للنصوص التقنية والأكاديمية (احترافي)
+const ibmPlex = IBM_Plex_Sans_Arabic({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-ibm-plex',
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  preload: false,
+});
+
+// خط Almarai - للنصوص القصيرة والأزرار (عصري وجريء)
+const almarai = Almarai({
+  subsets: ['arabic'],
+  variable: '--font-almarai',
+  weight: ['300', '400', '700', '800'],
+  display: 'swap',
+  preload: false,
 });
 
 import { generateSEOMetadata, generateStructuredData } from '@/lib/seo';
@@ -120,8 +148,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="خطى" />
       </head>
       <body
-        className={`${cairo.variable} ${tajawal.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative`}
-        style={{ fontFeatureSettings: '"rlig" 1, "calt" 1' }}
+        className={`${cairo.variable} ${tajawal.variable} ${ibmPlex.variable} ${almarai.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative`}
+        style={{ 
+          fontFeatureSettings: '"rlig" 1, "calt" 1, "liga" 1, "kern" 1',
+          textRendering: 'optimizeLegibility',
+          WebkitFontSmoothing: 'antialiased',
+          MozOsxFontSmoothing: 'grayscale'
+        }}
       >
         {/* Subtle Background Image for all pages */}
         <div
@@ -135,24 +168,10 @@ export default function RootLayout({
           <SkipLink href="#main-content">
             تخطي إلى المحتوى الرئيسي
           </SkipLink>
-          <EnhancedNavbar />
-          <AppSidebar />
-          <Script src="/theme-init.js" strategy="beforeInteractive" />
-          <main
-            id="main-content"
-            className="px-4 py-8 lg:px-8 lg:py-12 pt-16 lg:pt-20 pb-20 md:pb-8"
-            role="main"
-            tabIndex={-1}
-          >
-            {/* مسار التنقل */}
-            <div className="mb-6">
-              <Breadcrumbs className="max-w-7xl mx-auto" />
-            </div>
-
-            {/* المحتوى الرئيسي */}
-            <div className="max-w-7xl mx-auto">{children}</div>
-          </main>
-          <FooterComponent />
+          <LayoutWrapper>
+            {children}
+          </LayoutWrapper>
+          <ConditionalFooter />
           <Toaster
             position="top-right"
             toastOptions={{
@@ -165,15 +184,8 @@ export default function RootLayout({
               },
             }}
           />
-          <BottomNavigation />
-          <WhatsappFloatButton />
-          <ChatAssistantWidget />
-          <footer className="text-center p-4 text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} خطى للتدريب والاستشارات. جميع
-            الحقوق محفوظة.
-            <br />
-            تصميم: ICODE - تطوير بواسطة WINDSURFER AI
-          </footer>
+          {/* <ConditionalBottomNav /> */}
+          <ConditionalWidgets />
         </NotificationProvider>
       </body>
     </html>

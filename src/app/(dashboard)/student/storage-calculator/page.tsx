@@ -16,7 +16,7 @@ import {
   BarChart3,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 
 interface Plan {
   id: string;
@@ -284,7 +284,8 @@ export default function StorageCalculatorPage() {
                               </li>
                             ))}
                           </ul>
-                          <Button
+                          <StyledButton
+                            variant={plan.recommended ? "primary" : "secondary"}
                             className={`w-full ${
                               plan.recommended
                                 ? 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
@@ -292,7 +293,7 @@ export default function StorageCalculatorPage() {
                             }`}
                           >
                             اختر هذه الباقة
-                          </Button>
+                          </StyledButton>
                         </CardContent>
                       </Card>
                     </motion.div>
@@ -375,9 +376,9 @@ export default function StorageCalculatorPage() {
                         /{billingCycle === 'monthly' ? 'شهر' : 'سنة'}
                       </span>
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
+                    <StyledButton variant="primary" className="w-full bg-gradient-to-r from-blue-600 to-purple-600">
                       اشترك الآن
-                    </Button>
+                    </StyledButton>
                   </div>
                 </CardContent>
               </Card>

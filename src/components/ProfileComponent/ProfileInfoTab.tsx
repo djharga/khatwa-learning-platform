@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { User, Settings, Globe, Bell, Camera, Edit } from 'lucide-react';
-import { Button } from '../ui';
+import StyledButton from '../ui/StyledButton';
 
 export interface ProfileInfoTabProps {
   userData: any;
@@ -32,14 +32,14 @@ export const ProfileInfoTab = ({
         <h3 className="text-xl font-bold mb-4">المعلومات الشخصية</h3>
         
         <div className="flex justify-end space-x-4 mb-6">
-          <Button onClick={() => setIsEditing(!isEditing)}>
+          <StyledButton onClick={() => setIsEditing(!isEditing)} variant="secondary" size="medium">
             {isEditing ? 'إلغاء' : 'تعديل'}
-          </Button>
+          </StyledButton>
           
           {isEditing && (
-            <Button onClick={handleSaveProfile} loading={isLoading}>
-              حفظ
-            </Button>
+            <StyledButton onClick={handleSaveProfile} disabled={isLoading} variant="primary" size="medium">
+              {isLoading ? 'جاري الحفظ...' : 'حفظ'}
+            </StyledButton>
           )}
         </div>
       </div>

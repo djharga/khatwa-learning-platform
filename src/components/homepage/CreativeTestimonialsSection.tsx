@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Quote, Sparkles } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 import Image from 'next/image';
@@ -26,15 +26,14 @@ const CreativeTestimonialsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { stiffness: 500, damping: 100 };
-  const x = useSpring(mouseX, springConfig);
-  const y = useSpring(mouseY, springConfig);
-
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
+  // Removed 3D tilt effects - reduced motion
+  // const mouseX = useMotionValue(0);
+  // const mouseY = useMotionValue(0);
+  // const springConfig = { stiffness: 500, damping: 100 };
+  // const x = useSpring(mouseX, springConfig);
+  // const y = useSpring(mouseY, springConfig);
+  // const rotateX = useMotionValue(0);
+  // const rotateY = useMotionValue(0);
 
   const testimonials: Testimonial[] = [
     {
@@ -69,27 +68,28 @@ const CreativeTestimonialsSection = () => {
     },
   ];
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isHovered) return;
+  // Removed handleMouseMove and handleMouseLeave - reduced motion
+  // const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   if (!isHovered) return;
     
-    const rect = e.currentTarget.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
+  //   const rect = e.currentTarget.getBoundingClientRect();
+  //   const centerX = rect.left + rect.width / 2;
+  //   const centerY = rect.top + rect.height / 2;
     
-    mouseX.set((e.clientX - centerX) / 20);
-    mouseY.set((e.clientY - centerY) / 20);
+  //   mouseX.set((e.clientX - centerX) / 20);
+  //   mouseY.set((e.clientY - centerY) / 20);
     
-    rotateX.set((e.clientY - centerY) / 15);
-    rotateY.set((e.clientX - centerX) / 15);
-  };
+  //   rotateX.set((e.clientY - centerY) / 15);
+  //   rotateY.set((e.clientX - centerX) / 15);
+  // };
 
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    mouseX.set(0);
-    mouseY.set(0);
-    rotateX.set(0);
-    rotateY.set(0);
-  };
+  // const handleMouseLeave = () => {
+  //   setIsHovered(false);
+  //   mouseX.set(0);
+  //   mouseY.set(0);
+  //   rotateX.set(0);
+  //   rotateY.set(0);
+  // };
 
   return (
     <section className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-neutral-900 via-neutral-800 to-primary-900">
@@ -137,10 +137,10 @@ const CreativeTestimonialsSection = () => {
             </span>
           </motion.div>
 
-          <h2 className="text-4xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="text-4xl lg:text-6xl font-bold text-neutral-900 dark:text-white mb-6">
             قصص نجاح
             <br />
-            <span className="bg-gradient-to-r from-primary-400 via-accent-400 to-primary-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-700 dark:from-indigo-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
               ملهمة
             </span>
           </h2>
@@ -152,34 +152,19 @@ const CreativeTestimonialsSection = () => {
             <motion.div
               key={currentIndex}
               className="relative"
-              initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
-              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
-              transition={{ duration: 0.6 }}
-              onMouseMove={handleMouseMove}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                rotateX,
-                rotateY,
-                transformStyle: 'preserve-3d',
-                x,
-                y,
-              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
               <div className={`relative bg-gradient-to-br ${testimonials[currentIndex].gradient} p-1 rounded-3xl`}>
                 {/* Glow Effect */}
                 <motion.div
                   className="absolute -inset-1 bg-gradient-to-r from-primary-400 via-accent-400 to-primary-400 rounded-3xl blur-2xl opacity-50"
                   animate={{
-                    opacity: [0.3, 0.6, 0.3],
-                    scale: [1, 1.1, 1],
+                    opacity: 0.45,
                   }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
+                  transition={{ duration: 0 }}
                 />
 
                 {/* Card Content */}
@@ -216,7 +201,7 @@ const CreativeTestimonialsSection = () => {
                     </div>
 
                     {/* Text */}
-                    <blockquote className="text-xl lg:text-2xl text-white/90 leading-relaxed mb-8 font-medium text-center max-w-3xl mx-auto">
+                    <blockquote className="text-xl lg:text-2xl text-neutral-800 dark:text-neutral-100 leading-relaxed mb-8 font-medium text-center max-w-3xl mx-auto">
                       "{testimonials[currentIndex].text}"
                     </blockquote>
 
@@ -237,7 +222,7 @@ const CreativeTestimonialsSection = () => {
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <span className="text-2xl font-bold text-white">
+                              <span className="text-2xl font-bold text-neutral-900 dark:text-white">
                                 {testimonials[currentIndex].name.charAt(0)}
                               </span>
                             )}
@@ -259,7 +244,7 @@ const CreativeTestimonialsSection = () => {
                       </motion.div>
 
                       <div className="text-right">
-                        <div className="text-xl font-bold text-white mb-1">
+                        <div className="text-xl font-bold text-neutral-900 dark:text-white mb-1">
                           {testimonials[currentIndex].name}
                         </div>
                         <div className="text-sm text-neutral-400">
@@ -290,19 +275,14 @@ const CreativeTestimonialsSection = () => {
                     ? 'bg-primary-400 scale-125'
                     : 'bg-white/30 hover:bg-white/50'
                 }`}
-                whileHover={{ scale: 1.2 }}
-                whileTap={{ scale: 0.9 }}
+
               >
                 {index === currentIndex && (
                   <motion.div
                     className="absolute inset-0 rounded-full bg-primary-400 blur-md"
                     initial={{ opacity: 0.5, scale: 1 }}
-                    animate={{ opacity: [0.5, 1, 0.5], scale: [1, 1.5, 1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
+                    animate={{ opacity: 0.75 }}
+                    transition={{ duration: 0 }}
                   />
                 )}
               </motion.button>

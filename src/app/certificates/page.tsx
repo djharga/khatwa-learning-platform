@@ -264,7 +264,10 @@ export default function CertificatesPage() {
                 ].map((filterOption) => (
                   <button
                     key={filterOption.id}
-                    onClick={() => setFilter(filterOption.id as any)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFilter(filterOption.id as 'all' | 'earned' | 'pending' | 'expired');
+                    }}
                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${
                       filter === filterOption.id
                         ? 'bg-blue-600 text-white'

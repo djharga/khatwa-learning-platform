@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Plus,
@@ -91,8 +91,136 @@ const AdminProgramsPage = () => {
   const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null);
   const [showProgramDetails, setShowProgramDetails] = useState(false);
   const [showAddProgramModal, setShowAddProgramModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
 
-  // بيانات تجريبية للبرامج التدريبية
+  // جلب البيانات من API
+  useEffect(() => {
+    loadPrograms();
+  }, [statusFilter, typeFilter, searchTerm]);
+
+  const loadPrograms = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const params = new URLSearchParams();
+      if (statusFilter !== 'all') params.append('status', statusFilter);
+      if (typeFilter !== 'all') params.append('type', typeFilter);
+      if (searchTerm) params.append('search', searchTerm);
+      
+      const response = await fetch(`/api/admin/programs?${params.toString()}`);
+      if (!response.ok) throw new Error('فشل جلب البرامج');
+      
+      const result = await response.json();
+      if (result.success) {
+        // تحويل البيانات من API إلى التنسيق المطلوب مع schedule و participants
+        const programsWithDetails = result.data.map((program: any) => ({
+          ...program,
+          schedule: program.schedule || [],
+          participants: program.participants || [],
+        }));
+        setPrograms(programsWithDetails);
+      } else {
+        throw new Error(result.error || 'فشل جلب البرامج');
+      }
+    } catch (err: any) {
+      console.error('Error loading programs:', err);
+      setError(err.message || 'حدث خطأ أثناء جلب البرامج');
+      // في حالة الخطأ، استخدم البيانات الافتراضية (fallback)
+      const fallbackData: TrainingProgram[] = [];
+      setPrograms(fallbackData);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // وظائف CRUD
+  const handleDeleteProgram = async (programId: string) => {
+    if (!confirm('هل أنت متأكد من حذف هذا البرنامج؟')) return;
+    
+    try {
+      setSaving(true);
+      const response = await fetch(`/api/admin/programs/${programId}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) throw new Error('فشل حذف البرنامج');
+      
+      const result = await response.json();
+      if (result.success) {
+        await loadPrograms(); // إعادة جلب البيانات
+        alert('تم حذف البرنامج بنجاح');
+      } else {
+        throw new Error(result.error || 'فشل حذف البرنامج');
+      }
+    } catch (err: any) {
+      console.error('Error deleting program:', err);
+      alert(err.message || 'حدث خطأ أثناء حذف البرنامج');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleUpdateProgram = async (programId: string, updates: Partial<TrainingProgram>) => {
+    try {
+      setSaving(true);
+      const response = await fetch(`/api/admin/programs/${programId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updates),
+      });
+      
+      if (!response.ok) throw new Error('فشل تحديث البرنامج');
+      
+      const result = await response.json();
+      if (result.success) {
+        await loadPrograms(); // إعادة جلب البيانات
+        alert('تم تحديث البرنامج بنجاح');
+        setShowProgramDetails(false);
+      } else {
+        throw new Error(result.error || 'فشل تحديث البرنامج');
+      }
+    } catch (err: any) {
+      console.error('Error updating program:', err);
+      alert(err.message || 'حدث خطأ أثناء تحديث البرنامج');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleCreateProgram = async (programData: Partial<TrainingProgram>) => {
+    try {
+      setSaving(true);
+      const response = await fetch('/api/admin/programs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(programData),
+      });
+      
+      if (!response.ok) throw new Error('فشل إنشاء البرنامج');
+      
+      const result = await response.json();
+      if (result.success) {
+        await loadPrograms(); // إعادة جلب البيانات
+        alert('تم إنشاء البرنامج بنجاح');
+        setShowAddProgramModal(false);
+      } else {
+        throw new Error(result.error || 'فشل إنشاء البرنامج');
+      }
+    } catch (err: any) {
+      console.error('Error creating program:', err);
+      alert(err.message || 'حدث خطأ أثناء إنشاء البرنامج');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // بيانات تجريبية احتياطية (fallback data) - سيتم استبدالها بالبيانات من API
   const [programs, setPrograms] = useState<TrainingProgram[]>([
     {
       id: '1',
@@ -334,25 +462,77 @@ const AdminProgramsPage = () => {
     }).format(amount);
   };
 
+    // حالة التحميل
+  if (loading && programs.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 flex items-center justify-center">
+        <div className="text-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+            className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full mx-auto mb-4"
+          />
+          <p className="text-gray-600">جاري تحميل البرامج...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">                                                              
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* رسالة الخطأ */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-6 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 border-2 border-red-300 dark:border-red-700 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl relative shadow-lg backdrop-blur-sm"
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <AlertCircle className="w-5 h-5" />
+                <span className="font-medium">{error}</span>
+              </div>
+              <button
+                onClick={() => setError(null)}
+                className="text-red-700 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+
         {/* رأس الصفحة */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <div className="inline-flex items-center gap-3 bg-purple-100 px-6 py-3 rounded-full mb-6">
-            <GraduationCap className="w-6 h-6 text-purple-600" />
-            <span className="text-purple-700 font-bold">إدارة البرامج التدريبية</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-purple-200/50 dark:border-purple-700/50"
+          >
+            <GraduationCap className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            <span className="text-purple-700 dark:text-purple-300 font-bold">إدارة البرامج التدريبية</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-gray-900 via-purple-900 to-indigo-900 dark:from-white dark:via-purple-100 dark:to-indigo-100 bg-clip-text text-transparent mb-4"
+          >
             نظام إدارة البرامج التدريبية الشامل
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed"
+          >
             إدارة شاملة للبرامج التدريبية مع تتبع الجداول الزمنية والمشاركين
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* الإحصائيات */}
@@ -362,17 +542,21 @@ const AdminProgramsPage = () => {
           transition={{ delay: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-6 mb-8"
         >
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
+          <motion.div 
+            whileHover={{ y: -4, scale: 1.02 }}
+            className="group relative bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-3xl shadow-lg hover:shadow-2xl p-6 border border-blue-100/50 dark:border-blue-800/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/5 group-hover:from-blue-500/5 group-hover:to-blue-500/10 transition-all duration-300"></div>
+            <div className="relative z-10 flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">إجمالي البرامج</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-1">إجمالي البرامج</p>
+                <p className="text-3xl font-extrabold text-gray-900 dark:text-white">{stats.total}</p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-blue-600" />
+              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-transform duration-300">
+                <BookOpen className="w-7 h-7 text-white" />
               </div>
             </div>
-          </div>
+          </motion.div>
 
           <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
             <div className="flex items-center justify-between">
@@ -536,8 +720,8 @@ const AdminProgramsPage = () => {
             {/* أزرار التحكم */}
             <div className="flex items-center gap-3">
               <motion.button
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
+                className="bg-gradient-to-r from-green-600 via-green-600 to-emerald-600 hover:from-green-700 hover:via-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 border border-green-500/20"
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowAddProgramModal(true)}
               >
@@ -546,8 +730,8 @@ const AdminProgramsPage = () => {
               </motion.button>
 
               <motion.button
-                className="bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
+                className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-600 hover:from-blue-700 hover:via-indigo-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 border border-blue-500/20"
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <BarChart3 className="w-5 h-5" />
@@ -656,10 +840,13 @@ const AdminProgramsPage = () => {
                         >
                           <Edit className="w-4 h-4" />
                         </motion.button>
-                        <motion.button
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
+                                                <motion.button
+                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed"                                                
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
+                          onClick={() => handleDeleteProgram(program.id)}
+                          disabled={saving || loading}
+                          title="حذف البرنامج"
                         >
                           <Trash2 className="w-4 h-4" />
                         </motion.button>

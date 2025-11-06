@@ -40,7 +40,10 @@ function ServicesContent() {
             ].map((t) => (
               <button
                 key={t.id}
-                onClick={() => changeTab(t.id as any)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  changeTab(t.id as 'consulting' | 'packages');
+                }}
                 className={`px-5 py-3 rounded-xl font-semibold transition-all ${
                   tab === t.id
                     ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow'

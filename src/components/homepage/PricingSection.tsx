@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Crown, Star, Building } from 'lucide-react';
-import { Container, Card, Button } from '@/components/ui/primitives';
+import { Container, Card } from '@/components/ui/primitives';
+import StyledButton from '@/components/ui/StyledButton';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -211,14 +212,28 @@ const PricingSection = () => {
                   </ul>
 
                   {/* CTA */}
-                  <Link href={`/register?plan=${plan.id}`}>
-                    <Button
-                      variant={plan.popular ? 'primary' : 'outline'}
-                      size="lg"
-                      className="w-full"
+                  <Link href={`/register?plan=${plan.id}`} className="block">
+                    <StyledButton
+                      variant={plan.popular ? 'primary' : 'secondary'}
+                      size="large"
+                      fullWidth
+                      className={cn(
+                        'group relative overflow-hidden',
+                        plan.popular && 'shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40'
+                      )}
                     >
-                      {plan.id === 'enterprise' ? 'تواصل معنا' : 'اشترك الآن'}
-                    </Button>
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        {plan.id === 'enterprise' ? 'تواصل معنا' : 'اشترك الآن'}
+                        {plan.popular && (
+                          <span className="inline-flex items-center">
+                            <Crown className="w-4 h-4 mr-1" />
+                          </span>
+                        )}
+                      </span>
+                      {plan.popular && (
+                        <span className="absolute inset-0 bg-gradient-to-r from-accent-600 to-primary-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      )}
+                    </StyledButton>
                   </Link>
                 </Card>
               </motion.div>

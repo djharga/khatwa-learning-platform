@@ -62,7 +62,8 @@ import {
   QrCode,
 } from 'lucide-react';
 import Link from 'next/link';
-import { Input, Button, Checkbox, Select, FormField } from './ui';
+import { Input, Checkbox, Select, FormField } from './ui';
+import StyledButton from './ui/StyledButton';
 import { useFormValidation } from '../lib/formHelpers';
 import {
   validateEmail,

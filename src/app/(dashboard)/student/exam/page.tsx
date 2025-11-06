@@ -31,7 +31,7 @@ import {
 import ExamInterface from '@/components/exam/ExamInterface';
 import AuthGuard from '@/components/auth/AuthGuard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 
 interface UpcomingExam {
   id: string;
@@ -253,7 +253,10 @@ export default function ExamPage() {
                 return (
                   <button
                     key={tab.id}
-                    onClick={() => setActiveTab(tab.id as any)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setActiveTab(tab.id as 'upcoming' | 'results' | 'analysis' | 'take-exam');
+                    }}
                     className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
                       activeTab === tab.id
                         ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
@@ -341,7 +344,8 @@ export default function ExamPage() {
                             </div>
                           </div>
                           {exam.status === 'available' && (
-                            <Button
+                            <StyledButton
+                              variant="primary"
                               onClick={() => {
                                 setActiveTab('take-exam');
                                 setSelectedExam(exam.id);
@@ -350,13 +354,13 @@ export default function ExamPage() {
                             >
                               <BookOpen className="w-4 h-4 ml-2" />
                               ابدأ الاختبار
-                            </Button>
+                            </StyledButton>
                           )}
                           {exam.status === 'upcoming' && (
-                            <Button variant="outline" className="w-full" disabled>
+                            <StyledButton variant="secondary" className="w-full" disabled>
                               <Clock className="w-4 h-4 ml-2" />
                               غير متاح بعد
-                            </Button>
+                            </StyledButton>
                           )}
                         </CardContent>
                       </Card>
@@ -493,14 +497,14 @@ export default function ExamPage() {
 
                             {/* Actions */}
                             <div className="flex flex-col gap-2">
-                              <Button variant="outline" className="w-full">
+                              <StyledButton variant="secondary" className="w-full">
                                 <Eye className="w-4 h-4 ml-2" />
                                 عرض التفاصيل
-                              </Button>
-                              <Button variant="outline" className="w-full">
+                              </StyledButton>
+                              <StyledButton variant="secondary" className="w-full">
                                 <Download className="w-4 h-4 ml-2" />
                                 تحميل التقرير
-                              </Button>
+                              </StyledButton>
                             </div>
                           </div>
                         </CardContent>
@@ -617,10 +621,10 @@ export default function ExamPage() {
                       <p className="text-gray-600 dark:text-gray-400">
                         ركز على هذه المادة للتحسين من أدائك الإجمالي.
                       </p>
-                      <Button className="mt-4 w-full bg-orange-600 hover:bg-orange-700">
+                      <StyledButton variant="primary" className="mt-4 w-full bg-orange-600 hover:bg-orange-700">
                         <Lightbulb className="w-4 h-4 ml-2" />
                         عرض مواد التعلم المقترحة
-                      </Button>
+                      </StyledButton>
                     </CardContent>
                   </Card>
                 </div>

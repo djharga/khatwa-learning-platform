@@ -39,7 +39,7 @@ export function ModernTabs({
 
   const sizeClasses = {
     sm: 'h-9 px-3 text-sm',
-    md: 'h-11 px-4 text-base',
+    md: 'h-12 px-4 text-base',
     lg: 'h-14 px-6 text-lg',
   };
 
@@ -54,12 +54,15 @@ export function ModernTabs({
     return (
       <div
         className={cn(
-          'relative bg-white/80 dark:bg-neutral-900/80 backdrop-blur-lg rounded-2xl p-1.5 shadow-lg border border-neutral-200/50 dark:border-neutral-700/50',
+          'relative bg-white/80 dark:bg-neutral-900/80 backdrop-blur-lg rounded-2xl p-1.5 shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 w-full',
           sticky && 'sticky top-16 z-40',
           className
         )}
       >
-        <div className="flex gap-1.5 relative">
+        <div className={cn(
+          'flex gap-1.5 relative',
+          fullWidth ? 'w-full' : 'flex-wrap'
+        )}>
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
             const Icon = tab.icon;
@@ -70,9 +73,10 @@ export function ModernTabs({
                 onClick={() => !tab.disabled && onChange(tab.id)}
                 disabled={tab.disabled}
                 className={cn(
-                  'relative flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-300',
+                  'relative flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-300 whitespace-nowrap',
                   sizeClasses[size],
-                  fullWidth && 'flex-1',
+                  fullWidth && 'flex-1 min-w-0',
+                  !fullWidth && 'flex-shrink-0',
                   isActive
                     ? 'text-white shadow-lg'
                     : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800',
@@ -92,9 +96,9 @@ export function ModernTabs({
                     }}
                   />
                 )}
-                <span className="relative z-10 flex items-center gap-2">
+                <span className="relative z-10 flex items-center gap-2 truncate">
                   {Icon && <Icon className={iconSizes[size]} />}
-                  <span>{tab.label}</span>
+                  <span className="truncate">{tab.label}</span>
                   {tab.count !== undefined && tab.count > 0 && (
                     <span
                       className={cn(

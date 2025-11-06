@@ -47,14 +47,14 @@ const CourseSlider = (props: CourseSliderProps & { visibleCards?: number }) => {
           <motion.div
             className="flex gap-6"
             animate={{ x: -currentIndex * (cardWidth + 24) }}
-            transition={{ type: 'spring', stiffness: 100, damping: 20, duration: 0.8 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
           >
             {courses.map((course) => (
               <motion.div
                 key={course.id}
                 className="flex-shrink-0"
                 style={{ width: cardWidth }}
-                whileHover={{ y: -10 }}
+                whileHover={{ y: -2 }}
               >
                 <div className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow h-full">
                   <div className="bg-gray-200 border-2 border-dashed w-full h-48" />

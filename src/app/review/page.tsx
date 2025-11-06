@@ -200,7 +200,10 @@ export default function ReviewHubPage() {
               return (
                 <button
                   key={t.id}
-                  onClick={() => setActiveTab(t.id as any)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab(t.id as 'tools' | 'results' | 'analytics');
+                  }}
                   className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
                     activeTab === t.id
                       ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
@@ -240,7 +243,10 @@ export default function ReviewHubPage() {
                       return (
                         <button
                           key={t.id}
-                          onClick={() => setQuestionBankTab(t.id as any)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setQuestionBankTab(t.id as 'free' | 'premium' | 'questions' | 'analytics' | 'ai-tools');
+                          }}
                           className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                             questionBankTab === t.id
                               ? 'bg-blue-600 text-white shadow-md'

@@ -26,7 +26,7 @@ import {
   CreditCard,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import StyledButton from '@/components/ui/StyledButton';
 
 interface Ticket {
   id: string;
@@ -424,12 +424,12 @@ export default function SupportPage() {
                                     <p className="text-sm font-semibold text-gray-700">
                                       هل كانت هذه الإجابة مفيدة؟
                                     </p>
-                                    <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                                    <StyledButton size="small" variant="primary" className="bg-green-600 hover:bg-green-700">
                                       نعم
-                                    </Button>
-                                    <Button size="sm" variant="outline">
+                                    </StyledButton>
+                                    <StyledButton size="small" variant="secondary">
                                       لا
-                                    </Button>
+                                    </StyledButton>
                                   </div>
                                 </div>
                               </motion.div>
@@ -470,13 +470,15 @@ export default function SupportPage() {
                     </CardHeader>
                   </div>
                   <CardContent className="p-6">
-                    <Button
-                      className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 font-bold h-12 text-lg"
+                    <StyledButton
+                      variant="primary"
+                      fullWidth
+                      className="font-bold h-12 text-lg"
                       onClick={() => setShowNewTicketModal(true)}
                     >
-                      <Send className="w-5 h-5 ml-2" />
+                      <Send className="w-5 h-5 inline-block mr-2" />
                       تذكرة جديدة
-                    </Button>
+                    </StyledButton>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -676,13 +678,13 @@ export default function SupportPage() {
                 </div>
 
                 <div className="flex gap-3 pt-4">
-                  <Button className="flex-1 bg-gradient-to-r from-cyan-600 to-blue-600 h-12 text-lg font-bold">
-                    <Send className="w-5 h-5 ml-2" />
+                  <StyledButton variant="primary" fullWidth className="h-12 text-lg font-bold">
+                    <Send className="w-5 h-5 inline-block mr-2" />
                     إرسال التذكرة
-                  </Button>
-                  <Button variant="outline" onClick={() => setShowNewTicketModal(false)} className="h-12 text-lg">
+                  </StyledButton>
+                  <StyledButton variant="secondary" onClick={() => setShowNewTicketModal(false)} size="large" className="h-12 text-lg">
                     إلغاء
-                  </Button>
+                  </StyledButton>
                 </div>
               </div>
             </motion.div>

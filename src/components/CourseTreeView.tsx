@@ -277,15 +277,15 @@ const CourseTreeView: FC<CourseTreeViewProps> = ({
                 selectFile(file);
               }
             }}
-            whileHover={{ x: 4 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ x: 1 }}
+            whileTap={{ scale: 0.99 }}
           >
             {file.type === 'folder' && (
               <motion.div
                 animate={{
                   rotate: state.expandedFolders.has(file.id) ? 90 : 0,
                 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.1 }}
                 className="mr-2"
               >
                 <ChevronRight className="w-4 h-4 text-gray-400" />
