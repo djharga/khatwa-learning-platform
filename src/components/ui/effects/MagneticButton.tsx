@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ReactNode, useRef, useState } from 'react';
+import React, { ReactNode, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
 
 interface MagneticButtonProps {
@@ -29,7 +29,7 @@ export const MagneticButton = ({
   as = 'button',
   href,
 }: MagneticButtonProps) => {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLButtonElement | HTMLDivElement | HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const x = useMotionValue(0);
@@ -84,7 +84,6 @@ export const MagneticButton = ({
   };
 
   const motionProps = {
-    ref,
     onMouseMove: handleMouseMove,
     onMouseLeave: handleMouseLeave,
     onMouseEnter: handleMouseEnter,
@@ -97,7 +96,7 @@ export const MagneticButton = ({
     },
     whileHover: disabled ? {} : { scale: 1.05 },
     whileTap: disabled ? {} : { scale: 0.95 },
-    transition: { type: 'spring', stiffness: 400, damping: 17 },
+    transition: { type: 'spring' as const, stiffness: 400, damping: 17 },
   };
 
   const content = (
@@ -117,6 +116,7 @@ export const MagneticButton = ({
         href={href}
         className={cn('inline-block', className)}
         {...motionProps}
+        ref={ref as React.Ref<HTMLAnchorElement>}
       >
         {content}
       </motion.a>
@@ -129,6 +129,7 @@ export const MagneticButton = ({
         className={cn('inline-block cursor-pointer', className)}
         onClick={onClick}
         {...motionProps}
+        ref={ref as React.Ref<HTMLDivElement>}
       >
         {content}
       </motion.div>
@@ -142,6 +143,7 @@ export const MagneticButton = ({
       onClick={onClick}
       className={cn('inline-block', className)}
       {...motionProps}
+      ref={ref as React.Ref<HTMLButtonElement>}
     >
       {content}
     </motion.button>

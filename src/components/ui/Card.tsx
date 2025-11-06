@@ -311,4 +311,4 @@ export {
   CardContent,
   cardVariants
 }
-export type { CardProps }
+// CardProps is already exported above as interface
