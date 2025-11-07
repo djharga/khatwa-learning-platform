@@ -81,6 +81,8 @@ export async function POST(request: NextRequest) {
       instructorId: formData.get('instructorId') as string,
       category: formData.get('category') as any,
       level: formData.get('level') as any,
+      courseType: (formData.get('courseType') as 'short' | 'long') || 'long',
+      durationDays: formData.get('durationDays') ? parseInt(formData.get('durationDays') as string) : undefined,
       price: parseFloat(formData.get('price') as string) || 0,
       image: formData.get('image') as File | undefined,
       startDate: formData.get('startDate') as string | undefined,
