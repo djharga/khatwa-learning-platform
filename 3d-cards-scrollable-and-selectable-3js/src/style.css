@@ -1,0 +1,46 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  font-family: "Poppins";
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+#container {
+  position: fixed;
+}
+#container canvas,
+#overlay {
+  position: absolute;
+}
+canvas {
+  border: 1px solid black;
+}
+/* button */
+
+.btn-styled {
+  font-size: 14px;
+  margin: 8px;
+  padding: 0 10px;
+  line-height: 2;
+}
+@keyframes append-animate {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
