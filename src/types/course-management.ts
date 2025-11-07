@@ -378,6 +378,7 @@ export interface CourseSchedule {
   executed: boolean;
   executedAt?: string;
   error?: string;
+  createdAt?: string;
 }
 
 // ==================== نسخ الملفات ====================
