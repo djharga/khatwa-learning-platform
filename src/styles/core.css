@@ -141,7 +141,8 @@
   --font-display: var(--font-inter), 'Inter', system-ui, sans-serif; /* للعناوين الكبيرة */
   --font-technical: var(--font-ibm-plex), 'IBM Plex Sans Arabic', system-ui, sans-serif; /* للنصوص التقنية */
   --font-button: var(--font-almarai), 'Almarai', var(--font-inter), system-ui, sans-serif; /* للأزرار */
-  --font-arabic: var(--font-inter), 'Inter', 'Nunito Sans', system-ui, sans-serif;
+  --font-cairo: var(--font-cairo), 'Cairo', system-ui, sans-serif; /* خط Cairo الحديث */
+  --font-arabic: var(--font-cairo), 'Cairo', var(--font-inter), 'Inter', 'Nunito Sans', system-ui, sans-serif;
   --font-english: var(--font-inter), 'Inter', 'Roboto', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
@@ -616,6 +617,15 @@ h1, h2, h3, h4, h5, h6 {
   /* Removed transform from transitions - reduced motion */
   /* Prevent layout shifts */
   box-sizing: border-box;
+}
+
+/* Smooth theme transitions */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ==========================================

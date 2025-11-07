@@ -11,7 +11,7 @@ import {
   GraduationCap 
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 
 /**
  * CTA Section - دعوة للعمل النهائية
@@ -90,27 +90,27 @@ const CTASection = () => {
           {/* CTA Buttons - Final Section */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <Link href="/register" className="w-full sm:w-auto" aria-label="التسجيل في المنصة - ابدأ رحلتك التعليمية" role="link">
-              <StyledButton
-                variant="primary"
-                size="large"
+              <Button
+                variant="default"
+                size="lg"
                 className="w-full sm:min-w-[240px] text-lg px-8 py-4"
                 role="button"
               >
                 <span>التسجيل</span>
-                <ArrowLeft className="w-6 h-6 inline-block mr-2" aria-hidden="true" />
-              </StyledButton>
+                <ArrowLeft className="w-6 h-6" aria-hidden="true" />
+              </Button>
             </Link>
 
             <Link href="/courses" className="w-full sm:w-auto" aria-label="تصفح جميع الدورات المتاحة" role="link">
-              <StyledButton
+              <Button
                 variant="secondary"
-                size="large"
+                size="lg"
                 className="w-full sm:min-w-[240px] text-lg px-8 py-4"
                 role="button"
               >
-                <Play className="w-6 h-6 inline-block mr-2" aria-hidden="true" />
+                <Play className="w-6 h-6" aria-hidden="true" />
                 <span>الدورات</span>
-              </StyledButton>
+              </Button>
             </Link>
           </div>
 

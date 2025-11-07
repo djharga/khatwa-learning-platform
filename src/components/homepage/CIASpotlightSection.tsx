@@ -19,7 +19,7 @@ import {
   Users
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 
 /**
  * CIA Spotlight Section - تسليط الضوء على زمالة CIA
@@ -270,15 +270,15 @@ const CIASpotlightSection = () => {
             transition={{ delay: 0.7, duration: 0.6 }}
           >
             <Link href="/cia" className="inline-block">
-              <StyledButton
-                size="large"
-                variant="primary"
+              <Button
+                size="lg"
+                variant="default"
                 className="px-8 py-4 text-lg"
               >
-                <Sparkles className="w-5 h-5 inline-block mr-2" />
+                <Sparkles className="w-5 h-5" />
                 ابدأ رحلة التعلم الآن
-                <ChevronRight className="w-5 h-5 inline-block ml-2" />
-              </StyledButton>
+                <ChevronRight className="w-5 h-5" />
+              </Button>
             </Link>
           </motion.div>
         </div>

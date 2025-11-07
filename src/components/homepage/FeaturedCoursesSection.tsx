@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Users, Clock, ChevronRight, BookOpen, ChevronLeft, Play } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 import { Card, CardContent } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
+// Removed unused import
 import { getAllCourses, sortCourses, type Course } from '@/data/courses/all-courses';
 
 /**

@@ -1,65 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 import tokens from './src/tokens';
 
-// BRUTALIST ELEGANCE DESIGN SYSTEM - "CONCRETE & STEEL"
-// Master architect Kain's design philosophy: Brutal, honest structure with impeccable execution
-
-// BRUTALIST COLOR PALETTE: RAW POWER
-const brutalistColors = {
-  // Dominant: Premium uncoated paper texture
-  concrete: '#F4F4F4',
-  // Structure/Text: Deep charcoal for maximum contrast
-  steel: '#1A1A1A',
-  // Primary Action: Confident, powerful blue
-  power: '#0052CC',
-  // Pure contrast
-  void: '#000000',
-  pure: '#FFFFFF',
-};
-
-// Legacy palettes maintained for backward compatibility
-const primaryPalette = {
-  DEFAULT: brutalistColors.power,
-  foreground: brutalistColors.pure,
-  50: '#e6f2ff',
-  100: '#cce5ff',
-  200: '#99ccff',
-  300: '#66b2ff',
-  400: '#3399ff',
-  500: brutalistColors.power,
-  600: '#0047b3',
-  700: '#003d99',
-  800: '#003380',
-  900: '#002966',
-};
-
-const grayPalette = {
-  50: brutalistColors.concrete,
-  100: '#e8e8e8',
-  200: '#d1d1d1',
-  300: '#b4b4b4',
-  400: '#888888',
-  500: '#6d6d6d',
-  600: '#5d5d5d',
-  700: '#4f4f4f',
-  800: '#454545',
-  900: brutalistColors.steel,
-};
-
-const secondaryPalette = {
-  DEFAULT: '#f97316',
-  foreground: '#ffffff',
-  50: '#fff7ed',
-  100: '#ffedd5',
-  200: '#fed7aa',
-  300: '#fdba74',
-  400: '#fb923c',
-  500: '#f97316',
-  600: '#ea580c',
-  700: '#c2410c',
-  800: '#9a3412',
-  900: '#7c2d12',
-};
+// MODERN FLAT DESIGN SYSTEM - 2025
+// Clean, elegant, and professional design system for Khatwa Learning Platform
+// Focus on accessibility, smooth animations, and modern UI patterns
 
 export default {
   content: [
@@ -74,23 +18,12 @@ export default {
       // BRUTALIST GRID SYSTEM: 4-pixel foundation
       spacing: {
         ...tokens.spacing,
-        'brutalist-1': '4px',   // Base grid unit
-        'brutalist-2': '8px',   // 2x grid
-        'brutalist-3': '12px',  // 3x grid
-        'brutalist-4': '16px',  // 4x grid
-        'brutalist-6': '24px',  // 6x grid
-        'brutalist-8': '32px',  // 8x grid
-        'brutalist-12': '48px', // 12x grid
-        'brutalist-16': '64px', // 16x grid
       },
       screens: {
         'motion-safe': { 'prefers-reduced-motion': 'no-preference' },
         'motion-reduce': { 'prefers-reduced-motion': 'reduce' },
       },
       colors: {
-        // BRUTALIST CORE COLORS
-        brutalist: brutalistColors,
-
         // Primary Colors - من tokens.ts مع درجات كاملة
         primary: {
           ...tokens.colors.primary,
@@ -132,12 +65,23 @@ export default {
           expert: tokens.colors.secondary.expert,
           innovate: tokens.colors.secondary.innovate,
           secure: tokens.colors.secondary.secure,
-          // Legacy compatibility - للتوافق مع الكود القديم
-          ...secondaryPalette,
+          // Orange secondary for legacy compatibility
+          DEFAULT: '#f97316',
+          foreground: '#ffffff',
+          50: '#fff7ed',
+          100: '#ffedd5',
+          200: '#fed7aa',
+          300: '#fdba74',
+          400: '#fb923c',
+          500: '#f97316',
+          600: '#ea580c',
+          700: '#c2410c',
+          800: '#9a3412',
+          900: '#7c2d12',
         },
 
-        // Legacy compatibility - للتوافق مع الكود القديم
-        gray: grayPalette,
+        // Neutral gray palette for compatibility
+        gray: tokens.colors.neutral,
 
         // Shadcn/ui compatibility
         foreground: 'hsl(var(--foreground))',
@@ -180,25 +124,21 @@ export default {
         display: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
         technical: ['var(--font-ibm-plex)', 'IBM Plex Sans Arabic', 'system-ui', 'sans-serif'],
         button: ['var(--font-almarai)', 'Almarai', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        cairo: ['var(--font-cairo)', 'Cairo', 'system-ui', 'sans-serif'],
         
         // Generic Fonts - خطوط عامة
-        arabic: ['var(--font-inter)', 'Inter', 'Nunito Sans', 'system-ui', 'sans-serif'],
+        arabic: ['var(--font-cairo)', 'Cairo', 'var(--font-inter)', 'Inter', 'Nunito Sans', 'system-ui', 'sans-serif'],
         english: ['var(--font-inter)', 'Inter', 'Roboto', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
         
         // Inter and Nunito Sans for specific use
         inter: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
         'nunito-sans': ['var(--font-nunito-sans)', 'Nunito Sans', 'system-ui', 'sans-serif'],
-        
-        // BRUTALIST TYPOGRAPHY: Legacy compatibility
-        'brutalist-heading': ['Mabry Pro', 'Neue Haas Grotesk', 'Arial Black', 'sans-serif'],
-        'brutalist-body': ['Helvetica Now', 'Inter', 'system-ui', 'sans-serif'],
       },
 
-      // BRUTALIST BORDERS: Thick and uncompromising
+      // Modern Border Width - clean and minimal
       borderWidth: {
-        'brutalist': '2px',
-        'brutalist-thick': '4px',
+        ...tokens.borderWidth,
       },
 
       // Shadow System - من tokens.ts
@@ -272,21 +212,13 @@ export default {
         'elevation-4': tokens.shadows.elevation[4],
         'elevation-5': tokens.shadows.elevation[5],
         'elevation-6': tokens.shadows.elevation[6],
-        
-        // BRUTALIST SHADOWS: Legacy compatibility
-        'brutalist': '8px 8px 0px #000000',
-        'brutalist-sm': '4px 4px 0px #000000',
-        'brutalist-lg': '12px 12px 0px #000000',
-        'brutalist-xl': '16px 16px 0px #000000',
-        'brutalist-pressed': 'none',
-        'brutalist-inset': 'inset 4px 4px 0px #000000',
       },
 
       borderRadius: {
+        ...tokens.radius,
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-        'brutalist': '0px', // Sharp corners only
       },
 
       fontSize: {
@@ -327,14 +259,12 @@ export default {
       fontWeight: tokens.typography.fontWeight,
       letterSpacing: tokens.typography.letterSpacing,
 
-      // BRUTALIST MOTION: Sharp and decisive
+      // Modern Motion - Smooth and elegant transitions
       transitionDuration: {
         ...tokens.motion.duration,
-        'brutalist': '150ms', // Quick, decisive transitions
       },
       transitionTimingFunction: {
         ...tokens.motion.easing,
-        'brutalist': 'cubic-bezier(0.4, 0, 0.2, 1)', // Sharp easing
       },
 
       width: {
@@ -346,15 +276,16 @@ export default {
       minWidth: tokens.touchTargets,
       minHeight: tokens.touchTargets,
 
-      // BRUTALIST ANIMATIONS: Structural movements
+      // Modern Animations - Smooth and elegant movements
       // RTL-Safe Animations - حركات آمنة مع RTL
       animation: {
         shimmer: 'shimmer 2s linear infinite',
-        'slide-in': 'slide-in 0.5s ease-out forwards',
-        'slide-in-rtl': 'slide-in-rtl 0.5s ease-out forwards',
-        'brutalist-press': 'brutalist-press 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'slide-in': 'slide-in 0.4s ease-out forwards',
+        'slide-in-rtl': 'slide-in-rtl 0.4s ease-out forwards',
         'fade-in': 'fade-in 0.3s ease-out forwards',
         'scale-in': 'scale-in 0.2s ease-out forwards',
+        'slide-up': 'slide-up 0.4s ease-out forwards',
+        'slide-down': 'slide-down 0.4s ease-out forwards',
       },
       keyframes: {
         shimmer: {
@@ -369,10 +300,6 @@ export default {
           from: { transform: 'translateX(100%)', opacity: '0' },
           to: { transform: 'translateX(0)', opacity: '1' },
         },
-        'brutalist-press': {
-          '0%': { transform: 'translate(0, 0)' },
-          '100%': { transform: 'translate(4px, 4px)' },
-        },
         'fade-in': {
           from: { opacity: '0' },
           to: { opacity: '1' },
@@ -380,6 +307,14 @@ export default {
         'scale-in': {
           from: { opacity: '0', transform: 'scale(0.95)' },
           to: { opacity: '1', transform: 'scale(1)' },
+        },
+        'slide-up': {
+          from: { transform: 'translateY(20px)', opacity: '0' },
+          to: { transform: 'translateY(0)', opacity: '1' },
+        },
+        'slide-down': {
+          from: { transform: 'translateY(-20px)', opacity: '0' },
+          to: { transform: 'translateY(0)', opacity: '1' },
         },
       },
     },

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai } from 'next/font/google';
+import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai, Cairo } from 'next/font/google';
 import '../styles/core.css';
 import '../styles/utilities.css';
 import EnhancedNavbar from '../components/layout/EnhancedNavbar';
@@ -16,6 +16,7 @@ import Script from 'next/script';
 import ServiceWorkerProvider from '../components/ServiceWorkerProvider';
 import LayoutWrapper from './LayoutWrapper';
 import ConditionalFooter, { ConditionalBottomNav, ConditionalWidgets } from './ConditionalFooter';
+import { ThemeProvider } from '../contexts/ThemeProvider';
 
 // خط Inter - للعناوين (أنيق وعصري)
 const inter = Inter({
@@ -56,6 +57,17 @@ const almarai = Almarai({
   weight: ['400', '700', '800'],
   display: 'swap',
   preload: false,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+});
+
+// خط Cairo - للخطوط العربية الحديثة (أنيق وواضح)
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-cairo',
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
@@ -139,6 +151,25 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className="rtl">
       <head>
+        {/* Theme initialization script - prevents flash */}
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var theme = localStorage.getItem('theme') || 'system';
+                  var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var resolvedTheme = theme === 'system' ? (systemDark ? 'dark' : 'light') : theme;
+                  if (resolvedTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
         {/* Preload critical images */}
         <link rel="preload" as="image" href="/banar-cours.webp" />
         <link rel="preload" as="image" href="/globe.svg" />
@@ -152,7 +183,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="خطى" />
       </head>
       <body
-        className={`${inter.variable} ${nunitoSans.variable} ${ibmPlex.variable} ${almarai.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden`}
+        className={`${inter.variable} ${nunitoSans.variable} ${ibmPlex.variable} ${almarai.variable} ${cairo.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden`}
         style={{ 
           fontFeatureSettings: '"rlig" 1, "calt" 1, "liga" 1, "kern" 1',
           textRendering: 'optimizeLegibility',
@@ -170,30 +201,32 @@ export default function RootLayout({
             backgroundImage: "url('/assets/background.jpg')",
           }}
         />
-        <NotificationProvider>
-          <ServiceWorkerProvider />
-          <SkipLink href="#main-content">
-            تخطي إلى المحتوى الرئيسي
-          </SkipLink>
-          <LayoutWrapper>
-            {children}
-          </LayoutWrapper>
-          <ConditionalFooter />
-          <Toaster
-            position="top-left"
-            toastOptions={{
-              duration: 3000,
-              style: {
-                background: 'var(--color-background)',
-                color: 'var(--color-text-primary)',
-                border: '1px solid var(--color-accent)',
-                zIndex: 9999,
-              },
-            }}
-          />
-          {/* <ConditionalBottomNav /> */}
-          <ConditionalWidgets />
-        </NotificationProvider>
+        <ThemeProvider>
+          <NotificationProvider>
+            <ServiceWorkerProvider />
+            <SkipLink href="#main-content">
+              تخطي إلى المحتوى الرئيسي
+            </SkipLink>
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
+            <ConditionalFooter />
+            <Toaster
+              position="top-left"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  background: 'var(--color-background)',
+                  color: 'var(--color-text-primary)',
+                  border: '1px solid var(--color-accent)',
+                  zIndex: 9999,
+                },
+              }}
+            />
+            {/* <ConditionalBottomNav /> */}
+            <ConditionalWidgets />
+          </NotificationProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

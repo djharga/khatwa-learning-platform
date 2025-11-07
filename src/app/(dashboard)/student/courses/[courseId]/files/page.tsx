@@ -1,5 +1,9 @@
 'use client';
 
+// Force dynamic rendering - requires authentication
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';

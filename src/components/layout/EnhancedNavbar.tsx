@@ -34,6 +34,7 @@ import { Icon } from '@/components/ui/Icon';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import { linkVariants, buttonVariants } from '@/lib/variants';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 /**
  * Enhanced Navigation Bar with Modern Dropdown Menus
@@ -218,18 +219,18 @@ const EnhancedNavbar = () => {
       <motion.nav
         className={cn(
           "fixed top-0 right-0 left-0 z-50",
-          "bg-white/95 dark:bg-neutral-900/95",
-          "backdrop-blur-xl",
-          "border-b",
+          "bg-white/80 dark:bg-neutral-900/80",
+          "backdrop-blur-md",
+          "border-b border-neutral-200/50 dark:border-neutral-800/50",
           isScrolled 
-            ? "border-neutral-200 dark:border-neutral-800 shadow-elevation-3" 
-            : "border-neutral-100 dark:border-neutral-900 shadow-elevation-1",
-          "transition-all duration-300 ease-out"
+            ? "shadow-md dark:shadow-neutral-900/50" 
+            : "shadow-sm",
+          "transition-all duration-200 ease-out"
         )}
         style={{ overflow: 'visible' }}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
       >
         <div className="container mx-auto max-w-7xl px-8" style={{ position: 'relative', overflow: 'visible' }}>
           <div className="flex items-center justify-between h-16 lg:h-20" style={{ position: 'relative', overflow: 'visible' }}>
@@ -522,8 +523,11 @@ const EnhancedNavbar = () => {
               })}
             </div>
 
-            {/* Auth Buttons */}
+            {/* Auth Buttons & Theme Toggle */}
             <div className="hidden lg:flex items-center gap-3">
+              {/* Theme Toggle */}
+              <ThemeToggle variant="icon" size="md" />
+              
               <div className="flex items-center gap-2.5">
                 {isLoggedIn ? (
                   <>
@@ -729,7 +733,14 @@ const EnhancedNavbar = () => {
                   );
                 })}
 
-                <div className="border-t border-neutral-200 dark:border-neutral-800 my-3 pt-3 space-y-2">
+                {/* Theme Toggle in Mobile */}
+                <div className="flex items-center justify-between pt-4 border-t border-neutral-200 dark:border-neutral-800 mb-3">
+                  <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">المظهر</span>
+                  <ThemeToggle variant="default" size="md" />
+                </div>
+
+                {/* Auth Buttons in Mobile */}
+                <div className="flex flex-col gap-3 pt-3 space-y-2">
                   {isLoggedIn ? (
                     <>
                       {/* زر لوحة الإدارة للموبايل */}

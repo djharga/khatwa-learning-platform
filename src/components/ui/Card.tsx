@@ -21,40 +21,40 @@ import { cn } from "@/lib/utils";
 const cardVariants = cva(
   "relative overflow-hidden transition-all duration-200 ease-out",
   {
-    variants: {
+      variants: {
       variant: {
-        // Default - بطاقة عادية مع حدود خفيفة (backward compatible with shadcn/ui style)
-        default: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-200",
+        // Default - بطاقة عادية مع حدود خفيفة وتصميم flat modern
+        default: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all duration-200 ease-out rounded-xl",
         
-        // Elevated - بطاقة مرتفعة بدون حدود
-        elevated: "bg-white dark:bg-neutral-800 shadow-lg hover:shadow-xl hover:scale-105 border-0 hover:-translate-y-2 transition-all duration-200",
+        // Elevated - بطاقة مرتفعة بدون حدود مع ظلال ناعمة
+        elevated: "bg-white dark:bg-neutral-800 shadow-md hover:shadow-lg border-0 transition-all duration-200 ease-out rounded-xl",
         
-        // Outlined - بطاقة بحدود واضحة
-        outlined: "bg-transparent dark:bg-transparent border-2 border-neutral-300 dark:border-neutral-600 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-none hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-200",
+        // Outlined - بطاقة بحدود واضحة وتصميم minimal
+        outlined: "bg-transparent dark:bg-transparent border border-neutral-300 dark:border-neutral-600 hover:border-primary-400 dark:hover:border-primary-500 shadow-none hover:shadow-sm transition-all duration-200 ease-out rounded-xl",
         
         // Ghost - بطاقة شفافة خفيفة
-        ghost: "bg-neutral-50/50 dark:bg-neutral-800/50 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70 border-0 shadow-none hover:shadow-lg hover:scale-105 transition-all duration-200",
+        ghost: "bg-neutral-50/50 dark:bg-neutral-800/50 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70 border-0 shadow-none hover:shadow-sm transition-all duration-200 ease-out rounded-xl",
         
         // Glass - بطاقة زجاجية (Glass Morphism)
-        glass: "bg-white/70 dark:bg-neutral-800/70 backdrop-blur-lg border border-white/20 dark:border-neutral-700/30 shadow-lg hover:bg-white/80 dark:hover:bg-neutral-800/80 hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-200",
+        glass: "bg-white/70 dark:bg-neutral-800/70 backdrop-blur-lg border border-white/20 dark:border-neutral-700/30 shadow-md hover:bg-white/80 dark:hover:bg-neutral-800/80 hover:shadow-lg transition-all duration-200 ease-out rounded-xl",
         
         // Gradient - بطاقة بتدرج لوني
-        gradient: "bg-gradient-to-br from-indigo-500 to-purple-500 text-white border-0 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-200",
+        gradient: "bg-gradient-to-br from-primary-500 to-primary-600 text-white border-0 shadow-md hover:shadow-lg transition-all duration-200 ease-out rounded-xl",
         
         // Bordered - بطاقة بحدود ملونة
-        bordered: "bg-white dark:bg-neutral-800 border-2 border-indigo-300 dark:border-indigo-600 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-200",
+        bordered: "bg-white dark:bg-neutral-800 border border-primary-300 dark:border-primary-600 shadow-sm hover:border-primary-400 dark:hover:border-primary-500 hover:shadow-md transition-all duration-200 ease-out rounded-xl",
         
         // Interactive - بطاقة تفاعلية محسّنة
-        interactive: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-lg hover:scale-105 hover:-translate-y-1.5 cursor-pointer active:scale-[0.98] transition-all duration-200",
+        interactive: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md cursor-pointer active:opacity-90 transition-all duration-200 ease-out rounded-xl",
         
         // Compact - بطاقة مضغوطة للمساحات الصغيرة
-        compact: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 transition-all duration-200",
+        compact: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all duration-200 ease-out rounded-lg",
         
         // Spacious - بطاقة واسعة للمحتوى الكبير
-        spacious: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-200",
+        spacious: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-lg transition-all duration-200 ease-out rounded-2xl",
         
         // Legacy shadcn/ui style (backward compatibility)
-        card: "rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-200",
+        card: "rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-md transition-all duration-200 ease-out",
       },
       size: {
         xs: "p-3 rounded-lg", // 12px padding, rounded-lg
@@ -158,15 +158,15 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     // Use motion.div when hover is enabled, regular div otherwise
     const MotionDiv = hover ? motion.div : 'div';
     
-    // Motion props for hover variant - minimized motion
+    // Motion props for hover variant - smooth modern animations
     const motionProps = hover ? {
-      whileHover: { y: -2 }, // Reduced from -6 - minimal movement
-      whileTap: { scale: 0.99 }, // Reduced from 0.98 - minimal movement
-      initial: { opacity: 0 }, // Removed y movement
-      animate: { opacity: 1 }, // Removed y movement
+      whileHover: { scale: 1.02 }, // Subtle scale on hover
+      whileTap: { scale: 0.98 }, // Subtle press effect
+      initial: { opacity: 0, y: 10 },
+      animate: { opacity: 1, y: 0 },
       transition: { 
-        duration: 0.15, // Faster, less noticeable
-        ease: 'easeOut'
+        duration: 0.2,
+        ease: [0.4, 0, 0.2, 1] // Smooth cubic bezier
       }
     } : {};
 

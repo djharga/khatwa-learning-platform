@@ -14,20 +14,20 @@ import { LucideIcon } from 'lucide-react';
  * @error true - Applies red border and focus ring when validation fails
  */
 const inputVariants = cva(
-  'input-modern border transition-colors duration-200 focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed',
+  'w-full border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 rounded-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-neutral-400 dark:placeholder:text-neutral-500',
   {
     variants: {
       variant: {
-        default: 'border-gray-300 focus:border-blue-500 focus:ring-blue-500',
-        modern: 'input-modern',
+        default: 'border-neutral-300 dark:border-neutral-600 focus:border-primary-500 focus:ring-primary-500/20',
+        modern: 'border-neutral-300 dark:border-neutral-600 focus:border-primary-500 focus:ring-primary-500/20 shadow-sm hover:border-neutral-400 dark:hover:border-neutral-500',
       },
       size: {
-        sm: 'py-2 px-3 text-sm',
-        md: 'py-3 px-4 text-base',
-        lg: 'py-4 px-5 text-lg',
+        sm: 'py-2 px-3 text-sm rounded-md',
+        md: 'py-2.5 px-4 text-base rounded-lg',
+        lg: 'py-3 px-5 text-lg rounded-lg',
       },
       error: {
-        true: 'border-red-500 focus:ring-red-500 focus:border-red-500',
+        true: 'border-danger-500 dark:border-danger-400 focus:ring-danger-500/20 focus:border-danger-500 dark:focus:border-danger-400',
         false: '',
       },
     },
@@ -103,7 +103,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="relative">
         {LeftIcon && (
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <LeftIcon className="h-5 w-5 text-gray-400" />
+            <LeftIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-500" />
           </div>
         )}
         <input
@@ -119,7 +119,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         />
         {RightIcon && (
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <RightIcon className="h-5 w-5 text-gray-400" />
+            <RightIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-500" />
           </div>
         )}
       </div>

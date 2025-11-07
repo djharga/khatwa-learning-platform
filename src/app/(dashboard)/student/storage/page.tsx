@@ -1,5 +1,9 @@
 'use client';
 
+// Force dynamic rendering - requires authentication
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 import { motion } from 'framer-motion';
 import PersonalStorage from '@/components/trainee/PersonalStorage';
 import { useAuth } from '@/contexts/AuthContext';

@@ -1,6 +1,6 @@
-// Re-export from unified components for backward compatibility
-export { default as Button } from '../StyledButton';
-export { default as StyledButton } from '../StyledButton';
+// Re-export from unified components
+export { Button, buttonVariants } from '../Button';
+export { default as StyledButton } from '../StyledButton'; // @deprecated - Use Button instead
 export { 
   Card, 
   CardHeader, 

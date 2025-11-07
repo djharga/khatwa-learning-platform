@@ -711,8 +711,9 @@ export const typography = {
     heading: 'var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     body: 'var(--font-nunito-sans), "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     // Fallback fonts
-    arabic: 'var(--font-inter), "Inter", "Nunito Sans", system-ui, sans-serif',
+    arabic: 'var(--font-cairo), "Cairo", var(--font-inter), "Inter", "Nunito Sans", system-ui, sans-serif',
     english: 'var(--font-inter), "Inter", "Roboto", system-ui, sans-serif',
+    cairo: 'var(--font-cairo), "Cairo", system-ui, sans-serif',
     mono: '"JetBrains Mono", "Courier New", monospace',
   },
 

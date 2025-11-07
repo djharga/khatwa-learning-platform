@@ -21,7 +21,7 @@ import {
   Globe
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
-import StyledButton from '@/components/ui/StyledButton';
+// Removed unused import
 
 /**
  * Enhanced Fellowship Section - قسم الزمالة المحسّن

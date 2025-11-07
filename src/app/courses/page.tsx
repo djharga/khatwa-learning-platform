@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Grid3x3, List, ChevronRight, BookOpen, Clock, Users, Star, Link, GraduationCap, Shield, Building, Award, Calculator, Warehouse, TrendingUp, Download, Play, FileText, Video, Headphones, CheckCircle, ArrowLeft, Share2, Heart, Sparkles, Grid } from 'lucide-react';
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import { ModernTabs, ModernTabContent } from '@/components/ui/ModernTabs';
 import { 
   getAllCourses, 
@@ -90,12 +90,12 @@ export default function CoursesPage() {
   // ═══════════════════════════════════════════════════
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 relative">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">
       {/* Grid-based layout with consistent spacing */}
-      <div className="grid grid-cols-1 gap-y-12 py-24">
+      <div className="grid grid-cols-1 gap-y-12 py-12 lg:py-16">
         
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-950 text-white overflow-hidden">
+        <section className="relative bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 dark:from-primary-800 dark:via-primary-900 dark:to-primary-950 text-white overflow-hidden rounded-2xl mx-4 lg:mx-8 shadow-xl">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -184,22 +184,20 @@ export default function CoursesPage() {
           {/* Search and Filters Grid */}
           <div className="grid grid-cols-1 gap-y-8 mb-12">
             {/* Search Bar */}
-            <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-6">
-              <div className="relative w-full group">
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500 group-focus-within:text-primary-500 transition-colors duration-300" />
-                <input
-                  type="text"
-                  placeholder="ابحث عن دورة..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pr-12 pl-6 py-4 border border-neutral-200/60 dark:border-neutral-700/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/40 bg-neutral-50/50 dark:bg-neutral-800/50 backdrop-blur-sm transition-all duration-300 text-neutral-700 dark:text-neutral-300 placeholder-neutral-400 dark:placeholder-neutral-500"
-                />
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-              </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-6">
+              <Input
+                type="text"
+                placeholder="ابحث عن دورة..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                leftIcon={Search}
+                size="lg"
+                className="w-full"
+              />
             </div>
 
             {/* Modern Tabs Navigation */}
-            <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-6">
+            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-6">
               <ModernTabs
                 tabs={categories.map((cat) => ({
                   id: cat.id,
@@ -289,9 +287,13 @@ export default function CoursesPage() {
                   viewport={{ once: true }}
                   className="group"
                 >
-                  <Card className={`h-full hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-neutral-200/80 dark:border-neutral-700/80 bg-white dark:bg-neutral-900 overflow-hidden flex ${
-                    viewMode === 'list' ? 'flex-row' : 'flex-col'
-                  } group/card rounded-xl`}>
+                  <Card 
+                    variant="default"
+                    hover
+                    className={`h-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 overflow-hidden flex ${
+                      viewMode === 'list' ? 'flex-row' : 'flex-col'
+                    } group/card`}
+                  >
                     {/* Course Image */}
                     <div className={`relative overflow-hidden bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-700 dark:to-neutral-800 ${
                       viewMode === 'list' ? 'w-64 h-48 flex-shrink-0' : 'h-48 w-full'
@@ -367,19 +369,15 @@ export default function CoursesPage() {
                         <div className={`font-bold text-primary ${viewMode === 'list' ? 'text-2xl' : 'text-lg text-center'}`}>
                           {course.price}
                         </div>
-                        <motion.button
+                        <Button
                           onClick={() => router.push(course.pageUrl)}
-                          className={`group/btn relative inline-flex items-center justify-center bg-gradient-to-r from-primary-600 to-secondary-innovate-600 text-white font-semibold rounded-lg overflow-hidden transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 ${
-                            viewMode === 'list' ? 'px-6 py-3 text-base' : 'w-full px-4 py-2.5 text-sm'
-                          }`}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
+                          className={`${viewMode === 'list' ? '' : 'w-full'}`}
+                          size={viewMode === 'list' ? 'default' : 'default'}
+                          animate
                         >
-                          <span className="relative flex items-center gap-2">
-                            <span>ابدأ الآن</span>
-                            <ChevronRight className={`${viewMode === 'list' ? 'w-5 h-5' : 'w-4 h-4'}`} />
-                          </span>
-                        </motion.button>
+                          <span>ابدأ الآن</span>
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -391,16 +389,17 @@ export default function CoursesPage() {
             {filteredCourses.length === 0 && (
               <div className="text-center py-12">
                 <p className="text-neutral-600 dark:text-neutral-400 text-lg">لم يتم العثور على دورات مطابقة</p>
-                <StyledButton
+                <Button
                   variant="secondary"
                   className="mt-4"
                   onClick={() => {
                     setSearchQuery('');
                     setSelectedCategory('all');
                   }}
+                  animate
                 >
                   إعادة تعيين الفلاتر
-                </StyledButton>
+                </Button>
               </div>
             )}
           </main>

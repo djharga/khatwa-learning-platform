@@ -5,6 +5,7 @@ import EnhancedNavbar from '../components/layout/EnhancedNavbar';
 import AppSidebar from '../components/layout/AppSidebar';
 import Breadcrumbs from '../components/layout/Breadcrumbs';
 import Script from 'next/script';
+import { PageTransition } from '../components/ui/PageTransition';
 
 export default function LayoutWrapper({
   children,
@@ -33,21 +34,23 @@ export default function LayoutWrapper({
       <EnhancedNavbar />
       <AppSidebar />
       <Script src="/theme-init.js" strategy="beforeInteractive" />
-      <main
-        id="main-content"
-        className="px-4 py-8 lg:px-8 lg:py-12 pt-16 lg:pt-20 pb-20 md:pb-8"
-        role="main"
-        tabIndex={-1}
-        style={{ position: 'relative', zIndex: 0 }}
-      >
-        {/* مسار التنقل */}
-        <div className="mb-6">
-          <Breadcrumbs className="max-w-6xl mx-auto" />
-        </div>
+      <PageTransition>
+        <main
+          id="main-content"
+          className="px-4 py-8 lg:px-8 lg:py-12 pt-16 lg:pt-20 pb-20 md:pb-8"
+          role="main"
+          tabIndex={-1}
+          style={{ position: 'relative', zIndex: 0 }}
+        >
+          {/* مسار التنقل */}
+          <div className="mb-6">
+            <Breadcrumbs className="max-w-6xl mx-auto" />
+          </div>
 
-        {/* المحتوى الرئيسي */}
-        <div className="max-w-6xl mx-auto">{children}</div>
-      </main>
+          {/* المحتوى الرئيسي */}
+          <div className="max-w-6xl mx-auto">{children}</div>
+        </main>
+      </PageTransition>
     </>
   );
 }

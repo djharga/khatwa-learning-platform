@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Mail, Eye, EyeOff } from 'lucide-react';
 import { Input, Checkbox, FormField } from '../ui';
-import StyledButton from '../ui/StyledButton';
+import { Button } from '../ui/Button';
 import { useAuth } from '@/contexts/AuthContext';
 import { loginSchema, validateForm } from '@/lib/security/validation';
 import { sanitizeEmail } from '@/lib/security/sanitize';
@@ -24,32 +24,32 @@ interface SocialLoginButtonsProps {
 const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({ onSocialLogin }) => {
   return (
     <div className="space-y-4">
-      <StyledButton
+      <Button
         onClick={() => onSocialLogin('Google')}
         variant="secondary"
-        fullWidth
+        className="w-full"
         aria-label="تسجيل الدخول عبر Google"
       >
         تسجيل الدخول عبر Google
-      </StyledButton>
+      </Button>
 
-      <StyledButton
+      <Button
         onClick={() => onSocialLogin('Facebook')}
         variant="secondary"
-        fullWidth
+        className="w-full"
         aria-label="تسجيل الدخول عبر Facebook"
       >
         تسجيل الدخول عبر Facebook
-      </StyledButton>
+      </Button>
 
-      <StyledButton
+      <Button
         onClick={() => onSocialLogin('Twitter')}
         variant="secondary"
-        fullWidth
+        className="w-full"
         aria-label="تسجيل الدخول عبر Twitter"
       >
         تسجيل الدخول عبر Twitter
-      </StyledButton>
+      </Button>
     </div>
   );
 };
@@ -280,16 +280,17 @@ const LoginComponent = () => {
           )}
 
           <div>
-            <StyledButton
+            <Button
               type="submit"
-              variant="primary"
-              size="large"
-              fullWidth
+              variant="default"
+              size="lg"
+              className="w-full"
               disabled={isLoading}
+              loading={isLoading}
               aria-label="تسجيل الدخول إلى حسابك"
             >
               {isLoading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
-            </StyledButton>
+            </Button>
           </div>
         </form>
       </motion.div>
