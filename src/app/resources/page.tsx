@@ -293,17 +293,19 @@ const ResourcesPage = () => {
       switch (sortBy) {
         case 'popular':
           return (b.downloads || 0) - (a.downloads || 0);
-        case 'rating':
+        case 'rating': {
           const aRating = sampleResources.find(r => r.id === a.id)?.rating || 0;
           const bRating = sampleResources.find(r => r.id === b.id)?.rating || 0;
           return bRating - aRating;
+        }
         case 'name':
           return a.name.localeCompare(b.name, 'ar');
         case 'recent':
-        default:
+        default: {
           const aDate = new Date(a.uploadedAt || 0).getTime();
           const bDate = new Date(b.uploadedAt || 0).getTime();
           return bDate - aDate;
+        }
       }
     });
     

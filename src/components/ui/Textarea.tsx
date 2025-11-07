@@ -4,7 +4,7 @@ import React from 'react';
  * Props for the Textarea component extending native textarea HTML attributes.
  * Accepts all standard textarea props: rows, cols, maxLength, placeholder, etc.
  */
-interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 /**
  * Flexible textarea component for multi-line text input. Includes consistent styling with focus ring, border, and disabled states. Minimum height of 80px with automatic expansion based on content.

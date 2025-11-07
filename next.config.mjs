@@ -1,3 +1,4 @@
+/* eslint-env node */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable bundle analyzer when ANALYZE=true

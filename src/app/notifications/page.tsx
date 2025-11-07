@@ -217,9 +217,10 @@ export default function NotificationsPage() {
           return b.timestamp.getTime() - a.timestamp.getTime();
         case 'oldest':
           return a.timestamp.getTime() - b.timestamp.getTime();
-        case 'priority':
+        case 'priority': {
           const priorityOrder = { urgent: 4, high: 3, medium: 2, low: 1 };
           return priorityOrder[b.priority] - priorityOrder[a.priority];
+        }
         default:
           return 0;
       }

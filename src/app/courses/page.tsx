@@ -7,6 +7,7 @@ import { Search, Grid3x3, List, ChevronRight, BookOpen, Clock, Users, Star, Link
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
 import { ModernTabs, ModernTabContent } from '@/components/ui/ModernTabs';
 import { 
   getAllCourses, 
@@ -189,7 +190,7 @@ export default function CoursesPage() {
                 type="text"
                 placeholder="ابحث عن دورة..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                 leftIcon={Search}
                 size="lg"
                 className="w-full"

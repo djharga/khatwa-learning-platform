@@ -433,7 +433,7 @@ export default function LessonPage() {
         return [];
       }
 
-      let modules = courseData.modules;
+      const modules = courseData.modules;
       
       // If it's already an array, return it
       if (Array.isArray(modules)) {

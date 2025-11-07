@@ -180,10 +180,11 @@ const PeriodicReporterComponent = () => {
       case 'daily':
         now.setDate(now.getDate() + 1);
         break;
-      case 'weekly':
+      case 'weekly': {
         const daysUntilNext = (schedule.dayOfWeek - now.getDay() + 7) % 7 || 7;
         now.setDate(now.getDate() + daysUntilNext);
         break;
+      }
       case 'monthly':
         now.setMonth(now.getMonth() + 1, schedule.dayOfMonth);
         break;
