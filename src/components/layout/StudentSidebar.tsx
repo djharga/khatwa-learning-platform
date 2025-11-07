@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSubscription } from '@/hooks/useSubscription';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -45,6 +46,7 @@ export default function StudentSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['الرئيسية', 'التعليم']);
+  const { hasSubscription } = useSubscription();
 
   const sidebarGroups: SidebarGroup[] = [
     {
@@ -72,7 +74,7 @@ export default function StudentSidebar() {
       title: 'الخدمات',
       links: [
         { href: '/packages-and-consulting', label: 'الباقات', icon: Package },
-        { href: '/student/consulting', label: 'الاستشارات', icon: MessageCircle },
+        ...(hasSubscription ? [{ href: '/student/consulting', label: 'الاستشارات', icon: MessageCircle }] : []),
         { href: '/student/support', label: 'الدعم الفني', icon: Headphones },
       ],
     },

@@ -38,7 +38,7 @@ const IntroVideoSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           {/* Left Column - Content */}
           <motion.div
-            className="space-y-6 text-center lg:text-right"
+            className="space-y-6 text-center"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}

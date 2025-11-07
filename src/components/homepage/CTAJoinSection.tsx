@@ -19,24 +19,7 @@ const CTAJoinSection = () => {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden">
-      {/* Enhanced Multi-Layer Gradient Background - Very Subtle */}
-      <div className="absolute inset-0">
-        {/* Primary Gradient - Base - Very Light */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50/85 via-purple-50/80 to-pink-50/85 dark:from-indigo-950/55 dark:via-purple-950/45 dark:to-pink-950/55" />
-        
-        {/* Secondary Gradient - Overlay - Very Subtle */}
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-50/25 via-transparent to-indigo-50/25 dark:from-blue-950/15 dark:to-indigo-950/15" />
-
-        {/* Tertiary Gradient - Accent - Very Subtle */}
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-50/15 via-pink-50/12 to-orange-50/15 dark:from-purple-950/8 dark:via-pink-950/6 dark:to-orange-950/8" />
-      </div>
-
-      {/* Animated Gradient Orbs - Very Subtle */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-[700px] h-[700px] bg-gradient-to-br from-indigo-100/12 via-purple-100/10 to-pink-100/12 dark:from-indigo-900/8 dark:via-purple-900/6 dark:to-pink-900/8 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-[800px] h-[800px] bg-gradient-to-tr from-pink-100/10 via-purple-100/8 to-indigo-100/10 dark:from-pink-900/6 dark:via-purple-900/5 dark:to-indigo-900/6 rounded-full blur-3xl" />
-      </div>
+    <section className="relative py-16 lg:py-20 overflow-hidden">
 
       <Container size="xl" className="relative z-10">
         <div className="max-w-5xl mx-auto text-center space-y-16">
@@ -44,7 +27,7 @@ const CTAJoinSection = () => {
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-pink-500/20 backdrop-blur-xl rounded-full border border-indigo-300/50 dark:border-indigo-600/50 shadow-lg">
             <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-700 dark:text-indigo-300 font-bold text-base">
-              ابدأ رحلتك الآن
+              انضم إلينا
             </span>
           </div>
 
@@ -108,29 +91,6 @@ const CTAJoinSection = () => {
             })}
           </div>
 
-          {/* CTA Buttons - محسّن */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-            <Link href="/courses" className="w-full sm:w-auto">
-              <StyledButton
-                variant="primary"
-                size="large"
-                className="w-full sm:w-auto"
-              >
-                <Rocket className="w-6 h-6 inline-block mr-2" />
-                <span>استكشف الدورات</span>
-              </StyledButton>
-            </Link>
-            <Link href="/student" className="w-full sm:w-auto">
-              <StyledButton
-                variant="secondary"
-                size="large"
-                className="w-full sm:w-auto"
-              >
-                <ArrowLeft className="w-6 h-6 inline-block mr-2" />
-                <span>ابدأ الآن</span>
-              </StyledButton>
-            </Link>
-          </div>
         </div>
       </Container>
     </section>

@@ -29,7 +29,7 @@ import { generateStructuredData } from '@/lib/seo';
 
 const InternalAuditPage = () => {
   const [activeLevel, setActiveLevel] = useState<1 | 2 | 3>(1);
-  const [expandedModule, setExpandedModule] = useState<string | null>(null);
+  const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
   const [showHelpTooltip, setShowHelpTooltip] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -329,7 +329,15 @@ const InternalAuditPage = () => {
   }) || [];
 
   const toggleModule = (moduleTitle: string) => {
-    setExpandedModule(expandedModule === moduleTitle ? null : moduleTitle);
+    setExpandedModules(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(moduleTitle)) {
+        newSet.delete(moduleTitle);
+      } else {
+        newSet.add(moduleTitle);
+      }
+      return newSet;
+    });
   };
 
   // Generate structured data for SEO
@@ -353,7 +361,7 @@ const InternalAuditPage = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
         {/* Progress Bar */}
         <div className="fixed top-0 left-0 right-0 h-1 bg-gray-200 z-50">
           <motion.div
@@ -388,11 +396,11 @@ const InternalAuditPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight"
+              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
             >
               برنامج زمالة المراجعين الداخليين
               <br />
-              <span className="text-2xl md:text-3xl lg:text-4xl text-gradient-to-r from-blue-600 to-purple-600 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-3xl md:text-4xl lg:text-5xl text-gradient-to-r from-blue-600 to-purple-600 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 3 مستويات متكاملة
               </span>
             </motion.h1>
@@ -402,7 +410,7 @@ const InternalAuditPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="text-xl md:text-2xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
+              className="text-2xl md:text-3xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
             >
               رحلة شاملة لتطوير الكفاءات المهنية في المراجعة الداخلية من المبتدئ إلى الخبير المتخصص
             </motion.p>
@@ -430,8 +438,8 @@ const InternalAuditPage = () => {
                     className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
                   >
                     <Icon className={`w-8 h-8 text-${stat.color}-600 mx-auto mb-2`} />
-                    <div className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
+                    <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
+                    <div className="text-base text-gray-600">{stat.label}</div>
                   </motion.div>
                 );
               })}
@@ -452,11 +460,11 @@ const InternalAuditPage = () => {
                   transition={{ delay: 0.8 }}
                   className="border-r-4 border-blue-500 pr-6 bg-white/50 rounded-lg p-6"
                 >
-                  <p className="text-lg font-semibold text-blue-700 mb-2 flex items-center gap-2">
-                    <Zap className="w-5 h-5" />
+                  <p className="text-xl font-semibold text-blue-700 mb-2 flex items-center gap-2">
+                    <Zap className="w-6 h-6" />
                     كسر الحواجز التقليدية
                   </p>
-                  <p className="text-base leading-relaxed">
+                  <p className="text-lg leading-relaxed">
                     مهنة المراجعة الداخلية لم تعد حكراً على متخصصين محددين – إنها فرصة حقيقية لأي شخص يسعى لتطوير مساره المهني، حتى لو كنت تفكر في تغيير تخصصك الحالي او تطوير تخصصك واكتساب مهارات مطلوبة لسوق العمل.
                   </p>
                 </motion.div>
@@ -468,11 +476,11 @@ const InternalAuditPage = () => {
                   transition={{ delay: 0.9 }}
                   className="border-r-4 border-green-500 pr-6 bg-white/50 rounded-lg p-6"
                 >
-                  <p className="text-lg font-semibold text-green-700 mb-2 flex items-center gap-2">
-                    <Eye className="w-5 h-5" />
+                  <p className="text-xl font-semibold text-green-700 mb-2 flex items-center gap-2">
+                    <Eye className="w-6 h-6" />
                     عين الإدارة اليقظة
                   </p>
-                  <p className="text-base leading-relaxed">
+                  <p className="text-lg leading-relaxed">
                     المراجعة الداخلية اليوم هي عين الإدارة اليقظة، التي ترى ما وراء الأرقام والبيانات، وتكشف المخاطر قبل أن تتحول إلى أزمات، وتحوّلها إلى فرص للتحسين والابتكار. إنها الشريك الصامت الذي يحمي مسيرة المؤسسة، ويقودها نحو التميز.
                   </p>
                 </motion.div>
@@ -484,18 +492,18 @@ const InternalAuditPage = () => {
                   transition={{ delay: 1.0 }}
                   className="border-r-4 border-purple-500 pr-6 bg-white/50 rounded-lg p-6"
                 >
-                  <p className="text-lg font-semibold text-purple-700 mb-2 flex items-center gap-2">
-                    <TrendingUp className="w-5 h-5" />
+                  <p className="text-xl font-semibold text-purple-700 mb-2 flex items-center gap-2">
+                    <TrendingUp className="w-6 h-6" />
                     الشراكة التكاملية
                   </p>
-                  <p className="text-base mb-3 leading-relaxed">
+                  <p className="text-lg mb-3 leading-relaxed">
                     المراجعة الداخلية والمراجع الداخلي… شراكة تصنع التفوق المؤسسي. معًا يشكلان قوة استراتيجية تدعم استقرار مؤسستك وتدفعها نحو الريادة. فالمراجعة الداخلية تمنحك الحماية والشفافية، بينما يحوّل المراجع الداخلي المحترف هذه الحماية إلى قيمة مستدامة تضمن التميز وتبقي مؤسستك دائمًا في موقع المبادرة، مستبقة للمخاطر، وسبّاقة لاغتنام الفرص.
                   </p>
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 1.1 }}
-                    className="text-sm font-medium text-purple-700 bg-purple-50 p-4 rounded-lg border-r-4 border-purple-600"
+                    className="text-base font-medium text-purple-700 bg-purple-50 p-4 rounded-lg border-r-4 border-purple-600"
                   >
                     إن الاستثمار في بناء منظومة مراجعة داخلية قوية، وتطوير كفاءات المراجع الداخلي، ليس رفاهية أو خيارًا تكميليًا… بل قرار استراتيجي يحمي أعمالك اليوم ويصنع نجاحك المستقبلي.
                   </motion.div>
@@ -508,14 +516,14 @@ const InternalAuditPage = () => {
                   transition={{ delay: 1.2 }}
                   className="border-r-4 border-orange-500 pr-6 bg-white/50 rounded-lg p-6"
                 >
-                  <p className="text-lg font-semibold text-orange-700 mb-3 flex items-center gap-2">
-                    <Award className="w-5 h-5" />
+                  <p className="text-xl font-semibold text-orange-700 mb-3 flex items-center gap-2">
+                    <Award className="w-6 h-6" />
                     المراجع الداخلي: قيمة مضافة لا تُقدّر بثمن
                   </p>
-                  <p className="text-base mb-4 leading-relaxed">
+                  <p className="text-lg mb-4 leading-relaxed">
                     المراجع الداخلي هو قيمة مضافة لا تُقدّر بثمن، وشريك استراتيجي للإدارة في رسم ملامح المستقبل. ليس مجرد مدقق يركز على الأخطاء، بل رائد يساهم بفعالية في:
                   </p>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="space-y-2 text-base">
                     {[
                       'الكشف المبكر وتحليل المخاطر قبل أن تتحول إلى أزمات.',
                       'تقييم كفاءة وفعالية الضوابط الداخلية لضمان حماية المؤسسة.',
@@ -543,11 +551,11 @@ const InternalAuditPage = () => {
                   transition={{ delay: 1.6 }}
                   className="border-r-4 border-red-500 pr-6 bg-white/50 rounded-lg p-6"
                 >
-                  <p className="text-lg font-semibold text-red-700 mb-2 flex items-center gap-2">
-                    <Shield className="w-5 h-5" />
+                  <p className="text-xl font-semibold text-red-700 mb-2 flex items-center gap-2">
+                    <Shield className="w-6 h-6" />
                     التأمين المستدام لمستقبل أعمالك
                   </p>
-                  <p className="text-base leading-relaxed">
+                  <p className="text-lg leading-relaxed">
                     الاستثمار في تطوير قدرات المراجعة الداخلية يعني أكثر من حماية الأصول… إنه تأمين مستدام لمستقبل أعمالك. فالمراجع الداخلي المحترف يحول كل تقرير إلى خطة إنقاذ وتحسين فعّالة، تجعلك دائمًا على أتم الاستعداد لمواجهة التحديات. المستقبل لا ينتظر أحدًا، ومن يتأخر في بناء منظومة مراجعة قوية سيواجه تكاليف مضاعفة.
                   </p>
                 </motion.div>
@@ -559,8 +567,8 @@ const InternalAuditPage = () => {
                   transition={{ delay: 1.7 }}
                   className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white p-8 rounded-2xl text-center shadow-2xl"
                 >
-                  <p className="text-xl md:text-2xl font-bold mb-2">احترف مهنة المراجعة الداخلية بالتدريب العملى</p>
-                  <p className="text-base opacity-90">ابدأ رحلتك نحو التميز المهني اليوم</p>
+                  <p className="text-2xl md:text-3xl font-bold mb-2">احترف مهنة المراجعة الداخلية بالتدريب العملى</p>
+                  <p className="text-lg opacity-90">ابدأ رحلتك نحو التميز المهني اليوم</p>
                 </motion.div>
               </div>
             </motion.div>
@@ -578,13 +586,14 @@ const InternalAuditPage = () => {
                 <motion.button
                   key={level.id}
                   onClick={() => setActiveLevel(level.id as 1 | 2 | 3)}
-                  className={`p-6 rounded-3xl border-2 transition-all text-right relative overflow-hidden ${
+                  className={`p-6 rounded-3xl border-2 transition-all text-right relative overflow-hidden cursor-pointer ${
                     activeLevel === level.id
                       ? `border-transparent bg-gradient-to-br ${level.color} text-white shadow-2xl scale-105`
                       : 'border-gray-200 bg-white hover:border-blue-300 hover:shadow-xl'
                   }`}
                   whileHover={{ scale: activeLevel === level.id ? 1.05 : 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
+                  type="button"
                 >
                   {/* Background Pattern */}
                   {activeLevel === level.id && (
@@ -606,16 +615,16 @@ const InternalAuditPage = () => {
                         {level.id}
                       </div>
                       <div className="flex-1 mr-3">
-                        <h3 className="text-xl font-bold mb-1">{level.title}</h3>
-                        <p className={`text-sm ${activeLevel === level.id ? 'opacity-90' : 'text-gray-600'}`}>
+                        <h3 className="text-2xl font-bold mb-1">{level.title}</h3>
+                        <p className={`text-base ${activeLevel === level.id ? 'opacity-90' : 'text-gray-600'}`}>
                           {level.description}
                         </p>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <div className="flex items-center justify-between text-sm font-semibold">
+                      <div className="flex items-center justify-between text-base font-semibold">
                         <span>التقدم</span>
-                        <span className="font-extrabold text-lg">{level.progress}%</span>
+                        <span className="font-extrabold text-xl">{level.progress}%</span>
                       </div>
                       <div className={`w-full rounded-full h-2.5 ${
                         activeLevel === level.id ? 'bg-white/20' : 'bg-gray-200'
@@ -650,15 +659,17 @@ const InternalAuditPage = () => {
                     <Sparkles className="w-4 h-4" />
                     نصيحة: كيفية استخدام الصفحة
                   </h4>
-                  <p className="text-sm text-blue-800 mb-4 leading-relaxed">
+                  <p className="text-base text-blue-800 mb-4 leading-relaxed">
                     انقر على <span className="font-bold">المحاور الرئيسية</span> و <span className="font-bold">المحاور الفرعية</span> لفتحها وعرض المحتوى. يمكنك أيضاً استخدام الأزرار أدناه لفتح أو إغلاق جميع المحاور دفعة واحدة.
                   </p>
                   <div className="flex gap-2 flex-wrap">
                     <motion.button
                       onClick={() => {
-                        currentLevel?.modules.forEach(m => setExpandedModule(m.title));
+                        if (currentLevel) {
+                          setExpandedModules(new Set(currentLevel.modules.map(m => m.title)));
+                        }
                       }}
-                      className="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-sm font-bold hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center gap-2 shadow-lg"
+                      className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-base font-bold hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center gap-2 shadow-lg"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -666,8 +677,8 @@ const InternalAuditPage = () => {
                       فتح الكل
                     </motion.button>
                     <motion.button
-                      onClick={() => setExpandedModule(null)}
-                      className="px-4 py-2 bg-blue-100 text-blue-700 rounded-xl text-sm font-bold hover:bg-blue-200 transition-all flex items-center gap-2 border-2 border-blue-200"
+                      onClick={() => setExpandedModules(new Set())}
+                      className="px-5 py-2.5 bg-blue-100 text-blue-700 rounded-xl text-base font-bold hover:bg-blue-200 transition-all flex items-center gap-2 border-2 border-blue-200"
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -676,7 +687,7 @@ const InternalAuditPage = () => {
                     </motion.button>
                     <motion.button
                       onClick={() => setShowHelpTooltip(false)}
-                      className="px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-bold hover:bg-gray-200 transition-all border-2 border-gray-200"
+                      className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl text-base font-bold hover:bg-gray-200 transition-all border-2 border-gray-200"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
@@ -702,7 +713,7 @@ const InternalAuditPage = () => {
                 placeholder="ابحث في المحاور والمواضيع..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-12 py-4 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400 shadow-lg"
+                className="w-full pl-10 pr-12 py-4 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400 shadow-lg text-lg"
               />
             </div>
           </motion.div>
@@ -725,8 +736,8 @@ const InternalAuditPage = () => {
               </div>
 
               <div className="text-center relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">{currentLevel.title}</h2>
-                <p className="text-xl opacity-90 mb-8">{currentLevel.description}</p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">{currentLevel.title}</h2>
+                <p className="text-2xl opacity-90 mb-8">{currentLevel.description}</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {[
                     { label: 'محور رئيسي', value: currentLevel.modules.length, icon: BookOpen },
@@ -746,8 +757,8 @@ const InternalAuditPage = () => {
                         className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
                       >
                         <Icon className="w-8 h-8 mx-auto mb-3" />
-                        <div className="text-3xl font-bold mb-1">{stat.value}</div>
-                        <div className="text-sm opacity-90">{stat.label}</div>
+                        <div className="text-4xl font-bold mb-1">{stat.value}</div>
+                        <div className="text-base opacity-90">{stat.label}</div>
                       </motion.div>
                     );
                   })}
@@ -758,20 +769,22 @@ const InternalAuditPage = () => {
 
           {/* Enhanced Module Title with Search Results */}
           <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-            <h3 className="text-2xl font-bold text-gray-900">
+            <h3 className="text-3xl font-bold text-gray-900">
               المحاور التعليمية - {currentLevel?.title}
             </h3>
             {searchQuery && (
-              <div className="text-sm text-gray-600">
+              <div className="text-base text-gray-600">
                 تم العثور على {filteredModules.length} محور
               </div>
             )}
             <div className="flex gap-2">
               <motion.button
                 onClick={() => {
-                  currentLevel?.modules.forEach(m => setExpandedModule(m.title));
+                  if (currentLevel) {
+                    setExpandedModules(new Set(currentLevel.modules.map(m => m.title)));
+                  }
                 }}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-xl font-bold hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all flex items-center gap-2 shadow-xl"
+                className="px-7 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all flex items-center gap-2 shadow-xl"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -779,8 +792,8 @@ const InternalAuditPage = () => {
                 فتح الكل
               </motion.button>
               <motion.button
-                onClick={() => setExpandedModule(null)}
-                className="px-6 py-3 bg-white text-gray-700 rounded-xl font-bold hover:bg-gray-50 transition-all flex items-center gap-2 border-2 border-gray-300 shadow-lg"
+                onClick={() => setExpandedModules(new Set())}
+                className="px-7 py-3.5 bg-white text-gray-700 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all flex items-center gap-2 border-2 border-gray-300 shadow-lg"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -799,10 +812,10 @@ const InternalAuditPage = () => {
                 className="text-center py-12 bg-white rounded-2xl shadow-lg"
               >
                 <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-600 text-lg">لم يتم العثور على محاور مطابقة</p>
+                <p className="text-gray-600 text-xl">لم يتم العثور على محاور مطابقة</p>
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+                  className="mt-4 text-blue-600 hover:text-blue-700 font-medium text-lg"
                 >
                   إعادة تعيين البحث
                 </button>
@@ -819,6 +832,14 @@ const InternalAuditPage = () => {
                   <div
                     className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
                     onClick={() => toggleModule(module.title)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleModule(module.title);
+                      }
+                    }}
                   >
                     <div className="flex items-center justify-between flex-wrap gap-4">
                       <div className="flex items-center gap-4 flex-1 min-w-0">
@@ -826,11 +847,11 @@ const InternalAuditPage = () => {
                           <BookOpen className="w-7 h-7 text-blue-600" />
                         </div>
                         <div className="flex-1 text-right min-w-0">
-                          <h3 className="text-xl font-bold text-gray-900 mb-1">{module.title}</h3>
+                          <h3 className="text-2xl font-bold text-gray-900 mb-1">{module.title}</h3>
                           {module.description && (
-                            <p className="text-sm text-gray-600 mb-3 line-clamp-2">{module.description}</p>
+                            <p className="text-base text-gray-600 mb-3 line-clamp-2">{module.description}</p>
                           )}
-                          <div className="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
+                          <div className="flex items-center gap-4 text-base text-gray-600 flex-wrap">
                             <span className="flex items-center gap-1">
                               <Clock className="w-4 h-4" />
                               {module.duration}
@@ -846,9 +867,9 @@ const InternalAuditPage = () => {
                           </div>
                           {module.progress !== undefined && (
                             <div className="mt-3 space-y-2">
-                              <div className="flex items-center justify-between text-sm">
+                              <div className="flex items-center justify-between text-base">
                                 <span className="text-gray-600">إنجاز المحور</span>
-                                <span className="font-bold text-blue-600">{module.progress}%</span>
+                                <span className="font-bold text-blue-600 text-lg">{module.progress}%</span>
                               </div>
                               <div className="w-full bg-gray-200 rounded-full h-2.5">
                                 <motion.div
@@ -864,28 +885,31 @@ const InternalAuditPage = () => {
                       </div>
                       <div className="flex items-center gap-3 flex-shrink-0">
                         <motion.button
-                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-5 py-2.5 rounded-lg font-semibold transition-all flex items-center gap-2 shadow-lg"
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold text-base transition-all flex items-center gap-2 shadow-lg"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={(e) => {
                             e.stopPropagation();
                             // TODO: Navigate to course
                           }}
+                          type="button"
                         >
-                          <Play className="w-4 h-4" />
+                          <Play className="w-5 h-5" />
                           ابدأ التعلم
                         </motion.button>
-                        {expandedModule === module.title ? (
-                          <ChevronDown className="w-6 h-6 text-gray-600" />
-                        ) : (
-                          <ChevronRight className="w-6 h-6 text-gray-600" />
-                        )}
+                        <div className="cursor-pointer">
+                          {expandedModules.has(module.title) ? (
+                            <ChevronDown className="w-7 h-7 text-gray-600" />
+                          ) : (
+                            <ChevronRight className="w-7 h-7 text-gray-600" />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   <AnimatePresence>
-                    {expandedModule === module.title && (
+                    {expandedModules.has(module.title) && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
@@ -893,8 +917,8 @@ const InternalAuditPage = () => {
                         className="border-t border-gray-100 bg-gray-50"
                       >
                         <div className="p-6">
-                          <h4 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                            <FileText className="w-5 h-5 text-blue-600" />
+                          <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                            <FileText className="w-6 h-6 text-blue-600" />
                             المحتوى التدريبي:
                           </h4>
                           <div className="grid gap-3">
@@ -909,7 +933,7 @@ const InternalAuditPage = () => {
                                 <div className="w-9 h-9 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
                                   <CheckCircle className="w-5 h-5 text-green-600" />
                                 </div>
-                                <span className="text-gray-700 flex-1 text-right">{topic}</span>
+                                <span className="text-gray-700 flex-1 text-right text-base">{topic}</span>
                                 <div className="mr-auto flex items-center gap-2">
                                   <motion.button
                                     className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
@@ -935,22 +959,23 @@ const InternalAuditPage = () => {
                           <div className="mt-6 flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-gray-200">
                             <div className="flex items-center gap-6 flex-wrap">
                               <div className="flex items-center gap-2">
-                                <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                                <span className="text-gray-600 font-medium">تقييم المحتوى: 4.8/5</span>
+                                <Star className="w-6 h-6 text-yellow-500 fill-current" />
+                                <span className="text-gray-600 font-medium text-lg">تقييم المحتوى: 4.8/5</span>
                               </div>
                               <div className="flex items-center gap-2">
-                                <Users className="w-5 h-5 text-blue-500" />
-                                <span className="text-gray-600 font-medium">1,250 متعلم</span>
+                                <Users className="w-6 h-6 text-blue-500" />
+                                <span className="text-gray-600 font-medium text-lg">1,250 متعلم</span>
                               </div>
                             </div>
                             <motion.button
-                              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-bold transition-all duration-300 flex items-center gap-2 shadow-lg"
+                              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-7 py-3.5 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-2 shadow-lg"
                               whileHover={{ scale: 1.05, y: -2 }}
                               whileTap={{ scale: 0.95 }}
+                              type="button"
                             >
-                              <Award className="w-5 h-5" />
+                              <Award className="w-6 h-6" />
                               احصل على الشهادة
-                              <ArrowRight className="w-5 h-5" />
+                              <ArrowRight className="w-6 h-6" />
                             </motion.button>
                           </div>
                         </div>
@@ -970,8 +995,8 @@ const InternalAuditPage = () => {
             className="mt-16 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-3xl p-8 md:p-12 shadow-2xl border border-indigo-100"
           >
             <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">ما ستحصل عليه</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">ما ستحصل عليه</h2>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                 شهادات معتمدة وخبرة عملية في المراجعة الداخلية
               </p>
             </div>
@@ -994,8 +1019,8 @@ const InternalAuditPage = () => {
                     <div className={`w-16 h-16 bg-gradient-to-br from-${item.color}-100 to-${item.color}-200 rounded-full flex items-center justify-center mx-auto mb-4`}>
                       <Icon className={`w-8 h-8 text-${item.color}-600`} />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-600">{item.description}</p>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-base">{item.description}</p>
                   </motion.div>
                 );
               })}
@@ -1003,12 +1028,13 @@ const InternalAuditPage = () => {
 
             <div className="text-center">
               <motion.button
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center gap-3"
+                className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center gap-3"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                type="button"
               >
                 ابدأ رحلتك التعليمية الآن
-                <ArrowRight className="w-5 h-5" />
+                <ArrowRight className="w-6 h-6" />
               </motion.button>
             </div>
           </motion.div>

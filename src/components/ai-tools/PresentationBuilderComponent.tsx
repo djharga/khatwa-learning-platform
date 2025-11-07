@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * Presentation Builder Component - منشئ العروض التقديمية
+ * Enhanced for financial presentations
+ * Supports financial charts and templates
+ */
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {

@@ -473,9 +473,89 @@
    RESET & BASE STYLES (FROM BASE/RESET.CSS)
    ========================================== */
 
+/* ==========================================
+   RTL SUPPORT - دعم كامل للاتجاه من اليمين لليسار
+   ========================================== */
+
 html {
   direction: rtl;
   scroll-behavior: smooth;
+  /* Prevent horizontal overflow during loading */
+  overflow-x: hidden;
+  /* Note: text-align is not forced here to allow text-center to work */
+}
+
+/* Force RTL on all elements when html has dir="rtl" */
+html[dir="rtl"] {
+  direction: rtl;
+}
+
+html[dir="rtl"] * {
+  direction: inherit;
+}
+
+/* Ensure all text elements are RTL by default */
+/* Note: text-center class will override this */
+/* Default text alignment changed to center for homepage */
+html[dir="rtl"] p:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] span:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] div:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] h1:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] h2:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] h3:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] h4:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] h5:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] h6:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] li:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] td:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]),
+html[dir="rtl"] th:not(.text-right):not(.text-left):not([class*="text-right"]):not([class*="text-left"]) {
+  text-align: center;
+  direction: rtl;
+}
+
+/* Allow text-center to work properly in RTL */
+html[dir="rtl"] .text-center,
+html[dir="rtl"] [class*="text-center"] {
+  text-align: center !important;
+}
+
+/* Ensure form elements are RTL */
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Ensure buttons and links are RTL */
+html[dir="rtl"] button,
+html[dir="rtl"] a {
+  direction: rtl;
+}
+
+/* Ensure flex containers respect RTL */
+html[dir="rtl"] .flex {
+  direction: rtl;
+}
+
+/* Note: flex-row-reverse should be used explicitly when needed */
+/* Tailwind's flex-row will work correctly with RTL automatically */
+
+/* Ensure grid containers respect RTL */
+html[dir="rtl"] .grid {
+  direction: rtl;
+}
+
+/* Note: Tailwind CSS handles RTL automatically with logical properties */
+/* Classes like left-0, right-0, border-l, border-r will work correctly */
+
+/* Prevent layout shift during page load */
+html, body {
+  overflow-x: hidden;
+  overscroll-behavior-x: contain;
+  /* Prevent horizontal scrolling issues */
+  max-width: 100vw;
+  position: relative;
 }
 
 body {
@@ -487,6 +567,12 @@ body {
   font-feature-settings: var(--font-features-arabic);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* RTL-specific settings */
+  direction: rtl;
+  /* Note: text-align is not forced here to allow text-center to work */
+  /* Prevent overflow issues */
+  overflow-x: hidden;
+  overscroll-behavior-x: contain;
 }
 
 /* Headings */
@@ -507,6 +593,114 @@ h1, h2, h3, h4, h5, h6 {
   transition-timing-function: var(--ease-out);
   transition-duration: var(--duration-fast);
   /* Removed transform from transitions - reduced motion */
+  /* Prevent layout shifts */
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   RTL LOGICAL PROPERTIES - خصائص منطقية للاتجاه
+   ========================================== */
+
+/* Use logical properties for spacing in RTL */
+html[dir="rtl"] {
+  /* Logical margin properties */
+  --margin-start: margin-inline-start;
+  --margin-end: margin-inline-end;
+  /* Logical padding properties */
+  --padding-start: padding-inline-start;
+  --padding-end: padding-inline-end;
+  /* Logical border properties */
+  --border-start: border-inline-start;
+  --border-end: border-inline-end;
+  /* Logical position properties */
+  --inset-start: inset-inline-start;
+  --inset-end: inset-inline-end;
+}
+
+/* ==========================================
+   FRAMER MOTION ISOLATION - عزل تأثيرات الحركة
+   ========================================== */
+
+/* Isolate Framer Motion animations to prevent layout breaks */
+[data-framer-component],
+[data-framer-motion],
+.motion-safe {
+  isolation: isolate;
+  contain: layout style paint;
+  /* Prevent animation from breaking flex/grid */
+  will-change: opacity, transform;
+}
+
+/* Ensure animations don't break RTL layout */
+html[dir="rtl"] [data-framer-component],
+html[dir="rtl"] [data-framer-motion] {
+  transform-origin: center;
+}
+
+/* ==========================================
+   OVERFLOW PREVENTION - منع الانزياح
+   ========================================== */
+
+/* Prevent horizontal overflow on all containers */
+.container,
+.grid-container,
+.max-w-7xl,
+.max-w-6xl,
+.max-w-5xl,
+.max-w-4xl {
+  overflow-x: hidden;
+  overscroll-behavior-x: contain;
+}
+
+/* Prevent overflow on flex containers */
+.flex,
+.inline-flex {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* Prevent overflow on grid containers */
+.grid {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ==========================================
+   RADIX UI RTL SUPPORT - دعم Radix UI مع RTL
+   ========================================== */
+
+/* Radix UI components RTL adjustments */
+html[dir="rtl"] [data-radix-popper-content-wrapper] {
+  direction: rtl;
+}
+
+html[dir="rtl"] [data-radix-dialog-content] {
+  text-align: right;
+}
+
+html[dir="rtl"] [data-radix-tabs-list] {
+  direction: rtl;
+}
+
+html[dir="rtl"] [data-radix-tabs-trigger] {
+  text-align: center;
+}
+
+/* Radix UI Dialog RTL positioning */
+html[dir="rtl"] [data-radix-dialog-overlay] {
+  direction: rtl;
+}
+
+html[dir="rtl"] [data-radix-dialog-content] {
+  left: auto;
+  right: 50%;
+  transform: translateX(50%) translateY(-50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[dir="rtl"] [data-radix-dialog-content] {
+    transform: translateX(50%) translateY(-50%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -519,9 +713,14 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: auto !important;
   }
   
-  /* Disable all transforms */
+  /* Disable all transforms but preserve RTL layout */
   * {
     transform: none !important;
+  }
+  
+  /* Keep RTL direction even with reduced motion */
+  html[dir="rtl"] {
+    direction: rtl !important;
   }
 }
 

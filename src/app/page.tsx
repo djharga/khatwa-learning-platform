@@ -23,8 +23,9 @@ const FeaturedCoursesSection = dynamic(
   { ssr: false }
 );
 
-const CIASpotlightSection = dynamic(
-  () => import('@/components/homepage/CIASpotlightSection'),
+// Replace the CIASpotlightSection import with the new FellowshipSection
+const FellowshipSection = dynamic(
+  () => import('@/components/homepage/FellowshipSection'),
   { ssr: false }
 );
 
@@ -64,10 +65,6 @@ const ValuesSection = dynamic(
   { ssr: false }
 );
 
-const CTAJoinSection = dynamic(
-  () => import('@/components/homepage/CTAJoinSection'),
-  { ssr: false }
-);
 
 /**
  * Homepage - الصفحة الرئيسية
@@ -127,42 +124,57 @@ export default function HomePage() {
       </div>
 
       {/* Page Content with optimized loading */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex flex-col items-center">
         {/* 1. Hero Section - Above the fold, SSR */}
-        <CreativeHeroSection />
+        <div className="w-full max-w-7xl mx-auto">
+          <CreativeHeroSection />
+        </div>
 
         {/* 2. Introduction Section - التعريف بالمنصة */}
-        <IntroductionSection />
+        <div className="w-full max-w-7xl mx-auto">
+          <IntroductionSection />
+        </div>
 
-        {/* 3. Vision Section - الرؤية */}
-        <VisionSection />
+        {/* 4. Vision Section - الرؤية */}
+        <div className="w-full max-w-7xl mx-auto">
+          <VisionSection />
+        </div>
 
-        {/* 4. Mission Section - الرسالة */}
-        <MissionSection />
+        {/* 5. Mission Section - الرسالة */}
+        <div className="w-full max-w-7xl mx-auto">
+          <MissionSection />
+        </div>
 
-        {/* 5. Goals Section - الأهداف */}
-        <GoalsSection />
+        {/* 6. Goals Section - الأهداف */}
+        <div className="w-full max-w-7xl mx-auto">
+          <GoalsSection />
+        </div>
 
-        {/* 6. Values Section - القيم والهدف */}
-        <ValuesSection />
+        {/* 7. Values Section - القيم والهدف */}
+        <div className="w-full max-w-7xl mx-auto">
+          <ValuesSection />
+        </div>
 
-        {/* 7. CTA Join Section - دعوة للانضمام */}
-        <CTAJoinSection />
-
-        {/* 9. Quick Stats Bar */}
-        <QuickStatsBar />
 
         {/* 10. Featured Courses Section - Priority Section */}
-        <FeaturedCoursesSection />
+        <div className="w-full max-w-7xl mx-auto">
+          <FeaturedCoursesSection />
+        </div>
 
-        {/* 11. CIA Fellowship Spotlight */}
-        <CIASpotlightSection />
+        {/* 11. Enhanced Fellowship Section */}
+        <div className="w-full max-w-7xl mx-auto">
+          <FellowshipSection />
+        </div>
 
         {/* 12. FAQ */}
-        <FAQSection />
+        <div className="w-full max-w-7xl mx-auto">
+          <FAQSection />
+        </div>
 
         {/* 13. Final CTA */}
-        <CTASection />
+        <div className="w-full max-w-7xl mx-auto">
+          <CTASection />
+        </div>
       </div>
 
       {/* Modern Scroll to Top Button - Reduced Animation */}

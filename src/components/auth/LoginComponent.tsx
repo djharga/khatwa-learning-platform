@@ -5,9 +5,11 @@ import { useState } from 'react';
 import { Mail, Eye, EyeOff } from 'lucide-react';
 import { Input, Checkbox, FormField } from '../ui';
 import StyledButton from '../ui/StyledButton';
-import { useFormValidation } from '../../lib/formHelpers';
-import { validateEmail, validateRequired } from '../../lib/validation';
-import { showToast, toastMessages } from '../../utils/toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { loginSchema, validateForm } from '@/lib/security/validation';
+import { sanitizeEmail } from '@/lib/security/sanitize';
+import { handleApiError, getErrorMessage } from '@/lib/error-handler';
+import { showToast } from '../../utils/toast';
 
 /**
  * Props for the SocialLoginButtons component
@@ -53,23 +55,74 @@ const SocialLoginButtons: React.FC<SocialLoginButtonsProps> = ({ onSocialLogin }
 };
 
 /**
- * Login form component with email/password authentication and social login options. Includes form validation and accessibility features.
+ * Login form component with email/password authentication and social login options. 
+ * Includes form validation and accessibility features.
+ * Uses AuthContext for secure authentication.
  */
 const LoginComponent = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false,
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  
+  const { login, error: authError } = useAuth();
 
-  const { values, errors, handleChange, handleSubmit } = useFormValidation(
-    { email: '', password: '' },
-    {
-      email: [validateRequired, validateEmail],
-      password: [validateRequired],
-    },
-    (values) => {
-      // Show success toast instead of alert
-      showToast.success(toastMessages.loginSuccessful);
-      // Here you would typically send the data to your backend
+  /**
+   * Handle form field changes with sanitization
+   */
+  const handleChange = (field: string, value: string | boolean) => {
+    let sanitizedValue: string | boolean = value;
+    
+    // Sanitize email
+    if (field === 'email' && typeof value === 'string') {
+      const sanitized = sanitizeEmail(value);
+      sanitizedValue = sanitized || value;
     }
-  );
+    
+    setFormData((prev) => ({ ...prev, [field]: sanitizedValue }));
+    
+    // Clear error for this field
+    if (errors[field]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+  };
+
+  /**
+   * Handle form submission
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+
+    // Validate form using Zod schema
+    const validation = validateForm(loginSchema, formData);
+    
+    if (!validation.success) {
+      setErrors(validation.errors);
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      await login(validation.data.email, validation.data.password, validation.data.rememberMe);
+      showToast.success('تم تسجيل الدخول بنجاح');
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      setErrors({ _general: errorMessage });
+      showToast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   /**
    * Handles social authentication provider selection
@@ -140,7 +193,7 @@ const LoginComponent = () => {
                 type="email"
                 autoComplete="email"
                 required
-                value={values.email}
+                value={formData.email}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange('email', e.target.value)}
                 leftIcon={Mail}
                 variant="modern"
@@ -148,6 +201,7 @@ const LoginComponent = () => {
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 placeholder="أدخل بريدك الإلكتروني"
+                disabled={isLoading}
               />
             </FormField>
           </div>
@@ -165,7 +219,7 @@ const LoginComponent = () => {
                 type={showPassword ? 'text' : 'password'}
                 autoComplete="current-password"
                 required
-                value={values.password}
+                value={formData.password}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange('password', e.target.value)}
                 rightIcon={showPassword ? EyeOff : Eye}
                 variant="modern"
@@ -175,6 +229,7 @@ const LoginComponent = () => {
                   errors.password ? 'password-error' : undefined
                 }
                 placeholder="أدخل كلمة المرور"
+                disabled={isLoading}
               />
             </FormField>
             <button
@@ -200,6 +255,9 @@ const LoginComponent = () => {
               name="remember-me"
               label="تذكرني"
               aria-label="تذكرني"
+              checked={formData.rememberMe}
+              onChange={(checked) => handleChange('rememberMe', checked)}
+              disabled={isLoading}
             />
 
             <div className="text-sm">
@@ -213,15 +271,24 @@ const LoginComponent = () => {
             </div>
           </div>
 
+          {(errors._general || authError) && (
+            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-sm text-red-600 dark:text-red-400">
+                {errors._general || authError}
+              </p>
+            </div>
+          )}
+
           <div>
             <StyledButton
               type="submit"
               variant="primary"
               size="large"
               fullWidth
+              disabled={isLoading}
               aria-label="تسجيل الدخول إلى حسابك"
             >
-              تسجيل الدخول
+              {isLoading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
             </StyledButton>
           </div>
         </form>

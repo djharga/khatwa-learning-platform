@@ -13,6 +13,7 @@ import { formatCoursePrice, getDifficultyEmoji } from '@/utils/courseUtils';
 import { useCourseCardState } from '@/hooks/useCourseCardState';
 import {CourseCardActionsProps, useCourseCardActions } from '@/hooks/useCourseCardActions';
 import { useRippleEffect } from '@/hooks/useRippleEffect';
+import { safeFormatNumber } from '@/lib/numberUtils';
 import { BadgeList, ProgressRing, PriceBadge, CourseImage, QuickActionButtons, InstructorInfoCard, CourseMeta, ActionButtons } from './CourseCard/';
 
 /**
@@ -105,7 +106,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">{course.rating}</span>
               </div>
               <span className="text-gray-400">•</span>
-              <span className="text-sm text-gray-600 dark:text-gray-400">{course.students}+ طالب</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">{safeFormatNumber(course.students)}+ طالب</span>
             </div>
             <div className="text-left">
               <span className="text-xl font-bold text-blue-600 dark:text-blue-400">

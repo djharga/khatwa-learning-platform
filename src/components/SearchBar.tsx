@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Course, CourseFilters, CourseSortOptions, CourseCategory } from '@/types/course';
 import { filterCourses, sortCourses } from '@/utils/courseUtils';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 interface SearchFilters {
   category: string;
@@ -557,7 +558,7 @@ const SearchBar = ({
                       </div>
                       <div className="flex items-center gap-1">
                         <Users className="w-3 h-3" />
-                        {course.students.toLocaleString()}
+                        {safeFormatNumber(course.students)}
                       </div>
                     </div>
                   </div>

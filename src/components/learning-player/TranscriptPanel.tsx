@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Search, Play } from 'lucide-react';
+import { Search, Play, FileText } from 'lucide-react';
 
 interface TranscriptPanelProps {
   transcript: string;
@@ -63,8 +63,12 @@ export default function TranscriptPanel({
 
   if (!transcript) {
     return (
-      <div className="p-6 text-center text-gray-400">
-        <p>لا يوجد نص مفرغ متاح لهذا الدرس.</p>
+      <div className="p-5 text-center">
+        <div className="w-12 h-12 bg-gray-100 dark:bg-slate-800 rounded-xl flex items-center justify-center mx-auto mb-3">
+          <FileText className="w-6 h-6 text-gray-400 dark:text-gray-600" />
+        </div>
+        <h3 className="text-xs font-semibold text-gray-900 dark:text-gray-300 mb-1.5">لا يوجد نص مفرغ</h3>
+        <p className="text-gray-600 dark:text-gray-400 text-[10px]">لم يتم إضافة النص المفرغ لهذا الدرس بعد.</p>
       </div>
     );
   }
@@ -72,22 +76,35 @@ export default function TranscriptPanel({
   return (
     <div className="h-full flex flex-col">
       {/* Search */}
-      <div className="p-4 border-b border-gray-700">
+      <div className="p-4 border-b border-gray-200 dark:border-slate-800 bg-gray-50 dark:bg-slate-800/50">
         <div className="relative">
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400" />
           <input
             type="text"
             placeholder="ابحث في النص المفرغ..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-8 pr-8 py-1.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-xs text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
           />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+            >
+              ✕
+            </button>
+          )}
         </div>
+        {searchQuery && (
+          <p className="mt-2 text-[10px] text-gray-600 dark:text-gray-400">
+            النتائج: {filteredLines.length} من {transcriptLines.length}
+          </p>
+        )}
       </div>
 
       {/* Transcript Content */}
-      <div ref={transcriptRef} className="flex-1 overflow-y-auto p-6">
-        <div className="space-y-3">
+      <div ref={transcriptRef} className="flex-1 overflow-y-auto p-4">
+        <div className="space-y-2">
           {filteredLines.map((line) => {
             const isHighlighted = line.index === highlightedIndex;
             const isSearchMatch = searchQuery && line.text.toLowerCase().includes(searchQuery.toLowerCase());
@@ -97,33 +114,40 @@ export default function TranscriptPanel({
                 key={line.index}
                 data-line-index={line.index}
                 onClick={() => handleLineClick(line.time)}
-                className={`p-4 rounded-lg cursor-pointer transition-colors ${
+                className={`group relative p-2.5 rounded-lg cursor-pointer transition-all border ${
                   isHighlighted
-                    ? 'bg-blue-600/20 border-2 border-blue-600'
-                    : 'bg-gray-800 hover:bg-gray-700 border-2 border-transparent'
+                    ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-700 shadow-md'
+                    : 'bg-white dark:bg-slate-800 border-gray-200 dark:border-slate-700 hover:shadow-md'
                 }`}
               >
+                {/* Timestamp badge */}
                 {line.time > 0 && (
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
                       handleLineClick(line.time);
                     }}
-                    className="flex items-center gap-2 text-blue-400 hover:text-blue-300 mb-2 text-sm font-medium"
+                    className={`flex items-center gap-1.5 mb-1.5 px-1.5 py-0.5 rounded text-[10px] font-medium transition-all ${
+                      isHighlighted
+                        ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300'
+                        : 'bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-600'
+                    }`}
                   >
-                    <Play className="w-4 h-4" />
+                    <Play className="w-2.5 h-2.5" />
                     {Math.floor(line.time / 60)}:{(line.time % 60).toString().padStart(2, '0')}
                   </button>
                 )}
+                
+                {/* Text content */}
                 <p
-                  className={`text-gray-300 leading-relaxed ${
-                    isHighlighted ? 'font-medium' : ''
-                  } ${isSearchMatch ? 'bg-yellow-500/20' : ''}`}
+                  className={`text-xs leading-relaxed ${
+                    isHighlighted ? 'text-gray-900 dark:text-white font-medium' : 'text-gray-700 dark:text-gray-300'
+                  } ${isSearchMatch ? 'bg-amber-100 dark:bg-amber-900/20 p-1.5 rounded' : ''}`}
                   dangerouslySetInnerHTML={{
                     __html: isSearchMatch
                       ? line.text.replace(
                           new RegExp(`(${searchQuery})`, 'gi'),
-                          '<mark class="bg-yellow-500/50">$1</mark>'
+                          '<mark class="bg-amber-300 dark:bg-amber-700 px-0.5 rounded">$1</mark>'
                         )
                       : line.text,
                   }}

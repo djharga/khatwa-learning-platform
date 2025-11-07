@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, CreditCard, Play, Lock, Clock, BookOpen, Users, Shield, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 interface StickyCheckoutProps {
   price: number;
@@ -164,7 +165,7 @@ export default function StickyCheckout({
                   <Users className="w-4 h-4" />
                   الطلاب
                 </span>
-                <span className="font-semibold">{students.toLocaleString()}</span>
+                <span className="font-semibold">{safeFormatNumber(students)}</span>
               </div>
             )}
           </div>

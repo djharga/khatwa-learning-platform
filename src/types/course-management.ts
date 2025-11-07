@@ -9,6 +9,8 @@ export type CourseStatus = 'draft' | 'published' | 'scheduled' | 'archived' | 's
 export type ModuleStatus = 'draft' | 'published' | 'locked';
 export type LessonStatus = 'draft' | 'published' | 'locked';
 export type ContentStatus = 'draft' | 'published' | 'archived';
+export type CourseType = 'short' | 'long'; // قصيرة (2-3 أيام) أو طويلة المدى
+export type CourseLockStatus = 'open' | 'closed' | 'auto-locked' | 'auto-open';
 
 // ==================== المحتوى ====================
 export interface CourseContent {
@@ -84,6 +86,35 @@ export interface Module {
 }
 
 // ==================== الدورة ====================
+// ==================== شجرة ملفات الدورة ====================
+export interface CourseFileTree {
+  courseId: string;
+  rootNodes: CourseFileNode[];
+  totalFiles: number;
+  totalSize: number; // بالبايت
+  lastUpdated: string;
+}
+
+export interface CourseFileNode {
+  id: string;
+  name: string;
+  type: 'file' | 'folder';
+  fileType?: 'word' | 'excel' | 'pdf' | 'powerpoint' | 'video' | 'audio' | 'image' | 'other';
+  size?: number; // بالبايت
+  path: string; // المسار الكامل
+  parentId?: string;
+  children?: CourseFileNode[];
+  canEdit?: boolean; // يمكن تعديل الاسم على النسخة الشخصية
+  explanationVideo?: {
+    id: string;
+    url: string;
+    title: string;
+    duration: number; // بالثواني
+  };
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface CourseManagement {
   id: string;
   title: string;
@@ -96,6 +127,10 @@ export interface CourseManagement {
   language: string;
   subtitles?: string[];
   
+  // نوع الدورة والمدة
+  courseType: CourseType; // قصيرة أو طويلة المدى
+  durationDays?: number; // عدد الأيام (2-3 للقصيرة)
+  
   // المحتوى
   modules: Module[];
   totalLessons: number;
@@ -105,6 +140,13 @@ export interface CourseManagement {
   image: string;
   thumbnail?: string;
   promoVideoUrl?: string; // فيديو دعائي
+  
+  // شجرة الملفات - فريدة لكل دورة
+  fileTree?: CourseFileTree;
+  
+  // حالة القفل/الفتح
+  lockStatus?: CourseLockStatus;
+  isLocked?: boolean; // حالة القفل اليدوية
   
   // التواريخ والجدولة
   startDate?: string; // تاريخ بدء الدورة
@@ -186,6 +228,8 @@ export interface CreateCourseRequest {
   instructorId: string;
   category: CourseCategory;
   level: CourseLevel;
+  courseType: CourseType; // قصيرة أو طويلة
+  durationDays?: number; // عدد الأيام
   price: number;
   image?: File;
   startDate?: string;
@@ -199,6 +243,8 @@ export interface UpdateCourseRequest {
   description?: string;
   category?: CourseCategory;
   level?: CourseLevel;
+  courseType?: CourseType;
+  durationDays?: number;
   price?: number;
   image?: File;
   status?: CourseStatus;
@@ -206,6 +252,8 @@ export interface UpdateCourseRequest {
   endDate?: string;
   autoOpen?: boolean;
   autoClose?: boolean;
+  isLocked?: boolean;
+  lockStatus?: CourseLockStatus;
   settings?: Partial<CourseManagement['settings']>;
 }
 
@@ -255,6 +303,34 @@ export interface UploadContentRequest {
   order?: number;
 }
 
+// ==================== فيديو الشرح ====================
+export interface ExplanationVideo {
+  id: string;
+  courseId: string;
+  moduleId?: string;
+  fileId?: string; // معرف الملف المرتبط (Word/Excel)
+  title: string;
+  description?: string;
+  videoUrl: string;
+  thumbnailUrl?: string;
+  duration: number; // بالثواني
+  type: 'module' | 'word' | 'excel'; // نوع فيديو الشرح
+  order?: number;
+  viewCount: number;
+  uploadedAt: string;
+  uploadedBy: string;
+}
+
+export interface UploadExplanationVideoRequest {
+  courseId: string;
+  moduleId?: string;
+  fileId?: string;
+  type: 'module' | 'word' | 'excel';
+  video: File;
+  title: string;
+  description?: string;
+}
+
 // ==================== الاستجابات ====================
 export interface CourseListResponse {
   courses: CourseManagement[];
@@ -302,6 +378,23 @@ export interface CourseSchedule {
   executed: boolean;
   executedAt?: string;
   error?: string;
+}
+
+// ==================== نسخ الملفات ====================
+export interface CopyFileRequest {
+  sourceFileId: string;
+  targetCourseId?: string;
+  targetModuleId?: string;
+  targetTraineeId?: string;
+  newName?: string;
+  createPersonalCopy?: boolean;
+}
+
+export interface MoveFileRequest {
+  fileId: string;
+  targetCourseId?: string;
+  targetModuleId?: string;
+  newPath?: string;
 }
 
 // ==================== الإحصائيات ====================

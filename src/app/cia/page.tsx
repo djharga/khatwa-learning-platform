@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
   Award,
   BookOpen,
@@ -11,40 +10,14 @@ import {
   Video,
   Headphones,
   FileSpreadsheet,
-  BarChart3,
   TrendingUp,
   Target,
-  CheckCircle2,
-  Clock,
-  Download,
-  Play,
   Lock,
-  Sparkles,
-  GraduationCap,
-  Trophy,
-  Users,
-  PieChart,
-  Activity,
-  ArrowRight,
-  XCircle,
-  AlertCircle,
-  Maximize2,
-  Minimize2,
-  Eye,
-  EyeOff,
-  Info,
-  MousePointerClick,
-  Crown,
+  Menu,
+  X,
+  ExternalLink,
+  Clock,
 } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
-import Link from 'next/link';
-import Image from 'next/image';
-import FreeSection from '@/components/question-bank/FreeSection';
-import PremiumSection from '@/components/question-bank/PremiumSection';
-import AnalyticsSection from '@/components/question-bank/AnalyticsSection';
-import AISection from '@/components/question-bank/AISection';
-import QuestionBank from '@/components/fellowship/QuestionBank';
 
 // أنواع الملفات
 type FileType = 'video' | 'podcast' | 'excel' | 'word' | 'pdf';
@@ -61,38 +34,35 @@ interface File {
   progress?: number; // نسبة الإنجاز
 }
 
-interface SubAxis {
+interface FileGroup {
   id: string;
   title: string;
   description?: string;
   files: File[];
+  progress?: number;
 }
 
-interface MainAxis {
+interface Curriculum {
   id: string;
   title: string;
   description?: string;
-  subAxes: SubAxis[];
+  fileGroups: FileGroup[];
   progress?: number;
+  lessonsCount?: number;
+  hoursCount?: number;
+  difficulty?: 'مبتدئ' | 'متوسط' | 'متقدم';
+  estimatedTime?: string;
 }
 
 interface Level {
   id: 1 | 2 | 3;
   title: string;
   description: string;
-  mainAxes: MainAxis[];
-  progress: number; // نسبة الإنجاز الإجمالية
+  curriculum: Curriculum[];
+  fileGroups: FileGroup[];
   questionBankCount: number;
+  progress: number; // نسبة الإنجاز الإجمالية
   avgScore?: number;
-}
-
-interface ProgressStats {
-  overallProgress: number;
-  levelsCompleted: number;
-  totalQuestionsAnswered: number;
-  avgScore: number;
-  currentStreak: number;
-  hoursStudied: number;
 }
 
 interface Question {
@@ -117,52 +87,39 @@ interface Question {
   isActive: boolean;
 }
 
-interface QuizResult {
-  id: string;
-  userId: string;
-  userName: string;
-  score: number;
-  totalQuestions: number;
-  correctAnswers: number;
-  timeSpent: number;
-  completedAt: string;
-  quizType: 'free' | 'premium' | 'certification';
-  difficulty: 'سهل' | 'متوسط' | 'صعب';
-}
-
 export default function CIAFellowshipPage() {
   const [selectedLevel, setSelectedLevel] = useState<1 | 2 | 3>(1);
-  const [expandedAxis, setExpandedAxis] = useState<string | null>(null);
-  const [expandedSubAxis, setExpandedSubAxis] = useState<string | null>(null);
-  const [activeView, setActiveView] = useState<'content' | 'progress' | 'questionBank'>('content');
-  const [allAxesExpanded, setAllAxesExpanded] = useState(false);
-  const [showHelpTooltip, setShowHelpTooltip] = useState(true);
+  const [expandedCurriculum, setExpandedCurriculum] = useState<string | null>(null);
+  const [expandedFileGroup, setExpandedFileGroup] = useState<string | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [questionBankTab, setQuestionBankTab] = useState<'free' | 'premium' | 'analytics' | 'ai'>('free');
   const [loading, setLoading] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // بيانات المحاكاة للمستويات الثلاثة
-  const levels: Level[] = [
+  // بيانات المستويات الثلاثة مع المنهج ومجموعة الملفات مباشرة
+  const levelsData: Level[] = [
     {
       id: 1,
-      title: 'المستوى الأول',
+      title: 'الجزء الأول',
       description: 'الأساسيات والمفاهيم الأولية لشهادة CIA',
       progress: 65,
       questionBankCount: 450,
       avgScore: 72,
-      mainAxes: [
+      curriculum: [
         {
-          id: 'axis1-1',
-          title: 'المحور الأول: مقدمة شهادة CIA',
+          id: 'curriculum-1-1',
+          title: 'مقدمة شهادة CIA',
           description: 'نظرة عامة على شهادة CIA ومتطلبات الحصول عليها',
           progress: 70,
-          subAxes: [
+          lessonsCount: 8,
+          hoursCount: 12,
+          difficulty: 'مبتدئ',
+          estimatedTime: '2-3 أسابيع',
+          fileGroups: [
             {
-              id: 'sub1-1',
+              id: 'filegroup-1-1',
               title: 'مقدمة عن شهادة CIA',
               description: 'تعريف بشهادة CIA وفوائد الحصول عليها',
+              progress: 80,
               files: [
                 {
                   id: 'f1',
@@ -199,9 +156,10 @@ export default function CIAFellowshipPage() {
               ],
             },
             {
-              id: 'sub1-2',
+              id: 'filegroup-1-2',
               title: 'متطلبات وشروط التقديم',
               description: 'الشروط والمتطلبات للتقديم على شهادة CIA',
+              progress: 0,
               files: [
                 {
                   id: 'f4',
@@ -229,38 +187,171 @@ export default function CIAFellowshipPage() {
           ],
         },
         {
-          id: 'axis1-2',
-          title: 'المحور الثاني: الامتحان الأول - Part 1',
-          description: 'الإعداد للامتحان الأول من شهادة CIA',
+          id: 'curriculum-1-2',
+          title: 'أساسيات المراجعة الداخلية - Part 1',
+          description: 'الإعداد الشامل للامتحان الأول من شهادة CIA مع التركيز على الأساسيات',
           progress: 60,
-          subAxes: [
+          lessonsCount: 15,
+          hoursCount: 25,
+          difficulty: 'متوسط',
+          estimatedTime: '4-6 أسابيع',
+          fileGroups: [
             {
-              id: 'sub2-1',
-              title: 'محتوى الامتحان الأول',
-              description: 'المواضيع والأسئلة المتوقعة في Part 1',
-      files: [
+              id: 'filegroup-1-3',
+              title: 'مقدمة المراجعة الداخلية',
+              description: 'المفاهيم الأساسية والأنواع الرئيسية للمراجعة الداخلية',
+              progress: 65,
+              files: [
                 {
                   id: 'f6',
-                  name: 'دليل الامتحان الأول.mp4',
+                  name: 'مقدمة المراجعة الداخلية.mp4',
                   type: 'video',
-                  size: '112 MB',
-                  duration: '52 دقيقة',
-                  description: 'شرح شامل لمحتوى الامتحان الأول',
+                  size: '98 MB',
+                  duration: '42 دقيقة',
+                  description: 'شرح شامل للمفاهيم الأساسية للمراجعة الداخلية',
                   isProtected: false,
-                  url: '/videos/cia-part1.mp4',
-                  progress: 50,
+                  url: '/videos/internal-audit-intro.mp4',
+                  progress: 80,
                 },
                 {
                   id: 'f7',
+                  name: 'دليل المراجعة الداخلية الأساسي.pdf',
+                  type: 'pdf',
+                  size: '3.5 MB',
+                  description: 'دليل شامل يغطي جميع أساسيات المراجعة الداخلية',
+                  isProtected: false,
+                  url: '/files/internal-audit-basics.pdf',
+                  progress: 100,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-1-4',
+              title: 'إدارة المخاطر والرقابة الداخلية',
+              description: 'فهم المخاطر وكيفية إدارتها والرقابة الداخلية',
+              progress: 55,
+              files: [
+                {
+                  id: 'f8',
+                  name: 'إدارة المخاطر في المراجعة.mp4',
+                  type: 'video',
+                  size: '112 MB',
+                  duration: '52 دقيقة',
+                  description: 'شرح شامل لإدارة المخاطر في المراجعة الداخلية',
+                  isProtected: false,
+                  url: '/videos/risk-management.mp4',
+                  progress: 50,
+                },
+                {
+                  id: 'f9',
+                  name: 'نظام الرقابة الداخلية.pdf',
+                  type: 'pdf',
+                  size: '2.8 MB',
+                  description: 'دليل شامل لأنظمة الرقابة الداخلية',
+                  isProtected: false,
+                  url: '/files/internal-control-system.pdf',
+                  progress: 70,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-1-5',
+              title: 'محتوى الامتحان الأول',
+              description: 'المواضيع والأسئلة المتوقعة في Part 1',
+              progress: 75,
+              files: [
+                {
+                  id: 'f10',
+                  name: 'دليل الامتحان الأول الشامل.mp4',
+                  type: 'video',
+                  size: '125 MB',
+                  duration: '58 دقيقة',
+                  description: 'شرح شامل ومفصل لمحتوى الامتحان الأول',
+                  isProtected: false,
+                  url: '/videos/cia-part1-complete.mp4',
+                  progress: 50,
+                },
+                {
+                  id: 'f11',
                   name: 'أسئلة نموذجية - Part 1.xlsx',
                   type: 'excel',
                   size: '2.1 MB',
-                  description: 'مجموعة أسئلة نموذجية للامتحان الأول',
+                  description: 'مجموعة شاملة من الأسئلة النموذجية للامتحان الأول',
                   isProtected: false,
                   url: '/files/cia-part1-questions.xlsx',
                   progress: 100,
                 },
+                {
+                  id: 'f12',
+                  name: 'ملخص سريع - Part 1.pdf',
+                  type: 'pdf',
+                  size: '1.2 MB',
+                  description: 'ملخص سريع لجميع مواضيع الامتحان الأول',
+                  isProtected: false,
+                  url: '/files/cia-part1-summary.pdf',
+                  progress: 90,
+                },
               ],
+            },
+            {
+              id: 'filegroup-1-6',
+              title: 'تمارين عملية ودراسات حالة',
+              description: 'تمارين عملية ودراسات حالة لتطبيق المعرفة',
+              progress: 40,
+              files: [
+                {
+                  id: 'f13',
+                  name: 'دراسات حالة عملية.xlsx',
+                  type: 'excel',
+                  size: '3.5 MB',
+                  description: 'مجموعة من دراسات الحالة العملية',
+                  isProtected: true,
+                  url: '/files/case-studies-part1.xlsx',
+                  progress: 30,
+                },
+                {
+                  id: 'f14',
+                  name: 'تمارين تفاعلية - Part 1.mp4',
+                  type: 'video',
+                  size: '88 MB',
+                  duration: '35 دقيقة',
+                  description: 'تمارين تفاعلية مع حلول مفصلة',
+                  isProtected: true,
+                  url: '/videos/interactive-exercises-part1.mp4',
+                  progress: 25,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      fileGroups: [
+        {
+          id: 'filegroup-1-1',
+          title: 'مقدمة عن شهادة CIA',
+          description: 'تعريف بشهادة CIA وفوائد الحصول عليها',
+          progress: 80,
+          files: [
+            {
+              id: 'f1',
+              name: 'مقدمة عن شهادة CIA.mp4',
+              type: 'video',
+              size: '125 MB',
+              duration: '45 دقيقة',
+              description: 'شرح مفصل عن شهادة CIA ومتطلباتها',
+              isProtected: false,
+              url: '/videos/cia-intro.mp4',
+              progress: 100,
+            },
+            {
+              id: 'f2',
+              name: 'دليل شهادة CIA الأساسي.docx',
+              type: 'word',
+              size: '2.5 MB',
+              description: 'دليل شامل عن شهادة CIA',
+              isProtected: false,
+              url: '/files/cia-guide.docx',
+              progress: 80,
             },
           ],
         },
@@ -268,45 +359,178 @@ export default function CIAFellowshipPage() {
     },
     {
       id: 2,
-      title: 'المستوى الثاني',
+      title: 'الجزء الثاني',
       description: 'الإعداد للامتحان الثاني من شهادة CIA',
       progress: 40,
       questionBankCount: 380,
       avgScore: 68,
-      mainAxes: [
+      curriculum: [
         {
-          id: 'axis2-1',
-          title: 'المحور الأول: الامتحان الثاني - Part 2',
-          description: 'الإعداد للامتحان الثاني من شهادة CIA',
+          id: 'curriculum-2-1',
+          title: 'ممارسات المراجعة الداخلية - Part 2',
+          description: 'الإعداد المتقدم للامتحان الثاني مع التركيز على الممارسات العملية',
           progress: 45,
-          subAxes: [
+          lessonsCount: 18,
+          hoursCount: 30,
+          difficulty: 'متقدم',
+          estimatedTime: '6-8 أسابيع',
+          fileGroups: [
             {
-              id: 'sub3-1',
+              id: 'filegroup-2-1',
+              title: 'تخطيط المراجعة',
+              description: 'استراتيجيات وأساليب تخطيط المراجعة الداخلية',
+              progress: 50,
+              files: [
+                {
+                  id: 'f15',
+                  name: 'تخطيط المراجعة الداخلية.mp4',
+                  type: 'video',
+                  size: '135 MB',
+                  duration: '62 دقيقة',
+                  description: 'شرح شامل لاستراتيجيات تخطيط المراجعة',
+                  isProtected: true,
+                  url: '/videos/audit-planning.mp4',
+                  progress: 40,
+                },
+                {
+                  id: 'f16',
+                  name: 'نماذج تخطيط المراجعة.docx',
+                  type: 'word',
+                  size: '2.3 MB',
+                  description: 'نماذج عملية لتخطيط المراجعة',
+                  isProtected: true,
+                  url: '/files/audit-planning-templates.docx',
+                  progress: 35,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-2-2',
+              title: 'تنفيذ المراجعة',
+              description: 'أساليب وتقنيات تنفيذ المراجعة الداخلية',
+              progress: 30,
+              files: [
+                {
+                  id: 'f17',
+                  name: 'تنفيذ المراجعة الداخلية.mp4',
+                  type: 'video',
+                  size: '142 MB',
+                  duration: '65 دقيقة',
+                  description: 'شرح تفصيلي لأساليب تنفيذ المراجعة',
+                  isProtected: true,
+                  url: '/videos/audit-execution.mp4',
+                  progress: 20,
+                },
+                {
+                  id: 'f18',
+                  name: 'أدوات المراجعة المتقدمة.pdf',
+                  type: 'pdf',
+                  size: '4.2 MB',
+                  description: 'دليل شامل لأدوات وتقنيات المراجعة المتقدمة',
+                  isProtected: true,
+                  url: '/files/advanced-audit-tools.pdf',
+                  progress: 15,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-2-3',
               title: 'محتوى الامتحان الثاني',
               description: 'المواضيع والأسئلة المتوقعة في Part 2',
-      files: [
+              progress: 0,
+              files: [
                 {
-                  id: 'f8',
-                  name: 'دليل الامتحان الثاني.mp4',
+                  id: 'f19',
+                  name: 'دليل الامتحان الثاني الشامل.mp4',
                   type: 'video',
-                  size: '145 MB',
-                  duration: '58 دقيقة',
-                  description: 'شرح شامل لمحتوى الامتحان الثاني',
+                  size: '155 MB',
+                  duration: '68 دقيقة',
+                  description: 'شرح شامل ومفصل لمحتوى الامتحان الثاني',
                   isProtected: true,
-                  url: '/videos/cia-part2.mp4',
+                  url: '/videos/cia-part2-complete.mp4',
                   progress: 0,
                 },
                 {
-                  id: 'f9',
+                  id: 'f20',
                   name: 'أسئلة نموذجية - Part 2.xlsx',
                   type: 'excel',
-                  size: '3.2 MB',
-                  description: 'مجموعة أسئلة نموذجية للامتحان الثاني',
+                  size: '3.8 MB',
+                  description: 'مجموعة شاملة من الأسئلة النموذجية للامتحان الثاني',
                   isProtected: true,
                   url: '/files/cia-part2-questions.xlsx',
                   progress: 0,
                 },
+                {
+                  id: 'f21',
+                  name: 'ملخص سريع - Part 2.pdf',
+                  type: 'pdf',
+                  size: '1.8 MB',
+                  description: 'ملخص سريع لجميع مواضيع الامتحان الثاني',
+                  isProtected: true,
+                  url: '/files/cia-part2-summary.pdf',
+                  progress: 0,
+                },
               ],
+            },
+            {
+              id: 'filegroup-2-4',
+              title: 'إعداد التقارير والتوصيات',
+              description: 'كيفية إعداد تقارير المراجعة والتوصيات الفعالة',
+              progress: 25,
+              files: [
+                {
+                  id: 'f22',
+                  name: 'إعداد تقارير المراجعة.mp4',
+                  type: 'video',
+                  size: '118 MB',
+                  duration: '55 دقيقة',
+                  description: 'شرح شامل لكيفية إعداد تقارير المراجعة',
+                  isProtected: true,
+                  url: '/videos/audit-reporting.mp4',
+                  progress: 20,
+                },
+                {
+                  id: 'f23',
+                  name: 'نماذج تقارير المراجعة.docx',
+                  type: 'word',
+                  size: '2.9 MB',
+                  description: 'نماذج جاهزة لتقارير المراجعة',
+                  isProtected: true,
+                  url: '/files/audit-report-templates.docx',
+                  progress: 15,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      fileGroups: [
+        {
+          id: 'filegroup-2-1',
+          title: 'محتوى الامتحان الثاني',
+          description: 'المواضيع والأسئلة المتوقعة في Part 2',
+          progress: 0,
+          files: [
+            {
+              id: 'f8',
+              name: 'دليل الامتحان الثاني.mp4',
+              type: 'video',
+              size: '145 MB',
+              duration: '58 دقيقة',
+              description: 'شرح شامل لمحتوى الامتحان الثاني',
+              isProtected: true,
+              url: '/videos/cia-part2.mp4',
+              progress: 0,
+            },
+            {
+              id: 'f9',
+              name: 'أسئلة نموذجية - Part 2.xlsx',
+              type: 'excel',
+              size: '3.2 MB',
+              description: 'مجموعة أسئلة نموذجية للامتحان الثاني',
+              isProtected: true,
+              url: '/files/cia-part2-questions.xlsx',
+              progress: 0,
             },
           ],
         },
@@ -314,42 +538,154 @@ export default function CIAFellowshipPage() {
     },
     {
       id: 3,
-      title: 'المستوى الثالث',
+      title: 'الجزء الثالث',
       description: 'الإعداد للامتحان الثالث والأخير من شهادة CIA',
       progress: 15,
       questionBankCount: 320,
       avgScore: 0,
-      mainAxes: [
+      curriculum: [
         {
-          id: 'axis3-1',
-          title: 'المحور الأول: الامتحان الثالث - Part 3',
-          description: 'الإعداد للامتحان الثالث والأخير من شهادة CIA',
+          id: 'curriculum-3-1',
+          title: 'المعرفة التجارية للمراجعة - Part 3',
+          description: 'الإعداد الشامل للامتحان الثالث مع التركيز على المعرفة التجارية',
           progress: 20,
-          subAxes: [
+          lessonsCount: 20,
+          hoursCount: 35,
+          difficulty: 'متقدم',
+          estimatedTime: '8-10 أسابيع',
+          fileGroups: [
             {
-              id: 'sub4-1',
+              id: 'filegroup-3-1',
+              title: 'الحوكمة وإدارة المخاطر',
+              description: 'مفاهيم الحوكمة وإدارة المخاطر في المراجعة الداخلية',
+              progress: 30,
+              files: [
+                {
+                  id: 'f24',
+                  name: 'الحوكمة وإدارة المخاطر.mp4',
+                  type: 'video',
+                  size: '148 MB',
+                  duration: '70 دقيقة',
+                  description: 'شرح شامل للحوكمة وإدارة المخاطر',
+                  isProtected: true,
+                  url: '/videos/governance-risk.mp4',
+                  progress: 25,
+                },
+                {
+                  id: 'f25',
+                  name: 'دليل الحوكمة الشامل.pdf',
+                  type: 'pdf',
+                  size: '5.2 MB',
+                  description: 'دليل شامل لمفاهيم الحوكمة',
+                  isProtected: true,
+                  url: '/files/governance-guide.pdf',
+                  progress: 20,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-3-2',
+              title: 'التقنيات الحديثة في المراجعة',
+              description: 'استخدام التقنيات الحديثة والذكاء الاصطناعي في المراجعة',
+              progress: 15,
+              files: [
+                {
+                  id: 'f26',
+                  name: 'الذكاء الاصطناعي في المراجعة.mp4',
+                  type: 'video',
+                  size: '132 MB',
+                  duration: '60 دقيقة',
+                  description: 'كيفية استخدام الذكاء الاصطناعي في المراجعة',
+                  isProtected: true,
+                  url: '/videos/ai-in-audit.mp4',
+                  progress: 10,
+                },
+                {
+                  id: 'f27',
+                  name: 'أدوات التحليل الحديثة.pdf',
+                  type: 'pdf',
+                  size: '3.8 MB',
+                  description: 'دليل لأدوات التحليل الحديثة في المراجعة',
+                  isProtected: true,
+                  url: '/files/modern-analysis-tools.pdf',
+                  progress: 5,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-3-3',
               title: 'محتوى الامتحان الثالث',
               description: 'المواضيع والأسئلة المتوقعة في Part 3',
-      files: [
+              progress: 0,
+              files: [
                 {
-                  id: 'f10',
-                  name: 'دليل الامتحان الثالث.pdf',
+                  id: 'f28',
+                  name: 'دليل الامتحان الثالث الشامل.pdf',
                   type: 'pdf',
-                  size: '4.1 MB',
-                  description: 'دليل شامل لمحتوى الامتحان الثالث',
+                  size: '5.5 MB',
+                  description: 'دليل شامل ومفصل لمحتوى الامتحان الثالث',
                   isProtected: true,
-                  url: '/files/cia-part3-guide.pdf',
+                  url: '/files/cia-part3-complete-guide.pdf',
                   progress: 0,
                 },
                 {
-                  id: 'f11',
+                  id: 'f29',
                   name: 'استراتيجيات النجاح في Part 3.mp4',
                   type: 'video',
-                  size: '132 MB',
-                  duration: '48 دقيقة',
-                  description: 'نصائح واستراتيجيات للنجاح في الامتحان الأخير',
+                  size: '142 MB',
+                  duration: '55 دقيقة',
+                  description: 'نصائح واستراتيجيات متقدمة للنجاح في الامتحان الأخير',
                   isProtected: true,
                   url: '/videos/cia-part3-strategies.mp4',
+                  progress: 0,
+                },
+                {
+                  id: 'f30',
+                  name: 'أسئلة نموذجية - Part 3.xlsx',
+                  type: 'excel',
+                  size: '4.5 MB',
+                  description: 'مجموعة شاملة من الأسئلة النموذجية للامتحان الثالث',
+                  isProtected: true,
+                  url: '/files/cia-part3-questions.xlsx',
+                  progress: 0,
+                },
+                {
+                  id: 'f31',
+                  name: 'ملخص سريع - Part 3.pdf',
+                  type: 'pdf',
+                  size: '2.1 MB',
+                  description: 'ملخص سريع لجميع مواضيع الامتحان الثالث',
+                  isProtected: true,
+                  url: '/files/cia-part3-summary.pdf',
+                  progress: 0,
+                },
+              ],
+            },
+            {
+              id: 'filegroup-3-4',
+              title: 'دراسات حالة متقدمة',
+              description: 'دراسات حالة متقدمة لتطبيق المعرفة في سيناريوهات واقعية',
+              progress: 10,
+              files: [
+                {
+                  id: 'f32',
+                  name: 'دراسات حالة متقدمة - Part 3.xlsx',
+                  type: 'excel',
+                  size: '4.8 MB',
+                  description: 'مجموعة من دراسات الحالة المتقدمة',
+                  isProtected: true,
+                  url: '/files/advanced-case-studies-part3.xlsx',
+                  progress: 5,
+                },
+                {
+                  id: 'f33',
+                  name: 'تحليل دراسات حالة.mp4',
+                  type: 'video',
+                  size: '125 MB',
+                  duration: '58 دقيقة',
+                  description: 'تحليل تفصيلي لدراسات حالة واقعية',
+                  isProtected: true,
+                  url: '/videos/case-analysis-part3.mp4',
                   progress: 0,
                 },
               ],
@@ -357,19 +693,45 @@ export default function CIAFellowshipPage() {
           ],
         },
       ],
+      fileGroups: [
+        {
+          id: 'filegroup-3-1',
+          title: 'محتوى الامتحان الثالث',
+          description: 'المواضيع والأسئلة المتوقعة في Part 3',
+          progress: 0,
+          files: [
+            {
+              id: 'f10',
+              name: 'دليل الامتحان الثالث.pdf',
+              type: 'pdf',
+              size: '4.1 MB',
+              description: 'دليل شامل لمحتوى الامتحان الثالث',
+              isProtected: true,
+              url: '/files/cia-part3-guide.pdf',
+              progress: 0,
+            },
+            {
+              id: 'f11',
+              name: 'استراتيجيات النجاح في Part 3.mp4',
+              type: 'video',
+              size: '132 MB',
+              duration: '48 دقيقة',
+              description: 'نصائح واستراتيجيات للنجاح في الامتحان الأخير',
+              isProtected: true,
+              url: '/videos/cia-part3-strategies.mp4',
+              progress: 0,
+            },
+          ],
+        },
+      ],
     },
   ];
 
-  const progressStats: ProgressStats = {
-    overallProgress: 40,
-    levelsCompleted: 0,
-    totalQuestionsAnswered: 856,
-    avgScore: 70,
-    currentStreak: 12,
-    hoursStudied: 48,
-  };
-
+  // استخدام البيانات مباشرة
+  const levels = levelsData;
   const currentLevel = levels.find(l => l.id === selectedLevel)!;
+  const currentCurriculum = currentLevel?.curriculum || [];
+  const currentFileGroups = currentLevel?.fileGroups || [];
 
   // جلب بيانات الأسئلة من API
   useEffect(() => {
@@ -377,56 +739,29 @@ export default function CIAFellowshipPage() {
     async function loadQuestions() {
       setLoading(true);
       try {
-        const [qRes, rRes] = await Promise.all([
-          fetch('/api/cia/questions'),
-          fetch('/api/cia/quiz-results'),
-        ]);
-        const qJson = await qRes.json();
-        const rJson = await rRes.json();
-        if (!mounted) return;
-        setQuestions(qJson.questions || []);
-        setQuizResults(rJson.quizResults || []);
-        // TODO: ربط الاشتراك بنظام المستخدم الفعلي
-        setIsSubscribed(false);
-      } catch (e: any) {
-        console.error('Error loading questions:', e);
-        if (!mounted) return;
+        // محاكاة جلب الأسئلة
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        if (mounted) {
+          setQuestions([]);
+        }
+      } catch (error) {
+        console.error('Error loading questions:', error);
       } finally {
-        if (mounted) setLoading(false);
+        if (mounted) {
+          setLoading(false);
+        }
       }
     }
     loadQuestions();
     return () => { mounted = false; };
   }, []);
 
-  const toggleAxis = (axisId: string) => {
-    const wasExpanded = expandedAxis === axisId;
-    setExpandedAxis(wasExpanded ? null : axisId);
-    // إغلاق المحاور الفرعية عند إغلاق المحور الرئيسي
-    if (wasExpanded) {
-      setExpandedSubAxis(null);
-    }
+  const toggleCurriculum = (curriculumId: string) => {
+    setExpandedCurriculum(expandedCurriculum === curriculumId ? null : curriculumId);
   };
 
-  const toggleSubAxis = (subAxisId: string) => {
-    setExpandedSubAxis(expandedSubAxis === subAxisId ? null : subAxisId);
-  };
-
-  const expandAllAxes = () => {
-    const level = levels.find(l => l.id === selectedLevel);
-    if (level && level.mainAxes.length > 0) {
-      setAllAxesExpanded(true);
-      setExpandedAxis(level.mainAxes[0].id);
-      if (level.mainAxes[0].subAxes.length > 0) {
-        setExpandedSubAxis(level.mainAxes[0].subAxes[0].id);
-      }
-    }
-  };
-
-  const collapseAllAxes = () => {
-    setAllAxesExpanded(false);
-    setExpandedAxis(null);
-    setExpandedSubAxis(null);
+  const toggleFileGroup = (fileGroupId: string) => {
+    setExpandedFileGroup(expandedFileGroup === fileGroupId ? null : fileGroupId);
   };
 
   const getFileIcon = (type: FileType) => {
@@ -464,1762 +799,377 @@ export default function CIAFellowshipPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-900 text-white overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/assets/Professional educational platform hero banner.png"
-            alt="زمالة المدقق الداخلي CIA"
-            fill
-            priority
-            quality={90}
-            className="object-cover"
-            style={{ objectPosition: 'center' }}
-          />
-          {/* Simple Overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-indigo-900/80 to-blue-900/85"></div>
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Text Content */}
-            <div className="text-center lg:text-right">
-              <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm rounded-lg px-6 py-2.5 mb-6 border border-white/20">
-                <div className="p-1.5 bg-blue-600 rounded-lg">
-                  <Award className="w-5 h-5 text-white" />
-                </div>
-                <span className="font-semibold text-base tracking-wide">Certified Internal Auditor</span>
-              </div>
-              
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                زمالة المدقق الداخلي (CIA)
-              </h1>
-              
-              <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed">
-                برنامج متكامل لإعدادك للحصول على شهادة CIA الدولية المعتمدة من معهد المدققين الداخليين (IIA)
-              </p>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto lg:mx-0">
-                {[
-                  { label: 'المستويات', value: '3', icon: GraduationCap },
-                  { label: 'بنك الأسئلة', value: '1,150+', icon: BookOpen },
-                  { label: 'ساعات المحتوى', value: '120+', icon: Clock },
-                  { label: 'المتدربون', value: '2,450+', icon: Users },
-                ].map((stat) => {
-                  const Icon = stat.icon;
-                  return (
-                    <div
-                      key={stat.label}
-                      className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20 hover:bg-white/15 transition-colors"
-                    >
-                      <div className="flex items-center justify-center mb-3">
-                        <div className="p-2 bg-white/20 rounded-lg">
-                          <Icon className="w-6 h-6 text-white" />
-                        </div>
-                      </div>
-                      <div className="text-2xl font-bold mb-1 text-white">{stat.value}</div>
-                      <div className="text-xs font-medium text-blue-100">{stat.label}</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Hero Image - Certificate */}
-            <div className="relative hidden lg:block">
-              <div className="relative bg-white rounded-2xl shadow-2xl p-8 border-4 border-yellow-400/30">
-                <div className="text-center space-y-6">
-                  <div className="flex items-center justify-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                      <Award className="w-10 h-10 text-white" />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-bold text-gray-900">
-                      Certified Internal Auditor
-                    </h3>
-                    <div className="h-0.5 w-24 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto"></div>
-                    <p className="text-sm text-gray-600 font-semibold">
-                      IIA Certified
-                    </p>
-                  </div>
-                  
-                  <div className="flex items-center justify-center pt-4">
-                    <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-700 rounded-lg flex items-center justify-center shadow-lg">
-                      <span className="text-white font-bold text-2xl">CIA</span>
-                    </div>
-                  </div>
-                  
-                  {/* Decorative Corner Elements */}
-                  <div className="absolute top-3 left-3 w-12 h-12 border-2 border-yellow-400/40 rounded"></div>
-                  <div className="absolute top-3 right-3 w-12 h-12 border-2 border-yellow-400/40 rounded"></div>
-                  <div className="absolute bottom-3 left-3 w-12 h-12 border-2 border-yellow-400/40 rounded"></div>
-                  <div className="absolute bottom-3 right-3 w-12 h-12 border-2 border-yellow-400/40 rounded"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* نبذة تعريفية عن CIA */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="bg-white dark:bg-neutral-800 rounded-3xl shadow-2xl border-2 border-gray-100 dark:border-neutral-700 overflow-hidden"
-        >
-          <div className="grid md:grid-cols-3 gap-8 p-8 lg:p-12">
-            {/* الشعار */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              className="flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8"
-            >
-              <div className="relative mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full blur-2xl opacity-30"></div>
-                <div className="relative bg-gradient-to-br from-blue-600 to-indigo-700 rounded-full p-8 shadow-2xl">
-                  <Award className="w-16 h-16 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">CIA</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                Certified Internal Auditor
-              </p>
-              <div className="mt-4 pt-4 border-t border-gray-200 dark:border-neutral-700 w-full">
-                <div className="flex items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                  <span>معتمد من</span>
-                  <span className="font-bold text-blue-600 dark:text-blue-400">IIA</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* النبذة التعريفية */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6 }}
-              className="md:col-span-2 space-y-6"
-            >
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-3">
-                  <Info className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-                  ما هي شهادة CIA؟
-                </h2>
-                <div className="prose prose-lg dark:prose-invert max-w-none">
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-4">
-                    شهادة <strong className="text-blue-600 dark:text-blue-400">Certified Internal Auditor (CIA)</strong> هي الشهادة الوحيدة المعتمدة دولياً للمدققين الداخليين، 
-                    وهي معتمدة من قبل <strong>معهد المدققين الداخليين (IIA)</strong> - المنظمة الرائدة عالمياً في مهنة المراجعة الداخلية.
-                  </p>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg mb-4">
-                    تعتبر شهادة CIA المعيار الذهبي للمهنيين في مجال المراجعة الداخلية، حيث تثبت أن حاملها يمتلك المعرفة والمهارات اللازمة 
-                    لممارسة المراجعة الداخلية وفقاً للمعايير الدولية وأفضل الممارسات المهنية.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4 mt-6">
-                    <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
-                      <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-2 flex items-center gap-2">
-                        <CheckCircle2 className="w-5 h-5" />
-                        الاعتراف الدولي
-                      </h4>
-                      <p className="text-sm text-blue-800 dark:text-blue-400">
-                        معتمدة في أكثر من 170 دولة حول العالم
-                      </p>
-                    </div>
-                    <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 border border-green-200 dark:border-green-800">
-                      <h4 className="font-semibold text-green-900 dark:text-green-300 mb-2 flex items-center gap-2">
-                        <Trophy className="w-5 h-5" />
-                        التميز المهني
-                      </h4>
-                      <p className="text-sm text-green-800 dark:text-green-400">
-                        أكثر من 180,000 محترف معتمد حول العالم
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* رابط الزمالة الرسمي */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 p-8 lg:p-12"
-          >
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-md rounded-full px-6 py-3 mb-6 border border-white/30">
+    <div className="min-h-screen bg-white">
+      {/* Navigation Bar */}
+      <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg">
                 <Award className="w-6 h-6 text-white" />
-                <span className="font-bold text-white">معهد المدققين الداخليين (IIA)</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                تعرف على معهد المدققين الداخليين
-              </h3>
-              <p className="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                المرجع العالمي الرئيسي لمهنة المراجعة الداخلية - تعرف على المعايير الدولية والشهادات المعتمدة والموارد التعليمية
-              </p>
-              <motion.a
-                href="https://www.theiia.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center gap-3 bg-white text-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-100 transition-all duration-300 shadow-2xl hover:shadow-white/20"
-              >
-                <ArrowRight className="w-5 h-5" />
-                زيارة موقع IIA الرسمي
-                <ArrowRight className="w-5 h-5 rotate-180" />
-              </motion.a>
-              <div className="mt-6 flex items-center justify-center gap-6 text-sm text-blue-100">
-                <a
-                  href="https://www.theiia.org/en/certification/cia-certification/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white underline transition-colors"
-                >
-                  معلومات عن شهادة CIA
+              <span className="text-xl font-bold text-gray-900">زمالة CIA</span>
+            </div>
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#introduction" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                مقدمة
+              </a>
+              <a href="#curriculum" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                المنهج
+              </a>
+              <a href="#files" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                الملفات
+              </a>
+              <a href="#question-bank" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                بنك الأسئلة
+              </a>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 text-gray-700 hover:text-blue-600 transition-colors"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden py-4 border-t border-gray-200">
+              <div className="flex flex-col gap-4">
+                <a href="#introduction" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  مقدمة
                 </a>
-                <span>•</span>
-                <a
-                  href="https://www.theiia.org/en/certification/cia-certification/requirements/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white underline transition-colors"
-                >
-                  متطلبات الحصول على الشهادة
+                <a href="#curriculum" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  المنهج
+                </a>
+                <a href="#files" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  الملفات
+                </a>
+                <a href="#question-bank" className="text-gray-700 hover:text-blue-600 transition-colors font-medium" onClick={() => setMobileMenuOpen(false)}>
+                  بنك الأسئلة
                 </a>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
-      </div>
+          )}
+        </div>
+      </nav>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Navigation Tabs */}
-        <div className="mb-8">
-          <div className="bg-gradient-to-br from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-900 rounded-3xl shadow-2xl p-2 border-2 border-gray-100 dark:border-neutral-700">
-            <div className="flex flex-wrap gap-3">
-              {[
-                { id: 'content', label: 'المحتوى التعليمي', icon: BookOpen, gradient: 'from-blue-600 via-blue-500 to-indigo-600', hoverGradient: 'from-blue-700 via-blue-600 to-indigo-700' },
-                { id: 'progress', label: 'تقدمي والإنجازات', icon: Activity, gradient: 'from-green-600 via-emerald-500 to-teal-600', hoverGradient: 'from-green-700 via-emerald-600 to-teal-700' },
-                { id: 'questionBank', label: 'بنك الأسئلة', icon: Target, gradient: 'from-purple-600 via-purple-500 to-pink-600', hoverGradient: 'from-purple-700 via-purple-600 to-pink-700' },
-              ].map((tab) => {
-                const Icon = tab.icon;
-                return (
-                  <motion.button
-                    key={tab.id}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveView(tab.id as 'content' | 'progress' | 'questionBank');
-                    }}
-                    className={`flex-1 md:flex-none flex items-center justify-center gap-3 px-8 py-4 rounded-2xl font-bold text-base transition-all relative overflow-hidden ${
-                      activeView === tab.id
-                        ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl shadow-${tab.gradient.split('-')[1]}-500/50`
-                        : 'text-gray-700 dark:text-gray-300 bg-white dark:bg-neutral-800 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 dark:hover:from-neutral-700 dark:hover:to-neutral-700 border-2 border-gray-200 dark:border-neutral-700'
-                    }`}
-                    whileHover={{ 
-                      scale: 1.05, 
-                      y: -2,
-                      boxShadow: activeView === tab.id ? `0 20px 40px -12px rgba(0,0,0,0.3)` : '0 10px 25px -5px rgba(0,0,0,0.1)'
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {activeView === tab.id && (
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                        animate={{ x: ['-100%', '100%'] }}
-                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-                      />
-                    )}
-                    <Icon className={`w-6 h-6 relative z-10 ${activeView === tab.id ? 'drop-shadow-lg' : ''}`} />
-                    <span className="relative z-10">{tab.label}</span>
-                  </motion.button>
-                );
-              })}
+        {/* Introduction Section */}
+        <section id="introduction" className="mb-12">
+          <div className="text-center mb-8">
+            <div className="inline-block mb-6">
+              <div className="p-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl">
+                <Award className="w-12 h-12 text-white" />
+              </div>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              برنامج الزمالة CIA
+            </h1>
+            <p className="text-xl md:text-2xl text-gray-600 mb-8">
+              شهادة المدقق الداخلي المعتمد
+            </p>
+          </div>
+
+          {/* About CIA Fellowship */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 md:p-12 mb-12">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6 text-center">
+                عن شهادة CIA
+              </h2>
+              <div className="prose prose-lg max-w-none text-gray-700 space-y-4 text-right">
+                <p>
+                  شهادة المدقق الداخلي المعتمد (CIA) هي الشهادة المهنية الوحيدة المعترف بها دولياً للمدققين الداخليين. 
+                  تُمنح هذه الشهادة من قبل معهد المدققين الداخليين (IIA) وتعد المعيار الذهبي للتميز في مهنة المراجعة الداخلية.
+                </p>
+                <p>
+                  برنامج الزمالة CIA يقدم تدريباً شاملاً ومتخصصاً يغطي جميع جوانب المراجعة الداخلية، من الأساسيات إلى 
+                  المستويات المتقدمة، مع التركيز على المعايير الدولية وأفضل الممارسات العالمية.
+                </p>
+                <p>
+                  يتكون البرنامج من ثلاثة أجزاء رئيسية تغطي: أساسيات المراجعة الداخلية، ممارسات المراجعة الداخلية، 
+                  والمعرفة التجارية للمراجعة الداخلية.
+                </p>
+              </div>
+              <div className="mt-8 text-center">
+                <a
+                  href="https://www.theiia.org/en/certifications/certified-internal-auditor/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                >
+                  <span>زيارة موقع IIA الرسمي</span>
+                  <ExternalLink className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Level Selection */}
+        <section className="mb-12">
+          <div className="flex justify-center">
+            <div className="bg-gray-50 rounded-xl p-2 inline-flex gap-2 border border-gray-200">
+              {levels.map((level) => (
+                <button
+                  key={level.id}
+                  onClick={() => setSelectedLevel(level.id)}
+                  className={`px-6 py-3 rounded-lg font-semibold text-base transition-all ${
+                    selectedLevel === level.id
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  {level.title}
+                  {typeof level.avgScore === "number" && level.avgScore > 0 && (
+                    <span className="mr-2 text-sm">
+                      {level.avgScore}%
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
 
         {/* Content View */}
-        <AnimatePresence mode="wait">
-          {activeView === 'content' && (
-        <motion.div
-              key="content"
-              initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="space-y-6"
-            >
-
-              {/* Level Selector */}
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mb-8"
-              >
-                <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl p-4 border-2 border-gray-100 dark:border-neutral-700">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-                      <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                      اختر المستوى
-                    </h3>
-                    <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                      <span>التقدم الإجمالي:</span>
-                      <span className="font-bold text-blue-600 dark:text-blue-400">
-                        {Math.round(levels.reduce((sum, l) => sum + l.progress, 0) / levels.length)}%
-                      </span>
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {levels.map((level) => {
-                      const isSelected = selectedLevel === level.id;
-                      return (
-                        <motion.button
-                          key={level.id}
-                          onClick={() => setSelectedLevel(level.id as 1 | 2 | 3)}
-                          whileHover={{ scale: 1.02, y: -2 }}
-                          whileTap={{ scale: 0.98 }}
-                          className={`relative p-6 rounded-xl border-2 transition-all text-right overflow-hidden ${
-                            isSelected
-                              ? 'border-blue-500 dark:border-blue-400 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 shadow-xl'
-                              : 'border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg'
-                          }`}
-                        >
-                          {isSelected && (
-                            <motion.div
-                              className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"
-                              initial={{ scaleX: 0 }}
-                              animate={{ scaleX: 1 }}
-                              transition={{ duration: 0.3 }}
-                            />
-                          )}
-                          <div className="flex items-start justify-between mb-3">
-                            <motion.div
-                              animate={{
-                                scale: isSelected ? [1, 1.1, 1] : 1,
-                                rotate: isSelected ? [0, 5, -5, 0] : 0,
-                              }}
-                              transition={{ duration: 0.5 }}
-                              className={`w-12 h-12 rounded-xl flex items-center justify-center font-bold text-lg shadow-lg ${
-                                isSelected
-                                  ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white'
-                                  : 'bg-gray-200 dark:bg-neutral-700 text-gray-600 dark:text-gray-400'
-                              }`}
-                            >
-                              {level.id}
-                            </motion.div>
-                            {level.progress === 100 && (
-                              <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="p-1 bg-green-500 rounded-full"
-                              >
-                                <CheckCircle2 className="w-5 h-5 text-white" />
-                              </motion.div>
-                            )}
-                          </div>
-                          <h4 className={`font-bold text-lg mb-2 ${
-                            isSelected
-                              ? 'text-blue-900 dark:text-blue-100'
-                              : 'text-gray-900 dark:text-white'
-                          }`}>
-                            {level.title}
-                          </h4>
-                          <p className={`text-sm mb-3 ${
-                            isSelected
-                              ? 'text-blue-700 dark:text-blue-300'
-                              : 'text-gray-600 dark:text-gray-400'
-                          }`}>
-                            {level.description}
-                          </p>
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between text-xs">
-                              <span className="text-gray-600 dark:text-gray-400">التقدم</span>
-                              <span className={`font-bold ${
-                                isSelected
-                                  ? 'text-blue-600 dark:text-blue-400'
-                                  : 'text-gray-700 dark:text-gray-300'
-                              }`}>
-                                {level.progress}%
-                              </span>
-                            </div>
-                            <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-2 overflow-hidden">
-                              <motion.div
-                                className={`h-2 rounded-full ${
-                                  isSelected
-                                    ? 'bg-gradient-to-r from-blue-500 to-indigo-500'
-                                    : 'bg-gradient-to-r from-gray-400 to-gray-500'
-                                }`}
-                                initial={{ width: 0 }}
-                                animate={{ width: `${level.progress}%` }}
-                                transition={{ duration: 0.5, delay: 0.2 }}
-                              />
-                            </div>
-                          </div>
-                          <div className="mt-3 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                            <span className="flex items-center gap-1">
-                              <BookOpen className="w-3 h-3" />
-                              {level.questionBankCount} سؤال
-                            </span>
-                            {typeof level.avgScore === "number" && level.avgScore > 0 && (
-                              <span className="flex items-center gap-1">
-                                <TrendingUp className="w-3 h-3" />
-                                {level.avgScore}%
-                              </span>
-                            )}
-                          </div>
-                        </motion.button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Level Content Header */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mb-6"
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
-                      <motion.div
-                        animate={{ rotate: [0, 360] }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg"
-                      >
-                        <BookOpen className="w-6 h-6 text-white" />
-                      </motion.div>
-                      المحاور التعليمية - {currentLevel.title}
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mt-2">
-                      {currentLevel.description}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <motion.button
-                      onClick={expandAllAxes}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg font-medium text-sm hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
-                    >
-                      <Maximize2 className="w-4 h-4 inline ml-1" />
-                      فتح الكل
-                    </motion.button>
-                    <motion.button
-                      onClick={collapseAllAxes}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-4 py-2 bg-gray-100 dark:bg-neutral-700 text-gray-600 dark:text-gray-400 rounded-lg font-medium text-sm hover:bg-gray-200 dark:hover:bg-neutral-600 transition-colors"
-                    >
-                      <Minimize2 className="w-4 h-4 inline ml-1" />
-                      إغلاق الكل
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Level Content */}
-              <motion.div
-                key={selectedLevel}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="space-y-4"
-              >
-                {currentLevel.mainAxes.map((axis) => (
-                  <Card 
-                    key={axis.id} 
-                    className={`shadow-lg border-2 overflow-hidden transition-all cursor-pointer dark:bg-neutral-800 ${
-                      expandedAxis === axis.id 
-                        ? 'border-blue-500 dark:border-blue-400 shadow-xl scale-[1.01]' 
-                        : 'border-gray-200 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl'
-                    }`}
-                    onClick={() => toggleAxis(axis.id)}
-                  >
-                    <CardHeader className={`bg-gradient-to-r transition-all dark:from-neutral-700 dark:to-neutral-800 ${
-                      expandedAxis === axis.id 
-                        ? 'from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30' 
-                        : 'from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30'
-                    }`}>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-xl flex items-center gap-3 dark:text-white">
-                          <motion.div
-                            animate={{ 
-                              rotate: expandedAxis === axis.id ? 360 : 0,
-                              scale: expandedAxis === axis.id ? 1.15 : 1,
-                              boxShadow: expandedAxis === axis.id ? '0 10px 30px -5px rgba(37, 99, 235, 0.5)' : '0 4px 15px -3px rgba(0,0,0,0.1)'
-                            }}
-                            transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
-                            className="relative w-14 h-14 bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600 text-white rounded-xl flex items-center justify-center font-extrabold text-lg shadow-xl before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:to-transparent before:rounded-xl"
-                          >
-                            <span className="relative z-10 drop-shadow-md">{axis.id.split('-')[1]}</span>
-                          </motion.div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <span>{axis.title}</span>
-                              {expandedAxis === axis.id && (
-                                <motion.span
-                                  initial={{ opacity: 0, scale: 0 }}
-                                  animate={{ opacity: 1, scale: 1 }}
-                                  className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full font-bold"
-                                >
-                                  مفتوح
-                                </motion.span>
-                              )}
-                            </div>
-                            {axis.description && (
-                              <p className="text-sm font-normal text-gray-600 dark:text-gray-400 mt-1">{axis.description}</p>
-                            )}
-                          </div>
-                        </CardTitle>
-                        <motion.div
-                          className="flex flex-col items-center gap-2"
-                        >
-                          <motion.button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              toggleAxis(axis.id);
-                            }}
-                            className={`p-4 rounded-2xl transition-all relative overflow-hidden ${
-                              expandedAxis === axis.id
-                                ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-2xl shadow-blue-500/50'
-                                : 'bg-white text-blue-600 hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 border-2 border-blue-200'
-                            }`}
-                            whileHover={{ scale: 1.15, rotate: expandedAxis === axis.id ? 0 : 5 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            {expandedAxis === axis.id && (
-                              <motion.div
-                                className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent"
-                                animate={{ x: ['-100%', '100%'] }}
-                                transition={{ duration: 1.5, repeat: Infinity }}
-                              />
-                            )}
-                            <motion.div
-                              animate={{ rotate: expandedAxis === axis.id ? 180 : 0 }}
-                              transition={{ duration: 0.3 }}
-                              className="relative z-10"
-                            >
-                              {expandedAxis === axis.id ? (
-                                <ChevronDown className="w-7 h-7" />
-                              ) : (
-                                <ChevronRight className="w-7 h-7" />
-                              )}
-                            </motion.div>
-                          </motion.button>
-                          <span className={`text-xs font-medium ${
-                            expandedAxis === axis.id ? 'text-blue-600' : 'text-gray-500'
-                          }`}>
-                            {expandedAxis === axis.id ? 'إغلاق' : 'فتح'}
-                          </span>
-                        </motion.div>
-                      </div>
-                      {axis.progress !== undefined && (
-                        <div className="mt-4 space-y-2">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="text-gray-600 dark:text-gray-400">إنجاز المحور</span>
-                            <span className="font-bold text-blue-600 dark:text-blue-400">{axis.progress}%</span>
-                          </div>
-                          <div className="w-full bg-white/50 dark:bg-neutral-700/50 rounded-full h-2">
-                            <div
-                              className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full"
-                              style={{ width: `${axis.progress}%` }}
-                            />
-                          </div>
-                        </div>
-                      )}
-                    </CardHeader>
-
-                    <AnimatePresence>
-                      {expandedAxis === axis.id && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                        >
-                          <CardContent className="p-6 space-y-4">
-                            <div className="mb-4 pb-4 border-b-2 border-blue-200 bg-gradient-to-r from-blue-50/50 to-purple-50/50 rounded-xl p-4">
-                              <h4 className="font-bold text-gray-800 flex items-center gap-3 mb-2">
-                                <motion.div
-                                  animate={{ rotate: [0, 360] }}
-                                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                                  className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-lg"
-                                >
-                                  <BookOpen className="w-6 h-6 text-white" />
-                                </motion.div>
-                                <span>المحاور الفرعية ({axis.subAxes.length})</span>
-                              </h4>
-                              <p className="text-sm text-gray-600 mr-12 font-medium">
-                                انقر على أي محور فرعي أدناه لعرض الملفات والمحتوى
-                              </p>
-                            </div>
-                            {axis.subAxes.map((subAxis, idx) => (
-                              <motion.div
-                                key={subAxis.id}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: idx * 0.1 }}
-                                className={`border-2 rounded-xl overflow-hidden transition-all dark:bg-neutral-800 ${
-                                  expandedSubAxis === subAxis.id
-                                    ? 'border-indigo-400 dark:border-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 shadow-lg'
-                                    : 'border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:border-indigo-300 dark:hover:border-indigo-600 hover:shadow-md'
-                                }`}
-                              >
-                                <button
-                                  className="w-full p-4 transition-colors flex items-center justify-between cursor-pointer"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleSubAxis(subAxis.id);
-                                  }}
-                                >
-                                  <div className="flex items-center gap-3 text-right flex-1">
-                                    <motion.div
-                                      animate={{ 
-                                        rotate: expandedSubAxis === subAxis.id ? 90 : 0 
-                                      }}
-                                      className="flex-shrink-0"
-                                    >
-                                      {expandedSubAxis === subAxis.id ? (
-                                        <ChevronDown className="w-6 h-6 text-indigo-600" />
-                                      ) : (
-                                        <ChevronRight className="w-6 h-6 text-gray-600" />
-                                      )}
-                                    </motion.div>
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <h4 className="font-bold text-gray-900 dark:text-white">{subAxis.title}</h4>
-                                        {expandedSubAxis === subAxis.id && (
-                                          <motion.span
-                                            initial={{ opacity: 0, scale: 0 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            className="text-xs bg-indigo-500 text-white px-2 py-0.5 rounded-full font-bold"
-                                          >
-                                            مفتوح
-                                          </motion.span>
-                                        )}
-                      </div>
-                                      {subAxis.description && (
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">{subAxis.description}</p>
-                                      )}
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center gap-3 mr-4">
-                                    <div className="text-left">
-                                      <div className={`text-sm font-bold ${
-                                        expandedSubAxis === subAxis.id ? 'text-indigo-600' : 'text-gray-600'
-                                      }`}>
-                                        {subAxis.files.length}
-                                      </div>
-                                      <div className="text-xs text-gray-500">ملف</div>
-                                    </div>
-                                    <motion.div
-                                      animate={{ 
-                                        scale: expandedSubAxis === subAxis.id ? 1.2 : 1,
-                                        rotate: expandedSubAxis === subAxis.id ? 180 : 0
-                                      }}
-                                      className={`p-2 rounded-lg ${
-                                        expandedSubAxis === subAxis.id
-                                          ? 'bg-indigo-600 text-white'
-                                          : 'bg-gray-100 text-gray-600'
-                                      }`}
-                                    >
-                                      {expandedSubAxis === subAxis.id ? (
-                                        <Eye className="w-5 h-5" />
-                                      ) : (
-                                        <EyeOff className="w-5 h-5" />
-                                      )}
-                                    </motion.div>
-                                  </div>
-                                </button>
-
-                                <AnimatePresence>
-                                  {expandedSubAxis === subAxis.id && (
-                                    <motion.div
-                                      initial={{ opacity: 0, height: 0 }}
-                                      animate={{ opacity: 1, height: 'auto' }}
-                                      exit={{ opacity: 0, height: 0 }}
-                                      className="bg-gradient-to-br from-white to-gray-50 border-t-2 border-indigo-200"
-                                    >
-                                      <div className="p-4">
-                                        <div className="mb-4 pb-4 border-b-2 border-indigo-200 bg-gradient-to-r from-indigo-50/50 to-purple-50/50 rounded-xl p-4">
-                                          <h5 className="font-bold text-gray-800 flex items-center gap-3 mb-2">
-                                            <motion.div
-                                              animate={{ scale: [1, 1.1, 1] }}
-                                              transition={{ duration: 2, repeat: Infinity }}
-                                              className="p-2 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg shadow-lg"
-                                            >
-                                              <FileText className="w-5 h-5 text-white" />
-                                            </motion.div>
-                                            <span>الملفات والمحتوى ({subAxis.files.length})</span>
-                                          </h5>
-                                        </div>
-                                        <div className="space-y-3">
-                                          {subAxis.files.map((file, fileIdx) => {
-                                          const FileIcon = getFileIcon(file.type);
-                                          const fileProgress = file.progress || 0;
-                                          return (
-                                            <motion.div
-                                              key={file.id}
-                                              initial={{ opacity: 0, x: -20, scale: 0.95 }}
-                                              animate={{ opacity: 1, x: 0, scale: 1 }}
-                                              transition={{ delay: fileIdx * 0.05 }}
-                                              onClick={(e) => e.stopPropagation()}
-                                              className="flex items-center gap-4 p-4 bg-white dark:bg-neutral-800 border-2 border-gray-200 dark:border-neutral-700 rounded-xl hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-all group"
-                                            >
-                                              <motion.div
-                                                whileHover={{ scale: 1.15, rotate: 8, y: -3 }}
-                                                className={`relative p-5 rounded-2xl shadow-xl transition-all duration-300 ${
-                                                  file.type === 'video' 
-                                                    ? 'bg-gradient-to-br from-red-400 to-red-600 group-hover:from-red-500 group-hover:to-red-700' :
-                                                  file.type === 'podcast' 
-                                                    ? 'bg-gradient-to-br from-purple-400 to-purple-600 group-hover:from-purple-500 group-hover:to-purple-700' :
-                                                  file.type === 'excel' 
-                                                    ? 'bg-gradient-to-br from-green-400 to-green-600 group-hover:from-green-500 group-hover:to-green-700' :
-                                                  file.type === 'word' 
-                                                    ? 'bg-gradient-to-br from-blue-400 to-blue-600 group-hover:from-blue-500 group-hover:to-blue-700' :
-                                                    'bg-gradient-to-br from-gray-400 to-gray-600 group-hover:from-gray-500 group-hover:to-gray-700'
-                                                } before:absolute before:inset-0 before:bg-gradient-to-br before:from-white/20 before:to-transparent before:rounded-2xl`}
-                                              >
-                                                <FileIcon className={`w-8 h-8 text-white relative z-10 drop-shadow-lg`} />
-                                                <motion.div
-                                                  className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full opacity-0 group-hover:opacity-100"
-                                                  animate={{ scale: [0, 1.2, 1] }}
-                                                  transition={{ duration: 0.3 }}
-                                                />
-                                              </motion.div>
-                                              <div className="flex-1 text-right">
-                                                <div className="flex items-center justify-between mb-1">
-                                                  <h5 className="font-semibold text-gray-900 dark:text-white">{file.name}</h5>
-                                                  {file.isProtected && (
-                                                    <Lock className="w-4 h-4 text-amber-600" />
-                                                  )}
-                      </div>
-                                                <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-                                                  <span className="px-2 py-0.5 bg-gray-100 dark:bg-neutral-700 rounded text-xs">
-                                                    {getFileTypeLabel(file.type)}
-                                                  </span>
-                                                  <span>{file.size}</span>
-                                                  {file.duration && <span>• {file.duration}</span>}
-                                                </div>
-                                                {file.description && (
-                                                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{file.description}</p>
-                                                )}
-                                                {fileProgress > 0 && (
-                                                  <div className="mt-2 space-y-1">
-                                                    <div className="flex items-center justify-between text-xs">
-                                                      <span className="text-gray-600 dark:text-gray-400">التقدم</span>
-                                                      <span className="font-bold text-blue-600 dark:text-blue-400">{fileProgress}%</span>
-                                                    </div>
-                                                    <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-1.5">
-                                                      <div
-                                                        className="bg-gradient-to-r from-blue-600 to-purple-600 h-1.5 rounded-full"
-                                                        style={{ width: `${fileProgress}%` }}
-                                                      />
-                                                    </div>
-                </div>
-              )}
+        <div className="space-y-12">
+          {/* Level Content Header */}
+          <section id="curriculum">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center gap-3">
+                <BookOpen className="w-8 h-8 text-blue-600" />
+                المنهج التعليمي - {currentLevel.title}
+              </h2>
+              <p className="text-lg text-gray-600">
+                {currentLevel.description}
+              </p>
             </div>
-                                              <motion.div 
-                                                className="flex items-center gap-2"
-                                                whileHover={{ scale: 1.08 }}
-                                              >
-                                                {file.type === 'video' ? (
-                                                  <motion.button
-                                                    onClick={(e) => {
-                                                      e.stopPropagation();
-                                                      if (file.isProtected && !isSubscribed) {
-                                                        alert('هذا المحتوى محمي ويتطلب اشتراك مميز');
-                                                        return;
-                                                      }
-                                                      window.open(file.url, '_blank');
-                                                    }}
-                                                    whileHover={{ scale: 1.1, y: -2 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                    className="px-5 py-2.5 bg-gradient-to-r from-red-600 via-red-500 to-red-700 text-white rounded-xl font-bold shadow-xl shadow-red-500/30 hover:from-red-700 hover:via-red-600 hover:to-red-800 transition-all flex items-center gap-2 relative overflow-hidden group/btn"
-                                                  >
-                                                    <motion.div
-                                                      className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                                                      animate={{ x: ['-100%', '100%'] }}
-                                                      transition={{ duration: 2, repeat: Infinity }}
-                                                    />
-                                                    <motion.div
-                                                      animate={{ scale: [1, 1.2, 1] }}
-                                                      transition={{ duration: 1.5, repeat: Infinity }}
-                                                    >
-                                                      <Play className="w-5 h-5 ml-2 relative z-10 fill-white" />
-                                                    </motion.div>
-                                                    <span className="relative z-10">تشغيل</span>
-                                                  </motion.button>
-                                                ) : (
-                                                  <motion.button
-                                                    onClick={(e) => {
-                                                      e.stopPropagation();
-                                                      if (file.isProtected && !isSubscribed) {
-                                                        alert('هذا المحتوى محمي ويتطلب اشتراك مميز');
-                                                        return;
-                                                      }
-                                                      const link = document.createElement('a');
-                                                      link.href = file.url;
-                                                      link.download = file.name;
-                                                      document.body.appendChild(link);
-                                                      link.click();
-                                                      document.body.removeChild(link);
-                                                    }}
-                                                    whileHover={{ scale: 1.1, y: -2 }}
-                                                    whileTap={{ scale: 0.95 }}
-                                                    className="px-5 py-2.5 bg-white text-blue-600 rounded-xl font-bold border-2 border-blue-400 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-500 transition-all flex items-center gap-2 shadow-lg"
-                                                  >
-                                                    <Download className="w-5 h-5 ml-2" />
-                                                    تحميل
-                                                  </motion.button>
-                                                )}
-                                              </motion.div>
-                                            </motion.div>
-                                          );
-                                        })}
-                                        </div>
-                                      </div>
-                                    </motion.div>
-                                  )}
-                                </AnimatePresence>
-                              </motion.div>
-                            ))}
-                          </CardContent>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </Card>
-                ))}
 
-                {/* Question Bank Section for Current Level */}
-                <Card className="shadow-2xl border-0 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-3xl"></div>
-                  <CardHeader className="relative z-10">
-                    <CardTitle className="flex items-center gap-4 text-2xl">
-                      <motion.div
-                        animate={{ 
-                          scale: [1, 1.1, 1],
-                          rotate: [0, 5, -5, 0]
-                        }}
-                        transition={{ duration: 3, repeat: Infinity }}
-                        className="w-16 h-16 bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 text-white rounded-2xl flex items-center justify-center shadow-2xl shadow-green-500/30"
-                      >
-                        <Target className="w-8 h-8" />
-                      </motion.div>
-                      <div>
-                        <div className="font-extrabold text-gray-900 dark:text-white">بنك الأسئلة - {currentLevel.title}</div>
-                        <p className="text-base font-semibold text-gray-600 dark:text-gray-400 mt-1">
-                          {currentLevel.questionBankCount} سؤال متاح للتدريب والاختبار
-                        </p>
-                      </div>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-6 relative z-10">
-                    <div className="grid md:grid-cols-3 gap-4 mb-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-5 border-2 border-blue-200 dark:border-blue-800 shadow-xl hover:shadow-2xl transition-all"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <motion.div
-                            animate={{ rotate: [0, 360] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                            className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg"
-                          >
-                            <BarChart3 className="w-6 h-6 text-white" />
-                          </motion.div>
-                          <span className="text-3xl font-extrabold text-blue-600 dark:text-blue-400 drop-shadow-sm">
-                            {currentLevel.avgScore || 0}%
-                          </span>
-                        </div>
-                        <p className="text-sm font-bold text-gray-700 dark:text-gray-300">متوسط النتيجة</p>
-                      </motion.div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-5 border-2 border-green-200 dark:border-green-800 shadow-xl hover:shadow-2xl transition-all"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <motion.div
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                            className="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl shadow-lg"
-                          >
-                            <BookOpen className="w-6 h-6 text-white" />
-                          </motion.div>
-                          <span className="text-3xl font-extrabold text-green-600 dark:text-green-400 drop-shadow-sm">
-                            {currentLevel.questionBankCount}
-                          </span>
-                        </div>
-                        <p className="text-sm font-bold text-gray-700 dark:text-gray-300">إجمالي الأسئلة</p>
-                      </motion.div>
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        whileHover={{ scale: 1.05, y: -5 }}
-                        className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl p-5 border-2 border-purple-200 dark:border-purple-800 shadow-xl hover:shadow-2xl transition-all"
-                      >
-                        <div className="flex items-center justify-between mb-3">
-                          <motion.div
-                            animate={{ rotate: [0, -360] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                            className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg"
-                          >
-                            <Activity className="w-6 h-6 text-white" />
-                          </motion.div>
-                          <span className="text-3xl font-extrabold text-purple-600 dark:text-purple-400 drop-shadow-sm">
-                            {currentLevel.progress}%
-                          </span>
-                        </div>
-                        <p className="text-sm font-bold text-gray-700 dark:text-gray-300">معدل الإنجاز</p>
-                      </motion.div>
-                    </div>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Link 
-                        href="/question-bank?level=cia&tab=free"
-                        className="flex-1"
-                      >
-                    <motion.button
-                          whileHover={{ scale: 1.05, y: -3 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="w-full px-6 py-4 bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white rounded-2xl font-bold shadow-2xl shadow-green-500/30 hover:from-green-700 hover:via-emerald-700 hover:to-teal-700 transition-all flex items-center justify-center gap-3 relative overflow-hidden group"
-                        >
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                            animate={{ x: ['-100%', '100%'] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          />
-                          <BookOpen className="w-6 h-6 relative z-10 group-hover:rotate-12 transition-transform" />
-                          <span className="relative z-10">ابدأ التدريب المجاني</span>
-                    </motion.button>
-                      </Link>
-                      <Link 
-                        href="/question-bank?level=cia&tab=premium"
-                        className="flex-1"
-                      >
-                        <motion.button
-                          whileHover={{ scale: 1.05, y: -3 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="w-full px-6 py-4 bg-white text-blue-600 rounded-2xl font-bold border-2 border-blue-500 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-600 transition-all flex items-center justify-center gap-3 shadow-xl"
-                        >
-                          <Target className="w-6 h-6" />
-                          الأسئلة المميزة
-                        </motion.button>
-                      </Link>
-                      <Link 
-                        href="/question-bank?level=cia&tab=analytics"
-                        className="flex-1"
-                      >
-                        <motion.button
-                          whileHover={{ scale: 1.05, y: -3 }}
-                          whileTap={{ scale: 0.98 }}
-                          className="w-full px-6 py-4 bg-white text-purple-600 rounded-2xl font-bold border-2 border-purple-500 hover:bg-gradient-to-r hover:from-purple-50 hover:to-pink-50 hover:border-purple-600 transition-all flex items-center justify-center gap-3 shadow-xl"
-                        >
-                          <BarChart3 className="w-6 h-6" />
-                          عرض التحليلات
-                        </motion.button>
-                      </Link>
-                </div>
-                    <div className="mt-4 pt-4 border-t border-gray-200">
-                      <Link 
-                        href="/question-bank"
-                        className="text-sm text-blue-600 hover:text-blue-700 hover:underline flex items-center gap-2 justify-center"
-                      >
-                        <ArrowRight className="w-4 h-4" />
-                        الانتقال إلى بنك الأسئلة الكامل
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </motion.div>
-          )}
-
-          {/* Progress View */}
-          {activeView === 'progress' && (
-                <motion.div
-              key="progress"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="space-y-6"
-            >
-              {/* Overall Progress Card */}
-              <Card className="shadow-xl border-0 bg-gradient-to-br from-blue-600 to-purple-700 text-white">
-                <CardContent className="p-8">
-                  <div className="text-center mb-8">
-                    <motion.div
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                    >
-                      <h2 className="text-4xl md:text-5xl font-extrabold mb-3 flex items-center justify-center gap-3">
-                        <motion.div
-                          animate={{ rotate: [0, 360] }}
-                          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        >
-                          <Activity className="w-10 h-10" />
-                        </motion.div>
-                        تقدمك في الزمالة
-                      </h2>
-                      <p className="text-blue-100 text-xl">راقب إنجازاتك ومستوى تقدمك</p>
-                    </motion.div>
-                  </div>
-                  <div className="max-w-md mx-auto">
-                    <motion.div 
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                      className="relative w-full aspect-square mb-6"
-                    >
-                      <svg className="w-full h-full transform -rotate-90">
-                        <circle
-                          cx="50%"
-                          cy="50%"
-                          r="45%"
-                          stroke="rgba(255,255,255,0.2)"
-                          strokeWidth="12"
-                          fill="none"
-                        />
-                        <motion.circle
-                          cx="50%"
-                          cy="50%"
-                          r="45%"
-                          stroke="url(#progressGradient)"
-                          strokeWidth="12"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeDasharray={`${2 * Math.PI * 45}`}
-                          initial={{ strokeDashoffset: 2 * Math.PI * 45 }}
-                          animate={{ strokeDashoffset: 2 * Math.PI * 45 * (1 - progressStats.overallProgress / 100) }}
-                          transition={{ duration: 1.5, type: "spring" }}
-                        />
-                        <defs>
-                          <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
-                            <stop offset="50%" stopColor="#8b5cf6" stopOpacity={1} />
-                            <stop offset="100%" stopColor="#ec4899" stopOpacity={1} />
-                          </linearGradient>
-                        </defs>
-                      </svg>
-                      <motion.div 
-                        animate={{ scale: [1, 1.05, 1] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="absolute inset-0 flex items-center justify-center"
-                      >
-                        <div className="text-center">
-                          <div className="text-6xl font-extrabold drop-shadow-2xl">{progressStats.overallProgress}%</div>
-                          <div className="text-blue-100 mt-2 font-bold text-lg">إجمالي التقدم</div>
-                        </div>
-                      </motion.div>
-                      {/* Floating particles effect */}
-                      {[...Array(6)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          className="absolute w-2 h-2 bg-white rounded-full"
-                          style={{
-                            top: `${30 + (i * 8)}%`,
-                            left: `${50 + Math.sin(i * 60 * Math.PI / 180) * 35}%`,
-                          }}
-                          animate={{
-                            y: [-10, 10, -10],
-                            opacity: [0.3, 0.8, 0.3],
-                            scale: [1, 1.5, 1]
-                          }}
-                          transition={{
-                            duration: 2 + i * 0.5,
-                            repeat: Infinity,
-                            delay: i * 0.2
-                          }}
-                        />
-                      ))}
-                    </motion.div>
-                  </div>
-
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
-                    {[
-                      { label: 'المستويات المكتملة', value: progressStats.levelsCompleted, icon: GraduationCap, gradient: 'from-blue-400 to-cyan-500', delay: 0.1 },
-                      { label: 'الأسئلة المجابة', value: progressStats.totalQuestionsAnswered, icon: BookOpen, gradient: 'from-green-400 to-emerald-500', delay: 0.2 },
-                      { label: 'متوسط النتيجة', value: `${progressStats.avgScore}%`, icon: TrendingUp, gradient: 'from-yellow-400 to-orange-500', delay: 0.3 },
-                      { label: 'سلسلة النجاح', value: `${progressStats.currentStreak} يوم`, icon: Sparkles, gradient: 'from-purple-400 to-pink-500', delay: 0.4 },
-                      { label: 'ساعات الدراسة', value: `${progressStats.hoursStudied}`, icon: Clock, gradient: 'from-red-400 to-rose-500', delay: 0.5 },
-                      { label: 'الإنجازات', value: '8', icon: Trophy, gradient: 'from-indigo-400 to-purple-500', delay: 0.6 },
-                    ].map((stat, idx) => {
-                      const Icon = stat.icon;
-                      return (
-                        <motion.div
-                          key={stat.label}
-                          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{ delay: stat.delay || 0, type: "spring", stiffness: 150 }}
-                          whileHover={{ scale: 1.1, y: -8 }}
-                          className={`bg-gradient-to-br ${stat.gradient} rounded-2xl p-5 backdrop-blur-sm shadow-xl relative overflow-hidden group`}
-                        >
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                            animate={{ x: ['-100%', '100%'] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          />
-                          <motion.div
-                            animate={{ 
-                              rotate: [0, 360],
-                              scale: [1, 1.2, 1]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity, delay: idx * 0.2 }}
-                          >
-                            <Icon className="w-8 h-8 mb-3 text-white relative z-10" />
-                          </motion.div>
-                          <div className="text-3xl font-extrabold mb-2 text-white relative z-10">{stat.value}</div>
-                          <div className="text-sm font-bold text-white/90 relative z-10">{stat.label}</div>
-                          <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-white/10 rounded-full blur-2xl"></div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Levels Progress */}
-              <div className="grid md:grid-cols-3 gap-6">
-                {levels.map((level, idx) => (
-                  <motion.div
-                    key={level.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.15 }}
+            {/* Curriculum */}
+            {currentCurriculum.length > 0 && (
+              <div className="grid gap-6">
+                {currentCurriculum.map((curriculum) => (
+                  <div
+                    key={curriculum.id}
+                    className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
                   >
-                    <Card className="shadow-2xl border-0 overflow-hidden relative group">
-                      <div className={`absolute top-0 left-0 w-full h-2 transition-all ${
-                        level.progress === 100 ? 'bg-gradient-to-r from-green-500 to-emerald-500' :
-                        level.progress >= 50 ? 'bg-gradient-to-r from-blue-500 to-indigo-500' :
-                        'bg-gradient-to-r from-gray-300 to-gray-400'
-                      }`}></div>
-                      <CardHeader className={`bg-gradient-to-br ${
-                        level.progress === 100 ? 'from-green-50 to-emerald-50' :
-                        level.progress >= 50 ? 'from-blue-50 to-indigo-50' :
-                        'from-gray-50 to-gray-100'
-                      } pb-4`}>
-                        <CardTitle className="flex items-center gap-4">
-                          <motion.div
-                            animate={{ 
-                              rotate: level.progress === 100 ? 360 : 0,
-                              scale: level.progress >= 50 ? [1, 1.1, 1] : 1
-                            }}
-                            transition={{ duration: 2, repeat: level.progress === 100 ? Infinity : 0 }}
-                            className={`w-16 h-16 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-xl ${
-                              level.progress === 100 ? 'bg-gradient-to-br from-green-600 to-emerald-600' :
-                              level.progress >= 50 ? 'bg-gradient-to-br from-blue-600 to-indigo-600' :
-                              'bg-gradient-to-br from-gray-400 to-gray-500'
-                            } text-white relative overflow-hidden`}
-                          >
-                            {level.progress === 100 && (
-                              <motion.div
-                                className="absolute inset-0 bg-white/20"
-                                animate={{ rotate: 360 }}
-                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                              />
+                    <button
+                      onClick={() => toggleCurriculum(curriculum.id)}
+                      className="w-full text-right"
+                    >
+                      <div className={`p-6 transition-colors ${
+                        expandedCurriculum === curriculum.id ? 'bg-blue-50' : 'bg-gray-50 hover:bg-gray-100'
+                      }`}>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            {expandedCurriculum === curriculum.id ? (
+                              <ChevronDown className="w-5 h-5 text-blue-600" />
+                            ) : (
+                              <ChevronRight className="w-5 h-5 text-gray-400" />
                             )}
-                            {level.progress === 100 ? <CheckCircle2 className="w-8 h-8 relative z-10" /> : <span className="relative z-10">{level.id}</span>}
-                          </motion.div>
+                          </div>
                           <div className="flex-1">
-                            <div className="text-xl font-extrabold text-gray-900">{level.title}</div>
-                            <p className="text-sm font-semibold text-gray-600 mt-1">{level.progress}% مكتمل</p>
-                            </div>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-6">
-                        <div className="space-y-4">
-                          <div>
-                            <div className="w-full bg-gray-200 rounded-full h-4 mb-3 shadow-inner">
-                              <motion.div
-                                className={`h-4 rounded-full shadow-lg ${
-                                  level.progress === 100 ? 'bg-gradient-to-r from-green-600 to-emerald-600' :
-                                  level.progress >= 50 ? 'bg-gradient-to-r from-blue-600 to-indigo-600' :
-                                  'bg-gradient-to-r from-gray-400 to-gray-500'
-                                }`}
-                                initial={{ width: 0 }}
-                                animate={{ width: `${level.progress}%` }}
-                                transition={{ duration: 1, type: "spring" }}
-                              />
-                                  </div>
-                            <div className="flex items-center justify-between text-sm font-semibold text-gray-700">
-                              <span className="flex items-center gap-1">
-                                <BookOpen className="w-4 h-4" />
-                                {level.mainAxes.length} محور
-                              </span>
-                              <span className="flex items-center gap-1">
-                                <Target className="w-4 h-4" />
-                                {level.questionBankCount} سؤال
-                              </span>
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex-1">
+                                <h3 className="text-xl font-semibold text-gray-900 mb-1">{curriculum.title}</h3>
+                                {curriculum.description && (
+                                  <p className="text-sm text-gray-600 mb-3">{curriculum.description}</p>
+                                )}
                               </div>
+                              {curriculum.progress !== undefined && (
+                                <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
+                                  {curriculum.progress}%
+                                </span>
+                              )}
                             </div>
-                          {level.avgScore !== undefined && level.avgScore > 0 && (
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              whileHover={{ scale: 1.05 }}
-                              className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200 shadow-md"
-                            >
-                              <span className="text-sm font-bold text-gray-700">متوسط النتيجة</span>
-                              <span className="text-2xl font-extrabold text-blue-600">{level.avgScore}%</span>
-                            </motion.div>
-                          )}
+                            
+                            {/* Curriculum Stats */}
+                            <div className="flex flex-wrap items-center gap-4 mt-4">
+                              {curriculum.lessonsCount && (
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                  <BookOpen className="w-4 h-4 text-blue-600" />
+                                  <span>{curriculum.lessonsCount} درس</span>
+                                </div>
+                              )}
+                              {curriculum.hoursCount && (
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                  <Clock className="w-4 h-4 text-blue-600" />
+                                  <span>{curriculum.hoursCount} ساعة</span>
+                                </div>
+                              )}
+                              {curriculum.difficulty && (
+                                <div className="flex items-center gap-2">
+                                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                                    curriculum.difficulty === 'مبتدئ' ? 'bg-green-100 text-green-700' :
+                                    curriculum.difficulty === 'متوسط' ? 'bg-yellow-100 text-yellow-700' :
+                                    'bg-red-100 text-red-700'
+                                  }`}>
+                                    {curriculum.difficulty}
+                                  </span>
+                                </div>
+                              )}
+                              {curriculum.estimatedTime && (
+                                <div className="flex items-center gap-2 text-sm text-gray-600">
+                                  <span>⏱️ {curriculum.estimatedTime}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                      ))}
-                    </div>
-
-              {/* Achievements Section */}
-              <Card className="shadow-2xl border-0 overflow-hidden relative bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-yellow-300/30 to-orange-300/30 rounded-full blur-3xl"></div>
-                <CardHeader className="relative z-10">
-                  <CardTitle className="flex items-center gap-4 text-3xl">
-                    <motion.div
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 15, -15, 0]
-                      }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="p-4 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl shadow-2xl"
-                    >
-                      <Trophy className="w-10 h-10 text-white" />
-                    </motion.div>
-                    <div className="font-extrabold text-gray-900">الإنجازات</div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="relative z-10">
-                  <div className="grid md:grid-cols-4 gap-6">
-                    {[
-                      { title: 'المبتدئ', description: 'أكمل أول محور', earned: true, icon: '🎯', gradient: 'from-green-500 to-emerald-600' },
-                      { title: 'المثابر', description: 'أجب على 100 سؤال', earned: true, icon: '🔥', gradient: 'from-orange-500 to-red-600' },
-                      { title: 'الخبير', description: 'أكمل المستوى الأول', earned: false, icon: '⭐', gradient: 'from-blue-500 to-indigo-600' },
-                      { title: 'المحترف', description: 'أكمل جميع المستويات', earned: false, icon: '🏆', gradient: 'from-purple-500 to-pink-600' },
-                    ].map((achievement, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, y: 20, rotate: -10 }}
-                        animate={{ opacity: 1, y: 0, rotate: 0 }}
-                        transition={{ delay: idx * 0.15, type: "spring", stiffness: 150 }}
-                        whileHover={{ scale: 1.1, y: -10, rotate: 5 }}
-                        className={`p-6 rounded-3xl border-3 text-center relative overflow-hidden shadow-xl transition-all ${
-                          achievement.earned
-                            ? `border-green-500 bg-gradient-to-br ${achievement.gradient} shadow-2xl shadow-green-500/30`
-                            : 'border-gray-300 bg-white'
-                        }`}
-                      >
-                        {achievement.earned && (
-                          <>
-                            <motion.div
-                              className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                              animate={{ x: ['-100%', '100%'] }}
-                              transition={{ duration: 2, repeat: Infinity }}
-                            />
-                            {/* Confetti effect */}
-                            {[...Array(8)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                className="absolute w-2 h-2 bg-white rounded-full"
-                                style={{
-                                  top: `${20 + (i * 10)}%`,
-                                  left: `${10 + (i * 10)}%`,
-                                }}
-                                animate={{
-                                  y: [0, -30, 0],
-                                  opacity: [1, 0, 1],
-                                  x: [0, Math.sin(i) * 20]
-                                }}
-                                transition={{
-                                  duration: 2,
-                                  repeat: Infinity,
-                                  delay: i * 0.2
-                                }}
-                              />
-                            ))}
-                          </>
-                        )}
-                        <motion.div
-                          animate={{ scale: achievement.earned ? [1, 1.2, 1] : 1 }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                          className="text-6xl mb-4 relative z-10"
-                        >
-                          {achievement.icon}
-                        </motion.div>
-                        <h4 className={`font-extrabold text-xl mb-2 relative z-10 ${achievement.earned ? 'text-white' : 'text-gray-900'}`}>
-                          {achievement.title}
-                        </h4>
-                        <p className={`text-sm font-semibold mb-4 relative z-10 ${achievement.earned ? 'text-white/90' : 'text-gray-600'}`}>
-                          {achievement.description}
-                        </p>
-                        {achievement.earned ? (
-                          <motion.div
-                            initial={{ scale: 0 }}
-                            animate={{ scale: 1 }}
-                            className="flex items-center justify-center gap-2 text-white relative z-10"
-                          >
-                            <CheckCircle2 className="w-6 h-6" />
-                            <span className="text-sm font-bold">محقق</span>
-                          </motion.div>
-                        ) : (
-                          <div className="flex items-center justify-center gap-2 text-gray-400 relative z-10">
-                            <Lock className="w-6 h-6" />
-                            <span className="text-sm font-semibold">غير محقق</span>
-                  </div>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          )}
-
-          {/* Question Bank View */}
-          {activeView === 'questionBank' && (
-            <motion.div
-              key="questionBank"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="space-y-6"
-            >
-              {/* Question Bank Overview */}
-              <Card className="shadow-2xl border-0 overflow-hidden relative bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-                <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-indigo-300/30 to-purple-300/30 rounded-full blur-3xl"></div>
-                <CardHeader className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white relative z-10">
-                  <CardTitle className="text-3xl flex items-center gap-4">
-                    <motion.div
-                      animate={{ 
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 360]
-                      }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                      className="p-3 bg-white/20 backdrop-blur-md rounded-2xl"
-                    >
-                      <Target className="w-10 h-10" />
-                    </motion.div>
-                    <div>
-                      <div className="font-extrabold">بنك الأسئلة الشامل</div>
-                      <p className="text-base font-normal text-white/90 mt-1">تدريب شامل وتحليلات متقدمة</p>
-                                </div>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-6 relative z-10">
-                  <div className="grid md:grid-cols-3 gap-6 mb-6">
-                    {[
-                      { label: 'إجمالي الأسئلة', value: '1,150+', icon: BookOpen, color: 'from-blue-500 via-cyan-500 to-blue-600', bgGradient: 'from-blue-500/20 via-cyan-500/20 to-blue-600/20' },
-                      { label: 'متوسط النتيجة', value: `${progressStats.avgScore}%`, icon: BarChart3, color: 'from-green-500 via-emerald-500 to-green-600', bgGradient: 'from-green-500/20 via-emerald-500/20 to-green-600/20' },
-                      { label: 'الأسئلة المجابة', value: progressStats.totalQuestionsAnswered + '+', icon: CheckCircle2, color: 'from-purple-500 via-pink-500 to-purple-600', bgGradient: 'from-purple-500/20 via-pink-500/20 to-purple-600/20' },
-                    ].map((stat, idx) => {
-                      const Icon = stat.icon;
-                      return (
-                        <motion.div
-                          key={stat.label}
-                          initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                          animate={{ opacity: 1, scale: 1, y: 0 }}
-                          transition={{ delay: idx * 0.15, type: "spring", stiffness: 150 }}
-                          whileHover={{ scale: 1.08, y: -8 }}
-                          className={`bg-gradient-to-br ${stat.color} text-white rounded-3xl p-7 shadow-2xl relative overflow-hidden group`}
-                        >
-                          <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"
-                            animate={{ x: ['-100%', '100%'] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          />
-                          <div className="relative z-10">
-                            <motion.div
-                              animate={{ 
-                                rotate: [0, 10, -10, 0],
-                                scale: [1, 1.1, 1]
-                              }}
-                              transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
-                              className="inline-flex p-4 bg-white/20 backdrop-blur-md rounded-2xl mb-4 shadow-xl"
-                            >
-                              <Icon className="w-10 h-10" />
-                            </motion.div>
-                            <div className="text-4xl font-extrabold mb-3 drop-shadow-lg">{stat.value}</div>
-                            <div className="text-base font-bold text-white/90">{stat.label}</div>
-                          </div>
-                          <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-
-                  {/* Levels Question Banks */}
-                  <div className="space-y-6">
-                    {levels.map((level, idx) => (
-                      <motion.div
-                        key={level.id}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: idx * 0.1 }}
-                      >
-                        <Card className="border-2 border-gray-200 shadow-xl hover:shadow-2xl transition-all overflow-hidden relative group">
-                          <div className={`absolute top-0 left-0 w-1 h-full transition-all ${
-                            level.id === 1 ? 'bg-gradient-to-b from-blue-500 to-cyan-500' :
-                            level.id === 2 ? 'bg-gradient-to-b from-purple-500 to-pink-500' :
-                            'bg-gradient-to-b from-green-500 to-emerald-500'
-                          }`}></div>
-                          <CardHeader className="bg-gradient-to-br from-gray-50 to-white">
-                            <div className="flex items-center justify-between">
-                              <CardTitle className="flex items-center gap-4">
-                                <motion.div
-                                  animate={{ 
-                                    rotate: level.progress === 100 ? 360 : 0,
-                                    scale: level.progress >= 50 ? [1, 1.05, 1] : 1
-                                  }}
-                                  transition={{ duration: 2, repeat: level.progress === 100 ? Infinity : 0 }}
-                                  className={`w-16 h-16 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-xl ${
-                                    level.id === 1 ? 'bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600' :
-                                    level.id === 2 ? 'bg-gradient-to-br from-purple-600 via-purple-500 to-pink-600' :
-                                    'bg-gradient-to-br from-green-600 via-emerald-500 to-teal-600'
-                                  } text-white`}
-                                >
-                                  {level.progress === 100 ? <CheckCircle2 className="w-8 h-8" /> : level.id}
-                                </motion.div>
-                                <div>
-                                  <div className="text-2xl font-extrabold text-gray-900">{level.title} - بنك الأسئلة</div>
-                                  <p className="text-sm font-semibold text-gray-600 mt-1 flex items-center gap-2">
-                                    <BookOpen className="w-4 h-4" />
-                                    {level.questionBankCount} سؤال متاح للتدريب
-                                  </p>
-                                  </div>
-                              </CardTitle>
-                              <Link href={`/question-bank?level=cia&levelId=${level.id}`}>
-                                <motion.button
-                                  whileHover={{ scale: 1.1, x: -5 }}
-                                  whileTap={{ scale: 0.95 }}
-                                  className="px-6 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white rounded-xl font-bold shadow-xl shadow-purple-500/30 hover:shadow-2xl transition-all flex items-center gap-2 group/btn relative overflow-hidden"
-                                >
-                                  <motion.div
-                                    className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent"
-                                    animate={{ x: ['-100%', '100%'] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                  />
-                                  <span className="relative z-10">ابدأ التدريب</span>
-                                  <ArrowRight className="w-5 h-5 relative z-10 group-hover/btn:translate-x-1 transition-transform" />
-                                </motion.button>
-                              </Link>
-                                </div>
-                          </CardHeader>
-                          <CardContent className="p-6">
-                            <div className="grid md:grid-cols-3 gap-4">
-                              <motion.div
-                                whileHover={{ scale: 1.05, y: -5 }}
-                                className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-5 border-2 border-blue-200 shadow-lg"
-                              >
-                                <div className="flex items-center justify-between mb-3">
-                                  <motion.div
-                                    animate={{ rotate: [0, 360] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                                    className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl shadow-lg"
-                                  >
-                                    <BarChart3 className="w-6 h-6 text-white" />
-                                  </motion.div>
-                                  <span className="text-3xl font-extrabold text-blue-600">
-                                    {level.avgScore || 0}%
-                                  </span>
-                              </div>
-                                <p className="text-sm font-bold text-gray-700">النتيجة المتوسطة</p>
-                              </motion.div>
-                              <motion.div
-                                whileHover={{ scale: 1.05, y: -5 }}
-                                className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-5 border-2 border-green-200 shadow-lg"
-                              >
-                                <div className="flex items-center justify-between mb-3">
-                                  <motion.div
-                                    animate={{ scale: [1, 1.2, 1] }}
-                                    transition={{ duration: 2, repeat: Infinity }}
-                                    className="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl shadow-lg"
-                                  >
-                                    <CheckCircle2 className="w-6 h-6 text-white" />
-                                  </motion.div>
-                                  <span className="text-3xl font-extrabold text-green-600">
-                                    {Math.floor((level.questionBankCount * (level.progress || 0)) / 100)}
-                                  </span>
-                              </div>
-                                <p className="text-sm font-bold text-gray-700">الأسئلة المجابة</p>
-                              </motion.div>
-                              <motion.div
-                                whileHover={{ scale: 1.05, y: -5 }}
-                                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-5 border-2 border-purple-200 shadow-lg"
-                              >
-                                <div className="flex items-center justify-between mb-3">
-                                  <motion.div
-                                    animate={{ rotate: [0, -360] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                                    className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg"
-                                  >
-                                    <Activity className="w-6 h-6 text-white" />
-                                  </motion.div>
-                                  <span className="text-3xl font-extrabold text-purple-600">
-                                    {level.progress}%
-                                  </span>
-                            </div>
-                                <p className="text-sm font-bold text-gray-700">التقدم</p>
-                              </motion.div>
-                          </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    ))}
-                          </div>
-
-                  {/* Tabs for Question Bank Sections */}
-                  <div className="mt-8 mb-6">
-                    <div className="bg-gradient-to-br from-white to-gray-50 rounded-3xl p-2 shadow-2xl border-2 border-gray-200 inline-flex gap-3">
-                      {[
-                        { id: 'free', label: 'مجاني', icon: BookOpen, gradient: 'from-green-600 via-emerald-600 to-teal-600', borderColor: 'green-500' },
-                        { id: 'premium', label: 'مميز', icon: Target, gradient: 'from-purple-600 via-pink-600 to-fuchsia-600', borderColor: 'purple-500' },
-                        { id: 'analytics', label: 'تحليلات', icon: BarChart3, gradient: 'from-blue-600 via-indigo-600 to-purple-600', borderColor: 'blue-500' },
-                        { id: 'ai', label: 'ذكاء اصطناعي', icon: Sparkles, gradient: 'from-orange-600 via-amber-600 to-yellow-600', borderColor: 'orange-500' },
-                      ].map((tab) => {
-                        const Icon = tab.icon;
-                        return (
-                          <motion.button
-                            key={tab.id}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              setQuestionBankTab(tab.id as 'free' | 'premium' | 'analytics' | 'ai');
-                            }}
-                            className={`px-6 md:px-8 py-3 md:py-4 rounded-2xl text-base font-bold transition-all duration-300 flex items-center gap-3 relative overflow-hidden ${
-                              questionBankTab === tab.id
-                                ? `bg-gradient-to-r ${tab.gradient} text-white shadow-2xl border-2 border-${tab.borderColor}`
-                                : 'text-gray-700 bg-white border-2 border-gray-300 hover:border-gray-400 hover:shadow-lg'
-                            }`}
-                            whileHover={{ scale: 1.05, y: -3 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            {questionBankTab === tab.id && (
-                              <motion.div
-                                className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent"
-                                animate={{ x: ['-100%', '100%'] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                              />
-                            )}
-                            <Icon className={`w-6 h-6 relative z-10 ${questionBankTab === tab.id ? 'drop-shadow-lg' : ''}`} />
-                            <span className="relative z-10">{tab.label}</span>
-                          </motion.button>
-                        );
-                      })}
                       </div>
-                    </div>
-
-                  {/* Question Bank Content */}
-                  {loading ? (
-                    <div className="text-center py-16">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                        className="inline-block rounded-full h-16 w-16 border-4 border-blue-200 border-t-blue-600"
-                      ></motion.div>
-                      <motion.p 
-                        animate={{ opacity: [0.5, 1, 0.5] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="mt-6 text-gray-600 font-semibold text-lg"
-                      >
-                        جاري تحميل بنك الأسئلة...
-                      </motion.p>
-                    </div>
-                  ) : (
-                    <div className="space-y-6">
-                      {questionBankTab === 'free' && (
-                        <FreeSection questions={questions} />
-                      )}
-
-                      {questionBankTab === 'premium' && (
-                        <PremiumSection 
-                          questions={questions} 
-                          isSubscribed={isSubscribed} 
-                        />
-                      )}
-
-                      {questionBankTab === 'analytics' && (
-                        isSubscribed ? (
-                          <AnalyticsSection 
-                            questions={questions} 
-                            quizResults={quizResults} 
-                            isSubscribed={isSubscribed} 
-                          />
-                        ) : (
-                          <Card className="border-2 border-amber-200 bg-amber-50">
-                            <CardContent className="p-8 text-center">
-                              <Lock className="w-12 h-12 text-amber-600 mx-auto mb-4" />
-                              <h3 className="text-xl font-bold text-amber-900 mb-2">قسم التحليلات المتقدم</h3>
-                              <p className="text-amber-800 mb-4">
-                                هذا القسم متاح للمشتركين فقط. اشترك الآن للوصول إلى تحليلات مفصلة لأدائك.
-                              </p>
-                              <Link href="/question-bank?tab=premium">
-                                <StyledButton variant="primary" className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700">
-                                  <Crown className="w-5 h-5 ml-2" />
-                                  الاشتراك الآن
-                                </StyledButton>
-                              </Link>
-                            </CardContent>
-                          </Card>
-                        )
-                      )}
-
-                      {questionBankTab === 'ai' && (
-                        isSubscribed ? (
-                          <AISection
-                            questions={questions}
-                            isSubscribed={isSubscribed}
-                            onGenerateQuestions={async () => []}
-                            onAnalyzePerformance={async () => ({ strengths: [], weaknesses: [], recommendedTopics: [], improvementScore: 0 })}
-                            onGetRecommendations={async () => []}
-                          />
-                        ) : (
-                          <Card className="border-2 border-purple-200 bg-purple-50">
-                            <CardContent className="p-8 text-center">
-                              <Sparkles className="w-12 h-12 text-purple-600 mx-auto mb-4" />
-                              <h3 className="text-xl font-bold text-purple-900 mb-2">أدوات الذكاء الاصطناعي</h3>
-                              <p className="text-purple-800 mb-4">
-                                استخدم الذكاء الاصطناعي لتوليد أسئلة جديدة وتحليل أدائك. متاح للمشتركين فقط.
-                              </p>
-                              <Link href="/question-bank?tab=premium">
-                                <StyledButton variant="primary" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700">
-                                  <Crown className="w-5 h-5 ml-2" />
-                                  الاشتراك الآن
-                                </StyledButton>
-                              </Link>
-                            </CardContent>
-                          </Card>
-                        )
-                      )}
-                    </div>
-                  )}
-
-                  {/* Link to Full Question Bank */}
-                  <div className="mt-8 pt-6 border-t-2 border-gray-200 text-center">
-                    <Link 
-                      href="/question-bank"
-                      className="inline-flex items-center gap-3 text-blue-600 hover:text-blue-700 hover:underline font-bold text-lg group"
-                    >
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                        className="group-hover:bg-blue-100 p-2 rounded-lg transition-colors"
-                      >
-                        <ArrowRight className="w-6 h-6" />
-                      </motion.div>
-                      الانتقال إلى بنك الأسئلة الكامل مع جميع الميزات
-                    </Link>
+                    </button>
+                    {expandedCurriculum === curriculum.id && (
+                      <div className="p-6 border-t border-gray-200">
+                        <div className="space-y-6">
+                          {curriculum.fileGroups.map((fileGroup) => (
+                            <div key={fileGroup.id} className="border border-gray-200 rounded-lg p-4">
+                              <h4 className="font-semibold text-gray-900 mb-2">{fileGroup.title}</h4>
+                              {fileGroup.description && (
+                                <p className="text-sm text-gray-600 mb-4">{fileGroup.description}</p>
+                              )}
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                {fileGroup.files.map((file) => {
+                                  const FileIcon = getFileIcon(file.type);
+                                  return (
+                                    <div key={file.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                                      <FileIcon className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                                      <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
+                                        <p className="text-xs text-gray-500">{file.size}</p>
+                                      </div>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
+                ))}
+              </div>
+            )}
+          </section>
 
-                  {/* Analytics Section */}
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                      <PieChart className="w-6 h-6 text-indigo-600" />
-                      تحليل الأداء
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <Card className="border-2 border-blue-200 shadow-xl hover:shadow-2xl transition-all overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-indigo-600"></div>
-                        <CardContent className="p-6">
-                          <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                            <motion.div
-                              animate={{ rotate: [0, 360] }}
-                              transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                              className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg"
-                            >
-                              <BarChart3 className="w-5 h-5 text-white" />
-                            </motion.div>
-                            الأداء حسب المستوى
-                          </h4>
-                          <div className="space-y-4">
-                            {levels.map((level) => (
-                              <motion.div
-                                key={level.id}
-                                whileHover={{ x: 5 }}
-                                className="space-y-2"
-                              >
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-bold text-gray-700">المستوى {level.id}</span>
-                                  <span className="text-lg font-extrabold text-blue-600">
-                                    {level.avgScore || 0}%
-                                  </span>
+          {/* Files Section */}
+          <section id="files" className="mt-12">
+            <div className="mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center gap-3">
+                <FileText className="w-8 h-8 text-blue-600" />
+                مجموعة الملفات
+              </h2>
+            </div>
+
+            {currentFileGroups.length > 0 && (
+              <div className="grid gap-6">
+                {currentFileGroups.map((fileGroup) => (
+                  <div
+                    key={fileGroup.id}
+                    className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
+                  >
+                    <button
+                      onClick={() => toggleFileGroup(fileGroup.id)}
+                      className="w-full text-right"
+                    >
+                      <div className={`p-6 transition-colors ${
+                        expandedFileGroup === fileGroup.id ? 'bg-blue-50' : 'bg-gray-50 hover:bg-gray-100'
+                      }`}>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            {expandedFileGroup === fileGroup.id ? (
+                              <ChevronDown className="w-5 h-5 text-blue-600" />
+                            ) : (
+                              <ChevronRight className="w-5 h-5 text-gray-400" />
+                            )}
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm text-gray-500">{fileGroup.files.length} ملف</span>
+                              <h3 className="text-xl font-semibold text-gray-900">{fileGroup.title}</h3>
+                            </div>
+                            {fileGroup.description && (
+                              <p className="text-sm text-gray-600">{fileGroup.description}</p>
+                            )}
+                            {fileGroup.progress !== undefined && (
+                              <div className="mt-3">
+                                <div className="flex items-center justify-between text-sm mb-1">
+                                  <span className="text-gray-600">إنجاز المجموعة</span>
+                                  <span className="font-semibold text-blue-600">{fileGroup.progress}%</span>
                                 </div>
-                                <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
-                                  <motion.div
-                                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 h-3 rounded-full shadow-lg"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${level.avgScore || 0}%` }}
-                                    transition={{ duration: 1, type: "spring" }}
+                                <div className="w-full bg-gray-200 rounded-full h-2">
+                                  <div
+                                    className="bg-blue-600 h-2 rounded-full transition-all"
+                                    style={{ width: `${fileGroup.progress}%` }}
                                   />
                                 </div>
-                              </motion.div>
-                            ))}
+                              </div>
+                            )}
                           </div>
-                        </CardContent>
-                      </Card>
-                      <Card className="border-2 border-green-200 shadow-xl hover:shadow-2xl transition-all overflow-hidden relative">
-                        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-green-500 to-emerald-600"></div>
-                        <CardContent className="p-6">
-                          <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
-                            <motion.div
-                              animate={{ scale: [1, 1.1, 1] }}
-                              transition={{ duration: 2, repeat: Infinity }}
-                              className="p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg"
-                            >
-                              <Activity className="w-5 h-5 text-white" />
-                            </motion.div>
-                            إحصائيات التدريب
-                          </h4>
-                          <div className="space-y-4">
-                            <motion.div
-                              whileHover={{ scale: 1.03, x: -5 }}
-                              className="flex items-center justify-between p-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200"
-                            >
-                              <span className="text-sm font-bold text-gray-700">إجمالي الاختبارات</span>
-                              <span className="text-2xl font-extrabold text-blue-600">24</span>
-                            </motion.div>
-                            <motion.div
-                              whileHover={{ scale: 1.03, x: -5 }}
-                              className="flex items-center justify-between p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border-2 border-green-200"
-                            >
-                              <span className="text-sm font-bold text-gray-700">أفضل نتيجة</span>
-                              <span className="text-2xl font-extrabold text-green-600">85%</span>
-                            </motion.div>
-                            <motion.div
-                              whileHover={{ scale: 1.03, x: -5 }}
-                              className="flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200"
-                            >
-                              <span className="text-sm font-bold text-gray-700">متوسط الوقت</span>
-                              <span className="text-2xl font-extrabold text-purple-600">45 دقيقة</span>
-                            </motion.div>
-                            <motion.div
-                              whileHover={{ scale: 1.03, x: -5 }}
-                              className="flex items-center justify-between p-3 bg-gradient-to-r from-orange-50 to-amber-50 rounded-xl border-2 border-orange-200"
-                            >
-                              <span className="text-sm font-bold text-gray-700">معدل النجاح</span>
-                              <span className="text-2xl font-extrabold text-orange-600">72%</span>
-                            </motion.div>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </div>
+                        </div>
+                      </div>
+                    </button>
+                    {expandedFileGroup === fileGroup.id && (
+                      <div className="p-6 border-t border-gray-200">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {fileGroup.files.map((file) => {
+                            const FileIcon = getFileIcon(file.type);
+                            return (
+                              <div
+                                key={file.id}
+                                className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+                              >
+                                <FileIcon className="w-6 h-6 text-blue-600 flex-shrink-0" />
+                                <div className="flex-1 min-w-0">
+                                  <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <p className="text-xs text-gray-500">{file.size}</p>
+                                    {file.duration && (
+                                      <p className="text-xs text-gray-500">• {file.duration}</p>
+                                    )}
+                                  </div>
+                                  {file.description && (
+                                    <p className="text-xs text-gray-600 mt-1">{file.description}</p>
+                                  )}
+                                </div>
+                                {file.isProtected && <Lock className="w-4 h-4 text-amber-600 flex-shrink-0" />}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </CardContent>
-              </Card>
-                </motion.div>
-              )}
-        </AnimatePresence>
+                ))}
+              </div>
+            )}
+          </section>
+
+          {/* Question Bank Section */}
+          <section id="question-bank" className="mt-12 mb-8">
+            <div className="bg-white border border-gray-200 rounded-xl p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Target className="w-8 h-8 text-blue-600" />
+                <h2 className="text-3xl font-bold text-gray-900">بنك الأسئلة - {currentLevel.title}</h2>
+              </div>
+              <p className="text-lg text-gray-600 mb-6">
+                {currentLevel.questionBankCount} سؤال متاح للتدريب في هذا الجزء
+              </p>
+              <button
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
+              >
+                <BookOpen className="w-5 h-5" />
+                <span>ابدأ التدريب</span>
+              </button>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );

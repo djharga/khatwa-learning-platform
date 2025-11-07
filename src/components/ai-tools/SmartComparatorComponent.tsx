@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * Smart Comparator Component - المقارن الذكي
+ * Enhanced for financial files support (Excel, PDF)
+ * Supports financial data comparison with highlighted changes
+ */
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {

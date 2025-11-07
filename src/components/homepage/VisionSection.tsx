@@ -16,12 +16,7 @@ const VisionSection = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/20 dark:via-indigo-950/20 dark:to-purple-950/20">
-      {/* Background Effects - Very Subtle */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-blue-100/10 to-transparent dark:from-blue-900/6 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-indigo-100/10 to-transparent dark:from-indigo-900/6 rounded-full blur-3xl" />
-      </div>
+    <section className="relative py-20 lg:py-28 overflow-hidden">
 
       <Container size="xl" className="relative z-10">
         <motion.div
@@ -31,8 +26,8 @@ const VisionSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-3xl border border-blue-200/50 dark:border-blue-700/50 shadow-2xl p-8 lg:p-12">
-            <div className="flex flex-col lg:flex-row items-start gap-8">
+          <div className="p-8 lg:p-12">
+            <div className="flex flex-col lg:flex-row items-center justify-center gap-8">
               {/* Icon */}
               <motion.div
                 className="flex-shrink-0"
@@ -61,7 +56,7 @@ const VisionSection = () => {
               </motion.div>
 
               {/* Content */}
-              <div className="flex-1 text-right space-y-6">
+              <div className="flex-1 text-center space-y-6">
                 <motion.div
                   className="inline-flex items-center gap-3 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-full border border-blue-200/50 dark:border-blue-700/50"
                   initial={{ opacity: 0, x: 20 }}
@@ -75,7 +70,7 @@ const VisionSection = () => {
                 </motion.div>
 
                 <motion.h2
-                  className="text-2xl lg:text-4xl font-bold text-neutral-900 dark:text-white leading-tight"
+                  className="text-2xl lg:text-4xl font-bold text-neutral-900 dark:text-white leading-tight text-center"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.4, duration: 0.8 }}
@@ -84,7 +79,7 @@ const VisionSection = () => {
                 </motion.h2>
 
                 <motion.p
-                  className="text-base md:text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium"
+                  className="text-base md:text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium text-center"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ delay: 0.5, duration: 0.8 }}

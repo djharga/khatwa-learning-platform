@@ -74,10 +74,10 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
             <span className="text-2xl">🎓</span>
           </div>
           <div>
-            <h3 className="text-3xl font-bold text-white leading-tight">
+            <h3 className="text-4xl font-bold text-white leading-tight">
               خطى التعليمية
             </h3>
-            <p className="text-blue-200 text-base font-medium">
+            <p className="text-blue-200 text-lg font-medium">
               منصة التعلم المهني الأولى
             </p>
           </div>
@@ -85,7 +85,7 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
       </div>
 
       {/* Description */}
-      <p className="text-gray-300 text-lg leading-relaxed max-w-md">
+      <p className="text-gray-300 text-xl leading-relaxed max-w-md">
         منصة تعليمية متخصصة في المراجعة الداخلية والمحاسبة، نقدم محتوى عالي الجودة
         ومسارات تعليمية متكاملة لتطوير المهارات المهنية والارتقاء بالكفاءات العملية.
       </p>
@@ -106,7 +106,7 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
               <div className="p-1.5 bg-blue-600/20 rounded-lg">
                 <BadgeIcon className="w-4 h-4 text-blue-300" />
               </div>
-              <span className="text-sm text-gray-300 font-medium">{badge.text}</span>
+              <span className="text-base text-gray-300 font-medium">{badge.text}</span>
             </div>
           );
         })}
@@ -126,7 +126,7 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
               <div className="p-2 bg-white/5 rounded-lg">
                 <IconComponent className="w-4 h-4 text-blue-300" aria-hidden="true" />
               </div>
-              <span className="text-base font-medium">{info.text}</span>
+              <span className="text-lg font-medium">{info.text}</span>
             </a>
           );
         })}
@@ -167,7 +167,7 @@ const FooterLinksGrid = ({ sections }: FooterLinksGridProps) => {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
         {sections.map((section) => (
           <div key={section.title} className="space-y-4">
-            <h4 className="text-lg font-bold text-white border-b border-white/10 pb-2">
+            <h4 className="text-xl font-bold text-white border-b border-white/10 pb-2">
               {section.title}
             </h4>
             <ul className="space-y-2">
@@ -175,7 +175,7 @@ const FooterLinksGrid = ({ sections }: FooterLinksGridProps) => {
                 <li key={linkIndex}>
                   <Link
                     href={link.href}
-                    className="text-gray-300 hover:text-white transition-colors text-base py-1 block"
+                    className="text-gray-300 hover:text-white transition-colors text-lg py-1 block"
                     aria-label={link.text}
                   >
                     {link.text}
@@ -208,14 +208,14 @@ const NewsletterSection = () => {
   };
 
   return (
-    <div className="mt-12 pt-8 border-t border-white/10">
-      <div className="max-w-2xl mx-auto text-center space-y-6">
+    <div className="mt-6 pt-4 border-t border-white/10">
+      <div className="max-w-2xl mx-auto text-center space-y-4">
         {/* Header */}
         <div className="space-y-3">
-          <h4 className="text-2xl font-bold text-white">
+          <h4 className="text-3xl font-bold text-white">
             سجل بريدك ليصلك كل جديد
           </h4>
-          <p className="text-gray-300 text-base leading-relaxed">
+          <p className="text-gray-300 text-lg leading-relaxed">
             احصل على آخر التحديثات والدورات الجديدة مباشرة في بريدك الإلكتروني
           </p>
         </div>
@@ -252,7 +252,7 @@ const NewsletterSection = () => {
         </div>
 
         {/* Privacy Notice */}
-        <p className="text-sm text-gray-400 max-w-md mx-auto">
+        <p className="text-base text-gray-400 max-w-md mx-auto">
           نحن نحترم خصوصيتك. لن نشارك بريدك الإلكتروني مع أي طرف ثالث
         </p>
       </div>
@@ -269,18 +269,18 @@ interface BottomBarProps {
 
 const BottomBar = ({ currentYear }: BottomBarProps) => {
   return (
-    <div className="relative border-t border-white/10 bg-slate-900/50 mt-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <div className="relative border-t border-white/10 bg-slate-900/50 mt-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
           {/* Copyright */}
-          <div className="text-gray-300 text-base text-center lg:text-right">
+          <div className="text-gray-300 text-lg text-center lg:text-right">
             <p>
               © {currentYear} خطى التعليمية. جميع الحقوق محفوظة.
             </p>
           </div>
 
           {/* Legal Links */}
-          <div className="flex items-center flex-wrap justify-center gap-4 text-base">
+          <div className="flex items-center flex-wrap justify-center gap-4 text-lg">
             {[
               { href: '/privacy', text: 'سياسة الخصوصية' },
               { href: '/terms', text: 'شروط الاستخدام' },
@@ -315,8 +315,8 @@ const FooterComponent = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-slate-800 to-slate-900"></div>
 
       {/* Main Footer Content */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <BrandSection contactInfo={contactInfo} socialLinks={socialLinks} />
           <FooterLinksGrid sections={footerSections} />
         </div>

@@ -86,7 +86,7 @@ const GoalsSection = () => {
                 </div>
 
                 {/* Content */}
-                <div className="space-y-3 text-right">
+                <div className="space-y-3 text-center">
                   <h3 className="text-lg lg:text-xl font-bold text-neutral-900 dark:text-white">
                     {goal.title}
                   </h3>

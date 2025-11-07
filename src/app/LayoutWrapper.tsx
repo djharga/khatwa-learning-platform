@@ -38,6 +38,7 @@ export default function LayoutWrapper({
         className="px-4 py-8 lg:px-8 lg:py-12 pt-16 lg:pt-20 pb-20 md:pb-8"
         role="main"
         tabIndex={-1}
+        style={{ position: 'relative', zIndex: 0 }}
       >
         {/* مسار التنقل */}
         <div className="mb-6">

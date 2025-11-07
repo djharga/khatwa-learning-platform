@@ -1,7 +1,15 @@
 'use client';
 
 import Link from 'next/link';
-import { Rocket, CheckCircle, ArrowLeft, Play, Sparkles, GraduationCap, Infinity, Award } from 'lucide-react';
+import { 
+  Rocket, 
+  CheckCircle, 
+  ArrowLeft, 
+  Play, 
+  Infinity, 
+  Award, 
+  GraduationCap 
+} from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 import StyledButton from '@/components/ui/StyledButton';
 
@@ -26,23 +34,6 @@ const CTASection = () => {
     },
   ];
 
-  const stats = [
-    {
-      icon: GraduationCap,
-      value: '15,420+',
-      label: 'طالب نشط',
-    },
-    {
-      icon: Award,
-      value: '15+',
-      label: 'دورة متخصصة',
-    },
-    {
-      icon: Sparkles,
-      value: '95%',
-      label: 'معدل الرضا',
-    },
-  ];
 
   return (
     <section className="relative py-20 lg:py-28 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
@@ -96,16 +87,16 @@ const CTASection = () => {
             })}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          {/* CTA Buttons - Final Section */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
             <Link href="/register" className="w-full sm:w-auto">
               <StyledButton
                 variant="primary"
                 size="large"
-                className="w-full sm:min-w-[220px]"
+                className="w-full sm:min-w-[240px] text-lg px-8 py-4"
               >
-                <span>ابدأ الآن مجاناً</span>
-                <ArrowLeft className="w-5 h-5 inline-block mr-2" />
+                <span>التسجيل</span>
+                <ArrowLeft className="w-6 h-6 inline-block mr-2" />
               </StyledButton>
             </Link>
 
@@ -113,38 +104,14 @@ const CTASection = () => {
               <StyledButton
                 variant="secondary"
                 size="large"
-                className="w-full sm:min-w-[220px]"
+                className="w-full sm:min-w-[240px] text-lg px-8 py-4"
               >
-                <Play className="w-5 h-5 inline-block mr-2" />
-                <span>تصفح الدورات</span>
+                <Play className="w-6 h-6 inline-block mr-2" />
+                <span>الدورات</span>
               </StyledButton>
             </Link>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="pt-12 border-t border-neutral-200 dark:border-neutral-700">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-              {stats.map((stat, index) => {
-                const Icon = stat.icon;
-                return (
-                  <div
-                    key={index}
-                    className="text-center"
-                  >
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-indigo-50 dark:bg-indigo-950/50 rounded-xl mb-4 border border-indigo-200 dark:border-indigo-800">
-                      <Icon className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
-                    </div>
-                    <div className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-2">
-                      {stat.value}
-                    </div>
-                    <div className="text-base text-neutral-600 dark:text-neutral-400 font-medium">
-                      {stat.label}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
         </div>
       </Container>
     </section>

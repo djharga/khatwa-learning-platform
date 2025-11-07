@@ -87,3 +87,49 @@ export interface StorageProviderConfig {
   endpoint?: string;
 }
 
+// ==================== تتبع التعديلات ====================
+export interface FileModification {
+  id: string;
+  fileId: string;
+  userId: string;
+  courseId?: string;
+  action: 'rename' | 'copy' | 'move' | 'delete' | 'create' | 'update';
+  oldName?: string;
+  newName?: string;
+  oldPath?: string;
+  newPath?: string;
+  oldSize?: number;
+  newSize?: number;
+  metadata?: {
+    reason?: string;
+    sourceFileId?: string;
+    targetLocation?: string;
+  };
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface FileModificationHistory {
+  fileId: string;
+  userId: string;
+  modifications: FileModification[];
+  totalModifications: number;
+  lastModified: string;
+}
+
+export interface FileModificationTree {
+  userId: string;
+  courseId?: string;
+  rootNodes: ModificationTreeNode[];
+  totalModifications: number;
+}
+
+export interface ModificationTreeNode {
+  fileId: string;
+  fileName: string;
+  fileType: string;
+  currentPath: string;
+  modifications: FileModification[];
+  children?: ModificationTreeNode[];
+}
+

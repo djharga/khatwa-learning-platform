@@ -5,6 +5,7 @@ import { Play, Star, Clock, BookOpen, Users, Award, User, ArrowLeft } from 'luci
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 interface CourseHeroProps {
   title: string;
@@ -103,7 +104,7 @@ export default function CourseHero({
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 fill-current text-yellow-300" />
                 <span className="font-semibold">{rating}</span>
-                <span className="text-white/80">({students.toLocaleString()} طالب)</span>
+                <span className="text-white/80">({safeFormatNumber(students)} طالب)</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="w-5 h-5" />

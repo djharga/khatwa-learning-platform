@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Star, Users, Award, TrendingUp, Shield, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 interface Testimonial {
   id: string;
@@ -39,7 +40,7 @@ export default function SocialProof({ stats, testimonials = [] }: SocialProofPro
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800 text-center">
               <Users className="w-8 h-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
               <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                {stats.graduates.toLocaleString()}+
+                {safeFormatNumber(stats.graduates)}+
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-400">خريج</div>
             </div>

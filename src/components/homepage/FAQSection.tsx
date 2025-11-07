@@ -83,7 +83,7 @@ const FAQSection = () => {
               >
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-center justify-between gap-4 text-right"
+                  className="w-full flex items-center justify-between gap-4 text-center"
                   aria-expanded={openIndex === index}
                 >
                   <div
@@ -99,7 +99,7 @@ const FAQSection = () => {
 
                 {openIndex === index && (
                   <div className="mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-700">
-                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                    <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed text-center">
                       {faq.answer}
                     </p>
                   </div>

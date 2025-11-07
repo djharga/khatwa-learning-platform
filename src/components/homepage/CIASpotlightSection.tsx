@@ -149,7 +149,7 @@ const CIASpotlightSection = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-                    className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-md border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-shadow"
+                    className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-md border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-shadow text-center"
                   >
                     <div className={`inline-flex p-3 rounded-lg bg-gradient-to-br ${level.color} mb-4`}>
                       <Icon className="w-6 h-6 text-white" />
@@ -176,7 +176,7 @@ const CIASpotlightSection = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-5 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-5 flex items-center justify-center gap-2">
                 <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 الفوائد المهنية
               </h3>
@@ -190,7 +190,7 @@ const CIASpotlightSection = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                      className="flex items-center gap-3 text-neutral-700 dark:text-neutral-300"
+                      className="flex items-center justify-center gap-3 text-neutral-700 dark:text-neutral-300"
                     >
                       <Icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400 flex-shrink-0" />
                       <span>{benefit.text}</span>
@@ -208,7 +208,7 @@ const CIASpotlightSection = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-5 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-5 flex items-center justify-center gap-2">
                 <BookOpen className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 المواد التعليمية
               </h3>
@@ -222,7 +222,7 @@ const CIASpotlightSection = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
-                      className="flex items-center gap-3 text-neutral-700 dark:text-neutral-300"
+                      className="flex items-center justify-center gap-3 text-neutral-700 dark:text-neutral-300"
                     >
                       <Icon className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
                       <span>{resource.text}</span>

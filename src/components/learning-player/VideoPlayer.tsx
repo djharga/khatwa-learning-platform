@@ -255,15 +255,15 @@ export default function VideoPlayer({
             className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none"
           >
             {/* Top Bar */}
-            <div className="absolute top-4 right-4 left-4 flex items-center justify-between pointer-events-auto">
-              <h3 className="text-white font-semibold text-lg">{title}</h3>
+            <div className="absolute top-3 right-3 left-3 flex items-center justify-between pointer-events-auto">
+              <h3 className="text-white font-semibold text-xs">{title}</h3>
             </div>
 
             {/* Bottom Controls */}
-            <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto">
+            <div className="absolute bottom-0 left-0 right-0 p-4 pointer-events-auto bg-gradient-to-t from-black/90 via-black/70 to-transparent">
               {/* Progress Bar */}
               <div
-                className="w-full bg-white/30 rounded-full h-1.5 cursor-pointer mb-4"
+                className="w-full bg-white/20 rounded-full h-1.5 cursor-pointer mb-4 group"
                 onClick={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const percentage = ((e.clientX - rect.left) / rect.width) * 100;
@@ -271,54 +271,64 @@ export default function VideoPlayer({
                 }}
               >
                 <motion.div
-                  className="bg-blue-600 h-1.5 rounded-full"
+                  className="bg-gradient-to-r from-blue-500 to-indigo-600 h-1.5 rounded-full relative"
                   style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }}
                   transition={{ duration: 0.1 }}
-                />
+                >
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-lg" />
+                </motion.div>
               </div>
 
               {/* Control Buttons */}
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
                   {/* Play/Pause */}
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={togglePlay}
-                    className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
+                    className="p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors backdrop-blur-sm"
                   >
-                    {isPlaying ? <Pause className="w-6 h-6" /> : <Play className="w-6 h-6" />}
-                  </button>
+                    {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                  </motion.button>
 
                   {/* Skip Backward */}
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => skip(-10)}
-                    className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors backdrop-blur-sm"
                     aria-label="رجوع 10 ثوان"
                   >
-                    <SkipBack className="w-5 h-5" />
-                  </button>
+                    <SkipBack className="w-3 h-3" />
+                  </motion.button>
 
                   {/* Skip Forward */}
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={() => skip(10)}
-                    className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors backdrop-blur-sm"
                     aria-label="تقديم 10 ثوان"
                   >
-                    <SkipForward className="w-5 h-5" />
-                  </button>
+                    <SkipForward className="w-3 h-3" />
+                  </motion.button>
 
                   {/* Volume */}
-                  <div className="flex items-center gap-2">
-                    <button
+                  <div className="flex items-center gap-1.5">
+                    <motion.button
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                       onClick={toggleMute}
-                      className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
+                      className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors backdrop-blur-sm"
                       aria-label={isMuted ? 'إلغاء كتم الصوت' : 'كتم الصوت'}
                     >
                       {isMuted || volume === 0 ? (
-                        <VolumeX className="w-5 h-5" />
+                        <VolumeX className="w-3 h-3" />
                       ) : (
-                        <Volume2 className="w-5 h-5" />
+                        <Volume2 className="w-3 h-3" />
                       )}
-                    </button>
+                    </motion.button>
                     <input
                       type="range"
                       min="0"
@@ -326,39 +336,44 @@ export default function VideoPlayer({
                       step="0.1"
                       value={isMuted ? 0 : volume}
                       onChange={(e) => handleVolumeChange(parseFloat(e.target.value))}
-                      className="w-20 h-1 bg-white/30 rounded-full appearance-none cursor-pointer"
+                      className="w-16 h-1 bg-white/20 rounded-full appearance-none cursor-pointer"
+                      style={{
+                        background: `linear-gradient(to right, rgba(59, 130, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) ${(isMuted ? 0 : volume) * 100}%, rgba(255, 255, 255, 0.2) ${(isMuted ? 0 : volume) * 100}%, rgba(255, 255, 255, 0.2) 100%)`
+                      }}
                     />
                   </div>
 
                   {/* Time Display */}
-                  <div className="text-white text-sm">
+                  <div className="text-white text-xs font-medium bg-white/10 px-2 py-1 rounded-lg backdrop-blur-sm">
                     {formatTime(currentTime)} / {formatTime(duration)}
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   {/* Speed Control */}
                   <div className="relative">
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-                      className="px-3 py-1.5 bg-white/20 hover:bg-white/30 rounded-lg text-white text-sm transition-colors flex items-center gap-1"
+                      className="px-2.5 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white text-xs transition-colors flex items-center gap-1 backdrop-blur-sm"
                     >
                       {playbackRate}x
-                      <ChevronDown className="w-4 h-4" />
-                    </button>
+                      <ChevronDown className="w-3 h-3" />
+                    </motion.button>
                     <AnimatePresence>
                       {showSpeedMenu && (
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute bottom-full mb-2 left-0 bg-gray-800 rounded-lg shadow-xl overflow-hidden"
+                          className="absolute bottom-full mb-1.5 left-0 bg-gray-800 rounded-lg shadow-xl overflow-hidden"
                         >
                           {speedOptions.map((speed) => (
                             <button
                               key={speed}
                               onClick={() => changePlaybackRate(speed)}
-                              className={`w-full px-4 py-2 text-right text-sm transition-colors ${
+                              className={`w-full px-3 py-1.5 text-right text-xs transition-colors ${
                                 playbackRate === speed
                                   ? 'bg-blue-600 text-white'
                                   : 'text-gray-300 hover:bg-gray-700'
@@ -373,22 +388,26 @@ export default function VideoPlayer({
                   </div>
 
                   {/* Picture-in-Picture */}
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={togglePictureInPicture}
-                    className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors backdrop-blur-sm"
                     aria-label="صورة داخل صورة"
                   >
-                    <PictureInPicture className="w-5 h-5" />
-                  </button>
+                    <PictureInPicture className="w-3 h-3" />
+                  </motion.button>
 
                   {/* Fullscreen */}
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
                     onClick={toggleFullscreen}
-                    className="p-2 hover:bg-white/20 rounded-full text-white transition-colors"
+                    className="p-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-white transition-colors backdrop-blur-sm"
                     aria-label={isFullscreen ? 'إلغاء ملء الشاشة' : 'ملء الشاشة'}
                   >
-                    {isFullscreen ? <Minimize className="w-5 h-5" /> : <Maximize className="w-5 h-5" />}
-                  </button>
+                    {isFullscreen ? <Minimize className="w-3 h-3" /> : <Maximize className="w-3 h-3" />}
+                  </motion.button>
                 </div>
               </div>
             </div>

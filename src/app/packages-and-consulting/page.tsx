@@ -20,8 +20,8 @@ import {
   Shield,
   Zap,
   TrendingUp,
+  Lock,
 } from 'lucide-react';
-import ConsultingComponent from '@/components/ConsultingComponent';
 import StyledButton from '@/components/ui/StyledButton';
 
 interface SubscriptionPlan {
@@ -538,93 +538,141 @@ function PackagesAndConsultingContent() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Consultation Packages */}
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
-                  باقات الاستشارات المتخصصة
-                </h2>
-                <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
-                  احصل على استشارات مهنية من خبراء المراجعة الداخلية والمحاسبة لتطوير أعمالك
-                </p>
+              {/* التحقق من الاشتراك */}
+              {subscriptionStatus?.hasSubscription ? (
+                <div className="space-y-8">
+                  {/* Consultation Packages */}
+                  <div className="mb-12">
+                    <h2 className="text-3xl font-bold text-gray-900 mb-4 text-center">
+                      باقات الاستشارات المتخصصة
+                    </h2>
+                    <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+                      احصل على استشارات مهنية من خبراء المراجعة الداخلية والمحاسبة لتطوير أعمالك
+                    </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                  {consultationPackages.map((pkg, index) => (
-                    <motion.div
-                      key={pkg.id}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className={`
-                        relative bg-white rounded-2xl shadow-xl border-2 p-8
-                        ${pkg.popular ? 'border-purple-500 scale-105' : 'border-gray-100'}
-                        hover:shadow-2xl transition-all duration-300
-                      `}
-                    >
-                      {pkg.popular && (
-                        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                          <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                            موصى به ⭐
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="text-center mb-8">
-                        <div
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                      {consultationPackages.map((pkg, index) => (
+                        <motion.div
+                          key={pkg.id}
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
                           className={`
-                            w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center
-                            ${pkg.color === 'blue' ? 'bg-blue-100 text-blue-600' :
-                              pkg.color === 'green' ? 'bg-green-100 text-green-600' :
-                              'bg-purple-100 text-purple-600'
-                            }
+                            relative bg-white rounded-2xl shadow-xl border-2 p-8
+                            ${pkg.popular ? 'border-purple-500 scale-105' : 'border-gray-100'}
+                            hover:shadow-2xl transition-all duration-300
                           `}
                         >
-                          {pkg.icon}
-                        </div>
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
-                        <p className="text-gray-600 mb-6 text-sm">{pkg.description}</p>
-                        <div className="mb-6">
-                          <div className="flex items-center justify-center gap-2 mb-2">
-                            <span className="text-4xl font-bold text-gray-900">
-                              ${pkg.price}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-center gap-2 text-gray-600">
-                            <Clock className="w-4 h-4" />
-                            <span className="text-sm">{pkg.duration}</span>
-                          </div>
-                        </div>
-                      </div>
+                          {pkg.popular && (
+                            <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
+                              <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                                موصى به ⭐
+                              </div>
+                            </div>
+                          )}
 
-                      <div className="space-y-4 mb-8 min-h-[160px]">
-                        {pkg.features.map((feature, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
-                            <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                            <span className="text-gray-700 text-sm">{feature}</span>
+                          <div className="text-center mb-8">
+                            <div
+                              className={`
+                                w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center
+                                ${pkg.color === 'blue' ? 'bg-blue-100 text-blue-600' :
+                                  pkg.color === 'green' ? 'bg-green-100 text-green-600' :
+                                  'bg-purple-100 text-purple-600'
+                                }
+                              `}
+                            >
+                              {pkg.icon}
+                            </div>
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">{pkg.name}</h3>
+                            <p className="text-gray-600 mb-6 text-sm">{pkg.description}</p>
+                            <div className="mb-6">
+                              <div className="flex items-center justify-center gap-2 mb-2">
+                                <span className="text-4xl font-bold text-gray-900">
+                                  ${pkg.price}
+                                </span>
+                              </div>
+                              <div className="flex items-center justify-center gap-2 text-gray-600">
+                                <Clock className="w-4 h-4" />
+                                <span className="text-sm">{pkg.duration}</span>
+                              </div>
+                            </div>
                           </div>
-                        ))}
-                      </div>
 
-                      <StyledButton
-                        onClick={() => handleBookConsultation(pkg.id)}
-                        variant="primary"
-                        size="large"
-                        fullWidth
-                      >
-                        ابدأ استشارتك
-                        <MessageSquare className="w-5 h-5 inline-block mr-2" />
-                      </StyledButton>
-                    </motion.div>
-                  ))}
+                          <div className="space-y-4 mb-8 min-h-[160px]">
+                            {pkg.features.map((feature, idx) => (
+                              <div key={idx} className="flex items-start gap-3">
+                                <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                                <span className="text-gray-700 text-sm">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          <StyledButton
+                            onClick={() => router.push('/student/consulting')}
+                            variant="primary"
+                            size="large"
+                            fullWidth
+                          >
+                            ابدأ استشارتك
+                            <MessageSquare className="w-5 h-5 inline-block mr-2" />
+                          </StyledButton>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* رابط لنظام الاستشارات الكامل */}
+                  <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border-2 border-indigo-200 dark:border-indigo-800 rounded-xl p-6 text-center">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      نظام الاستشارات الكامل
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                      احجز جلسات استشارية مباشرة مع خبرائنا المعتمدين
+                    </p>
+                    <StyledButton
+                      variant="primary"
+                      size="large"
+                      onClick={() => router.push('/student/consulting')}
+                    >
+                      <MessageSquare className="w-5 h-5 ml-2" />
+                      الانتقال إلى نظام الاستشارات
+                    </StyledButton>
+                  </div>
                 </div>
-              </div>
-
-              {/* Consultation Sessions Component */}
-              <div className="bg-white rounded-2xl shadow-xl p-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-                  جلساتك الاستشارية
-                </h2>
-                <ConsultingComponent />
-              </div>
+              ) : (
+                <div className="bg-white rounded-2xl shadow-xl p-12 text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Lock className="w-10 h-10 text-white" />
+                  </div>
+                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                    الاستشارات متاحة للمشتركين فقط
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg max-w-2xl mx-auto">
+                    احصل على استشارات متخصصة من خبرائنا المعتمدين. اشترك الآن للوصول إلى نظام الاستشارات الكامل مع إمكانية حجز الجلسات والتواصل المباشر مع الخبراء.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <StyledButton
+                      variant="primary"
+                      size="large"
+                      onClick={() => {
+                        setActiveTab('packages');
+                        router.push('/packages-and-consulting?tab=packages');
+                      }}
+                    >
+                      <Crown className="w-5 h-5 ml-2" />
+                      عرض الباقات والاشتراك
+                    </StyledButton>
+                    <StyledButton
+                      variant="secondary"
+                      size="large"
+                      onClick={() => router.push('/register')}
+                    >
+                      <User className="w-5 h-5 ml-2" />
+                      إنشاء حساب
+                    </StyledButton>
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>

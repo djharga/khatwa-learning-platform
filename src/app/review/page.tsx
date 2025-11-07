@@ -179,11 +179,11 @@ export default function ReviewHubPage() {
           <motion.h1
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-2"
+            className="text-5xl md:text-6xl font-bold text-gray-900 mb-2"
           >
             مركز المراجعة الموحد
           </motion.h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-2xl md:text-3xl text-gray-600">
             كل ما يخص المراجعة في شاشة واحدة - الأدوات، النتائج، والتحليلات
           </p>
         </div>
@@ -204,7 +204,7 @@ export default function ReviewHubPage() {
                     e.preventDefault();
                     setActiveTab(t.id as 'tools' | 'results' | 'analytics');
                   }}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all ${
+                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-lg transition-all cursor-pointer ${
                     activeTab === t.id
                       ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg'
                       : 'text-gray-700 hover:bg-gray-50'
@@ -247,7 +247,7 @@ export default function ReviewHubPage() {
                             e.preventDefault();
                             setQuestionBankTab(t.id as 'free' | 'premium' | 'questions' | 'analytics' | 'ai-tools');
                           }}
-                          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-base font-medium transition-all cursor-pointer ${
                             questionBankTab === t.id
                               ? 'bg-blue-600 text-white shadow-md'
                               : 'text-gray-700 hover:bg-gray-200'

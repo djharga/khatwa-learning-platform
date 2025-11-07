@@ -1272,16 +1272,24 @@ const QuestionManager = ({
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         المحور
                       </label>
-                      <select
-                        value={editingQuestion.axisId || ''}
-                        onChange={(e) => setEditingQuestion({...editingQuestion, axisId: e.target.value || undefined})}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      >
-                        <option value="">اختر المحور</option>
+                      <div className="grid grid-cols-1 gap-2">
                         {courses.find(c => c.id === editingQuestion.courseId)?.axes.map(axis => (
-                          <option key={axis.id} value={axis.id}>{axis.name}</option>
+                          <button
+                            key={axis.id}
+                            type="button"
+                            onClick={() => {
+                              setEditingQuestion({...editingQuestion, axisId: axis.id});
+                            }}
+                            className={`w-full px-4 py-3 text-right border-2 rounded-lg transition-all cursor-pointer ${
+                              editingQuestion.axisId === axis.id
+                                ? 'bg-blue-50 border-blue-500 text-blue-700 font-semibold'
+                                : 'bg-white border-gray-300 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                            }`}
+                          >
+                            {axis.name}
+                          </button>
                         ))}
-                      </select>
+                      </div>
                     </div>
                   )}
 

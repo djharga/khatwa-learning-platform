@@ -1,5 +1,11 @@
 'use client';
 
+/**
+ * Content Generator Component - مولد المحتوى
+ * Enhanced for accounting and audit content
+ * Supports financial reports, analyses, and recommendations
+ */
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {

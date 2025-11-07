@@ -1,11 +1,14 @@
 // Utility function to ensure consistent number formatting for hydration
-export const formatNumber = (num: number): string => {
-  // Force English digits to avoid hydration mismatch
-  return num.toString().replace(/[٠-٩]/g, (match) => {
-    const arabicDigits = '٠١٢٣٤٥٦٧٨٩';
-    const englishDigits = '0123456789';
-    return englishDigits[arabicDigits.indexOf(match)];
-  });
+// Always uses English locale to avoid hydration mismatch between server and client
+export const formatNumber = (num: number, options?: Intl.NumberFormatOptions): string => {
+  // Always use 'en-US' locale to ensure consistent formatting
+  // This prevents hydration errors when server uses Arabic locale and client uses different locale
+  return new Intl.NumberFormat('en-US', options).format(num);
+};
+
+// Format number with locale string but force English digits
+export const formatNumberLocale = (num: number, locale: string = 'en-US', options?: Intl.NumberFormatOptions): string => {
+  return new Intl.NumberFormat(locale, options).format(num);
 };
 
 // Alternative approach: always use English digits
@@ -26,4 +29,11 @@ export const toEnglishDigits = (str: string | number): string => {
     };
     return arabicToEnglish[match] || match;
   });
+};
+
+// Safe number formatter that works on both server and client
+// Use this instead of toLocaleString() to avoid hydration errors
+export const safeFormatNumber = (num: number): string => {
+  // Use formatNumber which always uses 'en-US' locale
+  return formatNumber(num);
 };

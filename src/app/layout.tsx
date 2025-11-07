@@ -21,38 +21,42 @@ import ConditionalFooter, { ConditionalBottomNav, ConditionalWidgets } from './C
 const cairo = Cairo({
   subsets: ['arabic', 'latin'],
   variable: '--font-cairo',
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
 // خط Tajawal - للنصوص الأساسية (واضح وسهل القراءة)
 const tajawal = Tajawal({
   subsets: ['arabic', 'latin'],
   variable: '--font-tajawal',
-  weight: ['300', '400', '500', '700', '800', '900'],
+  weight: ['400', '500', '700', '800'],
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
 // خط IBM Plex Sans Arabic - للنصوص التقنية والأكاديمية (احترافي)
 const ibmPlex = IBM_Plex_Sans_Arabic({
   subsets: ['arabic', 'latin'],
   variable: '--font-ibm-plex',
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
   preload: false,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
 // خط Almarai - للنصوص القصيرة والأزرار (عصري وجريء)
 const almarai = Almarai({
   subsets: ['arabic'],
   variable: '--font-almarai',
-  weight: ['300', '400', '700', '800'],
+  weight: ['400', '700', '800'],
   display: 'swap',
   preload: false,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
 import { generateSEOMetadata, generateStructuredData } from '@/lib/seo';
@@ -133,7 +137,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" className="rtl">
       <head>
         {/* Preload critical images */}
         <link rel="preload" as="image" href="/banar-cours.webp" />
@@ -148,13 +152,16 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="خطى" />
       </head>
       <body
-        className={`${cairo.variable} ${tajawal.variable} ${ibmPlex.variable} ${almarai.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative`}
+        className={`${cairo.variable} ${tajawal.variable} ${ibmPlex.variable} ${almarai.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden`}
         style={{ 
           fontFeatureSettings: '"rlig" 1, "calt" 1, "liga" 1, "kern" 1',
           textRendering: 'optimizeLegibility',
           WebkitFontSmoothing: 'antialiased',
-          MozOsxFontSmoothing: 'grayscale'
+          MozOsxFontSmoothing: 'grayscale',
+          direction: 'rtl',
+          // textAlign removed to allow text-center to work
         }}
+        dir="rtl"
       >
         {/* Subtle Background Image for all pages */}
         <div
@@ -173,7 +180,7 @@ export default function RootLayout({
           </LayoutWrapper>
           <ConditionalFooter />
           <Toaster
-            position="top-right"
+            position="top-left"
             toastOptions={{
               duration: 3000,
               style: {

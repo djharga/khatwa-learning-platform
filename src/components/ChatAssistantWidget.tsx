@@ -10,7 +10,15 @@ import {
   ThumbsUp,
   ThumbsDown,
   CornerDownRight,
+  Sparkles,
 } from 'lucide-react';
+import {
+  analyzeIntent,
+  generateIntelligentReply,
+  generateSmartSuggestions,
+  enhanceReplyWithContext,
+  type ConversationHistory,
+} from '@/lib/ai-assistant/intelligent-reply';
 
 type MessageRole = 'user' | 'assistant' | 'system';
 
@@ -71,6 +79,7 @@ const ChatAssistantWidget = ({
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
   const [replyTo, setReplyTo] = useState<Message | null>(null);
   const [showHistory, setShowHistory] = useState(true);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
   const timeouts = useRef<number[]>([]);
   const chatPanelRef = useRef<HTMLDivElement>(null);
 
@@ -122,15 +131,34 @@ const ChatAssistantWidget = ({
     );
   };
 
-  const generateAssistantReply = (userMessage: Message): Message => {
-    const suggestions = [
-      'سأقترح عليك خطة تدريبية تفصيلية خلال لحظات بناءً على احتياجاتك.',
-      'يمكنني مشاركة ملفات عمل جاهزة وقوائم تحقق لدعم فريقك فوراً.',
-      'هل تود تقييم الوضع الحالي للفريق قبل تحديد التوصيات؟',
-      'سأربط لك بين الدروس المتاحة وأفضل المحاضرين المتخصصين في هذا الموضوع.',
-    ];
-    const reply = suggestions[Math.floor(Math.random() * suggestions.length)];
-    return {
+  const generateAssistantReply = (userMessage: Message): { message: Message; newSuggestions: string[] } => {
+    // تحليل نية المستخدم
+    const context = analyzeIntent(userMessage.content);
+    
+    // بناء تاريخ المحادثة
+    const conversationHistory: ConversationHistory = {
+      messages: messages
+        .filter(m => m.role !== 'system')
+        .map(m => ({
+          role: m.role,
+          content: m.content,
+          timestamp: m.timestamp,
+        })),
+      context: messages
+        .filter(m => m.role === 'user')
+        .map(m => analyzeIntent(m.content)),
+    };
+
+    // توليد رد ذكي
+    let reply = generateIntelligentReply(userMessage.content, context, conversationHistory);
+    
+    // تحسين الرد بالسياق
+    reply = enhanceReplyWithContext(reply, context, conversationHistory);
+
+    // توليد اقتراحات ذكية
+    const newSuggestions = generateSmartSuggestions(context, conversationHistory);
+
+    const assistantMessage: Message = {
       id: createId(),
       role: 'assistant',
       content: reply,
@@ -138,6 +166,8 @@ const ChatAssistantWidget = ({
       parentId: userMessage.id,
       feedback: null,
     };
+
+    return { message: assistantMessage, newSuggestions };
   };
 
   const handleSendMessage = () => {
@@ -159,11 +189,15 @@ const ChatAssistantWidget = ({
     setReplyTo(null);
     setIsAssistantTyping(true);
 
+    // محاكاة وقت التفكير بناءً على طول الرسالة
+    const thinkingTime = Math.min(800 + userMessage.content.length * 20, 2500);
+
     const typingTimeout = window.setTimeout(() => {
-      const assistantResponse = generateAssistantReply(userMessage);
+      const { message: assistantResponse, newSuggestions } = generateAssistantReply(userMessage);
       setMessages((prev) => [...prev, assistantResponse]);
+      setSuggestions(newSuggestions);
       setIsAssistantTyping(false);
-    }, 1200);
+    }, thinkingTime);
 
     timeouts.current.push(typingTimeout);
   };
@@ -304,12 +338,27 @@ const ChatAssistantWidget = ({
           >
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200/70 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 backdrop-blur-md">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white">
-                  <MessageCircle className="w-4 h-4" />
+                <div className="relative">
+                  <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white">
+                    <MessageCircle className="w-4 h-4" />
+                  </div>
+                  <motion.div
+                    className="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full border-2 border-white"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                  />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white">
-                    مساعد خطى الذكي
+                  <div className="flex items-center gap-1.5">
+                    <div className="text-xs font-bold text-white">
+                      مساعد خطى الذكي
+                    </div>
+                    <motion.div
+                      animate={{ opacity: [0.5, 1, 0.5] }}
+                      transition={{ repeat: Infinity, duration: 1.5 }}
+                    >
+                      <Sparkles className="w-3 h-3 text-yellow-300" />
+                    </motion.div>
                   </div>
                   <div className="text-[10px] text-white/80">جاهز لمساعدتك</div>
                 </div>
@@ -369,34 +418,42 @@ const ChatAssistantWidget = ({
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
-                    className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-slate-200 w-fit"
+                    className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 w-fit"
                   >
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-sm">
-                      AI
+                    <div className="relative">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold shadow-lg">
+                        <Sparkles className="w-4 h-4" />
+                      </div>
+                      <motion.div
+                        className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 to-purple-400 opacity-75"
+                        animate={{ scale: [1, 1.3, 1], opacity: [0.75, 0, 0.75] }}
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                      />
                     </div>
                     <div className="flex items-center gap-1">
+                      <span className="text-[10px] text-slate-600 font-medium mr-1">يفكر...</span>
                       <motion.span
-                        animate={{ opacity: [0.2, 1, 0.2] }}
+                        animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
                         transition={{ repeat: Infinity, duration: 1 }}
-                        className="w-2 h-2 rounded-full bg-slate-400"
+                        className="w-2 h-2 rounded-full bg-blue-500"
                       />
                       <motion.span
-                        animate={{ opacity: [0.2, 1, 0.2] }}
+                        animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
                         transition={{
                           repeat: Infinity,
                           duration: 1,
                           delay: 0.2,
                         }}
-                        className="w-2 h-2 rounded-full bg-slate-400"
+                        className="w-2 h-2 rounded-full bg-purple-500"
                       />
                       <motion.span
-                        animate={{ opacity: [0.2, 1, 0.2] }}
+                        animate={{ opacity: [0.2, 1, 0.2], scale: [1, 1.2, 1] }}
                         transition={{
                           repeat: Infinity,
                           duration: 1,
                           delay: 0.4,
                         }}
-                        className="w-2 h-2 rounded-full bg-slate-400"
+                        className="w-2 h-2 rounded-full bg-indigo-500"
                       />
                     </div>
                   </motion.div>
@@ -421,6 +478,30 @@ const ChatAssistantWidget = ({
                   </button>
                 </div>
               )}
+              
+              {/* اقتراحات ذكية */}
+              {suggestions.length > 0 && !isAssistantTyping && (
+                <div className="flex flex-wrap gap-1.5">
+                  {suggestions.map((suggestion, index) => (
+                    <motion.button
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        setInput(suggestion);
+                        setSuggestions([]);
+                      }}
+                      className="px-2.5 py-1 text-[10px] bg-gradient-to-r from-blue-50 to-purple-50 border border-blue-200 text-blue-700 rounded-lg hover:from-blue-100 hover:to-purple-100 transition-all flex items-center gap-1"
+                    >
+                      <Sparkles className="w-2.5 h-2.5" />
+                      {suggestion}
+                    </motion.button>
+                  ))}
+                </div>
+              )}
+
               <div className="flex items-end gap-1.5">
                 <textarea
                   value={input}

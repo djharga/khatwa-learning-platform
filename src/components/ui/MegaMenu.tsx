@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Icon from './icons/IconSystem';
 import { NavigationItem, getNavigationForUser } from '@/lib/navigation';
 import { CourseCardProps } from '@/types/course'; // Assuming this exists
+import { useSubscription } from '@/hooks/useSubscription';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 interface MegaMenuProps {
   isOpen: boolean;
@@ -127,7 +129,7 @@ const MegaMenuFeatured: React.FC<MegaMenuFeaturedProps> = ({ featuredCourses }) 
                 </div>
                 <div className="flex items-center gap-1">
                   <Icon name="users" size="sm" className="text-gray-400" />
-                  <span className="text-sm text-gray-600">{course.students}</span>
+                  <span className="text-sm text-gray-600">{safeFormatNumber(course.students)}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Icon name="clock" size="sm" className="text-gray-400" />
@@ -181,7 +183,8 @@ const MegaMenuQuickLinks: React.FC<MegaMenuQuickLinksProps> = ({ quickLinks }) =
 };
 
 const MegaMenu: React.FC<MegaMenuProps> = ({ isOpen, onClose, userRole, isAuthenticated }) => {
-  const navigationSections = getNavigationForUser(userRole, isAuthenticated);
+  const { hasSubscription } = useSubscription();
+  const navigationSections = getNavigationForUser(userRole, isAuthenticated, hasSubscription);
   const learningSection = navigationSections.find(section => section.id === 'learning');
   const servicesSection = navigationSections.find(section => section.id === 'services');
 

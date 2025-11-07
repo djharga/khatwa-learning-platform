@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { User, Clock, FileText, FileEdit, Sheet, Video, Music } from 'lucide-react';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 /**
  * Props for the CourseMeta component
@@ -56,7 +57,7 @@ const CourseMeta = ({
           <div className="flex items-center justify-center gap-1 text-gray-600 mb-1 group-hover/stat:text-blue-600 transition-colors duration-300">
             <User className="w-4 h-4" />
             <span className="text-xs font-medium">
-              {students.toLocaleString()}
+              {safeFormatNumber(students)}
             </span>
           </div>
           <p className="text-xs text-gray-600">طالب</p>

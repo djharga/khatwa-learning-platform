@@ -67,6 +67,8 @@ export default {
     './src/styles/globals.css',
   ],
   darkMode: 'class',
+  // RTL Support - دعم كامل للاتجاه من اليمين لليسار
+  // Tailwind سيستخدم logical properties تلقائياً عند وجود dir="rtl"
   theme: {
     extend: {
       // BRUTALIST GRID SYSTEM: 4-pixel foundation
@@ -341,10 +343,14 @@ export default {
       minHeight: tokens.touchTargets,
 
       // BRUTALIST ANIMATIONS: Structural movements
+      // RTL-Safe Animations - حركات آمنة مع RTL
       animation: {
         shimmer: 'shimmer 2s linear infinite',
         'slide-in': 'slide-in 0.5s ease-out forwards',
+        'slide-in-rtl': 'slide-in-rtl 0.5s ease-out forwards',
         'brutalist-press': 'brutalist-press 150ms cubic-bezier(0.4, 0, 0.2, 1)',
+        'fade-in': 'fade-in 0.3s ease-out forwards',
+        'scale-in': 'scale-in 0.2s ease-out forwards',
       },
       keyframes: {
         shimmer: {
@@ -355,9 +361,21 @@ export default {
           from: { transform: 'translateX(-100%)', opacity: '0' },
           to: { transform: 'translateX(0)', opacity: '1' },
         },
+        'slide-in-rtl': {
+          from: { transform: 'translateX(100%)', opacity: '0' },
+          to: { transform: 'translateX(0)', opacity: '1' },
+        },
         'brutalist-press': {
           '0%': { transform: 'translate(0, 0)' },
           '100%': { transform: 'translate(4px, 4px)' },
+        },
+        'fade-in': {
+          from: { opacity: '0' },
+          to: { opacity: '1' },
+        },
+        'scale-in': {
+          from: { opacity: '0', transform: 'scale(0.95)' },
+          to: { opacity: '1', transform: 'scale(1)' },
         },
       },
     },
@@ -367,5 +385,50 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    // Custom RTL plugin for logical properties
+    function({ addUtilities, addBase, theme }: any) {
+      addBase({
+        // Ensure RTL is set on html element
+        'html[dir="rtl"]': {
+          direction: 'rtl',
+        },
+        // Prevent layout shift during loading
+        'html, body': {
+          overflowX: 'hidden',
+        },
+        // Isolate Framer Motion animations
+        '[data-framer-motion]': {
+          isolation: 'isolate',
+        },
+      });
+      
+      // RTL-safe utilities using logical properties
+      addUtilities({
+        // Logical margin utilities
+        '.ms-auto': {
+          'margin-inline-start': 'auto',
+        },
+        '.me-auto': {
+          'margin-inline-end': 'auto',
+        },
+        // Logical padding utilities
+        '.ps-0': {
+          'padding-inline-start': '0',
+        },
+        '.pe-0': {
+          'padding-inline-end': '0',
+        },
+        // Prevent overflow issues
+        '.overflow-x-safe': {
+          'overflow-x': 'hidden',
+          'overscroll-behavior-x': 'contain',
+        },
+        // Isolate animations
+        '.motion-isolate': {
+          isolation: 'isolate',
+          'contain': 'layout style paint',
+        },
+      });
+    },
   ],
 };

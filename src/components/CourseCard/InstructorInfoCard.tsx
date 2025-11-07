@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star } from 'lucide-react';
 import { CourseInstructor } from '@/types/course';
+import { safeFormatNumber } from '@/lib/numberUtils';
 
 /**
  * Props for the InstructorInfoCard component
@@ -125,7 +126,7 @@ const InstructorInfoCard = ({
             <p className="text-sm text-gray-700 mb-3 line-clamp-3">{instructor.bio}</p>
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-600">
-                {instructor.students.toLocaleString()} طالب
+                {safeFormatNumber(instructor.students)} طالب
               </span>
               <span className="text-gray-600">
                 {instructor.courses} دورة

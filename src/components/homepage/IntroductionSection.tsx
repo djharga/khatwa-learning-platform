@@ -43,10 +43,10 @@ const IntroductionSection = () => {
 
           {/* First Paragraph */}
           <div className="max-w-4xl mx-auto space-y-6">
-            <p className="text-base md:text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed text-center">
               خطى هي منصة عربية رائدة في تعليم وتطوير مهارات الأعمال، تجمع بين المحتوى الأكاديمي والتطبيق العملي الواقعي، وتقدّم تجربة تعليمية ذكية تعتمد على اللأدوات التقنية الحديثة والذكاء الاصطناعي.
             </p>
-            <p className="text-base md:text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium">
+            <p className="text-base md:text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium text-center">
               "خطى" ليست مجرد منصة تعليمية، بل حل متكامل لتحويل أي متعلم إلى محترف في تخصصه من خلال{' '}
               <span className="text-indigo-600 dark:text-indigo-400 font-bold">محتوى واقعي</span>،{' '}
               <span className="text-purple-600 dark:text-purple-400 font-bold">أدوات ذكية</span>، و{' '}
@@ -56,13 +56,13 @@ const IntroductionSection = () => {
 
           {/* Second Paragraph with Icon */}
           <div className="max-w-4xl mx-auto mt-12 p-8 lg:p-12 bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-3xl border border-neutral-200/50 dark:border-neutral-700/50 shadow-xl">
-            <div className="flex items-start gap-6">
+            <div className="flex items-center justify-center gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
                   <Zap className="w-8 h-8 text-white" />
                 </div>
               </div>
-              <div className="flex-1 text-right space-y-4">
+              <div className="flex-1 text-center space-y-4">
                 <p className="text-lg md:text-xl font-bold text-neutral-900 dark:text-white">
                   في "خطى"، نؤمن بأن التعلم الحقيقي يبدأ عندما تُطبّق المعرفة على أرض الواقع.
                 </p>

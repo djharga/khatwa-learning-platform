@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
+import type { UserRole } from '@/contexts/AuthContext';
 
 /**
  * Props for the AuthGuard component
@@ -10,51 +12,56 @@ interface AuthGuardProps {
   /** The child components to render if authorized */
   children: React.ReactNode;
   /** Array of roles allowed to access the protected content */
-  allowedRoles: ('student' | 'admin' | 'instructor')[];
+  allowedRoles: UserRole[];
+  /** Optional: redirect path for unauthorized users (default: /login) */
+  redirectTo?: string;
 }
 
 /**
  * Authentication guard component that restricts access based on user roles.
+ * Uses AuthContext instead of localStorage for better security.
  * Redirects unauthorized users to the login page.
  * Displays a loading state while checking authorization.
  */
-const AuthGuard = ({ children, allowedRoles }: AuthGuardProps) => {
+const AuthGuard = ({ children, allowedRoles, redirectTo = '/login' }: AuthGuardProps) => {
   const router = useRouter();
-  const [isAuthorized, setIsAuthorized] = useState(false);
+  const { isAuthenticated, isLoading, user } = useAuth();
 
   useEffect(() => {
-    // هنا يمكنك إضافة منطق التحقق من الصلاحيات الخاص بك
-    // مثال: التحقق من وجود توكن وصلاحيات المستخدم
-    /**
-     * Verifies user authentication and role authorization.
-     * Checks localStorage for user role and validates against allowed roles.
-     */
-    const checkAuth = async () => {
-      try {
-        // قم بتعديل هذا الجزء حسب نظام المصادقة الخاص بك
-        const userRole = localStorage.getItem('userRole');
-        if (userRole && allowedRoles.includes(userRole as 'student' | 'admin' | 'instructor')) {
-          setIsAuthorized(true);
-        } else {
-          router.push('/login');
-        }
-      } catch (error) {
-        console.error('Auth check failed:', error);
-        router.push('/login');
-      }
-    };
+    // انتظار انتهاء تحميل حالة المصادقة
+    if (isLoading) return;
 
-    checkAuth();
-  }, [allowedRoles, router]);
+    // إذا كان المستخدم غير مسجل دخول، توجيهه لصفحة تسجيل الدخول
+    if (!isAuthenticated) {
+      router.push(redirectTo);
+      return;
+    }
 
-  if (!isAuthorized) {
+    // إذا كان المستخدم مسجل دخول ولكن ليس لديه الصلاحية المطلوبة
+    if (user && !allowedRoles.includes(user.role)) {
+      router.push('/unauthorized');
+      return;
+    }
+  }, [isAuthenticated, isLoading, user, allowedRoles, router, redirectTo]);
+
+  // عرض حالة التحميل
+  if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse">جاري التحقق من الصلاحيات...</div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">جاري التحقق من الصلاحيات...</p>
+        </div>
       </div>
     );
   }
 
+  // إذا كان المستخدم غير مسجل دخول أو ليس لديه الصلاحية، لا نعرض المحتوى
+  if (!isAuthenticated || !user || !allowedRoles.includes(user.role)) {
+    return null;
+  }
+
+  // عرض المحتوى المحمي
   return <>{children}</>;
 };
 

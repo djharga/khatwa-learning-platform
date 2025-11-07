@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSubscription } from '@/hooks/useSubscription';
 import { motion } from 'framer-motion';
 import {
   Home,
@@ -126,7 +127,8 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
   };
 
   // Fetch navigation items based on user role - currently hardcoded to 'student'
-  const navigationItems = getSidebarItems('student'); // يمكن تغييره حسب دور المستخدم
+  const { hasSubscription } = useSubscription();
+  const navigationItems = getSidebarItems('student', hasSubscription); // يمكن تغييره حسب دور المستخدم
 
   const isActive = (href: string) => isActiveLink(href, pathname);
 

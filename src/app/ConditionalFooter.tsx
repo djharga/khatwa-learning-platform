@@ -40,12 +40,6 @@ export function ConditionalWidgets() {
     <>
       <WhatsappFloatButton />
       <ChatAssistantWidget />
-      <footer className="text-center p-4 text-sm text-gray-500">
-        &copy; {new Date().getFullYear()} خطى للتدريب والاستشارات. جميع
-        الحقوق محفوظة.
-        <br />
-        تصميم: ICODE - تطوير بواسطة WINDSURFER AI
-      </footer>
     </>
   );
 }

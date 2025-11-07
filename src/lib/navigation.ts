@@ -10,6 +10,7 @@ export interface NavigationItem {
   description?: string;
   children?: NavigationItem[];
   requiresAuth?: boolean;
+  requiresSubscription?: boolean; // يتطلب اشتراك نشط
   roles?: ('student' | 'instructor' | 'admin' | 'public')[];
   isActive?: (pathname: string) => boolean;
   priority?: number;
@@ -513,11 +514,12 @@ export const navigationItems: Record<string, NavigationItem> = {
   consulting: {
     id: 'consulting',
     label: 'الاستشارات الفردية',
-    href: '/packages-and-consulting?tab=consulting',
+    href: '/student/consulting',
     icon: 'users',
     description: 'احصل على استشارة شخصية مع خبراء متخصصين',
-    roles: ['public', 'student', 'instructor'],
-    requiresAuth: false,
+    roles: ['student', 'instructor'], // فقط للمشتركين
+    requiresAuth: true,
+    requiresSubscription: true, // يتطلب اشتراك
     priority: 16,
   },
 
@@ -721,7 +723,8 @@ export const navigationSections: NavigationSection[] = [
 // دوال مساعدة للحصول على الروابط حسب الدور والحالة
 export const getNavigationForUser = (
   userRole?: string,
-  isAuthenticated = false
+  isAuthenticated = false,
+  hasSubscription = false
 ) => {
   const role = isAuthenticated ? userRole || 'student' : 'public';
 
@@ -731,7 +734,8 @@ export const getNavigationForUser = (
       ...section,
       items: section.items
         .filter((item) => !item.roles || item.roles.includes(role as any))
-        .filter((item) => !item.requiresAuth || isAuthenticated),
+        .filter((item) => !item.requiresAuth || isAuthenticated)
+        .filter((item) => !item.requiresSubscription || hasSubscription),
     }))
     .filter((section) => section.items.length > 0)
     .sort((a, b) => a.priority - b.priority);
@@ -819,8 +823,8 @@ export const getPublicNavbarItems = () => [
 ];
 
 // الحصول على روابط الـ Sidebar للمستخدمين المسجلين
-export const getSidebarItems = (userRole = 'student') => {
-  const userNav = getNavigationForUser(userRole, true);
+export const getSidebarItems = (userRole = 'student', hasSubscription = false) => {
+  const userNav = getNavigationForUser(userRole, true, hasSubscription);
   return userNav.map((section) => ({
     category: section.id,
     title: section.title,

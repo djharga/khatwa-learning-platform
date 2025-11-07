@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSubscription } from '@/hooks/useSubscription';
 import { 
   Home, 
   BookOpen, 
@@ -45,8 +46,8 @@ import { useRouter } from 'next/navigation';
  * - Responsive design كامل
  */
 
-// تعريف القوائم الفرعية لكل قسم - محسّن مع أيقونات وألوان
-const navigationMenuItems = {
+// دالة للحصول على القوائم بناءً على حالة الاشتراك
+const getNavigationMenuItems = (hasSubscription: boolean) => ({
   courses: {
     label: 'الكورسات',
     icon: BookOpen,
@@ -112,13 +113,18 @@ const navigationMenuItems = {
         icon: ShoppingBag,
         description: 'باقات تعليمية متنوعة'
       },
-      { 
+      ...(hasSubscription ? [{
         label: 'الاستشارات', 
-        href: '/packages-and-consulting?tab=consulting', 
+        href: '/student/consulting', 
         icon: MessageSquare,
         description: 'استشارات احترافية'
-      },
-    ],
+      } as const] : []),
+    ] as Array<{
+      label: string;
+      href: string;
+      icon: any;
+      description: string;
+    }>,
   },
   more: {
     label: 'المزيد',
@@ -154,7 +160,7 @@ const navigationMenuItems = {
       },
     ],
   },
-};
+});
 
 const mainNavItems = [
   { href: '/', label: 'الرئيسية', icon: Home },
@@ -167,6 +173,9 @@ const EnhancedNavbar = () => {
   const pathname = usePathname();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { hasSubscription } = useSubscription();
+  
+  const navigationMenuItems = getNavigationMenuItems(hasSubscription);
 
   // Handle scroll effect
   useEffect(() => {
@@ -227,12 +236,13 @@ const EnhancedNavbar = () => {
             : "border-neutral-100 dark:border-neutral-900 shadow-elevation-1",
           "transition-all duration-300 ease-out"
         )}
+        style={{ overflow: 'visible' }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', overflow: 'visible' }}>
+          <div className="flex items-center justify-between h-16 lg:h-20" style={{ position: 'relative', overflow: 'visible' }}>
             {/* الشعار - محسّن */}
             <Link 
               href="/" 
@@ -252,7 +262,7 @@ const EnhancedNavbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-2 flex-1 justify-center mx-8">
+            <div className="hidden lg:flex items-center gap-2 flex-1 justify-center mx-8 relative" style={{ zIndex: 1 }}>
               {/* الرئيسية */}
               {mainNavItems.map(({ href, label, icon: IconComponent }) => {
                 const isActive = isActiveLink(href);
@@ -299,6 +309,7 @@ const EnhancedNavbar = () => {
                   <div 
                     key={key} 
                     className="relative" 
+                    style={{ zIndex: openDropdown === key ? 1000 : 'auto' }}
                     ref={key === openDropdown ? dropdownRef : null}
                     onMouseEnter={() => setOpenDropdown(key)}
                     onMouseLeave={() => setOpenDropdown(null)}
@@ -380,9 +391,10 @@ const EnhancedNavbar = () => {
                             "bg-white dark:bg-neutral-800",
                             "rounded-2xl shadow-elevation-5",
                             "border border-neutral-200 dark:border-neutral-700",
-                            "overflow-hidden z-50",
+                            "overflow-hidden",
                             "backdrop-blur-xl"
                           )}
+                          style={{ zIndex: 1000 }}
                         >
                           {/* Header */}
                           <div className={cn(
