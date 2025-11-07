@@ -35,7 +35,7 @@ const nunitoSans = Nunito_Sans({
   weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
   preload: true,
-  adjustFontFallback: true,
+  adjustFontFallback: false,
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
