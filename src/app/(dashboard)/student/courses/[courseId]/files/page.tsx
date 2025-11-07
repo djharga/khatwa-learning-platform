@@ -104,7 +104,7 @@ export default function CourseFilesPage() {
   const handleVideoPlay = (video: { url: string; title: string }) => {
     // Open video in modal or new page
     window.open(video.url, '_blank');
-    toast.info(`جاري فتح فيديو: ${video.title}`);
+    toast(`جاري فتح فيديو: ${video.title}`);
   };
 
   if (loading) {

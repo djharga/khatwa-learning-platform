@@ -88,10 +88,6 @@ const existingPages = [
   '/student/consulting',
   '/student/support',
   
-  // لوحة المدرس (Instructor Dashboard)
-  '/instructor',
-  '/instructor/courses',
-  '/instructor/students',
   
   // لوحة الأدمن (Admin Dashboard)
   '/admin',

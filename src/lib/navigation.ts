@@ -369,36 +369,6 @@ export const navigationItems: Record<string, NavigationItem> = {
     priority: 14,
   },
 
-  // لوحة تحكم المدرس
-  instructorDashboard: {
-    id: 'instructor-dashboard',
-    label: 'لوحة المدرس',
-    href: '/instructor',
-    icon: 'instructor',
-    requiresAuth: true,
-    roles: ['instructor'],
-    priority: 20,
-  },
-
-  myCourses: {
-    id: 'my-courses',
-    label: 'دوراتي',
-    href: '/instructor/courses',
-    icon: 'courses',
-    requiresAuth: true,
-    roles: ['instructor'],
-    priority: 21,
-  },
-
-  myStudents: {
-    id: 'my-students',
-    label: 'طلابي',
-    href: '/instructor/students',
-    icon: 'users',
-    requiresAuth: true,
-    roles: ['instructor'],
-    priority: 22,
-  },
 
   // لوحة تحكم الأدمن
   adminDashboard: {
@@ -663,18 +633,6 @@ export const navigationSections: NavigationSection[] = [
     ],
   },
   {
-    id: 'instructor',
-    title: 'لوحة المدرس',
-    priority: 4,
-    roles: ['instructor'],
-    items: [
-      navigationItems.instructorDashboard,
-      navigationItems.myCourses,
-      navigationItems.myStudents,
-      navigationItems.meetingRoom,
-    ],
-  },
-  {
     id: 'admin',
     title: 'الإدارة',
     priority: 5,
@@ -848,7 +806,6 @@ export const getBottomNavigationItems = (
   const flows: Record<string, string[]> = {
     public: ['home', 'courses', 'community', 'contact'],
     student: ['home', 'courses', 'student-dashboard', 'certificates'],
-    instructor: ['home', 'courses', 'my-courses', 'meeting-room'],
     admin: ['home', 'admin-dashboard', 'admin-courses', 'admin-users'],
   };
 
@@ -964,8 +921,6 @@ export const getBreadcrumbs = (pathname: string) => {
     if (pathname.startsWith('/student/exam')) {
       breadcrumbs.push({ label: 'الامتحانات', href: '/student/exam' });
     }
-  } else if (pathname.startsWith('/instructor')) {
-    breadcrumbs.push({ label: 'لوحة المدرس', href: '/instructor' });
   } else if (pathname.startsWith('/admin/dashboard')) {
     breadcrumbs.push({ label: 'لوحة الإدارة', href: '/admin/dashboard' });
   } else if (pathname.startsWith('/admin/reports')) {
@@ -1072,12 +1027,6 @@ export const getQuickAccessLinks = (
         navigationItems.learningHub,
         navigationItems.questionBank,
         navigationItems.accountingSimulation
-      );
-    } else if (userRole === 'instructor') {
-      quickLinks.push(
-        navigationItems.instructorDashboard,
-        navigationItems.myCourses,
-        navigationItems.meetingRoom
       );
     } else if (userRole === 'admin') {
       quickLinks.push(

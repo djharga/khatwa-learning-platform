@@ -270,10 +270,9 @@ function getRedirectPath(role: UserRole): string {
   switch (role) {
     case 'admin':
       return '/admin/dashboard';
-    case 'instructor':
-      return '/instructor';
     case 'student':
     case 'company':
+    case 'instructor':
       return '/student';
     default:
       return '/';

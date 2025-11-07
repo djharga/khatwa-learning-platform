@@ -94,7 +94,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
       if (onFileDownload) {
         await onFileDownload(file);
       } else {
-        toast.info('جاري تحميل الملف...');
+        toast('جاري تحميل الملف...');
       }
     },
     [onFileDownload]
