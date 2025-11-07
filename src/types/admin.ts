@@ -21,6 +21,7 @@ export interface PageVisibility {
 
 export interface PageVisibilityUpdate {
   pagePath: string;
+  pageName: string;
   isVisible: boolean;
   visibleToRoles?: string[];
   visibleToUsers?: string[];
