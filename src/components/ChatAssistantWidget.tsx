@@ -138,7 +138,7 @@ const ChatAssistantWidget = ({
     // بناء تاريخ المحادثة
     const conversationHistory: ConversationHistory = {
       messages: messages
-        .filter(m => m.role !== 'system')
+        .filter((m): m is Message & { role: 'user' | 'assistant' } => m.role !== 'system')
         .map(m => ({
           role: m.role,
           content: m.content,

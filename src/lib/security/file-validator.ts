@@ -74,12 +74,12 @@ export interface FileValidationResult {
  */
 function validateFileType(file: File): { valid: boolean; error?: string; fileType?: string } {
   // التحقق من MIME type
-  const mimeTypeValid = ALL_ALLOWED_MIME_TYPES.includes(file.type);
+  const mimeTypeValid = ALL_ALLOWED_MIME_TYPES.includes(file.type as any);
   
   // التحقق من extension
   const fileName = file.name.toLowerCase();
   const extension = fileName.substring(fileName.lastIndexOf('.'));
-  const extensionValid = ALL_ALLOWED_EXTENSIONS.includes(extension);
+  const extensionValid = ALL_ALLOWED_EXTENSIONS.includes(extension as any);
   
   if (!mimeTypeValid && !extensionValid) {
     return {
@@ -91,17 +91,17 @@ function validateFileType(file: File): { valid: boolean; error?: string; fileTyp
   // تحديد نوع الملف
   let fileType: 'image' | 'document' | 'video' | 'audio' | 'other' = 'other';
   
-  if (ALLOWED_FILE_TYPES.images.mimeTypes.includes(file.type) || 
-      ALLOWED_FILE_TYPES.images.extensions.includes(extension)) {
+  if (ALLOWED_FILE_TYPES.images.mimeTypes.includes(file.type as any) || 
+      ALLOWED_FILE_TYPES.images.extensions.includes(extension as any)) {
     fileType = 'image';
-  } else if (ALLOWED_FILE_TYPES.documents.mimeTypes.includes(file.type) || 
-             ALLOWED_FILE_TYPES.documents.extensions.includes(extension)) {
+  } else if (ALLOWED_FILE_TYPES.documents.mimeTypes.includes(file.type as any) || 
+             ALLOWED_FILE_TYPES.documents.extensions.includes(extension as any)) {
     fileType = 'document';
-  } else if (ALLOWED_FILE_TYPES.videos.mimeTypes.includes(file.type) || 
-             ALLOWED_FILE_TYPES.videos.extensions.includes(extension)) {
+  } else if (ALLOWED_FILE_TYPES.videos.mimeTypes.includes(file.type as any) || 
+             ALLOWED_FILE_TYPES.videos.extensions.includes(extension as any)) {
     fileType = 'video';
-  } else if (ALLOWED_FILE_TYPES.audio.mimeTypes.includes(file.type) || 
-             ALLOWED_FILE_TYPES.audio.extensions.includes(extension)) {
+  } else if (ALLOWED_FILE_TYPES.audio.mimeTypes.includes(file.type as any) || 
+             ALLOWED_FILE_TYPES.audio.extensions.includes(extension as any)) {
     fileType = 'audio';
   }
   

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import type { FileModificationHistory, FileModificationTree } from '@/types/storage';
+import type { FileModification, FileModificationHistory, FileModificationTree } from '@/types/storage';
 
 /**
  * GET /api/storage/files/[fileId]/modifications

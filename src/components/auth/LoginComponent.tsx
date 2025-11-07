@@ -256,7 +256,7 @@ const LoginComponent = () => {
               label="تذكرني"
               aria-label="تذكرني"
               checked={formData.rememberMe}
-              onChange={(checked) => handleChange('rememberMe', checked)}
+              onChange={(e) => handleChange('rememberMe', e.target.checked)}
               disabled={isLoading}
             />
 

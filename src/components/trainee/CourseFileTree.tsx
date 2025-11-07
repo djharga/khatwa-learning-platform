@@ -222,7 +222,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
               return {
                 ...node,
                 children: filteredChildren.length > 0 ? filteredChildren : node.children,
-              };
+              } as CourseFileNode;
             }
             return null;
           })

@@ -125,7 +125,7 @@ export async function POST(request: NextRequest) {
       maxParticipants: 100,
       currentParticipants: 0,
       registeredParticipants: [],
-      settings: settings || {
+      settings: {
         autoRecord: false,
         muteOnEntry: false,
         waitingRoom: true,
@@ -135,6 +135,7 @@ export async function POST(request: NextRequest) {
         allowBreakoutRooms: false,
         requirePassword: false,
         requireAuthentication: false,
+        ...settings,
       },
       whatsappLinkSent: sendWhatsApp || false,
       telegramLinkSent: sendTelegram || false,

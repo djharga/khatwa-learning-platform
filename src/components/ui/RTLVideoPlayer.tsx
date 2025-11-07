@@ -53,7 +53,7 @@ export function RTLVideoPlayer({
   onPause,
   onEnded,
 }: RTLVideoPlayerProps) {
-  const playerRef = useRef<ReactPlayer>(null);
+  const playerRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const [isPlaying, setIsPlaying] = useState(autoplay);
@@ -207,11 +207,9 @@ export function RTLVideoPlayer({
               setIsLoading(false);
             }}
             config={{
-              file: {
-                attributes: {
-                  controlsList: 'nodownload',
-                  disablePictureInPicture: true,
-                },
+              youtube: {
+              },
+              vimeo: {
               },
             }}
             style={{

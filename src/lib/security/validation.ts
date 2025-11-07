@@ -46,7 +46,7 @@ export const registerSchema = z.object({
     ),
   confirmPassword: z.string(),
   userType: z.enum(['student', 'company'], {
-    errorMap: () => ({ message: 'نوع المستخدم غير صحيح' }),
+    message: 'نوع المستخدم غير صحيح',
   }),
   companyName: z.string().optional(),
   phone: z
@@ -120,7 +120,7 @@ export type UpdateProfileFormData = z.infer<typeof updateProfileSchema>;
  */
 export const searchSchema = z.object({
   query: z.string().min(1, 'نص البحث مطلوب').max(100, 'نص البحث طويل جداً'),
-  filters: z.record(z.any()).optional(),
+  filters: z.record(z.string(), z.any()).optional(),
 });
 
 export type SearchFormData = z.infer<typeof searchSchema>;
@@ -163,7 +163,7 @@ export function validateForm<T extends z.ZodTypeAny>(
   } catch (error) {
     if (error instanceof z.ZodError) {
       const errors: Record<string, string> = {};
-      error.errors.forEach((err) => {
+      error.issues.forEach((err: z.ZodIssue) => {
         const path = err.path.join('.');
         errors[path] = err.message;
       });
@@ -186,7 +186,7 @@ export function validateField<T extends z.ZodTypeAny>(
     return { valid: true };
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const firstError = error.errors[0];
+      const firstError = error.issues[0];
       return { valid: false, error: firstError.message };
     }
     return { valid: false, error: 'قيمة غير صحيحة' };
