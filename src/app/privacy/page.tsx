@@ -1,6 +1,3 @@
-'use client';
-
-import { motion } from 'framer-motion';
 import Icon from '@/components/ui/icons/IconSystem';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
@@ -8,20 +5,12 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900/20">
       <div className="container mx-auto px-4 py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-4xl mx-auto"
-        >
+        <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-8">
-            <motion.div
-              className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4"
-              whileHover={{ scale: 1.1, rotate: 5 }}
-            >
+            <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <Icon name="lock" size="lg" className="text-white" />
-            </motion.div>
+            </div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
               سياسة الخصوصية
             </h1>
@@ -304,7 +293,7 @@ export default function PrivacyPage() {
               </CardContent>
             </Card>
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );

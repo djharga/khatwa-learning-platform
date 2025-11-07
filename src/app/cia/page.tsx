@@ -18,6 +18,8 @@ import {
   ExternalLink,
   Clock,
 } from 'lucide-react';
+import { buttonVariants } from '@/lib/variants';
+import { cn } from '@/lib/utils';
 
 // أنواع الملفات
 type FileType = 'video' | 'podcast' | 'excel' | 'word' | 'pdf';
@@ -802,7 +804,7 @@ export default function CIAFellowshipPage() {
     <div className="min-h-screen bg-white">
       {/* Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center gap-3">
@@ -859,7 +861,7 @@ export default function CIAFellowshipPage() {
         </div>
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="container mx-auto max-w-7xl px-8 py-8">
         {/* Introduction Section */}
         <section id="introduction" className="mb-12">
           <div className="text-center mb-8">
@@ -1077,6 +1079,10 @@ export default function CIAFellowshipPage() {
                     <button
                       onClick={() => toggleFileGroup(fileGroup.id)}
                       className="w-full text-right"
+                      aria-label={`${expandedFileGroup === fileGroup.id ? 'إغلاق' : 'فتح'} مجموعة الملفات ${fileGroup.title}`}
+                      aria-expanded={expandedFileGroup === fileGroup.id}
+                      aria-controls={`file-group-${fileGroup.id}`}
+                      role="button"
                     >
                       <div className={`p-6 transition-colors ${
                         expandedFileGroup === fileGroup.id ? 'bg-blue-50' : 'bg-gray-50 hover:bg-gray-100'
@@ -1084,9 +1090,9 @@ export default function CIAFellowshipPage() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             {expandedFileGroup === fileGroup.id ? (
-                              <ChevronDown className="w-5 h-5 text-blue-600" />
+                              <ChevronDown className="w-5 h-5 text-blue-600" aria-hidden="true" />
                             ) : (
-                              <ChevronRight className="w-5 h-5 text-gray-400" />
+                              <ChevronRight className="w-5 h-5 text-gray-400" aria-hidden="true" />
                             )}
                           </div>
                           <div className="flex-1">
@@ -1116,7 +1122,7 @@ export default function CIAFellowshipPage() {
                       </div>
                     </button>
                     {expandedFileGroup === fileGroup.id && (
-                      <div className="p-6 border-t border-gray-200">
+                      <div className="p-6 border-t border-gray-200" id={`file-group-${fileGroup.id}`} role="region" aria-label={`ملفات ${fileGroup.title}`}>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           {fileGroup.files.map((file) => {
                             const FileIcon = getFileIcon(file.type);
@@ -1162,9 +1168,14 @@ export default function CIAFellowshipPage() {
                 {currentLevel.questionBankCount} سؤال متاح للتدريب في هذا الجزء
               </p>
               <button
-                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
+                className={cn(
+                  buttonVariants({ variant: "primary", size: "md", interactive: true }),
+                  "flex items-center gap-2"
+                )}
+                aria-label={`ابدأ التدريب على بنك الأسئلة - ${currentLevel.title}`}
+                role="button"
               >
-                <BookOpen className="w-5 h-5" />
+                <BookOpen className="w-5 h-5" aria-hidden="true" />
                 <span>ابدأ التدريب</span>
               </button>
             </div>

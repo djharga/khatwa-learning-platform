@@ -21,21 +21,40 @@ export default function CommunityPage() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-6">
-      <CommunityHeader />
-      <div className="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <div className="lg:col-span-2">
-          <DiscussionBoard />
-        </div>
-        <div className="lg:col-span-1 space-y-5">
-          <WeeklyChallenges />
-          <AchievementsBadges />
-          <CommunityStats />
-          <RecommendedPaths
-            paths={recommendedPaths}
-            onPathSelect={handlePathSelect}
-          />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      {/* Grid-based layout with consistent spacing */}
+      <div className="grid grid-cols-1 gap-y-12 py-24">
+        
+        {/* Community Header Section */}
+        <section className="container mx-auto max-w-7xl px-8">
+          <CommunityHeader />
+        </section>
+
+        {/* Main Community Content */}
+        <section className="container mx-auto max-w-7xl px-8 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            
+            {/* Main Discussion Area */}
+            <div className="lg:col-span-2">
+              <DiscussionBoard />
+            </div>
+            
+            {/* Sidebar Components */}
+            <div className="lg:col-span-1">
+              <div className="grid grid-cols-1 gap-y-8">
+                <WeeklyChallenges />
+                <AchievementsBadges />
+                <CommunityStats />
+                <RecommendedPaths
+                  paths={recommendedPaths}
+                  onPathSelect={handlePathSelect}
+                />
+              </div>
+            </div>
+            
+          </div>
+        </section>
+        
       </div>
     </div>
   );

@@ -84,7 +84,6 @@ interface ProgramParticipant {
 }
 
 const AdminProgramsPage = () => {
-  const [activeTab, setActiveTab] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
@@ -391,18 +390,6 @@ const AdminProgramsPage = () => {
     });
   }, [programs, searchTerm, statusFilter, typeFilter]);
 
-  const stats = useMemo(() => {
-    const total = programs.length;
-    const active = programs.filter(p => p.status === 'active').length;
-    const completed = programs.filter(p => p.status === 'completed').length;
-    const planning = programs.filter(p => p.status === 'planning').length;
-    const totalParticipants = programs.reduce((sum, p) => sum + p.enrolledParticipants, 0);
-    const totalRevenue = programs.reduce((sum, p) => sum + (p.enrolledParticipants * p.price), 0);
-    const avgCompletion = programs.length > 0 ?
-      programs.reduce((sum, p) => sum + (p.completedParticipants / p.enrolledParticipants * 100 || 0), 0) / programs.length : 0;
-
-    return { total, active, completed, planning, totalParticipants, totalRevenue, avgCompletion };
-  }, [programs]);
 
   const getProgramTypeLabel = (type: string) => {
     switch (type) {
@@ -480,7 +467,7 @@ const AdminProgramsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">                                                              
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl px-8">
         {/* رسالة الخطأ */}
         {error && (
           <motion.div
@@ -535,145 +522,11 @@ const AdminProgramsPage = () => {
           </motion.p>
         </motion.div>
 
-        {/* الإحصائيات */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-6 mb-8"
-        >
-          <motion.div 
-            whileHover={{ y: -4, scale: 1.02 }}
-            className="group relative bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-3xl shadow-lg hover:shadow-2xl p-6 border border-blue-100/50 dark:border-blue-800/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-blue-500/5 group-hover:from-blue-500/5 group-hover:to-blue-500/10 transition-all duration-300"></div>
-            <div className="relative z-10 flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-1">إجمالي البرامج</p>
-                <p className="text-3xl font-extrabold text-gray-900 dark:text-white">{stats.total}</p>
-              </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-transform duration-300">
-                <BookOpen className="w-7 h-7 text-white" />
-              </div>
-            </div>
-          </motion.div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">برامج نشطة</p>
-                <p className="text-3xl font-bold text-green-600">{stats.active}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">برامج مكتملة</p>
-                <p className="text-3xl font-bold text-blue-600">{stats.completed}</p>
-              </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Award className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">قيد التخطيط</p>
-                <p className="text-3xl font-bold text-yellow-600">{stats.planning}</p>
-              </div>
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Clock className="w-6 h-6 text-yellow-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي المشاركين</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.totalParticipants}</p>
-              </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Users className="w-6 h-6 text-purple-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي الإيرادات</p>
-                <p className="text-3xl font-bold text-green-600">{formatCurrency(stats.totalRevenue)}</p>
-              </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">معدل الإنجاز</p>
-                <p className="text-3xl font-bold text-indigo-600">{stats.avgCompletion.toFixed(1)}%</p>
-              </div>
-              <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                <Target className="w-6 h-6 text-indigo-600" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* التبويبات */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="flex justify-center mb-8"
-        >
-          <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100">
-            {[
-              { id: 'all', label: 'جميع البرامج', count: programs.length },
-              { id: 'active', label: 'البرامج النشطة', count: stats.active },
-              { id: 'completed', label: 'المكتملة', count: stats.completed },
-              { id: 'fellowship', label: 'الزمالة', count: programs.filter(p => p.type === 'fellowship').length },
-              { id: 'diploma', label: 'الدبلومات', count: programs.filter(p => p.type === 'diploma').length },
-              { id: 'workshop', label: 'ورش العمل', count: programs.filter(p => p.type === 'workshop').length }
-            ].map((tab) => (
-              <motion.button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {tab.label}
-                <span className={`px-2 py-1 rounded-full text-xs ${
-                  activeTab === tab.id ? 'bg-white/20' : 'bg-gray-200'
-                }`}>
-                  {tab.count}
-                </span>
-              </motion.button>
-            ))}
-          </div>
-        </motion.div>
-
         {/* شريط التحكم */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.2 }}
           className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100"
         >
           <div className="flex flex-col lg:flex-row justify-between items-center gap-4">

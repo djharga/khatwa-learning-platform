@@ -123,58 +123,57 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Page Content with optimized loading */}
-      <div className="relative z-10 flex flex-col items-center">
+      {/* Page Content with optimized grid layout and consistent spacing */}
+      <div className="relative z-10 grid grid-cols-1 gap-y-4 py-8">
         {/* 1. Hero Section - Above the fold, SSR */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8">
           <CreativeHeroSection />
-        </div>
+        </section>
 
         {/* 2. Introduction Section - التعريف بالمنصة */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <IntroductionSection />
-        </div>
+        </section>
 
         {/* 4. Vision Section - الرؤية */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <VisionSection />
-        </div>
+        </section>
 
         {/* 5. Mission Section - الرسالة */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <MissionSection />
-        </div>
+        </section>
 
         {/* 6. Goals Section - الأهداف */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <GoalsSection />
-        </div>
+        </section>
 
         {/* 7. Values Section - القيم والهدف */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <ValuesSection />
-        </div>
-
+        </section>
 
         {/* 10. Featured Courses Section - Priority Section */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <FeaturedCoursesSection />
-        </div>
+        </section>
 
         {/* 11. Enhanced Fellowship Section */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <FellowshipSection />
-        </div>
+        </section>
 
         {/* 12. FAQ */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <FAQSection />
-        </div>
+        </section>
 
         {/* 13. Final CTA */}
-        <div className="w-full max-w-7xl mx-auto">
+        <section className="container mx-auto max-w-7xl px-8 py-8">
           <CTASection />
-        </div>
+        </section>
       </div>
 
       {/* Modern Scroll to Top Button - Reduced Animation */}

@@ -269,8 +269,9 @@
   font-family: var(--font-heading);
   font-size: var(--text-5xl);
   font-weight: var(--font-bold);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-tight);
+  text-wrap: balance;
 }
 
 .heading-2,
@@ -278,8 +279,9 @@
   font-family: var(--font-heading);
   font-size: var(--text-4xl);
   font-weight: var(--font-bold);
-  line-height: var(--line-height-tight);
+  line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-tight);
+  text-wrap: balance;
 }
 
 .heading-3,
@@ -287,8 +289,9 @@
   font-family: var(--font-heading);
   font-size: var(--text-3xl);
   font-weight: var(--font-semibold);
-  line-height: var(--line-height-snug);
+  line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-normal);
+  text-wrap: balance;
 }
 
 .heading-4,
@@ -296,8 +299,9 @@
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
   font-weight: var(--font-semibold);
-  line-height: var(--line-height-snug);
+  line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-normal);
+  text-wrap: balance;
 }
 
 .heading-5,
@@ -305,8 +309,9 @@
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   font-weight: var(--font-semibold);
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-normal);
+  text-wrap: balance;
 }
 
 .heading-6,
@@ -314,8 +319,9 @@
   font-family: var(--font-heading);
   font-size: var(--text-lg);
   font-weight: var(--font-medium);
-  line-height: var(--line-height-normal);
+  line-height: var(--line-height-relaxed);
   letter-spacing: var(--letter-spacing-normal);
+  text-wrap: balance;
 }
 
 /* ===== Body Text - نصوص أساسية ===== */

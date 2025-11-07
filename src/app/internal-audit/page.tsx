@@ -372,7 +372,7 @@ const InternalAuditPage = () => {
           />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="container mx-auto max-w-7xl px-8 py-12">
           {/* Enhanced Hero Section */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -885,7 +885,7 @@ const InternalAuditPage = () => {
                       </div>
                       <div className="flex items-center gap-3 flex-shrink-0">
                         <motion.button
-                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold text-base transition-all flex items-center gap-2 shadow-lg"
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold text-base transition-all flex items-center gap-2 shadow-lg border border-blue-400/50 dark:border-blue-300/50 hover:border-blue-300 dark:hover:border-blue-200 ring-1 ring-blue-500/20 hover:ring-blue-400/40"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={(e) => {

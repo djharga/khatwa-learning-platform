@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Cairo, Tajawal, IBM_Plex_Sans_Arabic, Almarai } from 'next/font/google';
+import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai } from 'next/font/google';
 import '../styles/core.css';
 import '../styles/utilities.css';
 import EnhancedNavbar from '../components/layout/EnhancedNavbar';
@@ -17,10 +17,10 @@ import ServiceWorkerProvider from '../components/ServiceWorkerProvider';
 import LayoutWrapper from './LayoutWrapper';
 import ConditionalFooter, { ConditionalBottomNav, ConditionalWidgets } from './ConditionalFooter';
 
-// خط Cairo - للعناوين الرئيسية (أنيق وعصري)
-const cairo = Cairo({
-  subsets: ['arabic', 'latin'],
-  variable: '--font-cairo',
+// خط Inter - للعناوين (أنيق وعصري)
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
   weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
   preload: true,
@@ -28,11 +28,11 @@ const cairo = Cairo({
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
-// خط Tajawal - للنصوص الأساسية (واضح وسهل القراءة)
-const tajawal = Tajawal({
-  subsets: ['arabic', 'latin'],
-  variable: '--font-tajawal',
-  weight: ['400', '500', '700', '800'],
+// خط Nunito Sans - للنصوص الأساسية (واضح وسهل القراءة)
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  variable: '--font-nunito-sans',
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
   preload: true,
   adjustFontFallback: true,
@@ -152,7 +152,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="خطى" />
       </head>
       <body
-        className={`${cairo.variable} ${tajawal.variable} ${ibmPlex.variable} ${almarai.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden`}
+        className={`${inter.variable} ${nunitoSans.variable} ${ibmPlex.variable} ${almarai.variable} antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden`}
         style={{ 
           fontFeatureSettings: '"rlig" 1, "calt" 1, "liga" 1, "kern" 1',
           textRendering: 'optimizeLegibility',

@@ -91,191 +91,189 @@ export default function CoursesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 relative">
-      {/* Page-specific background removed since it's now in layout */}
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-950 text-white overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/assets/Professional educational platform hero banner.png"
-            alt="الدورات التدريبية"
-            fill
-            priority
-            quality={90}
-            className="object-cover"
-            style={{ objectPosition: 'center' }}
-          />
-          {/* Simple Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-indigo-900/80 to-blue-900/85"></div>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-          <div className="text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-2 mb-6 border border-white/20">
-              <BookOpen className="w-5 h-5 text-white" />
-              <span className="font-semibold text-sm tracking-wide">برامج تعليمية متخصصة</span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              الدورات التدريبية
-            </h1>
-
-            {/* Description */}
-            <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed">
-              اكتشف دوراتنا المتخصصة في المحاسبة والمراجعة الداخلية والإدارة المالية مع محتوى تعليمي احترافي ومعتمد
-            </p>
-
-            {/* Statistics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-10">
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <div className="p-2 bg-blue-600/30 rounded-lg">
-                    <Users className="w-6 h-6 text-white" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold mb-1">15,420+</div>
-                <div className="text-sm text-blue-100 font-medium">طالب نشط</div>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <div className="p-2 bg-blue-600/30 rounded-lg">
-                    <BookOpen className="w-6 h-6 text-white" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold mb-1">15+</div>
-                <div className="text-sm text-blue-100 font-medium">دورة متخصصة</div>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <div className="p-2 bg-blue-600/30 rounded-lg">
-                    <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold mb-1">4.8</div>
-                <div className="text-sm text-blue-100 font-medium">متوسط التقييم</div>
-              </div>
-              
-              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-                <div className="flex items-center justify-center mb-3">
-                  <div className="p-2 bg-blue-600/30 rounded-lg">
-                    <Award className="w-6 h-6 text-white" />
-                  </div>
-                </div>
-                <div className="text-3xl font-bold mb-1">95%</div>
-                <div className="text-sm text-blue-100 font-medium">معدل الرضا</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Gradient Transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
-      </div>
-
-
-      <div id="courses-section" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Search and Filters Bar */}
-        <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-6 mb-8 animate-in fade-in slide-in-from-top-4 duration-700 delay-200">
-          <div className="flex flex-col gap-6">
-            {/* Search */}
-            <div className="relative w-full group">
-              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500 group-focus-within:text-primary-500 transition-colors duration-300" />
-              <input
-                type="text"
-                placeholder="ابحث عن دورة..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pr-12 pl-6 py-4 border border-neutral-200/60 dark:border-neutral-700/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/40 bg-neutral-50/50 dark:bg-neutral-800/50 backdrop-blur-sm transition-all duration-300 text-neutral-700 dark:text-neutral-300 placeholder-neutral-400 dark:placeholder-neutral-500"
-              />
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Modern Tabs Navigation */}
-        <div className="mb-8">
-          <div className="max-w-7xl mx-auto px-4">
-            <ModernTabs
-              tabs={categories.map((cat) => ({
-                id: cat.id,
-                label: cat.label,
-                count: cat.count > 0 ? cat.count : undefined,
-              }))}
-              activeTab={selectedCategory}
-              onChange={(categoryId) => {
-                // عرض كورسات المراجعة في صفحة الكورسات
-                setSelectedCategory(categoryId);
-              }}
-              variant="underline"
-              size="lg"
-              fullWidth={false}
-              className="bg-transparent border-0 shadow-none p-0"
+      {/* Grid-based layout with consistent spacing */}
+      <div className="grid grid-cols-1 gap-y-12 py-24">
+        
+        {/* Hero Section */}
+        <section className="relative bg-gradient-to-br from-blue-800 via-indigo-900 to-blue-950 text-white overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src="/assets/Professional educational platform hero banner.png"
+              alt="الدورات التدريبية"
+              fill
+              priority
+              quality={90}
+              className="object-cover"
+              style={{ objectPosition: 'center' }}
             />
+            {/* Simple Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-indigo-900/80 to-blue-900/85"></div>
           </div>
-        </div>
 
-        {/* View Controls & Sort - NEW */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8 p-4 bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-700">
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
-            <motion.button
-              onClick={() => setViewMode('grid')}
-              className={`
-                px-4 py-2 rounded-md transition-all
-                ${viewMode === 'grid' 
-                  ? 'bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 shadow-sm' 
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
-                }
-              `}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Grid className="w-5 h-5" />
-            </motion.button>
-            <motion.button
-              onClick={() => setViewMode('list')}
-              className={`
-                px-4 py-2 rounded-md transition-all
-                ${viewMode === 'list' 
-                  ? 'bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 shadow-sm' 
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
-                }
-              `}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <List className="w-5 h-5" />
-            </motion.button>
-          </div>
-          
-          {/* Sort & Results */}
-          <div className="flex items-center gap-4">
-            <div className="text-sm text-neutral-600 dark:text-neutral-400">
-              عرض <span className="font-bold text-neutral-900 dark:text-neutral-100">{filteredCourses.length}</span> دورة
+          {/* Content */}
+          <div className="relative z-10 container mx-auto max-w-7xl px-8 py-24">
+            <div className="text-center">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-2 mb-6 border border-white/20">
+                <BookOpen className="w-5 h-5 text-white" />
+                <span className="font-semibold text-sm tracking-wide">برامج تعليمية متخصصة</span>
+              </div>
+
+              {/* Title */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                الدورات التدريبية
+              </h1>
+
+              {/* Description */}
+              <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed">
+                اكتشف دوراتنا المتخصصة في المحاسبة والمراجعة الداخلية والإدارة المالية مع محتوى تعليمي احترافي ومعتمد
+              </p>
+
+              {/* Statistics Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="p-2 bg-blue-600/30 rounded-lg">
+                      <Users className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="text-3xl font-bold mb-1">15,420+</div>
+                  <div className="text-sm text-blue-100 font-medium">طالب نشط</div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="p-2 bg-blue-600/30 rounded-lg">
+                      <BookOpen className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="text-3xl font-bold mb-1">15+</div>
+                  <div className="text-sm text-blue-100 font-medium">دورة متخصصة</div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="p-2 bg-blue-600/30 rounded-lg">
+                      <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                    </div>
+                  </div>
+                  <div className="text-3xl font-bold mb-1">4.8</div>
+                  <div className="text-sm text-blue-100 font-medium">متوسط التقييم</div>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                  <div className="flex items-center justify-center mb-3">
+                    <div className="p-2 bg-blue-600/30 rounded-lg">
+                      <Award className="w-6 h-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="text-3xl font-bold mb-1">95%</div>
+                  <div className="text-sm text-blue-100 font-medium">معدل الرضا</div>
+                </div>
+              </div>
             </div>
-            
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
-            >
-              <option value="popular">الأكثر شعبية</option>
-              <option value="rating">الأعلى تقييماً</option>
-              <option value="newest">الأحدث</option>
-              <option value="price-low">الأقل سعراً</option>
-              <option value="price-high">الأعلى سعراً</option>
-            </select>
           </div>
-        </div>
 
-        {/* Main Content */}
-        <main>
+          {/* Bottom Gradient Transition */}
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
+        </section>
+
+        {/* Courses Content Section */}
+        <section id="courses-section" className="container mx-auto max-w-7xl px-8 py-24">
+          {/* Search and Filters Grid */}
+          <div className="grid grid-cols-1 gap-y-8 mb-12">
+            {/* Search Bar */}
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-6">
+              <div className="relative w-full group">
+                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500 group-focus-within:text-primary-500 transition-colors duration-300" />
+                <input
+                  type="text"
+                  placeholder="ابحث عن دورة..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pr-12 pl-6 py-4 border border-neutral-200/60 dark:border-neutral-700/60 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500/40 bg-neutral-50/50 dark:bg-neutral-800/50 backdrop-blur-sm transition-all duration-300 text-neutral-700 dark:text-neutral-300 placeholder-neutral-400 dark:placeholder-neutral-500"
+                />
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+              </div>
+            </div>
+
+            {/* Modern Tabs Navigation */}
+            <div className="bg-white/90 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 p-6">
+              <ModernTabs
+                tabs={categories.map((cat) => ({
+                  id: cat.id,
+                  label: cat.label,
+                  count: cat.count > 0 ? cat.count : undefined,
+                }))}
+                activeTab={selectedCategory}
+                onChange={(categoryId) => {
+                  setSelectedCategory(categoryId);
+                }}
+                variant="underline"
+                size="lg"
+                fullWidth={false}
+                className="bg-transparent border-0 shadow-none p-0"
+              />
+            </div>
+
+            {/* View Controls & Sort */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-700">
+              {/* View Mode Toggle */}
+              <div className="flex items-center gap-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
+                <motion.button
+                  onClick={() => setViewMode('grid')}
+                  className={`
+                    px-4 py-2 rounded-md transition-all
+                    ${viewMode === 'grid' 
+                      ? 'bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 shadow-sm' 
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
+                    }
+                  `}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Grid className="w-5 h-5" />
+                </motion.button>
+                <motion.button
+                  onClick={() => setViewMode('list')}
+                  className={`
+                    px-4 py-2 rounded-md transition-all
+                    ${viewMode === 'list' 
+                      ? 'bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 shadow-sm' 
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
+                    }
+                  `}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <List className="w-5 h-5" />
+                </motion.button>
+              </div>
+              
+              {/* Sort & Results */}
+              <div className="flex items-center justify-between gap-4">
+                <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                  عرض <span className="font-bold text-neutral-900 dark:text-neutral-100">{filteredCourses.length}</span> دورة
+                </div>
+                
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                >
+                  <option value="popular">الأكثر شعبية</option>
+                  <option value="rating">الأعلى تقييماً</option>
+                  <option value="newest">الأحدث</option>
+                  <option value="price-low">الأقل سعراً</option>
+                  <option value="price-high">الأعلى سعراً</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content */}
+          <main>
             {/* Unified Grid View - All Courses in One Grid */}
             <div className={`grid gap-6 ${
               viewMode === 'grid' 
@@ -406,6 +404,7 @@ export default function CoursesPage() {
               </div>
             )}
           </main>
+        </section>
       </div>
     </div>
   );

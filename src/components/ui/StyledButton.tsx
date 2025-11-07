@@ -212,7 +212,7 @@ const ButtonWrapper = styled.div<{ rounded?: boolean }>`
   position: relative;
   display: inline-block;
   width: 100%;
-  border-radius: ${props => props.rounded ? '9999px' : '16px'};
+  border-radius: ${props => props.rounded ? '9999px' : '12px'};
   overflow: hidden;
 `;
 
@@ -229,7 +229,7 @@ const BottomLayer = styled.div<{ variant: ButtonVariant; rounded?: boolean; glow
       ? 'rgba(0, 0, 0, 0.05)'
       : `rgba(0, 0, 0, 0.15)`;
   }};
-  border-radius: ${props => props.rounded ? '9999px' : '16px'};
+  border-radius: ${props => props.rounded ? '9999px' : '12px'};
   z-index: 0;
   box-shadow:
     inset 0 3px 4px rgba(0, 0, 0, 0.3),
@@ -257,7 +257,7 @@ const GlowLayer = styled.div<{ variant: ButtonVariant; rounded?: boolean; glow?:
   left: 3px;
   right: 3px;
   height: 98%;
-  border-radius: ${props => props.rounded ? '9999px' : '16px'};
+  border-radius: ${props => props.rounded ? '9999px' : '12px'};
   z-index: 1;
   filter: blur(0.5px);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -331,7 +331,7 @@ const StyledButton = styled.button<{
   font-size: ${props => getSizeStyles(props.size).fontSize};
   font-weight: 600;
   border: none;
-  border-radius: ${props => props.rounded ? '9999px' : '16px'};
+  border-radius: ${props => props.rounded ? '9999px' : '12px'};
   cursor: ${props => (props.disabled || props.loading) ? 'not-allowed' : 'pointer'};
   opacity: ${props => props.disabled ? 0.6 : 1};
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -351,18 +351,20 @@ const StyledButton = styled.button<{
         ? 'transparent' 
         : `linear-gradient(135deg, ${colors.main}, ${colors.dark})`};
       color: ${colors.text};
-      border: ${props.variant === 'outline' ? `2px solid ${colors.main}` : 'none'};
+      border: ${props.variant === 'outline' ? `2px solid ${colors.main}` : `1px solid ${colors.glow.replace('0.6', '0.3')}`};
       
       box-shadow: ${isTransparent ? 'none' : `
         inset 0 3px 4px rgba(255, 255, 255, 0.3),
         inset 0 10px 16px rgba(0, 0, 0, 0.05),
-        0 10px 16px rgba(0, 0, 0, 0.1)
+        0 10px 16px rgba(0, 0, 0, 0.1),
+        0 0 0 1px ${colors.glow.replace('0.6', '0.2')},
+        0 0 8px ${colors.glow.replace('0.6', '0.3')}
       `};
     `;
   }}
 
   &:hover:not(:disabled) {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.05);
     ${props => {
       const colors = getVariantColors(props.variant);
       const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
@@ -372,8 +374,17 @@ const StyledButton = styled.button<{
           box-shadow:
             inset 0 3px 4px rgba(255, 255, 255, 0.4),
             inset 0 -3px 4px rgba(0, 0, 0, 0.05),
-            0 8px 20px rgba(0, 0, 0, 0.2);
-        ` : ''}
+            0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05),
+            0 0 0 1px ${colors.glow.replace('0.6', '0.3')},
+            0 0 12px ${colors.glow.replace('0.6', '0.5')};
+        ` : `
+          box-shadow: 
+            0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05),
+            0 0 0 1px ${colors.glow.replace('0.6', '0.2')},
+            0 0 8px ${colors.glow.replace('0.6', '0.3')};
+        `}
         ${props.variant === 'link' ? `
           text-decoration: underline;
         ` : ''}

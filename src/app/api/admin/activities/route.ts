@@ -59,9 +59,26 @@ export async function GET(request: NextRequest) {
       }
     ].slice(0, limit);
 
+    // تحويل الأنشطة إلى البنية المطلوبة
+    const formattedActivities = activities.map((activity, index) => ({
+      id: activity.id || `activity-${index}`,
+      type: activity.type === 'user_registered' ? 'user_registration' as const :
+            activity.type === 'course_enrolled' ? 'course_enrollment' as const :
+            activity.type === 'course_created' ? 'content_uploaded' as const :
+            activity.type === 'payment_received' ? 'payment_received' as const :
+            activity.type === 'content_uploaded' ? 'content_uploaded' as const :
+            'user_registration' as const,
+      title: activity.title,
+      description: activity.description,
+      timestamp: activity.timestamp,
+      severity: activity.type === 'payment_received' ? 'success' as const :
+                activity.type === 'user_registered' ? 'info' as const :
+                'info' as const
+    }));
+
     return NextResponse.json({
       success: true,
-      activities
+      data: formattedActivities
     });
   } catch (error) {
     console.error('Error fetching activities:', error);

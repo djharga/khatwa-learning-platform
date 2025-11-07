@@ -27,11 +27,13 @@ import {
   Info,
   HelpCircle,
   Shield,
+  Brain,
 } from 'lucide-react';
 import UserMenu from './UserMenu';
 import { Icon } from '@/components/ui/Icon';
 import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
+import { linkVariants, buttonVariants } from '@/lib/variants';
 
 /**
  * Enhanced Navigation Bar with Modern Dropdown Menus
@@ -105,26 +107,8 @@ const getNavigationMenuItems = (hasSubscription: boolean) => ({
     icon: ShoppingBag,
     href: '/packages-and-consulting',
     color: 'accent',
-    description: 'حلول مخصصة لاحتياجاتك',
-    children: [
-      { 
-        label: 'الباقات', 
-        href: '/packages-and-consulting?tab=packages', 
-        icon: ShoppingBag,
-        description: 'باقات تعليمية متنوعة'
-      },
-      ...(hasSubscription ? [{
-        label: 'الاستشارات', 
-        href: '/student/consulting', 
-        icon: MessageSquare,
-        description: 'استشارات احترافية'
-      } as const] : []),
-    ] as Array<{
-      label: string;
-      href: string;
-      icon: any;
-      description: string;
-    }>,
+    description: 'باقات واستشارات احترافية',
+    children: [],
   },
   more: {
     label: 'المزيد',
@@ -134,11 +118,17 @@ const getNavigationMenuItems = (hasSubscription: boolean) => ({
     description: 'مزيد من الخيارات والروابط',
     children: [
       { 
+        label: 'أدوات ذكية', 
+        href: '/ai-tools', 
+        icon: Brain,
+        description: 'أدوات ذكاء اصطناعي متقدمة',
+        featured: true
+      },
+      { 
         label: 'المكتبة', 
         href: '/resources', 
         icon: Library,
-        description: 'موارد تعليمية شاملة',
-        featured: true
+        description: 'موارد تعليمية شاملة'
       },
       { 
         label: 'المجتمع', 
@@ -241,7 +231,7 @@ const EnhancedNavbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" style={{ position: 'relative', overflow: 'visible' }}>
+        <div className="container mx-auto max-w-7xl px-8" style={{ position: 'relative', overflow: 'visible' }}>
           <div className="flex items-center justify-between h-16 lg:h-20" style={{ position: 'relative', overflow: 'visible' }}>
             {/* الشعار - محسّن */}
             <Link 
@@ -271,19 +261,12 @@ const EnhancedNavbar = () => {
                     key={href}
                     href={href}
                     className={cn(
-                      "h-[44px] px-5 py-2.5",
-                      "text-sm font-semibold",
-                      "transition-all duration-300 ease-in-out",
-                      "flex items-center justify-center gap-2",
-                      "rounded-xl",
-                      "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
-                      "relative group",
-                      "hover:scale-105 active:scale-95",
-                      isActive
-                        ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
-                        : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
+                      linkVariants({ variant: "nav", size: "nav", active: isActive, interactive: true }),
+                      "relative group"
                     )}
+                    aria-label={`انتقل إلى ${label}`}
                     aria-current={isActive ? 'page' : undefined}
+                    role="menuitem"
                   >
                     {isActive && (
                       <motion.div
@@ -304,6 +287,7 @@ const EnhancedNavbar = () => {
                 const isActive = menu.href !== '#' && (isActiveLink(menu.href) || isDropdownActive(menu.children));
                 const isOpen = openDropdown === key;
                 const IconComponent = menu.icon;
+                const hasChildren = menu.children && menu.children.length > 0;
 
                 return (
                   <div 
@@ -311,26 +295,46 @@ const EnhancedNavbar = () => {
                     className="relative" 
                     style={{ zIndex: openDropdown === key ? 1000 : 'auto' }}
                     ref={key === openDropdown ? dropdownRef : null}
-                    onMouseEnter={() => setOpenDropdown(key)}
-                    onMouseLeave={() => setOpenDropdown(null)}
+                    onMouseEnter={() => hasChildren && setOpenDropdown(key)}
+                    onMouseLeave={() => hasChildren && setOpenDropdown(null)}
                   >
-                                        {menu.href === '#' ? (
+                    {!hasChildren ? (
+                      // زر عادي بدون dropdown
+                      <Link
+                        href={menu.href}
+                        className={cn(
+                          linkVariants({ variant: "nav", size: "nav", active: isActive, interactive: true }),
+                          "relative group"
+                        )}
+                        aria-label={`انتقل إلى ${menu.label}`}
+                        aria-current={isActive ? 'page' : undefined}
+                        role="menuitem"
+                      >
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeNavIndicator"
+                            className="absolute inset-0 bg-primary-50 dark:bg-primary-900/20 rounded-xl shadow-md"
+                            initial={false}
+                            transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                          />
+                        )}
+                        <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-[18px] h-[18px]" />
+                        <span className="relative z-10">{menu.label}</span>
+                      </Link>
+                    ) : menu.href === '#' ? (
                       <button
                         type="button"
                         onClick={() => setOpenDropdown(isOpen ? null : key)}
                         className={cn(
-                          "h-[44px] px-5 py-2.5",
-                          "text-sm font-semibold",
-                          "transition-all duration-300 ease-in-out",
-                          "flex items-center justify-center gap-2",
-                          "rounded-xl",
-                          "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
-                          "relative group",
-                          "hover:scale-105 active:scale-95",
-                          isActive
-                            ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
-                            : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
+                          buttonVariants({ variant: "ghost", size: "nav", interactive: true }),
+                          isActive && "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md",
+                          "relative group"
                         )}
+                        aria-label={`${menu.label} - ${isOpen ? 'إغلاق' : 'فتح'} القائمة الفرعية`}
+                        aria-expanded={isOpen}
+                        aria-haspopup="true"
+                        aria-controls={`dropdown-${key}`}
+                        role="button"
                       >
                         <Icon icon={IconComponent} size="sm" className="relative z-10 text-current w-[18px] h-[18px]" />
                         <span className="relative z-10">{menu.label}</span>
@@ -345,19 +349,16 @@ const EnhancedNavbar = () => {
                       <Link
                         href={menu.href}
                         className={cn(
-                          "h-[44px] px-5 py-2.5",
-                          "text-sm font-semibold",
-                          "transition-all duration-300 ease-in-out",
-                          "flex items-center justify-center gap-2",
-                          "rounded-xl",
-                          "focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
-                          "relative group",
-                          "hover:scale-105 active:scale-95",
-                          isActive
-                            ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-md"
-                            : "text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/80"
+                          linkVariants({ variant: "nav", size: "nav", active: isActive, interactive: true }),
+                          "relative group"
                         )}
+                        aria-label={`انتقل إلى ${menu.label}`}
                         aria-current={isActive ? 'page' : undefined}
+                        role="menuitem"
+                        onMouseEnter={() => setOpenDropdown(key)}
+                        aria-haspopup="true"
+                        aria-expanded={isOpen}
+                        aria-controls={`dropdown-${key}`}
                       >
                         {isActive && (
                           <motion.div
@@ -380,7 +381,7 @@ const EnhancedNavbar = () => {
 
                     {/* Enhanced Dropdown Menu */}
                     <AnimatePresence>
-                      {isOpen && (
+                      {isOpen && hasChildren && (
                         <motion.div
                           initial={{ opacity: 0, y: -10, scale: 0.95 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -395,6 +396,9 @@ const EnhancedNavbar = () => {
                             "backdrop-blur-xl"
                           )}
                           style={{ zIndex: 1000 }}
+                          id={`dropdown-${key}`}
+                          role="menu"
+                          aria-label={`قائمة ${menu.label}`}
                         >
                           {/* Header */}
                           <div className={cn(
@@ -435,6 +439,8 @@ const EnhancedNavbar = () => {
                                 "font-semibold text-primary-700 dark:text-primary-300",
                                 "group"
                               )}
+                              aria-label={`عرض جميع ${menu.label}`}
+                              role="menuitem"
                             >
                               <Icon icon={IconComponent} size="sm" className="text-primary-600 dark:text-primary-400" />
                               <span>جميع {menu.label}</span>
@@ -459,6 +465,9 @@ const EnhancedNavbar = () => {
                                         ? "bg-primary-50 dark:bg-primary-900/20"
                                         : "hover:bg-neutral-100 dark:hover:bg-neutral-700/50"
                                     )}
+                                    aria-label={`${child.label} - ${child.description}`}
+                                    aria-current={childIsActive ? 'page' : undefined}
+                                    role="menuitem"
                                   >
                                     <div className={cn(
                                       "flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center",
@@ -522,18 +531,12 @@ const EnhancedNavbar = () => {
                     <Link
                       href="/admin/dashboard"
                       className={cn(
-                        "h-[42px] px-4 py-2.5 rounded-xl",
-                        "text-sm font-semibold whitespace-nowrap",
-                        "bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-700 dark:via-indigo-700 dark:to-blue-700",
-                        "text-white",
-                        "hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700 dark:hover:from-purple-800 dark:hover:via-indigo-800 dark:hover:to-blue-800",
-                        "shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/50",
-                        "transition-all duration-300 ease-in-out",
-                        "hover:scale-105 active:scale-95",
-                        "flex items-center justify-center gap-2",
-                        "relative group overflow-hidden",
+                        linkVariants({ variant: "admin", size: "md", interactive: true }),
+                        "whitespace-nowrap relative group overflow-hidden",
                         pathname?.startsWith('/admin') && "ring-2 ring-purple-400 ring-offset-2"
                       )}
+                      aria-label="انتقل إلى لوحة الإدارة"
+                      role="link"
                     >
                       {/* تأثير لامع */}
                       <motion.div
@@ -557,15 +560,11 @@ const EnhancedNavbar = () => {
                     <Link
                       href="/login"
                       className={cn(
-                        "h-[42px] px-5 py-2.5 rounded-xl",
-                        "text-sm font-semibold whitespace-nowrap",
-                        "bg-transparent border-2 border-primary-600 dark:border-primary-400",
-                        "text-primary-600 dark:text-primary-400",
-                        "hover:bg-primary-50 dark:hover:bg-primary-900/20",
-                        "transition-all duration-300 ease-in-out",
-                        "hover:scale-105 active:scale-95",
-                        "flex items-center justify-center gap-2"
+                        linkVariants({ variant: "secondary", size: "md", interactive: true }),
+                        "whitespace-nowrap"
                       )}
+                      aria-label="تسجيل الدخول إلى حسابك"
+                      role="link"
                     >
                       <LogIn className="w-[18px] h-[18px]" />
                       <span>تسجيل الدخول</span>
@@ -573,16 +572,11 @@ const EnhancedNavbar = () => {
                     <Link
                       href="/register"
                       className={cn(
-                        "h-[42px] px-5 py-2.5 rounded-xl",
-                        "text-sm font-semibold whitespace-nowrap",
-                        "bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600",
-                        "text-white",
-                        "hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-600 dark:hover:to-primary-700",
-                        "shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/50",
-                        "transition-all duration-300 ease-in-out",
-                        "hover:scale-105 active:scale-95",
-                        "flex items-center justify-center gap-2"
+                        linkVariants({ variant: "primary", size: "md", interactive: true }),
+                        "whitespace-nowrap"
                       )}
+                      aria-label="إنشاء حساب جديد"
+                      role="link"
                     >
                       <UserPlus className="w-[18px] h-[18px]" />
                       <span>التسجيل</span>
@@ -645,6 +639,9 @@ const EnhancedNavbar = () => {
                           ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 shadow-md"
                           : "hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm"
                       )}
+                      aria-label={`انتقل إلى ${label}`}
+                      aria-current={isActive ? 'page' : undefined}
+                      role="menuitem"
                     >
                       <Icon icon={IconComponent} size="md" className="w-[20px] h-[20px]" />
                       <span>{label}</span>
@@ -671,6 +668,10 @@ const EnhancedNavbar = () => {
                             ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 shadow-md"
                             : "hover:bg-white dark:hover:bg-neutral-800 hover:shadow-sm"
                         )}
+                        aria-label={`${menu.label} - ${isOpen ? 'إغلاق' : 'فتح'} القائمة الفرعية`}
+                        aria-expanded={isOpen}
+                        aria-haspopup="true"
+                        role="button"
                       >
                         <div className="flex items-center gap-3">
                           <Icon icon={menu.icon} size="md" className="w-[20px] h-[20px]" />
@@ -694,6 +695,8 @@ const EnhancedNavbar = () => {
                                   setOpenDropdown(null);
                                 }}
                                 className="block px-4 py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg font-medium"
+                                aria-label={`عرض جميع ${menu.label}`}
+                                role="menuitem"
                               >
                                 جميع {menu.label}
                               </Link>
@@ -711,6 +714,9 @@ const EnhancedNavbar = () => {
                                       ? "bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400 font-medium"
                                       : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                                   )}
+                                  aria-label={`${child.label} - ${child.description}`}
+                                  aria-current={isActiveLink(child.href) ? 'page' : undefined}
+                                  role="menuitem"
                                 >
                                   {child.label}
                                 </Link>
@@ -742,6 +748,8 @@ const EnhancedNavbar = () => {
                           "relative group overflow-hidden",
                           pathname?.startsWith('/admin') && "ring-2 ring-purple-400 ring-offset-2"
                         )}
+                        aria-label="انتقل إلى لوحة الإدارة"
+                        role="link"
                       >
                         {/* تأثير لامع */}
                         <motion.div
@@ -765,6 +773,8 @@ const EnhancedNavbar = () => {
                         href="/login"
                         onClick={() => setMobileMenu(false)}
                         className="h-[50px] w-full px-5 py-3 bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 text-white rounded-xl font-semibold hover:from-primary-700 hover:to-primary-800 dark:hover:from-primary-600 dark:hover:to-primary-700 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] text-sm flex items-center justify-center gap-2.5"
+                        aria-label="تسجيل الدخول إلى حسابك"
+                        role="link"
                       >
                         <LogIn className="w-[19px] h-[19px]" />
                         <span>تسجيل الدخول</span>
@@ -773,6 +783,8 @@ const EnhancedNavbar = () => {
                         href="/register"
                         onClick={() => setMobileMenu(false)}
                         className="h-[50px] w-full px-5 py-3 border-2 border-primary-600 dark:border-primary-400 text-primary-600 dark:text-primary-400 bg-white dark:bg-neutral-800 rounded-xl font-semibold hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-all duration-300 ease-in-out hover:scale-[1.02] active:scale-[0.98] text-sm flex items-center justify-center gap-2.5"
+                        aria-label="إنشاء حساب جديد"
+                        role="link"
                       >
                         <UserPlus className="w-[19px] h-[19px]" />
                         <span>إنشاء حساب جديد</span>

@@ -174,75 +174,90 @@ const ResourcesComponent: React.FC<ResourcesComponentProps> = ({
   );
 
   return (
-    <div className="space-y-12">
-      {title && (
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary text-center mb-6 leading-tight"
-        >
-          {title}
-        </motion.h1>
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+      {/* Grid-based resources layout with consistent spacing */}
+      <div className="grid grid-cols-1 gap-y-12 py-24">
+        
+        {/* Header Section */}
+        <section className="container mx-auto max-w-7xl px-8">
+          {title && (
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary text-center leading-tight"
+            >
+              {title}
+            </motion.h1>
+          )}
+        </section>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-12">
-        {/* Main Content */}
-        <div className="lg:col-span-3 space-y-10">
-          {Object.entries(groupedResources).map(
-            ([category, categoryResources], categoryIndex) => (
+        {/* Main Resources Content */}
+        <section className="container mx-auto max-w-7xl px-8 py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+            
+            {/* Main Content */}
+            <div className="lg:col-span-3">
+              <div className="grid grid-cols-1 gap-y-12">
+                {Object.entries(groupedResources).map(
+                  ([category, categoryResources], categoryIndex) => (
+                    <motion.div
+                      key={category}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 lg:p-10 border border-gray-100 dark:border-gray-700 transition-all duration-300"
+                    >
+                      <div className="flex items-center mb-8">
+                        {React.createElement(
+                          categories[category as keyof typeof categories].icon,
+                          {
+                            className: `w-7 h-7 mr-4 ${categories[category as keyof typeof categories].color} transition-all duration-300`,
+                          }
+                        )}
+                        <h2 className="text-2xl lg:text-3xl font-bold text-primary leading-tight">
+                          {categories[category as keyof typeof categories].label}
+                        </h2>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {categoryResources.map((resource, index) => (
+                          <ResourceCard
+                            key={resource.id}
+                            resource={resource}
+                            onDownload={handleDownload}
+                            index={index}
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+                  )
+                )}
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div className="lg:col-span-1">
               <motion.div
-                key={category}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 lg:p-10 border border-gray-100 dark:border-gray-700 transition-all duration-300"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 sticky top-24 border border-gray-100 dark:border-gray-700 transition-all duration-300"
               >
-                <div className="flex items-center mb-8">
-                  {React.createElement(
-                    categories[category as keyof typeof categories].icon,
-                    {
-                      className: `w-7 h-7 mr-4 ${categories[category as keyof typeof categories].color} transition-all duration-300`,
-                    }
-                  )}
-                  <h2 className="text-2xl lg:text-3xl font-bold text-primary leading-tight">
-                    {categories[category as keyof typeof categories].label}
-                  </h2>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-                  {categoryResources.map((resource, index) => (
-                    <ResourceCard
-                      key={resource.id}
-                      resource={resource}
-                      onDownload={handleDownload}
-                      index={index}
-                    />
+                <h3 className="text-lg lg:text-xl font-bold text-primary mb-6 leading-tight">
+                  مصادر إضافية موصى بها
+                </h3>
+                <div className="grid grid-cols-1 gap-6">
+                  {externalLinks.map((link, index) => (
+                    <ExternalLinkCard key={link.id} link={link} index={index} />
                   ))}
                 </div>
               </motion.div>
-            )
-          )}
-        </div>
-
-        {/* Sidebar */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="lg:col-span-1 space-y-6"
-        >
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 sticky top-24 border border-gray-100 dark:border-gray-700 transition-all duration-300">
-            <h3 className="text-lg lg:text-xl font-bold text-primary mb-6 leading-tight">
-              مصادر إضافية موصى بها
-            </h3>
-            <div className="space-y-5">
-              {externalLinks.map((link, index) => (
-                <ExternalLinkCard key={link.id} link={link} index={index} />
-              ))}
             </div>
+            
           </div>
-        </motion.div>
+        </section>
+        
       </div>
     </div>
   );

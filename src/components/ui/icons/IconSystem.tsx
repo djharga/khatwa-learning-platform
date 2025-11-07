@@ -44,6 +44,11 @@ import {
   Truck,
   Warehouse,
   ChefHat,
+  Play,
+  Lock,
+  Mail,
+  RefreshCw,
+  Info,
 } from 'lucide-react';
 
 interface IconProps {
@@ -90,6 +95,7 @@ const Icon: React.FC<IconProps> = ({ name, size = 'sm', color, className }) => {
     courses: BookOpen,
     paths: Route,
     files: FileText,
+    fileText: FileText,
     folder: Folder,
     'course-tree': FolderOpen,
     audit: CheckSquare,
@@ -106,6 +112,7 @@ const Icon: React.FC<IconProps> = ({ name, size = 'sm', color, className }) => {
     services: Settings,
     subscription: CreditCard,
     'credit-card': CreditCard,
+    creditCard: CreditCard,
     admin: Shield,
     reports: BarChart3,
     instructor: Users,
@@ -130,6 +137,7 @@ const Icon: React.FC<IconProps> = ({ name, size = 'sm', color, className }) => {
     theme: Palette,
     user: User,
     close: X,
+    x: X,
     menu: Menu,
     external: ExternalLink,
     arrowRight: ArrowRight,
@@ -138,6 +146,12 @@ const Icon: React.FC<IconProps> = ({ name, size = 'sm', color, className }) => {
     'chef-hat': ChefHat,
     login: User,
     register: User,
+    play: Play,
+    lock: Lock,
+    mail: Mail,
+    refresh: RefreshCw,
+    refreshCw: RefreshCw,
+    info: Info,
   };
 
   const IconComponent = iconMap[name];

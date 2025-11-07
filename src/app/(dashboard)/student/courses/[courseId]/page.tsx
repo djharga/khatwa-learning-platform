@@ -1,21 +1,11 @@
-'use client';
-
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
-  BookOpen,
   Play,
   FileText,
-  Clock,
-  CheckCircle2,
   ArrowRight,
   BarChart3,
-  Award,
-  Loader2,
-  AlertCircle,
 } from 'lucide-react';
+import { notFound } from 'next/navigation';
 
 interface Course {
   id: string;
@@ -42,76 +32,63 @@ interface Course {
   category: string;
 }
 
-export default function CoursePage() {
-  const params = useParams();
-  const router = useRouter();
-  const courseId = params.courseId as string;
+async function getCourse(courseId: string): Promise<Course | null> {
+  try {
+    // TODO: Replace with actual API call to database
+    // For now, using mock data but in a server component
+    // In production, you would fetch from your database here
+    
+    // Example of how to fetch from API route:
+    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    // const response = await fetch(`${baseUrl}/api/courses/${courseId}`, {
+    //   cache: 'no-store', // or 'force-cache' for static data
+    // });
+    // if (!response.ok) return null;
+    // const data = await response.json();
+    // return data.course;
 
-  const [course, setCourse] = useState<Course | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadCourse();
-  }, [courseId]);
-
-  const loadCourse = async () => {
-    try {
-      setLoading(true);
-      // TODO: Replace with actual API call
-      // const response = await fetch(`/api/courses/${courseId}`);
-      // const data = await response.json();
-      // setCourse(data.course);
-      
-      // Mock data for now
-      setCourse({
-        id: courseId,
-        title: 'دورة المراجعة الداخلية',
-        description: 'دورة شاملة في المراجعة الداخلية',
-        instructor: {
-          name: 'د. أحمد محمد',
-          avatar: '/api/placeholder/64/64',
-        },
-        image: '/banar-cours.png',
-        progress: 0,
-        totalLessons: 0,
-        completedLessons: 0,
-        totalHours: 0,
-        completedHours: 0,
-        status: 'not_started',
-        enrolledDate: new Date().toISOString(),
-        lastActivity: 'الآن',
-        rating: 0,
-        category: 'المراجعة الداخلية',
-      });
-    } catch (error) {
-      console.error('Error loading course:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
-      </div>
-    );
+    // Mock data for now
+    return {
+      id: courseId,
+      title: 'دورة المراجعة الداخلية',
+      description: 'دورة شاملة في المراجعة الداخلية',
+      instructor: {
+        name: 'د. أحمد محمد',
+        avatar: '/api/placeholder/64/64',
+      },
+      image: '/banar-cours.png',
+      progress: 0,
+      totalLessons: 0,
+      completedLessons: 0,
+      totalHours: 0,
+      completedHours: 0,
+      status: 'not_started' as const,
+      enrolledDate: new Date().toISOString(),
+      lastActivity: 'الآن',
+      rating: 0,
+      category: 'المراجعة الداخلية',
+    };
+  } catch (error) {
+    console.error('Error loading course:', error);
+    return null;
   }
+}
+
+interface CoursePageProps {
+  params: Promise<{ courseId: string }>;
+}
+
+export default async function CoursePage({ params }: CoursePageProps) {
+  const { courseId } = await params;
+  const course = await getCourse(courseId);
 
   if (!course) {
-    return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-400">الدورة غير موجودة</p>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="container mx-auto max-w-7xl px-8 py-8">
         {/* Header */}
         <div className="mb-6">
           <Link

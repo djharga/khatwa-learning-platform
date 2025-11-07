@@ -24,37 +24,37 @@ const cardVariants = cva(
     variants: {
       variant: {
         // Default - بطاقة عادية مع حدود خفيفة (backward compatible with shadcn/ui style)
-        default: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md hover:-translate-y-1",
+        default: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-200",
         
         // Elevated - بطاقة مرتفعة بدون حدود
-        elevated: "bg-white dark:bg-neutral-800 shadow-lg hover:shadow-xl border-0 hover:-translate-y-2",
+        elevated: "bg-white dark:bg-neutral-800 shadow-lg hover:shadow-xl hover:scale-105 border-0 hover:-translate-y-2 transition-all duration-200",
         
         // Outlined - بطاقة بحدود واضحة
-        outlined: "bg-transparent dark:bg-transparent border-2 border-neutral-300 dark:border-neutral-600 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-none hover:shadow-md hover:-translate-y-1",
+        outlined: "bg-transparent dark:bg-transparent border-2 border-neutral-300 dark:border-neutral-600 hover:border-indigo-400 dark:hover:border-indigo-500 shadow-none hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-200",
         
         // Ghost - بطاقة شفافة خفيفة
-        ghost: "bg-neutral-50/50 dark:bg-neutral-800/50 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70 border-0 shadow-none hover:shadow-sm",
+        ghost: "bg-neutral-50/50 dark:bg-neutral-800/50 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/70 border-0 shadow-none hover:shadow-lg hover:scale-105 transition-all duration-200",
         
         // Glass - بطاقة زجاجية (Glass Morphism)
-        glass: "bg-white/70 dark:bg-neutral-800/70 backdrop-blur-lg border border-white/20 dark:border-neutral-700/30 shadow-lg hover:bg-white/80 dark:hover:bg-neutral-800/80 hover:shadow-xl hover:-translate-y-1",
+        glass: "bg-white/70 dark:bg-neutral-800/70 backdrop-blur-lg border border-white/20 dark:border-neutral-700/30 shadow-lg hover:bg-white/80 dark:hover:bg-neutral-800/80 hover:shadow-xl hover:scale-105 hover:-translate-y-1 transition-all duration-200",
         
         // Gradient - بطاقة بتدرج لوني
-        gradient: "bg-gradient-to-br from-indigo-500 to-purple-500 text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02]",
+        gradient: "bg-gradient-to-br from-indigo-500 to-purple-500 text-white border-0 shadow-lg hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-200",
         
         // Bordered - بطاقة بحدود ملونة
-        bordered: "bg-white dark:bg-neutral-800 border-2 border-indigo-300 dark:border-indigo-600 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-md hover:-translate-y-1",
+        bordered: "bg-white dark:bg-neutral-800 border-2 border-indigo-300 dark:border-indigo-600 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-lg hover:scale-105 hover:-translate-y-1 transition-all duration-200",
         
         // Interactive - بطاقة تفاعلية محسّنة
-        interactive: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-lg hover:-translate-y-1.5 cursor-pointer active:scale-[0.98]",
+        interactive: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-lg hover:scale-105 hover:-translate-y-1.5 cursor-pointer active:scale-[0.98] transition-all duration-200",
         
         // Compact - بطاقة مضغوطة للمساحات الصغيرة
-        compact: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md hover:-translate-y-0.5",
+        compact: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-lg hover:scale-105 hover:-translate-y-0.5 transition-all duration-200",
         
         // Spacious - بطاقة واسعة للمحتوى الكبير
-        spacious: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-xl hover:-translate-y-2",
+        spacious: "bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-xl hover:scale-105 hover:-translate-y-2 transition-all duration-200",
         
         // Legacy shadcn/ui style (backward compatibility)
-        card: "rounded-lg border bg-card text-card-foreground shadow-sm",
+        card: "rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg hover:scale-105 transition-all duration-200",
       },
       size: {
         xs: "p-3 rounded-lg", // 12px padding, rounded-lg

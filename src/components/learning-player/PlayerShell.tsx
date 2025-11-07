@@ -315,7 +315,7 @@ export default function PlayerShell({
                         <div className="flex-1">
                           <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1.5">اختبار تفاعلي</h4>
                           <p className="text-xs text-gray-700 dark:text-gray-300 mb-3">اختبر معلوماتك من خلال هذا الاختبار التفاعلي.</p>
-                          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs transition-colors flex items-center gap-1.5">
+                          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-xs transition-colors flex items-center gap-1.5 border border-blue-400/50 dark:border-blue-300/50 hover:border-blue-300 dark:hover:border-blue-200 ring-1 ring-blue-500/20 hover:ring-blue-400/40">
                             <span>ابدأ الاختبار</span>
                             <ChevronRight className="w-3 h-3" />
                           </button>
@@ -337,7 +337,7 @@ export default function PlayerShell({
                         <div className="flex-1">
                           <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1.5">وظيفة نهائية</h4>
                           <p className="text-xs text-gray-700 dark:text-gray-300 mb-3">اقرأ المتطلبات بعناية وقدم عملك.</p>
-                          <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold text-xs transition-colors flex items-center gap-1.5">
+                          <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold text-xs transition-colors flex items-center gap-1.5 border border-purple-400/50 dark:border-purple-300/50 hover:border-purple-300 dark:hover:border-purple-200 ring-1 ring-purple-500/20 hover:ring-purple-400/40">
                             <span>عرض الوظيفة</span>
                             <ChevronRight className="w-3 h-3" />
                           </button>

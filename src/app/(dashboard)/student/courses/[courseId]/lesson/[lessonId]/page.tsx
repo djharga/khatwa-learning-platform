@@ -559,7 +559,7 @@ export default function LessonPage() {
           { label: 'التقارير', href: '/student/reports' },
         ]}
         rightContent={
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+          <button className="px-4 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors border border-primary-400/50 dark:border-primary-300/50 hover:border-primary-300 dark:hover:border-primary-200 ring-1 ring-primary-500/20 hover:ring-primary-400/40">
             الملف الشخصي
           </button>
         }

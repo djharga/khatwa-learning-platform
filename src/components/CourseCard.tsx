@@ -37,11 +37,11 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
   // Modern, soft, and attractive card design inspired by global platforms
   return (
     <motion.div 
-      className="group relative bg-white dark:bg-neutral-800 rounded-2xl shadow-sm hover:shadow-2xl border border-gray-100 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 overflow-hidden"
+      className="group relative bg-white dark:bg-neutral-800 rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      whileHover={{ y: -4 }}
+      whileHover={{ y: -4, scale: 1.05 }}
     >
       {/* Image Section */}
       <div className="relative w-full h-48 sm:h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800">

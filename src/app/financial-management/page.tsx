@@ -27,6 +27,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import ContentProtection from '@/components/security/ContentProtection';
+import { buttonVariants } from '@/lib/variants';
+import { cn } from '@/lib/utils';
 
 const FinancialManagementPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -241,7 +243,7 @@ const FinancialManagementPage = () => {
   return (
     <ContentProtection>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-8">
           {/* رأس الصفحة */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -438,7 +440,7 @@ const FinancialManagementPage = () => {
                         {program.price} ريال
                       </div>
                       <motion.button
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300"
+                        className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-300 border border-blue-400/50 dark:border-blue-300/50 hover:border-blue-300 dark:hover:border-blue-200 ring-1 ring-blue-500/20 hover:ring-blue-400/40"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -467,21 +469,31 @@ const FinancialManagementPage = () => {
                 انضم إلى برامجنا المتخصصة واحصل على المهارات اللازمة لبناء مسيرة مهنية ناجحة في مجال الإدارة المالية والتشغيل
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/contact">
+                <Link href="/contact" aria-label="احصل على استشارة مجانية في الإدارة المالية" role="link">
                   <motion.button
-                    className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
+                    className={cn(
+                      buttonVariants({ variant: "gradient", size: "xl", interactive: true }),
+                      "font-bold flex items-center gap-2"
+                    )}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    aria-label="احصل على استشارة مجانية"
+                    role="button"
                   >
-                    <BookOpen className="w-6 h-6" />
+                    <BookOpen className="w-6 h-6" aria-hidden="true" />
                     استشارة مجانية
                   </motion.button>
                 </Link>
-                <Link href="/courses">
+                <Link href="/courses" aria-label="تصفح جميع برامج الإدارة المالية والتشغيل" role="link">
                   <motion.button
-                    className="bg-white text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-50 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300"
+                    className={cn(
+                      buttonVariants({ variant: "outline", size: "xl", interactive: true }),
+                      "font-bold"
+                    )}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    aria-label="تصفح جميع البرامج"
+                    role="button"
                   >
                     تصفح جميع البرامج
                   </motion.button>

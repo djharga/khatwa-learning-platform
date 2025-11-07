@@ -314,7 +314,7 @@ export default function AICoAuditor() {
 
           {/* Export */}
           <div className="flex justify-end">
-            <button className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
+            <button className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all border border-green-400/50 dark:border-green-300/50 hover:border-green-300 dark:hover:border-green-200 ring-1 ring-green-500/20 hover:ring-green-400/40">
               <Download className="w-5 h-5" />
               تصدير تقرير المراجعة
             </button>

@@ -704,15 +704,15 @@ export const motion = {
 
 export const typography = {
   // Font Families - متزامنة مع layout.tsx
-  // Cairo: للعناوين والعناصر المميزة (أثقل وأوضح)
-  // Tajawal: للنصوص والجسم (أنسب وأسهل للقراءة)
+  // Inter: للعناوين (أنيق وعصري)
+  // Nunito Sans: للنصوص والجسم (واضح وسهل القراءة)
   fontFamily: {
-    sans: 'var(--font-cairo), "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    heading: 'var(--font-cairo), "Cairo", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-    body: 'var(--font-tajawal), "Tajawal", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    sans: 'var(--font-nunito-sans), "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    heading: 'var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    body: 'var(--font-nunito-sans), "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     // Fallback fonts
-    arabic: 'var(--font-cairo), "Cairo", "Tajawal", system-ui, sans-serif',
-    english: '"Inter", "Roboto", system-ui, sans-serif',
+    arabic: 'var(--font-inter), "Inter", "Nunito Sans", system-ui, sans-serif',
+    english: 'var(--font-inter), "Inter", "Roboto", system-ui, sans-serif',
     mono: '"JetBrains Mono", "Courier New", monospace',
   },
 

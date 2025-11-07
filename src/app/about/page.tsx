@@ -46,7 +46,7 @@ export default function AboutPage() {
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-success-100/30 dark:from-success-900/30 to-primary-100/30 dark:to-primary-900/30 rounded-full blur-3xl animate-pulse delay-1000"></div>
           </div>
 
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="container mx-auto max-w-7xl px-8 relative z-10">
             <div className="text-center space-y-8">
               <motion.div
                 className="inline-flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-full shadow-lg"
@@ -81,7 +81,7 @@ export default function AboutPage() {
 
         {/* قسم القصة */}
         <section className="relative py-24 lg:py-36 bg-slate-50">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
                 <div className="space-y-4">
@@ -174,7 +174,7 @@ export default function AboutPage() {
 
         {/* قسم الفريق */}
         <section className="relative py-24 lg:py-36 bg-white">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                 فريق العمل
@@ -238,7 +238,7 @@ export default function AboutPage() {
 
         {/* قسم الإنجازات */}
         <section className="relative py-24 lg:py-36 bg-slate-50">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                 إنجازاتنا
@@ -302,7 +302,7 @@ export default function AboutPage() {
 
         {/* قسم التواصل */}
         <section className="relative py-24 lg:py-36 bg-white">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
                 تواصل معنا

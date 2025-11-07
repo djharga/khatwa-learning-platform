@@ -171,20 +171,24 @@ export default {
 
       // Typography System - نظام خطوط متطور ومتعدد الطبقات
       fontFamily: {
-        // Primary Arabic Fonts - الخطوط الأساسية
-        sans: ['var(--font-cairo)', 'Cairo', 'system-ui', '-apple-system', 'sans-serif'],
-        heading: ['var(--font-cairo)', 'Cairo', 'system-ui', '-apple-system', 'sans-serif'],
-        body: ['var(--font-tajawal)', 'Tajawal', 'Azer', 'system-ui', '-apple-system', 'sans-serif'],
+        // Primary Fonts - الخطوط الأساسية
+        sans: ['var(--font-nunito-sans)', 'Nunito Sans', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['var(--font-inter)', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        body: ['var(--font-nunito-sans)', 'Nunito Sans', 'system-ui', '-apple-system', 'sans-serif'],
         
         // Specialized Fonts - خطوط متخصصة
-        display: ['var(--font-cairo)', 'Cairo', 'system-ui', 'sans-serif'],
+        display: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
         technical: ['var(--font-ibm-plex)', 'IBM Plex Sans Arabic', 'system-ui', 'sans-serif'],
-        button: ['var(--font-almarai)', 'Almarai', 'var(--font-cairo)', 'system-ui', 'sans-serif'],
+        button: ['var(--font-almarai)', 'Almarai', 'var(--font-inter)', 'system-ui', 'sans-serif'],
         
         // Generic Fonts - خطوط عامة
-        arabic: ['var(--font-cairo)', 'Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
-        english: ['Inter', 'Roboto', 'system-ui', 'sans-serif'],
+        arabic: ['var(--font-inter)', 'Inter', 'Nunito Sans', 'system-ui', 'sans-serif'],
+        english: ['var(--font-inter)', 'Inter', 'Roboto', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'Courier New', 'monospace'],
+        
+        // Inter and Nunito Sans for specific use
+        inter: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        'nunito-sans': ['var(--font-nunito-sans)', 'Nunito Sans', 'system-ui', 'sans-serif'],
         
         // BRUTALIST TYPOGRAPHY: Legacy compatibility
         'brutalist-heading': ['Mabry Pro', 'Neue Haas Grotesk', 'Arial Black', 'sans-serif'],
@@ -427,6 +431,10 @@ export default {
         '.motion-isolate': {
           isolation: 'isolate',
           'contain': 'layout style paint',
+        },
+        // Text balance for better readability
+        '.text-balance': {
+          'text-wrap': 'balance',
         },
       });
     },

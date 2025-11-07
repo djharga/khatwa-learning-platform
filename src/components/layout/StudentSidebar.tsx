@@ -29,6 +29,8 @@ import {
   Package,
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { linkVariants, buttonVariants } from '@/lib/variants';
+import { cn } from '@/lib/utils';
 
 interface SidebarLink {
   href: string;
@@ -156,6 +158,8 @@ export default function StudentSidebar() {
           <button
             onClick={() => setIsOpen(false)}
             className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+            aria-label="إغلاق القائمة"
+            role="button"
           >
             <X className="w-5 h-5" />
           </button>
@@ -169,12 +173,16 @@ export default function StudentSidebar() {
               <button
                 onClick={() => toggleGroup(group.title)}
                 className="w-full flex items-center justify-between px-3 py-2 text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                aria-label={`${expandedGroups.includes(group.title) ? 'إغلاق' : 'فتح'} مجموعة ${group.title}`}
+                aria-expanded={expandedGroups.includes(group.title)}
+                aria-controls={`group-${group.title}`}
+                role="button"
               >
                 <span>{group.title}</span>
                 {expandedGroups.includes(group.title) ? (
-                  <ChevronUp className="w-4 h-4" />
+                  <ChevronUp className="w-4 h-4" aria-hidden="true" />
                 ) : (
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-4 h-4" aria-hidden="true" />
                 )}
               </button>
 
@@ -187,6 +195,9 @@ export default function StudentSidebar() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.2 }}
                     className="overflow-hidden"
+                    id={`group-${group.title}`}
+                    role="region"
+                    aria-label={`روابط ${group.title}`}
                   >
                     <div className="space-y-1 mt-1">
                       {group.links.map((link) => {
@@ -205,6 +216,9 @@ export default function StudentSidebar() {
                                 : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                               }
                             `}
+                            aria-label={`انتقل إلى ${link.label}`}
+                            aria-current={active ? 'page' : undefined}
+                            role="menuitem"
                           >
                             <Icon className={`w-5 h-5 ${active ? 'text-blue-600 dark:text-blue-400' : ''}`} />
                             <span className="flex-1">{link.label}</span>
@@ -235,9 +249,13 @@ export default function StudentSidebar() {
           <Link
             href="/admin/dashboard"
             onClick={() => setIsOpen(false)}
-            className={`group relative block w-full p-3 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 dark:from-purple-700 dark:via-indigo-700 dark:to-blue-700 text-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden ${
-              pathname?.startsWith('/admin') ? 'ring-2 ring-purple-400 ring-offset-2' : ''
-            }`}
+            className={cn(
+              linkVariants({ variant: "admin", size: "lg", interactive: true }),
+              "group relative block w-full p-3 shadow-md hover:shadow-lg overflow-hidden",
+              pathname?.startsWith('/admin') && 'ring-2 ring-purple-400 ring-offset-2'
+            )}
+            aria-label="انتقل إلى لوحة الإدارة - التحكم الكامل في النظام"
+            role="link"
           >
             {/* خلفية متحركة */}
             <motion.div
@@ -294,7 +312,12 @@ export default function StudentSidebar() {
             <Link
               href="/student/support"
               onClick={() => setIsOpen(false)}
-              className="block w-full text-center px-3 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              className={cn(
+                buttonVariants({ variant: "primary", size: "sm", interactive: true }),
+                "block w-full text-center"
+              )}
+              aria-label="تواصل مع فريق الدعم الفني"
+              role="link"
             >
               الدعم الفني
             </Link>

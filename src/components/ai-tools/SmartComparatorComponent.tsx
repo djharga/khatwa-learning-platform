@@ -594,11 +594,11 @@ const SmartComparatorComponent = () => {
             حدد ملفين من القائمة لبدء عملية المقارنة واستخراج الفروقات
           </p>
           <div className="flex justify-center space-x-3 space-x-reverse">
-            <button className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all">
+            <button className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all border border-green-400/50 dark:border-green-300/50 hover:border-green-300 dark:hover:border-green-200 ring-1 ring-green-500/20 hover:ring-green-400/40">
               <Upload className="w-4 h-4 inline mr-2" />
               رفع ملفات
             </button>
-            <button className="px-4 py-2 border border-green-500 text-green-600 dark:text-green-400 rounded-lg hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors">
+            <button className="px-4 py-2 border border-green-500 text-green-600 dark:text-green-400 rounded-xl hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors ring-1 ring-green-500/20 hover:ring-green-400/40">
               تصفح الملفات
             </button>
           </div>
