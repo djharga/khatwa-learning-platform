@@ -21,7 +21,7 @@ import {
   FileSpreadsheet,
   FileImage,
   Video,
-  Audio,
+  Music,
   MoreVertical,
   Copy,
   Move,
@@ -199,7 +199,7 @@ const PersonalStorage: FC<PersonalStorageProps> = ({
       case 'audio':
       case 'mp3':
       case 'wav':
-        return <Audio className="w-5 h-5 text-pink-600" />;
+        return <Music className="w-5 h-5 text-pink-600" />;
       default:
         return <File className="w-5 h-5 text-gray-500" />;
     }

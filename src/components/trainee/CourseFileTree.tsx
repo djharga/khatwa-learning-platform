@@ -12,7 +12,7 @@ import {
   FileImage,
   Presentation,
   Video,
-  Audio,
+  Music,
   File,
   Download,
   Eye,
@@ -189,7 +189,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
       case 'video':
         return <Video className="w-5 h-5 text-purple-600" />;
       case 'audio':
-        return <Audio className="w-5 h-5 text-pink-600" />;
+        return <Music className="w-5 h-5 text-pink-600" />;
       case 'image':
         return <FileImage className="w-5 h-5 text-yellow-600" />;
       default:
