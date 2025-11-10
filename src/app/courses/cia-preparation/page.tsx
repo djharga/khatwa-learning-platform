@@ -5,14 +5,15 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building, ChevronUp, Crown, GraduationCap, HelpCircle, Star, TrendingUp, User, Users, BookOpen, Brain, Shield, CheckCircle, CreditCard, Warehouse, FileText, Calculator, Award, Lock, EyeOff, FileX, HardDrive, Smartphone, Target, Heart, Zap, Globe, Calendar, Clock, MapPin, Play, Download, ArrowRight, Trophy } from 'lucide-react';
 import ChatAssistantWidget from '@/components/ChatAssistantWidget';
-import ContactComponent from '@/components/ContactComponent';
-import ProtectionToggle from '@/components/ProtectionToggle';
 
 export default function CIAPreparationCoursePage() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   useEffect(() => {
+    // التحقق من أننا في المتصفح (client-side)
+    if (typeof window === 'undefined') return;
+
     const handleScroll = () => {
       const totalHeight =
         document.documentElement.scrollHeight - window.innerHeight;
@@ -27,7 +28,9 @@ export default function CIAPreparationCoursePage() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   return (
@@ -94,7 +97,7 @@ export default function CIAPreparationCoursePage() {
 
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link
-                    href="/subscription"
+                    href="/subscribe"
                     className="inline-flex items-center justify-center px-8 py-5 bg-indigo-600 text-white text-lg font-semibold rounded-xl hover:bg-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                   >
                     اشترك في الدورة
@@ -422,7 +425,7 @@ export default function CIAPreparationCoursePage() {
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
-                      href="/subscription"
+                      href="/subscribe"
                       className="inline-flex items-center justify-center px-8 py-5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                     >
                       اشترك في الدورة
@@ -443,7 +446,6 @@ export default function CIAPreparationCoursePage() {
       </div>
 
       <ChatAssistantWidget />
-      <ProtectionToggle />
 
       {/* زر العودة للأعلى */}
       <AnimatePresence>

@@ -3,7 +3,16 @@
 import { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { X, Menu, ChevronLeft, ChevronRight, Clock, CheckCircle, BookOpen, ArrowRight } from 'lucide-react';
+import {
+  X,
+  Menu,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
+  CheckCircle,
+  BookOpen,
+  ArrowRight,
+} from 'lucide-react';
 import LessonSidebar from './LessonSidebar';
 import { ResponsiveVideoPlayer } from '@/components/ui/ResponsiveVideoPlayer';
 import PlayerTabs from './PlayerTabs';
@@ -55,7 +64,6 @@ export default function PlayerShell({
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [currentLesson, setCurrentLesson] = useState<Lesson | null>(null);
 
-  // Find current lesson and navigation
   const { currentLesson: foundLesson, prevLesson, nextLesson } = useMemo(() => {
     let found: Lesson | null = null;
     let prev: Lesson | null = null;
@@ -63,10 +71,11 @@ export default function PlayerShell({
     let foundIndex = -1;
     let foundModuleIndex = -1;
 
-    // Find current lesson
     for (let mIdx = 0; mIdx < modules.length; mIdx++) {
       const module = modules[mIdx];
-      const lessonIndex = module.lessons.findIndex(l => String(l.id) === String(currentLessonId));
+      const lessonIndex = module.lessons.findIndex(
+        (l) => String(l.id) === String(currentLessonId)
+      );
       if (lessonIndex !== -1) {
         found = module.lessons[lessonIndex];
         foundIndex = lessonIndex;
@@ -75,31 +84,20 @@ export default function PlayerShell({
       }
     }
 
-    // Find previous lesson
     if (foundIndex !== -1 && foundModuleIndex !== -1) {
       const currentModule = modules[foundModuleIndex];
-      
-      if (foundIndex > 0) {
-        prev = currentModule.lessons[foundIndex - 1];
-      } else if (foundModuleIndex > 0) {
+      if (foundIndex > 0) prev = currentModule.lessons[foundIndex - 1];
+      else if (foundModuleIndex > 0) {
         const prevModule = modules[foundModuleIndex - 1];
-        if (prevModule.lessons.length > 0) {
+        if (prevModule.lessons.length > 0)
           prev = prevModule.lessons[prevModule.lessons.length - 1];
-        }
       }
-    }
-
-    // Find next lesson
-    if (foundIndex !== -1 && foundModuleIndex !== -1) {
-      const currentModule = modules[foundModuleIndex];
-      
-      if (foundIndex < currentModule.lessons.length - 1) {
+      if (foundIndex < currentModule.lessons.length - 1)
         next = currentModule.lessons[foundIndex + 1];
-      } else if (foundModuleIndex < modules.length - 1) {
+      else if (foundModuleIndex < modules.length - 1) {
         const nextModule = modules[foundModuleIndex + 1];
-        if (nextModule.lessons.length > 0 && !nextModule.lessons[0].locked) {
+        if (nextModule.lessons.length > 0 && !nextModule.lessons[0].locked)
           next = nextModule.lessons[0];
-        }
       }
     }
 
@@ -110,22 +108,28 @@ export default function PlayerShell({
     setCurrentLesson(foundLesson);
   }, [foundLesson]);
 
-  // Calculate overall progress
-  const totalLessons = modules.reduce((acc, module) => acc + module.lessons.length, 0);
-  const completedLessons = modules.reduce(
-    (acc, module) => acc + module.lessons.filter(l => l.completed).length,
+  const totalLessons = modules.reduce(
+    (acc: number, m: Module) => acc + m.lessons.length,
     0
   );
-  const overallProgress = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
+
+  const completedLessons = modules.reduce(
+    (acc: number, m: Module) =>
+      acc + m.lessons.filter((l: Lesson) => l.completed).length,
+    0
+  );
+
+  const overallProgress =
+    totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
 
   return (
-    <div className="flex h-screen w-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-white overflow-hidden fixed inset-0 z-50">
+    <div className="flex h-screen w-screen fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900 overflow-hidden z-50">
       {/* Sidebar */}
       <motion.div
         initial={false}
-        animate={{ width: sidebarOpen ? 240 : 0 }}
+        animate={{ width: sidebarOpen ? 250 : 0 }}
         transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="overflow-hidden bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-800 shadow-xl flex-shrink-0"
+        className="overflow-hidden backdrop-blur-xl bg-white/70 border-r border-white/40 shadow-lg"
       >
         {sidebarOpen && (
           <LessonSidebar
@@ -138,100 +142,63 @@ export default function PlayerShell({
         )}
       </motion.div>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden bg-white dark:bg-slate-950">
-        {/* Top Bar - Premium Design */}
-        <div className="h-14 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 shadow-sm flex items-center justify-between px-4 flex-shrink-0">
+      {/* Main */}
+      <div className="flex-1 flex flex-col backdrop-blur-xl bg-white/60 shadow-inner">
+        {/* Header */}
+        <div className="h-14 flex items-center justify-between px-4 bg-white/70 backdrop-blur-xl border-b border-white/40 shadow-sm">
           <div className="flex items-center gap-2 flex-1 min-w-0">
-            {/* Back to Course Button */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => router.push(`/student/courses/${courseId}`)}
-              className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors flex-shrink-0"
-              aria-label="العودة إلى الكورس"
+              className="p-2 hover:bg-blue-100 rounded-lg transition-all"
             >
-              <ArrowRight className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+              <ArrowRight className="w-4 h-4 text-blue-700" />
             </motion.button>
             {!sidebarOpen && (
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSidebarOpen(true)}
-                className="p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors flex-shrink-0"
-                aria-label="فتح القائمة"
+                className="p-2 hover:bg-blue-100 rounded-lg"
               >
-                <Menu className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+                <Menu className="w-4 h-4 text-blue-700" />
               </motion.button>
             )}
             <div className="flex-1 min-w-0">
-              <h1 className="text-xs font-bold truncate text-gray-900 dark:text-white">{courseTitle}</h1>
+              <h1 className="text-xs font-bold text-gray-800 truncate">
+                {courseTitle}
+              </h1>
               {currentLesson && (
-                <p className="text-[10px] text-gray-600 dark:text-gray-400 truncate mt-0.5">{currentLesson.title}</p>
+                <p className="text-[10px] text-gray-500 truncate mt-0.5">
+                  {currentLesson.title}
+                </p>
               )}
             </div>
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex items-center gap-1.5 mx-3">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => prevLesson && onLessonChange(prevLesson.id)}
-              disabled={!prevLesson}
-              className={`p-1.5 rounded-lg transition-all ${
-                prevLesson
-                  ? 'hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300'
-                  : 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
-              }`}
-              aria-label="الدرس السابق"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => nextLesson && !nextLesson.locked && onLessonChange(nextLesson.id)}
-              disabled={!nextLesson || nextLesson?.locked}
-              className={`p-1.5 rounded-lg transition-all ${
-                nextLesson && !nextLesson.locked
-                  ? 'hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-700 dark:text-gray-300'
-                  : 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
-              }`}
-              aria-label="الدرس التالي"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </motion.button>
-          </div>
-
-          {/* Progress */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <div className="text-[10px] font-semibold text-gray-700 dark:text-gray-300 hidden md:block bg-gray-100 dark:bg-slate-800 px-2 py-1 rounded-lg">
-              {completedLessons}/{totalLessons}
-            </div>
-            <div className="w-24 h-1.5 bg-gray-200 dark:bg-slate-800 rounded-full overflow-hidden">
+          <div className="flex items-center gap-2">
+            <div className="w-24 h-1.5 bg-gray-200 rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-gradient-to-r from-blue-500 to-indigo-600"
+                className="h-full bg-gradient-to-r from-blue-500 to-indigo-500"
                 initial={{ width: 0 }}
                 animate={{ width: `${overallProgress}%` }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.4 }}
               />
             </div>
-            <div className="text-[10px] font-bold text-blue-600 dark:text-blue-400 md:hidden bg-blue-50 dark:bg-blue-900/30 px-1.5 py-0.5 rounded">
+            <span className="text-[10px] font-semibold text-blue-700">
               {Math.round(overallProgress)}%
-            </div>
+            </span>
           </div>
         </div>
 
-        {/* Progress Bar */}
         <ProgressBar progress={overallProgress} />
 
-        {/* Lesson Content */}
+        {/* Player */}
         {currentLesson ? (
           <div className="flex-1 flex flex-col min-h-0">
-            {/* Video Player */}
             {currentLesson.type === 'video' && currentLesson.videoUrl ? (
-              <div className="flex-shrink-0 p-4 bg-gray-50 dark:bg-slate-900">
+              <div className="p-4 bg-white/70 backdrop-blur-sm">
                 <ResponsiveVideoPlayer
                   url={currentLesson.videoUrl}
                   title={currentLesson.title}
@@ -240,152 +207,54 @@ export default function PlayerShell({
                   courseId={courseId}
                   onEnded={() => {
                     onComplete?.(currentLesson.id);
-                    if (nextLesson && !nextLesson.locked) {
-                      setTimeout(() => {
-                        onLessonChange(nextLesson.id);
-                      }, 2000);
-                    }
+                    if (nextLesson && !nextLesson.locked)
+                      setTimeout(() => onLessonChange(nextLesson.id), 2000);
                   }}
                 />
               </div>
             ) : (
-              // Non-video lesson header
-              <div className="flex-shrink-0 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800 p-5 border-b border-gray-200 dark:border-slate-800">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-2xl shadow-lg">
-                    {currentLesson.type === 'reading' ? '📖' : 
-                     currentLesson.type === 'quiz' ? '📝' :
-                     currentLesson.type === 'assignment' ? '📋' : '📄'}
+              <div className="p-6 bg-white/70 backdrop-blur-sm border-b border-white/40">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-lg flex items-center justify-center shadow-md">
+                    {currentLesson.type === 'reading'
+                      ? '📖'
+                      : currentLesson.type === 'quiz'
+                      ? '📝'
+                      : '📋'}
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h2 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">{currentLesson.title}</h2>
-                    <div className="flex items-center gap-2">
-                      <span className="flex items-center gap-1.5 text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 px-2.5 py-1 rounded-lg">
-                        <Clock className="w-3 h-3" />
-                        <span className="font-medium text-xs">{currentLesson.duration}</span>
-                      </span>
-                      {currentLesson.completed && (
-                        <span className="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2.5 py-1 rounded-lg">
-                          <CheckCircle className="w-3 h-3" />
-                          <span className="font-medium text-xs">مكتمل</span>
-                        </span>
-                      )}
+                  <div>
+                    <h2 className="text-sm font-bold text-gray-800">
+                      {currentLesson.title}
+                    </h2>
+                    <div className="flex items-center gap-2 text-[10px] text-gray-600">
+                      <Clock className="w-3 h-3" /> {currentLesson.duration}
                     </div>
                   </div>
                 </div>
               </div>
             )}
-                    
-            {/* Content Area */}
-            <div className="flex-1 flex flex-col lg:flex-row min-h-0">
-              {/* Main Content */}
-              <div className="flex-1 overflow-y-auto bg-white dark:bg-slate-950">
-                <div className="max-w-4xl mx-auto p-5">
-                  {currentLesson.description && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-5"
-                    >
-                      <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                          <BookOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                          نظرة عامة على الدرس
-                        </h3>
-                        <div className="prose prose-sm dark:prose-invert max-w-none">
-                          <p className="whitespace-pre-line text-gray-700 dark:text-gray-300 leading-relaxed text-xs">
-                            {currentLesson.description}
-                          </p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
 
-                  {/* Quick Actions */}
-                  {currentLesson.type === 'quiz' && (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="mb-5 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
-                          📝
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1.5">اختبار تفاعلي</h4>
-                          <p className="text-xs text-gray-700 dark:text-gray-300 mb-3">اختبر معلوماتك من خلال هذا الاختبار التفاعلي.</p>
-                          <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-xs transition-colors flex items-center gap-1.5 border border-blue-400/50 dark:border-blue-300/50 hover:border-blue-300 dark:hover:border-blue-200 ring-1 ring-blue-500/20 hover:ring-blue-400/40">
-                            <span>ابدأ الاختبار</span>
-                            <ChevronRight className="w-3 h-3" />
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {currentLesson.type === 'assignment' && (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="mb-5 p-4 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-xl"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center text-lg flex-shrink-0">
-                          📋
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1.5">وظيفة نهائية</h4>
-                          <p className="text-xs text-gray-700 dark:text-gray-300 mb-3">اقرأ المتطلبات بعناية وقدم عملك.</p>
-                          <button className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold text-xs transition-colors flex items-center gap-1.5 border border-purple-400/50 dark:border-purple-300/50 hover:border-purple-300 dark:hover:border-purple-200 ring-1 ring-purple-500/20 hover:ring-purple-400/40">
-                            <span>عرض الوظيفة</span>
-                            <ChevronRight className="w-3 h-3" />
-                          </button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-
-                  {/* Action Buttons */}
+            <div className="flex-1 flex flex-col lg:flex-row">
+              <div className="flex-1 overflow-y-auto p-6">
+                {currentLesson.description && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="sticky bottom-0 bg-white dark:bg-slate-950 py-4 mt-5 border-t border-gray-200 dark:border-slate-800"
                   >
-                    <div className="flex items-center justify-start gap-3">
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => onComplete?.(currentLesson.id)}
-                        disabled={currentLesson.completed}
-                        className={`px-5 py-2.5 rounded-lg font-semibold text-xs transition-all flex items-center gap-2 ${
-                          currentLesson.completed
-                            ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 cursor-not-allowed'
-                            : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg hover:shadow-xl'
-                        }`}
-                      >
-                        <CheckCircle className="w-3 h-3" />
-                        <span>{currentLesson.completed ? 'مكتمل' : 'إكمال الدرس'}</span>
-                      </motion.button>
-                      {nextLesson && !nextLesson.locked && (
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          onClick={() => onLessonChange(nextLesson.id)}
-                          className="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs transition-colors flex items-center gap-2 shadow-lg hover:shadow-xl"
-                        >
-                          <span>الدرس التالي</span>
-                          <ChevronRight className="w-3 h-3" />
-                        </motion.button>
-                      )}
+                    <div className="bg-white/70 backdrop-blur-md border border-white/40 rounded-xl p-5 shadow-sm">
+                      <h3 className="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
+                        <BookOpen className="w-4 h-4 text-blue-600" /> نظرة
+                        عامة
+                      </h3>
+                      <p className="text-xs text-gray-700 leading-relaxed">
+                        {currentLesson.description}
+                      </p>
                     </div>
                   </motion.div>
-                </div>
+                )}
               </div>
 
-              {/* Tabs Section */}
-              <div className="w-full lg:w-72 flex-shrink-0 border-t lg:border-t-0 lg:border-l border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+              <div className="w-full lg:w-72 border-t lg:border-l border-white/40 bg-white/60 backdrop-blur-md">
                 <PlayerTabs lesson={currentLesson} />
               </div>
             </div>
@@ -393,36 +262,20 @@ export default function PlayerShell({
         ) : (
           <div className="flex-1 flex items-center justify-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="text-center max-w-md mx-auto px-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center"
             >
-              <div className="w-14 h-14 bg-amber-100 dark:bg-amber-900/30 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <X className="w-7 h-7 text-amber-600 dark:text-amber-400" />
+              <div className="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center mx-auto mb-3">
+                <X className="w-6 h-6 text-amber-600" />
               </div>
-              <h2 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">الدرس غير موجود</h2>
-              <p className="text-xs text-gray-600 dark:text-gray-400 mb-5">
-                لم يتم العثور على الدرس المطلوب. يرجى التحقق من الرابط أو العودة إلى قائمة الدروس.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-2 justify-center">
-                <button
-                  onClick={() => {
-                    const firstLesson = modules[0]?.lessons?.[0];
-                    if (firstLesson) {
-                      onLessonChange(firstLesson.id);
-                    }
-                  }}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold text-xs transition-colors"
-                >
-                  العودة إلى أول درس
-                </button>
-                <button
-                  onClick={() => setSidebarOpen(true)}
-                  className="px-4 py-2 bg-gray-200 dark:bg-slate-800 hover:bg-gray-300 dark:hover:bg-slate-700 text-gray-800 dark:text-white rounded-lg font-semibold text-xs transition-colors"
-                >
-                  عرض قائمة الدروس
-                </button>
-              </div>
+              <h2 className="text-sm font-bold text-gray-800">الدرس غير موجود</h2>
+              <button
+                onClick={() => setSidebarOpen(true)}
+                className="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors"
+              >
+                عرض قائمة الدروس
+              </button>
             </motion.div>
           </div>
         )}

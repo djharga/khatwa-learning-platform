@@ -1,99 +1,97 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { useState } from 'react';
 import { faqs } from './faq-data';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
-/**
- * FAQ section component with collapsible question-answer items. Features animated expand/collapse, gradient backgrounds, and call-to-action for unanswered questions. Displays 40 comprehensive FAQs about platform features, pricing, and services.
- */
 const FAQComponent = () => {
-  // Tracks which FAQ item is currently expanded (null if all closed)
+  const prefersReducedMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const toggleFAQ = (index: number) => setOpenIndex(openIndex === index ? null : index);
 
-  /**
-   * Toggles the expanded/collapsed state of an FAQ item. Only one item can be open at a time.
-   */
-  const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  /**
-   * Individual FAQ item with collapsible answer. Features animated chevron icon and smooth height transition.
-   */
-  const FAQItem = ({ faq, index, isOpen, onToggle }: { faq: { question: string; answer: string }; index: number; isOpen: boolean; onToggle: () => void }) => (
+  const FAQItem = ({
+    faq,
+    index,
+    isOpen,
+    onToggle,
+  }: {
+    faq: { question: string; answer: string };
+    index: number;
+    isOpen: boolean;
+    onToggle: () => void;
+  }) => (
     <motion.div
       key={index}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+      whileInView={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, delay: index * 0.06 }}
       viewport={{ once: true }}
-      className="faq-card"
+      className="rounded-2xl border border-gray-200 dark:border-neutral-800 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md shadow-sm hover:shadow-md transition-all duration-300"
     >
       <button
         onClick={onToggle}
-        className="faq-question-button"
+        className="flex w-full items-center justify-between text-start px-6 py-5"
+        aria-expanded={isOpen}
+        aria-label={faq.question}
       >
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.3, type: 'spring', stiffness: 200 }}
-          className="flex-shrink-0 mr-4"
-        >
-          <div className="faq-icon-wrapper">
-            <ChevronDown className="w-6 h-6 icon-contrast-primary" />
-          </div>
-        </motion.div>
-        <span className="faq-question-text">
+        <span className="text-lg font-semibold text-gray-900 dark:text-gray-100 leading-relaxed">
           {faq.question}
         </span>
+        <motion.div
+          animate={prefersReducedMotion ? {} : { rotate: isOpen ? 180 : 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25 }}
+          className="text-blue-600 dark:text-blue-400"
+        >
+          <ChevronDown className="w-5 h-5" aria-hidden="true" />
+        </motion.div>
       </button>
-      <motion.div
-        initial={false}
-        animate={{
-          height: isOpen ? 'auto' : 0,
-          opacity: isOpen ? 1 : 0,
-        }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="overflow-hidden"
-      >
-        <div className="faq-answer">
-          <p className="faq-answer-text">
-            {faq.answer}
-          </p>
-        </div>
-      </motion.div>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            initial={prefersReducedMotion ? { opacity: 1, height: 'auto' } : { opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={prefersReducedMotion ? { opacity: 1, height: 'auto' } : { opacity: 0, height: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="px-6 pb-5 text-gray-700 dark:text-gray-300 text-base leading-relaxed border-t border-gray-100 dark:border-neutral-800">
+              {faq.answer}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 
   return (
     <section
-      className="relative py-20 px-6 sm:px-8 lg:px-12 bg-gradient-to-br from-slate-50 via-blue-50/20 to-slate-100 overflow-hidden"
       id="faq"
+      className="relative py-24 px-6 sm:px-8 lg:px-12 bg-gradient-to-br from-slate-50 via-blue-50/30 to-white dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 overflow-hidden"
     >
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(120,119,198,0.05),transparent_50%)] pointer-events-none"></div>
-      <div className="absolute top-20 right-20 w-64 h-64 bg-blue-200/5 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 left-20 w-48 h-48 bg-purple-200/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+      {/* Background decorations */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(99,102,241,0.07),transparent_60%)] pointer-events-none" />
+      <div className={`absolute -top-10 -left-10 w-72 h-72 bg-blue-200/10 dark:bg-blue-400/10 rounded-full blur-3xl ${prefersReducedMotion ? '' : 'animate-pulse'}`} />
+      <div className={`absolute bottom-10 right-10 w-64 h-64 bg-purple-200/10 dark:bg-purple-400/10 rounded-full blur-3xl ${prefersReducedMotion ? '' : 'animate-pulse delay-1000'}`} />
 
-      <div className="relative content-wide mx-auto">
+      <div className="relative max-w-5xl mx-auto z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center space-element-xl"
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
+          className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-6 leading-tight">
+          <h2 className="text-4xl sm:text-5xl font-extrabold mb-5 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             الأسئلة الشائعة
           </h2>
-          <p className="text-lg sm:text-xl text-slate-700 max-w-3xl mx-auto leading-relaxed mb-12">
-            ثقة كاملة مبنية على معايير أمنية واعتمادات مهنية وضمانات استرداد واضحة.
+          <p className="text-lg text-gray-600 dark:text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            جميع الإجابات التي تحتاجها حول المنصة، التسجيل، الأسعار، وخدمات الدعم الفني.
           </p>
         </motion.div>
 
-        {/* Collapsible FAQ items with animated expand/collapse */}
-        <div className="space-y-6">
+        {/* FAQ items */}
+        <div className="space-y-5">
           {faqs.map((faq, index) => (
             <FAQItem
               key={index}
@@ -105,29 +103,28 @@ const FAQComponent = () => {
           ))}
         </div>
 
-        {/* Contact prompt for questions not covered in FAQ list */}
+        {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-12 card-modern-spacious bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200"
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.7, delay: 0.3 }}
+          className="mt-16 text-center rounded-3xl border border-blue-100 dark:border-blue-900 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-10 shadow-inner"
         >
-          <div className="text-lg text-contrast-secondary mb-4">
-            <span className="font-semibold accent-contrast-primary">إن لم تجد سؤالك</span> في قائمة الأسئلة الشائعة أعلاه،
-          </div>
-          <p className="text-contrast-tertiary mb-6">
-            لا تتردد في التواصل معنا مباشرة. فريق الدعم متاح لمساعدتك في أي استفسار أو مشكلة تواجهها
+          <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-3">
+            لم تجد إجابتك؟
+          </h3>
+          <p className="text-gray-600 dark:text-gray-500 mb-6">
+            فريق الدعم جاهز للرد على جميع استفساراتك التقنية أو الإدارية في أي وقت.
           </p>
           <motion.button
-            whileHover={{ scale: 1.05, y: -3 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-contrast-primary group px-8 py-4 text-lg font-semibold"
+            whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+            whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
             onClick={() => (window.location.href = '/contact')}
+            className="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition"
+            aria-label="التواصل معنا"
           >
-            <span className="relative z-10 flex items-center gap-3">
-              تواصل معنا الآن
-              <HelpCircle className="w-6 h-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-12" />
+            <span className="flex items-center justify-center gap-2">
+              تواصل معنا <HelpCircle className="w-5 h-5" aria-hidden="true" />
             </span>
           </motion.button>
         </motion.div>

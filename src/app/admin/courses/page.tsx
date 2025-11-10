@@ -433,8 +433,8 @@ const AdminCoursesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full">
+      <div className="w-full">
         {/* رأس الصفحة */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

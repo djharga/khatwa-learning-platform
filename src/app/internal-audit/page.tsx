@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Script from 'next/script';
+import Link from 'next/link';
 import {
   BookOpen,
   Shield,
@@ -26,6 +27,7 @@ import {
   Zap,
 } from 'lucide-react';
 import { generateStructuredData } from '@/lib/seo';
+import PageBackground from '@/components/ui/PageBackground';
 
 const InternalAuditPage = () => {
   const [activeLevel, setActiveLevel] = useState<1 | 2 | 3>(1);
@@ -361,7 +363,7 @@ const InternalAuditPage = () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+      <PageBackground variant="courses">
         {/* Progress Bar */}
         <div className="fixed top-0 left-0 right-0 h-1 bg-gray-200 z-50">
           <motion.div
@@ -372,80 +374,83 @@ const InternalAuditPage = () => {
           />
         </div>
 
-        <div className="container mx-auto max-w-7xl px-8 py-12">
-          {/* Enhanced Hero Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
-          >
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-100 to-indigo-100 px-6 py-3 rounded-full mb-6 shadow-lg border border-blue-200"
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+          {/* Modern & Simple Hero Section */}
+          <div className="relative rounded-3xl overflow-hidden mb-12">
+            {/* Background Image */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: 'url(/assets/internal-audit-hero.jpg)',
+              }}
             >
-              <Shield className="w-6 h-6 text-blue-600" />
-              <span className="text-blue-700 font-bold">المراجعة الداخلية</span>
-              <Sparkles className="w-4 h-4 text-purple-600" />
-            </motion.div>
-
-            {/* Title */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight"
-            >
-              برنامج زمالة المراجعين الداخليين
-              <br />
-              <span className="text-3xl md:text-4xl lg:text-5xl text-gradient-to-r from-blue-600 to-purple-600 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                3 مستويات متكاملة
-              </span>
-            </motion.h1>
-
-            {/* Description */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-2xl md:text-3xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed"
-            >
-              رحلة شاملة لتطوير الكفاءات المهنية في المراجعة الداخلية من المبتدئ إلى الخبير المتخصص
-            </motion.p>
-
-            {/* Stats */}
+              {/* Dark Overlay for better text readability */}
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-blue-900/70 to-indigo-900/80" />
+              
+              {/* Additional gradient overlay for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            </div>
+            
+            {/* Background Glow Effects */}
+            <div className="absolute -top-20 -right-20 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl pointer-events-none" />
+            
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-              className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-12"
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="relative z-10 text-center max-w-5xl mx-auto py-16 lg:py-24 px-6"
             >
-              {[
-                { icon: Users, label: 'طالب نشط', value: '15,420', color: 'blue' },
-                { icon: Star, label: 'تقييم', value: '4.9', color: 'yellow' },
-                { icon: Award, label: 'شهادة معتمدة', value: '100%', color: 'green' },
-                { icon: Target, label: 'معدل النجاح', value: '95%', color: 'purple' },
-              ].map((stat, index) => {
-                const Icon = stat.icon;
-                return (
-                  <motion.div
-                    key={stat.label}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.6 + index * 0.1 }}
-                    className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow"
-                  >
-                    <Icon className={`w-8 h-8 text-${stat.color}-600 mx-auto mb-2`} />
-                    <div className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</div>
-                    <div className="text-base text-gray-600">{stat.label}</div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+              {/* Badge - Simple & Elegant */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/20 backdrop-blur-md rounded-full mb-8 border border-white/30 shadow-lg"
+              >
+                <Shield className="w-5 h-5 text-white" />
+                <span className="text-white font-semibold text-sm md:text-base">
+                  المراجعة الداخلية
+                </span>
+              </motion.div>
 
-            {/* المحتوى التعريفي الإلزامي - Enhanced Design */}
+              {/* Main Title - Clean & Bold */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-2xl"
+              >
+                <span className="block">برنامج زمالة المراجعين الداخليين</span>
+              </motion.h1>
+
+              {/* Subtitle - Gradient */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="mb-8"
+              >
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white drop-shadow-lg">
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
+                    3 مستويات متكاملة
+                  </span>
+                </h2>
+              </motion.div>
+
+              {/* Description - Simple & Clear */}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5, duration: 0.6 }}
+                className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium mb-12 drop-shadow-lg"
+              >
+                رحلة شاملة لتطوير الكفاءات المهنية في المراجعة الداخلية من المبتدئ إلى الخبير المتخصص
+              </motion.p>
+            </motion.div>
+          </div>
+
+          {/* المحتوى التعريفي الإلزامي - Enhanced Design */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -567,12 +572,11 @@ const InternalAuditPage = () => {
                   transition={{ delay: 1.7 }}
                   className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white p-8 rounded-2xl text-center shadow-2xl"
                 >
-                  <p className="text-2xl md:text-3xl font-bold mb-2">احترف مهنة المراجعة الداخلية بالتدريب العملى</p>
-                  <p className="text-lg opacity-90">ابدأ رحلتك نحو التميز المهني اليوم</p>
+                  <p className="text-2xl md:text-3xl font-bold mb-2 text-white">احترف مهنة المراجعة الداخلية بالتدريب العملى</p>
+                  <p className="text-lg text-white">ابدأ رحلتك نحو التميز المهني اليوم</p>
                 </motion.div>
               </div>
             </motion.div>
-          </motion.div>
 
           {/* Enhanced Level Selection */}
           <motion.div
@@ -615,8 +619,8 @@ const InternalAuditPage = () => {
                         {level.id}
                       </div>
                       <div className="flex-1 mr-3">
-                        <h3 className="text-2xl font-bold mb-1">{level.title}</h3>
-                        <p className={`text-base ${activeLevel === level.id ? 'opacity-90' : 'text-gray-600'}`}>
+                        <h3 className={`text-2xl font-bold mb-1 ${activeLevel === level.id ? 'text-white' : ''}`}>{level.title}</h3>
+                        <p className={`text-base ${activeLevel === level.id ? 'text-white' : 'text-gray-600'}`}>
                           {level.description}
                         </p>
                       </div>
@@ -736,8 +740,8 @@ const InternalAuditPage = () => {
               </div>
 
               <div className="text-center relative z-10">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4">{currentLevel.title}</h2>
-                <p className="text-2xl opacity-90 mb-8">{currentLevel.description}</p>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">{currentLevel.title}</h2>
+                <p className="text-2xl text-white mb-8">{currentLevel.description}</p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {[
                     { label: 'محور رئيسي', value: currentLevel.modules.length, icon: BookOpen },
@@ -1027,19 +1031,21 @@ const InternalAuditPage = () => {
             </div>
 
             <div className="text-center">
-              <motion.button
-                className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center gap-3"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                type="button"
-              >
-                ابدأ رحلتك التعليمية الآن
-                <ArrowRight className="w-6 h-6" />
-              </motion.button>
+              <Link href="/register">
+                <motion.button
+                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center gap-3"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  type="button"
+                >
+                  ابدأ رحلتك التعليمية الآن
+                  <ArrowRight className="w-6 h-6" />
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         </div>
-      </div>
+      </PageBackground>
     </>
   );
 };

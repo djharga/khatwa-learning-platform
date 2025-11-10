@@ -1,210 +1,109 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import PageBackground from '@/components/ui/PageBackground';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
-// Lazy load heavy components for better performance
-const CreativeHeroSection = dynamic(
-  () => import('@/components/homepage/CreativeHeroSection'),
-  { 
-    ssr: true, // Keep SSR for Hero (above the fold)
-    loading: () => <div className="min-h-[85vh] bg-gradient-to-br from-neutral-900 via-neutral-800 to-primary-900" />
-  }
-);
-
-const QuickStatsBar = dynamic(
-  () => import('@/components/homepage/QuickStatsBar'),
-  { ssr: false }
-);
-
-const FeaturedCoursesSection = dynamic(
-  () => import('@/components/homepage/FeaturedCoursesSection'),
-  { ssr: false }
-);
-
-// Replace the CIASpotlightSection import with the new FellowshipSection
-const FellowshipSection = dynamic(
-  () => import('@/components/homepage/FellowshipSection'),
-  { ssr: false }
-);
-
-const FAQSection = dynamic(
-  () => import('@/components/homepage/FAQSection'),
-  { ssr: false }
-);
-
-const CTASection = dynamic(
-  () => import('@/components/homepage/CTASection'),
-  { ssr: false }
-);
-
-// Introduction Sections - أقسام التعريف بالمنصة
-const IntroductionSection = dynamic(
-  () => import('@/components/homepage/IntroductionSection'),
-  { ssr: false }
-);
-
-const VisionSection = dynamic(
-  () => import('@/components/homepage/VisionSection'),
-  { ssr: false }
-);
-
-const MissionSection = dynamic(
-  () => import('@/components/homepage/MissionSection'),
-  { ssr: false }
-);
-
-const GoalsSection = dynamic(
-  () => import('@/components/homepage/GoalsSection'),
-  { ssr: false }
-);
-
-const ValuesSection = dynamic(
-  () => import('@/components/homepage/ValuesSection'),
-  { ssr: false }
-);
-
-
-/**
- * Homepage - الصفحة الرئيسية
- * تصميم احترافي محسّن للأداء
- * 
- * Performance Optimizations:
- * - Lazy loading for below-the-fold components
- * - Throttled scroll handler
- * - Optimized animations
- * - Code splitting
- */
+// ✦ Lazy Loading للأقسام ✦
+const CreativeHeroSection = dynamic(() => import('@/components/homepage/CreativeHeroSection'), { ssr: true });
+const FeaturedCoursesSection = dynamic(() => import('@/components/homepage/FeaturedCoursesSection'), { ssr: false });
+const FellowshipSection = dynamic(() => import('@/components/homepage/FellowshipSection'), { ssr: false });
+const FAQSection = dynamic(() => import('@/components/homepage/FAQSection'), { ssr: false });
+const CTASection = dynamic(() => import('@/components/homepage/CTASection'), { ssr: false });
+const IntroductionSection = dynamic(() => import('@/components/homepage/IntroductionSection'), { ssr: false });
+const VisionSection = dynamic(() => import('@/components/homepage/VisionSection'), { ssr: false });
+const MissionSection = dynamic(() => import('@/components/homepage/MissionSection'), { ssr: false });
+const GoalsSection = dynamic(() => import('@/components/homepage/GoalsSection'), { ssr: false });
+const ValuesSection = dynamic(() => import('@/components/homepage/ValuesSection'), { ssr: false });
 
 export default function HomePage() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const [isMounted, setIsMounted] = useState(false);
 
-  // Throttled scroll handler for better performance
+  // ⚙️ تحسين الأداء مع GPU
   useEffect(() => {
     let ticking = false;
-
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
-          const totalHeight =
-            document.documentElement.scrollHeight - window.innerHeight;
-          const progress = Math.min(
-            (window.pageYOffset / totalHeight) * 100,
-            100
-          );
-          setScrollProgress(progress);
-          setShowScrollToTop(window.pageYOffset > 300);
+          const doc = document.documentElement;
+          const total = doc.scrollHeight - window.innerHeight;
+          const ratio = (window.scrollY / total) * 100;
+          setScrollProgress(Math.min(ratio, 100));
           ticking = false;
         });
         ticking = true;
       }
     };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // التأكد من mount قبل عرض الحركات
+  useEffect(() => {
+    setIsMounted(true);
   }, []);
 
+  const sections = useMemo(
+    () => [
+      CreativeHeroSection,
+      IntroductionSection,
+      VisionSection,
+      MissionSection,
+      GoalsSection,
+      ValuesSection,
+      FeaturedCoursesSection,
+      FellowshipSection,
+      FAQSection,
+      CTASection,
+    ],
+    []
+  );
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">  
-      {/* Modern Scroll Progress Bar - Reduced Animation */}
-      <div className="fixed top-0 left-0 right-0 h-0.5 z-50 bg-neutral-200/50 dark:bg-neutral-700/50">                                                          
+    <PageBackground variant="home">
+      {/* ✦ مؤشر تقدم التمرير ✦ */}
+      <div className="fixed top-0 left-0 right-0 h-[3px] z-50 bg-transparent backdrop-blur-[1px]">
         <div
-          className="h-full bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600"
-          style={{
-            width: `${scrollProgress}%`,
-            transformOrigin: 'left',
-          }}
+          className={`h-full bg-gradient-to-r from-orange-500 via-amber-400 to-orange-500 
+                     shadow-[0_0_15px_rgba(245,158,11,0.35)]
+                     ${prefersReducedMotion 
+                       ? 'transition-none' 
+                       : 'transition-transform duration-75 ease-linear will-change-transform'
+                     } origin-left`}
+          style={{ transform: `scaleX(${scrollProgress / 100})` }}
         />
       </div>
 
-      {/* Page Content with optimized grid layout and consistent spacing */}
-      <div className="relative z-10 grid grid-cols-1 gap-y-4 py-8">
-        {/* 1. Hero Section - Above the fold, SSR */}
-        <section className="container mx-auto max-w-7xl px-8">
-          <CreativeHeroSection />
-        </section>
-
-        {/* 2. Introduction Section - التعريف بالمنصة */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <IntroductionSection />
-        </section>
-
-        {/* 4. Vision Section - الرؤية */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <VisionSection />
-        </section>
-
-        {/* 5. Mission Section - الرسالة */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <MissionSection />
-        </section>
-
-        {/* 6. Goals Section - الأهداف */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <GoalsSection />
-        </section>
-
-        {/* 7. Values Section - القيم والهدف */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <ValuesSection />
-        </section>
-
-        {/* 10. Featured Courses Section - Priority Section */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <FeaturedCoursesSection />
-        </section>
-
-        {/* 11. Enhanced Fellowship Section */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <FellowshipSection />
-        </section>
-
-        {/* 12. FAQ */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <FAQSection />
-        </section>
-
-        {/* 13. Final CTA */}
-        <section className="container mx-auto max-w-7xl px-8 py-8">
-          <CTASection />
-        </section>
+      {/* ✦ أقسام الصفحة ✦ */}
+      <div className="relative z-10">
+        {sections.map((Section, i) => (
+          <section
+            key={i}
+            className={`
+              container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16
+              ${prefersReducedMotion || !isMounted 
+                ? 'opacity-100' 
+                : 'animate-fadeInUp opacity-0'
+              }
+            `}
+            style={prefersReducedMotion || !isMounted ? {} : { animationDelay: `${i * 0.08}s` }}
+          >
+            <Section />
+          </section>
+        ))}
       </div>
 
-      {/* Modern Scroll to Top Button */}
-      <AnimatePresence>
-        {showScrollToTop && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={scrollToTop}
-            className="fixed bottom-24 left-6 z-40 w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-primary-600 to-primary-500 dark:from-primary-500 dark:to-primary-400 text-white rounded-full shadow-lg shadow-primary-500/50 hover:shadow-xl hover:shadow-primary-500/60 flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:ring-offset-2"
-            aria-label="العودة إلى الأعلى"
-          >
-            <svg
-              className="w-5 h-5 md:w-6 md:h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 10l7-7m0 0l7 7m-7-7v18"
-              />
-            </svg>
-          </motion.button>
-        )}
-      </AnimatePresence>
-    </div>
+      {/* ✦ زر العودة إلى الأعلى ✦ */}
+      <ScrollToTopButton 
+        threshold={300}
+        position="left"
+        offset="bottom-20 left-6"
+        size="md"
+      />
+    </PageBackground>
   );
 }

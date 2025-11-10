@@ -1,52 +1,66 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as TabsPrimitive from "@radix-ui/react-tabs"
+import * as React from 'react';
+import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { cn } from '@/lib/utils';
+import { motion } from 'framer-motion';
 
-import { cn } from "@/lib/utils"
+const Tabs = TabsPrimitive.Root;
 
-/**
- * Tabs component system built on Radix UI Tabs primitives. Provides accessible tabbed interfaces with keyboard navigation and ARIA attributes.
- * @note Requires 'use client' directive for client-side interactivity
- */
-
-/**
- * Root tabs component from Radix UI. Manages tab state and keyboard navigation.
- * @note Use with TabsList (for tab buttons) and TabsContent (for tab panels)
- * Keyboard navigation: Arrow keys navigate between tabs, Home/End jump to first/last tab
- * @note Each TabsTrigger and TabsContent must have matching 'value' props
- * @note Use defaultValue for uncontrolled, value + onValueChange for controlled
- * @note Tabs supports vertical orientation via orientation="vertical" prop
- */
-const Tabs = TabsPrimitive.Root
-
-/**
- * Container for tab trigger buttons. Renders as a horizontal list with muted background.
- * Default styling: 40px height, rounded corners, muted background, centered items
- * Layout: Uses inline-flex for horizontal tab arrangement
- */
 const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.List
-    ref={ref}
-    className={cn(
-      "inline-flex h-10 items-center justify-center rounded-lg bg-neutral-100 dark:bg-neutral-800 p-1 text-neutral-600 dark:text-neutral-400 gap-1",
-      className
-    )}
-    // Radix UI handles ARIA attributes (role, aria-selected, aria-controls) automatically
-    {...props}
-  />
-))
-TabsList.displayName = TabsPrimitive.List.displayName
+>(({ className, children, ...props }, ref) => {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
 
-/**
- * Individual tab button that switches between tab panels when clicked. Shows active state with background and shadow.
- * Active state: data-[state=active] applies white background, foreground color, and shadow
- * Default styling: Rounded corners, padding, medium font weight, focus ring
- * Disabled state: Pointer events disabled and reduced opacity when disabled
- */
+  const childrenArray = React.Children.toArray(children);
+
+  // احسب موقع وعرض التبويب النشط
+  const activeChild = containerRef.current?.children?.[activeIndex] as HTMLElement | undefined;
+  const indicatorX =
+    (activeChild?.getBoundingClientRect().left ?? 0) -
+    (containerRef.current?.getBoundingClientRect().left ?? 0);
+  const indicatorWidth = activeChild?.clientWidth ?? 0;
+
+  return (
+    <div className="relative w-full">
+      <TabsPrimitive.List
+        ref={(node) => {
+          if (typeof ref === 'function') ref(node);
+          else if (ref) (ref as React.MutableRefObject<HTMLDivElement | null>).current = node;
+          containerRef.current = node;
+        }}
+        className={cn(
+          'relative flex items-center justify-start rounded-xl bg-neutral-100/80 dark:bg-neutral-800/80 p-1 backdrop-blur-sm gap-1',
+          'border border-neutral-200/60 dark:border-neutral-700/60 shadow-inner',
+          'overflow-x-auto scrollbar-none',
+          className
+        )}
+        {...props}
+      >
+        {childrenArray.map((child, index) => {
+          if (!React.isValidElement(child)) return child;
+          const newProps = {
+            onMouseEnter: () => setActiveIndex(index),
+          } as Partial<React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>>;
+          return React.cloneElement(child as React.ReactElement, newProps);
+        })}
+      </TabsPrimitive.List>
+
+      {/* مؤشر متحرك ديناميكي */}
+      <motion.div
+        className="absolute bottom-0 h-0.5 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"
+        initial={false}
+        animate={{ x: indicatorX, width: indicatorWidth }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
+        style={{ transformOrigin: 'left', willChange: 'transform, width' }}
+      />
+    </div>
+  );
+});
+TabsList.displayName = TabsPrimitive.List.displayName;
+
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
@@ -54,37 +68,19 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-      "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-200",
-      "data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-700 data-[state=active]:text-primary-600 dark:data-[state=active]:text-primary-400 data-[state=active]:shadow-sm",
+      'relative flex-1 min-w-[100px] select-none items-center justify-center whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ease-out',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+      'data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-700 data-[state=active]:text-primary-600 dark:data-[state=active]:text-primary-400 data-[state=active]:shadow-sm',
+      'hover:bg-neutral-50 dark:hover:bg-neutral-800/80 hover:text-primary-600 dark:hover:text-primary-400',
+      'text-neutral-700 dark:text-neutral-300',
+      'disabled:opacity-50 disabled:pointer-events-none',
       className
     )}
-    // Keyboard navigation: Arrow keys, Home, End, Tab (handled by Radix UI)
     {...props}
   />
-))
-TabsTrigger.displayName = TabsPrimitive.Trigger.displayName
+));
+TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
-/**
- * Tab panel content that displays when its associated tab is active. Includes focus ring for keyboard navigation.
- * Visibility: Only visible when corresponding TabsTrigger is active
- * Focus behavior: Focus ring appears when panel receives keyboard focus
- * @example
- * ```typescript
- * <Tabs defaultValue="tab1">
- *   <TabsList>
- *     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
- *     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
- *   </TabsList>
- *   <TabsContent value="tab1">
- *     Content for tab 1
- *   </TabsContent>
- *   <TabsContent value="tab2">
- *     Content for tab 2
- *   </TabsContent>
- * </Tabs>
- * ```
- */
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
@@ -92,14 +88,14 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      "mt-4 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
-      "data-[state=active]:animate-fade-in",
+      'mt-4 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 bg-white/90 dark:bg-neutral-900/80 backdrop-blur-sm',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+      'data-[state=active]:animate-fade-in',
       className
     )}
-    // Focus is automatically managed when switching tabs
     {...props}
   />
-))
-TabsContent.displayName = TabsPrimitive.Content.displayName
+));
+TabsContent.displayName = TabsPrimitive.Content.displayName;
 
-export { Tabs, TabsList, TabsTrigger, TabsContent }
+export { Tabs, TabsList, TabsTrigger, TabsContent };

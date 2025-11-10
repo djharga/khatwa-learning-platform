@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Users, BookOpen, Star, Award } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 
@@ -45,23 +44,19 @@ const QuickStatsBar = () => {
   ];
 
   return (
-    <section className="relative py-8 lg:py-12 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
+    <section className="relative py-12 lg:py-16 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
       <Container size="xl" className="relative z-10">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-          {stats.map((stat, index) => {
+          {stats.map((stat) => {
             const Icon = stat.icon;
             return (
-              <motion.div
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
                 className="group relative"
               >
-                <div className="relative h-full p-4 lg:p-6 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 transition-all duration-300 hover:shadow-md">
+                <div className="relative h-full p-4 lg:p-6 bg-gradient-to-br from-neutral-50 to-white dark:from-neutral-800 dark:to-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 transition-colors duration-200 hover:shadow-md">
                   {/* Gradient Accent */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 rounded-xl transition-opacity duration-300`} />
+                  <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 rounded-xl transition-opacity duration-200`} />
                   
                   {/* Content */}
                   <div className="relative flex flex-col items-center text-center space-y-2">
@@ -76,7 +71,7 @@ const QuickStatsBar = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>

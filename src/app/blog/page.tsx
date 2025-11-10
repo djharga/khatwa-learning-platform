@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Calendar, User, ArrowRight } from 'lucide-react';
+import PageBackground from '@/components/ui/PageBackground';
 
 const articles = [
   {
@@ -81,7 +82,7 @@ const articles = [
 
 const BlogPage = () => {
   return (
-    <div className="min-h-screen bg-background pt-20">
+    <PageBackground variant="resources">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
         <motion.div
@@ -106,7 +107,7 @@ const BlogPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ scale: 1.02, y: -4 }}
-              className="card-modern bg-white dark:bg-neutral-800 border border-neutral-200 overflow-hidden hover-lift-sm rounded-2xl p-0"
+              className="card-modern bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm border border-neutral-200/50 dark:border-neutral-700/50 overflow-hidden hover-lift-sm rounded-2xl p-0"
             >
               <div className="relative">
                 <div className="w-full h-48 bg-gradient-to-br from-accent/20 to-accent/40 flex items-center justify-center">
@@ -165,7 +166,7 @@ const BlogPage = () => {
           </button>
         </motion.div>
       </div>
-    </div>
+    </PageBackground>
   );
 };
 

@@ -35,8 +35,8 @@ export const footerSections: FooterSection[] = [
     title: "المراجعة والاستشارات",
     links: [
       { href: "/cia", text: "زمالة CIA" },
-      { href: "/question-bank", text: "بنك الأسئلة" },
-      { href: "/consulting", text: "الاستشارات" },
+      { href: "/review", text: "بنك الأسئلة والمراجعة" },
+      { href: "/packages-and-consulting", text: "الاستشارات" },
     ],
   },
   {

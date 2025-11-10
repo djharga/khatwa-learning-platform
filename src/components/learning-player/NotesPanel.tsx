@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Search, Clock, Trash2, Download } from 'lucide-react';
 
 interface Note {
@@ -20,143 +21,133 @@ export default function NotesPanel({ lessonId, currentTime = 0 }: NotesPanelProp
   const [newNote, setNewNote] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Load notes from localStorage
   useEffect(() => {
-    const savedNotes = localStorage.getItem(`notes-${lessonId}`);
-    if (savedNotes) {
-      setNotes(JSON.parse(savedNotes));
-    }
+    const saved = localStorage.getItem(`notes-${lessonId}`);
+    if (saved) setNotes(JSON.parse(saved));
   }, [lessonId]);
 
-  // Save notes to localStorage
   useEffect(() => {
-    if (notes.length > 0) {
-      localStorage.setItem(`notes-${lessonId}`, JSON.stringify(notes));
-    }
+    localStorage.setItem(`notes-${lessonId}`, JSON.stringify(notes));
   }, [notes, lessonId]);
 
   const addNote = () => {
     if (!newNote.trim()) return;
-
     const note: Note = {
       id: Date.now().toString(),
-      content: newNote,
+      content: newNote.trim(),
       timestamp: currentTime,
       createdAt: new Date().toISOString(),
     };
-
-    setNotes([note, ...notes]);
+    setNotes((prev) => [note, ...prev]);
     setNewNote('');
   };
 
-  const deleteNote = (id: string) => {
-    setNotes(notes.filter(note => note.id !== id));
-  };
+  const deleteNote = (id: string) => setNotes((prev) => prev.filter((n) => n.id !== id));
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
-  };
+  const formatTime = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
   const filteredNotes = searchQuery
-    ? notes.filter(note => note.content.toLowerCase().includes(searchQuery.toLowerCase()))
+    ? notes.filter((n) => n.content.toLowerCase().includes(searchQuery.toLowerCase()))
     : notes;
 
   const exportNotes = () => {
-    const content = notes
-      .map(note => `[${formatTime(note.timestamp)}] ${note.content}`)
-      .join('\n\n');
+    const content = notes.map((n) => `[${formatTime(n.timestamp)}] ${n.content}`).join('\n\n');
     const blob = new Blob([content], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `notes-lesson-${lessonId}.txt`;
-    link.click();
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `notes-${lessonId}.txt`;
+    a.click();
     URL.revokeObjectURL(url);
   };
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full flex flex-col bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-lg overflow-hidden transition-all">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 dark:border-slate-800 space-y-3">
+      <div className="p-4 border-b border-neutral-200 dark:border-neutral-700 space-y-3 bg-gradient-to-r from-primary-50 to-primary-100/40 dark:from-primary-950/20 dark:to-primary-900/10">
         <div className="relative">
-          <Search className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400" />
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" />
           <input
-            type="text"
-            placeholder="ابحث في الملاحظات..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-8 py-1.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-xs text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+            placeholder="ابحث في الملاحظات..."
+            className="w-full pl-9 pr-3 py-2 bg-white/80 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700 rounded-lg text-xs text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 outline-none transition"
           />
         </div>
 
-        <div className="flex gap-1.5">
+        <div className="flex gap-2">
           <textarea
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
             placeholder="اكتب ملاحظة جديدة..."
-            className="flex-1 px-3 py-1.5 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-xs text-gray-900 dark:text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none outline-none"
+            className="flex-1 px-3 py-2 bg-white/90 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700 rounded-lg text-xs text-neutral-900 dark:text-white placeholder-neutral-400 focus:ring-2 focus:ring-primary-500 outline-none resize-none transition"
             rows={2}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
-                addNote();
-              }
+              if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) addNote();
             }}
           />
           <button
             onClick={addNote}
-            className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-1.5"
+            className="px-4 py-2 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg text-xs font-medium flex items-center gap-1.5 hover:shadow-md transition-all"
           >
-            <Plus className="w-3 h-3" />
-            <span className="text-xs">إضافة</span>
+            <Plus className="w-4 h-4" />
+            <span>إضافة</span>
           </button>
         </div>
 
         {notes.length > 0 && (
           <button
             onClick={exportNotes}
-            className="flex items-center gap-1.5 text-[10px] text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-300 transition-colors"
+            className="flex items-center gap-1.5 text-[11px] text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition"
           >
-            <Download className="w-3 h-3" />
+            <Download className="w-3.5 h-3.5" />
             <span>تصدير الملاحظات</span>
           </button>
         )}
       </div>
 
       {/* Notes List */}
-      <div className="flex-1 overflow-y-auto p-4">
-        {filteredNotes.length === 0 ? (
-          <div className="text-center text-gray-500 dark:text-gray-400 py-8">
-            <p className="text-xs">{searchQuery ? 'لم يتم العثور على ملاحظات' : 'لا توجد ملاحظات بعد'}</p>
-          </div>
-        ) : (
-          <div className="space-y-2">
-            {filteredNotes.map((note) => (
-              <div
+      <div className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
+        <AnimatePresence>
+          {filteredNotes.length === 0 ? (
+            <motion.div
+              key="empty"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center text-neutral-500 dark:text-neutral-400 py-10 text-xs"
+            >
+              {searchQuery ? 'لم يتم العثور على ملاحظات' : 'لا توجد ملاحظات بعد'}
+            </motion.div>
+          ) : (
+            filteredNotes.map((note) => (
+              <motion.div
                 key={note.id}
-                className="p-2.5 bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 hover:shadow-md transition-all"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="p-3 bg-white/80 dark:bg-neutral-800/80 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm hover:shadow-md transition-all"
               >
-                <div className="flex items-start justify-between gap-3 mb-1.5">
-                  <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400">
+                <div className="flex justify-between items-start mb-1">
+                  <div className="flex items-center gap-1 text-primary-600 dark:text-primary-400 text-xs">
                     <Clock className="w-3 h-3" />
                     <span>{formatTime(note.timestamp)}</span>
                   </div>
                   <button
                     onClick={() => deleteNote(note.id)}
-                    className="p-1 hover:bg-gray-100 dark:hover:bg-slate-700 rounded transition-colors"
-                    aria-label="حذف الملاحظة"
+                    className="p-1 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-md transition"
                   >
-                    <Trash2 className="w-3 h-3 text-gray-400" />
+                    <Trash2 className="w-3.5 h-3.5 text-neutral-400" />
                   </button>
                 </div>
-                <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-wrap">{note.content}</p>
-              </div>
-            ))}
-          </div>
-        )}
+                <p className="text-xs text-neutral-700 dark:text-neutral-300 leading-relaxed whitespace-pre-wrap">
+                  {note.content}
+                </p>
+              </motion.div>
+            ))
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
 }
-

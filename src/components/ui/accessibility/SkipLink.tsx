@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface SkipLinkProps {
   href: string;
@@ -10,38 +10,46 @@ interface SkipLinkProps {
 }
 
 /**
- * Skip link component for accessibility - allows keyboard users to skip to main content
- * Follows WCAG guidelines for skip navigation
+ * SkipLink — عنصر وصول سريع لتخطي التنقل إلى المحتوى الرئيسي.
+ * محسّن لأداء عالي، ودعم كامل لـ RTL والـ Focus Management.
  */
-const SkipLink: React.FC<SkipLinkProps> = ({ 
-  href, 
-  children, 
-  className = "" 
-}) => {
-  const [isFocused, setIsFocused] = useState(false);
+export default function SkipLink({ href, children, className = '' }: SkipLinkProps) {
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') setActive(true);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, []);
 
   return (
     <motion.a
       href={href}
+      onFocus={() => setActive(true)}
+      onBlur={() => setActive(false)}
+      onClick={() => setActive(false)}
+      role="link"
+      aria-label="تخطي إلى المحتوى الرئيسي"
+      initial={{ y: -100, opacity: 0 }}
+      animate={{
+        y: active ? 0 : -100,
+        opacity: active ? 1 : 0,
+      }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className={`
-        fixed top-4 right-4 z-50 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium
-        transform transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500
-        ${isFocused ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
+        fixed top-4 start-4 z-[9999]
+        px-4 py-2.5 rounded-lg font-semibold text-sm
+        bg-blue-600 text-white shadow-md
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500
+        focus-visible:ring-offset-2 focus-visible:ring-offset-white
+        dark:focus-visible:ring-offset-gray-900
+        transition-all duration-200 ease-out
         ${className}
       `}
-      onFocus={() => setIsFocused(true)}
-      onBlur={() => setIsFocused(false)}
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ 
-        y: isFocused ? 0 : -100, 
-        opacity: isFocused ? 1 : 0 
-      }}
-      transition={{ duration: 0.2 }}
-      aria-label="تخطي إلى المحتوى الرئيسي"
     >
       {children}
     </motion.a>
   );
-};
-
-export default SkipLink;
+}

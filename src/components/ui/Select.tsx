@@ -133,7 +133,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         </select>
         // Chevron down icon positioned absolutely on the right (non-interactive)
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-          <ChevronDown className="h-5 w-5 text-gray-400" />
+          <ChevronDown className="h-5 w-5 text-neutral-500 dark:text-neutral-500" aria-hidden="true" />
         </div>
       </div>
     );

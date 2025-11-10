@@ -340,19 +340,18 @@ const AdminDashboard = () => {
   const displayStats = stats || getDefaultStats();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-8">
-      <div className="container mx-auto max-w-7xl px-8">
+    <div className="w-full">
+      <div className="w-full">
         {/* Hero Section محسّن */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="relative mb-8"
         >
-          {/* Background Gradient - Enhanced */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-3xl opacity-10 blur-3xl animate-pulse"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 rounded-3xl opacity-5 blur-3xl"></div>
+          {/* Simplified Background - No animation for better performance */}
+          <div className="absolute inset-0 bg-blue-600/5 rounded-3xl blur-3xl opacity-60" style={{ transform: 'translateZ(0)' }}></div>
           
-          <div className="relative bg-white/80 dark:bg-neutral-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 border border-gray-200/50 dark:border-neutral-700/50 overflow-hidden">
+          <div className="relative bg-white/95 dark:bg-neutral-800/95 backdrop-blur-md rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-12 border border-gray-200/50 dark:border-neutral-700/50 overflow-hidden">
             {/* Animated background pattern */}
             <div className="absolute inset-0 opacity-5">
               <div className="absolute inset-0" style={{

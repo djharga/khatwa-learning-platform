@@ -11,132 +11,116 @@ interface ThemeToggleProps {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export function ThemeToggle({ 
-  className, 
+export function ThemeToggle({
+  className,
   variant = 'default',
-  size = 'md'
+  size = 'md',
 }: ThemeToggleProps) {
   const { resolvedTheme, toggleTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
 
-  const sizeClasses = {
-    sm: 'h-8 w-8',
-    md: 'h-10 w-10',
-    lg: 'h-12 w-12',
-  };
+  const sizeMap = {
+    sm: { wrapper: 'h-8 w-8', icon: 'h-4 w-4', knob: 'h-4.5 w-4.5', toggle: 'h-6 w-11' },
+    md: { wrapper: 'h-10 w-10', icon: 'h-5 w-5', knob: 'h-5 w-5', toggle: 'h-7 w-12' },
+    lg: { wrapper: 'h-12 w-12', icon: 'h-6 w-6', knob: 'h-6 w-6', toggle: 'h-8 w-14' },
+  }[size];
 
-  const iconSizes = {
-    sm: 'h-4 w-4',
-    md: 'h-5 w-5',
-    lg: 'h-6 w-6',
-  };
-
+  /* ----------------------- ICON VARIANT ----------------------- */
   if (variant === 'icon') {
     return (
-      <button
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.97 }}
         onClick={toggleTheme}
+        aria-label={isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع المظلم'}
         className={cn(
-          'relative rounded-lg p-2 transition-all duration-200 ease-out',
-          'bg-neutral-100 dark:bg-neutral-800',
-          'hover:bg-neutral-200 dark:hover:bg-neutral-700',
-          'text-neutral-700 dark:text-neutral-300',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-          sizeClasses[size],
+          'flex items-center justify-center rounded-xl bg-neutral-100 dark:bg-neutral-800',
+          'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700',
+          'transition-all duration-200 shadow-sm hover:shadow-md focus-visible:outline-none',
+          'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          sizeMap.wrapper,
           className
         )}
-        aria-label={isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع المظلم'}
-      >
-        <motion.div
-          initial={false}
-          animate={{ rotate: isDark ? 180 : 0, scale: 1 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
-          className="flex items-center justify-center"
-        >
-          {isDark ? (
-            <Sun className={iconSizes[size]} />
-          ) : (
-            <Moon className={iconSizes[size]} />
-          )}
-        </motion.div>
-      </button>
-    );
-  }
-
-  if (variant === 'button') {
-    return (
-      <button
-        onClick={toggleTheme}
-        className={cn(
-          'flex items-center gap-2 rounded-lg px-4 py-2 transition-all duration-200 ease-out',
-          'bg-neutral-100 dark:bg-neutral-800',
-          'hover:bg-neutral-200 dark:hover:bg-neutral-700',
-          'text-neutral-700 dark:text-neutral-300',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-          'font-medium text-sm',
-          className
-        )}
-        aria-label={isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع المظلم'}
       >
         <motion.div
           initial={false}
           animate={{ rotate: isDark ? 180 : 0 }}
-          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
         >
-          {isDark ? (
-            <Sun className={iconSizes[size]} />
-          ) : (
-            <Moon className={iconSizes[size]} />
-          )}
+          {isDark ? <Sun className={sizeMap.icon} /> : <Moon className={sizeMap.icon} />}
         </motion.div>
-        <span>{isDark ? 'فاتح' : 'مظلم'}</span>
-      </button>
+      </motion.button>
     );
   }
 
-  // Default variant - toggle switch
-  return (
-    <button
-      onClick={toggleTheme}
-      className={cn(
-        'relative inline-flex items-center rounded-full p-1 transition-colors duration-200 ease-out',
-        'bg-neutral-200 dark:bg-neutral-700',
-        'hover:bg-neutral-300 dark:hover:bg-neutral-600',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-        size === 'sm' ? 'h-7 w-12' : size === 'lg' ? 'h-8 w-14' : 'h-7 w-12',
-        className
-      )}
-      aria-label={isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع المظلم'}
-      role="switch"
-      aria-checked={isDark}
-    >
-      <motion.div
-        initial={false}
-        animate={{
-          x: isDark ? (size === 'lg' ? 20 : 18) : 2,
-        }}
-        transition={{
-          type: 'spring',
-          stiffness: 500,
-          damping: 30,
-        }}
+  /* ----------------------- BUTTON VARIANT ----------------------- */
+  if (variant === 'button') {
+    return (
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={toggleTheme}
+        aria-label={isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع المظلم'}
         className={cn(
-          'flex items-center justify-center rounded-full bg-white dark:bg-neutral-900 shadow-md',
-          size === 'sm' ? 'h-5 w-5' : size === 'lg' ? 'h-6 w-6' : 'h-5 w-5'
+          'flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm',
+          'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300',
+          'hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-all duration-200 shadow-sm',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          className
         )}
       >
         <motion.div
           initial={false}
-          animate={{ rotate: isDark ? 180 : 0, scale: 1 }}
+          animate={{ rotate: isDark ? 180 : 0 }}
+          transition={{ duration: 0.25, ease: 'easeInOut' }}
+        >
+          {isDark ? <Sun className={sizeMap.icon} /> : <Moon className={sizeMap.icon} />}
+        </motion.div>
+        <span>{isDark ? 'فاتح' : 'مظلم'}</span>
+      </motion.button>
+    );
+  }
+
+  /* ----------------------- TOGGLE VARIANT ----------------------- */
+  return (
+    <motion.button
+      onClick={toggleTheme}
+      whileTap={{ scale: 0.98 }}
+      aria-label={isDark ? 'تفعيل الوضع الفاتح' : 'تفعيل الوضع المظلم'}
+      role="switch"
+      aria-checked={isDark}
+      className={cn(
+        'relative inline-flex items-center rounded-full transition-colors duration-300 ease-out',
+        'bg-neutral-300/60 dark:bg-neutral-700/70 hover:bg-neutral-400/70 dark:hover:bg-neutral-600/70',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+        sizeMap.toggle,
+        className
+      )}
+    >
+      <motion.div
+        initial={false}
+        animate={{
+          x: isDark ? (size === 'lg' ? 28 : 22) : 2,
+          backgroundColor: isDark ? '#111827' : '#ffffff',
+        }}
+        transition={{ type: 'spring', stiffness: 500, damping: 26 }}
+        className={cn(
+          'flex items-center justify-center rounded-full shadow-md ring-1 ring-black/5 dark:ring-white/5',
+          sizeMap.knob
+        )}
+      >
+        <motion.div
+          initial={false}
+          animate={{ rotate: isDark ? 180 : 0 }}
           transition={{ duration: 0.2 }}
         >
           {isDark ? (
-            <Moon className={size === 'lg' ? 'h-3 w-3' : 'h-3 w-3'} />
+            <Moon className={cn('text-yellow-100', size === 'lg' ? 'h-3.5 w-3.5' : 'h-3 w-3')} />
           ) : (
-            <Sun className={size === 'lg' ? 'h-3 w-3' : 'h-3 w-3'} />
+            <Sun className={cn('text-yellow-500', size === 'lg' ? 'h-3.5 w-3.5' : 'h-3 w-3')} />
           )}
         </motion.div>
       </motion.div>
-    </button>
+    </motion.button>
   );
 }
-

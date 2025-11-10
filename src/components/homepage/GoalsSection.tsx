@@ -31,18 +31,10 @@ const GoalsSection = () => {
   ];
 
   return (
-    <section className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-white via-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      {/* Enhanced Abstract Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-gradient-to-br from-indigo-200/20 to-transparent rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-[700px] h-[700px] bg-gradient-to-tr from-indigo-200/20 to-transparent rounded-full blur-3xl" />
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)]" />
-      </div>
-
+    <section className="relative py-12 lg:py-16 overflow-hidden">
       <Container size="xl" className="relative z-10">
         {/* Header */}
-        <div className="text-center mb-16 lg:mb-20">
+        <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50">
             <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm">

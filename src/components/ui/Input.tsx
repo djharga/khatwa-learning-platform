@@ -1,30 +1,23 @@
+'use client';
+
 import React, { forwardRef } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Loader2 } from 'lucide-react';
 
-/**
- * Class variance authority configuration for input field variants. Defines styles for different input types, sizes, and error states.
- * 
- * @variant default - Standard input with gray border and blue focus ring
- * @variant modern - Modern design system input style (uses input-modern CSS class)
- * @size sm - Small size
- * @size md - Medium size (default)
- * @size lg - Large size
- * @error true - Applies red border and focus ring when validation fails
- */
 const inputVariants = cva(
-  'w-full border border-neutral-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 rounded-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-neutral-400 dark:placeholder:text-neutral-500',
+  'w-full border bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-lg transition-all duration-200 ease-out focus:outline-none focus:ring-2 disabled:opacity-50 disabled:cursor-not-allowed placeholder:text-neutral-500 dark:placeholder:text-neutral-500',
   {
     variants: {
       variant: {
-        default: 'border-neutral-300 dark:border-neutral-600 focus:border-primary-500 focus:ring-primary-500/20',
-        modern: 'border-neutral-300 dark:border-neutral-600 focus:border-primary-500 focus:ring-primary-500/20 shadow-sm hover:border-neutral-400 dark:hover:border-neutral-500',
+        default: 'border-neutral-300 dark:border-neutral-700 focus:border-primary-500 focus:ring-primary-500/20',
+        modern: 'border-neutral-300 dark:border-neutral-700 shadow-sm hover:border-neutral-400 dark:hover:border-neutral-600 focus:border-primary-500 focus:ring-primary-500/30',
+        subtle: 'border-transparent bg-neutral-50 dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 focus:ring-primary-500/20',
       },
       size: {
         sm: 'py-2 px-3 text-sm rounded-md',
         md: 'py-2.5 px-4 text-base rounded-lg',
-        lg: 'py-3 px-5 text-lg rounded-lg',
+        lg: 'py-3 px-5 text-lg rounded-xl',
       },
       error: {
         true: 'border-danger-500 dark:border-danger-400 focus:ring-danger-500/20 focus:border-danger-500 dark:focus:border-danger-400',
@@ -39,49 +32,15 @@ const inputVariants = cva(
   }
 );
 
-/**
- * Props for the Input component extending native input HTML attributes with variant styling and icon support.
- * 
- * @prop leftIcon - Optional Lucide icon component to display on the left side of the input
- * @prop rightIcon - Optional Lucide icon component to display on the right side of the input
- * @prop error - Shows error styling with red border and focus ring (default: false)
- * @prop variant - Visual style variant (default: 'modern')
- * @prop size - Input size affecting padding and text size (default: 'md')
- * 
- * Note: The 'size' prop from HTMLInputElement is omitted to avoid conflicts with the variant size prop
- */
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
     VariantProps<typeof inputVariants> {
   leftIcon?: LucideIcon;
   rightIcon?: LucideIcon;
+  loading?: boolean;
   error?: boolean;
 }
 
-/**
- * Flexible input component with icon support, error states, and multiple size variants. Icons are automatically positioned with proper spacing. Uses class-variance-authority for consistent variant management.
- * 
- * @example
- * <Input
- *   type="email"
- *   placeholder="Enter your email"
- *   variant="modern"
- * />
- * 
- * @example
- * <Input
- *   leftIcon={Search}
- *   placeholder="Search..."
- *   size="md"
- * />
- * 
- * @example
- * <Input
- *   error={true}
- *   value={email}
- *   onChange={handleChange}
- * />
- */
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
@@ -91,36 +50,46 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       error,
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
+      loading = false,
       type = 'text',
+      dir = 'auto',
       ...props
     },
     ref
   ) => {
-    // Check if any icon is provided to adjust input padding
-    const hasIcon = LeftIcon || RightIcon;
+    const hasLeft = !!LeftIcon;
+    const hasRight = !!RightIcon || loading;
 
     return (
-      <div className="relative">
-        {LeftIcon && (
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <LeftIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-500" />
+      <div className="relative" dir={dir}>
+        {hasLeft && (
+          <div className="absolute inset-y-0 start-0 ps-3 flex items-center pointer-events-none">
+            <LeftIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-500" aria-hidden="true" />
           </div>
         )}
+
         <input
+          ref={ref}
           type={type}
           className={cn(
             inputVariants({ variant, size, error }),
-            hasIcon && LeftIcon && 'pl-10',
-            hasIcon && RightIcon && 'pr-10',
+            hasLeft && 'ps-10',
+            hasRight && 'pe-10',
             className
           )}
-          ref={ref}
           {...props}
         />
-        {RightIcon && (
-          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-            <RightIcon className="h-5 w-5 text-neutral-400 dark:text-neutral-500" />
+
+        {loading ? (
+          <div className="absolute inset-y-0 end-0 pe-3 flex items-center">
+            <Loader2 className="h-5 w-5 text-primary-500 animate-spin" />
           </div>
+        ) : (
+          RightIcon && (
+            <div className="absolute inset-y-0 end-0 pe-3 flex items-center pointer-events-none">
+              <RightIcon className="h-5 w-5 text-neutral-500 dark:text-neutral-500" aria-hidden="true" />
+            </div>
+          )
         )}
       </div>
     );
@@ -128,5 +97,4 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 
 Input.displayName = 'Input';
-
 export default Input;

@@ -1,405 +1,295 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { JSX, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Check,
-  Star,
-  Crown,
-  Shield,
-  Users,
-  Video,
-  FileText,
-  Award,
-  CreditCard,
-  Smartphone,
-  Calendar,
-  ArrowRight,
-  X,
-  Building,
-  User,
-  Clock,
-  DollarSign,
+  User, Star, Crown, Building, Check, CreditCard, Smartphone, ArrowRight, X, Award, Calendar, Clock, DollarSign
 } from 'lucide-react';
 
-interface SubscriptionPlan {
+interface Plan {
   id: string;
   name: string;
-  description: string;
+  desc: string;
   price: number;
-  originalPrice?: number;
-  period: string;
+  yearly: number;
   features: string[];
-  icon: React.ReactNode;
   color: string;
-  popular?: boolean;
-  courseAccess?: string[];
+  icon: JSX.Element;
+  highlight?: boolean;
 }
 
 export default function Packages() {
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
-  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [cycle, setCycle] = useState<'m' | 'y'>('m');
+  const [showPay, setShowPay] = useState(false);
+  const [selected, setSelected] = useState<Plan | null>(null);
 
-  const plans: SubscriptionPlan[] = [
+  const plans: Plan[] = [
     {
       id: 'free',
-      name: 'باقة مجانية (Free)',
-      description: 'ابدأ التعلم مجاناً',
+      name: 'مجانية',
+      desc: 'ابدأ مجاناً وتعرّف على المنصة',
       price: 0,
-      period: 'مجاناً للأبد',
-      icon: <User className="w-6 h-6" />,
+      yearly: 0,
       color: 'green',
-      features: ['دورة تعريفية أو محتوى محدود', 'مقاطع قصيرة ومقالات أساسية', 'بدون شهادات معتمدة', 'دعم محدود'],
+      icon: <User className="w-6 h-6" />,
+      features: ['وصول محدود', 'محتوى تعريفي', 'بدون شهادة', 'دعم بسيط'],
     },
     {
       id: 'basic',
-      name: 'باقة أساسية (Basic)',
-      description: 'مثالية للمبتدئين في عالم المحاسبة والمراجعة',
-      price: billingCycle === 'monthly' ? 50 : 425,
-      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
-      icon: <Star className="w-6 h-6" />,
+      name: 'أساسية',
+      desc: 'مناسبة للبداية في المحاسبة والمراجعة',
+      price: 50,
+      yearly: 425,
       color: 'blue',
-      features: ['وصول لعدد محدد من الكورسات (مثال: 2 شهرياً)', 'شهادة حضور إلكترونية', 'دعم عبر الإيميل', 'مساحة تخزين 2 جيجا'],
+      icon: <Star className="w-6 h-6" />,
+      features: ['دورتان شهرياً', 'شهادة حضور', 'دعم عبر البريد', '2 جيجا تخزين'],
     },
     {
-      id: 'professional',
-      name: 'باقة برو (Pro)',
-      description: 'الحل الأمثل للمتخصصين والمحترفين',
-      price: billingCycle === 'monthly' ? 100 : 850,
-      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
-      icon: <Crown className="w-6 h-6" />,
+      id: 'pro',
+      name: 'احترافية',
+      desc: 'للمهنيين والخبراء في المجال',
+      price: 100,
+      yearly: 850,
       color: 'purple',
-      popular: true,
-      features: ['وصول كامل لكورسات المحاسبة والمخازن والمشتريات', 'شهادات معتمدة', 'خصومات على خدمات الاستشارات', 'دعم مباشر عبر Zoom أو محادثة', 'مساحة تخزين 5 جيجا'],
+      icon: <Crown className="w-6 h-6" />,
+      features: ['كل الدورات', 'شهادات معتمدة', 'خصومات استشارات', 'دعم مباشر', '5 جيجا تخزين'],
+      highlight: true,
     },
     {
-      id: 'enterprise-small',
-      name: 'الشركات الصغيرة',
-      description: 'للشركات الصغيرة والمتوسطة',
-      price: billingCycle === 'monthly' ? 200 : 1700,
-      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
-      icon: <Building className="w-6 h-6" />,
-      color: 'green',
-      features: ['وصول لـ 5 موظفين', 'متابعة تقارير الأداء', 'مكتبة كورسات شاملة', 'دعم فني مخصص'],
-    },
-    {
-      id: 'enterprise-medium',
-      name: 'الشركات المتوسطة',
-      description: 'للشركات المتوسطة والكبيرة',
-      price: billingCycle === 'monthly' ? 300 : 2550,
-      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
-      icon: <Building className="w-6 h-6" />,
+      id: 'corp',
+      name: 'شركات',
+      desc: 'للمؤسسات والشركات متعددة المستخدمين',
+      price: 300,
+      yearly: 2550,
       color: 'orange',
-      features: ['وصول لـ 15 موظف', 'ورش عمل مباشرة شهرية', 'تقارير تحليلية مفصلة', 'استشارات ربع سنوية'],
-    },
-    {
-      id: 'enterprise-large',
-      name: 'الشركات الكبيرة',
-      description: 'للشركات الكبيرة والمؤسسات',
-      price: billingCycle === 'monthly' ? 500 : 4250,
-      period: billingCycle === 'monthly' ? 'شهرياً' : 'سنوياً',
       icon: <Building className="w-6 h-6" />,
-      color: 'red',
-      features: ['وصول غير محدود للموظفين', 'برامج تدريب مخصصة', 'استشارات شهرية مجانية', 'تكامل مع أنظمة الشركة'],
+      features: ['حتى 15 موظف', 'ورش عمل شهرية', 'تقارير تحليلية', 'استشارات ربع سنوية'],
     },
   ];
 
-  const handleSubscribe = (planId: string) => {
-    setSelectedPlan(planId);
-    setShowPaymentModal(true);
-  };
-
-  const handlePayment = () => {
-    alert('سيتم توجيهك لبوابة الدفع الآمنة');
-    setShowPaymentModal(false);
+  const handlePay = (plan: Plan) => {
+    setSelected(plan);
+    setShowPay(true);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">اختر الباقة المناسبة لك</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">احصل على تجربة تعليمية متكاملة مع إمكانية الوصول مدى الحياة للدورات المشتركة</p>
-          <div className="inline-flex items-center bg-white rounded-xl shadow-lg p-1">
-            <button onClick={() => setBillingCycle('monthly')} className={`px-6 py-3 rounded-lg font-semibold transition-all ${billingCycle === 'monthly' ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900'}`}>
-              شهري
-            </button>
-            <button onClick={() => setBillingCycle('yearly')} className={`px-6 py-3 rounded-lg font-semibold transition-all relative ${billingCycle === 'yearly' ? 'bg-blue-600 text-white shadow-lg' : 'text-gray-600 hover:text-gray-900'}`}>
-              سنوي
-              <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">توفير 15%</span>
-            </button>
-          </div>
-        </motion.div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 py-10">
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-3xl font-bold text-center mb-8"
+        >
+          اختر الباقة المناسبة لك
+        </motion.h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {plans.map((plan, index) => (
-            <motion.div key={plan.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} className={`relative bg-white rounded-2xl shadow-xl border-2 p-8 ${plan.popular ? 'border-purple-500 scale-105' : 'border-gray-100'}`}>
-              {plan.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-4 py-2 rounded-full text-sm font-semibold">الأكثر شعبية ⭐</div>
+        {/* Cycle Switch */}
+        <div className="flex justify-center mb-10">
+          <div className="bg-white dark:bg-gray-900 border rounded-full shadow-sm flex p-1">
+            {['m', 'y'].map((c) => (
+              <button
+                key={c}
+                onClick={() => setCycle(c as 'm' | 'y')}
+                className={`px-6 py-2 text-sm font-medium rounded-full transition-all ${
+                  cycle === c
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200'
+                }`}
+              >
+                {c === 'm' ? 'شهري' : 'سنوي'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Plans */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {plans.map((p) => (
+            <motion.div
+              key={p.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`rounded-xl border shadow-sm bg-white dark:bg-gray-900 p-6 relative transition-all ${
+                p.highlight
+                  ? 'border-purple-500 ring-1 ring-purple-400 shadow-lg scale-[1.03]'
+                  : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
+              }`}
+            >
+              {p.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white px-3 py-1 rounded-full text-xs">
+                  الأكثر اختيارًا
                 </div>
               )}
-
-              <div className="text-center mb-8">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center ${plan.color === 'blue' ? 'bg-blue-100 text-blue-600' : plan.color === 'purple' ? 'bg-purple-100 text-purple-600' : 'bg-green-100 text-green-600'}`}>
-                  {plan.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <p className="text-gray-600 mb-6">{plan.description}</p>
-                <div className="mb-6">
-                  <div className="flex items-center justify-center gap-2 mb-2">
-                    {plan.originalPrice && <span className="text-lg text-gray-400 line-through">${plan.originalPrice}</span>}
-                    <span className="text-4xl font-bold text-gray-900">${plan.price}</span>
-                  </div>
-                  <p className="text-gray-600">{plan.period}</p>
-                  {billingCycle === 'yearly' && plan.originalPrice && (
-                    <p className="text-green-600 text-sm font-semibold mt-2">توفير ${plan.originalPrice - plan.price} سنوياً</p>
-                  )}
-                </div>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                {plan.features.map((feature, idx) => (
-                  <div key={idx} className="flex items-start gap-3">
-                    <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">{feature}</span>
-                  </div>
-                ))}
-              </div>
-
-              <motion.button 
-                onClick={() => handleSubscribe(plan.id)} 
-                className={`w-full py-4 px-6 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 relative overflow-hidden group ${
-                  plan.popular 
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40' 
-                    : 'bg-gray-900 text-white hover:bg-gray-800 shadow-md hover:shadow-lg'
-                }`} 
-                whileHover={{ scale: 1.02 }} 
-                whileTap={{ scale: 0.98 }}
+              <div
+                className={`w-12 h-12 flex items-center justify-center rounded-full mb-4 ${
+                  p.color === 'blue'
+                    ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30'
+                    : p.color === 'purple'
+                    ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30'
+                    : p.color === 'green'
+                    ? 'bg-green-100 text-green-600 dark:bg-green-900/30'
+                    : 'bg-orange-100 text-orange-600 dark:bg-orange-900/30'
+                }`}
               >
-                <span className="relative z-10 flex items-center gap-2">
-                  {plan.id === 'free' ? 'ابدأ مجاناً' : plan.id === 'enterprise-small' || plan.id === 'enterprise-large' ? 'تواصل معنا' : 'اشترك الآن'}
-                  {plan.popular && <Crown className="w-5 h-5" />}
-                  {!plan.popular && <ArrowRight className="w-5 h-5" />}
-                </span>
-                {plan.popular && (
-                  <span className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                )}
+                {p.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-1">{p.name}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{p.desc}</p>
+              <div className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">
+                {p.price === 0 ? 'مجاني' : `$${cycle === 'm' ? p.price : p.yearly}`}
+              </div>
+              <p className="text-sm text-gray-500 mb-4">
+                {p.price === 0 ? 'مدى الحياة' : cycle === 'm' ? 'شهرياً' : 'سنوياً'}
+              </p>
+
+              <ul className="text-sm text-gray-700 dark:text-gray-300 space-y-2 mb-6">
+                {p.features.map((f, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-green-500" />
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.96 }}
+                onClick={() => handlePay(p)}
+                className={`w-full py-2.5 rounded-lg font-semibold text-sm ${
+                  p.highlight
+                    ? 'bg-purple-600 text-white hover:bg-purple-700'
+                    : p.id === 'free'
+                    ? 'bg-green-600 text-white hover:bg-green-700'
+                    : 'bg-gray-800 text-white hover:bg-gray-900'
+                }`}
+              >
+                {p.price === 0 ? 'ابدأ مجاناً' : 'اشترك الآن'}
               </motion.button>
             </motion.div>
           ))}
         </div>
 
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-2xl shadow-xl p-8 mb-8 border border-yellow-200">
+        {/* Certificates Section */}
+        <div className="mt-20 bg-white dark:bg-gray-900 rounded-xl p-8 shadow-sm border">
           <div className="text-center">
-            <div className="w-20 h-20 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-              <Award className="w-10 h-10 text-white" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">الساعات المعتمدة مع شهادة</h2>
-            <p className="text-lg text-gray-700 mb-6 max-w-2xl mx-auto">احصل على ساعات تعليم مهني معتمدة (CPE) مع شهادة إتمام رسمية لتطوير مسيرتك المهنية</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-white rounded-xl p-6 text-center shadow-md">
-                <div className="text-3xl font-bold text-yellow-600 mb-2">40</div>
-                <div className="text-gray-600">ساعة تعليم معتمدة</div>
-              </div>
-              <div className="bg-white rounded-xl p-6 text-center shadow-md">
-                <div className="text-3xl font-bold text-orange-600 mb-2">5$</div>
-                <div className="text-gray-600">رسوم الشهادة فقط</div>
-              </div>
-              <div className="bg-white rounded-xl p-6 text-center shadow-md">
-                <div className="text-3xl font-bold text-purple-600 mb-2">IIA</div>
-                <div className="text-gray-600">معتمد من المعهد الدولي</div>
-              </div>
-            </div>
-            <motion.button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-xl" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              احصل على الشهادة الآن - 5 دولار فقط
-            </motion.button>
+            <Award className="w-12 h-12 mx-auto text-yellow-500 mb-3" />
+            <h2 className="text-2xl font-bold mb-2">ساعات معتمدة وشهادات</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              احصل على شهادات معتمدة وساعات تعليم مهني رسمية
+            </p>
+            <button className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg font-semibold">
+              احصل على الشهادة بـ 5 دولار
+            </button>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl shadow-xl p-8 mb-8 border border-indigo-200">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-3 bg-indigo-100 px-6 py-3 rounded-full mb-6">
-              <span className="text-indigo-700 font-bold">خدمات الاستشارات المهنية</span>
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">استشارات متخصصة في المراجعة الداخلية</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">احصل على استشارات مهنية من خبراء المراجعة الداخلية لتطوير أعمالك</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-6 h-6" />
+        {/* Consulting Section */}
+        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              icon: <Clock className="w-6 h-6" />,
+              title: 'استشارة فردية',
+              price: '50$/ساعة',
+              color: 'blue',
+            },
+            {
+              icon: <Calendar className="w-6 h-6" />,
+              title: 'استشارة شهرية',
+              price: '500$/5س',
+              color: 'green',
+            },
+            {
+              icon: <Building className="w-6 h-6" />,
+              title: 'استشارات الشركات',
+              price: '1000$/10س',
+              color: 'purple',
+            },
+          ].map((s, i) => (
+            <div
+              key={i}
+              className="bg-white dark:bg-gray-900 border rounded-xl p-6 shadow-sm hover:shadow-md text-center transition-all"
+            >
+              <div
+                className={`w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center ${
+                  s.color === 'blue'
+                    ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/30'
+                    : s.color === 'green'
+                    ? 'bg-green-100 text-green-600 dark:bg-green-900/30'
+                    : 'bg-purple-100 text-purple-600 dark:bg-purple-900/30'
+                }`}
+              >
+                {s.icon}
               </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">استشارة فردية</h4>
-              <p className="text-gray-600 text-sm mb-4">لقاء واحد مع مستشار مهني متخصص</p>
-              <div className="text-2xl font-bold text-blue-600 mb-4">50 دولار/ساعة</div>
-              <div className="space-y-2 text-sm text-gray-600 mb-4">
-                <div>✓ تحليل الوضع الحالي</div>
-                <div>✓ توصيات عملية</div>
-                <div>✓ خطة تنفيذية</div>
-              </div>
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">احجز استشارة</button>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100 text-center">
-              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">استشارة شهرية</h4>
-              <p className="text-gray-600 text-sm mb-4">جلسات استشارية منتظمة شهرياً</p>
-              <div className="text-2xl font-bold text-green-600 mb-4">500 دولار/5 ساعات</div>
-              <div className="space-y-2 text-sm text-gray-600 mb-4">
-                <div>✓ جلسات منتظمة</div>
-                <div>✓ توصيات مكتوبة</div>
-                <div>✓ تقارير دورية</div>
-              </div>
-              <button className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition-colors">اشترك شهرياً</button>
-            </div>
-
-            <div className="bg-white rounded-2xl p-6 shadow-lg border-2 border-purple-500 text-center relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-xs font-semibold">شامل</span>
-              </div>
-              <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Building className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">استشارات الشركات</h4>
-              <p className="text-gray-600 text-sm mb-4">مراجعة شاملة للأنظمة والعمليات</p>
-              <div className="text-2xl font-bold text-purple-600 mb-4">1000 دولار/10 ساعات</div>
-              <div className="space-y-2 text-sm text-gray-600 mb-4">
-                <div>✓ مراجعة شاملة</div>
-                <div>✓ خطة تطوير مفصلة</div>
-                <div>✓ متابعة التنفيذ</div>
-              </div>
-              <button className="w-full bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700 transition-colors">اطلب استشارة شاملة</button>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl shadow-xl p-8 mb-8 border border-green-200">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
-              <div className="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Calendar className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">فترة تجريبية مجانية</h4>
-              <p className="text-gray-600 text-sm">7 أيام مجاناً لجميع الباقات المدفوعة</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
-              <div className="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <DollarSign className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">ضمان استرداد المال</h4>
-              <p className="text-gray-600 text-sm">30 يوماً كاملة للاسترداد</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
-              <div className="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <ArrowRight className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">ترقية وتخفيض الباقة</h4>
-              <p className="text-gray-600 text-sm">في أي وقت دون رسوم إضافية</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 text-center shadow-md border border-gray-100">
-              <div className="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Smartphone className="w-6 h-6" />
-              </div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">دعم فني متعدد اللغات</h4>
-              <p className="text-gray-600 text-sm">عربي وإنجليزي على مدار 24 ساعة</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7 }} className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">الأسئلة الشائعة</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">هل يمكنني إلغاء الاشتراك في أي وقت؟</h3>
-                <p className="text-gray-600">نعم، يمكنك إلغاء الاشتراك في أي وقت دون رسوم إضافية. ستحتفظ بالوصول حتى نهاية الفترة المدفوعة.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">هل الشهادات معتمدة دولياً؟</h3>
-                <p className="text-gray-600">نعم، جميع شهاداتنا معتمدة من جهات دولية مرموقة ومعترف بها في سوق العمل.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">كيف يمكنني ترقية أو تخفيض الباقة؟</h3>
-                <p className="text-gray-600">يمكنك تغيير الباقة في أي وقت من خلال لوحة التحكم الخاصة بك دون رسوم إضافية.</p>
-              </div>
-            </div>
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">ما هي طرق الدفع المتاحة؟</h3>
-                <p className="text-gray-600">نقبل جميع البطاقات الائتمانية الرئيسية، بالإضافة إلى الدفع عبر مها، مدى، والبنوك المحلية.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">هل يوجد ضمان استرداد المال؟</h3>
-                <p className="text-gray-600">نعم، نقدم ضمان استرداد المال لمدة 30 يوماً إذا لم تكن راضياً عن الخدمة.</p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">هل الدعم الفني متوفر 24/7؟</h3>
-                <p className="text-gray-600">نعم، فريق الدعم الفني متوفر على مدار 24 ساعة باللغتين العربية والإنجليزية.</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-
-      {showPaymentModal && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-900">إتمام عملية الدفع</h3>
-              <button onClick={() => setShowPaymentModal(false)} className="p-2 hover:bg-gray-100 rounded-lg">
-                <X className="w-5 h-5" />
+              <h3 className="font-bold mb-1">{s.title}</h3>
+              <p className="text-gray-500 dark:text-gray-400 text-sm mb-2">{s.price}</p>
+              <button
+                className={`px-4 py-2 text-sm rounded-lg font-medium text-white ${
+                  s.color === 'blue'
+                    ? 'bg-blue-600 hover:bg-blue-700'
+                    : s.color === 'green'
+                    ? 'bg-green-600 hover:bg-green-700'
+                    : 'bg-purple-600 hover:bg-purple-700'
+                }`}
+              >
+                احجز الآن
               </button>
             </div>
+          ))}
+        </div>
+      </div>
 
-            <div className="space-y-4 mb-6">
-              <div className="flex justify-between">
-                <span className="text-gray-600">الباقة المختارة:</span>
-                <span className="font-semibold">{plans.find(p => p.id === selectedPlan)?.name}</span>
+      {/* Payment Modal */}
+      <AnimatePresence>
+        {showPay && selected && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="bg-white dark:bg-gray-900 rounded-xl p-6 max-w-md w-full shadow-lg"
+            >
+              <div className="flex justify-between items-center mb-4">
+                <h3 className="text-lg font-bold">الدفع</h3>
+                <button onClick={() => setShowPay(false)}>
+                  <X className="w-5 h-5 text-gray-500" />
+                </button>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">المبلغ:</span>
-                <span className="font-bold text-lg">${plans.find(p => p.id === selectedPlan)?.price}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">الدورة:</span>
-                <span>{plans.find(p => p.id === selectedPlan)?.period}</span>
-              </div>
-            </div>
 
-            <div className="space-y-4 mb-6">
-              <div className="border border-gray-300 rounded-lg p-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <CreditCard className="w-5 h-5 text-gray-600" />
-                  <span className="font-medium">بطاقة ائتمانية</span>
+              <p className="text-sm mb-2 text-gray-600 dark:text-gray-400">
+                الباقة: <span className="font-semibold">{selected.name}</span>
+              </p>
+              <p className="font-bold text-lg mb-4">
+                المبلغ: ${cycle === 'm' ? selected.price : selected.yearly}
+              </p>
+
+              <div className="space-y-4">
+                <div className="border p-3 rounded-lg">
+                  <div className="flex items-center gap-2 mb-2">
+                    <CreditCard className="w-4 h-4" /> بطاقة ائتمانية
+                  </div>
+                  <input placeholder="رقم البطاقة" className="w-full p-2 border rounded mb-2" />
+                  <div className="grid grid-cols-2 gap-2">
+                    <input placeholder="MM/YY" className="p-2 border rounded" />
+                    <input placeholder="CVV" className="p-2 border rounded" />
+                  </div>
                 </div>
-                <input type="text" placeholder="رقم البطاقة" className="w-full mt-2 p-2 border border-gray-300 rounded" />
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  <input type="text" placeholder="تاريخ الانتهاء" className="p-2 border border-gray-300 rounded" />
-                  <input type="text" placeholder="CVV" className="p-2 border border-gray-300 rounded" />
-                </div>
-              </div>
 
-              <div className="border border-gray-300 rounded-lg p-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <Smartphone className="w-5 h-5 text-gray-600" />
-                  <span className="font-medium">الدفع عبر الهاتف</span>
-                </div>
-                <button className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">ادفع عبر مها/مدى</button>
+                <button
+                  onClick={() => alert('تم الدفع بنجاح')}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-semibold"
+                >
+                  إتمام الدفع
+                </button>
               </div>
-            </div>
-
-            <motion.button onClick={handlePayment} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 rounded-lg font-bold text-lg" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              إتمام الدفع
-            </motion.button>
-            <p className="text-xs text-gray-500 text-center mt-4">عملية الدفع آمنة ومشفرة بالكامل</p>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      )}
+        )}
+      </AnimatePresence>
     </div>
   );
 }

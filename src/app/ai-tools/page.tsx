@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 import dynamic from 'next/dynamic';
+import PageBackground from '@/components/ui/PageBackground';
 
 // Loading component
 const LoadingComponent = () => (
@@ -222,7 +223,7 @@ export default function AIToolsPage() {
   }, [selectedTool]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <PageBackground variant="home" pattern overlay>
       {/* Hero Section */}
       <section className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
         <div className="absolute inset-0 bg-black/20" />
@@ -235,7 +236,7 @@ export default function AIToolsPage() {
             transition={{ duration: 0.6 }}
             className="text-center space-y-6"
           >
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-xl border border-white/30 rounded-full">
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-full">
               <Brain className="w-5 h-5 text-white" />
               <span className="text-white font-semibold text-sm">
                 أدوات ذكاء اصطناعي متخصصة
@@ -312,7 +313,7 @@ export default function AIToolsPage() {
                     
                     {/* Hover effect */}
                     {!isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-indigo-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500" />
+                      <div className="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/5 transition-colors duration-300" />
                     )}
                     
                     {/* Content */}
@@ -349,7 +350,7 @@ export default function AIToolsPage() {
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ delay: index * 0.1 }}
                       onClick={() => setSelectedTool(tool.id)}
-                      className="group relative bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-200 dark:border-neutral-700 hover:border-indigo-300 dark:hover:border-indigo-600"
+                      className="group relative bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border border-gray-200/50 dark:border-neutral-700/50 hover:border-indigo-300 dark:hover:border-indigo-600"
                     >
                       <div className={`inline-flex p-3 rounded-xl bg-gradient-to-br ${tool.gradient} mb-4`}>
                         <Icon className="w-6 h-6 text-white" />
@@ -399,8 +400,8 @@ export default function AIToolsPage() {
                   whileHover={{ scale: 1.02, x: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  {/* Animated background gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/0 to-indigo-500/0 group-hover:from-indigo-500/10 group-hover:via-indigo-500/5 group-hover:to-indigo-500/0 transition-all duration-500"></div>
+                  {/* Simplified background gradient - no animation */}
+                  <div className="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/5 transition-colors duration-300"></div>
                   
                   {/* Icon with animation */}
                   <motion.div
@@ -426,7 +427,7 @@ export default function AIToolsPage() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: 0.1 }}
-                    className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white/50 dark:bg-neutral-800/50 backdrop-blur-sm border border-gray-200 dark:border-neutral-700"
+                    className="flex items-center gap-3 px-4 py-2 rounded-lg bg-white dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700"
                   >
                     <div className="flex items-center gap-2">
                       {(() => {
@@ -453,7 +454,7 @@ export default function AIToolsPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl p-6 lg:p-8"
+                className="bg-white dark:bg-neutral-800 rounded-2xl shadow-xl p-6 lg:p-8 border border-gray-200/50 dark:border-neutral-700/50"
               >
                 {loadedComponent ? (
                   <Suspense fallback={<LoadingComponent />}>
@@ -467,6 +468,6 @@ export default function AIToolsPage() {
             </div>
           )}
       </Container>
-    </div>
+    </PageBackground>
   );
 }

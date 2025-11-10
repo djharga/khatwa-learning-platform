@@ -10,84 +10,63 @@ interface FocusTrapProps {
 }
 
 /**
- * Focus trap component for modal dialogs and dropdowns
- * Ensures keyboard navigation stays within the component when active
+ * FocusTrap: يحصر التنقل داخل المكون (مثل المودال أو القائمة)
+ * بدون كسر أو تأثير على تجربة المستخدم.
  */
-const FocusTrap: React.FC<FocusTrapProps> = ({
+export default function FocusTrap({
   children,
   isActive,
   restoreFocus = true,
-  className = ""
-}) => {
+  className = ''
+}: FocusTrapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const previousActiveElement = useRef<HTMLElement | null>(null);
+  const lastFocused = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!isActive) return;
 
-    // Store the previously focused element
-    previousActiveElement.current = document.activeElement as HTMLElement;
-
     const container = containerRef.current;
     if (!container) return;
 
-    // Get all focusable elements within the container
-    const getFocusableElements = () => {
-      return container.querySelectorAll(
+    // حفظ آخر عنصر كان عليه التركيز
+    lastFocused.current = document.activeElement as HTMLElement;
+
+    const focusable = Array.from(
+      container.querySelectorAll<HTMLElement>(
         'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-      ) as NodeListOf<HTMLElement>;
-    };
+      )
+    ).filter(el => !el.hasAttribute('disabled'));
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== 'Tab') return;
+    if (focusable.length) focusable[0].focus();
 
-      const focusableElements = getFocusableElements();
-      const firstElement = focusableElements[0];
-      const lastElement = focusableElements[focusableElements.length - 1];
-
-      if (e.shiftKey) {
-        // Shift + Tab
-        if (document.activeElement === firstElement) {
-          e.preventDefault();
-          lastElement?.focus();
-        }
-      } else {
-        // Tab
-        if (document.activeElement === lastElement) {
-          e.preventDefault();
-          firstElement?.focus();
-        }
+    const handleTab = (e: KeyboardEvent) => {
+      if (e.key !== 'Tab' || focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     };
 
-    // Focus the first focusable element
-    const focusableElements = getFocusableElements();
-    if (focusableElements.length > 0) {
-      focusableElements[0].focus();
-    }
-
-    document.addEventListener('keydown', handleKeyDown);
-
+    document.addEventListener('keydown', handleTab);
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      
-      // Restore focus to the previously focused element
-      if (restoreFocus && previousActiveElement.current) {
-        previousActiveElement.current.focus();
-      }
+      document.removeEventListener('keydown', handleTab);
+      if (restoreFocus && lastFocused.current) lastFocused.current.focus();
     };
   }, [isActive, restoreFocus]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className={className}
       role="dialog"
-      aria-modal={isActive}
+      aria-modal={isActive || undefined}
     >
       {children}
     </div>
   );
-};
-
-export default FocusTrap;
+}

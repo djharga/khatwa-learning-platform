@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ModernTabs, ModernTabContent } from '@/components/ui/ModernTabs';
+import PageBackground from '@/components/ui/PageBackground';
 import {
   Home,
   BookOpen,
@@ -77,11 +78,28 @@ import {
   Headphones,
 } from 'lucide-react';
 
-// Import existing components
-import CoursesComponent from '@/components/CoursesComponent';
-import ConsultingComponent from '@/components/ConsultingComponent';
-import CourseTreeView from '@/components/CourseTreeView';
-import CourseCard from '@/components/CourseCard';
+// Lazy load heavy components
+import dynamic from 'next/dynamic';
+
+const CoursesComponent = dynamic(() => import('@/components/CoursesComponent'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-64 rounded-lg" />,
+});
+
+const ConsultingComponent = dynamic(() => import('@/components/ConsultingComponent'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-64 rounded-lg" />,
+});
+
+const CourseTreeView = dynamic(() => import('@/components/CourseTreeView'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-96 rounded-lg" />,
+});
+
+const CourseCard = dynamic(() => import('@/components/CourseCard'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-48 rounded-lg" />,
+});
 
 // Mock data for the learning hub
 const mockStats = {
@@ -879,7 +897,7 @@ export default function LearningHubPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <PageBackground variant="dashboard" pattern>
       {/* Sidebar */}
       <AnimatePresence>
         {sidebarOpen && (
@@ -1013,6 +1031,6 @@ export default function LearningHubPage() {
           </div>
         </div>
       </div>
-    </div>
+    </PageBackground>
   );
 }

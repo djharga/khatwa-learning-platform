@@ -3,7 +3,7 @@
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { BookOpen, ChevronRight, Flag, Info, ZoomIn, ZoomOut, Move } from 'lucide-react';
 import { useState, useRef } from 'react';
-import type { LearningPathStep } from './types'; // Import from types.ts for consistency
+import type { LearningPathStep } from './LearningPathTypes'; // Import from types.ts for consistency
 
 export const LearningPathVisual = ({ steps }: { steps: LearningPathStep[] }) => {
   const [expandedStep, setExpandedStep] = useState<string | null>(null);

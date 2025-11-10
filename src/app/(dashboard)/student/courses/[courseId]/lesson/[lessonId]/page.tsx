@@ -458,33 +458,34 @@ export default function LessonPage() {
   // Loading state - must come after all hooks
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
         <div className="text-center">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             className="mb-6"
           >
             <div className="relative">
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-gray-700 border-t-blue-600 mx-auto"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-neutral-200 dark:border-neutral-700 border-t-primary-600 dark:border-t-primary-400 mx-auto"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="h-8 w-8 bg-blue-600 rounded-full animate-pulse"></div>
+                <div className="h-8 w-8 bg-primary-600 dark:bg-primary-400 rounded-full animate-pulse"></div>
               </div>
             </div>
           </motion.div>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-gray-300 text-lg font-medium"
+            transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
+            className="text-neutral-700 dark:text-neutral-300 text-lg font-medium"
           >
             جاري تحميل الدرس...
           </motion.p>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-gray-500 text-sm mt-2"
+            transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
+            className="text-neutral-500 dark:text-neutral-400 text-sm mt-2"
           >
             يرجى الانتظار
           </motion.p>
@@ -496,15 +497,16 @@ export default function LessonPage() {
   // Error state - must come after all hooks
   if (error || !courseData) {
     return (
-      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="text-center max-w-md mx-auto px-4">
+      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 p-4">
+        <div className="text-center max-w-md mx-auto">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             className="mb-6"
           >
-            <div className="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-10 h-10 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="w-20 h-20 bg-danger-50 dark:bg-danger-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-10 h-10 text-danger-600 dark:text-danger-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
             </div>
@@ -512,33 +514,38 @@ export default function LessonPage() {
           <motion.h2
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-2xl font-bold text-white mb-2"
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="text-2xl font-bold text-neutral-900 dark:text-white mb-2"
           >
             حدث خطأ
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-gray-400 mb-6"
+            transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
+            className="text-neutral-600 dark:text-neutral-400 mb-6"
           >
             {error || 'لا يمكن تحميل بيانات الدرس'}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="flex gap-3 justify-center"
+            transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
+            className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] bg-neutral-700 dark:bg-neutral-600 hover:bg-neutral-600 dark:hover:bg-neutral-500 text-white rounded-lg font-medium text-sm sm:text-base shadow-md hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+              aria-label="إعادة المحاولة"
+              type="button"
             >
               إعادة المحاولة
             </button>
             <button
               onClick={() => router.push(`/student/courses/${courseId}`)}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-medium text-sm sm:text-base shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+              aria-label="العودة إلى الكورس"
+              type="button"
             >
               العودة إلى الكورس
             </button>

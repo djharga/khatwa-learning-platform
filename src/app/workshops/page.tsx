@@ -4,9 +4,19 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building, ChevronUp, Crown, GraduationCap, HelpCircle, Star, TrendingUp, User, Users, BookOpen, Brain, Shield, CheckCircle, CreditCard, Warehouse, FileText, Calculator, Award, Lock, EyeOff, FileX, HardDrive, Smartphone, Target, Heart, Zap, Globe, Calendar, Clock, MapPin } from 'lucide-react';
-import ChatAssistantWidget from '@/components/ChatAssistantWidget';
-import ContactComponent from '@/components/ContactComponent';
-import ProtectionToggle from '@/components/ProtectionToggle';
+import dynamic from 'next/dynamic';
+import PageBackground from '@/components/ui/PageBackground';
+
+// Lazy load heavy components
+const ChatAssistantWidget = dynamic(() => import('@/components/ChatAssistantWidget'), {
+  ssr: false,
+});
+
+const ContactComponent = dynamic(() => import('@/components/ContactComponent'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-64 rounded-lg" />,
+});
+
 
 export default function WorkshopsPage() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -31,7 +41,7 @@ export default function WorkshopsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-white overflow-hidden">
+    <PageBackground variant="home">
       {/* شريط تقدم الصفحة */}
       <div
         className="fixed top-0 left-0 right-0 h-1 bg-slate-600 z-50"
@@ -356,7 +366,6 @@ export default function WorkshopsPage() {
       </div>
 
       <ChatAssistantWidget />
-      <ProtectionToggle />
 
       {/* زر العودة للأعلى */}
       <AnimatePresence>
@@ -370,6 +379,6 @@ export default function WorkshopsPage() {
           </button>
         )}
       </AnimatePresence>
-    </div>
+    </PageBackground>
   );
 }

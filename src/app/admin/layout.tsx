@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import FlyonMenu from '@/components/ui/FlyonMenu';
+import PageBackground from '@/components/ui/PageBackground';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -116,9 +117,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Top bar */}
-      <div className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-30">
+    <PageBackground variant="admin" pattern>
+      <div className="min-h-screen flex flex-col">
+        {/* Top bar */}
+        <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm shadow-sm border-b border-gray-200/50 dark:border-neutral-700/50 sticky top-0 z-30">
         <div className="flex items-center justify-between h-16 px-6">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
@@ -189,7 +191,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </div>
 
       {/* Horizontal Navigation Bar - FlyonUI Menu */}
-      <div className="bg-white shadow-sm border-b border-gray-200">
+      <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm shadow-sm border-b border-gray-200/50 dark:border-neutral-700/50">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <nav className="flex justify-center">
             <FlyonMenu
@@ -208,11 +210,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </div>
 
       {/* Page content */}
-      <main className="flex-1 p-6">
-        <div className="max-w-full">
+      <main className="flex-1 p-4 sm:p-6">
+        <div className="max-w-7xl mx-auto w-full">
           {children}
         </div>
       </main>
-    </div>
+      </div>
+    </PageBackground>
   );
 }

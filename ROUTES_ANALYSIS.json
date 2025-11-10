@@ -1,0 +1,1853 @@
+{
+  "generatedAt": "2025-11-10T04:17:15.680Z",
+  "summary": {
+    "totalAppRoutes": 107,
+    "totalPageRoutes": 101,
+    "totalUsedRoutes": 112,
+    "validRoutes": 107,
+    "brokenRoutes": 4,
+    "unusedRoutes": 12,
+    "externalRoutes": 0,
+    "dynamicRoutes": 2,
+    "specialRoutes": 1
+  },
+  "brokenRoutes": [
+    {
+      "path": "/banar-cours.webp",
+      "cleanPath": "/banar-cours.webp",
+      "isDynamic": false,
+      "usages": [
+        {
+          "file": "src\\app\\layout.tsx",
+          "type": "template-literal",
+          "line": 143,
+          "context": "<link rel=\"preload\" as=\"image\" href=\"/banar-cours.webp\" />"
+        }
+      ],
+      "issue": "Route not found in app directory"
+    },
+    {
+      "path": "/globe.svg",
+      "cleanPath": "/globe.svg",
+      "isDynamic": false,
+      "usages": [
+        {
+          "file": "src\\app\\layout.tsx",
+          "type": "template-literal",
+          "line": 144,
+          "context": "<link rel=\"preload\" as=\"image\" href=\"/globe.svg\" />"
+        },
+        {
+          "file": "src\\app\\layout.tsx",
+          "type": "template-literal",
+          "line": 148,
+          "context": "<link rel=\"icon\" href=\"/globe.svg\" type=\"image/svg+xml\" />"
+        }
+      ],
+      "issue": "Route not found in app directory"
+    },
+    {
+      "path": "/manifest.json",
+      "cleanPath": "/manifest.json",
+      "isDynamic": false,
+      "usages": [
+        {
+          "file": "src\\app\\layout.tsx",
+          "type": "template-literal",
+          "line": 147,
+          "context": "<link rel=\"manifest\" href=\"/manifest.json\" />"
+        }
+      ],
+      "issue": "Route not found in app directory"
+    },
+    {
+      "path": "/sitemap.xml",
+      "cleanPath": "/sitemap.xml",
+      "isDynamic": false,
+      "usages": [
+        {
+          "file": "src\\components\\layout\\FooterComponent.tsx",
+          "type": "template-literal",
+          "line": 406,
+          "context": "{ href: '/sitemap.xml', text: 'خريطة الموقع' },"
+        },
+        {
+          "file": "src\\components\\layout\\FooterComponent.tsx",
+          "type": "href-property",
+          "line": 406,
+          "context": "{ href: '/sitemap.xml', text: 'خريطة الموقع' },"
+        }
+      ],
+      "issue": "Route not found in app directory"
+    }
+  ],
+  "unusedRoutes": [
+    {
+      "path": "/student/modifications",
+      "file": "src\\app\\(dashboard)\\student\\modifications\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/student/profile/cms",
+      "file": "src\\app\\(dashboard)\\student\\profile\\cms\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/student/storage",
+      "file": "src\\app\\(dashboard)\\student\\storage\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/student/zoom-sessions",
+      "file": "src\\app\\(dashboard)\\student\\zoom-sessions\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/admin/courses/[courseId]/modules",
+      "file": "src\\app\\admin\\courses\\[courseId]\\modules\\page.tsx",
+      "hasParams": true,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/admin/courses/[courseId]/schedule",
+      "file": "src\\app\\admin\\courses\\[courseId]\\schedule\\page.tsx",
+      "hasParams": true,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/admin/courses/[courseId]/videos",
+      "file": "src\\app\\admin\\courses\\[courseId]\\videos\\page.tsx",
+      "hasParams": true,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/admin/settings/custom-urls",
+      "file": "src\\app\\admin\\settings\\custom-urls\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/admin/settings/visibility",
+      "file": "src\\app\\admin\\settings\\visibility\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/search",
+      "file": "src\\app\\search\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/services",
+      "file": "src\\app\\services\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    },
+    {
+      "path": "/typography-demo",
+      "file": "src\\app\\typography-demo\\page.tsx",
+      "hasParams": false,
+      "issue": "Route exists but not referenced in code"
+    }
+  ],
+  "validRoutes": 107,
+  "dynamicRoutes": [
+    {
+      "path": "/blog/${article.slug}",
+      "cleanPath": "/blog/${article.slug}",
+      "usages": 1
+    },
+    {
+      "path": "/resources/${item.id}",
+      "cleanPath": "/resources/${item.id}",
+      "usages": 1
+    }
+  ],
+  "allAppRoutes": [
+    {
+      "path": "/forgot-password",
+      "file": "src\\app\\(auth)\\forgot-password\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/login",
+      "file": "src\\app\\(auth)\\login\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/register",
+      "file": "src\\app\\(auth)\\register\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/accounting-simulation",
+      "file": "src\\app\\(dashboard)\\student\\accounting-simulation\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/certificates",
+      "file": "src\\app\\(dashboard)\\student\\certificates\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/consulting",
+      "file": "src\\app\\(dashboard)\\student\\consulting\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/course-files",
+      "file": "src\\app\\(dashboard)\\student\\course-files\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/courses",
+      "file": "src\\app\\(dashboard)\\student\\courses\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/courses/[courseId]/files",
+      "file": "src\\app\\(dashboard)\\student\\courses\\[courseId]\\files\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/student/courses/[courseId]/lesson/[lessonId]",
+      "file": "src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\[lessonId]\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/student/courses/[courseId]",
+      "file": "src\\app\\(dashboard)\\student\\courses\\[courseId]\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/student/exam",
+      "file": "src\\app\\(dashboard)\\student\\exam\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/file-manager",
+      "file": "src\\app\\(dashboard)\\student\\file-manager\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/gallery",
+      "file": "src\\app\\(dashboard)\\student\\gallery\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/inbox",
+      "file": "src\\app\\(dashboard)\\student\\inbox\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/modifications",
+      "file": "src\\app\\(dashboard)\\student\\modifications\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student",
+      "file": "src\\app\\(dashboard)\\student\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/profile/cms",
+      "file": "src\\app\\(dashboard)\\student\\profile\\cms\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/profile",
+      "file": "src\\app\\(dashboard)\\student\\profile\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/progress",
+      "file": "src\\app\\(dashboard)\\student\\progress\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/reports",
+      "file": "src\\app\\(dashboard)\\student\\reports\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/settings",
+      "file": "src\\app\\(dashboard)\\student\\settings\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/storage",
+      "file": "src\\app\\(dashboard)\\student\\storage\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/storage-calculator",
+      "file": "src\\app\\(dashboard)\\student\\storage-calculator\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/support",
+      "file": "src\\app\\(dashboard)\\student\\support\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/student/zoom-sessions",
+      "file": "src\\app\\(dashboard)\\student\\zoom-sessions\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/about",
+      "file": "src\\app\\about\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/content",
+      "file": "src\\app\\admin\\content\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/controls",
+      "file": "src\\app\\admin\\controls\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/courses/new",
+      "file": "src\\app\\admin\\courses\\new\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/courses",
+      "file": "src\\app\\admin\\courses\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/courses/[courseId]/modules",
+      "file": "src\\app\\admin\\courses\\[courseId]\\modules\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/admin/courses/[courseId]/schedule",
+      "file": "src\\app\\admin\\courses\\[courseId]\\schedule\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/admin/courses/[courseId]/videos",
+      "file": "src\\app\\admin\\courses\\[courseId]\\videos\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/admin/dashboard",
+      "file": "src\\app\\admin\\dashboard\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/navigation/edit",
+      "file": "src\\app\\admin\\navigation\\edit\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin",
+      "file": "src\\app\\admin\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/programs",
+      "file": "src\\app\\admin\\programs\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/reports",
+      "file": "src\\app\\admin\\reports\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/reports/performance",
+      "file": "src\\app\\admin\\reports\\performance\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/reports/revenue",
+      "file": "src\\app\\admin\\reports\\revenue\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/roles",
+      "file": "src\\app\\admin\\roles\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/settings/custom-urls",
+      "file": "src\\app\\admin\\settings\\custom-urls\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/settings/visibility",
+      "file": "src\\app\\admin\\settings\\visibility\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/admin/users",
+      "file": "src\\app\\admin\\users\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/advanced-features",
+      "file": "src\\app\\advanced-features\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/ai-tools",
+      "file": "src\\app\\ai-tools\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/auditors-fellowship",
+      "file": "src\\app\\auditors-fellowship\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/auth",
+      "file": "src\\app\\auth\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/blog",
+      "file": "src\\app\\blog\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/certificates",
+      "file": "src\\app\\certificates\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/cia/exams",
+      "file": "src\\app\\cia\\exams\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/cia",
+      "file": "src\\app\\cia\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/community",
+      "file": "src\\app\\community\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/consulting/group",
+      "file": "src\\app\\consulting\\group\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/consulting/individual",
+      "file": "src\\app\\consulting\\individual\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/consulting",
+      "file": "src\\app\\consulting\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/contact",
+      "file": "src\\app\\contact\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/cookies",
+      "file": "src\\app\\cookies\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/ai-audit",
+      "file": "src\\app\\courses\\ai-audit\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/basics",
+      "file": "src\\app\\courses\\basics\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/cia-preparation",
+      "file": "src\\app\\courses\\cia-preparation\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/compliance",
+      "file": "src\\app\\courses\\compliance\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/digital-audit",
+      "file": "src\\app\\courses\\digital-audit\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/financial-projects",
+      "file": "src\\app\\courses\\financial-projects\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses",
+      "file": "src\\app\\courses\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/risk-analysis",
+      "file": "src\\app\\courses\\risk-analysis\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/courses/[slug]",
+      "file": "src\\app\\courses\\[slug]\\page.tsx",
+      "hasParams": true
+    },
+    {
+      "path": "/faq",
+      "file": "src\\app\\faq\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/files",
+      "file": "src\\app\\files\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/finance-basics",
+      "file": "src\\app\\finance-basics\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/financial-management",
+      "file": "src\\app\\financial-management\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/financial-reporting",
+      "file": "src\\app\\financial-reporting\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/internal-audit",
+      "file": "src\\app\\internal-audit\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/inventory-reconciliations",
+      "file": "src\\app\\inventory-reconciliations\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/learning-hub",
+      "file": "src\\app\\learning-hub\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/meeting-room",
+      "file": "src\\app\\meeting-room\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/notifications",
+      "file": "src\\app\\notifications\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/onboarding-demo",
+      "file": "src\\app\\onboarding-demo\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/packages-and-consulting",
+      "file": "src\\app\\packages-and-consulting\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/",
+      "file": "src\\app\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/privacy",
+      "file": "src\\app\\privacy\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/procurement-management",
+      "file": "src\\app\\procurement-management\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/refund-policy",
+      "file": "src\\app\\refund-policy\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/resources/books",
+      "file": "src\\app\\resources\\books\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/resources/course-files",
+      "file": "src\\app\\resources\\course-files\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/resources",
+      "file": "src\\app\\resources\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/resources/tools",
+      "file": "src\\app\\resources\\tools\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/restaurant-management",
+      "file": "src\\app\\restaurant-management\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/review",
+      "file": "src\\app\\review\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/search",
+      "file": "src\\app\\search\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/services",
+      "file": "src\\app\\services\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/subscribe",
+      "file": "src\\app\\subscribe\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/support",
+      "file": "src\\app\\support\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/terms",
+      "file": "src\\app\\terms\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/typography-demo",
+      "file": "src\\app\\typography-demo\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/unauthorized",
+      "file": "src\\app\\unauthorized\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/usage-policy",
+      "file": "src\\app\\usage-policy\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/warehouse-management",
+      "file": "src\\app\\warehouse-management\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/workshops",
+      "file": "src\\app\\workshops\\page.tsx",
+      "hasParams": false
+    },
+    {
+      "path": "/",
+      "file": "src\\app\\_not-found\\page.tsx",
+      "hasParams": false
+    }
+  ],
+  "allUsedRoutes": [
+    {
+      "path": "/auth",
+      "cleanPath": "/auth",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\app\\(auth)\\forgot-password\\page.tsx"
+      ]
+    },
+    {
+      "path": "/privacy",
+      "cleanPath": "/privacy",
+      "isDynamic": false,
+      "usageCount": 10,
+      "files": [
+        "src\\app\\(auth)\\forgot-password\\page.tsx",
+        "src\\app\\(auth)\\register\\page.tsx",
+        "src\\app\\auth\\page.tsx",
+        "src\\app\\terms\\page.tsx",
+        "src\\components\\layout\\FooterComponent.tsx"
+      ]
+    },
+    {
+      "path": "/terms",
+      "cleanPath": "/terms",
+      "isDynamic": false,
+      "usageCount": 9,
+      "files": [
+        "src\\app\\(auth)\\forgot-password\\page.tsx",
+        "src\\app\\(auth)\\register\\page.tsx",
+        "src\\app\\auth\\page.tsx",
+        "src\\components\\layout\\FooterComponent.tsx"
+      ]
+    },
+    {
+      "path": "/support",
+      "cleanPath": "/support",
+      "isDynamic": false,
+      "usageCount": 14,
+      "files": [
+        "src\\app\\(auth)\\forgot-password\\page.tsx",
+        "src\\app\\auth\\page.tsx",
+        "src\\app\\faq\\page.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\ui\\MegaMenu.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/register",
+      "cleanPath": "/register",
+      "isDynamic": false,
+      "usageCount": 12,
+      "files": [
+        "src\\app\\(auth)\\login\\page.tsx",
+        "src\\app\\internal-audit\\page.tsx",
+        "src\\app\\packages-and-consulting\\page.tsx",
+        "src\\components\\ConsultingSystem\\ConsultingDashboard.tsx",
+        "src\\components\\exam\\ExamNavigation.tsx",
+        "src\\components\\homepage\\CTASection.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx"
+      ]
+    },
+    {
+      "path": "/forgot-password",
+      "cleanPath": "/forgot-password",
+      "isDynamic": false,
+      "usageCount": 3,
+      "files": [
+        "src\\app\\(auth)\\login\\page.tsx",
+        "src\\app\\auth\\page.tsx"
+      ]
+    },
+    {
+      "path": "/login",
+      "cleanPath": "/login",
+      "isDynamic": false,
+      "usageCount": 11,
+      "files": [
+        "src\\app\\(auth)\\register\\page.tsx",
+        "src\\app\\unauthorized\\page.tsx",
+        "src\\components\\exam\\ExamNavigation.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\contexts\\AuthContext.tsx",
+        "src\\hooks\\useSecureAuth.ts",
+        "src\\lib\\api\\client.ts"
+      ]
+    },
+    {
+      "path": "/resources/course-files",
+      "cleanPath": "/resources/course-files",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\(dashboard)\\student\\course-files\\page.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/resources",
+      "cleanPath": "/resources",
+      "isDynamic": false,
+      "usageCount": 20,
+      "files": [
+        "src\\app\\(dashboard)\\student\\course-files\\page.tsx",
+        "src\\app\\resources\\books\\page.tsx",
+        "src\\app\\resources\\tools\\page.tsx",
+        "src\\app\\_not-found\\page.tsx",
+        "src\\components\\homepage\\LatestContentSection.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\ui\\MegaMenu.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses",
+      "cleanPath": "/courses",
+      "isDynamic": false,
+      "usageCount": 41,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\page.tsx",
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\app\\admin\\navigation\\edit\\page.tsx",
+        "src\\app\\auth\\page.tsx",
+        "src\\app\\courses\\[slug]\\page.tsx",
+        "src\\app\\financial-management\\page.tsx",
+        "src\\app\\_not-found\\page.tsx",
+        "src\\components\\course-details\\CourseHero.tsx",
+        "src\\components\\homepage\\CreativeHeroSection.tsx",
+        "src\\components\\homepage\\CTASection.tsx",
+        "src\\components\\homepage\\SectionsNavigation.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\components\\ui\\RTLNavbar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/courses/${course.id}/lesson/${course.nextLesson.id}",
+      "cleanPath": "/student/courses/${course.id}/lesson/${course.nextLesson.id}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\page.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${course.id}",
+      "cleanPath": "/student/courses/${course.id}",
+      "isDynamic": true,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\page.tsx",
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\app\\courses\\[slug]\\page.tsx",
+        "src\\components\\CourseCard.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseId}/lesson/${firstLessonId}",
+      "cleanPath": "/student/courses/${courseId}/lesson/${firstLessonId}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\[lessonId]\\page.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseId}/lesson/${newLessonId}",
+      "cleanPath": "/student/courses/${courseId}/lesson/${newLessonId}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\[lessonId]\\page.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseId}",
+      "cleanPath": "/student/courses/${courseId}",
+      "isDynamic": true,
+      "usageCount": 2,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\[lessonId]\\page.tsx",
+        "src\\components\\learning-player\\PlayerShell.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses",
+      "cleanPath": "/student/courses",
+      "isDynamic": false,
+      "usageCount": 15,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\[lessonId]\\page.tsx",
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\page.tsx",
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\app\\packages-and-consulting\\page.tsx",
+        "src\\app\\subscribe\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx"
+      ]
+    },
+    {
+      "path": "/student/reports",
+      "cleanPath": "/student/reports",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\[lessonId]\\page.tsx",
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseId}/lesson",
+      "cleanPath": "/student/courses/${courseId}/lesson",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\page.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseId}/files",
+      "cleanPath": "/student/courses/${courseId}/files",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\(dashboard)\\student\\courses\\[courseId]\\page.tsx"
+      ]
+    },
+    {
+      "path": "/notifications",
+      "cleanPath": "/notifications",
+      "isDynamic": false,
+      "usageCount": 5,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\components\\layout\\UserMenu.tsx"
+      ]
+    },
+    {
+      "path": "/student/progress",
+      "cleanPath": "/student/progress",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx"
+      ]
+    },
+    {
+      "path": "/student/exam",
+      "cleanPath": "/student/exam",
+      "isDynamic": false,
+      "usageCount": 11,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\app\\review\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/certificates",
+      "cleanPath": "/student/certificates",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx"
+      ]
+    },
+    {
+      "path": "/student/profile",
+      "cleanPath": "/student/profile",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/inbox",
+      "cleanPath": "/student/inbox",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx"
+      ]
+    },
+    {
+      "path": "/student/support",
+      "cleanPath": "/student/support",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\components\\layout\\UserMenu.tsx"
+      ]
+    },
+    {
+      "path": "/student",
+      "cleanPath": "/student",
+      "isDynamic": false,
+      "usageCount": 16,
+      "files": [
+        "src\\app\\(dashboard)\\student\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/profile?tab=activity",
+      "cleanPath": "/student/profile?tab=activity",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\app\\(dashboard)\\student\\profile\\page.tsx"
+      ]
+    },
+    {
+      "path": "/admin/courses",
+      "cleanPath": "/admin/courses",
+      "isDynamic": false,
+      "usageCount": 13,
+      "files": [
+        "src\\app\\admin\\courses\\new\\page.tsx",
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\page.tsx",
+        "src\\components\\admin\\ModernAdminPanel.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/admin",
+      "cleanPath": "/admin",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\navigation\\edit\\page.tsx",
+        "src\\app\\admin\\roles\\page.tsx"
+      ]
+    },
+    {
+      "path": "/admin/programs",
+      "cleanPath": "/admin/programs",
+      "isDynamic": false,
+      "usageCount": 9,
+      "files": [
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\page.tsx"
+      ]
+    },
+    {
+      "path": "/admin/users",
+      "cleanPath": "/admin/users",
+      "isDynamic": false,
+      "usageCount": 11,
+      "files": [
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\page.tsx",
+        "src\\components\\admin\\ModernAdminPanel.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/admin/content",
+      "cleanPath": "/admin/content",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\page.tsx"
+      ]
+    },
+    {
+      "path": "/admin/reports",
+      "cleanPath": "/admin/reports",
+      "isDynamic": false,
+      "usageCount": 17,
+      "files": [
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\page.tsx",
+        "src\\app\\admin\\reports\\performance\\page.tsx",
+        "src\\app\\admin\\reports\\revenue\\page.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/admin/controls",
+      "cleanPath": "/admin/controls",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\app\\admin\\layout.tsx",
+        "src\\app\\admin\\page.tsx"
+      ]
+    },
+    {
+      "path": "/blog",
+      "cleanPath": "/blog",
+      "isDynamic": false,
+      "usageCount": 10,
+      "files": [
+        "src\\app\\admin\\navigation\\edit\\page.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\ui\\MegaMenu.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/about",
+      "cleanPath": "/about",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\admin\\navigation\\edit\\page.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/contact",
+      "cleanPath": "/contact",
+      "isDynamic": false,
+      "usageCount": 28,
+      "files": [
+        "src\\app\\admin\\navigation\\edit\\page.tsx",
+        "src\\app\\courses\\ai-audit\\page.tsx",
+        "src\\app\\courses\\cia-preparation\\page.tsx",
+        "src\\app\\courses\\compliance\\page.tsx",
+        "src\\app\\courses\\digital-audit\\page.tsx",
+        "src\\app\\courses\\financial-projects\\page.tsx",
+        "src\\app\\courses\\risk-analysis\\page.tsx",
+        "src\\app\\faq\\page.tsx",
+        "src\\app\\financial-management\\page.tsx",
+        "src\\app\\workshops\\page.tsx",
+        "src\\components\\FAQComponent.tsx",
+        "src\\components\\homepage\\FAQSection.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/blog/${article.slug}",
+      "cleanPath": "/blog/${article.slug}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\blog\\page.tsx"
+      ]
+    },
+    {
+      "path": "/cia",
+      "cleanPath": "/cia",
+      "isDynamic": false,
+      "usageCount": 26,
+      "files": [
+        "src\\app\\cia\\exams\\page.tsx",
+        "src\\app\\_not-found\\page.tsx",
+        "src\\components\\homepage\\CIASpotlightSection.tsx",
+        "src\\components\\homepage\\CreativeHeroSection.tsx",
+        "src\\components\\homepage\\FellowshipSection.tsx",
+        "src\\components\\homepage\\SectionsNavigation.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/consulting",
+      "cleanPath": "/consulting",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\consulting\\group\\page.tsx",
+        "src\\app\\consulting\\individual\\page.tsx",
+        "src\\app\\workshops\\page.tsx",
+        "src\\components\\ui\\MegaMenu.tsx"
+      ]
+    },
+    {
+      "path": "/subscribe",
+      "cleanPath": "/subscribe",
+      "isDynamic": false,
+      "usageCount": 24,
+      "files": [
+        "src\\app\\courses\\ai-audit\\page.tsx",
+        "src\\app\\courses\\cia-preparation\\page.tsx",
+        "src\\app\\courses\\compliance\\page.tsx",
+        "src\\app\\courses\\digital-audit\\page.tsx",
+        "src\\app\\courses\\financial-projects\\page.tsx",
+        "src\\app\\courses\\risk-analysis\\page.tsx"
+      ]
+    },
+    {
+      "path": "#curriculum",
+      "cleanPath": "#curriculum",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\courses\\ai-audit\\page.tsx",
+        "src\\app\\courses\\cia-preparation\\page.tsx",
+        "src\\app\\courses\\compliance\\page.tsx",
+        "src\\app\\courses\\digital-audit\\page.tsx",
+        "src\\app\\courses\\financial-projects\\page.tsx",
+        "src\\app\\courses\\risk-analysis\\page.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${course.id}/lesson/${lessonId}",
+      "cleanPath": "/student/courses/${course.id}/lesson/${lessonId}",
+      "isDynamic": true,
+      "usageCount": 2,
+      "files": [
+        "src\\app\\courses\\[slug]\\page.tsx"
+      ]
+    },
+    {
+      "path": "/banar-cours.webp",
+      "cleanPath": "/banar-cours.webp",
+      "isDynamic": false,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\layout.tsx"
+      ]
+    },
+    {
+      "path": "/globe.svg",
+      "cleanPath": "/globe.svg",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\app\\layout.tsx"
+      ]
+    },
+    {
+      "path": "/manifest.json",
+      "cleanPath": "/manifest.json",
+      "isDynamic": false,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\layout.tsx"
+      ]
+    },
+    {
+      "path": "/student/consulting",
+      "cleanPath": "/student/consulting",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\app\\packages-and-consulting\\page.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/packages-and-consulting?tab=packages",
+      "cleanPath": "/packages-and-consulting?tab=packages",
+      "isDynamic": false,
+      "usageCount": 9,
+      "files": [
+        "src\\app\\packages-and-consulting\\page.tsx",
+        "src\\components\\course-details\\StickyCheckout.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/packages-and-consulting?tab=${tab}",
+      "cleanPath": "/packages-and-consulting?tab=${tab}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\packages-and-consulting\\page.tsx"
+      ]
+    },
+    {
+      "path": "/",
+      "cleanPath": "/",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\app\\subscribe\\page.tsx",
+        "src\\app\\unauthorized\\page.tsx",
+        "src\\components\\layout\\Breadcrumbs.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx"
+      ]
+    },
+    {
+      "path": "/search?q=${encodeURIComponent(searchQuery.trim())}",
+      "cleanPath": "/search?q=${encodeURIComponent(searchQuery.trim())}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\app\\_not-found\\page.tsx"
+      ]
+    },
+    {
+      "path": "/faq",
+      "cleanPath": "/faq",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\app\\_not-found\\page.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/admin/navigation/edit",
+      "cleanPath": "/admin/navigation/edit",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\admin\\ModernAdminPanel.tsx"
+      ]
+    },
+    {
+      "path": "/admin/courses/new",
+      "cleanPath": "/admin/courses/new",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\admin\\ModernAdminPanel.tsx"
+      ]
+    },
+    {
+      "path": "/admin/roles",
+      "cleanPath": "/admin/roles",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\admin\\ModernAdminPanel.tsx"
+      ]
+    },
+    {
+      "path": "/admin/reports/performance",
+      "cleanPath": "/admin/reports/performance",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\admin\\ModernAdminPanel.tsx"
+      ]
+    },
+    {
+      "path": "/admin/reports/revenue",
+      "cleanPath": "/admin/reports/revenue",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\admin\\ModernAdminPanel.tsx"
+      ]
+    },
+    {
+      "path": "/unauthorized",
+      "cleanPath": "/unauthorized",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\auth\\AuthGuard.tsx",
+        "src\\hooks\\useSecureAuth.ts"
+      ]
+    },
+    {
+      "path": "/packages-and-consulting",
+      "cleanPath": "/packages-and-consulting",
+      "isDynamic": false,
+      "usageCount": 15,
+      "files": [
+        "src\\components\\ConsultingSystem\\ConsultingDashboard.tsx",
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/certificates",
+      "cleanPath": "/certificates",
+      "isDynamic": false,
+      "usageCount": 7,
+      "files": [
+        "src\\components\\CourseCard.tsx",
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\layout\\QuickAccess.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/${course.slug || course.id}",
+      "cleanPath": "/courses/${course.slug || course.id}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\components\\CourseCard.tsx"
+      ]
+    },
+    {
+      "path": "/ai-tools",
+      "cleanPath": "/ai-tools",
+      "isDynamic": false,
+      "usageCount": 14,
+      "files": [
+        "src\\components\\homepage\\AIToolsPreviewSection.tsx",
+        "src\\components\\homepage\\AIToolsSection.tsx",
+        "src\\components\\homepage\\CreativeHeroSection.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses?category=المراجعة الداخلية",
+      "cleanPath": "/courses?category=المراجعة الداخلية",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\homepage\\CreativeHeroSection.tsx"
+      ]
+    },
+    {
+      "path": "/resources/${item.id}",
+      "cleanPath": "/resources/${item.id}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\components\\homepage\\LatestContentSection.tsx"
+      ]
+    },
+    {
+      "path": "/register?plan=${plan.id}",
+      "cleanPath": "/register?plan=${plan.id}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\components\\homepage\\PricingSection.tsx"
+      ]
+    },
+    {
+      "path": "/packages-and-consulting?tab=consulting",
+      "cleanPath": "/packages-and-consulting?tab=consulting",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\components\\homepage\\SectionsNavigation.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/internal-audit",
+      "cleanPath": "/internal-audit",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\components\\layout\\EnhancedNavbar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/cookies",
+      "cleanPath": "/cookies",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\layout\\FooterComponent.tsx"
+      ]
+    },
+    {
+      "path": "/sitemap.xml",
+      "cleanPath": "/sitemap.xml",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\components\\layout\\FooterComponent.tsx"
+      ]
+    },
+    {
+      "path": "/review",
+      "cleanPath": "/review",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\components\\layout\\layout-data.ts",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/settings",
+      "cleanPath": "/student/settings",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\components\\layout\\QuickAccess.tsx",
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/${courseId}/quiz",
+      "cleanPath": "/courses/${courseId}/quiz",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\components\\layout\\SidebarComponent.tsx"
+      ]
+    },
+    {
+      "path": "/courses/${courseId}/certificate",
+      "cleanPath": "/courses/${courseId}/certificate",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\components\\layout\\SidebarComponent.tsx"
+      ]
+    },
+    {
+      "path": "/admin/dashboard",
+      "cleanPath": "/admin/dashboard",
+      "isDynamic": false,
+      "usageCount": 8,
+      "files": [
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/file-manager",
+      "cleanPath": "/student/file-manager",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/course-files",
+      "cleanPath": "/student/course-files",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/accounting-simulation",
+      "cleanPath": "/student/accounting-simulation",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/storage-calculator",
+      "cleanPath": "/student/storage-calculator",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/gallery",
+      "cleanPath": "/student/gallery",
+      "isDynamic": false,
+      "usageCount": 6,
+      "files": [
+        "src\\components\\layout\\StudentSidebar.tsx",
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseData.id}",
+      "cleanPath": "/student/courses/${courseData.id}",
+      "isDynamic": true,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\course-page-template.tsx"
+      ]
+    },
+    {
+      "path": "/student/courses/${courseData.id}/lesson/${lessonId}",
+      "cleanPath": "/student/courses/${courseData.id}/lesson/${lessonId}",
+      "isDynamic": true,
+      "usageCount": 1,
+      "files": [
+        "src\\lib\\course-page-template.tsx"
+      ]
+    },
+    {
+      "path": "/courses/ai-audit",
+      "cleanPath": "/courses/ai-audit",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/basics",
+      "cleanPath": "/courses/basics",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/cia-preparation",
+      "cleanPath": "/courses/cia-preparation",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/compliance",
+      "cleanPath": "/courses/compliance",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/digital-audit",
+      "cleanPath": "/courses/digital-audit",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/financial-projects",
+      "cleanPath": "/courses/financial-projects",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/risk-analysis",
+      "cleanPath": "/courses/risk-analysis",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/community",
+      "cleanPath": "/community",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/financial-management",
+      "cleanPath": "/financial-management",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/finance-basics",
+      "cleanPath": "/finance-basics",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/procurement-management",
+      "cleanPath": "/procurement-management",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/warehouse-management",
+      "cleanPath": "/warehouse-management",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/financial-reporting",
+      "cleanPath": "/financial-reporting",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/inventory-reconciliations",
+      "cleanPath": "/inventory-reconciliations",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/restaurant-management",
+      "cleanPath": "/restaurant-management",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/meeting-room",
+      "cleanPath": "/meeting-room",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/onboarding-demo",
+      "cleanPath": "/onboarding-demo",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/learning-hub",
+      "cleanPath": "/learning-hub",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/workshops",
+      "cleanPath": "/workshops",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/refund-policy",
+      "cleanPath": "/refund-policy",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/usage-policy",
+      "cleanPath": "/usage-policy",
+      "isDynamic": false,
+      "usageCount": 4,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/auditors-fellowship",
+      "cleanPath": "/auditors-fellowship",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/cia/exams",
+      "cleanPath": "/cia/exams",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/courses/financial",
+      "cleanPath": "/courses/financial",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/consulting/group",
+      "cleanPath": "/consulting/group",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/consulting/individual",
+      "cleanPath": "/consulting/individual",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/resources/books",
+      "cleanPath": "/resources/books",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/resources/tools",
+      "cleanPath": "/resources/tools",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/files",
+      "cleanPath": "/files",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    },
+    {
+      "path": "/advanced-features",
+      "cleanPath": "/advanced-features",
+      "isDynamic": false,
+      "usageCount": 2,
+      "files": [
+        "src\\lib\\navigation.ts"
+      ]
+    }
+  ]
+}

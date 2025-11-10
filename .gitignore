@@ -43,6 +43,16 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# debug and log files
+debug.log
+*.log
+
+# temporary files
+e of webpack errors
+allfiles.txt
+
+# analysis reports (optional - can be committed if needed)
+CLEANUP_REPORT.json
 
 #Ignore vscode AI rules
 .github\instructions\codacy.instructions.md

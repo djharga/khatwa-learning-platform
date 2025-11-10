@@ -1,8 +1,11 @@
+'use client';
+
 import ContactComponent from '@/components/ContactComponent';
+import PageBackground from '@/components/ui/PageBackground';
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-background parallax-fast">
+    <PageBackground variant="home">
       <div className="grid-container py-12">
         <div className="text-center mb-8">
           <h1 className="heading-1 text-gradient-modern text-center mb-4">
@@ -16,6 +19,6 @@ export default function ContactPage() {
         </div>
         <ContactComponent />
       </div>
-    </div>
+    </PageBackground>
   );
 }

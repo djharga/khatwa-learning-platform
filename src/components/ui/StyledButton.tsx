@@ -1,26 +1,24 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import { Loader2 } from 'lucide-react';
 
-// أنواع الأزرار
-export type ButtonVariant = 
-  | 'primary' 
-  | 'secondary' 
-  | 'success' 
-  | 'danger' 
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'danger'
   | 'warning'
   | 'info'
   | 'outline'
   | 'ghost'
   | 'link';
 
-// أحجام الأزرار
 export type ButtonSize = 'xs' | 'small' | 'medium' | 'large' | 'xl';
 
-// واجهة الخصائص
-export interface StyledButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface StyledButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
@@ -33,452 +31,145 @@ export interface StyledButtonProps extends React.ButtonHTMLAttributes<HTMLButton
   ripple?: boolean;
 }
 
-// أنيميشن الـ ripple
 const rippleAnimation = keyframes`
-  0% {
-    transform: scale(0);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(4);
-    opacity: 0;
-  }
+  0% { transform: scale(0); opacity: 0.9; }
+  60% { opacity: 0.4; }
+  100% { transform: scale(3.5); opacity: 0; }
 `;
 
-// أنيميشن الـ loading
-const spinAnimation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-// أنيميشن الـ glow
 const glowPulse = keyframes`
-  0%, 100% {
-    opacity: 1;
-    filter: brightness(1);
-  }
-  50% {
-    opacity: 0.8;
-    filter: brightness(1.2);
-  }
+  0%, 100% { filter: brightness(1); opacity: 1; }
+  50% { filter: brightness(1.15); opacity: 0.9; }
 `;
 
-// دالة للحصول على ألوان الـ variant
-const getVariantColors = (variant: ButtonVariant) => {
-  switch (variant) {
-    case 'primary':
-      return {
-        main: '#3b82f6',
-        light: '#60a5fa',
-        dark: '#2563eb',
-        glow: 'rgba(59, 130, 246, 0.6)',
-        text: '#ffffff',
-      };
-    case 'secondary':
-      return {
-        main: '#64748b',
-        light: '#94a3b8',
-        dark: '#475569',
-        glow: 'rgba(100, 116, 139, 0.6)',
-        text: '#ffffff',
-      };
-    case 'success':
-      return {
-        main: '#22c55e',
-        light: '#4ade80',
-        dark: '#16a34a',
-        glow: 'rgba(34, 197, 94, 0.6)',
-        text: '#ffffff',
-      };
-    case 'danger':
-      return {
-        main: '#ef4444',
-        light: '#f87171',
-        dark: '#dc2626',
-        glow: 'rgba(239, 68, 68, 0.6)',
-        text: '#ffffff',
-      };
-    case 'warning':
-      return {
-        main: '#f59e0b',
-        light: '#fbbf24',
-        dark: '#d97706',
-        glow: 'rgba(245, 158, 11, 0.6)',
-        text: '#ffffff',
-      };
-    case 'info':
-      return {
-        main: '#06b6d4',
-        light: '#22d3ee',
-        dark: '#0891b2',
-        glow: 'rgba(6, 182, 212, 0.6)',
-        text: '#ffffff',
-      };
-    case 'outline':
-      return {
-        main: 'transparent',
-        light: '#f1f5f9',
-        dark: '#e2e8f0',
-        glow: 'rgba(59, 130, 246, 0.3)',
-        text: '#3b82f6',
-      };
-    case 'ghost':
-      return {
-        main: 'transparent',
-        light: '#f1f5f9',
-        dark: '#e2e8f0',
-        glow: 'rgba(59, 130, 246, 0.2)',
-        text: '#3b82f6',
-      };
-    case 'link':
-      return {
-        main: 'transparent',
-        light: 'transparent',
-        dark: 'transparent',
-        glow: 'transparent',
-        text: '#3b82f6',
-      };
-    default:
-      return {
-        main: '#3b82f6',
-        light: '#60a5fa',
-        dark: '#2563eb',
-        glow: 'rgba(59, 130, 246, 0.6)',
-        text: '#ffffff',
-      };
-  }
+const spin = keyframes`to { transform: rotate(360deg); }`;
+
+const getVariantColors = (v: ButtonVariant) => {
+  const map = {
+    primary: ['#3b82f6', '#2563eb', '#60a5fa'],
+    secondary: ['#64748b', '#475569', '#94a3b8'],
+    success: ['#22c55e', '#15803d', '#4ade80'],
+    danger: ['#ef4444', '#b91c1c', '#f87171'],
+    warning: ['#f59e0b', '#d97706', '#fbbf24'],
+    info: ['#06b6d4', '#0e7490', '#22d3ee'],
+  } as const;
+  const [main, dark, light] = map[v as keyof typeof map] ?? map.primary;
+  return { main, dark, light, text: '#fff', glow: `${main}99` };
 };
 
-// دالة للحصول على الأحجام
-const getSizeStyles = (size: ButtonSize) => {
-  switch (size) {
-    case 'xs':
-      return {
-        padding: '6px 16px',
-        fontSize: '11px',
-        minHeight: '28px',
-        iconSize: '14px',
-      };
-    case 'small':
-      return {
-        padding: '10px 24px',
-        fontSize: '12px',
-        minHeight: '36px',
-        iconSize: '16px',
-      };
-    case 'medium':
-      return {
-        padding: '14px 36px',
-        fontSize: '14px',
-        minHeight: '44px',
-        iconSize: '18px',
-      };
-    case 'large':
-      return {
-        padding: '18px 48px',
-        fontSize: '16px',
-        minHeight: '52px',
-        iconSize: '20px',
-      };
-    case 'xl':
-      return {
-        padding: '22px 56px',
-        fontSize: '18px',
-        minHeight: '60px',
-        iconSize: '24px',
-      };
-    default:
-      return {
-        padding: '14px 36px',
-        fontSize: '14px',
-        minHeight: '44px',
-        iconSize: '18px',
-      };
-  }
+const getSize = (s: ButtonSize) => {
+  const map = {
+    xs: ['6px 16px', '11px', '28px', 14],
+    small: ['10px 24px', '12px', '36px', 16],
+    medium: ['14px 36px', '14px', '44px', 18],
+    large: ['18px 48px', '16px', '52px', 20],
+    xl: ['22px 56px', '18px', '60px', 24],
+  } as const;
+  const [pad, fs, h, icon] = map[s] ?? map.medium;
+  return { pad, fs, h, icon };
 };
 
-// الـ Wrapper الرئيسي
-const StyledWrapper = styled.div<{ fullWidth?: boolean }>`
-  display: ${props => props.fullWidth ? 'block' : 'inline-block'};
-  width: ${props => props.fullWidth ? '100%' : 'auto'};
+const Wrapper = styled.div<{ fullWidth?: boolean }>`
+  display: ${p => (p.fullWidth ? 'block' : 'inline-block')};
+  width: ${p => (p.fullWidth ? '100%' : 'auto')};
+  perspective: 800px;
 `;
 
-// الـ Button Wrapper
-const ButtonWrapper = styled.div<{ rounded?: boolean }>`
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  border-radius: ${props => props.rounded ? '9999px' : '12px'};
-  overflow: hidden;
-`;
-
-// الطبقة السفلية (Shadow Layer)
-const BottomLayer = styled.div<{ variant: ButtonVariant; rounded?: boolean; glow?: boolean }>`
-  position: absolute;
-  top: 8px;
-  left: -2px;
-  right: -2px;
-  height: 97%;
-  background: ${props => {
-    const colors = getVariantColors(props.variant);
-    return props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link'
-      ? 'rgba(0, 0, 0, 0.05)'
-      : `rgba(0, 0, 0, 0.15)`;
-  }};
-  border-radius: ${props => props.rounded ? '9999px' : '12px'};
-  z-index: 0;
-  box-shadow:
-    inset 0 3px 4px rgba(0, 0, 0, 0.3),
-    inset 0 -50px 4px rgba(0, 0, 0, 0.05),
-    0 0px 8px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  ${ButtonWrapper}:hover & {
-    top: 10px;
-    box-shadow:
-      inset 0 3px 4px rgba(0, 0, 0, 0.2),
-      inset 0 -50px 4px rgba(0, 0, 0, 0.05),
-      0 0px 12px rgba(0, 0, 0, 0.5);
-  }
-
-  ${ButtonWrapper}:active & {
-    top: 12px;
-  }
-`;
-
-// طبقة الـ Glow
-const GlowLayer = styled.div<{ variant: ButtonVariant; rounded?: boolean; glow?: boolean }>`
-  position: absolute;
-  top: 4px;
-  left: 3px;
-  right: 3px;
-  height: 98%;
-  border-radius: ${props => props.rounded ? '9999px' : '12px'};
-  z-index: 1;
-  filter: blur(0.5px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  ${props => {
-    const colors = getVariantColors(props.variant);
-    const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
-    
-    return css`
-      background: ${isTransparent 
-        ? 'transparent' 
-        : `linear-gradient(160deg, ${colors.light}, ${colors.main})`};
-      box-shadow:
-        ${!isTransparent ? `
-          inset 0 3px 4px ${colors.glow},
-          inset 0 -50px 4px ${colors.glow.replace('0.6', '0.1')},
-          0 0px 8px ${colors.glow}
-        ` : 'none'};
-      
-      ${props.glow && !isTransparent ? css`
-        animation: ${glowPulse} 2s ease-in-out infinite;
-      ` : ''}
-    `;
-  }}
-
-  ${ButtonWrapper}:hover & {
-    ${props => {
-      const colors = getVariantColors(props.variant);
-      const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
-      
-      return !isTransparent ? css`
-        box-shadow:
-          inset 0 3px 4px ${colors.glow},
-          inset 0 -50px 4px ${colors.glow.replace('0.6', '0.15')},
-          0 0px 16px ${colors.glow};
-      ` : '';
-    }}
-  }
-`;
-
-// الـ Ripple Effect
 const Ripple = styled.span<{ x: number; y: number }>`
   position: absolute;
+  left: ${p => p.x}px;
+  top: ${p => p.y}px;
+  width: 24px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.7);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.6);
   transform: scale(0);
-  animation: ${rippleAnimation} 0.6s ease-out;
+  animation: ${rippleAnimation} 0.7s ease-out forwards;
   pointer-events: none;
-  width: 20px;
-  height: 20px;
-  left: ${props => props.x}px;
-  top: ${props => props.y}px;
-  z-index: 10;
+  filter: blur(2px);
 `;
 
-// الـ Button الرئيسي
 const StyledButton = styled.button<{
   variant: ButtonVariant;
   size: ButtonSize;
+  rounded?: boolean;
+  glow?: boolean;
   disabled?: boolean;
   loading?: boolean;
-  rounded?: boolean;
-  hasIcon?: boolean;
-  iconPosition?: 'left' | 'right';
 }>`
   position: relative;
-  z-index: 2;
-  width: 100%;
-  min-height: ${props => getSizeStyles(props.size).minHeight};
-  padding: ${props => getSizeStyles(props.size).padding};
-  font-size: ${props => getSizeStyles(props.size).fontSize};
-  font-weight: 600;
-  border: none;
-  border-radius: ${props => props.rounded ? '9999px' : '12px'};
-  cursor: ${props => (props.disabled || props.loading) ? 'not-allowed' : 'pointer'};
-  opacity: ${props => props.disabled ? 0.6 : 1};
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: ${props => props.hasIcon ? '8px' : '0'};
-  flex-direction: ${props => props.iconPosition === 'right' ? 'row-reverse' : 'row'};
-  overflow: hidden;
-  
-  ${props => {
-    const colors = getVariantColors(props.variant);
-    const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
-    
-    return css`
-      background: ${isTransparent 
-        ? 'transparent' 
-        : `linear-gradient(135deg, ${colors.main}, ${colors.dark})`};
-      color: ${colors.text};
-      border: ${props.variant === 'outline' ? `2px solid ${colors.main}` : `1px solid ${colors.glow.replace('0.6', '0.3')}`};
-      
-      box-shadow: ${isTransparent ? 'none' : `
-        inset 0 3px 4px rgba(255, 255, 255, 0.3),
-        inset 0 10px 16px rgba(0, 0, 0, 0.05),
-        0 10px 16px rgba(0, 0, 0, 0.1),
-        0 0 0 1px ${colors.glow.replace('0.6', '0.2')},
-        0 0 8px ${colors.glow.replace('0.6', '0.3')}
-      `};
-    `;
-  }}
+  gap: 8px;
+  border: none;
+  font-weight: 600;
+  border-radius: ${p => (p.rounded ? '9999px' : '12px')};
+  padding: ${p => getSize(p.size).pad};
+  font-size: ${p => getSize(p.size).fs};
+  min-height: ${p => getSize(p.size).h};
+  color: ${({ variant }) => getVariantColors(variant).text};
+  background: ${({ variant }) => {
+    const c = getVariantColors(variant);
+    return `linear-gradient(135deg, ${c.main}, ${c.dark})`;
+  }};
+  cursor: ${p => (p.disabled ? 'not-allowed' : 'pointer')};
+  transition: all 0.25s ease-out;
+  will-change: transform, box-shadow, filter;
+  transform: translateZ(0);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2));
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 
   &:hover:not(:disabled) {
-    transform: translateY(-2px) scale(1.05);
-    ${props => {
-      const colors = getVariantColors(props.variant);
-      const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
-      
-      return css`
-        ${!isTransparent ? `
-          box-shadow:
-            inset 0 3px 4px rgba(255, 255, 255, 0.4),
-            inset 0 -3px 4px rgba(0, 0, 0, 0.05),
-            0 10px 15px -3px rgba(0, 0, 0, 0.1),
-            0 4px 6px -2px rgba(0, 0, 0, 0.05),
-            0 0 0 1px ${colors.glow.replace('0.6', '0.3')},
-            0 0 12px ${colors.glow.replace('0.6', '0.5')};
-        ` : `
-          box-shadow: 
-            0 10px 15px -3px rgba(0, 0, 0, 0.1),
-            0 4px 6px -2px rgba(0, 0, 0, 0.05),
-            0 0 0 1px ${colors.glow.replace('0.6', '0.2')},
-            0 0 8px ${colors.glow.replace('0.6', '0.3')};
-        `}
-        ${props.variant === 'link' ? `
-          text-decoration: underline;
-        ` : ''}
-      `;
-    }}
+    transform: translateY(-2px) scale(1.04);
+    filter: brightness(1.05) drop-shadow(0 6px 16px rgba(0,0,0,0.25));
   }
 
   &:active:not(:disabled) {
-    transform: translateY(0);
-    ${props => {
-      const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
-      return !isTransparent ? css`
-        box-shadow:
-          inset 0 3px 4px rgba(255, 255, 255, 0.2),
-          inset 0 10px 16px rgba(0, 0, 0, 0.1),
-          0 4px 8px rgba(0, 0, 0, 0.15);
-      ` : '';
-    }}
+    transform: translateY(0px) scale(0.98);
+    filter: brightness(1.1);
   }
 
-  &:focus-visible {
-    outline: none;
-    ${props => {
-      const colors = getVariantColors(props.variant);
-      return css`
-        box-shadow:
-          0 0 0 3px ${colors.glow.replace('0.6', '0.3')},
-          0 0 0 5px ${colors.glow.replace('0.6', '0.1')};
-      `;
-    }}
-  }
+  ${({ glow, variant }) =>
+    glow &&
+    css`
+      animation: ${glowPulse} 2.8s ease-in-out infinite;
+      box-shadow: 0 0 15px ${getVariantColors(variant).glow},
+        0 0 30px ${getVariantColors(variant).glow};
+    `}
 
   &:disabled {
-    cursor: not-allowed;
     opacity: 0.6;
   }
 
-  /* Loading state */
-  ${props => props.loading && css`
-    pointer-events: none;
-    opacity: 0.8;
-  `}
-
-  /* Dark mode support */
   @media (prefers-color-scheme: dark) {
-    ${props => {
-      const colors = getVariantColors(props.variant);
-      const isTransparent = props.variant === 'outline' || props.variant === 'ghost' || props.variant === 'link';
-      
-      if (isTransparent) {
-        return css`
-          color: ${colors.text};
-        `;
-      }
-      
-      return css`
-        background: linear-gradient(135deg, ${colors.dark}, ${colors.main});
-        box-shadow:
-          inset 0 3px 4px rgba(255, 255, 255, 0.1),
-          inset 0 10px 16px rgba(0, 0, 0, 0.2),
-          0 10px 16px rgba(0, 0, 0, 0.3);
-      `;
-    }}
+    background: ${({ variant }) => {
+      const c = getVariantColors(variant);
+      return `linear-gradient(135deg, ${c.dark}, ${c.main})`;
+    }};
   }
 `;
 
-// مكون الـ Loading Spinner
-const LoadingSpinner = styled(Loader2)<{ size: number }>`
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  animation: ${spinAnimation} 1s linear infinite;
+const Spinner = styled(Loader2)<{ size: number }>`
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
+  animation: ${spin} 1s linear infinite;
 `;
 
-// مكون الـ Icon Wrapper
-const IconWrapper = styled.span<{ size: number }>`
-  display: inline-flex;
+const IconWrap = styled.span<{ size: number }>`
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: ${props => props.size}px;
-  height: ${props => props.size}px;
-  flex-shrink: 0;
-  
-  svg {
-    width: 100%;
-    height: 100%;
-  }
+  width: ${p => p.size}px;
+  height: ${p => p.size}px;
 `;
 
-// المكون الرئيسي
 const StyledButtonComponent: React.FC<StyledButtonProps> = ({
   children,
   variant = 'primary',
   size = 'medium',
-  fullWidth = false,
+  fullWidth,
   loading = false,
   icon,
   iconPosition = 'left',
@@ -489,72 +180,58 @@ const StyledButtonComponent: React.FC<StyledButtonProps> = ({
   onClick,
   ...props
 }) => {
-  const [ripples, setRipples] = useState<Array<{ x: number; y: number; id: number }>>([]);
-  const buttonRef = useRef<HTMLButtonElement>(null);
-  const rippleIdRef = useRef(0);
+  const [ripples, setRipples] = useState<
+    { x: number; y: number; id: number }[]
+  >([]);
+  const ref = useRef<HTMLButtonElement>(null);
+  const rippleId = useRef(0);
 
-  // معالجة الـ ripple effect
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (ripple && !disabled && !loading && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left - 10;
-      const y = e.clientY - rect.top - 10;
-      const id = rippleIdRef.current++;
-
+    if (ripple && !disabled && !loading && ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      const x = e.clientX - rect.left - 12;
+      const y = e.clientY - rect.top - 12;
+      const id = rippleId.current++;
       setRipples(prev => [...prev, { x, y, id }]);
-
-      setTimeout(() => {
-        setRipples(prev => prev.filter(r => r.id !== id));
-      }, 600);
+      setTimeout(() => setRipples(prev => prev.filter(r => r.id !== id)), 700);
     }
-
-    if (onClick && !disabled && !loading) {
-      onClick(e);
-    }
+    onClick?.(e);
   };
 
-  const sizeStyles = getSizeStyles(size);
-  const hasIcon = !!icon || loading;
+  const iconSize = getSize(size).icon;
 
   return (
-    <StyledWrapper fullWidth={fullWidth}>
-      <ButtonWrapper rounded={rounded}>
-        <BottomLayer variant={variant} rounded={rounded} glow={glow} />
-        <GlowLayer variant={variant} rounded={rounded} glow={glow} />
-        <StyledButton
-          ref={buttonRef}
-          variant={variant}
-          size={size}
-          disabled={disabled || loading}
-          loading={loading}
-          rounded={rounded}
-          hasIcon={hasIcon}
-          iconPosition={iconPosition}
-          onClick={handleClick}
-          {...props}
-        >
-          {ripples.map(ripple => (
-            <Ripple key={ripple.id} x={ripple.x} y={ripple.y} />
-          ))}
-          
-          {loading ? (
-            <>
-              <LoadingSpinner size={parseInt(sizeStyles.iconSize)} />
-              <span>{children}</span>
-            </>
-          ) : (
-            <>
-              {icon && (
-                <IconWrapper size={parseInt(sizeStyles.iconSize)}>
-                  {icon}
-                </IconWrapper>
-              )}
-              <span>{children}</span>
-            </>
-          )}
-        </StyledButton>
-      </ButtonWrapper>
-    </StyledWrapper>
+    <Wrapper fullWidth={fullWidth}>
+      <StyledButton
+        ref={ref}
+        variant={variant}
+        size={size}
+        rounded={rounded}
+        glow={glow}
+        disabled={disabled || loading}
+        loading={loading}
+        onClick={handleClick}
+        style={{
+          flexDirection: iconPosition === 'right' ? 'row-reverse' : 'row',
+        }}
+        {...props}
+      >
+        {ripples.map(r => (
+          <Ripple key={r.id} x={r.x} y={r.y} />
+        ))}
+        {loading ? (
+          <>
+            <Spinner size={iconSize} />
+            <span>{children}</span>
+          </>
+        ) : (
+          <>
+            {icon && <IconWrap size={iconSize}>{icon}</IconWrap>}
+            <span>{children}</span>
+          </>
+        )}
+      </StyledButton>
+    </Wrapper>
   );
 };
 

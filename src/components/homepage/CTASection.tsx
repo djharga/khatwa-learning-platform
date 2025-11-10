@@ -1,14 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Rocket, 
   CheckCircle, 
-  ArrowLeft, 
-  Play, 
   Infinity, 
   Award, 
-  GraduationCap 
+  GraduationCap,
+  UserPlus
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 import { Button } from '@/components/ui/Button';
@@ -34,9 +34,23 @@ const CTASection = () => {
     },
   ];
 
-
   return (
-    <section className="relative py-20 lg:py-28 bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <section className="relative py-12 lg:py-16 overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/assets/cta-section-background.jpg"
+          alt="خلفية دعوة للعمل"
+          fill
+          className="object-cover"
+          quality={80}
+          sizes="100vw"
+          priority={false}
+        />
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/85 to-white/90 dark:from-neutral-900/90 dark:via-neutral-900/85 dark:to-neutral-900/90" />
+      </div>
+      
       <Container size="xl" className="relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Badge */}
@@ -87,29 +101,17 @@ const CTASection = () => {
             })}
           </div>
 
-          {/* CTA Buttons - Final Section */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-            <Link href="/register" className="w-full sm:w-auto" aria-label="التسجيل في المنصة - ابدأ رحلتك التعليمية" role="link">
+          {/* CTA Button - Single Button */}
+          <div className="flex items-center justify-center mb-16">
+            <Link href="/register">
               <Button
                 variant="default"
                 size="lg"
-                className="w-full sm:min-w-[240px] text-lg px-8 py-4"
-                role="button"
+                className="w-full sm:min-w-[320px] text-lg px-8 py-4 flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+                aria-label="التسجيل للحصول على أحدث الدورات"
               >
-                <span>التسجيل</span>
-                <ArrowLeft className="w-6 h-6" aria-hidden="true" />
-              </Button>
-            </Link>
-
-            <Link href="/courses" className="w-full sm:w-auto" aria-label="تصفح جميع الدورات المتاحة" role="link">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full sm:min-w-[240px] text-lg px-8 py-4"
-                role="button"
-              >
-                <Play className="w-6 h-6" aria-hidden="true" />
-                <span>الدورات</span>
+                <UserPlus className="w-5 h-5" />
+                <span>التسجيل للحصول على أحدث الدورات</span>
               </Button>
             </Link>
           </div>

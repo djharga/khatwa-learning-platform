@@ -23,6 +23,7 @@ import {
   Lock,
 } from 'lucide-react';
 import StyledButton from '@/components/ui/StyledButton';
+import Image from 'next/image';
 
 interface SubscriptionPlan {
   id: string;
@@ -270,19 +271,38 @@ function PackagesAndConsultingContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 pt-20">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white py-16 lg:py-24">
-        <div className="absolute inset-0 bg-[url('/assets/Professional educational platform hero banner.png')] bg-cover bg-center opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/80"></div>
+      <div className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700 text-white py-16 lg:py-24 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/assets/sup.jpg"
+            alt="الباقات والاستشارات"
+            fill
+            priority
+            quality={90}
+            className="object-cover"
+            style={{ objectPosition: 'center' }}
+          />
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-purple-900/65 to-indigo-900/70"></div>
+        </div>
+        
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 
+              className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-2xl text-white"
+              style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.6)' }}
+            >
               الباقات والاستشارات
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
+            <p 
+              className="text-xl md:text-2xl text-white/95 max-w-3xl mx-auto mb-8 drop-shadow-lg"
+              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
+            >
               اختر الباقة المناسبة لك واحصل على استشارات متخصصة من خبرائنا لتطوير مسيرتك المهنية
             </p>
           </motion.div>

@@ -24,7 +24,7 @@ const CTAJoinSection = () => {
       <Container size="xl" className="relative z-10">
         <div className="max-w-5xl mx-auto text-center space-y-16">
           {/* Badge - محسّن */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-pink-500/20 backdrop-blur-xl rounded-full border border-indigo-300/50 dark:border-indigo-600/50 shadow-lg">
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-indigo-500/10 via-purple-500/10 to-pink-500/10 dark:from-indigo-500/20 dark:via-purple-500/20 dark:to-pink-500/20 backdrop-blur-md rounded-full border border-indigo-300/50 dark:border-indigo-600/50 shadow-lg">
             <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             <span className="text-indigo-700 dark:text-indigo-300 font-bold text-base">
               انضم إلينا
@@ -78,7 +78,7 @@ const CTAJoinSection = () => {
               return (
                 <div
                   key={index}
-                  className={`flex flex-col items-center gap-4 p-6 bg-gradient-to-br ${style.bg} backdrop-blur-xl rounded-2xl border ${style.border} shadow-lg hover:shadow-xl transition-all duration-300`}
+                  className={`flex flex-col items-center gap-4 p-6 bg-gradient-to-br ${style.bg} backdrop-blur-md rounded-2xl border ${style.border} shadow-lg hover:shadow-xl transition-all duration-300`}
                 >
                   <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${style.iconBg} flex items-center justify-center`}>
                     <CheckCircle className={`w-7 h-7 ${style.iconColor}`} />

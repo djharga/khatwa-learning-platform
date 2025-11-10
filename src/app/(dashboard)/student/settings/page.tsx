@@ -101,24 +101,25 @@ export default function StudentSettingsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
           className="max-w-5xl mx-auto"
         >
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 text-center"
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="mb-6 sm:mb-8 text-center"
           >
-            <h1 className="text-4xl font-extrabold text-gray-900 mb-2">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white mb-2">
               إعدادات الحساب
             </h1>
-            <p className="text-lg text-gray-600">
+            <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400">
               إدارة حسابك وتفضيلاتك الشخصية بكل سهولة
             </p>
           </motion.div>
@@ -127,22 +128,22 @@ export default function StudentSettingsPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
           >
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-8">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 sm:space-y-8">
               {/* Tabs List */}
-              <div className="bg-white rounded-3xl p-2 shadow-2xl border-2 border-gray-100">
+              <div className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-2 shadow-md border border-neutral-200 dark:border-neutral-700">
                 <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-transparent h-auto">
                   {tabConfig.map((tab) => {
                     const Icon = tab.icon;
                     return (
-                      <motion.div key={tab.id}>
+                      <motion.div key={tab.id} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                         <TabsTrigger
                           value={tab.id}
-                          className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-indigo-600 data-[state=active]:text-white rounded-xl py-3 px-4 transition-all duration-300 flex flex-col items-center gap-2"
+                          className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary-600 data-[state=active]:to-primary-700 data-[state=active]:text-white rounded-lg sm:rounded-xl py-2 sm:py-3 px-2 sm:px-4 transition-all duration-200 ease-out flex flex-col items-center gap-1.5 sm:gap-2 min-h-[64px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                         >
-                          <Icon className="w-5 h-5" />
-                          <span className="text-xs md:text-sm font-semibold">{tab.label}</span>
+                          <Icon className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                          <span className="text-xs sm:text-sm font-semibold">{tab.label}</span>
                         </TabsTrigger>
                       </motion.div>
                     );
@@ -151,13 +152,13 @@ export default function StudentSettingsPage() {
               </div>
 
               {/* Account Tab */}
-              <TabsContent value="account" className="space-y-6">
-                <Card className="shadow-2xl border-0 overflow-hidden">
-                  <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white">
+              <TabsContent value="account" className="space-y-4 sm:space-y-6">
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3">
-                        <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl">
-                          <User className="w-6 h-6" />
+                        <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-md rounded-xl">
+                          <User className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                         </div>
                         المعلومات الأساسية
                       </CardTitle>
@@ -166,38 +167,40 @@ export default function StudentSettingsPage() {
                       </CardDescription>
                     </CardHeader>
                   </div>
-                  <CardContent className="p-8 space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <CardContent className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.2 }}
+                        transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
                         className="space-y-2"
                       >
-                        <Label htmlFor="name" className="text-base font-semibold">الاسم الكامل</Label>
+                        <Label htmlFor="name" className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white">الاسم الكامل</Label>
                         <Input
                           id="name"
                           value={account.name}
                           onChange={(e) => setAccount({ ...account, name: e.target.value })}
-                          className="h-12 text-lg"
+                          className="h-11 sm:h-12 text-base sm:text-lg min-h-[44px]"
+                          aria-label="الاسم الكامل"
                         />
                       </motion.div>
 
                       <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 }}
+                        transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
                         className="space-y-2"
                       >
-                        <Label htmlFor="email" className="text-base font-semibold">البريد الإلكتروني</Label>
+                        <Label htmlFor="email" className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white">البريد الإلكتروني</Label>
                         <div className="relative">
-                          <Mail className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                          <Mail className="absolute start-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" aria-hidden="true" />
                           <Input
                             id="email"
                             type="email"
                             value={account.email}
                             onChange={(e) => setAccount({ ...account, email: e.target.value })}
-                            className="h-12 pr-10 text-lg"
+                            className="h-11 sm:h-12 min-h-[44px] ps-10 pe-4 text-base sm:text-lg"
+                            aria-label="البريد الإلكتروني"
                           />
                         </div>
                       </motion.div>
@@ -205,17 +208,18 @@ export default function StudentSettingsPage() {
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.4 }}
+                        transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
                         className="space-y-2"
                       >
-                        <Label htmlFor="phone" className="text-base font-semibold">رقم الهاتف</Label>
+                        <Label htmlFor="phone" className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white">رقم الهاتف</Label>
                         <div className="relative">
-                          <Phone className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                          <Phone className="absolute start-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" aria-hidden="true" />
                           <Input
                             id="phone"
                             value={account.phone}
                             onChange={(e) => setAccount({ ...account, phone: e.target.value })}
-                            className="h-12 pr-10 text-lg"
+                            className="h-11 sm:h-12 min-h-[44px] ps-10 pe-4 text-base sm:text-lg"
+                            aria-label="رقم الهاتف"
                           />
                         </div>
                       </motion.div>
@@ -223,17 +227,18 @@ export default function StudentSettingsPage() {
                       <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 }}
+                        transition={{ delay: 0.5, duration: 0.2, ease: 'easeOut' }}
                         className="space-y-2"
                       >
-                        <Label htmlFor="location" className="text-base font-semibold">الموقع</Label>
+                        <Label htmlFor="location" className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white">الموقع</Label>
                         <div className="relative">
-                          <MapPin className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                          <MapPin className="absolute start-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" aria-hidden="true" />
                           <Input
                             id="location"
                             value={account.location}
                             onChange={(e) => setAccount({ ...account, location: e.target.value })}
-                            className="h-12 pr-10 text-lg"
+                            className="h-11 sm:h-12 min-h-[44px] ps-10 pe-4 text-base sm:text-lg"
+                            aria-label="الموقع"
                           />
                         </div>
                       </motion.div>
@@ -242,99 +247,92 @@ export default function StudentSettingsPage() {
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
+                      transition={{ delay: 0.6, duration: 0.2, ease: 'easeOut' }}
                       className="space-y-2"
                     >
-                      <Label htmlFor="bio" className="text-base font-semibold">نبذة شخصية</Label>
+                      <Label htmlFor="bio" className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white">نبذة شخصية</Label>
                       <textarea
                         id="bio"
                         value={account.bio}
                         onChange={(e) => setAccount({ ...account, bio: e.target.value })}
                         rows={4}
-                        className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-lg resize-none"
+                        className="w-full p-3 sm:p-4 min-h-[120px] border-2 border-neutral-300 dark:border-neutral-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-base sm:text-lg resize-none bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all duration-200 ease-out"
                         placeholder="اكتب نبذة قصيرة عن نفسك..."
+                        aria-label="نبذة شخصية"
                       />
                     </motion.div>
 
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.7 }}
+                      transition={{ delay: 0.7, duration: 0.2, ease: 'easeOut' }}
                     >
                       <motion.button
-                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileHover={{ scale: 1.02, y: -1 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={handleSave}
-                        className="group relative overflow-hidden w-full md:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center gap-2"
+                        className="w-full md:w-auto px-6 sm:px-8 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white text-base sm:text-lg font-semibold rounded-lg shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                        aria-label="حفظ التغييرات"
+                        type="button"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         {saved ? (
                           <>
-                            <motion.div
-                              initial={{ scale: 0, rotate: -180 }}
-                              animate={{ scale: 1, rotate: 0 }}
-                              transition={{ type: "spring", stiffness: 500 }}
-                            >
-                              <Check className="w-5 h-5 relative z-10" />
-                            </motion.div>
-                            <span className="relative z-10">تم الحفظ</span>
+                            <Check className="w-5 h-5" aria-hidden="true" />
+                            <span>تم الحفظ</span>
                           </>
                         ) : (
                           <>
-                            <motion.div
-                              whileHover={{ rotate: 360 }}
-                              transition={{ duration: 0.5 }}
-                            >
-                              <Save className="w-5 h-5 relative z-10" />
-                            </motion.div>
-                            <span className="relative z-10">حفظ التغييرات</span>
+                            <Save className="w-5 h-5" aria-hidden="true" />
+                            <span>حفظ التغييرات</span>
                           </>
                         )}
-                        <div className="absolute inset-0 bg-white/20 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                       </motion.button>
                     </motion.div>
                   </CardContent>
                 </Card>
 
                 {/* Danger Zone */}
-                <Card className="border-2 border-red-200 bg-red-50">
+                <Card className="border-2 border-danger-200 dark:border-danger-800 bg-danger-50 dark:bg-danger-900/20 shadow-md">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-red-600">
-                      <AlertCircle className="w-6 h-6" />
+                    <CardTitle className="flex items-center gap-3 text-danger-600 dark:text-danger-400">
+                      <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                       منطقة الخطر
                     </CardTitle>
-                    <CardDescription className="text-red-700">
+                    <CardDescription className="text-danger-700 dark:text-danger-300">
                       الإجراءات التي لا يمكن التراجع عنها
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between p-4 bg-white rounded-xl">
+                  <CardContent className="space-y-3 sm:space-y-4">
+                    <div className="flex items-center justify-between p-3 sm:p-4 min-h-[64px] bg-white dark:bg-neutral-800 rounded-xl transition-all duration-200 ease-out hover:shadow-md">
                       <div>
-                        <h4 className="font-semibold text-gray-900">تصدير بيانات الحساب</h4>
-                        <p className="text-sm text-gray-600">قم بتحميل نسخة من جميع بياناتك</p>
+                        <h4 className="font-semibold text-neutral-900 dark:text-white text-sm sm:text-base">تصدير بيانات الحساب</h4>
+                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">قم بتحميل نسخة من جميع بياناتك</p>
                       </div>
                       <motion.button
-                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileHover={{ scale: 1.02, y: -1 }}
                         whileTap={{ scale: 0.98 }}
-                        className="group relative overflow-hidden px-4 py-2 bg-white border-2 border-blue-300 text-blue-700 font-semibold rounded-lg shadow-md hover:shadow-lg hover:border-blue-400 hover:bg-blue-50 transition-all duration-300 flex items-center gap-2"
+                        className="px-3 sm:px-4 py-2 min-h-[44px] bg-white dark:bg-neutral-700 border-2 border-primary-300 dark:border-primary-600 text-primary-700 dark:text-primary-400 font-semibold rounded-lg shadow-sm hover:shadow-md hover:border-primary-400 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all duration-200 ease-out flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                        aria-label="تصدير بيانات الحساب"
+                        type="button"
                       >
-                        <Download className="w-4 h-4 group-hover:animate-bounce" />
-                        <span>تصدير</span>
+                        <Download className="w-4 h-4" aria-hidden="true" />
+                        <span className="text-sm sm:text-base">تصدير</span>
                       </motion.button>
                     </div>
-                    <div className="flex items-center justify-between p-4 bg-white rounded-xl">
+                    <div className="flex items-center justify-between p-3 sm:p-4 min-h-[64px] bg-white dark:bg-neutral-800 rounded-xl transition-all duration-200 ease-out hover:shadow-md">
                       <div>
-                        <h4 className="font-semibold text-red-600">حذف الحساب</h4>
-                        <p className="text-sm text-red-700">حذف حسابك وكل بياناتك بشكل دائم</p>
+                        <h4 className="font-semibold text-danger-600 dark:text-danger-400 text-sm sm:text-base">حذف الحساب</h4>
+                        <p className="text-xs sm:text-sm text-danger-700 dark:text-danger-300">حذف حسابك وكل بياناتك بشكل دائم</p>
                       </div>
                       <motion.button
-                        whileHover={{ scale: 1.05, y: -2 }}
+                        whileHover={{ scale: 1.02, y: -1 }}
                         whileTap={{ scale: 0.98 }}
-                        className="group relative overflow-hidden px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:from-red-700 hover:to-red-800 transition-all duration-300 flex items-center gap-2"
+                        className="px-3 sm:px-4 py-2 min-h-[44px] bg-gradient-to-r from-danger-600 to-danger-700 hover:from-danger-700 hover:to-danger-800 text-white font-semibold rounded-lg shadow-md shadow-danger-500/20 hover:shadow-lg transition-all duration-200 ease-out flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger-500 focus-visible:ring-offset-2"
+                        aria-label="حذف الحساب"
+                        type="button"
                       >
-                        <Trash2 className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                        <span>حذف الحساب</span>
-                        <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                        <Trash2 className="w-4 h-4" aria-hidden="true" />
+                        <span className="text-sm sm:text-base">حذف الحساب</span>
                       </motion.button>
                     </div>
                   </CardContent>
@@ -342,13 +340,13 @@ export default function StudentSettingsPage() {
               </TabsContent>
 
               {/* Notifications Tab */}
-              <TabsContent value="notifications" className="space-y-6">
-                <Card className="shadow-2xl border-0 overflow-hidden">
-                  <div className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white">
+              <TabsContent value="notifications" className="space-y-4 sm:space-y-6">
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-success-600 via-success-700 to-success-600 text-white">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3">
-                        <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl">
-                          <Bell className="w-6 h-6" />
+                        <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-md rounded-xl">
+                          <Bell className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                         </div>
                         إعدادات الإشعارات
                       </CardTitle>
@@ -357,68 +355,71 @@ export default function StudentSettingsPage() {
                       </CardDescription>
                     </CardHeader>
                   </div>
-                  <CardContent className="p-8 space-y-6">
+                  <CardContent className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     {Object.entries(notifications).map(([key, value], index) => (
                       <motion.div
                         key={key}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 * index }}
-                        className="flex items-center justify-between p-5 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl hover:shadow-lg transition-all group"
+                        transition={{ delay: 0.05 * index, duration: 0.2, ease: 'easeOut' }}
+                        className="flex items-center justify-between p-3 sm:p-4 min-h-[64px] bg-neutral-50 dark:bg-neutral-800 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:shadow-md transition-all duration-200 ease-out group"
                       >
-                        <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900 mb-1">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-neutral-900 dark:text-white mb-1 text-sm sm:text-base">
                             {(notificationText[key]?.label) || key}
                           </h4>
-                          <p className="text-sm text-gray-600">
+                          <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                             {(notificationText[key]?.description) || 'تحكم في هذا النوع من الإشعارات'}
                           </p>
                         </div>
-                        <motion.button
-                          whileTap={{ scale: 0.9 }}
+                        <button
                           onClick={() => setNotifications({ ...notifications, [key]: !value })}
-                          className={`relative w-14 h-7 rounded-full transition-colors ${
-                            value ? 'bg-green-500' : 'bg-gray-300'
+                          className={`relative w-12 h-6 sm:w-14 sm:h-7 rounded-full transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+                            value ? 'bg-success-500' : 'bg-neutral-300 dark:bg-neutral-600'
                           }`}
+                          aria-label={`${(notificationText[key]?.label) || key} - ${value ? 'مفعل' : 'معطل'}`}
+                          type="button"
                         >
                           <motion.div
-                            className="absolute top-1 left-1 w-5 h-5 bg-white rounded-full shadow-lg"
-                            animate={{ x: value ? 28 : 0 }}
+                            className="absolute top-0.5 start-0.5 sm:top-1 sm:start-1 w-5 h-5 bg-white rounded-full shadow-lg"
+                            animate={{ x: value ? 24 : 0 }}
                             transition={{ type: "spring", stiffness: 500, damping: 30 }}
                           />
-                        </motion.button>
+                        </button>
                       </motion.div>
                     ))}
-                    <StyledButton
-                      variant="success"
+                    <motion.button
+                      whileHover={{ scale: 1.02, y: -1 }}
+                      whileTap={{ scale: 0.98 }}
                       onClick={handleSave}
-                      size="large"
-                      className="w-full md:w-auto bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-lg px-8"
+                      className="w-full md:w-auto px-6 sm:px-8 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white text-base sm:text-lg font-semibold rounded-lg shadow-md shadow-success-500/20 hover:shadow-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                      aria-label="حفظ إعدادات الإشعارات"
+                      type="button"
                     >
                       {saved ? (
                         <>
-                          <Check className="w-5 h-5 mr-2" />
-                          تم الحفظ
+                          <Check className="w-5 h-5" aria-hidden="true" />
+                          <span>تم الحفظ</span>
                         </>
                       ) : (
                         <>
-                          <Save className="w-5 h-5 mr-2" />
-                          حفظ الإعدادات
+                          <Save className="w-5 h-5" aria-hidden="true" />
+                          <span>حفظ الإعدادات</span>
                         </>
                       )}
-                    </StyledButton>
+                    </motion.button>
                   </CardContent>
                 </Card>
               </TabsContent>
 
               {/* Privacy Tab */}
-              <TabsContent value="privacy" className="space-y-6">
-                <Card className="shadow-2xl border-0 overflow-hidden">
-                  <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-fuchsia-600 text-white">
+              <TabsContent value="privacy" className="space-y-4 sm:space-y-6">
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-secondary-innovate-600 via-secondary-innovate-700 to-secondary-innovate-600 text-white">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3">
-                        <div className="p-3 bg-white/20 backdrop-blur-md rounded-xl">
-                          <Lock className="w-6 h-6" />
+                        <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-md rounded-xl">
+                          <Lock className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                         </div>
                         إعدادات الخصوصية
                       </CardTitle>
@@ -427,7 +428,7 @@ export default function StudentSettingsPage() {
                       </CardDescription>
                     </CardHeader>
                   </div>
-                  <CardContent className="p-8 space-y-6">
+                  <CardContent className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                     {Object.entries(privacy).map(([key, value], index) => (
                       <motion.div
                         key={key}

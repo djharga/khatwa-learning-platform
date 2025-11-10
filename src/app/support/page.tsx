@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion';
 import SupportComponent from '../../components/SupportComponent';
+import PageBackground from '@/components/ui/PageBackground';
 
 const SupportPage = () => {
   return (
-    <div className="min-h-screen bg-background parallax-slow">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(49,130,246,0.05),transparent_50%)] pointer-events-none animate-pulse-glow"></div>
+    <PageBackground variant="home" pattern overlay>
       <div className="relative grid-container py-24">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -27,7 +27,7 @@ const SupportPage = () => {
 
         <SupportComponent />
       </div>
-    </div>
+    </PageBackground>
   );
 };
 

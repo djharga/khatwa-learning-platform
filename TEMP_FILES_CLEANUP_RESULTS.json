@@ -1,0 +1,33 @@
+{
+  "timestamp": "2025-11-10T03:53:32.664Z",
+  "deleted": [
+    ".next",
+    "node_modules/.cache",
+    "PHASE1_RESULTS.md",
+    "PHASE2_RESULTS.md",
+    "PHASE3_RESULTS.md",
+    "PHASE1_SUMMARY.md",
+    "DOCUMENTATION_CLEANUP_SUMMARY.md",
+    "PHASE1_ANALYSIS.json",
+    "PHASE2_DELETION_RESULTS.json",
+    "PHASE3_RESOLUTION_RESULTS.json",
+    "DOCUMENTATION_CLEANUP_RESULTS.json",
+    "scripts/phase1-deep-analysis.js",
+    "scripts/phase2-delete-unused.js",
+    "scripts/phase3-resolve-conflicts.js",
+    "scripts/verify-suspicious-components.js",
+    "scripts/cleanup-documentation.js",
+    "scripts/cleanup-temp-files.js"
+  ],
+  "failed": [
+    {
+      "file": "debug.log",
+      "reason": "EBUSY: resource busy or locked, unlink 'C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\debug.log'"
+    },
+    {
+      "file": "debug.log",
+      "reason": "EBUSY: resource busy or locked, unlink 'C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\debug.log'"
+    }
+  ],
+  "skipped": []
+}

@@ -1,91 +1,66 @@
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  MessageSquare,
-  Send,
-
-  
-} from 'lucide-react';
+import Image from 'next/image';
+import { MessageSquare, Send } from 'lucide-react';
 import { contactInfo, ContactInfo } from './contact-data';
 import { showToast, toastMessages } from '../utils/toast';
 
-/**
- * Contact information card with icon, title, and content. Supports clickable links for phone and email.
- */
 const ContactInfoCard = React.memo(({ info }: { info: ContactInfo }) => (
-  <div
-    className={`group bg-gradient-to-r ${info.bgGradient} p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-all duration-300`}
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.4 }}
+    viewport={{ once: true }}
+    className={`group bg-gradient-to-r ${info.bgGradient} p-6 rounded-2xl border border-gray-200 dark:border-neutral-700/60 hover:shadow-xl hover:-translate-y-1 transition-all duration-300`}
   >
     <div className="flex items-start gap-4">
-      <div className={`p-4 bg-gradient-to-br ${info.gradient} rounded-xl`}>
-        <info.icon className="w-6 h-6 text-gray-700" />
+      <div className={`p-4 bg-gradient-to-br ${info.gradient} rounded-xl shadow-inner`}>
+        <info.icon className="w-6 h-6 text-gray-700 dark:text-gray-100" />
       </div>
       <div>
-        <h3 className="text-lg font-bold text-gray-900">{info.title}</h3>
+        <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-1">{info.title}</h3>
         {info.href ? (
-          <a href={info.href} className="text-blue-600 hover:text-blue-700 hover:underline font-medium">
+          <a
+            href={info.href}
+            className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:underline font-medium"
+          >
             {info.content}
           </a>
         ) : (
-          <p className="text-gray-700 font-medium">{info.content}</p>
+          <p className="text-gray-700 dark:text-gray-300 font-medium">{info.content}</p>
         )}
       </div>
     </div>
-  </div>
+  </motion.div>
 ));
-
 ContactInfoCard.displayName = 'ContactInfoCard';
 
-/**
- * Contact form component with submission handling and contact information display. Features form validation, loading states, success/error feedback, and animated contact info cards with gradient styling.
- */
 const ContactComponent = () => {
-  // Form data state for name, email, subject, and message fields
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
   });
-  // Loading state for form submission feedback
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  /**
-   * Updates form data state when input values change
-   */
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  ) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  /**
-   * Handles form submission with simulated API call. Shows success/error toast notifications and resets form on success.
-   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      // Show loading toast
-      const loadingToast = showToast.loading('جاري إرسال الرسالة...');
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      // TODO: Integrate with actual contact API endpoint - POST to /api/contact
-
-      // Dismiss loading toast and show success
-      showToast.dismiss(loadingToast);
+      const toastId = showToast.loading('جاري إرسال الرسالة...');
+      await new Promise((res) => setTimeout(res, 2000));
+      showToast.dismiss(toastId);
       showToast.success(toastMessages.formSubmitted);
-
-      // Reset form on success
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      // Show error toast
+    } catch {
       showToast.error('حدث خطأ أثناء الإرسال. حاول مرة أخرى.');
     } finally {
       setIsSubmitting(false);
@@ -93,96 +68,109 @@ const ContactComponent = () => {
   };
 
   return (
-    <section
-      id="contact"
-      className="relative py-24 lg:py-32 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100"
-    >
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(147,197,253,0.05),transparent_60%)] pointer-events-none"></div>
+    <section id="contact" className="relative py-24 lg:py-32 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/assets/contact-hero-image.jpg"
+          alt="صورة التواصل"
+          fill
+          className="object-cover"
+          quality={80}
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50/95 via-blue-50/90 to-indigo-100/95 dark:from-neutral-900/95 dark:via-neutral-800/90 dark:to-neutral-900/95" />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
-        {/* العنوان */}
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
         <motion.div
           className="text-center mb-20"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          <div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-100 rounded-full text-blue-800 font-semibold text-sm mb-6">
+          <div className="inline-flex items-center gap-3 px-5 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full text-blue-800 dark:text-blue-300 font-semibold text-sm mb-6">
             <MessageSquare className="w-4 h-4" />
             تواصل معنا
           </div>
-
-          <h2 className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-900">
-            نحن هنا <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">لمساعدتك</span>
+          <h2 className="text-5xl md:text-6xl font-extrabold mb-6 text-gray-900 dark:text-gray-100">
+            نحن هنا{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+              لمساعدتك
+            </span>
           </h2>
-
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed font-medium">
-            لديك أسئلة حول المنصة؟ تحتاج لدعم فني؟ أو تريد التعاون معنا؟ نحن هنا لنساعدك في كل خطوة من رحلتك التعليمية.
+          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-medium">
+            لديك أسئلة حول المنصة؟ تحتاج دعم فني؟ أو ترغب بالتعاون؟ نحن هنا لدعمك في كل خطوة.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
           {/* Form */}
           <motion.div
-            className="xl:col-span-7 bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-white/50 p-10"
-            initial={{ opacity: 0, x: -20 }}
+            className="xl:col-span-7 bg-white/90 dark:bg-neutral-900/80 backdrop-blur-sm rounded-3xl shadow-lg border border-white/20 p-10"
+            initial={{ opacity: 0, x: -25 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-4 mb-8">
-              <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl">
-                <Send className="w-6 h-6 text-blue-600" />
+              <div className="p-4 bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-blue-900/30 dark:to-indigo-800/40 rounded-2xl">
+                <Send className="w-6 h-6 text-blue-600 dark:text-blue-300" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-900">أرسل رسالة</h3>
-                <p className="text-gray-600 text-sm">سنرد عليك في أقرب وقت ممكن</p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                  أرسل رسالة
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  سنرد عليك في أقرب وقت ممكن
+                </p>
               </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">الاسم الكامل *</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    الاسم الكامل *
+                  </label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white/70 dark:bg-neutral-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition shadow-sm"
                     placeholder="أدخل اسمك الكامل"
-                    aria-label="الاسم الكامل"
-                    aria-required="true"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-gray-800 mb-2">البريد الإلكتروني *</label>
+                  <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                    البريد الإلكتروني *
+                  </label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white/70 dark:bg-neutral-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition shadow-sm"
                     placeholder="example@email.com"
-                    aria-label="البريد الإلكتروني"
-                    aria-required="true"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">موضوع الرسالة *</label>
+                <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                  موضوع الرسالة *
+                </label>
                 <select
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition"
-                  aria-label="موضوع الرسالة"
-                  aria-required="true"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white/70 dark:bg-neutral-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition shadow-sm"
                 >
                   <option value="">اختر موضوع الرسالة</option>
                   <option value="support">دعم فني</option>
@@ -194,31 +182,34 @@ const ContactComponent = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-800 mb-2">الرسالة *</label>
+                <label className="block text-sm font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                  الرسالة *
+                </label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/80 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-neutral-700 bg-white/70 dark:bg-neutral-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30 transition resize-none shadow-sm"
                   placeholder="اكتب رسالتك هنا..."
-                  aria-label="الرسالة"
-                  aria-required="true"
                 />
               </div>
 
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: isSubmitting ? 1 : 1.05 }}
-                whileTap={{ scale: isSubmitting ? 1 : 0.95 }}
-                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-4 rounded-xl shadow-lg hover:shadow-xl transition"
-                aria-label={isSubmitting ? "جاري إرسال الرسالة" : "إرسال الرسالة"}
+                whileHover={{ scale: isSubmitting ? 1 : 1.04 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.96 }}
+                className="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-4 rounded-xl shadow-md hover:shadow-lg transition disabled:opacity-70"
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center gap-3">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
                     جاري الإرسال...
                   </div>
                 ) : (
@@ -228,16 +219,15 @@ const ContactComponent = () => {
                   </div>
                 )}
               </motion.button>
-
             </form>
           </motion.div>
 
           {/* Contact Info */}
           <motion.div
             className="xl:col-span-5 space-y-6"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ staggerChildren: 0.1 }}
             viewport={{ once: true }}
           >
             {contactInfo.map((info) => (

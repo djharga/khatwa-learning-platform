@@ -31,8 +31,22 @@ import {
   BarChart3,
 } from 'lucide-react';
 import Link from 'next/link';
-import UnifiedFileCard, { UnifiedFile, FileType } from '@/components/ui/UnifiedFileCard';
-import ContentFilters, { ContentType } from '@/components/ui/ContentFilters';
+import dynamic from 'next/dynamic';
+import PageBackground from '@/components/ui/PageBackground';
+
+// Lazy load heavy components
+const UnifiedFileCard = dynamic(() => import('@/components/ui/UnifiedFileCard').then(mod => ({ default: mod.default })), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-32 rounded-lg" />,
+});
+
+const ContentFilters = dynamic(() => import('@/components/ui/ContentFilters').then(mod => ({ default: mod.default })), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 rounded" />,
+});
+
+import type { UnifiedFile, FileType } from '@/components/ui/UnifiedFileCard';
+import type { ContentType } from '@/components/ui/ContentFilters';
 
 interface LocalResource {
   id: string;
@@ -323,7 +337,7 @@ const ResourcesPage = () => {
   }, [unifiedResources]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <PageBackground variant="resources">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
         <motion.div
@@ -387,7 +401,7 @@ const ResourcesPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 mb-8"
+          className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-200/50 dark:border-neutral-700/50 mb-8"
         >
           <div className="flex flex-col lg:flex-row gap-4">
             {/* Search */}
@@ -577,7 +591,7 @@ const ResourcesPage = () => {
             transition={{ delay: 0.3 }}
             className="lg:col-span-1"
           >
-            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-neutral-700 sticky top-24">
+            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200/50 dark:border-neutral-700/50 sticky top-24">
               <div className="flex items-center gap-2 mb-6">
                 <ExternalLink className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -621,7 +635,7 @@ const ResourcesPage = () => {
           </motion.div>
         </div>
       </div>
-    </div>
+    </PageBackground>
   );
 };
 

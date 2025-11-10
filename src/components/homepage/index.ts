@@ -23,3 +23,4 @@ export { default as GoalsSection } from './GoalsSection';
 export { default as ValuesSection } from './ValuesSection';
 export { default as ContactInfoSection } from './ContactInfoSection';
 export { default as CTAJoinSection } from './CTAJoinSection';
+export { default as KhatwaInfoCard } from './KhatwaInfoCard';

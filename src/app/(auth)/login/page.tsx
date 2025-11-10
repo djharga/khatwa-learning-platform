@@ -18,6 +18,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { FaFacebook, FaTwitter } from 'react-icons/fa';
 import Input from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
+import PageBackground from '@/components/ui/PageBackground';
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -75,13 +76,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative overflow-hidden">
-      {/* Subtle Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-primary-400/10 to-primary-600/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-r from-primary-500/10 to-primary-700/10 rounded-full blur-3xl"></div>
-      </div>
-
+    <PageBackground variant="auth">
       <div className="relative min-h-screen flex items-center justify-center py-12 px-6 lg:px-8">
         <motion.div
           className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
@@ -175,7 +170,7 @@ const LoginPage = () => {
 
           {/* Right Side - Login Form */}
           <motion.div variants={itemVariants}>
-            <div className="bg-white dark:bg-neutral-800 p-8 lg:p-10 rounded-2xl shadow-lg border border-neutral-200 dark:border-neutral-700 relative overflow-hidden">
+            <div className="glass dark:glass-dark p-8 lg:p-10 rounded-2xl shadow-lg border border-neutral-200/50 dark:border-neutral-700/50 relative overflow-hidden">
               <div className="relative z-10">
                 <div className="text-center mb-8">
                   <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-2 font-heading">
@@ -324,7 +319,7 @@ const LoginPage = () => {
           </motion.div>
         </motion.div>
       </div>
-    </div>
+    </PageBackground>
   );
 };
 

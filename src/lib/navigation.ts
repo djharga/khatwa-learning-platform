@@ -66,7 +66,7 @@ export const navigationItems: Record<string, NavigationItem> = {
     priority: 3,
   },
 
-  // الدورات التفصيلية
+  // الدورات التفصيلية - استخدام الصفحات الديناميكية
   aiAuditCourse: {
     id: 'ai-audit-course',
     label: 'المراجعة بالذكاء الاصطناعي',
@@ -80,7 +80,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   basicsCourse: {
     id: 'basics-course',
     label: 'أساسيات المحاسبة',
-    href: '/courses/basics',
+    href: '/courses/finance-basics',
     icon: 'calculator',
     description: 'دورة للمبتدئين في أساسيات المحاسبة',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -100,7 +100,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   complianceCourse: {
     id: 'compliance-course',
     label: 'الامتثال والالتزام',
-    href: '/courses/compliance',
+    href: '/courses/internal-control-compliance-audit',
     icon: 'shield-check',
     description: 'تعلم معايير الامتثال والالتزام',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -130,7 +130,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   riskAnalysisCourse: {
     id: 'risk-analysis-course',
     label: 'تحليل المخاطر',
-    href: '/courses/risk-analysis',
+    href: '/courses/operational-risk-audit',
     icon: 'alert-triangle',
     description: 'تعلم تحليل وإدارة المخاطر المالية',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -160,7 +160,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   financialManagement: {
     id: 'financial-management',
     label: 'برامج الإدارة المالية',
-    href: '/financial-management',
+    href: '/courses/financial-management',
     icon: 'calculator',
     description: 'برامج متخصصة في الإدارة المالية والتشغيل',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -171,7 +171,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   financeBasics: {
     id: 'finance-basics',
     label: 'أساسيات المالية والمحاسبة',
-    href: '/finance-basics',
+    href: '/courses/finance-basics',
     icon: 'calculator',
     description: 'تعلم أساسيات المالية والمحاسبة من الصفر',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -181,7 +181,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   procurementManagement: {
     id: 'procurement-management',
     label: 'إدارة المشتريات والتوريدات',
-    href: '/procurement-management',
+    href: '/courses/procurement-management',
     icon: 'truck',
     description: 'تعلم إدارة المشتريات والتوريدات بكفاءة',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -191,7 +191,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   warehouseManagement: {
     id: 'warehouse-management',
     label: 'إدارة المخازن والمستودعات',
-    href: '/warehouse-management',
+    href: '/courses/warehouse-management',
     icon: 'warehouse',
     description: 'نظام شامل لإدارة المخازن والمخزون',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -201,7 +201,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   financialReporting: {
     id: 'financial-reporting',
     label: 'التقارير المالية والمحاسبية',
-    href: '/financial-reporting',
+    href: '/courses/financial-reporting',
     icon: 'file-text',
     description: 'إعداد التقارير المالية وفقاً للمعايير الدولية',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -211,7 +211,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   inventoryReconciliations: {
     id: 'inventory-reconciliations',
     label: 'التسويات الجردية والرقابة',
-    href: '/inventory-reconciliations',
+    href: '/courses/inventory-reconciliations',
     icon: 'calculator',
     description: 'إجراء التسويات الجردية وإدارة الرقابة الداخلية',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -221,20 +221,20 @@ export const navigationItems: Record<string, NavigationItem> = {
   restaurantManagement: {
     id: 'restaurant-management',
     label: 'إدارة وتشغيل المطاعم',
-    href: '/restaurant-management',
+    href: '/courses/restaurant-management',
     icon: 'chef-hat',
     description: 'إدارة المطاعم والمنشآت الغذائية بكفاءة',
     roles: ['public', 'student', 'instructor', 'admin'],
     priority: 6.6,
   },
 
-  // الميزات المتقدمة
-  questionBank: {
-    id: 'question-bank',
-    label: 'بنك الأسئلة التفاعلي',
-    href: '/question-bank',
-    icon: 'book-open',
-    description: 'بنك أسئلة تفاعلي مع ذكاء اصطناعي',
+  // الميزات المتقدمة والمراجعة
+  review: {
+    id: 'review',
+    label: 'بنك الأسئلة والمراجعة',
+    href: '/review',
+    icon: 'file-text',
+    description: 'مراجعة شاملة للأسئلة والاختبارات',
     roles: ['public', 'student', 'instructor', 'admin'],
     priority: 16,
   },
@@ -597,7 +597,7 @@ export const navigationSections: NavigationSection[] = [
     title: 'زمالة المراجعين الداخليين',
     priority: 2.1,
     roles: ['public', 'student', 'instructor', 'admin'],
-    items: [navigationItems.auditorsFellowship, navigationItems.questionBank],
+    items: [navigationItems.auditorsFellowship, navigationItems.review],
   },
   {
     id: 'reviews',
@@ -740,7 +740,7 @@ export const getPublicNavbarItems = () => [
         children: [
           navigationItems.learningHub,
           navigationItems.workshops,
-          navigationItems.questionBank,
+          navigationItems.review,
           navigationItems.advancedFeatures,
           navigationItems.blog,
           navigationItems.resources,
@@ -857,23 +857,12 @@ export const getBreadcrumbs = (pathname: string) => {
     }
   } else if (pathname.startsWith('/courses')) {
     breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
-    // مسارات فرعية للكورسات
-    if (pathname.startsWith('/courses/financial')) {
-      breadcrumbs.push({ label: 'المحاسبة المالية', href: '/courses/financial' });
-    } else if (pathname.startsWith('/courses/ai-audit')) {
-      breadcrumbs.push({ label: 'المراجعة بالذكاء الاصطناعي', href: '/courses/ai-audit' });
-    } else if (pathname.startsWith('/courses/basics')) {
-      breadcrumbs.push({ label: 'أساسيات المحاسبة', href: '/courses/basics' });
-    } else if (pathname.startsWith('/courses/cia-preparation')) {
-      breadcrumbs.push({ label: 'تحضير شهادة CIA', href: '/courses/cia-preparation' });
-    } else if (pathname.startsWith('/courses/compliance')) {
-      breadcrumbs.push({ label: 'الامتثال والالتزام', href: '/courses/compliance' });
-    } else if (pathname.startsWith('/courses/digital-audit')) {
-      breadcrumbs.push({ label: 'المراجعة الرقمية', href: '/courses/digital-audit' });
-    } else if (pathname.startsWith('/courses/financial-projects')) {
-      breadcrumbs.push({ label: 'المشاريع المالية', href: '/courses/financial-projects' });
-    } else if (pathname.startsWith('/courses/risk-analysis')) {
-      breadcrumbs.push({ label: 'تحليل المخاطر', href: '/courses/risk-analysis' });
+    // استخدام الصفحة الديناميكية - يتم استخراج اسم الدورة من slug
+    // الصفحة الديناميكية `/courses/[slug]` ستعرض اسم الدورة تلقائياً
+    const courseSlug = pathname.replace('/courses/', '').split('/')[0];
+    if (courseSlug && courseSlug !== 'courses') {
+      // سيتم عرض اسم الدورة من بيانات courses.json في الصفحة الديناميكية
+      breadcrumbs.push({ label: 'تفاصيل الدورة', href: `/courses/${courseSlug}` });
     }
   } else if (pathname.startsWith('/browse-courses')) {
     breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
@@ -932,10 +921,11 @@ export const getBreadcrumbs = (pathname: string) => {
     breadcrumbs.push({ label: 'الباقات والاستشارات', href: '/packages-and-consulting' });
   } else if (pathname.startsWith('/files')) {
     breadcrumbs.push({ label: 'ملفاتي', href: '/files' });
-  } else if (pathname.startsWith('/financial-management')) {
+  } else if (pathname.startsWith('/courses/financial-management')) {
+    breadcrumbs.push({ label: 'الكورسات', href: '/courses' });
     breadcrumbs.push({
-      label: 'برامج الإدارة المالية',
-      href: '/financial-management',
+      label: 'برامج الإدارة المالية والتشغيل',
+      href: '/courses/financial-management',
     });
   } else if (pathname.startsWith('/finance-basics')) {
     breadcrumbs.push({
@@ -967,9 +957,6 @@ export const getBreadcrumbs = (pathname: string) => {
       label: 'إدارة وتشغيل المطاعم',
       href: '/restaurant-management',
     });
-  } else if (pathname.startsWith('/question-bank')) {
-    breadcrumbs.push({ label: 'زمالة CIA', href: '/cia' });
-    breadcrumbs.push({ label: 'بنك الأسئلة التفاعلي', href: '/question-bank' });
   } else if (pathname.startsWith('/review')) {
     breadcrumbs.push({ label: 'بنك الأسئلة التفاعلي', href: '/review' });
   } else if (pathname.startsWith('/advanced-features')) {
@@ -1025,7 +1012,6 @@ export const getQuickAccessLinks = (
         navigationItems.meetingRoom,
         navigationItems.resourceCourseFiles,
         navigationItems.learningHub,
-        navigationItems.questionBank,
         navigationItems.accountingSimulation
       );
     } else if (userRole === 'admin') {
@@ -1040,7 +1026,6 @@ export const getQuickAccessLinks = (
       navigationItems.internalAuditors,
       navigationItems.auditorsFellowship,
       navigationItems.learningHub,
-      navigationItems.questionBank,
       navigationItems.workshops,
       navigationItems.subscription
     );

@@ -1,0 +1,617 @@
+{
+  "timestamp": "2025-11-10T03:41:24.199Z",
+  "summary": {
+    "components": {
+      "total": 234,
+      "used": 196,
+      "unused": 38,
+      "duplicates": 2,
+      "namingConflicts": 4
+    },
+    "styles": {
+      "total": 4,
+      "imported": 4,
+      "unused": 0,
+      "orphanedClasses": 72
+    }
+  },
+  "components": {
+    "unused": [
+      {
+        "name": "FileManager",
+        "fileName": "FileManager.tsx",
+        "path": "src/components/admin/FileManager.tsx",
+        "expectedUsage": "In admin related pages"
+      },
+      {
+        "name": "AIToolCard",
+        "fileName": "AIToolCard.tsx",
+        "path": "src/components/ai-tools/AIToolCard.tsx",
+        "expectedUsage": "In ai-tools related pages"
+      },
+      {
+        "name": "LoginComponent",
+        "fileName": "LoginComponent.tsx",
+        "path": "src/components/auth/LoginComponent.tsx",
+        "expectedUsage": "In auth related pages"
+      },
+      {
+        "name": "RegisterComponent",
+        "fileName": "RegisterComponent.tsx",
+        "path": "src/components/auth/RegisterComponent.tsx",
+        "expectedUsage": "In auth related pages"
+      },
+      {
+        "name": "CourseSlider",
+        "fileName": "CourseSlider.tsx",
+        "path": "src/components/CourseSlider.tsx",
+        "expectedUsage": "Root component"
+      },
+      {
+        "name": "ExamHeader",
+        "fileName": "ExamHeader.tsx",
+        "path": "src/components/exam/ExamHeader.tsx",
+        "expectedUsage": "In exam related pages"
+      },
+      {
+        "name": "ExamTimer",
+        "fileName": "ExamTimer.tsx",
+        "path": "src/components/exam/ExamTimer.tsx",
+        "expectedUsage": "In exam related pages"
+      },
+      {
+        "name": "QuestionContent",
+        "fileName": "QuestionContent.tsx",
+        "path": "src/components/exam/QuestionContent.tsx",
+        "expectedUsage": "In exam related pages"
+      },
+      {
+        "name": "QuestionList",
+        "fileName": "QuestionList.tsx",
+        "path": "src/components/exam/QuestionList.tsx",
+        "expectedUsage": "In exam related pages"
+      },
+      {
+        "name": "ReviewPanel",
+        "fileName": "ReviewPanel.tsx",
+        "path": "src/components/exam/ReviewPanel.tsx",
+        "expectedUsage": "In exam related pages"
+      },
+      {
+        "name": "FAQComponent",
+        "fileName": "FAQComponent.tsx",
+        "path": "src/components/FAQComponent.tsx",
+        "expectedUsage": "Root component"
+      },
+      {
+        "name": "FileUpload",
+        "fileName": "FileUpload.tsx",
+        "path": "src/components/FileUpload.tsx",
+        "expectedUsage": "Root component"
+      },
+      {
+        "name": "AIToolsSection",
+        "fileName": "AIToolsSection.tsx",
+        "path": "src/components/homepage/AIToolsSection.tsx",
+        "expectedUsage": "In homepage related pages"
+      },
+      {
+        "name": "CIASpotlightSection",
+        "fileName": "CIASpotlightSection.tsx",
+        "path": "src/components/homepage/CIASpotlightSection.tsx",
+        "expectedUsage": "In homepage related pages"
+      },
+      {
+        "name": "IntroVideoSection",
+        "fileName": "IntroVideoSection.tsx",
+        "path": "src/components/homepage/IntroVideoSection.tsx",
+        "expectedUsage": "In homepage related pages"
+      },
+      {
+        "name": "QuickStatsBar",
+        "fileName": "QuickStatsBar.tsx",
+        "path": "src/components/homepage/QuickStatsBar.tsx",
+        "expectedUsage": "In homepage related pages"
+      },
+      {
+        "name": "SectionsNavigation",
+        "fileName": "SectionsNavigation.tsx",
+        "path": "src/components/homepage/SectionsNavigation.tsx",
+        "expectedUsage": "In homepage related pages"
+      },
+      {
+        "name": "FlipCard",
+        "fileName": "FlipCard.tsx",
+        "path": "src/components/interactive/FlipCard.tsx",
+        "expectedUsage": "In interactive related pages"
+      },
+      {
+        "name": "QuickQuiz",
+        "fileName": "QuickQuiz.tsx",
+        "path": "src/components/interactive/QuickQuiz.tsx",
+        "expectedUsage": "In interactive related pages"
+      },
+      {
+        "name": "AppLayout",
+        "fileName": "AppLayout.tsx",
+        "path": "src/components/layout/AppLayout.tsx",
+        "expectedUsage": "In layout related pages"
+      },
+      {
+        "name": "QuickAccess",
+        "fileName": "QuickAccess.tsx",
+        "path": "src/components/layout/QuickAccess.tsx",
+        "expectedUsage": "In layout related pages"
+      },
+      {
+        "name": "SidebarComponent",
+        "fileName": "SidebarComponent.tsx",
+        "path": "src/components/layout/SidebarComponent.tsx",
+        "expectedUsage": "In layout related pages"
+      },
+      {
+        "name": "UserMenu",
+        "fileName": "UserMenu.tsx",
+        "path": "src/components/layout/UserMenu.tsx",
+        "expectedUsage": "In layout related pages"
+      },
+      {
+        "name": "ProfileComponent",
+        "fileName": "ProfileComponent.tsx",
+        "path": "src/components/ProfileComponent.tsx",
+        "expectedUsage": "Root component"
+      },
+      {
+        "name": "AIRecommendations",
+        "fileName": "AIRecommendations.tsx",
+        "path": "src/components/recommendations/AIRecommendations.tsx",
+        "expectedUsage": "In recommendations related pages"
+      },
+      {
+        "name": "ResourcesComponent",
+        "fileName": "ResourcesComponent.tsx",
+        "path": "src/components/ResourcesComponent.tsx",
+        "expectedUsage": "Root component"
+      },
+      {
+        "name": "SearchBar",
+        "fileName": "SearchBar.tsx",
+        "path": "src/components/SearchBar.tsx",
+        "expectedUsage": "Root component"
+      },
+      {
+        "name": "PersonalCopyManager",
+        "fileName": "PersonalCopyManager.tsx",
+        "path": "src/components/storage/PersonalCopyManager.tsx",
+        "expectedUsage": "In storage related pages"
+      },
+      {
+        "name": "StorageUsageDisplay",
+        "fileName": "StorageUsageDisplay.tsx",
+        "path": "src/components/storage/StorageUsageDisplay.tsx",
+        "expectedUsage": "In storage related pages"
+      },
+      {
+        "name": "AnimatedText",
+        "fileName": "AnimatedText.tsx",
+        "path": "src/components/ui/effects/AnimatedText.tsx",
+        "expectedUsage": "In effects related pages"
+      },
+      {
+        "name": "ImageEffects",
+        "fileName": "ImageEffects.tsx",
+        "path": "src/components/ui/ImageEffects.tsx",
+        "expectedUsage": "In ui related pages"
+      },
+      {
+        "name": "LearningPathVisual",
+        "fileName": "LearningPathVisual.tsx",
+        "path": "src/components/ui/learning-paths/LearningPathVisual.tsx",
+        "expectedUsage": "In learning-paths related pages"
+      },
+      {
+        "name": "LoadingIndicator",
+        "fileName": "LoadingIndicator.tsx",
+        "path": "src/components/ui/LoadingIndicator.tsx",
+        "expectedUsage": "In ui related pages"
+      },
+      {
+        "name": "MegaMenu",
+        "fileName": "MegaMenu.tsx",
+        "path": "src/components/ui/MegaMenu.tsx",
+        "expectedUsage": "In ui related pages"
+      },
+      {
+        "name": "UnifiedModal",
+        "fileName": "UnifiedModal.tsx",
+        "path": "src/components/ui/modal/UnifiedModal.tsx",
+        "expectedUsage": "In modal related pages"
+      },
+      {
+        "name": "ResponsivePlayer",
+        "fileName": "ResponsivePlayer.tsx",
+        "path": "src/components/ui/ResponsivePlayer.tsx",
+        "expectedUsage": "In ui related pages"
+      },
+      {
+        "name": "RTLVideoPlayer",
+        "fileName": "RTLVideoPlayer.tsx",
+        "path": "src/components/ui/RTLVideoPlayer.tsx",
+        "expectedUsage": "In ui related pages"
+      },
+      {
+        "name": "ThemeToggle",
+        "fileName": "ThemeToggle.tsx",
+        "path": "src/components/ui/ThemeToggle.tsx",
+        "expectedUsage": "In ui related pages"
+      }
+    ],
+    "duplicates": [
+      {
+        "baseName": "card",
+        "components": [
+          {
+            "name": "Card",
+            "path": "src/components/ui/Card.tsx",
+            "isUsed": true
+          },
+          {
+            "name": "Card",
+            "path": "src/components/ui/primitives/Card.tsx",
+            "isUsed": true
+          }
+        ],
+        "similarity": "Same base filename"
+      },
+      {
+        "baseName": "types",
+        "components": [
+          {
+            "name": "Types",
+            "path": "src/components/ui/learning-paths/types.ts",
+            "isUsed": true
+          },
+          {
+            "name": "Types",
+            "path": "src/components/ui/progress/types.ts",
+            "isUsed": true
+          }
+        ],
+        "similarity": "Same base filename"
+      }
+    ],
+    "namingConflicts": [
+      {
+        "name": "Card",
+        "files": [
+          "src/components/ui/Card.tsx",
+          "src/components/ui/primitives/Card.tsx"
+        ]
+      },
+      {
+        "name": "Icon",
+        "files": [
+          "src/components/ui/Icon.tsx",
+          "src/components/ui/icons/IconSystem.tsx"
+        ]
+      },
+      {
+        "name": "Component",
+        "files": [
+          "src/components/ui/icons/ChatTeardropIcon.tsx",
+          "src/components/ui/icons/DeviceTrafficIcon.tsx",
+          "src/components/ui/icons/FolderIcon.tsx",
+          "src/components/ui/icons/IDBadgeIcon.tsx",
+          "src/components/ui/icons/IDCardIcon.tsx",
+          "src/components/ui/icons/LineGraphIcon.tsx",
+          "src/components/ui/icons/LocationTrafficIcon.tsx",
+          "src/components/ui/icons/NotebookIcon.tsx",
+          "src/components/ui/icons/OverviewIcon.tsx",
+          "src/components/ui/icons/ShoppingBagIcon.tsx",
+          "src/components/ui/icons/SnowUILogoIcon.tsx",
+          "src/components/ui/icons/UsersThreeIcon.tsx"
+        ]
+      },
+      {
+        "name": "Types",
+        "files": [
+          "src/components/ui/learning-paths/types.ts",
+          "src/components/ui/progress/types.ts"
+        ]
+      }
+    ]
+  },
+  "styles": {
+    "unused": [],
+    "orphanedClasses": [
+      {
+        "className": "bg-mesh-gradient",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "bg-mesh-gradient-dark",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "bg-float",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "glass-strong",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "glass-strong-dark",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "bg-gradient-smooth",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-grid",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-dots",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-diagonal",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-circles",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-grid",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-dots",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-diagonal",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-circles",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "shadow-glow-purple",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "shadow-soft",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "shadow-medium",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "shadow-strong",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "border-smooth",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "border-smooth-dark",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "focus-ring",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "pattern-circles",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "bg-float",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "bg-gradient-smooth",
+        "file": "src/styles/backgrounds.css"
+      },
+      {
+        "className": "btn-ghost",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "btn-outline",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "btn-ghost",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "card-glass",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "card-glass",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "card-glass",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "scrolled",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "blend-smooth",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "navbar",
+        "file": "src/styles/blending-layer.css"
+      },
+      {
+        "className": "animate-fadeInUp",
+        "file": "src/styles/core.css"
+      },
+      {
+        "className": "animate-fadeInUp",
+        "file": "src/styles/core.css"
+      },
+      {
+        "className": "btn-accent",
+        "file": "src/styles/core.css"
+      },
+      {
+        "className": "space-section",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "space-section",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "space-section",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "space-component",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "space-component",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "space-component",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "space-element-lg",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "gap-section",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "gap-section",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "gap-section",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "gap-component",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "gap-element",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "p-component",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "p-component-tight",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "p-component-relaxed",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "p-component-spacious",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-xs",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-sm",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-md",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-lg",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-xl",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-2xl",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-full",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "container-prose",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "grid-auto-fit",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "grid-auto-fill",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "flex-center",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "flex-between",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "flex-start",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "flex-end",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "heading-6",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "heading-2",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "heading-4",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "heading-5",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "heading-6",
+        "file": "src/styles/utilities.css"
+      },
+      {
+        "className": "body-text-xs",
+        "file": "src/styles/utilities.css"
+      }
+    ]
+  }
+}

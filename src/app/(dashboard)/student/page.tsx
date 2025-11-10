@@ -171,31 +171,40 @@ export default function DashboardPage() {
   ];
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 800);
+    const timer = setTimeout(() => setIsLoading(false), 600);
     return () => clearTimeout(timer);
   }, []);
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <LoadingStates.CustomLoader
-          showLogo
-          message="جاري تحميل لوحة التحكم..."
-          size="lg"
-        />
+      <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 flex items-center justify-center p-4">
+        <div className="w-full max-w-7xl space-y-6 sm:space-y-8">
+          {/* Welcome Header Skeleton */}
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 h-32 sm:h-40 animate-pulse" />
+          
+          {/* Stats Skeleton */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div key={index} className="bg-white dark:bg-neutral-800 rounded-xl p-4 sm:p-6 h-32 animate-pulse border border-neutral-200 dark:border-neutral-700" />
+            ))}
+          </div>
+          
+          {/* Content Skeleton */}
+          <div className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 h-64 animate-pulse border border-neutral-200 dark:border-neutral-700" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      <div className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+    <div className="w-full">
+      <div className="space-y-6 sm:space-y-8">
         {/* Welcome Header */}
           <motion.div
           initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-white shadow-xl"
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 text-white shadow-lg"
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 sm:gap-6">
             <div className="flex items-center gap-4 sm:gap-6">
@@ -230,25 +239,29 @@ export default function DashboardPage() {
             <div className="flex flex-wrap gap-2 sm:gap-3">
                     {unreadNotifications > 0 && (
                       <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                         onClick={() => router.push('/notifications')}
-                  className="px-4 sm:px-6 py-2 sm:py-3 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold border-2 border-white/30 hover:border-white/50 transition-all flex items-center gap-2"
+                  className="px-4 sm:px-6 py-2 sm:py-3 bg-white/20 backdrop-blur-md hover:bg-white/30 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold border-2 border-white/30 hover:border-white/50 transition-all duration-200 ease-out flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-600 min-h-[44px]"
+                aria-label={`الإشعارات - ${unreadNotifications} غير مقروء`}
+                type="button"
                 >
-                  <Bell className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  <Bell className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" aria-hidden="true" />
                   <span>الإشعارات</span>
-                  <span className="bg-red-500 text-white rounded-full px-2 py-0.5 text-xs font-bold animate-pulse">
+                  <span className="bg-danger-500 text-white rounded-full px-2 py-0.5 text-xs font-bold animate-pulse" aria-label={`${unreadNotifications} إشعار غير مقروء`}>
                             {unreadNotifications}
                           </span>
                       </motion.button>
                     )}
                     <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => router.push('/courses')}
-                className="px-4 sm:px-6 py-2 sm:py-3 bg-white text-blue-600 hover:bg-blue-50 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-colors flex items-center gap-2"
+                className="px-4 sm:px-6 py-2 sm:py-3 bg-white text-primary-600 hover:bg-primary-50 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold transition-all duration-200 ease-out flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-600 min-h-[44px]"
+                aria-label="استكشف الكورسات"
+                type="button"
                     >
-                <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" aria-hidden="true" />
                 <span>استكشف الكورسات</span>
                     </motion.button>
             </div>
@@ -259,9 +272,9 @@ export default function DashboardPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.2, ease: 'easeOut', delay: 0.1 }}
         >
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-4 sm:mb-6">
             إحصائيات سريعة
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -270,34 +283,37 @@ export default function DashboardPage() {
                 key={stat.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2, ease: 'easeOut', delay: 0.05 * index }}
+                whileHover={{ y: -2, scale: 1.01 }}
               >
                 <Link
                   href={stat.href}
-                  className={`block p-4 sm:p-6 rounded-xl sm:rounded-2xl ${stat.bgColor} border-2 border-transparent hover:border-current transition-all duration-300 shadow-lg hover:shadow-xl group`}
+                  className={`block p-4 sm:p-6 rounded-xl ${stat.bgColor} border border-transparent hover:border-current transition-all duration-200 ease-out shadow-md hover:shadow-lg group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2`}
+                  aria-label={`${stat.title}: ${stat.value}`}
                     >
                   <div className="flex items-center justify-between mb-4">
-                    <div className={`p-3 rounded-xl ${stat.bgColor} group-hover:scale-110 transition-transform`}>
-                      {stat.icon}
+                    <div className={`p-3 rounded-lg ${stat.bgColor} group-hover:scale-110 transition-transform duration-200 ease-out`}>
+                      <div className={stat.color}>
+                        {stat.icon}
+                      </div>
                   </div>
                     {stat.changeType !== 'neutral' && (
                       <div className={`text-sm font-medium ${
-                        stat.changeType === 'increase' ? 'text-green-600' : 'text-red-600'
-                      }`}>
+                        stat.changeType === 'increase' ? 'text-success-600' : 'text-danger-600'
+                      }`} aria-label={`${stat.changeType === 'increase' ? 'زيادة' : 'نقص'} بنسبة ${Math.abs(stat.change)}%`}>
                         {stat.changeType === 'increase' ? '↑' : '↓'} {Math.abs(stat.change)}%
                 </div>
                     )}
                   </div>
-                  <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+                  <h3 className="text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-2">
                     {stat.title}
                   </h3>
                   <p className={`text-3xl font-bold ${stat.color} mb-2`}>
                     {stat.value}
                   </p>
-                  <div className="flex items-center text-sm text-gray-500 group-hover:text-current transition-colors">
+                  <div className="flex items-center text-sm text-neutral-500 group-hover:text-current transition-colors duration-200 ease-out">
                     <span>عرض التفاصيل</span>
-                    <ArrowRight className="w-4 h-4 mr-1 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 ms-1 group-hover:translate-x-[-2px] transition-transform duration-200 ease-out" aria-hidden="true" />
                   </div>
                 </Link>
               </motion.div>
@@ -309,15 +325,15 @@ export default function DashboardPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg border border-gray-200 dark:border-neutral-700"
+          transition={{ duration: 0.2, ease: 'easeOut', delay: 0.15 }}
+          className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md border border-neutral-200 dark:border-neutral-700"
             >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4 sm:mb-6">
                   <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-2">
                       ملخص حالة الحساب
                     </h2>
-              <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
+              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
                 نظرة شاملة على تقدمك وإنجازاتك
                     </p>
                   </div>
@@ -326,39 +342,39 @@ export default function DashboardPage() {
                 <div className="text-2xl sm:text-3xl font-bold text-primary-600 dark:text-primary-400">
                         {accountSummary.totalProgress}%
                       </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400">إجمالي التقدم</div>
+                <div className="text-xs text-neutral-600 dark:text-neutral-400">إجمالي التقدم</div>
                     </div>
-              <div className="h-12 w-px bg-gray-300 dark:bg-gray-700"></div>
+              <div className="h-12 w-px bg-neutral-300 dark:bg-neutral-700"></div>
                     <div className="text-center">
-                <div className="text-2xl sm:text-3xl font-bold text-green-600">
+                <div className="text-2xl sm:text-3xl font-bold text-success-600">
                         {accountSummary.averageScore}%
                       </div>
-                <div className="text-xs text-gray-600 dark:text-gray-400">متوسط الدرجات</div>
+                <div className="text-xs text-neutral-600 dark:text-neutral-400">متوسط الدرجات</div>
                     </div>
                   </div>
                 </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
-            <div className="bg-gray-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-neutral-700">
-              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">الدورات النشطة</div>
+            <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-neutral-200 dark:border-neutral-700 transition-all duration-200 ease-out hover:shadow-md">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1">الدورات النشطة</div>
               <div className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">
                       {accountSummary.activeCourses}
                     </div>
                   </div>
-            <div className="bg-gray-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-neutral-700">
-              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">الدورات المكتملة</div>
-              <div className="text-xl sm:text-2xl font-bold text-green-600">
+            <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-neutral-200 dark:border-neutral-700 transition-all duration-200 ease-out hover:shadow-md">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1">الدورات المكتملة</div>
+              <div className="text-xl sm:text-2xl font-bold text-success-600">
                       {accountSummary.completedCourses}
                     </div>
                   </div>
-            <div className="bg-gray-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-neutral-700">
-              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">الشهادات</div>
-              <div className="text-xl sm:text-2xl font-bold text-purple-600">
+            <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-neutral-200 dark:border-neutral-700 transition-all duration-200 ease-out hover:shadow-md">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1">الشهادات</div>
+              <div className="text-xl sm:text-2xl font-bold text-secondary-innovate-600">
                       {accountSummary.totalCertificates}
                     </div>
                   </div>
-            <div className="bg-gray-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200 dark:border-neutral-700">
-              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 mb-1">ساعات الدراسة</div>
-              <div className="text-xl sm:text-2xl font-bold text-orange-600">
+            <div className="bg-neutral-50 dark:bg-neutral-900 rounded-lg sm:rounded-xl p-3 sm:p-4 border border-neutral-200 dark:border-neutral-700 transition-all duration-200 ease-out hover:shadow-md">
+              <div className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1">ساعات الدراسة</div>
+              <div className="text-xl sm:text-2xl font-bold text-warning-600">
                       {accountSummary.studyHours}
                   </div>
                 </div>
@@ -369,43 +385,43 @@ export default function DashboardPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.2, ease: 'easeOut', delay: 0.2 }}
             >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
               دوراتي الحالية
                 </h2>
                   <Link
               href="/student/courses"
-              className="text-sm sm:text-base text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-2 transition-colors"
+              className="text-sm sm:text-base text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium flex items-center gap-2 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                   >
               عرض الكل
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </Link>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 {currentCourses.map((course, index) => (
                   <motion.div
                     key={course.id}
-                    initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 * index }}
-                whileHover={{ y: -5 }}
-                className="bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700 hover:shadow-xl transition-all"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, ease: 'easeOut', delay: 0.05 * index }}
+                whileHover={{ y: -2, scale: 1.01 }}
+                className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-md border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-200 ease-out"
                   >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center text-white text-2xl font-bold shadow-md">
                     {course.title.charAt(0)}
                   </div>
-                      <div className="flex-1">
-                    <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">
+                      <div className="flex-1 min-w-0">
+                    <h3 className="font-bold text-lg text-neutral-900 dark:text-white mb-1">
                           {course.title}
                         </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-2">
                           {course.instructor}
                         </p>
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                          <Clock className="w-3 h-3" />
+                    <div className="flex items-center gap-2 text-xs text-neutral-500">
+                          <Clock className="w-3 h-3" aria-hidden="true" />
                           <span>ينتهي في {course.dueDate}</span>
                         </div>
                       </div>
@@ -414,46 +430,47 @@ export default function DashboardPage() {
                 {/* Progress Bar */}
                     <div className="mb-4">
                   <div className="flex justify-between text-sm mb-2">
-                    <span className="font-medium text-gray-700 dark:text-gray-300">التقدم</span>
-                    <span className="font-bold text-gray-900 dark:text-white">
+                    <span className="font-medium text-neutral-700 dark:text-neutral-300">التقدم</span>
+                    <span className="font-bold text-neutral-900 dark:text-white" aria-label={`${course.progress}% مكتمل`}>
                             {course.progress}%
                           </span>
                         </div>
-                  <div className="w-full bg-gray-200 dark:bg-neutral-700 rounded-full h-3 overflow-hidden">
+                  <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-3 overflow-hidden" role="progressbar" aria-valuenow={course.progress} aria-valuemin={0} aria-valuemax={100} aria-label={`تقدم الدورة: ${course.progress}%`}>
                         <motion.div
                       className={`h-3 rounded-full ${
                             course.progress >= 75
-                              ? 'bg-gradient-to-r from-green-500 to-green-600'
+                              ? 'bg-gradient-to-r from-success-500 to-success-600'
                               : course.progress >= 50
-                                ? 'bg-gradient-to-r from-blue-500 to-blue-600'
-                            : 'bg-gradient-to-r from-yellow-500 to-orange-500'
+                                ? 'bg-gradient-to-r from-primary-500 to-primary-600'
+                            : 'bg-gradient-to-r from-warning-500 to-warning-600'
                       }`}
                           initial={{ width: 0 }}
                           animate={{ width: `${course.progress}%` }}
-                          transition={{ duration: 1, delay: 0.5 + index * 0.2 }}
+                          transition={{ duration: 0.5, ease: 'easeOut', delay: 0.2 + index * 0.1 }}
                     />
                       </div>
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <div className="flex justify-between text-xs text-neutral-500 mt-1">
                     <span>{course.completedLessons}/{course.totalLessons} درس مكتمل</span>
                     <span>متبقي {course.totalLessons - course.completedLessons} درس</span>
                       </div>
                     </div>
 
-                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3 mb-4">
+                <div className="bg-primary-50 dark:bg-primary-900/20 rounded-lg p-3 mb-4 border border-primary-200/50 dark:border-primary-800/50">
                   <div className="flex items-center gap-2 mb-1">
-                    <Play className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                    <span className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                    <Play className="w-4 h-4 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+                    <span className="text-sm font-medium text-primary-900 dark:text-primary-100">
                           الدرس التالي:
                         </span>
                       </div>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">{course.nextLesson}</p>
+                  <p className="text-sm text-primary-700 dark:text-primary-300">{course.nextLesson}</p>
                     </div>
 
                 <Link
                   href={`/student/courses/${course.id}`}
-                  className="block w-full text-center px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2"
+                  className="block w-full text-center px-4 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-xl font-medium transition-all duration-200 ease-out flex items-center justify-center gap-2 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 min-h-[44px]"
+                  aria-label={`متابعة تعلم دورة ${course.title}`}
                 >
-                  <Play className="w-4 h-4" />
+                  <Play className="w-4 h-4" aria-hidden="true" />
                   <span>متابعة التعلم</span>
                 </Link>
                       </motion.div>
@@ -465,14 +482,14 @@ export default function DashboardPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.2, ease: 'easeOut', delay: 0.25 }}
               >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-4 sm:mb-6">
             روابط سريعة
                   </h2>
           
           {/* FlyonUI Quick Menu */}
-          <div className="mb-6 bg-white dark:bg-neutral-800 rounded-2xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700">
+          <div className="mb-6 bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-4 shadow-md border border-neutral-200 dark:border-neutral-700">
             <FlyonMenu
               items={[
                 {
@@ -501,16 +518,16 @@ export default function DashboardPage() {
               autoActive={true}
             />
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {quickLinks.map((link, index) => {
               const Icon = link.icon;
               const colorClasses = {
-                blue: 'from-blue-500 to-blue-600',
-                green: 'from-green-500 to-green-600',
-                orange: 'from-orange-500 to-orange-600',
-                purple: 'from-purple-500 to-purple-600',
-                indigo: 'from-indigo-500 to-indigo-600',
-                pink: 'from-pink-500 to-pink-600',
+                blue: 'from-primary-500 to-primary-600',
+                green: 'from-success-500 to-success-600',
+                orange: 'from-warning-500 to-warning-600',
+                purple: 'from-secondary-innovate-500 to-secondary-innovate-600',
+                indigo: 'from-primary-600 to-primary-700',
+                pink: 'from-accent-500 to-accent-600',
               }[link.color];
 
               return (
@@ -518,16 +535,17 @@ export default function DashboardPage() {
                   key={link.href}
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: 0.1 * index }}
-                  whileHover={{ scale: 1.05, y: -5 }}
-                  whileTap={{ scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: 'easeOut', delay: 0.05 * index }}
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                     >
                   <Link
                     href={link.href}
-                    className={`block p-6 rounded-xl bg-gradient-to-r ${colorClasses} text-white shadow-lg hover:shadow-xl transition-all text-center group`}
+                    className={`block p-4 sm:p-6 rounded-xl bg-gradient-to-r ${colorClasses} text-white shadow-md hover:shadow-lg transition-all duration-200 ease-out text-center group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-600 min-h-[120px] flex flex-col items-center justify-center`}
+                    aria-label={link.label}
                   >
-                    <Icon className="w-8 h-8 mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                    <span className="font-medium text-sm">{link.label}</span>
+                    <Icon className="w-6 h-6 sm:w-8 sm:h-8 mb-2 sm:mb-3 group-hover:scale-110 transition-transform duration-200 ease-out" aria-hidden="true" />
+                    <span className="font-medium text-xs sm:text-sm">{link.label}</span>
                   </Link>
                     </motion.div>
                         );

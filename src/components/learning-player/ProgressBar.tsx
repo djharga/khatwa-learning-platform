@@ -5,11 +5,13 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ progress }: ProgressBarProps) {
+  const safeProgress = Math.min(100, Math.max(0, progress));
+
   return (
-    <div className="h-1 bg-gray-100 dark:bg-slate-800 flex-shrink-0">
+    <div className="relative h-1.5 w-full bg-white/40 backdrop-blur-md border border-white/30 rounded-full overflow-hidden shadow-inner">
       <div
-        className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 transition-all duration-500 ease-out"
-        style={{ width: `${Math.min(100, Math.max(0, progress))}%` }}
+        className="absolute left-0 top-0 h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-full transition-all duration-500 ease-out"
+        style={{ width: `${safeProgress}%` }}
       />
     </div>
   );

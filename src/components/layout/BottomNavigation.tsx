@@ -5,108 +5,90 @@ import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { getBottomNavigationItems, isActiveLink } from '@/lib/navigation';
 import Icon from '@/components/ui/icons/IconSystem';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
-/**
- * Mobile-only bottom navigation bar with animated icons and active state indicators.
- * Fixed to the bottom of the screen on mobile devices (hidden on desktop).
- * Features smooth transitions, pulsing animations for active items, and safe area inset support for notched devices.
- * Automatically highlights the current page based on pathname.
- */
 const BottomNavigation = () => {
   const pathname = usePathname();
-
-  // Fetch bottom navigation items for student role with authentication check
-  // إعادة ترتيب العناصر: العناصر الأساسية في الأعلى، البحث والإضافات في الأسفل
   const navItems = getBottomNavigationItems('student', true);
+  const prefersReducedMotion = useReducedMotion();
 
-  // Mobile Bottom Navigation Bar
   return (
     <motion.nav
-      className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-gray-200/60 shadow-2xl z-50 pb-safe-area-inset-bottom"
-      initial={{ y: 100, opacity: 0 }}
+      className="md:hidden fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-2xl border-t border-neutral-200/60 dark:border-neutral-700/60 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] z-50 pb-safe-area-inset-bottom"
+      initial={prefersReducedMotion ? { y: 0, opacity: 1 } : { y: 80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.4, ease: 'easeOut' }} // تسريع ظهور الشريط السفلي
+      transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25, ease: 'easeOut' }}
+      role="navigation"
+      aria-label="شريط التنقل السفلي"
     >
-      {/* Subtle gradient overlay for depth effect */}
-      <div className="absolute inset-0 bg-gradient-to-t from-white/90 via-white/95 to-white/98"></div>
+      {/* تأثير شفاف علوي للفصل */}
+      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-neutral-200/80 to-transparent dark:via-neutral-700/60" />
 
-      {/* Navigation Items Container - مُحسّن للوصول السريع */}
       <div className="relative flex items-center justify-around h-20 px-2">
-        {/* Render navigation items with staggered entrance animations */}
         {navItems.map((item, index) => {
           const isActive = item.href ? isActiveLink(item.href, pathname) : false;
+
           return (
             <motion.div
               key={item.href || item.id}
               className="relative flex-1"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: index * 0.01, duration: 0.1 }} // Minimal motion
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 10 }}
+              animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05, duration: 0.25 }}
             >
               {item.href && (
                 <Link
                   href={item.href}
-                  className={`group relative flex flex-col items-center justify-center p-3 rounded-2xl transition-all duration-200 min-w-0 flex-1 h-16 ${
+                  className={`group relative flex flex-col items-center justify-center rounded-2xl transition-all duration-200 ease-out w-full h-16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
                     isActive
-                      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 shadow-elevation-2'
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/10 hover:shadow-elevation-1'
+                      ? 'text-primary-600 dark:text-primary-400 bg-gradient-to-b from-primary-50/90 to-white/40 dark:from-primary-900/20 dark:to-neutral-900/60 shadow-md shadow-primary-500/10'
+                      : 'text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50/40 dark:hover:bg-primary-900/10 hover:shadow-sm'
                   }`}
                   aria-current={isActive ? 'page' : undefined}
-                  aria-label={item.label}
                 >
-                  {/* Pulsing animation for active navigation item icon */}
+                  {/* أيقونة مع تأثير نبض ناعم */}
                   <motion.div
-                    className="relative"
+                    className="relative flex items-center justify-center"
                     animate={
-                      isActive
-                        ? {
-                            scale: [1, 1.1, 1], // تقليل شدة النبضة
-                          }
-                        : false
+                      prefersReducedMotion
+                        ? { scale: 1, y: 0 }
+                        : isActive
+                        ? { scale: [1, 1.06, 1], y: [0, -1, 0] }
+                        : { scale: 1, y: 0 }
                     }
-                    transition={{
-                      duration: 3, // إبطاء النبضة لتكون أقل إلهاءً
-                      repeat: Infinity,
-                      ease: 'easeInOut',
-                    }}
+                    transition={
+                      prefersReducedMotion
+                        ? { duration: 0 }
+                        : {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                          }
+                    }
                   >
                     <Icon
                       name={(item.icon as string) || 'home'}
                       size="md"
-                      className={`mb-1 transition-all duration-200 ${
-                        isActive ? 'drop-shadow-md' : ''
+                      className={`transition-transform duration-200 ease-out ${
+                        isActive ? 'scale-110 drop-shadow-[0_0_6px_rgba(59,130,246,0.4)]' : ''
                       }`}
                     />
-                    {isActive && (
-                      <motion.div
-                        className="absolute inset-0 bg-blue-400/20 rounded-full blur-md"
-                        animate={{
-                          scale: [1, 1.3, 1], // تقليل التأثير المرئي
-                          opacity: [0.4, 0.1, 0.4],
-                        }}
-                        transition={{
-                          duration: 3, // إبطاء التأثير
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }}
-                      />
-                    )}
                   </motion.div>
 
                   <span
-                    className={`text-xs font-medium transition-all duration-200 ${
-                      isActive ? 'font-bold' : ''
+                    className={`text-xs font-medium mt-1 transition-colors ${
+                      isActive ? 'font-semibold text-primary-600 dark:text-primary-400' : ''
                     }`}
                   >
                     {item.label}
                   </span>
 
-                  {/* Animated top bar indicator for active page with layout animation */}
+                  {/* مؤشر علوي متحرك */}
                   {isActive && (
                     <motion.div
-                      className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
-                      layoutId="activeIndicator" // Shared layout ID enables smooth animation between active items
-                      transition={{ type: 'spring', stiffness: 400, damping: 35 }} // تحسين سرعة الاستجابة
+                      layoutId={prefersReducedMotion ? undefined : "activeIndicator"}
+                      className="absolute -top-[2px] left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 shadow-[0_0_6px_rgba(59,130,246,0.5)]"
+                      transition={prefersReducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 400, damping: 35 }}
                     />
                   )}
                 </Link>
@@ -115,9 +97,6 @@ const BottomNavigation = () => {
           );
         })}
       </div>
-
-      {/* Subtle top border gradient for visual separation */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
     </motion.nav>
   );
 };

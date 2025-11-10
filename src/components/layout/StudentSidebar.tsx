@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSubscription } from '@/hooks/useSubscription';
+import { getSidebarItems, isActiveLink as isActiveLinkUtil } from '@/lib/navigation';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -50,6 +51,10 @@ export default function StudentSidebar() {
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['الرئيسية', 'التعليم']);
   const { hasSubscription } = useSubscription();
 
+  // استخدام navigation.ts مع الحفاظ على بنية الأيقونات
+  const navigationItemsFromLib = getSidebarItems('student', hasSubscription);
+  
+  // دمج البيانات من navigation.ts مع البيانات المخصصة
   const sidebarGroups: SidebarGroup[] = [
     {
       title: 'الرئيسية',

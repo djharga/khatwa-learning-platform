@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Grid3x3, List, ChevronRight, BookOpen, Clock, Users, Star, Link, GraduationCap, Shield, Building, Award, Calculator, Warehouse, TrendingUp, Download, Play, FileText, Video, Headphones, CheckCircle, ArrowLeft, Share2, Heart, Sparkles, Grid } from 'lucide-react';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -17,9 +18,18 @@ import {
   type Course 
 } from '@/data/courses/all-courses';
 import { safeFormatNumber } from '@/lib/numberUtils';
+import PageBackground from '@/components/ui/PageBackground';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+
+// Lazy load heavy components
+const ModernTabsLazy = dynamic(() => import('@/components/ui/ModernTabs').then(mod => ({ default: mod.ModernTabs })), {
+  ssr: false,
+  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 rounded" />,
+});
 
 export default function CoursesPage() {
   const router = useRouter();
+  const prefersReducedMotion = useReducedMotion();
 
   // ═══════════════════════════════════════════════════
   // States
@@ -91,7 +101,7 @@ export default function CoursesPage() {
   // ═══════════════════════════════════════════════════
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 relative">
+    <PageBackground variant="courses">
       {/* Grid-based layout with consistent spacing */}
       <div className="grid grid-cols-1 gap-y-12 py-12 lg:py-16">
         
@@ -100,7 +110,7 @@ export default function CoursesPage() {
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
-              src="/assets/Professional educational platform hero banner.png"
+              src="/assets/course-hero.jpg"
               alt="الدورات التدريبية"
               fill
               priority
@@ -108,76 +118,102 @@ export default function CoursesPage() {
               className="object-cover"
               style={{ objectPosition: 'center' }}
             />
-            {/* Simple Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/85 via-indigo-900/80 to-blue-900/85"></div>
+            {/* Simple Overlay with reduced opacity */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-900/40 via-indigo-900/35 to-primary-900/40"></div>
           </div>
 
           {/* Content */}
           <div className="relative z-10 container mx-auto max-w-7xl px-8 py-24">
             <div className="text-center">
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-2 mb-6 border border-white/20">
+              <motion.div 
+                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-2 mb-6 border border-white/20"
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
                 <BookOpen className="w-5 h-5 text-white" />
-                <span className="font-semibold text-sm tracking-wide">برامج تعليمية متخصصة</span>
-              </div>
+                <span className="font-semibold text-sm tracking-wide drop-shadow-lg">برامج تعليمية متخصصة</span>
+              </motion.div>
 
               {/* Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight drop-shadow-2xl"
+                style={{ 
+                  textShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'
+                }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
                 الدورات التدريبية
-              </h1>
+              </motion.h1>
 
               {/* Description */}
-              <p className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed">
+              <motion.p 
+                className="text-lg md:text-xl text-blue-50 dark:text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-lg"
+                style={{ 
+                  textShadow: '0 2px 8px rgba(0, 0, 0, 0.25)'
+                }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
                 اكتشف دوراتنا المتخصصة في المحاسبة والمراجعة الداخلية والإدارة المالية مع محتوى تعليمي احترافي ومعتمد
-              </p>
+              </motion.p>
 
               {/* Statistics Grid */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+              <motion.div 
+                className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
                   <div className="flex items-center justify-center mb-3">
                     <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <Users className="w-6 h-6 text-white" />
+                      <Users className="w-6 h-6 text-white drop-shadow-md" />
                     </div>
                   </div>
-                  <div className="text-3xl font-bold mb-1">15,420+</div>
-                  <div className="text-sm text-blue-100 font-medium">طالب نشط</div>
+                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">15,420+</div>
+                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">طالب نشط</div>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
                   <div className="flex items-center justify-center mb-3">
                     <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <BookOpen className="w-6 h-6 text-white" />
+                      <BookOpen className="w-6 h-6 text-white drop-shadow-md" />
                     </div>
                   </div>
-                  <div className="text-3xl font-bold mb-1">15+</div>
-                  <div className="text-sm text-blue-100 font-medium">دورة متخصصة</div>
+                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">15+</div>
+                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">دورة متخصصة</div>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
                   <div className="flex items-center justify-center mb-3">
                     <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                      <Star className="w-6 h-6 text-yellow-300 dark:text-yellow-400 fill-yellow-300 dark:fill-yellow-400 drop-shadow-md" />
                     </div>
                   </div>
-                  <div className="text-3xl font-bold mb-1">4.8</div>
-                  <div className="text-sm text-blue-100 font-medium">متوسط التقييم</div>
+                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">4.8</div>
+                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">متوسط التقييم</div>
                 </div>
                 
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
                   <div className="flex items-center justify-center mb-3">
                     <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <Award className="w-6 h-6 text-white" />
+                      <Award className="w-6 h-6 text-white drop-shadow-md" />
                     </div>
                   </div>
-                  <div className="text-3xl font-bold mb-1">95%</div>
-                  <div className="text-sm text-blue-100 font-medium">معدل الرضا</div>
+                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">95%</div>
+                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">معدل الرضا</div>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
 
           {/* Bottom Gradient Transition */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-50 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-50 dark:from-blue-950 to-transparent"></div>
         </section>
 
         {/* Courses Content Section */}
@@ -185,7 +221,7 @@ export default function CoursesPage() {
           {/* Search and Filters Grid */}
           <div className="grid grid-cols-1 gap-y-8 mb-12">
             {/* Search Bar */}
-            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-6">
+            <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl shadow-md border border-neutral-200/50 dark:border-neutral-700/50 p-6">
               <Input
                 type="text"
                 placeholder="ابحث عن دورة..."
@@ -197,27 +233,53 @@ export default function CoursesPage() {
               />
             </div>
 
-            {/* Modern Tabs Navigation */}
-            <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-6">
-              <ModernTabs
-                tabs={categories.map((cat) => ({
-                  id: cat.id,
-                  label: cat.label,
-                  count: cat.count > 0 ? cat.count : undefined,
-                }))}
-                activeTab={selectedCategory}
-                onChange={(categoryId) => {
-                  setSelectedCategory(categoryId);
-                }}
-                variant="underline"
-                size="lg"
-                fullWidth={false}
-                className="bg-transparent border-0 shadow-none p-0"
-              />
+            {/* Categories Filter - Simple & Light Design */}
+            <div className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-sm rounded-lg border border-neutral-200/50 dark:border-neutral-700/50 p-4">
+              <div className="flex flex-wrap gap-2">
+                {categories.map((cat, index) => {
+                  const isActive = selectedCategory === cat.id;
+                  return (
+                    <motion.button
+                      key={cat.id}
+                      onClick={() => setSelectedCategory(cat.id)}
+                      initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.03, duration: 0.15 }}
+                      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                      whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+                      className={`
+                        inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                        text-sm font-medium
+                        transition-all duration-150 ease-out
+                        focus:outline-none focus:ring-2 focus:ring-primary-500/30
+                        ${
+                          isActive
+                            ? 'bg-primary-600 text-white shadow-sm'
+                            : 'bg-neutral-100 dark:bg-neutral-700/50 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
+                        }
+                      `}
+                      aria-label={`${cat.label} - ${cat.count} دورة`}
+                      aria-pressed={isActive}
+                    >
+                      <span>{cat.label}</span>
+                      <span className={`
+                        px-2 py-0.5 rounded-full text-xs font-semibold
+                        ${
+                          isActive
+                            ? 'bg-white/20 text-white'
+                            : 'bg-white/60 dark:bg-neutral-600/60 text-neutral-600 dark:text-neutral-300'
+                        }
+                      `}>
+                        {cat.count}
+                      </span>
+                    </motion.button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* View Controls & Sort */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-white dark:bg-neutral-900 rounded-xl shadow-sm border border-neutral-200 dark:border-neutral-700">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm rounded-xl shadow-sm border border-neutral-200/50 dark:border-neutral-700/50">
               {/* View Mode Toggle */}
               <div className="flex items-center gap-2 bg-neutral-100 dark:bg-neutral-800 rounded-lg p-1">
                 <motion.button
@@ -226,11 +288,13 @@ export default function CoursesPage() {
                     px-4 py-2 rounded-md transition-all
                     ${viewMode === 'grid' 
                       ? 'bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 shadow-sm' 
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
+                      : 'text-neutral-600 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100'
                     }
                   `}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                  whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+                  aria-label="عرض الشبكة"
+                  aria-pressed={viewMode === 'grid'}
                 >
                   <Grid className="w-5 h-5" />
                 </motion.button>
@@ -240,11 +304,13 @@ export default function CoursesPage() {
                     px-4 py-2 rounded-md transition-all
                     ${viewMode === 'list' 
                       ? 'bg-white dark:bg-neutral-700 text-primary-600 dark:text-primary-400 shadow-sm' 
-                      : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100'
+                      : 'text-neutral-600 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100'
                     }
                   `}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                  whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+                  aria-label="عرض القائمة"
+                  aria-pressed={viewMode === 'list'}
                 >
                   <List className="w-5 h-5" />
                 </motion.button>
@@ -252,7 +318,7 @@ export default function CoursesPage() {
               
               {/* Sort & Results */}
               <div className="flex items-center justify-between gap-4">
-                <div className="text-sm text-neutral-600 dark:text-neutral-400">
+                <div className="text-sm text-neutral-600 dark:text-neutral-500">
                   عرض <span className="font-bold text-neutral-900 dark:text-neutral-100">{filteredCourses.length}</span> دورة
                 </div>
                 
@@ -260,6 +326,7 @@ export default function CoursesPage() {
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
                   className="px-4 py-2 border border-neutral-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                  aria-label="ترتيب الدورات"
                 >
                   <option value="popular">الأكثر شعبية</option>
                   <option value="rating">الأعلى تقييماً</option>
@@ -282,9 +349,9 @@ export default function CoursesPage() {
               {filteredCourses.map((course, index) => (
                 <motion.div
                   key={course.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.08, duration: 0.4 }}
+                  initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  whileInView={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+                  transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.08, duration: 0.4 }}
                   viewport={{ once: true }}
                   className="group"
                 >
@@ -324,13 +391,13 @@ export default function CoursesPage() {
 
                       {/* Description - List View Only */}
                       {viewMode === 'list' && (
-                        <p className="text-neutral-600 dark:text-neutral-400 mb-4 line-clamp-2">
+                        <p className="text-neutral-600 dark:text-neutral-500 mb-4 line-clamp-2">
                           {course.description}
                         </p>
                       )}
 
                       {/* Stats Row */}
-                      <div className={`flex items-center gap-4 mb-4 text-sm text-neutral-600 dark:text-neutral-400 ${
+                      <div className={`flex items-center gap-4 mb-4 text-sm text-neutral-600 dark:text-neutral-500 ${
                         viewMode === 'list' ? 'mb-4' : 'mb-3'
                       }`}>
                         <div className="flex items-center gap-1">
@@ -348,7 +415,7 @@ export default function CoursesPage() {
                       </div>
 
                       {/* Content Files Info */}
-                      <div className={`flex items-center gap-4 mb-4 text-xs text-neutral-500 dark:text-neutral-500 ${
+                      <div className={`flex items-center gap-4 mb-4 text-xs text-neutral-600 dark:text-neutral-500 ${
                         viewMode === 'list' ? 'mb-4' : 'mb-3'
                       }`}>
                         <div className="flex items-center gap-1">
@@ -367,14 +434,15 @@ export default function CoursesPage() {
 
                       {/* Price and StyledButtons */}
                       <div className={`space-y-3 mt-auto ${viewMode === 'list' ? 'flex flex-row items-center justify-between' : ''}`}>
-                        <div className={`font-bold text-primary ${viewMode === 'list' ? 'text-2xl' : 'text-lg text-center'}`}>
+                        <div className={`font-bold text-primary-600 dark:text-primary-400 ${viewMode === 'list' ? 'text-2xl' : 'text-lg text-center'}`}>
                           {course.price}
                         </div>
                         <Button
-                          onClick={() => router.push(course.pageUrl)}
+                          onClick={() => router.push(`/courses/${course.slug}`)}
                           className={`${viewMode === 'list' ? '' : 'w-full'}`}
                           size={viewMode === 'list' ? 'default' : 'default'}
-                          animate
+                          animate={!prefersReducedMotion}
+                          aria-label={`ابدأ دورة ${course.title}`}
                         >
                           <span>ابدأ الآن</span>
                           <ChevronRight className="w-4 h-4" />
@@ -389,7 +457,7 @@ export default function CoursesPage() {
             {/* No Results */}
             {filteredCourses.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-neutral-600 dark:text-neutral-400 text-lg">لم يتم العثور على دورات مطابقة</p>
+                <p className="text-neutral-600 dark:text-neutral-500 text-lg">لم يتم العثور على دورات مطابقة</p>
                 <Button
                   variant="secondary"
                   className="mt-4"
@@ -397,7 +465,8 @@ export default function CoursesPage() {
                     setSearchQuery('');
                     setSelectedCategory('all');
                   }}
-                  animate
+                  animate={!prefersReducedMotion}
+                  aria-label="إعادة تعيين فلاتر البحث"
                 >
                   إعادة تعيين الفلاتر
                 </Button>
@@ -406,6 +475,7 @@ export default function CoursesPage() {
           </main>
         </section>
       </div>
-    </div>
+    </PageBackground>
   );
 }
+

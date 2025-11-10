@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import ProgressNotification, {
+import {
   useProgressNotifications,
   notificationTemplates,
 } from '../components/ProgressNotification';
@@ -56,7 +56,7 @@ export const useExamState = (questions: Question[]) => {
   });
 
   const [lastActivityTime, setLastActivityTime] = useState(Date.now());
-  const { notifications, addNotification, dismissNotification } =
+  const { notifications, add: addNotification, dismiss: dismissNotification } =
     useProgressNotifications();
 
   // Update last activity time

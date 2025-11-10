@@ -8,7 +8,7 @@ import tokens from './src/tokens';
 export default {
   content: [
     './src/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/styles/globals.css',
+    './src/styles/core.css',
   ],
   darkMode: 'class',
   // RTL Support - دعم كامل للاتجاه من اليمين لليسار
@@ -193,18 +193,45 @@ export default {
         'error-xl': tokens.shadows.error.xl,
         error: tokens.shadows.error.DEFAULT,
         
-        // Glow Effects
-        'glow-primary': tokens.shadows.glow.primary.DEFAULT,
+        // Glow Effects - Light-Tech Enhanced
+        'glow-primary-xs': tokens.shadows.glow.primary.xs,
         'glow-primary-sm': tokens.shadows.glow.primary.sm,
+        'glow-primary': tokens.shadows.glow.primary.DEFAULT,
+        'glow-primary-md': tokens.shadows.glow.primary.md,
         'glow-primary-lg': tokens.shadows.glow.primary.lg,
-        'glow-accent': tokens.shadows.glow.accent.DEFAULT,
-        'glow-accent-sm': tokens.shadows.glow.accent.sm,
-        'glow-accent-lg': tokens.shadows.glow.accent.lg,
-        'glow-success': tokens.shadows.glow.success.DEFAULT,
-        'glow-warning': tokens.shadows.glow.warning.DEFAULT,
-        'glow-error': tokens.shadows.glow.error.DEFAULT,
+        'glow-primary-xl': tokens.shadows.glow.primary.xl,
+        'glow-primary-2xl': tokens.shadows.glow.primary['2xl'],
         
-        // Elevation System
+        'glow-accent-xs': tokens.shadows.glow.accent.xs,
+        'glow-accent-sm': tokens.shadows.glow.accent.sm,
+        'glow-accent': tokens.shadows.glow.accent.DEFAULT,
+        'glow-accent-md': tokens.shadows.glow.accent.md,
+        'glow-accent-lg': tokens.shadows.glow.accent.lg,
+        'glow-accent-xl': tokens.shadows.glow.accent.xl,
+        'glow-accent-2xl': tokens.shadows.glow.accent['2xl'],
+        
+        'glow-success-sm': tokens.shadows.glow.success.sm,
+        'glow-success': tokens.shadows.glow.success.DEFAULT,
+        'glow-success-md': tokens.shadows.glow.success.md,
+        'glow-success-lg': tokens.shadows.glow.success.lg,
+        
+        'glow-warning-sm': tokens.shadows.glow.warning.sm,
+        'glow-warning': tokens.shadows.glow.warning.DEFAULT,
+        'glow-warning-md': tokens.shadows.glow.warning.md,
+        'glow-warning-lg': tokens.shadows.glow.warning.lg,
+        
+        'glow-error-sm': tokens.shadows.glow.error.sm,
+        'glow-error': tokens.shadows.glow.error.DEFAULT,
+        'glow-error-md': tokens.shadows.glow.error.md,
+        'glow-error-lg': tokens.shadows.glow.error.lg,
+        
+        // Border Glow
+        'glow-border-primary': tokens.shadows.glow.border.primary,
+        'glow-border-accent': tokens.shadows.glow.border.accent,
+        'glow-border-subtle': tokens.shadows.glow.border.subtle,
+        'glow-border-strong': tokens.shadows.glow.border.strong,
+        
+        // Elevation System - Light-Tech Enhanced
         'elevation-0': tokens.shadows.elevation[0],
         'elevation-1': tokens.shadows.elevation[1],
         'elevation-2': tokens.shadows.elevation[2],
@@ -212,6 +239,16 @@ export default {
         'elevation-4': tokens.shadows.elevation[4],
         'elevation-5': tokens.shadows.elevation[5],
         'elevation-6': tokens.shadows.elevation[6],
+        'elevation-7': tokens.shadows.elevation[7],
+        'elevation-8': tokens.shadows.elevation[8],
+        
+        // Blending Layer Shadows
+        'blend-legacy': 'var(--card-legacy-shadow)',
+        'blend-modern': 'var(--card-legacy-hover-shadow), var(--card-legacy-glow)',
+        'blend-legacy-hover': 'var(--card-legacy-hover-shadow), var(--card-legacy-glow)',
+        'blend-button-hover': 'var(--btn-legacy-primary-hover), var(--btn-legacy-primary-glow)',
+        'blend-nav-dropdown': 'var(--nav-legacy-dropdown-shadow)',
+        'blend-nav-dropdown-hover': 'var(--nav-legacy-dropdown-hover-shadow)',
       },
 
       borderRadius: {
@@ -222,23 +259,23 @@ export default {
       },
 
       fontSize: {
-        // Responsive Typography - Fluid Typography with clamp() - Reduced by 15%
-        xs: 'clamp(0.531rem, 0.51rem + 0.17vw, 0.638rem)',
-        sm: 'clamp(0.638rem, 0.595rem + 0.21vw, 0.744rem)',
-        base: 'clamp(0.744rem, 0.68rem + 0.21vw, 0.85rem)',
-        lg: 'clamp(0.85rem, 0.765rem + 0.26vw, 0.956rem)',
-        xl: 'clamp(0.956rem, 0.85rem + 0.34vw, 1.169rem)',
-        '2xl': 'clamp(1.063rem, 0.978rem + 0.51vw, 1.381rem)',
-        '3xl': 'clamp(1.275rem, 1.19rem + 0.77vw, 1.7rem)',
-        '4xl': 'clamp(1.594rem, 1.403rem + 1.02vw, 2.231rem)',
-        '5xl': 'clamp(1.913rem, 1.7rem + 1.7vw, 2.869rem)',
-        '6xl': 'clamp(2.338rem, 2.125rem + 2.55vw, 3.825rem)',
-        '7xl': 'clamp(2.763rem, 2.55rem + 3.4vw, 4.675rem)',
+        // Responsive Typography - Fluid Typography with clamp() - Increased by 25% for better readability
+        xs: 'clamp(0.664rem, 0.638rem + 0.21vw, 0.798rem)',
+        sm: 'clamp(0.798rem, 0.744rem + 0.26vw, 0.93rem)',
+        base: 'clamp(0.93rem, 0.85rem + 0.26vw, 1.063rem)',
+        lg: 'clamp(1.063rem, 0.956rem + 0.33vw, 1.195rem)',
+        xl: 'clamp(1.195rem, 1.063rem + 0.43vw, 1.461rem)',
+        '2xl': 'clamp(1.329rem, 1.223rem + 0.64vw, 1.726rem)',
+        '3xl': 'clamp(1.594rem, 1.488rem + 0.96vw, 2.125rem)',
+        '4xl': 'clamp(1.993rem, 1.754rem + 1.28vw, 2.789rem)',
+        '5xl': 'clamp(2.391rem, 2.125rem + 2.13vw, 3.586rem)',
+        '6xl': 'clamp(2.923rem, 2.656rem + 3.19vw, 4.781rem)',
+        '7xl': 'clamp(3.454rem, 3.188rem + 4.25vw, 5.844rem)',
         
-        // Display Sizes - للعناوين الضخمة - Reduced by 15%
-        'display-sm': 'clamp(1.913rem, 1.7rem + 1.7vw, 2.869rem)',
-        'display-md': 'clamp(2.55rem, 2.125rem + 3.4vw, 4.144rem)',
-        'display-lg': 'clamp(3.188rem, 2.55rem + 5.1vw, 5.738rem)',
+        // Display Sizes - للعناوين الضخمة - Increased by 25%
+        'display-sm': 'clamp(2.391rem, 2.125rem + 2.13vw, 3.586rem)',
+        'display-md': 'clamp(3.188rem, 2.656rem + 4.25vw, 5.18rem)',
+        'display-lg': 'clamp(3.985rem, 3.188rem + 6.38vw, 7.173rem)',
         
         // Fixed sizes for specific use cases - من tokens.ts
         'xs-fixed': tokens.typography.fontSizeFixed.xs,
@@ -257,7 +294,20 @@ export default {
         display: '1.15',
       },
       fontWeight: tokens.typography.fontWeight,
-      letterSpacing: tokens.typography.letterSpacing,
+      letterSpacing: {
+        ...tokens.typography.letterSpacing,
+      },
+      
+      // Text Shadow - Light-Tech Enhanced
+      textShadow: {
+        none: tokens.typography.textShadow.none,
+        sm: tokens.typography.textShadow.sm,
+        md: tokens.typography.textShadow.md,
+        lg: tokens.typography.textShadow.lg,
+        primary: tokens.typography.textShadow.primary,
+        accent: tokens.typography.textShadow.accent,
+        glow: tokens.typography.textShadow.glow,
+      },
 
       // Modern Motion - Smooth and elegant transitions
       transitionDuration: {
@@ -286,6 +336,8 @@ export default {
         'scale-in': 'scale-in 0.2s ease-out forwards',
         'slide-up': 'slide-up 0.4s ease-out forwards',
         'slide-down': 'slide-down 0.4s ease-out forwards',
+        'float': 'float 20s ease-in-out infinite',
+        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       keyframes: {
         shimmer: {
@@ -316,6 +368,36 @@ export default {
           from: { transform: 'translateY(-20px)', opacity: '0' },
           to: { transform: 'translateY(0)', opacity: '1' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0) translateX(0)' },
+          '33%': { transform: 'translateY(-20px) translateX(10px)' },
+          '66%': { transform: 'translateY(10px) translateX(-10px)' },
+        },
+      },
+
+      // Background Image Utilities - Light-Tech Enhanced
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'mesh-light': 'radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15), transparent 50%), radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.15), transparent 50%), radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.1), transparent 70%)',
+        'mesh-dark': 'radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1), transparent 50%), radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.1), transparent 50%), radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.05), transparent 70%)',
+        'grid-pattern': 'linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px)',
+        'dot-pattern': 'radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px)',
+        'diagonal-pattern': 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 0, 0, 0.05) 10px, rgba(0, 0, 0, 0.05) 20px)',
+        // Light-Tech Gradients
+        'gradient-tech-surface': tokens.gradients['gradient-tech-surface'],
+        'gradient-tech-elevated': tokens.gradients['gradient-tech-elevated'],
+        'gradient-primary-soft': tokens.gradients['gradient-primary-soft'],
+        'gradient-accent-soft': tokens.gradients['gradient-accent-soft'],
+        'gradient-neutral-light': tokens.gradients['gradient-neutral-light'],
+        'gradient-glass-light': tokens.gradients['gradient-glass-light'],
+        // Blending Layer Gradients
+        'blend-gradient': 'linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%)',
+      },
+      backgroundSize: {
+        'pattern-grid': '50px 50px',
+        'pattern-dots': '30px 30px',
+        'pattern-diagonal': '20px 20px',
       },
     },
   },
@@ -324,6 +406,19 @@ export default {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    // Custom plugin for Text Shadow utilities
+    function({ addUtilities, theme }: any) {
+      const textShadows = theme('textShadow') || {};
+      const utilities: Record<string, any> = {};
+      
+      Object.keys(textShadows).forEach((key) => {
+        utilities[`.text-shadow-${key}`] = {
+          textShadow: textShadows[key],
+        };
+      });
+      
+      addUtilities(utilities);
+    },
     // Custom RTL plugin for logical properties
     function({ addUtilities, addBase, theme }: any) {
       addBase({
@@ -370,6 +465,107 @@ export default {
         // Text balance for better readability
         '.text-balance': {
           'text-wrap': 'balance',
+        },
+      });
+    },
+    // Blending Layer plugin for legacy component modernization
+    function({ addComponents, addUtilities, theme }: any) {
+      // Components - مكونات جاهزة للاستخدام
+      addComponents({
+        // Legacy Button Modernization
+        '.btn-legacy-modern': {
+          '@apply btn-primary': {},
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: '0',
+            background: 'var(--btn-legacy-shimmer)',
+            transform: 'translateX(-100%)',
+            transition: 'transform var(--duration-slow) var(--ease-out)',
+            pointerEvents: 'none',
+            zIndex: '1',
+          },
+          '&:hover::before': {
+            transform: 'translateX(100%)',
+          },
+          '&:hover': {
+            boxShadow: 'var(--btn-legacy-primary-hover), var(--btn-legacy-primary-glow)',
+          },
+        },
+        // Legacy Card Modernization  
+        '.card-legacy-modern': {
+          '@apply card-base': {},
+          position: 'relative',
+          overflow: 'hidden',
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            top: '0',
+            left: '0',
+            right: '0',
+            height: '2px',
+            background: 'var(--card-legacy-top-border)',
+            opacity: '0',
+            transition: 'opacity var(--duration-normal) var(--ease-out)',
+            pointerEvents: 'none',
+            zIndex: '1',
+          },
+          '&:hover::after': {
+            opacity: '1',
+          },
+          '&:hover': {
+            boxShadow: 'var(--card-legacy-hover-shadow), var(--card-legacy-glow)',
+            borderColor: 'var(--card-legacy-hover-border)',
+          },
+        },
+      });
+
+      // Utilities - فئات مساعدة للاستخدام السريع
+      addUtilities({
+        // Blend Legacy Modern - تطبيق التحسينات الحديثة على المكونات القديمة
+        '.blend-legacy-modern': {
+          transition: 'var(--btn-legacy-transition)',
+          willChange: 'box-shadow, border-color, transform',
+          contain: 'layout style paint',
+          '&:hover': {
+            boxShadow: 'var(--card-legacy-hover-shadow), var(--card-legacy-glow)',
+          },
+        },
+        // Blend Hover Glow - إضافة glow effect على hover
+        '.blend-hover-glow': {
+          transition: 'box-shadow var(--duration-normal) var(--ease-out)',
+          willChange: 'box-shadow',
+          '&:hover': {
+            boxShadow: 'var(--shadow-elevation-3), var(--shadow-glow-primary-sm)',
+          },
+        },
+        // Blend Smooth Transition - transitions سلسة للمكونات القديمة
+        '.blend-smooth-transition': {
+          transition: 'all var(--duration-normal) var(--ease-out)',
+          willChange: 'auto',
+        },
+        // Blend Button Hover - تأثير hover محسّن للأزرار
+        '.blend-button-hover': {
+          '&:hover': {
+            boxShadow: 'var(--btn-legacy-primary-hover), var(--btn-legacy-primary-glow)',
+          },
+        },
+        // Blend Card Hover - تأثير hover محسّن للبطاقات
+        '.blend-card-hover': {
+          '&:hover': {
+            boxShadow: 'var(--card-legacy-hover-shadow), var(--card-legacy-glow)',
+            borderColor: 'var(--card-legacy-hover-border)',
+          },
+        },
+        // Blend Nav Dropdown - تأثير محسّن للقوائم المنسدلة
+        '.blend-nav-dropdown': {
+          boxShadow: 'var(--nav-legacy-dropdown-shadow)',
+          '&:hover': {
+            boxShadow: 'var(--nav-legacy-dropdown-hover-shadow)',
+            borderColor: 'var(--card-legacy-hover-border)',
+          },
         },
       });
     },

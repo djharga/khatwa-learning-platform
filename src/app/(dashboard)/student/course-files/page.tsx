@@ -2,18 +2,22 @@
  * صفحة ملفات الطالب في لوحة التحكم - Placeholder مؤقت لحين اكتمال التكامل.
  */
 import React from 'react';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { ArrowRight, FileText, BookOpen } from 'lucide-react';
 
-const resources: ReadonlyArray<{ readonly title: string; readonly description: string; readonly href: string }> = [
+const resources: ReadonlyArray<{ readonly title: string; readonly description: string; readonly href: string; readonly icon: React.ReactNode }> = [
   {
     title: 'ملفاتي الحالية',
     description: 'إدارة الملفات التي تم رفعها أو مشاركتها عبر المنصة.',
     href: '/resources/course-files',
+    icon: <FileText className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />,
   },
   {
     title: 'مكتبة المنصة',
     description: 'الوصول إلى جميع الملفات التعليمية المتاحة للتحميل.',
     href: '/resources',
+    icon: <BookOpen className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />,
   },
 ];
 
@@ -22,46 +26,67 @@ const resources: ReadonlyArray<{ readonly title: string; readonly description: s
  */
 const CourseFilesDashboardPage = (): React.ReactElement => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="max-w-5xl mx-auto space-y-8">
-        <header className="space-y-2">
-          <h1 className="text-3xl font-bold text-slate-900">ملفات الطالب</h1>
-          <p className="text-slate-600">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-6 sm:py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+        <motion.header
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="space-y-2 sm:space-y-3"
+        >
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">ملفات الطالب</h1>
+          <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
             يتم حالياً تجهيز تجربة إدارة الملفات داخل لوحة الطالب. يمكنك مؤقتاً الوصول إلى الموارد الأساسية عبر الروابط التالية.
           </p>
-        </header>
+        </motion.header>
 
-        <section className="grid gap-4 md:grid-cols-2">
-          {resources.map((resource) => (
-            <Link
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
+          className="grid gap-4 sm:gap-6 md:grid-cols-2"
+        >
+          {resources.map((resource, index) => (
+            <motion.div
               key={resource.title}
-              href={resource.href}
-              className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 + index * 0.1, duration: 0.2, ease: 'easeOut' }}
+              whileHover={{ y: -2, scale: 1.01 }}
             >
-              <h2 className="text-xl font-semibold text-slate-900 group-hover:text-blue-600">
-                {resource.title}
-              </h2>
-              <p className="mt-2 text-sm text-slate-600">{resource.description}</p>
-              <span className="mt-4 inline-flex items-center text-sm font-semibold text-blue-600">
-                الانتقال الآن
-                <svg
-                  className="ml-2 h-4 w-4 transition-transform duration-200 group-hover:translate-x-1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12l-7.5 7.5M21 12H3" />
-                </svg>
-              </span>
-            </Link>
+              <Link
+                href={resource.href}
+                className="group block rounded-xl sm:rounded-2xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 p-4 sm:p-6 shadow-md hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                aria-label={`الانتقال إلى ${resource.title}`}
+              >
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg group-hover:scale-110 transition-transform duration-200 ease-out text-primary-600 dark:text-primary-400">
+                    {resource.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h2 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200 ease-out mb-2">
+                      {resource.title}
+                    </h2>
+                    <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400 mb-3 sm:mb-4">{resource.description}</p>
+                    <span className="inline-flex items-center gap-2 text-sm sm:text-base font-medium text-primary-600 dark:text-primary-400 group-hover:gap-3 transition-all duration-200 ease-out">
+                      الانتقال الآن
+                      <ArrowRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1" aria-hidden="true" />
+                    </span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
-        </section>
+        </motion.section>
 
-        <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 p-6 text-sm text-slate-500">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
+          className="rounded-xl sm:rounded-2xl border-2 border-dashed border-neutral-300 dark:border-neutral-700 bg-white/60 dark:bg-neutral-800/60 p-4 sm:p-6 text-sm sm:text-base text-neutral-600 dark:text-neutral-400"
+        >
           سيتم قريباً إضافة أدوات رفع الملفات، تقسيمها بحسب الدورات، وتتبع التنزيلات مباشرة داخل هذه الصفحة.
-        </div>
+        </motion.div>
       </div>
     </div>
   );

@@ -1,9 +1,5 @@
 'use client';
 
-// Force dynamic rendering - requires authentication
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ZoomSessionCard from '@/components/trainee/ZoomSessionCard';
@@ -58,31 +54,34 @@ export default function ZoomSessionsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 flex items-center justify-center p-4">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-400">جاري تحميل الجلسات...</p>
+          <Loader2 className="w-8 h-8 animate-spin text-primary-600 dark:text-primary-400 mx-auto mb-4" aria-hidden="true" />
+          <p className="text-neutral-600 dark:text-neutral-400">جاري تحميل الجلسات...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-6 sm:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-6"
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="mb-6 sm:mb-8"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <Video className="w-8 h-8 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+            <div className="p-2 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
+              <Video className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">
               الجلسات المباشرة
             </h1>
           </div>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">
             حضور الجلسات المباشرة عبر Zoom
           </p>
         </motion.div>
@@ -91,21 +90,27 @@ export default function ZoomSessionsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="mb-6 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4"
+          transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
+          className="mb-6 bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6"
         >
-          <div className="flex items-center gap-4">
-            <Filter className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
+              <Filter className="w-5 h-5 text-neutral-600 dark:text-neutral-400" aria-hidden="true" />
+              <span className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300">التصفية:</span>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
               {(['all', 'live', 'scheduled', 'ended'] as const).map((status) => (
                 <button
                   key={status}
                   onClick={() => setFilter(status)}
-                  className={`px-4 py-2 rounded-lg transition-colors ${
+                  className={`px-3 sm:px-4 py-2 min-h-[44px] rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
                     filter === status
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
+                      : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
                   }`}
+                  aria-label={`تصفية حسب ${status === 'all' ? 'الكل' : status === 'live' ? 'مباشر' : status === 'scheduled' ? 'مجدولة' : 'انتهت'}`}
+                  aria-pressed={filter === status}
+                  type="button"
                 >
                   {status === 'all' && 'الكل'}
                   {status === 'live' && 'مباشر'}
@@ -121,22 +126,28 @@ export default function ZoomSessionsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
         >
           {filteredSessions.length === 0 ? (
-            <div className="col-span-full text-center py-12 text-gray-500 dark:text-gray-400">
-              <Video className="w-12 h-12 mx-auto mb-4 opacity-50" />
-              <p>لا توجد جلسات متاحة</p>
+            <div className="col-span-full text-center py-12 sm:py-16">
+              <Video className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-4 text-neutral-300 dark:text-neutral-600 opacity-50" aria-hidden="true" />
+              <p className="text-sm sm:text-base text-neutral-600 dark:text-neutral-400">لا توجد جلسات متاحة</p>
             </div>
           ) : (
-            filteredSessions.map((session) => (
-              <ZoomSessionCard
+            filteredSessions.map((session, index) => (
+              <motion.div
                 key={session.id}
-                session={session}
-                onJoin={handleJoin}
-                onCopyLink={handleCopyLink}
-              />
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 + index * 0.05, duration: 0.2, ease: 'easeOut' }}
+              >
+                <ZoomSessionCard
+                  session={session}
+                  onJoin={handleJoin}
+                  onCopyLink={handleCopyLink}
+                />
+              </motion.div>
             ))
           )}
         </motion.div>

@@ -128,13 +128,13 @@ export default function SupportPage() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'open':
-        return 'bg-blue-600 text-white';
+        return 'bg-primary-600 text-white';
       case 'in-progress':
-        return 'bg-yellow-600 text-white';
+        return 'bg-warning-600 text-white';
       case 'resolved':
-        return 'bg-green-600 text-white';
+        return 'bg-success-600 text-white';
       case 'closed':
-        return 'bg-gray-400 text-white';
+        return 'bg-neutral-400 text-white';
       default:
         return '';
     }
@@ -143,60 +143,58 @@ export default function SupportPage() {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
       case 'high':
-        return 'text-red-600 bg-red-50 border-red-200';
+        return 'text-danger-600 bg-danger-50 dark:bg-danger-900/20 border-danger-200 dark:border-danger-800';
       case 'medium':
-        return 'text-orange-600 bg-orange-50 border-orange-200';
+        return 'text-warning-600 bg-warning-50 dark:bg-warning-900/20 border-warning-200 dark:border-warning-800';
       case 'low':
-        return 'text-green-600 bg-green-50 border-green-200';
+        return 'text-success-600 bg-success-50 dark:bg-success-900/20 border-success-200 dark:border-success-800';
       default:
         return '';
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-6 sm:py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
           className="max-w-7xl mx-auto"
         >
           {/* Hero Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 relative overflow-hidden rounded-3xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700 text-white p-8 lg:p-12"
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="mb-6 sm:mb-8 relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white p-6 sm:p-8 lg:p-12 shadow-lg"
           >
-            <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-            <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/20 to-transparent rounded-full blur-3xl"></div>
+            <div className="absolute top-0 end-0 w-80 h-80 sm:w-96 sm:h-96 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl"></div>
             <div className="relative z-10">
-              <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2 flex items-center gap-4">
-                    <motion.div
-                      animate={{ rotate: [0, 360] }}
-                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="p-4 bg-white/20 backdrop-blur-md rounded-2xl"
-                    >
-                      <LifeBuoy className="w-12 h-12" />
-                    </motion.div>
-                    مركز الدعم والمساعدة
-                  </h1>
-                  <p className="text-lg md:text-xl text-cyan-100">
-                    نحن هنا لمساعدتك في أي وقت
-                  </p>
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6 mb-4 sm:mb-6">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="p-3 sm:p-4 bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl">
+                    <LifeBuoy className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-1 sm:mb-2">
+                      مركز الدعم والمساعدة
+                    </h1>
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl text-blue-100">
+                      نحن هنا لمساعدتك في أي وقت
+                    </p>
+                  </div>
                 </div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3, type: "spring" }}
-                  className="hidden md:flex items-center gap-3 bg-white/20 backdrop-blur-md rounded-2xl p-4 border-2 border-white/30"
+                  transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
+                  className="flex items-center gap-2 sm:gap-3 bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 border-2 border-white/30"
                 >
-                  <Zap className="w-8 h-8 text-yellow-300" />
+                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-300" aria-hidden="true" />
                   <div>
-                    <div className="text-2xl font-bold">24/7</div>
-                    <div className="text-sm text-cyan-100">دعم متاح</div>
+                    <div className="text-xl sm:text-2xl font-bold">24/7</div>
+                    <div className="text-xs sm:text-sm text-blue-100">دعم متاح</div>
                   </div>
                 </motion.div>
               </div>
@@ -204,207 +202,179 @@ export default function SupportPage() {
           </motion.div>
 
           {/* Quick Contact Options */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <motion.div
-              whileHover={{ scale: 1.05, y: -8 }}
+              whileHover={{ y: -2, scale: 1.01 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
             >
-              <Card className="shadow-xl border-0 overflow-hidden cursor-pointer h-full relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-cyan-500 via-blue-600 to-indigo-600"></div>
-                <CardContent className="p-8 relative z-10 text-white">
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="p-4 bg-white/20 backdrop-blur-md rounded-2xl w-fit mb-4"
-                  >
-                    <MessageSquare className="w-10 h-10" />
-                  </motion.div>
-                  <h3 className="font-extrabold text-xl mb-2">محادثة مباشرة</h3>
-                  <p className="text-blue-100 mb-6 text-sm">
+              <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden cursor-pointer h-full relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-600"></div>
+                <CardContent className="p-6 sm:p-8 relative z-10 text-white">
+                  <div className="p-3 sm:p-4 bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl w-fit mb-4">
+                    <MessageSquare className="w-8 h-8 sm:w-10 sm:h-10" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-bold text-lg sm:text-xl mb-2">محادثة مباشرة</h3>
+                  <p className="text-blue-100 mb-4 sm:mb-6 text-xs sm:text-sm">
                     دردش مع فريق الدعم الآن
                   </p>
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group relative overflow-hidden w-full px-6 py-3 bg-white text-cyan-600 font-bold rounded-xl shadow-md hover:shadow-xl hover:bg-cyan-50 transition-all duration-300"
+                  <button
+                    className="w-full px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] bg-white text-primary-600 font-bold rounded-lg sm:rounded-xl shadow-md hover:shadow-lg hover:bg-primary-50 transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-600"
+                    aria-label="ابدأ المحادثة"
+                    type="button"
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <MessageSquare className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      ابدأ المحادثة
-                    </span>
-                    <div className="absolute inset-0 bg-cyan-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-xl" />
-                  </motion.button>
+                    <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                    <span className="text-sm sm:text-base">ابدأ المحادثة</span>
+                  </button>
                 </CardContent>
               </Card>
             </motion.div>
 
             <motion.div
-              whileHover={{ scale: 1.05, y: -8 }}
+              whileHover={{ y: -2, scale: 1.01 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
             >
-              <Card className="shadow-xl border-0 overflow-hidden cursor-pointer h-full relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500 via-emerald-600 to-teal-600"></div>
-                <CardContent className="p-8 relative z-10 text-white">
-                  <motion.div
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className="p-4 bg-white/20 backdrop-blur-md rounded-2xl w-fit mb-4"
-                  >
-                    <Mail className="w-10 h-10" />
-                  </motion.div>
-                  <h3 className="font-extrabold text-xl mb-2">البريد الإلكتروني</h3>
-                  <p className="text-green-100 mb-6 text-sm">
+              <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden cursor-pointer h-full relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-success-600 via-success-700 to-success-600"></div>
+                <CardContent className="p-6 sm:p-8 relative z-10 text-white">
+                  <div className="p-3 sm:p-4 bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl w-fit mb-4">
+                    <Mail className="w-8 h-8 sm:w-10 sm:h-10" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-bold text-lg sm:text-xl mb-2">البريد الإلكتروني</h3>
+                  <p className="text-green-100 mb-4 sm:mb-6 text-xs sm:text-sm">
                     support@khatwa.com
                   </p>
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group relative overflow-hidden w-full px-6 py-3 bg-white text-green-600 font-bold rounded-xl shadow-md hover:shadow-xl hover:bg-green-50 transition-all duration-300"
+                  <button
+                    className="w-full px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] bg-white text-success-600 font-bold rounded-lg sm:rounded-xl shadow-md hover:shadow-lg hover:bg-success-50 transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-success-600"
+                    aria-label="إرسال بريد"
+                    type="button"
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      إرسال بريد
-                    </span>
-                    <div className="absolute inset-0 bg-green-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-xl" />
-                  </motion.button>
+                    <Mail className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                    <span className="text-sm sm:text-base">إرسال بريد</span>
+                  </button>
                 </CardContent>
               </Card>
             </motion.div>
 
             <motion.div
-              whileHover={{ scale: 1.05, y: -8 }}
+              whileHover={{ y: -2, scale: 1.01 }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
             >
-              <Card className="shadow-xl border-0 overflow-hidden cursor-pointer h-full relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-500 via-pink-600 to-fuchsia-600"></div>
-                <CardContent className="p-8 relative z-10 text-white">
-                  <motion.div
-                    animate={{ rotate: [0, -360] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                    className="p-4 bg-white/20 backdrop-blur-md rounded-2xl w-fit mb-4"
-                  >
-                    <Phone className="w-10 h-10" />
-                  </motion.div>
-                  <h3 className="font-extrabold text-xl mb-2">اتصل بنا</h3>
-                  <p className="text-purple-100 mb-6 text-sm">
+              <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden cursor-pointer h-full relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-secondary-innovate-600 via-secondary-innovate-700 to-secondary-innovate-600"></div>
+                <CardContent className="p-6 sm:p-8 relative z-10 text-white">
+                  <div className="p-3 sm:p-4 bg-white/20 backdrop-blur-md rounded-xl sm:rounded-2xl w-fit mb-4">
+                    <Phone className="w-8 h-8 sm:w-10 sm:h-10" aria-hidden="true" />
+                  </div>
+                  <h3 className="font-bold text-lg sm:text-xl mb-2">اتصل بنا</h3>
+                  <p className="text-purple-100 mb-4 sm:mb-6 text-xs sm:text-sm">
                     +966 xx xxx xxxx
                   </p>
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group relative overflow-hidden w-full px-6 py-3 bg-white text-purple-600 font-bold rounded-xl shadow-md hover:shadow-xl hover:bg-purple-50 transition-all duration-300"
+                  <button
+                    className="w-full px-4 sm:px-6 py-2.5 sm:py-3 min-h-[44px] bg-white text-secondary-innovate-600 font-bold rounded-lg sm:rounded-xl shadow-md hover:shadow-lg hover:bg-secondary-innovate-50 transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-secondary-innovate-600"
+                    aria-label="اتصل الآن"
+                    type="button"
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <Phone className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                      اتصل الآن
-                    </span>
-                    <div className="absolute inset-0 bg-purple-100/50 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-xl" />
-                  </motion.button>
+                    <Phone className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                    <span className="text-sm sm:text-base">اتصل الآن</span>
+                  </button>
                 </CardContent>
               </Card>
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {/* FAQ Section */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
               >
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
-                    <motion.div
-                      animate={{ scale: [1, 1.2, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                      className="p-2 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl"
-                    >
-                      <HelpCircle className="w-8 h-8 text-white" />
-                    </motion.div>
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white flex items-center gap-2 sm:gap-3">
+                    <div className="p-2 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg sm:rounded-xl">
+                      <HelpCircle className="w-6 h-6 sm:w-8 sm:h-8 text-white" aria-hidden="true" />
+                    </div>
                     الأسئلة الشائعة
                   </h2>
                 </div>
 
                 {/* Search */}
-                <div className="mb-6">
-                  <motion.div
-                    whileFocus={{ scale: 1.02 }}
-                    className="relative"
-                  >
-                    <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
+                <div className="mb-4 sm:mb-6">
+                  <div className="relative">
+                    <Search className="absolute start-3 sm:start-4 top-1/2 transform -translate-y-1/2 text-neutral-400 w-5 h-5 sm:w-6 sm:h-6 pointer-events-none" aria-hidden="true" />
                     <input
                       type="text"
                       placeholder="ابحث عن سؤال..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pr-12 pl-4 py-4 border-2 border-gray-300 rounded-2xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg"
+                      className="w-full ps-10 sm:ps-12 pe-4 py-3 sm:py-4 min-h-[44px] border-2 border-neutral-300 dark:border-neutral-600 rounded-xl sm:rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-900 dark:text-white text-base sm:text-lg placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all duration-200 ease-out"
+                      aria-label="البحث في الأسئلة الشائعة"
                     />
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Categories */}
-                <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
+                <div className="flex gap-2 sm:gap-3 mb-4 sm:mb-6 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent">
                   {categories.map((cat) => {
                     const Icon = cat.icon;
                     return (
-                      <motion.button
+                      <button
                         key={cat.id}
-                        whileHover={{ scale: 1.05, y: -3 }}
-                        whileTap={{ scale: 0.95 }}
                         onClick={() => setSelectedCategory(cat.id)}
-                        className={`px-5 py-3 rounded-xl whitespace-nowrap transition-all flex items-center gap-2 font-bold ${
+                        className={`px-3 sm:px-5 py-2 sm:py-3 min-h-[44px] rounded-lg sm:rounded-xl whitespace-nowrap transition-all duration-200 ease-out flex items-center gap-2 font-medium text-sm sm:text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
                           selectedCategory === cat.id
-                            ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-xl'
-                            : 'bg-white text-gray-700 border-2 border-gray-200 hover:border-cyan-300'
+                            ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
+                            : 'bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border-2 border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600'
                         }`}
+                        aria-label={`تصفية حسب ${cat.name}`}
+                        aria-pressed={selectedCategory === cat.id}
+                        type="button"
                       >
-                        <Icon className="w-5 h-5" />
+                        <Icon className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                         {cat.name} ({cat.count})
-                      </motion.button>
+                      </button>
                     );
                   })}
                 </div>
 
                 {/* FAQ List */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   {filteredFaqs.map((faq, idx) => (
                     <motion.div
                       key={faq.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + idx * 0.1 }}
+                      transition={{ delay: 0.5 + idx * 0.05, duration: 0.2, ease: 'easeOut' }}
                     >
-                      <Card className="shadow-lg border-2 hover:shadow-xl transition-all">
+                      <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-200 ease-out">
                         <CardContent className="p-0">
                           <button
                             onClick={() => setExpandedFaq(expandedFaq === faq.id ? null : faq.id)}
-                            className="w-full p-6 text-right hover:bg-gradient-to-l hover:from-cyan-50 hover:to-blue-50 transition-all"
+                            className="w-full p-4 sm:p-6 text-right hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                            aria-label={`${expandedFaq === faq.id ? 'إخفاء' : 'عرض'} الإجابة`}
+                            aria-expanded={expandedFaq === faq.id}
+                            type="button"
                           >
                             <div className="flex items-start justify-between gap-4">
-                              <div className="flex-1">
-                                <h3 className="font-bold text-lg text-gray-900 mb-2">
+                              <div className="flex-1 text-start">
+                                <h3 className="font-bold text-base sm:text-lg text-neutral-900 dark:text-white mb-2">
                                   {faq.question}
                                 </h3>
-                                <div className="flex items-center gap-4 text-sm text-gray-600">
-                                  <span className="font-semibold">{faq.helpful} وجدوها مفيدة</span>
+                                <div className="flex items-center gap-4 text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
+                                  <span className="font-medium">{faq.helpful} وجدوها مفيدة</span>
                                 </div>
                               </div>
                               {expandedFaq === faq.id ? (
-                                <motion.div
-                                  animate={{ rotate: 180 }}
-                                  transition={{ duration: 0.3 }}
-                                >
-                                  <ChevronUp className="w-6 h-6 text-cyan-600 flex-shrink-0" />
-                                </motion.div>
+                                <ChevronUp className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600 dark:text-primary-400 flex-shrink-0" aria-hidden="true" />
                               ) : (
-                                <ChevronDown className="w-6 h-6 text-gray-400 flex-shrink-0" />
+                                <ChevronDown className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-400 dark:text-neutral-500 flex-shrink-0" aria-hidden="true" />
                               )}
                             </div>
                           </button>
@@ -414,22 +384,23 @@ export default function SupportPage() {
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
+                                transition={{ duration: 0.2, ease: 'easeOut' }}
                                 className="overflow-hidden"
                               >
-                                <div className="px-6 pb-6">
-                                  <div className="p-5 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl border-2 border-cyan-200">
-                                    <p className="text-gray-700 leading-relaxed">{faq.answer}</p>
+                                <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+                                  <div className="p-4 sm:p-5 bg-gradient-to-br from-primary-50 to-primary-100/50 dark:from-primary-900/20 dark:to-primary-800/20 rounded-xl border-2 border-primary-200 dark:border-primary-800">
+                                    <p className="text-sm sm:text-base text-neutral-700 dark:text-neutral-300 leading-relaxed">{faq.answer}</p>
                                   </div>
-                                  <div className="mt-4 flex items-center gap-3">
-                                    <p className="text-sm font-semibold text-gray-700">
+                                  <div className="mt-3 sm:mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
+                                    <p className="text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-300">
                                       هل كانت هذه الإجابة مفيدة؟
                                     </p>
-                                    <StyledButton size="small" variant="primary" className="bg-green-600 hover:bg-green-700">
+                                    <button className="px-3 sm:px-4 py-1.5 sm:py-2 min-h-[36px] bg-success-600 hover:bg-success-700 text-white rounded-lg font-medium text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2" aria-label="نعم، كانت مفيدة" type="button">
                                       نعم
-                                    </StyledButton>
-                                    <StyledButton size="small" variant="secondary">
+                                    </button>
+                                    <button className="px-3 sm:px-4 py-1.5 sm:py-2 min-h-[36px] bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg font-medium text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2" aria-label="لا، لم تكن مفيدة" type="button">
                                       لا
-                                    </StyledButton>
+                                    </button>
                                   </div>
                                 </div>
                               </motion.div>
@@ -444,41 +415,37 @@ export default function SupportPage() {
             </div>
 
             {/* Tickets Sidebar */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Create New Ticket */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.5, duration: 0.2, ease: 'easeOut' }}
               >
-                <Card className="shadow-xl border-0 overflow-hidden">
-                  <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3">
-                        <motion.div
-                          animate={{ rotate: [0, 10, -10, 0] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                          className="p-2 bg-white/20 backdrop-blur-md rounded-xl"
-                        >
-                          <FileText className="w-6 h-6" />
-                        </motion.div>
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white">
+                    <CardHeader className="pb-3 sm:pb-4">
+                      <CardTitle className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg">
+                        <div className="p-2 bg-white/20 backdrop-blur-md rounded-lg sm:rounded-xl">
+                          <FileText className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+                        </div>
                         افتح تذكرة دعم
                       </CardTitle>
-                      <CardDescription className="text-indigo-100">
+                      <CardDescription className="text-blue-100 text-xs sm:text-sm">
                         لم تجد إجابة؟ دعنا نساعدك
                       </CardDescription>
                     </CardHeader>
                   </div>
-                  <CardContent className="p-6">
-                    <StyledButton
-                      variant="primary"
-                      fullWidth
-                      className="font-bold h-12 text-lg"
+                  <CardContent className="p-4 sm:p-6">
+                    <button
                       onClick={() => setShowNewTicketModal(true)}
+                      className="w-full px-4 py-2.5 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-bold text-sm sm:text-base shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                      aria-label="فتح تذكرة دعم جديدة"
+                      type="button"
                     >
-                      <Send className="w-5 h-5 inline-block mr-2" />
+                      <Send className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                       تذكرة جديدة
-                    </StyledButton>
+                    </button>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -487,54 +454,50 @@ export default function SupportPage() {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.6, duration: 0.2, ease: 'easeOut' }}
               >
-                <Card className="shadow-xl border-0 overflow-hidden">
-                  <div className="bg-gradient-to-r from-blue-600 via-cyan-600 to-indigo-600 text-white">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3">
-                        <motion.div
-                          animate={{ scale: [1, 1.1, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                          className="p-2 bg-white/20 backdrop-blur-md rounded-xl"
-                        >
-                          <MessageSquare className="w-6 h-6" />
-                        </motion.div>
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white">
+                    <CardHeader className="pb-3 sm:pb-4">
+                      <CardTitle className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg">
+                        <div className="p-2 bg-white/20 backdrop-blur-md rounded-lg sm:rounded-xl">
+                          <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+                        </div>
                         تذاكر الدعم
                       </CardTitle>
                     </CardHeader>
                   </div>
-                  <CardContent className="p-6 space-y-4">
+                  <CardContent className="p-4 sm:p-6 space-y-3 sm:space-y-4">
                     {tickets.map((ticket, idx) => (
                       <motion.div
                         key={ticket.id}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.7 + idx * 0.1 }}
-                        whileHover={{ scale: 1.02, y: -3 }}
-                        className="p-4 border-2 border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-lg transition-all cursor-pointer"
+                        transition={{ delay: 0.7 + idx * 0.05, duration: 0.2, ease: 'easeOut' }}
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        className="p-3 sm:p-4 border border-neutral-200 dark:border-neutral-700 rounded-lg sm:rounded-xl hover:border-primary-300 dark:hover:border-primary-600 hover:shadow-md transition-all duration-200 ease-out cursor-pointer bg-white dark:bg-neutral-800"
                       >
-                        <div className="flex items-start justify-between mb-3">
-                          <h4 className="font-bold text-gray-900 flex-1">
+                        <div className="flex items-start justify-between mb-2 sm:mb-3 gap-2">
+                          <h4 className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white flex-1">
                             {ticket.title}
                           </h4>
-                          <span className={`px-3 py-1 text-xs font-bold rounded-full whitespace-nowrap ${getStatusColor(ticket.status)}`}>
+                          <span className={`px-2 sm:px-3 py-1 text-xs font-bold rounded-full whitespace-nowrap flex-shrink-0 ${getStatusColor(ticket.status)}`}>
                             {ticket.status === 'open' && 'مفتوحة'}
                             {ticket.status === 'in-progress' && 'قيد المعالجة'}
                             {ticket.status === 'resolved' && 'تم الحل'}
                             {ticket.status === 'closed' && 'مغلقة'}
                           </span>
                         </div>
-                        <div className="flex items-center gap-4 text-sm">
-                          <span className="flex items-center gap-1 text-gray-600">
-                            <Clock className="w-4 h-4" />
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+                          <span className="flex items-center gap-1 text-neutral-600 dark:text-neutral-400">
+                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
                             {ticket.lastUpdate}
                           </span>
-                          <span className="flex items-center gap-1 text-gray-600">
-                            <MessageSquare className="w-4 h-4" />
+                          <span className="flex items-center gap-1 text-neutral-600 dark:text-neutral-400">
+                            <MessageSquare className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
                             {ticket.messages}
                           </span>
-                          <span className={`px-2 py-1 rounded-lg text-xs font-bold ${getPriorityColor(ticket.priority)}`}>
+                          <span className={`px-2 py-1 rounded-lg text-xs font-bold border ${getPriorityColor(ticket.priority)}`}>
                             {ticket.priority === 'high' && '🔥 عالية'}
                             {ticket.priority === 'medium' && '⚡ متوسطة'}
                             {ticket.priority === 'low' && '✅ منخفضة'}
@@ -550,38 +513,34 @@ export default function SupportPage() {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.8 }}
+                transition={{ delay: 0.8, duration: 0.2, ease: 'easeOut' }}
               >
-                <Card className="shadow-xl border-0 overflow-hidden">
-                  <div className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3">
-                        <motion.div
-                          animate={{ rotate: [0, 360] }}
-                          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                          className="p-2 bg-white/20 backdrop-blur-md rounded-xl"
-                        >
-                          <Clock className="w-6 h-6" />
-                        </motion.div>
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                  <div className="bg-gradient-to-r from-success-600 via-success-700 to-success-600 text-white">
+                    <CardHeader className="pb-3 sm:pb-4">
+                      <CardTitle className="flex items-center gap-2 sm:gap-3 text-base sm:text-lg">
+                        <div className="p-2 bg-white/20 backdrop-blur-md rounded-lg sm:rounded-xl">
+                          <Clock className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+                        </div>
                         ساعات العمل
                       </CardTitle>
                     </CardHeader>
                   </div>
-                  <CardContent className="p-6 space-y-4">
-                    <div className="flex justify-between p-3 bg-green-50 rounded-xl">
-                      <span className="text-gray-700 font-semibold">السبت - الخميس</span>
-                      <span className="font-bold text-green-600">9:00 - 17:00</span>
+                  <CardContent className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+                    <div className="flex justify-between p-3 bg-success-50 dark:bg-success-900/20 rounded-lg sm:rounded-xl">
+                      <span className="text-neutral-700 dark:text-neutral-300 font-medium text-sm sm:text-base">السبت - الخميس</span>
+                      <span className="font-bold text-success-600 dark:text-success-400 text-sm sm:text-base">9:00 - 17:00</span>
                     </div>
-                    <div className="flex justify-between p-3 bg-gray-50 rounded-xl">
-                      <span className="text-gray-700 font-semibold">الجمعة</span>
-                      <span className="font-bold text-gray-600">مغلق</span>
+                    <div className="flex justify-between p-3 bg-neutral-50 dark:bg-neutral-800 rounded-lg sm:rounded-xl">
+                      <span className="text-neutral-700 dark:text-neutral-300 font-medium text-sm sm:text-base">الجمعة</span>
+                      <span className="font-bold text-neutral-600 dark:text-neutral-400 text-sm sm:text-base">مغلق</span>
                     </div>
-                    <div className="mt-4 p-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl text-white">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Zap className="w-5 h-5 text-yellow-300" />
-                        <span className="font-bold">متاح الآن</span>
+                    <div className="mt-3 sm:mt-4 p-3 sm:p-4 bg-gradient-to-r from-success-500 to-success-600 rounded-lg sm:rounded-xl text-white">
+                      <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                        <Zap className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-300" aria-hidden="true" />
+                        <span className="font-bold text-sm sm:text-base">متاح الآن</span>
                       </div>
-                      <p className="text-sm text-green-100">
+                      <p className="text-xs sm:text-sm text-green-100">
                         فريق الدعم جاهز لمساعدتك!
                       </p>
                     </div>
@@ -600,43 +559,58 @@ export default function SupportPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowNewTicketModal(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl max-w-2xl w-full p-8 shadow-2xl"
+              transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl max-w-2xl w-full p-4 sm:p-6 lg:p-8 shadow-2xl max-h-[90vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-extrabold text-gray-900">
+              <div className="flex justify-between items-center mb-4 sm:mb-6">
+                <h2 id="modal-title" className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white">
                   تذكرة دعم جديدة
                 </h2>
                 <button
                   onClick={() => setShowNewTicketModal(false)}
-                  className="p-2 hover:bg-gray-100 rounded-xl transition-all"
+                  className="p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg sm:rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  aria-label="إغلاق"
+                  type="button"
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-600 dark:text-neutral-400" aria-hidden="true" />
                 </button>
               </div>
 
-              <div className="space-y-5">
+              <div className="space-y-4 sm:space-y-5">
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label htmlFor="ticket-subject" className="block text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                     الموضوع
                   </label>
                   <input
+                    id="ticket-subject"
                     type="text"
                     placeholder="اكتب موضوع المشكلة..."
-                    className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg"
+                    className="w-full px-4 py-2.5 sm:py-3 min-h-[44px] border-2 border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-900 dark:text-white text-sm sm:text-base placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all duration-200 ease-out"
+                    aria-label="موضوع التذكرة"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label htmlFor="ticket-category" className="block text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                     التصنيف
                   </label>
-                  <select className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg">
+                  <select
+                    id="ticket-category"
+                    className="w-full px-4 py-2.5 sm:py-3 min-h-[44px] border-2 border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-900 dark:text-white text-sm sm:text-base transition-all duration-200 ease-out"
+                    aria-label="تصنيف التذكرة"
+                  >
                     <option value="">اختر التصنيف</option>
                     <option value="technical">مشكلة تقنية</option>
                     <option value="account">حساب المستخدم</option>
@@ -647,18 +621,20 @@ export default function SupportPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-3">
+                  <label className="block text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2 sm:mb-3">
                     الأولوية
                   </label>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
                     {[
-                      { value: 'low', label: '✅ منخفضة', color: 'border-green-300 bg-green-50' },
-                      { value: 'medium', label: '⚡ متوسطة', color: 'border-orange-300 bg-orange-50' },
-                      { value: 'high', label: '🔥 عالية', color: 'border-red-300 bg-red-50' },
+                      { value: 'low', label: '✅ منخفضة', color: 'border-success-300 bg-success-50 dark:bg-success-900/20 dark:border-success-800' },
+                      { value: 'medium', label: '⚡ متوسطة', color: 'border-warning-300 bg-warning-50 dark:bg-warning-900/20 dark:border-warning-800' },
+                      { value: 'high', label: '🔥 عالية', color: 'border-danger-300 bg-danger-50 dark:bg-danger-900/20 dark:border-danger-800' },
                     ].map((priority) => (
                       <button
                         key={priority.value}
-                        className={`p-4 border-2 rounded-xl font-bold transition-all hover:scale-105 ${priority.color}`}
+                        className={`p-3 sm:p-4 min-h-[60px] border-2 rounded-lg sm:rounded-xl font-medium text-xs sm:text-sm transition-all duration-200 ease-out hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${priority.color}`}
+                        aria-label={`أولوية ${priority.label}`}
+                        type="button"
                       >
                         {priority.label}
                       </button>
@@ -667,24 +643,26 @@ export default function SupportPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-gray-700 mb-2">
+                  <label htmlFor="ticket-description" className="block text-xs sm:text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                     الوصف
                   </label>
                   <textarea
+                    id="ticket-description"
                     rows={5}
                     placeholder="اشرح المشكلة بالتفصيل..."
-                    className="w-full p-4 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 text-lg resize-none"
+                    className="w-full px-4 py-2.5 sm:py-3 border-2 border-neutral-300 dark:border-neutral-600 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-neutral-900 dark:text-white text-sm sm:text-base resize-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500 transition-all duration-200 ease-out"
+                    aria-label="وصف المشكلة"
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4">
-                  <StyledButton variant="primary" fullWidth className="h-12 text-lg font-bold">
-                    <Send className="w-5 h-5 inline-block mr-2" />
+                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2 sm:pt-4">
+                  <button className="flex-1 px-4 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-bold text-sm sm:text-base shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2" aria-label="إرسال التذكرة" type="button">
+                    <Send className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                     إرسال التذكرة
-                  </StyledButton>
-                  <StyledButton variant="secondary" onClick={() => setShowNewTicketModal(false)} size="large" className="h-12 text-lg">
+                  </button>
+                  <button onClick={() => setShowNewTicketModal(false)} className="px-4 py-2.5 sm:py-3 min-h-[44px] bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg font-medium text-sm sm:text-base shadow-sm hover:shadow-md transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2" aria-label="إلغاء" type="button">
                     إلغاء
-                  </StyledButton>
+                  </button>
                 </div>
               </div>
             </motion.div>

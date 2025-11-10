@@ -87,63 +87,66 @@ export default async function CoursePage({ params }: CoursePageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="container mx-auto max-w-7xl px-8 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-6 sm:py-8">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-6">
+        <div className="mb-6 sm:mb-8">
           <Link
             href="/student/courses"
-            className="inline-flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-4"
+            className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 mb-4 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            aria-label="العودة إلى الدورات"
           >
-            <ArrowRight className="w-4 h-4 ml-2 rotate-180" />
+            <ArrowRight className="w-4 h-4 rotate-180" aria-hidden="true" />
             العودة إلى الدورات
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-2">
             {course.title}
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">{course.description}</p>
+          <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400">{course.description}</p>
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
           <Link
             href={`/student/courses/${courseId}/lesson`}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6 hover:shadow-lg transition-all duration-200 ease-out group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            aria-label="الانتقال إلى الدروس"
           >
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
-                <Play className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-3 bg-primary-50 dark:bg-primary-900/20 rounded-lg group-hover:scale-110 transition-transform duration-200 ease-out">
+                <Play className="w-5 h-5 sm:w-6 sm:h-6 text-primary-600 dark:text-primary-400" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">الدروس</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">ابدأ التعلم</p>
+                <h3 className="font-semibold text-base sm:text-lg text-neutral-900 dark:text-white">الدروس</h3>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">ابدأ التعلم</p>
               </div>
             </div>
           </Link>
 
           <Link
             href={`/student/courses/${courseId}/files`}
-            className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow"
+            className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6 hover:shadow-lg transition-all duration-200 ease-out group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+            aria-label="الانتقال إلى ملفات الدورة"
           >
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-lg">
-                <FileText className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-3 bg-success-50 dark:bg-success-900/20 rounded-lg group-hover:scale-110 transition-transform duration-200 ease-out">
+                <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-success-600 dark:text-success-400" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">الملفات</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">المواد التعليمية</p>
+                <h3 className="font-semibold text-base sm:text-lg text-neutral-900 dark:text-white">الملفات</h3>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">المواد التعليمية</p>
               </div>
             </div>
           </Link>
 
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
-                <BarChart3 className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+          <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="p-3 bg-secondary-innovate-50 dark:bg-secondary-innovate-900/20 rounded-lg">
+                <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-secondary-innovate-600 dark:text-secondary-innovate-400" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100">التقدم</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <h3 className="font-semibold text-base sm:text-lg text-neutral-900 dark:text-white">التقدم</h3>
+                <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">
                   {course.progress}% مكتمل
                 </p>
               </div>
@@ -152,33 +155,33 @@ export default async function CoursePage({ params }: CoursePageProps) {
         </div>
 
         {/* Course Info */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">
+        <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6 lg:p-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900 dark:text-white mb-4 sm:mb-6">
             معلومات الدورة
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الحالة</p>
-              <p className="font-semibold text-gray-900 dark:text-gray-100">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1 sm:mb-2">الحالة</p>
+              <p className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white">
                 {course.status === 'in_progress' ? 'قيد التقدم' : 
                  course.status === 'completed' ? 'مكتملة' : 'لم تبدأ'}
               </p>
             </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الدروس</p>
-              <p className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1 sm:mb-2">الدروس</p>
+              <p className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white">
                 {course.completedLessons} / {course.totalLessons}
               </p>
             </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">الساعات</p>
-              <p className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1 sm:mb-2">الساعات</p>
+              <p className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white">
                 {course.completedHours} / {course.totalHours}
               </p>
             </div>
-            <div>
-              <p className="text-sm text-gray-600 dark:text-gray-400">التقييم</p>
-              <p className="font-semibold text-gray-900 dark:text-gray-100">
+            <div className="p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+              <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-1 sm:mb-2">التقييم</p>
+              <p className="font-semibold text-sm sm:text-base text-neutral-900 dark:text-white">
                 {course.rating > 0 ? `${course.rating} ⭐` : 'غير متاح'}
               </p>
             </div>

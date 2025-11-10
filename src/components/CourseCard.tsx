@@ -37,11 +37,11 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
   // Modern, soft, and attractive card design inspired by global platforms
   return (
     <motion.div 
-      className="group relative bg-white dark:bg-neutral-800 rounded-2xl shadow-sm hover:shadow-lg border border-gray-100 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 overflow-hidden"
+      className="group relative bg-white dark:bg-neutral-800 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 border border-gray-100 dark:border-neutral-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-300 overflow-hidden card-tech hover-glow-primary-sm"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      whileHover={{ y: -4, scale: 1.05 }}
+      whileHover={{ y: -4, scale: 1.02 }}
     >
       {/* Image Section */}
       <div className="relative w-full h-48 sm:h-56 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 dark:from-neutral-700 dark:to-neutral-800">
@@ -93,7 +93,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
       <div className="p-5 sm:p-6">
         {/* Title and Price */}
         <div className="mb-4">
-          <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 line-clamp-2">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 line-clamp-2 heading-tech text-shadow-sm">
             {course.title}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed mb-3">
@@ -190,7 +190,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
           {course.progress !== undefined && course.progress > 0 && course.progress < 100 ? (
             <Link
               href={`/student/courses/${course.id}`}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]"
+              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:from-blue-500 active:to-indigo-500 active:brightness-110 text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]"
               aria-label="استكمل التعلم"
             >
               <Play className="w-4 h-4" />
@@ -199,7 +199,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
           ) : course.progress === 100 ? (
             <Link
               href={`/certificates`}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 active:scale-[0.98]"
+              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 active:from-green-500 active:to-emerald-500 active:brightness-110 text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25 active:scale-[0.98]"
               aria-label="عرض الشهادة"
             >
               <Award className="w-4 h-4" />
@@ -208,7 +208,7 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
           ) : (
             <Link
               href={`/courses/${course.slug || course.id}`}
-              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]"
+              className="flex-1 flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 active:from-blue-500 active:to-indigo-500 active:brightness-110 text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25 active:scale-[0.98]"
               aria-label="عرض الدورة"
             >
               <Play className="w-4 h-4" />

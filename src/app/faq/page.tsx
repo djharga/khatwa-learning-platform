@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { faqs } from '@/components/faq-data';
+import PageBackground from '@/components/ui/PageBackground';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface FAQ {
   question: string;
@@ -27,6 +29,7 @@ const categories = [
 ];
 
 export default function FAQPage() {
+  const prefersReducedMotion = useReducedMotion();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [openIndexes, setOpenIndexes] = useState<Set<number>>(new Set());
@@ -108,12 +111,12 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <PageBackground variant="home">
       {/* Hero Section */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
         className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white"
       >
         <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
@@ -123,9 +126,9 @@ export default function FAQPage() {
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <div className="text-center max-w-3xl mx-auto">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2 }}
               className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full mb-6"
             >
               <Sparkles className="w-5 h-5" />
@@ -133,43 +136,45 @@ export default function FAQPage() {
             </motion.div>
             
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.3 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6"
             >
               الأسئلة الشائعة
             </motion.h1>
             
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="text-lg sm:text-xl text-blue-100 mb-8 leading-relaxed"
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.4 }}
+              className="text-lg sm:text-xl text-blue-50 dark:text-blue-100 mb-8 leading-relaxed"
             >
               إجابات شاملة على جميع استفساراتك حول منصة خطى التعليمية
             </motion.p>
 
             {/* Search Bar */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.5 }}
               className="relative max-w-2xl mx-auto"
             >
               <div className="relative">
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-200 dark:text-blue-300" aria-hidden="true" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="ابحث في الأسئلة الشائعة..."
-                  className="w-full pr-12 pl-4 py-4 text-lg rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-md text-white placeholder:text-blue-200 focus:outline-none focus:border-white/40 focus:bg-white/20 transition-all"
+                  className="w-full pr-12 pl-4 py-4 text-lg rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-md text-white placeholder:text-blue-50 dark:placeholder:text-blue-200 focus:outline-none focus:border-white/40 focus:bg-white/20 transition-all"
+                  aria-label="البحث في الأسئلة الشائعة"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
                     className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
+                    aria-label="مسح البحث"
                   >
                     <X className="w-4 h-4 text-white" />
                   </button>
@@ -178,9 +183,9 @@ export default function FAQPage() {
               
               {searchQuery && (
                 <motion.div
-                  initial={{ opacity: 0 }}
+                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="mt-2 text-sm text-blue-100"
+                  className="mt-2 text-sm text-blue-50 dark:text-blue-100"
                 >
                   تم العثور على {filteredFAQs.length} سؤال
                 </motion.div>
@@ -194,9 +199,9 @@ export default function FAQPage() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Categories Filter */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.6 }}
           className="mb-8"
         >
           <div className="flex items-center gap-3 mb-4">
@@ -214,8 +219,8 @@ export default function FAQPage() {
                 <motion.button
                   key={category.id}
                   onClick={() => setSelectedCategory(category.id)}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05, y: -2 }}
+                  whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
                   className={`
                     flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold transition-all duration-300
                     ${isActive 
@@ -223,6 +228,8 @@ export default function FAQPage() {
                       : 'bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-neutral-700 shadow-md'
                     }
                   `}
+                  aria-label={`تصفية حسب ${category.label}`}
+                  aria-pressed={isActive}
                 >
                   <Icon className="w-4 h-4" />
                   <span>{category.label}</span>
@@ -243,9 +250,9 @@ export default function FAQPage() {
 
         {/* Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.7 }}
           className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8"
         >
           <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-lg border border-gray-200 dark:border-neutral-700">
@@ -288,15 +295,15 @@ export default function FAQPage() {
         {/* FAQ Items */}
         {filteredFAQs.length === 0 ? (
           <motion.div
-            initial={{ opacity: 0 }}
+            initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-16"
           >
-            <HelpCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <HelpCircle className="w-16 h-16 text-gray-500 dark:text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
               لم يتم العثور على نتائج
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-6">
+            <p className="text-gray-600 dark:text-gray-500 mb-6">
               جرب البحث بكلمات مختلفة أو اختر فئة أخرى
             </p>
             <button
@@ -305,6 +312,7 @@ export default function FAQPage() {
                 setSelectedCategory('all');
               }}
               className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-colors"
+              aria-label="إعادة تعيين البحث والفلاتر"
             >
               إعادة تعيين البحث
             </button>
@@ -319,15 +327,17 @@ export default function FAQPage() {
                 return (
                   <motion.div
                     key={originalIndex}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                    exit={prefersReducedMotion ? { opacity: 1, height: 'auto' } : { opacity: 0, height: 0 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3, delay: index * 0.05 }}
                     className="bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-gray-200 dark:border-neutral-700 overflow-hidden hover:shadow-xl transition-shadow"
                   >
                     <button
                       onClick={() => toggleFAQ(originalIndex)}
                       className="w-full px-6 py-5 text-right flex items-center justify-between gap-4 hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors"
+                      aria-expanded={isOpen}
+                      aria-label={faq.question}
                     >
                       <div className="flex-1 flex items-start gap-4">
                         <div className={`
@@ -341,15 +351,15 @@ export default function FAQPage() {
                             w-5 h-5
                             ${isOpen 
                               ? 'text-blue-600 dark:text-blue-400' 
-                              : 'text-gray-600 dark:text-gray-400'
+                              : 'text-gray-600 dark:text-gray-500'
                             }
-                          `} />
+                          `} aria-hidden="true" />
                         </div>
                         <div className="flex-1 text-right">
                           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
                             {faq.question}
                           </h3>
-                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                          <span className="text-xs text-gray-600 dark:text-gray-500">
                             {faq.category === 'security' && '🔒 الأمان'}
                             {faq.category === 'certificates' && '🎓 الشهادات'}
                             {faq.category === 'pricing' && '💰 الأسعار'}
@@ -360,14 +370,14 @@ export default function FAQPage() {
                       </div>
                       
                       <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
+                        animate={prefersReducedMotion ? {} : { rotate: isOpen ? 180 : 0 }}
+                        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
                         className="flex-shrink-0"
                       >
                         {isOpen ? (
-                          <ChevronUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                          <ChevronUp className="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" />
                         ) : (
-                          <ChevronDown className="w-5 h-5 text-gray-400" />
+                          <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" />
                         )}
                       </motion.div>
                     </button>
@@ -375,10 +385,10 @@ export default function FAQPage() {
                     <AnimatePresence>
                       {isOpen && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }}
+                          initial={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
+                          exit={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+                          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.3 }}
                           className="overflow-hidden"
                         >
                           <div className="px-6 py-4 pt-0 border-t border-gray-200 dark:border-neutral-700">
@@ -398,9 +408,9 @@ export default function FAQPage() {
 
         {/* Contact CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.8 }}
           className="mt-12 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden"
         >
           <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
@@ -408,17 +418,17 @@ export default function FAQPage() {
           
           <div className="relative z-10 text-center max-w-3xl mx-auto">
             <motion.div
-              animate={{ rotate: [0, 10, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+              animate={prefersReducedMotion ? {} : { rotate: [0, 10, -10, 0] }}
+              transition={prefersReducedMotion ? { duration: 0 } : { duration: 2, repeat: Infinity, repeatDelay: 3 }}
               className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-md rounded-full mb-6"
             >
-              <MessageCircle className="w-8 h-8" />
+              <MessageCircle className="w-8 h-8" aria-hidden="true" />
             </motion.div>
             
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
               لم تجد إجابة لسؤالك؟
             </h2>
-            <p className="text-lg text-blue-100 mb-8 leading-relaxed">
+            <p className="text-lg text-blue-50 dark:text-blue-100 mb-8 leading-relaxed">
               فريق الدعم متاح على مدار الساعة لمساعدتك في أي استفسار أو مشكلة تواجهها. 
               لا تتردد في التواصل معنا مباشرة.
             </p>
@@ -442,6 +452,6 @@ export default function FAQPage() {
           </div>
         </motion.div>
       </div>
-    </div>
+    </PageBackground>
   );
 }

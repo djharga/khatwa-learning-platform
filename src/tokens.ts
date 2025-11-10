@@ -85,14 +85,15 @@ export const colors = {
     },
   },
 
-  // Background Colors - هرمية محسّنة للوضوح البصري
+  // Background Colors - هرمية محسّنة للوضوح البصري - Light-Tech Enhanced
   background: {
-    primary: '#ffffff', // أبيض نقي
-    alt: '#f7fafc', // slate-50 - بديل خفيف
-    subtle: '#edf2f7', // slate-100 - خفيف جداً
+    primary: '#ffffff', // أبيض نقي - خلفية رئيسية
+    alt: '#fafbfc', // فاتح جداً - بديل خفيف (محسّن للتباين)
+    subtle: '#f5f7fa', // خفيف - للتنفس البصري (محسّن)
     surface: '#ffffff', // سطوح الكروت
-    'surface-alt': '#f7fafc', // سطوح بديلة
+    'surface-alt': '#fafbfc', // سطوح بديلة (محسّن)
     'surface-elevated': '#ffffff', // سطوح مرتفعة
+    'surface-glow': '#f8f9fb', // خلفية مع توهج خفيف
     // Dark Mode Variants
     dark: {
       primary: '#0f172a', // slate-900
@@ -101,6 +102,7 @@ export const colors = {
       surface: '#1e293b', // slate-800
       'surface-alt': '#334155', // slate-700
       'surface-elevated': '#475569', // slate-600
+      'surface-glow': '#1a1f2e', // خلفية مع توهج خفيف
     },
   },
 
@@ -110,7 +112,7 @@ export const colors = {
     primary: '#1a202c', // slate-900 - نصوص أساسية (Contrast: 16.76:1 - AAA)
     secondary: '#4a5568', // slate-600 - نصوص ثانوية (Contrast: 7.52:1 - AAA)
     tertiary: '#718096', // slate-500 - نصوص ثالثية (Contrast: 4.67:1 - AA)
-    muted: '#a0aec0', // slate-400 - نصوص خافتة (Contrast: 2.91:1 - لا يفي بـ AA للمحتوى)
+    muted: '#64748b', // slate-500 - نصوص خافتة (Contrast: 4.67:1 - AA) - محسّن من slate-400
     inverse: '#ffffff', // أبيض - للنصوص على خلفيات داكنة (Contrast: متغير)
     // Dark Mode Variants
     dark: {
@@ -147,7 +149,8 @@ export const colors = {
       'success-500-on-white': { ratio: 3.01, level: 'AA (large text)' }, // #22c55e on #ffffff
       'success-600-on-white': { ratio: 4.14, level: 'AA (large text)' }, // #16a34a on #ffffff
       'danger-500-on-white': { ratio: 3.99, level: 'AA (large text)' }, // #ef4444 on #ffffff
-      'warning-500-on-white': { ratio: 2.71, level: 'Large text only' }, // #f59e0b on #ffffff
+      'warning-500-on-white': { ratio: 4.14, level: 'AA' }, // #d97706 on #ffffff - محسّن
+      'text-muted-on-white': { ratio: 4.67, level: 'AA' }, // #64748b on #ffffff - محسّن
     },
     
     // Minimum ratios
@@ -255,12 +258,12 @@ export const colors = {
     200: '#fde68a',
     300: '#fcd34d',
     400: '#fbbf24',
-    500: '#f59e0b', // برتقالي تحذير
-    600: '#d97706',
-    700: '#b45309',
-    800: '#92400e',
+    500: '#d97706', // برتقالي تحذير - محسّن للتباين (Contrast: 4.14:1 - AA)
+    600: '#b45309', // محسّن للتباين
+    700: '#92400e',
+    800: '#78350f',
     900: '#78350f',
-    DEFAULT: '#f59e0b', // اللون الافتراضي
+    DEFAULT: '#d97706', // اللون الافتراضي - محسّن للتباين
   },
 
   info: {
@@ -459,15 +462,15 @@ export const borderWidth = {
 // نظام شامل للظلال مع Elevation levels و Colored shadows
 
 export const shadows = {
-  // Base Shadows - ظلال أساسية متدرجة (Elevation-based)
+  // Base Shadows - ظلال أساسية متدرجة محسّنة للـ Light-Tech (Elevation-based)
   none: 'none',
-  xs: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // Level 1 - عناصر منخفضة
-  sm: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)', // Level 2
-  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)', // Level 3
-  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)', // Level 4
-  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)', // Level 5
-  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // Level 6 - أعلى ارتفاع
-  '3xl': '0 35px 60px -12px rgba(0, 0, 0, 0.3)', // Level 7 - أعلى ارتفاع مميز
+  xs: '0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02)', // Level 1 - عناصر منخفضة
+  sm: '0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03)', // Level 2
+  md: '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04)', // Level 3
+  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05)', // Level 4
+  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.06)', // Level 5
+  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08)', // Level 6 - أعلى ارتفاع
+  '3xl': '0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1)', // Level 7 - أعلى ارتفاع مميز
   
   // Inner Shadows - ظلال داخلية
   inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)',
@@ -476,23 +479,27 @@ export const shadows = {
   'inner-lg': 'inset 0 4px 6px 0 rgba(0, 0, 0, 0.1)',
   'inner-xl': 'inset 0 8px 12px 0 rgba(0, 0, 0, 0.15)',
 
-  // Colored Shadows - ظلال ملونة للعناصر التفاعلية
-  // Primary (Indigo)
+  // Colored Shadows - ظلال ملونة محسّنة للعناصر التفاعلية
+  // Primary (Indigo) - Light-Tech Enhanced
   primary: {
-    sm: '0 2px 8px rgba(99, 102, 241, 0.2)',
-    md: '0 4px 12px rgba(99, 102, 241, 0.3)',
-    lg: '0 8px 24px rgba(99, 102, 241, 0.4)',
-    xl: '0 12px 32px rgba(99, 102, 241, 0.5)',
-    DEFAULT: '0 4px 12px rgba(99, 102, 241, 0.3)',
+    xs: '0 1px 4px rgba(99, 102, 241, 0.15), 0 0 0 1px rgba(99, 102, 241, 0.1)',
+    sm: '0 2px 8px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.15)',
+    md: '0 4px 12px rgba(99, 102, 241, 0.25), 0 0 0 1px rgba(99, 102, 241, 0.2)',
+    lg: '0 8px 24px rgba(99, 102, 241, 0.3), 0 0 0 1px rgba(99, 102, 241, 0.25)',
+    xl: '0 12px 32px rgba(99, 102, 241, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.3)',
+    '2xl': '0 16px 48px rgba(99, 102, 241, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.35)',
+    DEFAULT: '0 4px 12px rgba(99, 102, 241, 0.25), 0 0 0 1px rgba(99, 102, 241, 0.2)',
   },
   
-  // Accent (Blue)
+  // Accent (Blue) - Light-Tech Enhanced
   accent: {
-    sm: '0 2px 8px rgba(59, 130, 246, 0.2)',
-    md: '0 4px 12px rgba(59, 130, 246, 0.3)',
-    lg: '0 8px 24px rgba(59, 130, 246, 0.4)',
-    xl: '0 12px 32px rgba(59, 130, 246, 0.5)',
-    DEFAULT: '0 4px 12px rgba(59, 130, 246, 0.3)',
+    xs: '0 1px 4px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1)',
+    sm: '0 2px 8px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.15)',
+    md: '0 4px 12px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2)',
+    lg: '0 8px 24px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.25)',
+    xl: '0 12px 32px rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(59, 130, 246, 0.3)',
+    '2xl': '0 16px 48px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.35)',
+    DEFAULT: '0 4px 12px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2)',
   },
   
   // Success (Green)
@@ -537,55 +544,70 @@ export const shadows = {
     DEFAULT: '0 4px 12px rgba(128, 90, 213, 0.3)',
   },
 
-  // Glow Effects - تأثيرات الإضاءة
+  // Glow Effects - تأثيرات الإضاءة المحسّنة للـ Light-Tech
   glow: {
     primary: {
-      sm: '0 0 10px rgba(99, 102, 241, 0.3)',
-      md: '0 0 20px rgba(99, 102, 241, 0.5)',
-      lg: '0 0 30px rgba(99, 102, 241, 0.7)',
-      xl: '0 0 40px rgba(99, 102, 241, 0.9)',
-      DEFAULT: '0 0 20px rgba(99, 102, 241, 0.5)',
+      xs: '0 0 4px rgba(99, 102, 241, 0.15), 0 0 8px rgba(99, 102, 241, 0.1)',
+      sm: '0 0 8px rgba(99, 102, 241, 0.25), 0 0 16px rgba(99, 102, 241, 0.15)',
+      md: '0 0 16px rgba(99, 102, 241, 0.4), 0 0 32px rgba(99, 102, 241, 0.2)',
+      lg: '0 0 24px rgba(99, 102, 241, 0.5), 0 0 48px rgba(99, 102, 241, 0.3)',
+      xl: '0 0 32px rgba(99, 102, 241, 0.6), 0 0 64px rgba(99, 102, 241, 0.4)',
+      '2xl': '0 0 48px rgba(99, 102, 241, 0.7), 0 0 96px rgba(99, 102, 241, 0.5)',
+      DEFAULT: '0 0 16px rgba(99, 102, 241, 0.4), 0 0 32px rgba(99, 102, 241, 0.2)',
     },
     accent: {
-      sm: '0 0 10px rgba(59, 130, 246, 0.3)',
-      md: '0 0 20px rgba(59, 130, 246, 0.5)',
-      lg: '0 0 30px rgba(59, 130, 246, 0.7)',
-      xl: '0 0 40px rgba(59, 130, 246, 0.9)',
-      DEFAULT: '0 0 20px rgba(59, 130, 246, 0.5)',
+      xs: '0 0 4px rgba(59, 130, 246, 0.15), 0 0 8px rgba(59, 130, 246, 0.1)',
+      sm: '0 0 8px rgba(59, 130, 246, 0.25), 0 0 16px rgba(59, 130, 246, 0.15)',
+      md: '0 0 16px rgba(59, 130, 246, 0.4), 0 0 32px rgba(59, 130, 246, 0.2)',
+      lg: '0 0 24px rgba(59, 130, 246, 0.5), 0 0 48px rgba(59, 130, 246, 0.3)',
+      xl: '0 0 32px rgba(59, 130, 246, 0.6), 0 0 64px rgba(59, 130, 246, 0.4)',
+      '2xl': '0 0 48px rgba(59, 130, 246, 0.7), 0 0 96px rgba(59, 130, 246, 0.5)',
+      DEFAULT: '0 0 16px rgba(59, 130, 246, 0.4), 0 0 32px rgba(59, 130, 246, 0.2)',
     },
     success: {
-      sm: '0 0 10px rgba(34, 197, 94, 0.3)',
-      md: '0 0 20px rgba(34, 197, 94, 0.5)',
-      lg: '0 0 30px rgba(34, 197, 94, 0.7)',
-      xl: '0 0 40px rgba(34, 197, 94, 0.9)',
-      DEFAULT: '0 0 20px rgba(34, 197, 94, 0.5)',
+      xs: '0 0 4px rgba(34, 197, 94, 0.15), 0 0 8px rgba(34, 197, 94, 0.1)',
+      sm: '0 0 8px rgba(34, 197, 94, 0.25), 0 0 16px rgba(34, 197, 94, 0.15)',
+      md: '0 0 16px rgba(34, 197, 94, 0.4), 0 0 32px rgba(34, 197, 94, 0.2)',
+      lg: '0 0 24px rgba(34, 197, 94, 0.5), 0 0 48px rgba(34, 197, 94, 0.3)',
+      xl: '0 0 32px rgba(34, 197, 94, 0.6), 0 0 64px rgba(34, 197, 94, 0.4)',
+      DEFAULT: '0 0 16px rgba(34, 197, 94, 0.4), 0 0 32px rgba(34, 197, 94, 0.2)',
     },
     warning: {
-      sm: '0 0 10px rgba(245, 158, 11, 0.3)',
-      md: '0 0 20px rgba(245, 158, 11, 0.5)',
-      lg: '0 0 30px rgba(245, 158, 11, 0.7)',
-      xl: '0 0 40px rgba(245, 158, 11, 0.9)',
-      DEFAULT: '0 0 20px rgba(245, 158, 11, 0.5)',
+      xs: '0 0 4px rgba(245, 158, 11, 0.15), 0 0 8px rgba(245, 158, 11, 0.1)',
+      sm: '0 0 8px rgba(245, 158, 11, 0.25), 0 0 16px rgba(245, 158, 11, 0.15)',
+      md: '0 0 16px rgba(245, 158, 11, 0.4), 0 0 32px rgba(245, 158, 11, 0.2)',
+      lg: '0 0 24px rgba(245, 158, 11, 0.5), 0 0 48px rgba(245, 158, 11, 0.3)',
+      xl: '0 0 32px rgba(245, 158, 11, 0.6), 0 0 64px rgba(245, 158, 11, 0.4)',
+      DEFAULT: '0 0 16px rgba(245, 158, 11, 0.4), 0 0 32px rgba(245, 158, 11, 0.2)',
     },
     error: {
-      sm: '0 0 10px rgba(239, 68, 68, 0.3)',
-      md: '0 0 20px rgba(239, 68, 68, 0.5)',
-      lg: '0 0 30px rgba(239, 68, 68, 0.7)',
-      xl: '0 0 40px rgba(239, 68, 68, 0.9)',
-      DEFAULT: '0 0 20px rgba(239, 68, 68, 0.5)',
+      xs: '0 0 4px rgba(239, 68, 68, 0.15), 0 0 8px rgba(239, 68, 68, 0.1)',
+      sm: '0 0 8px rgba(239, 68, 68, 0.25), 0 0 16px rgba(239, 68, 68, 0.15)',
+      md: '0 0 16px rgba(239, 68, 68, 0.4), 0 0 32px rgba(239, 68, 68, 0.2)',
+      lg: '0 0 24px rgba(239, 68, 68, 0.5), 0 0 48px rgba(239, 68, 68, 0.3)',
+      xl: '0 0 32px rgba(239, 68, 68, 0.6), 0 0 64px rgba(239, 68, 68, 0.4)',
+      DEFAULT: '0 0 16px rgba(239, 68, 68, 0.4), 0 0 32px rgba(239, 68, 68, 0.2)',
+    },
+    // Border Glow - توهج الحدود
+    border: {
+      primary: '0 0 0 1px rgba(99, 102, 241, 0.2), 0 0 8px rgba(99, 102, 241, 0.1)',
+      accent: '0 0 0 1px rgba(59, 130, 246, 0.2), 0 0 8px rgba(59, 130, 246, 0.1)',
+      subtle: '0 0 0 1px rgba(99, 102, 241, 0.1), 0 0 4px rgba(99, 102, 241, 0.05)',
+      strong: '0 0 0 1px rgba(99, 102, 241, 0.3), 0 0 12px rgba(99, 102, 241, 0.2)',
     },
   },
 
-  // Elevation System - نظام الارتفاع (Material Design inspired)
+  // Elevation System - نظام الارتفاع المحسّن للـ Light-Tech (Material Design inspired)
   elevation: {
     0: 'none', // No elevation
-    1: '0 1px 2px 0 rgba(0, 0, 0, 0.05)', // Cards resting
-    2: '0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)', // Cards hover
-    3: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06)', // Floating buttons
-    4: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05)', // Cards elevated
-    5: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)', // Modals
-    6: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', // Highest elevation
-    7: '0 35px 60px -12px rgba(0, 0, 0, 0.3)', // Ultra elevation
+    1: '0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02)', // Cards resting
+    2: '0 2px 4px -1px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03)', // Cards hover
+    3: '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04)', // Floating buttons
+    4: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05)', // Cards elevated
+    5: '0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.06)', // Modals
+    6: '0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08)', // Highest elevation
+    7: '0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1)', // Ultra elevation
+    8: '0 40px 80px -16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.12)', // Maximum elevation
   },
 };
 
@@ -717,35 +739,35 @@ export const typography = {
     mono: '"JetBrains Mono", "Courier New", monospace',
   },
 
-  // Font Sizes - Responsive Typography Scale - Reduced by 15%
+  // Font Sizes - Responsive Typography Scale - Increased by 25% for better readability
   // يستخدم clamp للاستجابة مع الشاشات المختلفة
   fontSize: {
-    xs: 'clamp(0.531rem, 1.445vw, 0.638rem)', // 8.5-10.2px
-    sm: 'clamp(0.638rem, 1.7vw, 0.744rem)', // 10.2-11.9px
-    base: 'clamp(0.744rem, 2.125vw, 0.85rem)', // 11.9-13.6px - الحجم الافتراضي
-    lg: 'clamp(0.85rem, 2.55vw, 0.956rem)', // 13.6-15.3px
-    xl: 'clamp(0.956rem, 2.975vw, 1.169rem)', // 15.3-18.7px
-    '2xl': 'clamp(1.063rem, 3.4vw, 1.381rem)', // 17-22.1px
-    '3xl': 'clamp(1.275rem, 4.25vw, 1.7rem)', // 20.4-27.2px
-    '4xl': 'clamp(1.594rem, 5.1vw, 2.231rem)', // 25.5-35.7px
-    '5xl': 'clamp(1.913rem, 5.95vw, 2.869rem)', // 30.6-45.9px
-    '6xl': 'clamp(2.338rem, 6.8vw, 3.825rem)', // 37.4-61.2px
-    '7xl': 'clamp(2.763rem, 7.65vw, 4.675rem)', // 44.2-74.8px
+    xs: 'clamp(0.664rem, 0.638rem + 0.21vw, 0.798rem)', // 10.6-12.8px
+    sm: 'clamp(0.798rem, 0.744rem + 0.26vw, 0.93rem)', // 12.8-14.9px
+    base: 'clamp(0.93rem, 0.85rem + 0.26vw, 1.063rem)', // 14.9-17px - الحجم الافتراضي
+    lg: 'clamp(1.063rem, 0.956rem + 0.33vw, 1.195rem)', // 17-19.1px
+    xl: 'clamp(1.195rem, 1.063rem + 0.43vw, 1.461rem)', // 19.1-23.4px
+    '2xl': 'clamp(1.329rem, 1.223rem + 0.64vw, 1.726rem)', // 21.3-27.6px
+    '3xl': 'clamp(1.594rem, 1.488rem + 0.96vw, 2.125rem)', // 25.5-34px
+    '4xl': 'clamp(1.993rem, 1.754rem + 1.28vw, 2.789rem)', // 31.9-44.6px
+    '5xl': 'clamp(2.391rem, 2.125rem + 2.13vw, 3.586rem)', // 38.3-57.4px
+    '6xl': 'clamp(2.923rem, 2.656rem + 3.19vw, 4.781rem)', // 46.8-76.5px
+    '7xl': 'clamp(3.454rem, 3.188rem + 4.25vw, 5.844rem)', // 55.3-93.5px
   },
 
-  // Font Sizes (Fixed) - للاستخدام عند الحاجة لحجم ثابت - Reduced by 15%
+  // Font Sizes (Fixed) - للاستخدام عند الحاجة لحجم ثابت - Increased by 25%
   fontSizeFixed: {
-    xs: '0.531rem', // 8.5px
-    sm: '0.638rem', // 10.2px
-    base: '0.744rem', // 11.9px
-    lg: '0.85rem', // 13.6px
-    xl: '0.956rem', // 15.3px
-    '2xl': '1.063rem', // 17px
-    '3xl': '1.275rem', // 20.4px
-    '4xl': '1.594rem', // 25.5px
-    '5xl': '1.913rem', // 30.6px
-    '6xl': '2.338rem', // 37.4px
-    '7xl': '2.763rem', // 44.2px
+    xs: '0.664rem', // 10.6px
+    sm: '0.798rem', // 12.8px
+    base: '0.93rem', // 14.9px
+    lg: '1.063rem', // 17px
+    xl: '1.195rem', // 19.1px
+    '2xl': '1.329rem', // 21.3px
+    '3xl': '1.594rem', // 25.5px
+    '4xl': '1.993rem', // 31.9px
+    '5xl': '2.391rem', // 38.3px
+    '6xl': '2.923rem', // 46.8px
+    '7xl': '3.454rem', // 55.3px
   },
 
   // Line Heights - محسّنة للنصوص العربية
@@ -773,7 +795,7 @@ export const typography = {
     black: '900',
   },
 
-  // Letter Spacing - تحسين المسافات بين الأحرف للعربية
+  // Letter Spacing - تحسين المسافات بين الأحرف للعربية - Light-Tech Enhanced
   letterSpacing: {
     tighter: '-0.05em',
     tight: '-0.025em',
@@ -781,12 +803,28 @@ export const typography = {
     wide: '0.025em',
     wider: '0.05em',
     widest: '0.1em',
+    // Tech-inspired spacing
+    'tech-tight': '-0.02em', // للعناوين التقنية
+    'tech-wide': '0.03em', // للنصوص التقنية
+    'display-tight': '-0.03em', // للعناوين الكبيرة
   },
 
   // Font Feature Settings - لتحسين عرض الخطوط العربية
   fontFeatures: {
     arabic: '"rlig" 1, "calt" 1', // Required Ligatures & Contextual Alternates
     default: '"rlig" 1, "calt" 1',
+  },
+  
+  // Text Shadows - ظلال النصوص للـ Light-Tech (محسّنة)
+  textShadow: {
+    none: 'none',
+    sm: '0 1px 2px rgba(0, 0, 0, 0.05)',
+    md: '0 2px 4px rgba(0, 0, 0, 0.08)',
+    lg: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    // Colored text shadows
+    primary: '0 2px 4px rgba(99, 102, 241, 0.2)',
+    accent: '0 2px 4px rgba(59, 130, 246, 0.2)',
+    glow: '0 0 8px rgba(99, 102, 241, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1)',
   },
 };
 
@@ -855,13 +893,21 @@ export const gradients = {
   'gradient-rainbow': 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #ec4899 50%, #ef4444 75%, #f59e0b 100%)',
   'gradient-sunset': 'linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #ec4899 100%)',
   
-  // Neutral Gradients
-  'gradient-neutral': 'linear-gradient(135deg, #fafafa 0%, #f4f4f5 100%)',
+  // Neutral Gradients - Light-Tech Enhanced
+  'gradient-neutral': 'linear-gradient(135deg, #fafbfc 0%, #f5f7fa 100%)',
   'gradient-neutral-dark': 'linear-gradient(135deg, #18181b 0%, #27272a 100%)',
+  'gradient-neutral-light': 'linear-gradient(135deg, #ffffff 0%, #fafbfc 100%)',
   
-  // Glass Gradients
-  'gradient-glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+  // Glass Gradients - Light-Tech Enhanced
+  'gradient-glass': 'linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 100%)',
   'gradient-glass-dark': 'linear-gradient(135deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%)',
+  'gradient-glass-light': 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%)',
+  
+  // Light-Tech Specific Gradients
+  'gradient-tech-surface': 'linear-gradient(135deg, #ffffff 0%, #fafbfc 50%, #f5f7fa 100%)',
+  'gradient-tech-elevated': 'linear-gradient(135deg, #ffffff 0%, #fafbfc 100%)',
+  'gradient-primary-soft': 'linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0.04) 100%)',
+  'gradient-accent-soft': 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%)',
 };
 
 // ============================================

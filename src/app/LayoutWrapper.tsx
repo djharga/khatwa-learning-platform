@@ -1,25 +1,82 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
+import Script from 'next/script';
+
 import EnhancedNavbar from '../components/layout/EnhancedNavbar';
 import AppSidebar from '../components/layout/AppSidebar';
 import Breadcrumbs from '../components/layout/Breadcrumbs';
-import Script from 'next/script';
 import { PageTransition } from '../components/ui/PageTransition';
 
-export default function LayoutWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  
-  // Check if this is a lesson page that should have full-screen layout
-  const isLessonPage = pathname?.includes('/lesson/');
-  
+  // استخدام نفس القيمة الافتراضية مثل AppSidebar لتجنب layout shift
+  // على الشاشات الكبيرة، الافتراضي يكون مفتوح
+  const [sidebarOpen, setSidebarOpen] = useState<boolean>(() => {
+    // تجنب hydration mismatch - استخدام قيمة آمنة للـ SSR
+    if (typeof window === 'undefined') return false;
+    // نستخدم نفس المنطق مثل AppSidebar
+    try {
+      const saved = localStorage.getItem('sidebarOpen');
+      if (saved !== null) return saved === 'true';
+      // على الشاشات الكبيرة، الافتراضي يكون مفتوح
+      return window.innerWidth >= 1024;
+    } catch {
+      return false;
+    }
+  });
+  const [isMounted, setIsMounted] = useState(false);
+
+  // تحديث حالة الشريط الجانبي بعد mount
+  useEffect(() => {
+    setIsMounted(true);
+    // نستخدم نفس المنطق مثل AppSidebar بالضبط
+    try {
+      const saved = localStorage.getItem('sidebarOpen');
+      if (saved !== null) {
+        setSidebarOpen(saved === 'true');
+      } else {
+        // على الشاشات الكبيرة، الافتراضي يكون مفتوح
+        setSidebarOpen(window.innerWidth >= 1024);
+      }
+    } catch {
+      // في حالة الخطأ، نستخدم القيمة الافتراضية
+      setSidebarOpen(window.innerWidth >= 1024);
+    }
+  }, []);
+
+  // تحديث حالة الشريط الجانبي من الأحداث المخصصة من AppSidebar
+  useEffect(() => {
+    if (!isMounted) return;
+
+    // استماع لحدث مخصص (من AppSidebar) - هذا هو المصدر الموثوق
+    const handleCustomEvent = (e: Event) => {
+      const customEvent = e as CustomEvent<{ isOpen: boolean }>;
+      if (customEvent.detail?.isOpen !== undefined) {
+        setSidebarOpen(customEvent.detail.isOpen);
+      }
+    };
+    window.addEventListener('sidebarStateChange', handleCustomEvent);
+
+    // أيضاً نستمع لتغييرات localStorage (من نوافذ أخرى)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'sidebarOpen' && e.newValue !== null) {
+        setSidebarOpen(e.newValue === 'true');
+      }
+    };
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('sidebarStateChange', handleCustomEvent);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [isMounted]);
+
+  // كشف صفحات الدروس لتفعيل وضع الشاشة الكاملة
+  const isLessonPage = pathname?.startsWith('/lesson/');
+
   if (isLessonPage) {
-    // For lesson pages, render without padding/container - PlayerShell handles its own layout
-    // Hide navbar and sidebar for full-screen lesson experience
     return (
       <>
         <Script src="/theme-init.js" strategy="beforeInteractive" />
@@ -27,31 +84,42 @@ export default function LayoutWrapper({
       </>
     );
   }
-  
-  // For other pages, use the standard layout with padding and container
+
+  // استخدام CSS classes ديناميكية لتجنب layout shift
+  // الحل: دائماً نحجز مساحة للـ sidebar على الشاشات الكبيرة، ونستخدم transition سلس
+  // قبل mount، نستخدم القيمة الافتراضية (مفتوح على الشاشات الكبيرة) لتجنب layout shift
+  const mainPaddingClass = !isMounted 
+    ? 'lg:ps-[320px]' // قبل mount - استخدام القيمة الافتراضية
+    : sidebarOpen 
+      ? 'lg:ps-[320px]' // sidebar مفتوح - padding 320px (عرض الـ sidebar = 20rem = 320px)
+      : 'lg:ps-6'; // sidebar مغلق - padding صغير
+
   return (
     <>
       <EnhancedNavbar />
       <AppSidebar />
       <Script src="/theme-init.js" strategy="beforeInteractive" />
+
       <PageTransition>
         <main
           id="main-content"
-          className="px-4 py-8 lg:px-8 lg:py-12 pt-16 lg:pt-20 pb-20 md:pb-8"
           role="main"
           tabIndex={-1}
-          style={{ position: 'relative', zIndex: 0 }}
+          className={`px-4 py-6 sm:py-8 ${mainPaddingClass} lg:pe-6 xl:pe-8 lg:py-10 xl:py-12 pt-16 lg:pt-20 pb-20 md:pb-8 min-h-[calc(100vh-5rem)] transition-[padding-inline-start] duration-300 ease-out`}
+          style={{ 
+            position: 'relative', 
+            zIndex: 1
+          }}
         >
           {/* مسار التنقل */}
-          <div className="mb-6">
-            <Breadcrumbs className="max-w-6xl mx-auto" />
+          <div className="mb-4 sm:mb-6 max-w-7xl mx-auto">
+            <Breadcrumbs />
           </div>
 
           {/* المحتوى الرئيسي */}
-          <div className="max-w-6xl mx-auto">{children}</div>
+          <div className="max-w-7xl mx-auto w-full">{children}</div>
         </main>
       </PageTransition>
     </>
   );
 }
-

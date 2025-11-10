@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
-import Input from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/Tabs';
 import { Badge } from '@/components/ui/Badge';
-import { AlertTriangle, TrendingUp, DollarSign, BarChart3 } from 'lucide-react';
+import { AlertTriangle, TrendingUp, DollarSign, BarChart3, Calculator } from 'lucide-react';
 
 // بيانات عينة للمحاكاة
 const sampleCompanyData = {
@@ -73,215 +72,323 @@ const AccountingSimulation = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 space-y-6" dir="rtl">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold text-primary">محاكاة بيئة العمل المحاسبية</h1>
-        <Badge variant="outline">مستوى متقدم</Badge>
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 py-6 sm:py-8" dir="rtl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-4 sm:space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4"
+        >
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="p-2 bg-primary-50 dark:bg-primary-900/20 rounded-lg">
+              <Calculator className="w-6 h-6 sm:w-8 sm:h-8 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+            </div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">محاكاة بيئة العمل المحاسبية</h1>
+          </div>
+          <Badge className="px-3 py-1.5 bg-secondary-innovate-100 dark:bg-secondary-innovate-900/20 text-secondary-innovate-800 dark:text-secondary-innovate-300 border-2 border-secondary-innovate-200 dark:border-secondary-innovate-800">مستوى متقدم</Badge>
+        </motion.div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* الشريط الجانبي */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle className="text-lg">أدوات المحاسب</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            <StyledButton
-              variant={currentStep === 1 ? "primary" : "secondary"}
-              size="medium"
-              fullWidth
-              onClick={() => setCurrentStep(1)}
-              className="justify-start"
-            >
-              تحليل القوائم المالية
-            </StyledButton>
-            <StyledButton
-              variant={currentStep === 2 ? "primary" : "secondary"}
-              size="medium"
-              fullWidth
-              onClick={() => setCurrentStep(2)}
-              className="justify-start"
-            >
-              اكتشاف الأخطاء
-            </StyledButton>
-            <StyledButton
-              variant={currentStep === 3 ? "primary" : "secondary"}
-              size="medium"
-              fullWidth
-              onClick={() => setCurrentStep(3)}
-              className="justify-start"
-            >
-              تطبيق IFRS/GAAP
-            </StyledButton>
-            <StyledButton
-              variant={currentStep === 4 ? "primary" : "secondary"}
-              size="medium"
-              fullWidth
-              onClick={() => setCurrentStep(4)}
-              className="justify-start"
-            >
-              تقارير وتوصيات
-            </StyledButton>
-          </CardContent>
-        </Card>
-
-        {/* المحتوى الرئيسي */}
-        <div className="lg:col-span-3 space-y-6">
-          {/* بيانات الشركة */}
-          <Card>
-            <CardHeader>
-              <CardTitle>بيانات الشركة</CardTitle>
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* الشريط الجانبي */}
+          <Card className="lg:col-span-1 shadow-md border border-neutral-200 dark:border-neutral-700">
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-base sm:text-lg font-bold text-neutral-900 dark:text-white">أدوات المحاسب</CardTitle>
             </CardHeader>
-            <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div>
-                <Label className="text-sm font-medium">اسم الشركة</Label>
-                <p className="text-lg font-semibold">{sampleCompanyData.name}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium">القطاع</Label>
-                <p className="text-lg font-semibold">{sampleCompanyData.sector}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium">الحجم</Label>
-                <p className="text-lg font-semibold">{sampleCompanyData.size}</p>
-              </div>
-              <div>
-                <Label className="text-sm font-medium">المعايير</Label>
-                <p className="text-lg font-semibold">{sampleCompanyData.standards}</p>
-              </div>
+            <CardContent className="space-y-2">
+              <button
+                onClick={() => setCurrentStep(1)}
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 min-h-[44px] rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ease-out text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+                  currentStep === 1
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
+                    : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+                }`}
+                aria-label="تحليل القوائم المالية"
+                aria-pressed={currentStep === 1}
+                type="button"
+              >
+                تحليل القوائم المالية
+              </button>
+              <button
+                onClick={() => setCurrentStep(2)}
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 min-h-[44px] rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ease-out text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+                  currentStep === 2
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
+                    : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+                }`}
+                aria-label="اكتشاف الأخطاء"
+                aria-pressed={currentStep === 2}
+                type="button"
+              >
+                اكتشاف الأخطاء
+              </button>
+              <button
+                onClick={() => setCurrentStep(3)}
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 min-h-[44px] rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ease-out text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+                  currentStep === 3
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
+                    : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+                }`}
+                aria-label="تطبيق IFRS/GAAP"
+                aria-pressed={currentStep === 3}
+                type="button"
+              >
+                تطبيق IFRS/GAAP
+              </button>
+              <button
+                onClick={() => setCurrentStep(4)}
+                className={`w-full px-3 sm:px-4 py-2.5 sm:py-3 min-h-[44px] rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ease-out text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+                  currentStep === 4
+                    ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
+                    : 'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700'
+                }`}
+                aria-label="تقارير وتوصيات"
+                aria-pressed={currentStep === 4}
+                type="button"
+              >
+                تقارير وتوصيات
+              </button>
             </CardContent>
           </Card>
 
-          {/* القوائم المالية */}
-          <Tabs defaultValue="income" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="income">قائمة الدخل</TabsTrigger>
-              <TabsTrigger value="balance">الميزانية العمومية</TabsTrigger>
-            </TabsList>
-            <TabsContent value="income">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5" />
-                    قائمة الدخل (بالريال السعودي)
-                  </CardTitle>
+          {/* المحتوى الرئيسي */}
+          <div className="lg:col-span-3 space-y-4 sm:space-y-6">
+            {/* بيانات الشركة */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
+            >
+              <Card className="shadow-md border border-neutral-200 dark:border-neutral-700">
+                <CardHeader className="bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-t-xl">
+                  <CardTitle className="text-base sm:text-lg font-bold">بيانات الشركة</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex justify-between items-center p-3 border rounded">
-                    <span>الإيرادات</span>
-                    <span className="font-semibold text-green-600">{sampleFinancialStatements.income.revenue.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 border rounded">
-                    <span>المصروفات</span>
-                    <span className="font-semibold text-red-600">{sampleFinancialStatements.income.expenses.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 border rounded bg-gray-50">
-                    <span className="font-semibold">صافي الدخل</span>
-                    <span className="font-bold text-blue-600">{sampleFinancialStatements.income.netIncome.toLocaleString()}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-            <TabsContent value="balance">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5" />
-                    الميزانية العمومية (بالريال السعودي)
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex justify-between items-center p-3 border rounded">
-                    <span>الأصول</span>
-                    <span className="font-semibold text-green-600">{sampleFinancialStatements.balance.assets.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 border rounded">
-                    <span>الخصوم</span>
-                    <span className="font-semibold text-red-600">{sampleFinancialStatements.balance.liabilities.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center p-3 border rounded bg-gray-50">
-                    <span className="font-semibold">حقوق المساهمين</span>
-                    <span className="font-bold text-blue-600">{sampleFinancialStatements.balance.equity.toLocaleString()}</span>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-
-          {/* نتائج التحليل */}
-          {analysisResults && (
-            <Card>
-              <CardHeader>
-                <CardTitle>نتائج التحليل المالي</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 border rounded">
-                    <DollarSign className="h-8 w-8 mx-auto mb-2 text-blue-500" />
-                    <p className="text-sm text-gray-600">نسبة السيولة</p>
-                    <p className="text-2xl font-bold">{analysisResults.liquidityRatio}</p>
-                  </div>
-                  <div className="text-center p-4 border rounded">
-                    <TrendingUp className="h-8 w-8 mx-auto mb-2 text-green-500" />
-                    <p className="text-sm text-gray-600">نسبة الربحية</p>
-                    <p className="text-2xl font-bold">{analysisResults.profitabilityRatio}%</p>
-                  </div>
-                  <div className="text-center p-4 border rounded">
-                    <BarChart3 className="h-8 w-8 mx-auto mb-2 text-orange-500" />
-                    <p className="text-sm text-gray-600">نسبة الدين</p>
-                    <p className="text-2xl font-bold">{analysisResults.debtRatio}%</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* الأخطاء المكتشفة */}
-          {detectedErrors.length > 0 && (
-            <Card className="border-red-200">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-600">
-                  <AlertTriangle className="h-5 w-5" />
-                  الأخطاء المكتشفة
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {detectedErrors.map((error, index) => (
-                  <div key={index} className="flex justify-between items-center p-3 border border-red-200 rounded bg-red-50">
-                    <div>
-                      <p className="font-semibold">{error.description}</p>
-                      <Badge variant="destructive" className="mt-1">{error.severity}</Badge>
+                <CardContent className="p-4 sm:p-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+                    <div className="p-3 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+                      <Label className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1 block">اسم الشركة</Label>
+                      <p className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{sampleCompanyData.name}</p>
                     </div>
-                    <StyledButton
-                      size="small"
-                      variant="secondary"
-                      onClick={() => handleErrorCorrection(error.type)}
-                    >
-                      تصحيح
-                    </StyledButton>
+                    <div className="p-3 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+                      <Label className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1 block">القطاع</Label>
+                      <p className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{sampleCompanyData.sector}</p>
+                    </div>
+                    <div className="p-3 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+                      <Label className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1 block">الحجم</Label>
+                      <p className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{sampleCompanyData.size}</p>
+                    </div>
+                    <div className="p-3 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
+                      <Label className="text-xs sm:text-sm font-medium text-neutral-600 dark:text-neutral-400 mb-1 block">المعايير</Label>
+                      <p className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">{sampleCompanyData.standards}</p>
+                    </div>
                   </div>
-                ))}
-              </CardContent>
-            </Card>
-          )}
+                </CardContent>
+              </Card>
+            </motion.div>
 
-          {/* أزرار التحكم */}
-          <div className="flex justify-center gap-4">
-            {currentStep === 1 && (
-              <StyledButton onClick={handleAnalysis} size="large" variant="primary" className="px-8">
-                بدء التحليل
-              </StyledButton>
+            {/* القوائم المالية */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
+            >
+              <Tabs defaultValue="income" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-1 min-h-[44px]">
+                  <TabsTrigger 
+                    value="income"
+                    className="rounded-lg font-medium text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary-600 data-[state=active]:to-primary-700 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  >
+                    قائمة الدخل
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="balance"
+                    className="rounded-lg font-medium text-xs sm:text-sm data-[state=active]:bg-gradient-to-r data-[state=active]:from-primary-600 data-[state=active]:to-primary-700 data-[state=active]:text-white data-[state=active]:shadow-md transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  >
+                    الميزانية العمومية
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="income" className="mt-4">
+                  <Card className="shadow-md border border-neutral-200 dark:border-neutral-700">
+                    <CardHeader className="bg-gradient-to-r from-success-600 to-success-700 text-white rounded-t-xl">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold">
+                        <TrendingUp className="h-5 w-5" aria-hidden="true" />
+                        قائمة الدخل (بالريال السعودي)
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-4 sm:p-6 space-y-3">
+                      <div className="flex justify-between items-center p-3 sm:p-4 border-2 border-neutral-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800">
+                        <span className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300">الإيرادات</span>
+                        <span className="font-bold text-success-600 dark:text-success-400 text-sm sm:text-base">{sampleFinancialStatements.income.revenue.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 sm:p-4 border-2 border-neutral-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800">
+                        <span className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300">المصروفات</span>
+                        <span className="font-bold text-danger-600 dark:text-danger-400 text-sm sm:text-base">{sampleFinancialStatements.income.expenses.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 sm:p-4 border-2 border-primary-200 dark:border-primary-800 rounded-lg bg-primary-50 dark:bg-primary-900/20">
+                        <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">صافي الدخل</span>
+                        <span className="font-bold text-primary-600 dark:text-primary-400 text-base sm:text-lg">{sampleFinancialStatements.income.netIncome.toLocaleString()}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+                <TabsContent value="balance" className="mt-4">
+                  <Card className="shadow-md border border-neutral-200 dark:border-neutral-700">
+                    <CardHeader className="bg-gradient-to-r from-secondary-innovate-600 to-secondary-innovate-700 text-white rounded-t-xl">
+                      <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold">
+                        <BarChart3 className="h-5 w-5" aria-hidden="true" />
+                        الميزانية العمومية (بالريال السعودي)
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-4 sm:p-6 space-y-3">
+                      <div className="flex justify-between items-center p-3 sm:p-4 border-2 border-neutral-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800">
+                        <span className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300">الأصول</span>
+                        <span className="font-bold text-success-600 dark:text-success-400 text-sm sm:text-base">{sampleFinancialStatements.balance.assets.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 sm:p-4 border-2 border-neutral-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800">
+                        <span className="text-sm sm:text-base font-medium text-neutral-700 dark:text-neutral-300">الخصوم</span>
+                        <span className="font-bold text-danger-600 dark:text-danger-400 text-sm sm:text-base">{sampleFinancialStatements.balance.liabilities.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between items-center p-3 sm:p-4 border-2 border-primary-200 dark:border-primary-800 rounded-lg bg-primary-50 dark:bg-primary-900/20">
+                        <span className="text-sm sm:text-base font-bold text-neutral-900 dark:text-white">حقوق المساهمين</span>
+                        <span className="font-bold text-primary-600 dark:text-primary-400 text-base sm:text-lg">{sampleFinancialStatements.balance.equity.toLocaleString()}</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            </motion.div>
+
+            {/* نتائج التحليل */}
+            {analysisResults && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
+              >
+                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700">
+                  <CardHeader className="bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-t-xl">
+                    <CardTitle className="text-base sm:text-lg font-bold">نتائج التحليل المالي</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                      <motion.div
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        className="text-center p-4 sm:p-6 border-2 border-primary-200 dark:border-primary-800 rounded-xl bg-primary-50 dark:bg-primary-900/20"
+                      >
+                        <div className="p-2 bg-primary-100 dark:bg-primary-900/30 rounded-lg w-fit mx-auto mb-3">
+                          <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 text-primary-600 dark:text-primary-400" aria-hidden="true" />
+                        </div>
+                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-2 font-medium">نسبة السيولة</p>
+                        <p className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400">{analysisResults.liquidityRatio}</p>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        className="text-center p-4 sm:p-6 border-2 border-success-200 dark:border-success-800 rounded-xl bg-success-50 dark:bg-success-900/20"
+                      >
+                        <div className="p-2 bg-success-100 dark:bg-success-900/30 rounded-lg w-fit mx-auto mb-3">
+                          <TrendingUp className="h-6 w-6 sm:h-8 sm:w-8 text-success-600 dark:text-success-400" aria-hidden="true" />
+                        </div>
+                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-2 font-medium">نسبة الربحية</p>
+                        <p className="text-xl sm:text-2xl font-bold text-success-600 dark:text-success-400">{analysisResults.profitabilityRatio}%</p>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        className="text-center p-4 sm:p-6 border-2 border-warning-200 dark:border-warning-800 rounded-xl bg-warning-50 dark:bg-warning-900/20"
+                      >
+                        <div className="p-2 bg-warning-100 dark:bg-warning-900/30 rounded-lg w-fit mx-auto mb-3">
+                          <BarChart3 className="h-6 w-6 sm:h-8 sm:w-8 text-warning-600 dark:text-warning-400" aria-hidden="true" />
+                        </div>
+                        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mb-2 font-medium">نسبة الدين</p>
+                        <p className="text-xl sm:text-2xl font-bold text-warning-600 dark:text-warning-400">{analysisResults.debtRatio}%</p>
+                      </motion.div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             )}
-            {currentStep === 2 && (
-              <StyledButton onClick={() => setCurrentStep(3)} size="large" variant="primary" className="px-8">
-                تطبيق المعايير
-              </StyledButton>
+
+            {/* الأخطاء المكتشفة */}
+            {detectedErrors.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
+              >
+                <Card className="shadow-md border-2 border-danger-200 dark:border-danger-800">
+                  <CardHeader className="bg-gradient-to-r from-danger-600 to-danger-700 text-white rounded-t-xl">
+                    <CardTitle className="flex items-center gap-2 text-base sm:text-lg font-bold">
+                      <AlertTriangle className="h-5 w-5" aria-hidden="true" />
+                      الأخطاء المكتشفة
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 sm:p-6 space-y-3">
+                    {detectedErrors.map((error, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.5 + index * 0.1, duration: 0.2, ease: 'easeOut' }}
+                        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-3 sm:p-4 border-2 border-danger-200 dark:border-danger-800 rounded-lg bg-danger-50 dark:bg-danger-900/20"
+                      >
+                        <div className="flex-1">
+                          <p className="font-bold text-sm sm:text-base text-neutral-900 dark:text-white mb-2">{error.description}</p>
+                          <Badge className="px-2 py-1 bg-danger-600 text-white border-0 text-xs">
+                            {error.severity === 'high' ? 'عالية' : error.severity === 'critical' ? 'حرجة' : error.severity}
+                          </Badge>
+                        </div>
+                        <button
+                          onClick={() => handleErrorCorrection(error.type)}
+                          className="px-3 sm:px-4 py-2 min-h-[44px] bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700 text-danger-600 dark:text-danger-400 rounded-lg font-medium text-xs sm:text-sm shadow-sm hover:shadow-md transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger-500 focus-visible:ring-offset-2"
+                          aria-label={`تصحيح ${error.description}`}
+                          type="button"
+                        >
+                          تصحيح
+                        </button>
+                      </motion.div>
+                    ))}
+                  </CardContent>
+                </Card>
+              </motion.div>
             )}
-            {currentStep === 3 && (
-              <StyledButton onClick={() => setCurrentStep(4)} size="large" variant="primary" className="px-8">
-                إنشاء التقرير
-              </StyledButton>
-            )}
+
+            {/* أزرار التحكم */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.2, ease: 'easeOut' }}
+              className="flex justify-center gap-3 sm:gap-4"
+            >
+              {currentStep === 1 && (
+                <button
+                  onClick={handleAnalysis}
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-bold text-sm sm:text-base shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  aria-label="بدء التحليل"
+                  type="button"
+                >
+                  بدء التحليل
+                </button>
+              )}
+              {currentStep === 2 && (
+                <button
+                  onClick={() => setCurrentStep(3)}
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-bold text-sm sm:text-base shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  aria-label="تطبيق المعايير"
+                  type="button"
+                >
+                  تطبيق المعايير
+                </button>
+              )}
+              {currentStep === 3 && (
+                <button
+                  onClick={() => setCurrentStep(4)}
+                  className="px-6 sm:px-8 py-2.5 sm:py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-bold text-sm sm:text-base shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                  aria-label="إنشاء التقرير"
+                  type="button"
+                >
+                  إنشاء التقرير
+                </button>
+              )}
+            </motion.div>
           </div>
         </div>
       </div>

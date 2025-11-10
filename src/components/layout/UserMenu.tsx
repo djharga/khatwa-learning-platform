@@ -15,6 +15,7 @@ import {
   HelpCircle,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { navigationItems } from '@/lib/navigation';
 
 /**
  * UserMenu Component - محسّن للـ Accessibility
@@ -127,14 +128,44 @@ export default function UserMenu() {
     setIsOpen(prev => !prev);
   }, []);
 
+  // استخدام navigationItems من navigation.ts مع الحفاظ على بنية الأيقونات
   const menuItems = [
-    { href: '/student/dashboard', label: 'لوحة التحكم', icon: LayoutDashboard },
-    { href: '/student/courses', label: 'دوراتي', icon: BookOpen },
-    { href: '/student/certificates', label: 'شهاداتي', icon: Award },
-    { href: '/notifications', label: 'الإشعارات', icon: Bell, badge: 3 },
-    { href: '/student/profile', label: 'الملف الشخصي', icon: User },
-    { href: '/student/settings', label: 'الإعدادات', icon: Settings },
-    { href: '/student/support', label: 'المساعدة', icon: HelpCircle },
+    { 
+      href: navigationItems.studentDashboard.href || '/student', 
+      label: navigationItems.studentDashboard.label, 
+      icon: LayoutDashboard 
+    },
+    { 
+      href: navigationItems.courses.href || '/courses', 
+      label: 'دوراتي', 
+      icon: BookOpen 
+    },
+    { 
+      href: navigationItems.certificates.href || '/certificates', 
+      label: navigationItems.certificates.label, 
+      icon: Award 
+    },
+    { 
+      href: '/notifications', 
+      label: 'الإشعارات', 
+      icon: Bell, 
+      badge: 3 
+    },
+    { 
+      href: navigationItems.profile.href || '/student/profile', 
+      label: navigationItems.profile.label, 
+      icon: User 
+    },
+    { 
+      href: navigationItems.settings.href || '/student/settings', 
+      label: navigationItems.settings.label, 
+      icon: Settings 
+    },
+    { 
+      href: '/student/support', 
+      label: 'المساعدة', 
+      icon: HelpCircle 
+    },
   ];
 
   const isActiveLink = (href: string) => pathname === href || pathname.startsWith(href);

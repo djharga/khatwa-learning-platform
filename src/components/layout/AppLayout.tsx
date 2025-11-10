@@ -28,7 +28,7 @@ const AppLayout = ({
   const shouldShowBreadcrumbs = showBreadcrumbs && !hideBreadcrumbsPages.includes(pathname);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-neutral-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-neutral-50 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
       {/* Enhanced Navigation Bar */}
       <EnhancedNavbar />
 

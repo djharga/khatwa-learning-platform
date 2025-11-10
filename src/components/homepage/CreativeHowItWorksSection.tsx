@@ -49,23 +49,11 @@ const CreativeHowItWorksSection = () => {
       ref={ref}
       className="relative py-24 lg:py-32 overflow-hidden bg-gradient-to-b from-white via-indigo-50/30 to-white dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900"
     >
-      {/* Enhanced Animated Background */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-1/2 left-1/2 w-[900px] h-[900px] bg-gradient-to-r from-indigo-200/25 via-indigo-300/20 to-indigo-200/25 rounded-full blur-3xl"
-          style={{ opacity: 0.15, scale: 0.8 }}
-          animate={{
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: 80,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
-        />
-        {/* Additional subtle gradients - Very Light */}
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-100/10 to-transparent dark:from-indigo-900/6 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-gradient-to-tl from-indigo-100/10 to-transparent dark:from-indigo-900/6 rounded-full blur-3xl" />
+      {/* Simplified Static Background - No animation for better performance */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ transform: 'translateZ(0)' }}>
+        {/* Static gradients - Reduced from 3 to 2, no rotation animation */}
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-indigo-100/8 dark:bg-indigo-900/4 rounded-full blur-3xl opacity-60" style={{ transform: 'translateZ(0)' }} />
+        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-indigo-100/8 dark:bg-indigo-900/4 rounded-full blur-3xl opacity-60" style={{ transform: 'translateZ(0)' }} />
       </div>
 
       <Container size="xl" className="relative z-10">

@@ -1,841 +1,201 @@
-/* Utilities CSS - Unified helper classes for spacing, typography, colors, interactions, and layout */
-/* نظام المسافات الموحد - 8px Grid System */
+/* =========================================
+   🎓 EduTech Utilities - Modern, Friendly & Scalable
+   Unified helper classes for spacing, layout, typography, and UI consistency
+   ========================================= */
 
-/* ========================================
-   SPACING UTILITIES - من tokens.ts
-   ======================================== */
-
-/* Section Spacing - مسافات الأقسام */
-.space-section {
-  padding-top: var(--spacing-section-normal);
-  padding-bottom: var(--spacing-section-normal);
-}
-
-@media (min-width: 768px) {
-  .space-section {
-    padding-top: var(--spacing-section-relaxed);
-    padding-bottom: var(--spacing-section-relaxed);
+/* =============================
+   🧭 SPACING UTILITIES (8px Grid)
+   ============================= */
+   .space-section {
+    padding-block: var(--spacing-section-normal);
   }
-}
-
-@media (min-width: 1024px) {
-  .space-section {
-    padding-top: var(--spacing-section-spacious);
-    padding-bottom: var(--spacing-section-spacious);
+  @media (min-width: 768px) {
+    .space-section {
+      padding-block: var(--spacing-section-relaxed);
+    }
   }
-}
-
-/* Component Spacing - مسافات المكونات */
-.space-component {
-  padding-top: var(--spacing-component-normal);
-  padding-bottom: var(--spacing-component-normal);
-}
-
-@media (min-width: 768px) {
+  @media (min-width: 1024px) {
+    .space-section {
+      padding-block: var(--spacing-section-spacious);
+    }
+  }
+  
   .space-component {
-    padding-top: var(--spacing-component-relaxed);
-    padding-bottom: var(--spacing-component-relaxed);
+    padding-block: var(--spacing-component-normal);
   }
-}
-
-@media (min-width: 1024px) {
-  .space-component {
-    padding-top: var(--spacing-component-spacious);
-    padding-bottom: var(--spacing-component-spacious);
+  @media (min-width: 768px) {
+    .space-component {
+      padding-block: var(--spacing-component-relaxed);
+    }
   }
-}
-
-/* Element Spacing - مسافات العناصر */
-.space-element {
-  margin-bottom: var(--spacing-margin-sm);
-}
-
-.space-element-lg {
-  margin-bottom: var(--spacing-margin-md);
-}
-
-.space-element-xl {
-  margin-bottom: var(--spacing-margin-lg);
-}
-
-/* Gap Utilities - مسافات الفجوات */
-.gap-section {
-  gap: var(--spacing-gap-normal);
-}
-
-@media (min-width: 768px) {
-  .gap-section {
-    gap: var(--spacing-gap-relaxed);
+  @media (min-width: 1024px) {
+    .space-component {
+      padding-block: var(--spacing-component-spacious);
+    }
   }
-}
-
-@media (min-width: 1024px) {
-  .gap-section {
-    gap: var(--spacing-gap-spacious);
+  
+  .space-element { margin-bottom: var(--spacing-margin-sm); }
+  .space-element-lg { margin-bottom: var(--spacing-margin-md); }
+  .space-element-xl { margin-bottom: var(--spacing-margin-lg); }
+  
+  .gap-section { gap: var(--spacing-gap-normal); }
+  @media (min-width: 768px) {
+    .gap-section { gap: var(--spacing-gap-relaxed); }
   }
-}
-
-.gap-component {
-  gap: var(--spacing-gap-normal);
-}
-
-.gap-element {
-  gap: var(--spacing-gap-tight);
-}
-
-/* Padding Utilities - استخدام Semantic Spacing */
-.p-component {
-  padding: var(--spacing-padding-md);
-}
-
-.p-component-tight {
-  padding: var(--spacing-padding-sm);
-}
-
-.p-component-relaxed {
-  padding: var(--spacing-padding-lg);
-}
-
-.p-component-spacious {
-  padding: var(--spacing-padding-xl);
-}
-
-/* ========================================
-   LAYOUT UTILITIES - من tokens.ts
-   ======================================== */
-
-/* Container - حاوية موحدة متجاوبة */
-.container {
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: var(--spacing-padding-md);
-  padding-right: var(--spacing-padding-md);
-}
-
-@media (min-width: 640px) {
+  @media (min-width: 1024px) {
+    .gap-section { gap: var(--spacing-gap-spacious); }
+  }
+  
+  .gap-component { gap: var(--spacing-gap-normal); }
+  .gap-element { gap: var(--spacing-gap-tight); }
+  
+  .p-component { padding: var(--spacing-padding-md); }
+  .p-component-tight { padding: var(--spacing-padding-sm); }
+  .p-component-relaxed { padding: var(--spacing-padding-lg); }
+  .p-component-spacious { padding: var(--spacing-padding-xl); }
+  
+  /* =============================
+     🧩 LAYOUT UTILITIES
+     ============================= */
   .container {
-    padding-left: var(--spacing-padding-lg);
-    padding-right: var(--spacing-padding-lg);
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--spacing-padding-md);
   }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    padding-left: var(--spacing-padding-xl);
-    padding-right: var(--spacing-padding-xl);
+  @media (min-width: 640px) {
+    .container { padding-inline: var(--spacing-padding-lg); }
   }
-}
-
-/* Container Sizes - أحجام مختلفة للحاويات */
-.container-xs {
-  max-width: 480px;
-}
-
-.container-sm {
-  max-width: 640px;
-}
-
-.container-md {
-  max-width: 768px;
-}
-
-.container-lg {
-  max-width: 1024px;
-}
-
-.container-xl {
-  max-width: 1280px;
-}
-
-.container-2xl {
-  max-width: 1536px;
-}
-
-.container-full {
-  max-width: 100%;
-}
-
-.container-prose {
-  max-width: 65ch; /* للمحتوى النصي */
-}
-
-/* Grid Container - متجاوب مع 8px Grid (Legacy - للتوافق) */
-.grid-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-left: var(--spacing-padding-md);
-  padding-right: var(--spacing-padding-md);
-}
-
-@media (min-width: 640px) {
+  @media (min-width: 1024px) {
+    .container { padding-inline: var(--spacing-padding-xl); }
+  }
+  
+  .container-xs { max-width: 480px; }
+  .container-sm { max-width: 640px; }
+  .container-md { max-width: 768px; }
+  .container-lg { max-width: 1024px; }
+  .container-xl { max-width: 1280px; }
+  .container-2xl { max-width: 1536px; }
+  .container-full { max-width: 100%; }
+  .container-prose { max-width: 65ch; }
+  
   .grid-container {
-    padding-left: var(--spacing-padding-lg);
-    padding-right: var(--spacing-padding-lg);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-inline: var(--spacing-padding-md);
   }
-}
-
-@media (min-width: 768px) {
-  .grid-container {
-    padding-left: var(--spacing-padding-lg);
-    padding-right: var(--spacing-padding-lg);
+  @media (min-width: 640px) {
+    .grid-container { padding-inline: var(--spacing-padding-lg); }
   }
-}
-
-@media (min-width: 1024px) {
-  .grid-container {
-    padding-left: var(--spacing-padding-xl);
-    padding-right: var(--spacing-padding-xl);
+  @media (min-width: 1024px) {
+    .grid-container { padding-inline: var(--spacing-padding-xl); }
   }
-}
-
-@media (min-width: 1280px) {
-  .grid-container {
-    padding-left: var(--spacing-padding-xl);
-    padding-right: var(--spacing-padding-xl);
+  
+  .grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-gap-normal);
+    align-items: start;
   }
-}
-
-/* Grid Utilities - أدوات الشبكة */
-.grid-auto-fit {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-gap-normal);
-}
-
-.grid-auto-fill {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: var(--spacing-gap-normal);
-}
-
-/* Flexbox Utilities */
-.flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.flex-start {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.flex-end {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-/* ========================================
-   TYPOGRAPHY UTILITIES - نظام طباعة متطور
-   ======================================== */
-
-/* ===== Display Headings - عناوين ضخمة للصفحات الرئيسية ===== */
-.display-xl {
-  font-family: var(--font-display);
-  font-size: var(--text-display-lg);
-  font-weight: var(--font-black);
-  line-height: var(--line-height-display);
-  letter-spacing: var(--letter-spacing-tighter);
-}
-
-.display-lg {
-  font-family: var(--font-display);
-  font-size: var(--text-display-md);
-  font-weight: var(--font-extrabold);
-  line-height: var(--line-height-display);
-  letter-spacing: var(--letter-spacing-tighter);
-}
-
-.display-md {
-  font-family: var(--font-display);
-  font-size: var(--text-display-sm);
-  font-weight: var(--font-bold);
-  line-height: 1.2;
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-/* ===== Standard Headings - عناوين قياسية ===== */
-.heading-1,
-.h1 {
-  font-family: var(--font-heading);
-  font-size: var(--text-5xl);
-  font-weight: var(--font-bold);
-  line-height: var(--line-height-relaxed);
-  letter-spacing: var(--letter-spacing-tight);
-  text-wrap: balance;
-}
-
-.heading-2,
-.h2 {
-  font-family: var(--font-heading);
-  font-size: var(--text-4xl);
-  font-weight: var(--font-bold);
-  line-height: var(--line-height-relaxed);
-  letter-spacing: var(--letter-spacing-tight);
-  text-wrap: balance;
-}
-
-.heading-3,
-.h3 {
-  font-family: var(--font-heading);
-  font-size: var(--text-3xl);
-  font-weight: var(--font-semibold);
-  line-height: var(--line-height-relaxed);
-  letter-spacing: var(--letter-spacing-normal);
-  text-wrap: balance;
-}
-
-.heading-4,
-.h4 {
-  font-family: var(--font-heading);
-  font-size: var(--text-2xl);
-  font-weight: var(--font-semibold);
-  line-height: var(--line-height-relaxed);
-  letter-spacing: var(--letter-spacing-normal);
-  text-wrap: balance;
-}
-
-.heading-5,
-.h5 {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  font-weight: var(--font-semibold);
-  line-height: var(--line-height-relaxed);
-  letter-spacing: var(--letter-spacing-normal);
-  text-wrap: balance;
-}
-
-.heading-6,
-.h6 {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  font-weight: var(--font-medium);
-  line-height: var(--line-height-relaxed);
-  letter-spacing: var(--letter-spacing-normal);
-  text-wrap: balance;
-}
-
-/* ===== Body Text - نصوص أساسية ===== */
-.body-text-xl {
-  font-family: var(--font-body);
-  font-size: var(--text-xl);
-  line-height: var(--line-height-relaxed);
-  font-weight: var(--font-normal);
-}
-
-.body-text-lg,
-.body-text {
-  font-family: var(--font-body);
-  font-size: var(--text-lg);
-  line-height: var(--line-height-relaxed);
-  font-weight: var(--font-normal);
-}
-
-.body-text-base {
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  line-height: var(--line-height-relaxed);
-  font-weight: var(--font-normal);
-}
-
-.body-text-sm {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-relaxed);
-  font-weight: var(--font-normal);
-}
-
-.body-text-xs {
-  font-family: var(--font-body);
-  font-size: var(--text-xs);
-  line-height: var(--line-height-normal);
-  font-weight: var(--font-normal);
-}
-
-/* ===== Technical Text - نصوص تقنية ===== */
-.technical-text {
-  font-family: var(--font-technical);
-  font-size: var(--text-base);
-  line-height: var(--line-height-relaxed);
-  font-weight: var(--font-normal);
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.technical-text-sm {
-  font-family: var(--font-technical);
-  font-size: var(--text-sm);
-  line-height: var(--line-height-normal);
-  font-weight: var(--font-normal);
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-/* ===== Button Text - نصوص الأزرار ===== */
-.button-text {
-  font-family: var(--font-button);
-  font-size: var(--text-base);
-  font-weight: var(--font-semibold);
-  letter-spacing: var(--letter-spacing-wider);
-  line-height: 1;
-}
-
-.button-text-lg {
-  font-family: var(--font-button);
-  font-size: var(--text-lg);
-  font-weight: var(--font-bold);
-  letter-spacing: var(--letter-spacing-wider);
-  line-height: 1;
-}
-
-.button-text-sm {
-  font-family: var(--font-button);
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
-  letter-spacing: var(--letter-spacing-wide);
-  line-height: 1;
-}
-
-/* ===== Specialized Text Styles - أنماط نصوص متخصصة ===== */
-.lead-text {
-  font-family: var(--font-body);
-  font-size: var(--text-xl);
-  font-weight: var(--font-normal);
-  line-height: var(--line-height-loose);
-  letter-spacing: var(--letter-spacing-normal);
-}
-
-.caption-text {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: var(--font-normal);
-  line-height: var(--line-height-normal);
-  letter-spacing: var(--letter-spacing-wide);
-  color: var(--color-text-tertiary);
-}
-
-.label-text {
-  font-family: var(--font-button);
-  font-size: var(--text-sm);
-  font-weight: var(--font-semibold);
-  line-height: 1;
-  letter-spacing: var(--letter-spacing-wider);
-  text-transform: uppercase;
-}
-
-.quote-text {
-  font-family: var(--font-heading);
-  font-size: var(--text-2xl);
-  font-weight: var(--font-medium);
-  line-height: var(--line-height-loose);
-  font-style: italic;
-}
-
-/* ===== Font Family Utilities ===== */
-.font-display {
-  font-family: var(--font-display);
-}
-
-.font-heading {
-  font-family: var(--font-heading);
-}
-
-.font-body {
-  font-family: var(--font-body);
-}
-
-.font-technical {
-  font-family: var(--font-technical);
-}
-
-.font-button {
-  font-family: var(--font-button);
-}
-
-/* ===== Font Weight Utilities ===== */
-.font-thin {
-  font-weight: var(--font-thin);
-}
-
-.font-light {
-  font-weight: var(--font-light);
-}
-
-.font-normal {
-  font-weight: var(--font-normal);
-}
-
-.font-medium {
-  font-weight: var(--font-medium);
-}
-
-.font-semibold {
-  font-weight: var(--font-semibold);
-}
-
-.font-bold {
-  font-weight: var(--font-bold);
-}
-
-.font-extrabold {
-  font-weight: var(--font-extrabold);
-}
-
-.font-black {
-  font-weight: var(--font-black);
-}
-
-/* ===== Line Height Utilities ===== */
-.leading-none {
-  line-height: var(--line-height-none);
-}
-
-.leading-tight {
-  line-height: var(--line-height-tight);
-}
-
-.leading-snug {
-  line-height: var(--line-height-snug);
-}
-
-.leading-normal {
-  line-height: var(--line-height-normal);
-}
-
-.leading-relaxed {
-  line-height: var(--line-height-relaxed);
-}
-
-.leading-loose {
-  line-height: var(--line-height-loose);
-}
-
-.leading-extra-loose {
-  line-height: var(--line-height-extra-loose);
-}
-
-/* ===== Letter Spacing Utilities ===== */
-.tracking-tighter {
-  letter-spacing: var(--letter-spacing-tighter);
-}
-
-.tracking-tight {
-  letter-spacing: var(--letter-spacing-tight);
-}
-
-.tracking-normal {
-  letter-spacing: var(--letter-spacing-normal);
-}
-
-.tracking-wide {
-  letter-spacing: var(--letter-spacing-wide);
-}
-
-.tracking-wider {
-  letter-spacing: var(--letter-spacing-wider);
-}
-
-.tracking-widest {
-  letter-spacing: var(--letter-spacing-widest);
-}
-
-.tracking-super-wide {
-  letter-spacing: var(--letter-spacing-super-wide);
-}
-
-/* ===== Text Optimization - تحسين عرض النصوص ===== */
-.text-optimize-legibility {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'rlig' 1, 'calt' 1, 'liga' 1, 'kern' 1;
-}
-
-.text-optimize-speed {
-  text-rendering: optimizeSpeed;
-}
-
-.text-sharp {
-  -webkit-font-smoothing: auto;
-  -moz-osx-font-smoothing: auto;
-}
-
-.line-clamp-1 {
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-2 {
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* ========================================
-   COLOR UTILITIES - WCAG Compliant
-   ======================================== */
-
-/* Text Colors - آمنة للاستخدام */
-.text-primary {
-  color: var(--color-primary);
-}
-
-.text-accent {
-  color: var(--color-accent);
-}
-
-.text-secondary {
-  color: var(--color-text-secondary);
-}
-
-/* Safe Text Combinations - تركيبات نص آمنة */
-.text-on-white {
-  color: var(--color-text-primary); /* AAA contrast */
-}
-
-.text-on-white-secondary {
-  color: var(--color-text-secondary); /* AAA contrast */
-}
-
-.text-on-dark {
-  color: var(--color-text-inverse); /* أبيض على خلفيات داكنة */
-}
-
-/* Background Colors */
-.bg-primary {
-  background-color: var(--color-primary);
-}
-
-.bg-accent {
-  background-color: var(--color-accent);
-}
-
-.bg-surface {
-  background-color: var(--color-surface);
-}
-
-/* Safe Background/Text Combinations */
-.bg-primary-text-white {
-  background-color: var(--color-primary-600); /* AA contrast */
-  color: var(--color-text-inverse);
-}
-
-.bg-accent-text-white {
-  background-color: var(--color-accent-600); /* AA contrast */
-  color: var(--color-text-inverse);
-}
-
-.bg-success-text-white {
-  background-color: var(--color-success-600); /* AA contrast */
-  color: var(--color-text-inverse);
-}
-
-.bg-danger-text-white {
-  background-color: var(--color-danger-600); /* AA contrast */
-  color: var(--color-text-inverse);
-}
-
-.gradient-primary {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    var(--color-accent) 100%
-  );
-}
-
-.gradient-text {
-  background: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    var(--color-accent) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ========================================
-   SHADOW UTILITIES - من tokens.ts
-   ======================================== */
-
-/* Base Shadow Classes */
-.shadow-elevation-0 {
-  box-shadow: var(--shadow-elevation-0);
-}
-
-.shadow-elevation-1 {
-  box-shadow: var(--shadow-elevation-1);
-}
-
-.shadow-elevation-2 {
-  box-shadow: var(--shadow-elevation-2);
-}
-
-.shadow-elevation-3 {
-  box-shadow: var(--shadow-elevation-3);
-}
-
-.shadow-elevation-4 {
-  box-shadow: var(--shadow-elevation-4);
-}
-
-.shadow-elevation-5 {
-  box-shadow: var(--shadow-elevation-5);
-}
-
-.shadow-elevation-6 {
-  box-shadow: var(--shadow-elevation-6);
-}
-
-/* Colored Shadow Classes */
-.shadow-colored-primary {
-  box-shadow: var(--shadow-primary);
-}
-
-.shadow-colored-primary-lg {
-  box-shadow: var(--shadow-primary-lg);
-}
-
-.shadow-colored-accent {
-  box-shadow: var(--shadow-accent);
-}
-
-.shadow-colored-success {
-  box-shadow: var(--shadow-success);
-}
-
-.shadow-colored-warning {
-  box-shadow: var(--shadow-warning);
-}
-
-.shadow-colored-error {
-  box-shadow: var(--shadow-error);
-}
-
-/* Glow Effect Classes */
-.shadow-glow-primary {
-  box-shadow: var(--shadow-glow-primary);
-}
-
-.shadow-glow-accent {
-  box-shadow: var(--shadow-glow-accent);
-}
-
-.shadow-glow-success {
-  box-shadow: var(--shadow-glow-success);
-}
-
-.shadow-glow-warning {
-  box-shadow: var(--shadow-glow-warning);
-}
-
-.shadow-glow-error {
-  box-shadow: var(--shadow-glow-error);
-}
-
-/* Hover Shadow Effects */
-.shadow-hover-elevate {
-  transition: box-shadow var(--duration-normal) var(--ease-out);
-}
-
-.shadow-hover-elevate:hover {
-  box-shadow: var(--shadow-xl);
-}
-
-.shadow-hover-colored-primary:hover {
-  box-shadow: var(--shadow-primary-lg);
-}
-
-.shadow-hover-colored-accent:hover {
-  box-shadow: var(--shadow-accent-lg);
-}
-
-.shadow-hover-glow-primary:hover {
-  box-shadow: var(--shadow-glow-primary-lg);
-}
-
-/* ========================================
-   INTERACTIVE UTILITIES
-   ======================================== */
-
-.hover-lift {
-  transition: box-shadow 0.15s ease-out;
-}
-
-.hover-lift:hover {
-  /* Removed transform - reduced motion */
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
-
-.hover-lift-sm {
-  transition: box-shadow 0.15s ease-out;
-}
-
-.hover-lift-sm:hover {
-  /* Removed transform - reduced motion */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.hover-lift-smooth {
-  transition: box-shadow 0.15s ease-out;
-}
-
-.hover-lift-smooth:hover {
-  /* Removed transform - reduced motion */
-  box-shadow: var(--shadow-2xl);
-}
-
-.transition-smooth {
-  transition: color, background-color, border-color, opacity 0.15s ease-out;
-  /* Removed 'all' and transform - reduced motion */
-}
-
-.transition-fast {
-  transition: color, background-color, border-color, opacity 0.1s ease-out;
-  /* Removed 'all' and transform - reduced motion */
-}
-
-/* ========================================
-   LAYOUT UTILITIES
-   ======================================== */
-
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+  .grid-auto-fill {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-gap-normal);
+    align-items: start;
+  }
+  
+  .flex-center { display: flex; align-items: center; justify-content: center; }
+  .flex-between { display: flex; align-items: center; justify-content: space-between; }
+  .flex-start { display: flex; align-items: center; justify-content: flex-start; }
+  .flex-end { display: flex; align-items: center; justify-content: flex-end; }
+  
+  /* =============================
+     ✍️ TYPOGRAPHY UTILITIES
+     ============================= */
+  .display-xl, .display-lg, .display-md,
+  .heading-1, .heading-2, .heading-3,
+  .heading-4, .heading-5, .heading-6 {
+    text-wrap: balance;
+    font-family: var(--font-heading);
+    color: var(--color-text);
+  }
+  
+  .display-xl { font-size: var(--text-display-lg); font-weight: var(--font-black); }
+  .display-lg { font-size: var(--text-display-md); font-weight: var(--font-extrabold); }
+  .display-md { font-size: var(--text-display-sm); font-weight: var(--font-bold); }
+  
+  .heading-1 { font-size: var(--text-5xl); font-weight: var(--font-bold); }
+  .heading-2 { font-size: var(--text-4xl); font-weight: var(--font-bold); }
+  .heading-3 { font-size: var(--text-3xl); font-weight: var(--font-semibold); }
+  .heading-4 { font-size: var(--text-2xl); font-weight: var(--font-semibold); }
+  .heading-5 { font-size: var(--text-xl); font-weight: var(--font-semibold); }
+  .heading-6 { font-size: var(--text-lg); font-weight: var(--font-medium); }
+  
+  .body-text, .body-text-lg, .body-text-base, .body-text-sm, .body-text-xs {
+    font-family: var(--font-body);
+    line-height: var(--line-height-relaxed);
+  }
+  .body-text { font-size: var(--text-lg); }
+  .body-text-base { font-size: var(--text-base); }
+  .body-text-sm { font-size: var(--text-sm); }
+  .body-text-xs { font-size: var(--text-xs); }
+  
+  .button-text { font-family: var(--font-button); font-weight: var(--font-semibold); text-transform: uppercase; }
+  .label-text { font-size: var(--text-sm); font-weight: var(--font-bold); letter-spacing: var(--letter-spacing-wide); }
+  
+  .line-clamp-1, .line-clamp-2, .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-1 { -webkit-line-clamp: 1; }
+  .line-clamp-2 { -webkit-line-clamp: 2; }
+  .line-clamp-3 { -webkit-line-clamp: 3; }
+  
+  /* =============================
+     🎨 COLOR UTILITIES
+     ============================= */
+  .text-primary { color: var(--color-primary); }
+  .text-accent { color: var(--color-accent); }
+  .bg-primary { background-color: var(--color-primary); color: #fff; }
+  .bg-accent { background-color: var(--color-accent); color: #fff; }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* =============================
+     🌈 SHADOWS & INTERACTIONS
+     ============================= */
+  .shadow-soft { box-shadow: var(--shadow-elevation-1); }
+  .shadow-md { box-shadow: var(--shadow-elevation-2); }
+  .shadow-lg { box-shadow: var(--shadow-elevation-3); }
+  .shadow-hover-elevate { transition: box-shadow var(--duration-normal) var(--ease-out); }
+  .shadow-hover-elevate:hover { box-shadow: var(--shadow-elevation-4); }
+  
+  .hover-lift { transition: box-shadow 0.2s ease-out; }
+  .hover-lift:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); }
+  
+  .transition-smooth { transition: all 0.2s ease-in-out; }
+  
+  /* =============================
+     🧱 LAYOUT & ACCESSIBILITY
+     ============================= */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }

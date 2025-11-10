@@ -29,6 +29,7 @@ import Link from 'next/link';
 import ContentProtection from '@/components/security/ContentProtection';
 import { buttonVariants } from '@/lib/variants';
 import { cn } from '@/lib/utils';
+import PageBackground from '@/components/ui/PageBackground';
 
 const FinancialManagementPage = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -242,7 +243,7 @@ const FinancialManagementPage = () => {
 
   return (
     <ContentProtection>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12">
+      <PageBackground variant="courses">
         <div className="container mx-auto max-w-7xl px-8">
           {/* رأس الصفحة */}
           <motion.div
@@ -502,7 +503,7 @@ const FinancialManagementPage = () => {
             </div>
           </motion.div>
         </div>
-      </div>
+      </PageBackground>
     </ContentProtection>
   );
 };
