@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import {
   X,
-  Menu,
   ChevronLeft,
   ChevronRight,
   Clock,
@@ -15,8 +14,8 @@ import {
 } from 'lucide-react';
 import LessonSidebar from './LessonSidebar';
 import { ResponsiveVideoPlayer } from '@/components/ui/ResponsiveVideoPlayer';
-import PlayerTabs from './PlayerTabs';
 import ProgressBar from './ProgressBar';
+import SidebarToggleButton from '@/components/ui/SidebarToggleButton';
 
 interface Lesson {
   id: string;
@@ -123,25 +122,7 @@ export default function PlayerShell({
     totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
 
   return (
-    <div className="flex h-screen w-screen fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900 overflow-hidden z-50">
-      {/* Sidebar */}
-      <motion.div
-        initial={false}
-        animate={{ width: sidebarOpen ? 250 : 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="overflow-hidden backdrop-blur-xl bg-white/70 border-r border-white/40 shadow-lg"
-      >
-        {sidebarOpen && (
-          <LessonSidebar
-            modules={modules}
-            currentLessonId={currentLessonId}
-            overallProgress={overallProgress}
-            onLessonClick={onLessonChange}
-            onClose={() => setSidebarOpen(false)}
-          />
-        )}
-      </motion.div>
-
+    <div className="flex h-screen w-screen fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900 overflow-hidden z-50" dir="rtl">
       {/* Main */}
       <div className="flex-1 flex flex-col backdrop-blur-xl bg-white/60 shadow-inner">
         {/* Header */}
@@ -156,14 +137,12 @@ export default function PlayerShell({
               <ArrowRight className="w-4 h-4 text-blue-700" />
             </motion.button>
             {!sidebarOpen && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <SidebarToggleButton
+                isOpen={sidebarOpen}
                 onClick={() => setSidebarOpen(true)}
-                className="p-2 hover:bg-blue-100 rounded-lg"
-              >
-                <Menu className="w-4 h-4 text-blue-700" />
-              </motion.button>
+                variant="inline"
+                className="!p-2"
+              />
             )}
             <div className="flex-1 min-w-0">
               <h1 className="text-xs font-bold text-gray-800 truncate">
@@ -234,29 +213,23 @@ export default function PlayerShell({
               </div>
             )}
 
-            <div className="flex-1 flex flex-col lg:flex-row">
-              <div className="flex-1 overflow-y-auto p-6">
-                {currentLesson.description && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                  >
-                    <div className="bg-white/70 backdrop-blur-md border border-white/40 rounded-xl p-5 shadow-sm">
-                      <h3 className="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-blue-600" /> نظرة
-                        عامة
-                      </h3>
-                      <p className="text-xs text-gray-700 leading-relaxed">
-                        {currentLesson.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                )}
-              </div>
-
-              <div className="w-full lg:w-72 border-t lg:border-l border-white/40 bg-white/60 backdrop-blur-md">
-                <PlayerTabs lesson={currentLesson} />
-              </div>
+            <div className="flex-1 overflow-y-auto p-6">
+              {currentLesson.description && (
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  <div className="bg-white/70 backdrop-blur-md border border-white/40 rounded-xl p-5 shadow-sm">
+                    <h3 className="text-sm font-bold text-gray-800 mb-3 flex items-center gap-2">
+                      <BookOpen className="w-4 h-4 text-blue-600" /> نظرة
+                      عامة
+                    </h3>
+                    <p className="text-xs text-gray-700 leading-relaxed">
+                      {currentLesson.description}
+                    </p>
+                  </div>
+                </motion.div>
+              )}
             </div>
           </div>
         ) : (
@@ -280,6 +253,25 @@ export default function PlayerShell({
           </div>
         )}
       </div>
+
+      {/* Sidebar - Right Side */}
+      <motion.div
+        initial={false}
+        animate={{ width: sidebarOpen ? 320 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeInOut' }}
+        className="overflow-hidden backdrop-blur-xl bg-white/70 border-l border-white/40 shadow-lg"
+        dir="rtl"
+      >
+        {sidebarOpen && (
+          <LessonSidebar
+            modules={modules}
+            currentLessonId={currentLessonId}
+            overallProgress={overallProgress}
+            onLessonClick={onLessonChange}
+            onClose={() => setSidebarOpen(false)}
+          />
+        )}
+      </motion.div>
     </div>
   );
 }

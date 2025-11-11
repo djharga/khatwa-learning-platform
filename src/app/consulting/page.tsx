@@ -17,7 +17,7 @@ const ConsultingPage = () => {
           <h1 className="heading-1 text-primary mb-4">
             استشارات فردية (1:1 Consulting)
           </h1>
-          <p className="body-text text-text-secondary max-w-3xl mx-auto text-lg">
+          <p className="body-text text-text-secondary max-w-3xl mx-auto text-base">
             احصل على استشارة شخصية مع خبراء في المراجعة الداخلية والمحاسبة
             لتطوير مهاراتك وتحقيق أهدافك المهنية.
           </p>

@@ -4,7 +4,8 @@
 
 import type { CourseSchedule, CourseManagement } from '@/types/course-management';
 
-const API_BASE = '/api/admin/courses/schedule';
+const API_PREFIX = '/api';
+const API_BASE = `${API_PREFIX}/admin/courses/schedule`;
 
 export class CourseSchedulerService {
   /**

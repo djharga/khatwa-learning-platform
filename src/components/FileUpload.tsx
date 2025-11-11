@@ -1,313 +1,222 @@
-/**
- * Secure File Upload Component
- * مكون آمن لرفع الملفات مع validation
- */
-
 'use client';
 
-import { useState, useRef } from 'react';
-import { Upload, X, AlertCircle, CheckCircle } from 'lucide-react';
-import { validateFile, validateFiles, type FileValidationResult } from '@/lib/security/file-validator';
-import { sanitizeFilename } from '@/lib/security/sanitize';
+/**
+ * FileUpload Component
+ * مكون رفع الملفات مع تتبع التقدم
+ */
+
+import React, { useState, useCallback, useRef } from 'react';
+import { Upload, X, CheckCircle, AlertCircle } from 'lucide-react';
 import { api } from '@/lib/api/client';
-import { handleApiError, getErrorMessage } from '@/lib/error-handler';
-import { showToast } from '@/utils/toast';
+import { FileUploadResponse } from '@/lib/apiTypes';
 
 interface FileUploadProps {
-  /** API endpoint للرفع */
-  uploadUrl: string;
-  /** معرف المستخدم */
-  userId: string;
-  /** معرف المجلد (اختياري) */
-  folderId?: string;
-  /** أنواع الملفات المسموحة */
-  allowedTypes?: ('image' | 'document' | 'video' | 'audio')[];
-  /** الحد الأقصى لحجم الملف (بالبايت) */
-  maxSize?: number;
-  /** الحد الأقصى لعدد الملفات */
-  maxFiles?: number;
-  /** Callback عند نجاح الرفع */
-  onUploadSuccess?: (files: any[]) => void;
-  /** Callback عند فشل الرفع */
-  onUploadError?: (error: string) => void;
-  /** عرض تقدم الرفع */
-  showProgress?: boolean;
-  /** نص الزر */
-  buttonText?: string;
-  /** السماح برفع عدة ملفات */
-  multiple?: boolean;
+  onUploadComplete?: (file: FileUploadResponse) => void;
+  onUploadError?: (error: Error) => void;
+  accept?: string;
+  maxSize?: number; // بالبايت
+  className?: string;
 }
 
 export default function FileUpload({
-  uploadUrl,
-  userId,
-  folderId,
-  allowedTypes,
-  maxSize,
-  maxFiles = 1,
-  onUploadSuccess,
+  onUploadComplete,
   onUploadError,
-  showProgress = true,
-  buttonText = 'رفع ملف',
-  multiple = false,
+  accept = '*/*',
+  maxSize = 10 * 1024 * 1024, // 10MB افتراضي
+  className = '',
 }: FileUploadProps) {
-  const [files, setFiles] = useState<File[]>([]);
-  const [validationResults, setValidationResults] = useState<FileValidationResult[]>([]);
-  const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
+  const [progress, setProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
-  const [errors, setErrors] = useState<string[]>([]);
+  const [uploadedFile, setUploadedFile] = useState<FileUploadResponse | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  /**
-   * معالجة اختيار الملفات
-   */
-  const handleFileSelect = (selectedFiles: FileList | null) => {
-    if (!selectedFiles || selectedFiles.length === 0) return;
-
-    const fileArray = Array.from(selectedFiles);
-    setErrors([]);
-
-    // التحقق من عدد الملفات
-    if (fileArray.length > maxFiles) {
-      setErrors([`يمكنك رفع ${maxFiles} ملف فقط`]);
-      return;
+  const validateFile = (file: File): string | null => {
+    if (file.size > maxSize) {
+      return `حجم الملف كبير جداً. الحد الأقصى: ${(maxSize / 1024 / 1024).toFixed(2)} MB`;
     }
-
-    // التحقق من كل ملف
-    const validation = validateFiles(fileArray, {
-      allowedTypes,
-      maxSize,
-      maxFiles,
-    });
-
-    if (!validation.valid) {
-      setErrors(validation.errors);
-      showToast.error('بعض الملفات غير صالحة');
-      return;
-    }
-
-    setFiles(fileArray);
-    setValidationResults(validation.results);
+    return null;
   };
 
-  /**
-   * رفع الملفات
-   */
-  const handleUpload = async () => {
-    if (files.length === 0) {
-      setErrors(['يرجى اختيار ملف أولاً']);
-      return;
-    }
+  const handleFileSelect = useCallback(
+    async (file: File) => {
+      const validationError = validateFile(file);
+      if (validationError) {
+        setError(validationError);
+        return;
+      }
 
-    setIsUploading(true);
-    setErrors([]);
-    const uploadedFiles: any[] = [];
-    const uploadErrors: string[] = [];
+      setError(null);
+      setProgress(0);
+      setIsUploading(true);
+      setUploadedFile(null);
 
-    try {
-      for (const file of files) {
-        const validation = validationResults.find((r) => r.sanitizedFilename === sanitizeFilename(file.name));
-        
-        if (!validation || !validation.valid) {
-          uploadErrors.push(`${file.name}: ملف غير صالح`);
-          continue;
-        }
-
-        // إنشاء FormData
+      try {
         const formData = new FormData();
         formData.append('file', file);
-        formData.append('userId', userId);
-        if (folderId) formData.append('folderId', folderId);
 
-        try {
-          // رفع الملف مع تتبع التقدم
-          const response = await api.upload(
-            uploadUrl,
-            formData,
-            (progress) => {
-              setUploadProgress((prev) => ({
-                ...prev,
-                [file.name]: progress,
-              }));
-            }
-          );
+        const response = await api.upload<{ data: FileUploadResponse }>(
+          '/api/files/upload',
+          formData,
+          (progressPercent) => {
+            setProgress(progressPercent);
+          }
+        );
 
-          uploadedFiles.push(response.data);
-        } catch (error) {
-          const errorMessage = getErrorMessage(error);
-          uploadErrors.push(`${file.name}: ${errorMessage}`);
+        if (response.data?.data) {
+          setUploadedFile(response.data.data);
+          onUploadComplete?.(response.data.data);
+        } else {
+          throw new Error('لم يتم استلام بيانات الملف');
         }
+      } catch (err) {
+        const error = err instanceof Error ? err : new Error('حدث خطأ أثناء رفع الملف');
+        setError(error.message);
+        onUploadError?.(error);
+      } finally {
+        setIsUploading(false);
       }
+    },
+    [maxSize, onUploadComplete, onUploadError]
+  );
 
-      if (uploadedFiles.length > 0) {
-        showToast.success(`تم رفع ${uploadedFiles.length} ملف بنجاح`);
-        onUploadSuccess?.(uploadedFiles);
-        // مسح الملفات بعد الرفع الناجح
-        setFiles([]);
-        setValidationResults([]);
-        setUploadProgress({});
-        if (fileInputRef.current) {
-          fileInputRef.current.value = '';
-        }
+  const onDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (file) {
+        handleFileSelect(file);
       }
+    },
+    [handleFileSelect]
+  );
 
-      if (uploadErrors.length > 0) {
-        setErrors(uploadErrors);
-        onUploadError?.(uploadErrors.join(', '));
+  const onDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+  }, []);
+
+  const onFileInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        handleFileSelect(file);
       }
-    } catch (error) {
-      const errorMessage = getErrorMessage(error);
-      setErrors([errorMessage]);
-      onUploadError?.(errorMessage);
-      showToast.error(errorMessage);
-    } finally {
-      setIsUploading(false);
-    }
-  };
+    },
+    [handleFileSelect]
+  );
 
-  /**
-   * إزالة ملف من القائمة
-   */
-  const handleRemoveFile = (index: number) => {
-    setFiles((prev) => prev.filter((_, i) => i !== index));
-    setValidationResults((prev) => prev.filter((_, i) => i !== index));
-    setUploadProgress((prev) => {
-      const newProgress = { ...prev };
-      delete newProgress[files[index].name];
-      return newProgress;
-    });
-  };
-
-  /**
-   * مسح جميع الملفات
-   */
-  const handleClear = () => {
-    setFiles([]);
-    setValidationResults([]);
-    setUploadProgress({});
-    setErrors([]);
+  const reset = useCallback(() => {
+    setProgress(0);
+    setIsUploading(false);
+    setUploadedFile(null);
+    setError(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-  };
+  }, []);
 
   return (
-    <div className="space-y-4">
-      {/* File Input */}
-      <div>
-        <input
-          ref={fileInputRef}
-          type="file"
-          multiple={multiple}
-          onChange={(e) => handleFileSelect(e.target.files)}
-          className="hidden"
-          id="file-upload-input"
-          accept={allowedTypes?.map((type) => {
-            if (type === 'image') return 'image/*';
-            if (type === 'document') return '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt';
-            if (type === 'video') return 'video/*';
-            if (type === 'audio') return 'audio/*';
-            return '*';
-          }).join(',')}
-        />
-        <label
-          htmlFor="file-upload-input"
-          className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <Upload className="w-5 h-5" />
-          <span>{buttonText}</span>
-        </label>
-      </div>
-
-      {/* Selected Files */}
-      {files.length > 0 && (
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <h4 className="font-medium">الملفات المحددة ({files.length})</h4>
-            <button
-              onClick={handleClear}
-              className="text-sm text-red-600 hover:text-red-700"
-              disabled={isUploading}
-            >
-              مسح الكل
-            </button>
-          </div>
-
-          {files.map((file, index) => {
-            const validation = validationResults[index];
-            const progress = uploadProgress[file.name] || 0;
-            const isValid = validation?.valid;
-
-            return (
-              <div
-                key={index}
-                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
-              >
-                <div className="flex items-center gap-3 flex-1">
-                  {isValid ? (
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                  ) : (
-                    <AlertCircle className="w-5 h-5 text-red-500" />
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{file.name}</p>
-                    <p className="text-xs text-gray-500">
-                      {(file.size / 1024 / 1024).toFixed(2)} MB
-                    </p>
-                    {showProgress && progress > 0 && progress < 100 && (
-                      <div className="mt-1 w-full bg-gray-200 rounded-full h-1.5">
-                        <div
-                          className="bg-blue-600 h-1.5 rounded-full transition-all"
-                          style={{ width: `${progress}%` }}
-                        />
-                      </div>
-                    )}
-                    {validation?.error && (
-                      <p className="text-xs text-red-500 mt-1">{validation.error}</p>
-                    )}
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleRemoveFile(index)}
-                  className="p-1 text-gray-400 hover:text-red-500 transition-colors"
-                  disabled={isUploading}
-                >
-                  <X className="w-4 h-4" />
-                </button>
+    <div className={`file-upload-container ${className}`}>
+      <div
+        onDragOver={onDragOver}
+        onDrop={onDrop}
+        className={`
+          relative border-2 border-dashed rounded-lg p-8 text-center
+          transition-all duration-200
+          ${
+            isUploading
+              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+              : uploadedFile
+              ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
+              : error
+              ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
+              : 'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50 hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/10'
+          }
+        `}
+      >
+        {isUploading ? (
+          <div className="space-y-4">
+            <Upload className="mx-auto h-12 w-12 text-blue-500 animate-pulse" />
+            <div>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                جاري الرفع...
+              </p>
+              <div className="mt-2 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div
+                  className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
-            );
-          })}
-        </div>
-      )}
-
-      {/* Errors */}
-      {errors.length > 0 && (
-        <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-          <div className="flex items-start gap-2">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <h4 className="font-medium text-red-800 dark:text-red-200 mb-1">أخطاء:</h4>
-              <ul className="list-disc list-inside text-sm text-red-600 dark:text-red-400 space-y-1">
-                {errors.map((error, index) => (
-                  <li key={index}>{error}</li>
-                ))}
-              </ul>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {progress}%
+              </p>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Upload Button */}
-      {files.length > 0 && (
-        <button
-          onClick={handleUpload}
-          disabled={isUploading || validationResults.some((r) => !r.valid)}
-          className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isUploading ? 'جاري الرفع...' : 'رفع الملفات'}
-        </button>
-      )}
+        ) : uploadedFile ? (
+          <div className="space-y-4">
+            <CheckCircle className="mx-auto h-12 w-12 text-green-500" />
+            <div>
+              <p className="text-sm font-medium text-green-700 dark:text-green-300">
+                تم الرفع بنجاح!
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                {uploadedFile.filename}
+              </p>
+            </div>
+            <button
+              onClick={reset}
+              className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            >
+              رفع ملف آخر
+            </button>
+          </div>
+        ) : error ? (
+          <div className="space-y-4">
+            <AlertCircle className="mx-auto h-12 w-12 text-red-500" />
+            <div>
+              <p className="text-sm font-medium text-red-700 dark:text-red-300">
+                خطأ في الرفع
+              </p>
+              <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                {error}
+              </p>
+            </div>
+            <button
+              onClick={reset}
+              className="text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400"
+            >
+              المحاولة مرة أخرى
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <Upload className="mx-auto h-12 w-12 text-gray-400" />
+            <div>
+              <p className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                اسحب الملف هنا أو اضغط للرفع
+              </p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                الحد الأقصى: {(maxSize / 1024 / 1024).toFixed(2)} MB
+              </p>
+            </div>
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept={accept}
+              onChange={onFileInputChange}
+              className="hidden"
+              id="file-upload-input"
+            />
+            <label
+              htmlFor="file-upload-input"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer transition-colors"
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              اختر ملف
+            </label>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
-

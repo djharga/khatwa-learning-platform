@@ -5,6 +5,7 @@ import { Search, BookOpen, GraduationCap, Brain, Shield } from 'lucide-react';
 import Icon from '@/components/ui/icons/IconSystem';
 import { Container } from '@/components/ui/primitives';
 import Image from 'next/image';
+import { ROUTES } from '@/lib/routes';
 
 /**
  * Creative Hero Section - تصميم إبداعي مبتكر محسّن للأداء
@@ -41,30 +42,12 @@ const CreativeHeroSection = () => {
           }}
         />
 
-        {/* Light Overlay Layers - minimal overlays for text readability only (no watermark to hide) */}
-        {/* Subtle dark overlay for text contrast */}
+        {/* Light Overlay Layers - Clear transparency for better text readability */}
+        {/* Dark overlay with clear transparency */}
         <div 
           className="absolute inset-0 rounded-[3rem]"
           style={{
-            background: `linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.18) 100%)`,
-            transform: 'translateZ(0)',
-          }}
-        />
-        
-        {/* Very subtle vertical gradient for better text readability */}
-        <div 
-          className="absolute inset-0 rounded-[3rem]"
-          style={{
-            background: `linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.08) 70%, rgba(0,0,0,0.12) 100%)`,
-            transform: 'translateZ(0)',
-          }}
-        />
-        
-        {/* Minimal color overlay for brand consistency */}
-        <div 
-          className="absolute inset-0 rounded-[3rem]"
-          style={{
-            background: `linear-gradient(135deg, rgba(30,58,138,0.05) 0%, rgba(67,56,202,0.03) 50%, rgba(30,58,138,0.05) 100%)`,
+            background: `linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.5) 100%)`,
             transform: 'translateZ(0)',
           }}
         />
@@ -79,86 +62,153 @@ const CreativeHeroSection = () => {
           {/* Main Content */}
           <div className="space-y-10 text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full hover:bg-white/15 transition-colors">               
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full hover:bg-white/15 transition-colors">               
               <Icon name="learning" size="md" className="text-blue-400" />
-              <span className="text-white font-semibold text-sm">
+              <span className="font-semibold text-xs" style={{ 
+                fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                color: '#FFFFFF',
+                textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                fontWeight: 600,
+                letterSpacing: '0.01em'
+              }}>
                 منصة التعلم المهني الرائدة في الشرق الأوسط
               </span>
             </div>
 
             {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.1] drop-shadow-2xl" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.6)' }}>                                   
-                <span className="block mb-3 font-black text-white">
-                  احترف
+            <div className="space-y-5">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.15] tracking-tight" style={{ 
+                fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                color: '#FFFFFF',
+                textShadow: '0 4px 24px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.8), 0 0 4px rgba(0,0,0,0.6)',
+                fontWeight: 800,
+                letterSpacing: '0'
+              }}>                                   
+                <span className="block mb-2" style={{ 
+                  color: '#FFFFFF',
+                  fontWeight: 900,
+                  textShadow: '0 4px 24px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif'
+                }}>
+                  خطى للتدريب والاستشارات
                 </span>
-                <span className="block bg-clip-text text-transparent bg-gradient-to-r from-blue-200 via-indigo-100 to-purple-200 font-black" style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}>             
-                  المراجعة الداخلية والمحاسبة
+                <span className="block text-2xl md:text-3xl lg:text-4xl" style={{ 
+                  color: '#F8FAFC',
+                  fontWeight: 900,
+                  textShadow: '0 3px 18px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.75), 0 0 2px rgba(255,255,255,0.3)',
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif'
+                }}>             
+                  احترف المراجعة الداخلية والمحاسبة
                 </span>
-                <span className="block mt-2 text-4xl md:text-5xl lg:text-6xl font-bold text-white" style={{ textShadow: '0 3px 15px rgba(0,0,0,0.7)' }}>
+                <span className="block mt-2 text-2xl md:text-3xl lg:text-4xl" style={{ 
+                  color: '#FFFFFF',
+                  fontWeight: 700,
+                  textShadow: '0 3px 18px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.7)',
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif'
+                }}>
                   مع شهادات معتمدة دولياً
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed max-w-4xl mx-auto font-medium drop-shadow-lg" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.6)' }}>       
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed max-w-4xl mx-auto" style={{ 
+                fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                color: '#F1F5F9',
+                textShadow: '0 2px 12px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.6)',
+                fontWeight: 500,
+                letterSpacing: '0',
+                lineHeight: '1.8'
+              }}>       
                 منصة تعليمية متكاملة تجمع بين المحتوى الأكاديمي والتطبيق العملي. انضم إلى آلاف المحترفين الذين حققوا النجاح في مسيرتهم المهنية من خلال برامج تدريبية شاملة وشهادات معتمدة من أبرز المؤسسات الدولية.
               </p>
             </div>
 
             {/* Site Features */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-10">
-              <Link href="/courses" className="group px-5 py-6 bg-blue-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-blue-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
+              <Link href={ROUTES.COURSES} className="group px-5 py-6 bg-blue-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-blue-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
                 <BookOpen className="w-8 h-8 text-blue-300 mb-3 flex-shrink-0" />
-                <div className="text-base md:text-lg text-white/95 font-bold mb-1">
+                <div className="text-base md:text-lg font-bold mb-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#FFFFFF',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  fontWeight: 700,
+                  letterSpacing: '0'
+                }}>
                   كورسات متخصصة
                 </div>
-                <div className="text-xs text-white/80 text-center px-1">
+                <div className="text-xs text-center px-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#E2E8F0',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  fontWeight: 400,
+                  lineHeight: '1.5'
+                }}>
                   برامج تدريبية شاملة في المراجعة الداخلية والمحاسبة
                 </div>
               </Link>
               
-              <Link href="/cia" className="group px-5 py-6 bg-purple-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-purple-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
+              <Link href={ROUTES.CIA} className="group px-5 py-6 bg-purple-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-purple-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
                 <GraduationCap className="w-8 h-8 text-purple-300 mb-3 flex-shrink-0" />
-                <div className="text-base md:text-lg text-white/95 font-bold mb-1">
-                  شهادة CIA
+                <div className="text-base md:text-lg font-bold mb-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#FFFFFF',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  fontWeight: 700,
+                  letterSpacing: '0'
+                }}>
+                  زمالة CIA
                 </div>
-                <div className="text-xs text-white/80 text-center px-1">
+                <div className="text-xs text-center px-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#E2E8F0',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  fontWeight: 400,
+                  lineHeight: '1.5'
+                }}>
                   برنامج زمالة معتمد دولياً من IIA
                 </div>
               </Link>
               
-              <Link href="/ai-tools" className="group px-5 py-6 bg-emerald-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-emerald-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
+              <Link href={ROUTES.AI_TOOLS} className="group px-5 py-6 bg-emerald-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-emerald-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
                 <Brain className="w-8 h-8 text-emerald-300 mb-3 flex-shrink-0" />
-                <div className="text-base md:text-lg text-white/95 font-bold mb-1">
+                <div className="text-base md:text-lg font-bold mb-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#FFFFFF',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  fontWeight: 700,
+                  letterSpacing: '0'
+                }}>
                   ذكاء اصطناعي
                 </div>
-                <div className="text-xs text-white/80 text-center px-1">
+                <div className="text-xs text-center px-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#E2E8F0',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  fontWeight: 400,
+                  lineHeight: '1.5'
+                }}>
                   مساعد ذكي لتطوير مهاراتك وتحليل أدائك
                 </div>
               </Link>
               
-              <Link href="/courses?category=المراجعة الداخلية" className="group px-5 py-6 bg-amber-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-amber-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
+              <Link href={ROUTES.INTERNAL_AUDIT} className="group px-5 py-6 bg-amber-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-amber-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
                 <Shield className="w-8 h-8 text-amber-300 mb-3 flex-shrink-0" />
-                <div className="text-base md:text-lg text-white/95 font-bold mb-1">
+                <div className="text-base md:text-lg font-bold mb-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#FFFFFF',
+                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  fontWeight: 700,
+                  letterSpacing: '0'
+                }}>
                   المراجعة الداخلية
                 </div>
-                <div className="text-xs text-white/80 text-center px-1">
+                <div className="text-xs text-center px-1" style={{ 
+                  fontFamily: '"Lemonada", "Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
+                  color: '#E2E8F0',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  fontWeight: 400,
+                  lineHeight: '1.5'
+                }}>
                   دورات متخصصة في المراجعة الداخلية والمحاسبة
-                </div>
-              </Link>
-            </div>
-
-
-            {/* Search Bar */}
-            <div className="mt-8">
-              <Link href="/courses">
-                <div className="relative w-full max-w-lg mx-auto">
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 z-10">
-                    <Search className="w-5 h-5 text-white/70" />                                                       
-                  </div>
-                  <div className="w-full px-6 pr-14 py-4 bg-white/10 backdrop-blur-sm border border-white/30 rounded-2xl text-white/95 placeholder-white/60 hover:bg-white/15 transition-colors cursor-pointer font-medium text-base">    
-                    ابحث عن دورة تدريبية...
-                  </div>
                 </div>
               </Link>
             </div>

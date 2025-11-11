@@ -5,9 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { PlayerShell } from '@/components/learning-player';
 import { learningAnalytics } from '@/lib/analytics';
-import { RTLCard } from '@/components/ui/RTLCard';
-import { RTLNavbar } from '@/components/ui/RTLNavbar';
-import { RTLVideoPlayerSimple } from '@/components/ui/RTLVideoPlayerSimple';
+import { getCourseById } from '@/data/courses/all-courses';
 
 // Helper function to parse lesson ID (handles both "1-0" format and direct IDs)
 function parseLessonId(lessonId: string): { moduleIndex: number; lessonIndex: number } | null {
@@ -115,6 +113,43 @@ export default function LessonPage() {
           }
         } catch (apiError) {
           console.warn('API fetch failed, using fallback data:', apiError);
+        }
+        
+        // Try to get course data from local courses.json file
+        try {
+          const courseIdNum = parseInt(courseId || '0', 10);
+          if (courseIdNum > 0) {
+            const localCourse = getCourseById(courseIdNum);
+            if (localCourse && localCourse.modules) {
+              // Convert course modules to the format expected by PlayerShell
+              const formattedModules = localCourse.modules.map((module, moduleIndex) => ({
+                id: module.id.toString(),
+                title: module.title,
+                lessons: module.lessons.map((lesson, lessonIndex) => {
+                  const lessonTitle = typeof lesson === 'string' ? lesson : (lesson as { title: string }).title;
+                  const lessonId = `${module.id}-${lessonIndex}`;
+                  return {
+                    id: lessonId,
+                    title: lessonTitle,
+                    duration: typeof lesson === 'string' ? '15 دقيقة' : ((lesson as { duration?: string }).duration || '15 دقيقة'),
+                    type: 'video' as const,
+                    completed: false,
+                    progress: 0,
+                  };
+                }),
+              }));
+              
+              setCourseData({
+                id: localCourse.id.toString(),
+                title: localCourse.title,
+                modules: formattedModules,
+              });
+              setLoading(false);
+              return;
+            }
+          }
+        } catch (localError) {
+          console.warn('Failed to load from local courses data:', localError);
         }
         
         // Fallback to mock data that matches the structure from coursesData
@@ -556,88 +591,14 @@ export default function LessonPage() {
   }
 
   return (
-    <div className="min-h-screen overflow-x-hidden" dir="rtl">
-      {/* Example RTL Navbar - مثال على شريط التنقل */}
-      <RTLNavbar
-        logo={<span className="text-xl font-bold text-primary-600">خطى</span>}
-        items={[
-          { label: 'الرئيسية', href: '/' },
-          { label: 'الدورات', href: '/student/courses' },
-          { label: 'التقارير', href: '/student/reports' },
-        ]}
-        rightContent={
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors border border-primary-400/50 dark:border-primary-300/50 hover:border-primary-300 dark:hover:border-primary-200 ring-1 ring-primary-500/20 hover:ring-primary-400/40">
-            الملف الشخصي
-          </button>
-        }
-      />
-
-      {/* Example RTL Video Player - مثال على مشغل الفيديو */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">
-            مثال على مشغل الفيديو RTL
-          </h2>
-          <RTLVideoPlayerSimple
-            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-            title="مثال على فيديو متوافق مع RTL"
-            autoplay={false}
-            controls={true}
-            size="default"
-            onPlay={() => console.log('تم التشغيل')}
-            onPause={() => console.log('تم الإيقاف')}
-            onEnded={() => console.log('اكتمل الفيديو')}
-          />
-        </div>
-
-        {/* Example RTL Cards Section - مثال على البطاقات */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          <RTLCard
-            title="بطاقة RTL مثال 1"
-            description="هذه بطاقة متوافقة مع RTL تستخدم logical properties"
-            variant="default"
-          >
-            <p className="text-sm">
-              هذا مثال على بطاقة تستخدم خصائص منطقية (logical properties) 
-              مثل padding-inline-start و padding-inline-end بدلاً من padding-left و padding-right.
-            </p>
-          </RTLCard>
-
-          <RTLCard
-            title="بطاقة RTL مثال 2"
-            description="بطاقة مرتفعة مع ظل"
-            variant="elevated"
-          >
-            <p className="text-sm">
-              هذه البطاقة تستخدم تأثيرات Framer Motion معزولة 
-              لتجنب كسر تخطيط flex/grid أثناء الحركة.
-            </p>
-          </RTLCard>
-
-          <RTLCard
-            title="بطاقة RTL مثال 3"
-            description="بطاقة بإطار محدد"
-            variant="outlined"
-            onClick={() => alert('تم النقر على البطاقة!')}
-          >
-            <p className="text-sm">
-              هذه البطاقة قابلة للنقر وتستخدم logical properties 
-              لضمان التوافق الكامل مع RTL.
-            </p>
-          </RTLCard>
-        </div>
-      </div>
-
-      {/* Main Lesson Player */}
-      <PlayerShell
-        courseId={courseId || ''}
-        courseTitle={courseData.title || 'دورة بدون عنوان'}
-        modules={safeModules}
-        currentLessonId={normalizedLessonId || ''}
-        onLessonChange={handleLessonChange}
-        onComplete={handleComplete}
-      />
-    </div>
+    <PlayerShell
+      courseId={courseId || ''}
+      courseTitle={courseData.title || 'دورة بدون عنوان'}
+      modules={safeModules}
+      currentLessonId={normalizedLessonId || ''}
+      onLessonChange={handleLessonChange}
+      onComplete={handleComplete}
+    />
   );
 }
 

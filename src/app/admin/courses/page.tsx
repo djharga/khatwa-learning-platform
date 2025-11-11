@@ -40,27 +40,7 @@ import {
   Save,
   X,
 } from 'lucide-react';
-
-interface Course {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  instructor: string;
-  type: 'short' | 'long'; // قصيرة أو طويلة المدى
-  status: 'active' | 'inactive' | 'review' | 'suspended';
-  enrolledStudents: number;
-  completedStudents: number;
-  startDate: string;
-  endDate: string;
-  createdAt: string;
-  lastModified: string;
-  modules: Module[];
-  storageUsed: number;
-  totalFiles: number;
-  isLocked: boolean;
-  tags: string[];
-}
+import { useAdminStore, type AdminCourse } from '@/lib/store/admin-store';
 
 interface Module {
   id: string;
@@ -101,143 +81,39 @@ const AdminCoursesPage = () => {
   const [typeFilter, setTypeFilter] = useState('all');
   const [showAddCourseModal, setShowAddCourseModal] = useState(false);
   const [showEditCourseModal, setShowEditCourseModal] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [selectedCourse, setSelectedCourse] = useState<AdminCourse | null>(null);
   const [showCourseDetails, setShowCourseDetails] = useState(false);
   const [showFileManager, setShowFileManager] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  // بيانات الدورات - يتم تحميلها من API
-  const [courses, setCourses] = useState<Course[]>([
-    {
-      id: '1',
-      title: 'دورة المراجعة الداخلية المستوى الأول',
-      description: 'أساسيات المراجعة الداخلية والمحاسبة',
-      image: '/courses/auditing-1.jpg',
-      instructor: 'د. أحمد محمد',
-      type: 'short',
-      status: 'active',
-      enrolledStudents: 127,
-      completedStudents: 89,
-      startDate: '2024-02-01',
-      endDate: '2024-02-15',
-      createdAt: '2024-01-15',
-      lastModified: '2024-01-20',
-      storageUsed: 2048, // 2GB
-      totalFiles: 45,
-      isLocked: false,
-      tags: ['مراجعة داخلية', 'أساسيات', 'محاسبة'],
-      modules: [
-        {
-          id: 'm1',
-          title: 'مقدمة في المراجعة الداخلية',
-          description: 'فهم أساسيات المراجعة الداخلية',
-          order: 1,
-          isLocked: false,
-          files: [
-            {
-              id: 'f1',
-              name: 'مقدمة_المراجعة_الداخلية.docx',
-              type: 'word',
-              size: 2048,
-              uploadedAt: '2024-01-15',
-              version: 1,
-              downloads: 89,
-              lastModified: '2024-01-15'
-            },
-            {
-              id: 'f2',
-              name: 'جدول_المراجعة.xlsx',
-              type: 'excel',
-              size: 512,
-              uploadedAt: '2024-01-15',
-              version: 2,
-              downloads: 67,
-              lastModified: '2024-01-18'
-            }
-          ],
-          videos: [
-            {
-              id: 'v1',
-              title: 'شرح المقدمة',
-              description: 'شرح مفصل لأساسيات المراجعة',
-              url: '/videos/module1-intro.mp4',
-              duration: 25,
-              uploadedAt: '2024-01-16',
-              views: 156
-            }
-          ]
-        }
-      ]
-    },
-    {
-      id: '2',
-      title: 'برنامج زمالة المراجعين الداخليين',
-      description: 'برنامج شامل للحصول على شهادة الزمالة',
-      image: '/courses/fellowship.jpg',
-      instructor: 'د. فاطمة علي',
-      type: 'long',
-      status: 'active',
-      enrolledStudents: 89,
-      completedStudents: 23,
-      startDate: '2024-01-01',
-      endDate: '2024-06-30',
-      createdAt: '2023-12-01',
-      lastModified: '2024-01-20',
-      storageUsed: 15360, // 15GB
-      totalFiles: 234,
-      isLocked: false,
-      tags: ['زمالة', 'متقدم', 'شهادة'],
-      modules: []
-    },
-    {
-      id: '3',
-      title: 'دورة الإدارة المالية المتقدمة',
-      description: 'تقنيات إدارة المالية والميزانيات',
-      image: '/courses/finance.jpg',
-      instructor: 'د. محمد حسن',
-      type: 'short',
-      status: 'review',
-      enrolledStudents: 45,
-      completedStudents: 0,
-      startDate: '2024-02-15',
-      endDate: '2024-03-01',
-      createdAt: '2024-01-20',
-      lastModified: '2024-01-20',
-      storageUsed: 1024, // 1GB
-      totalFiles: 23,
-      isLocked: true,
-      tags: ['مالية', 'ميزانيات', 'إدارة'],
-      modules: []
-    }
-  ]);
+  // استخدام الـ store مباشرة
+  const { courses, stats, addCourse, updateCourse, deleteCourse, initializeData } = useAdminStore();
 
-  // تحميل الدورات من API
+  // تهيئة البيانات عند تحميل الصفحة
   useEffect(() => {
-    loadCourses();
-  }, [statusFilter, typeFilter, searchTerm]);
+    initializeData();
+  }, [initializeData]);
 
-  const loadCourses = async () => {
-    try {
-      setLoading(true);
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (statusFilter !== 'all') params.append('status', statusFilter);
-      if (typeFilter !== 'all') params.append('type', typeFilter);
 
-      const response = await fetch(`/api/admin/courses?${params.toString()}`);
-      const result = await response.json();
-
-      if (result.success) {
-        setCourses(result.courses || []);
-      } else {
-        console.error('Error loading courses:', result.error);
-      }
-    } catch (error) {
-      console.error('Error loading courses:', error);
-    } finally {
-      setLoading(false);
+  // تحديث الفلاتر عند تغيير activeTab
+  useEffect(() => {
+    if (activeTab === 'all') {
+      setStatusFilter('all');
+      setTypeFilter('all');
+    } else if (activeTab === 'active') {
+      setStatusFilter('active');
+      setTypeFilter('all');
+    } else if (activeTab === 'review') {
+      setStatusFilter('review');
+      setTypeFilter('all');
+    } else if (activeTab === 'short') {
+      setStatusFilter('all');
+      setTypeFilter('short');
+    } else if (activeTab === 'long') {
+      setStatusFilter('all');
+      setTypeFilter('long');
     }
-  };
+  }, [activeTab]);
 
   const filteredCourses = useMemo(() => {
     return courses.filter(course => {
@@ -245,25 +121,29 @@ const AdminCoursesPage = () => {
                            course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
 
+      // استخدام activeTab للفلترة
+      let matchesTab = true;
+      if (activeTab === 'all') {
+        matchesTab = true;
+      } else if (activeTab === 'active') {
+        matchesTab = course.status === 'active';
+      } else if (activeTab === 'review') {
+        matchesTab = course.status === 'review';
+      } else if (activeTab === 'short') {
+        matchesTab = course.type === 'short';
+      } else if (activeTab === 'long') {
+        matchesTab = course.type === 'long';
+      }
+
       const matchesStatus = statusFilter === 'all' || course.status === statusFilter;
       const matchesType = typeFilter === 'all' || course.type === typeFilter;
 
-      return matchesSearch && matchesStatus && matchesType;
+      return matchesSearch && matchesTab && matchesStatus && matchesType;
     });
-  }, [courses, searchTerm, statusFilter, typeFilter]);
+  }, [courses, searchTerm, statusFilter, typeFilter, activeTab]);
 
-  const stats = useMemo(() => {
-    const total = courses.length;
-    const active = courses.filter(c => c.status === 'active').length;
-    const review = courses.filter(c => c.status === 'review').length;
-    const suspended = courses.filter(c => c.status === 'suspended').length;
-    const shortCourses = courses.filter(c => c.type === 'short').length;
-    const longCourses = courses.filter(c => c.type === 'long').length;
-    const totalStudents = courses.reduce((sum, c) => sum + c.enrolledStudents, 0);
-    const totalStorage = courses.reduce((sum, c) => sum + c.storageUsed, 0);
-
-    return { total, active, review, suspended, shortCourses, longCourses, totalStudents, totalStorage };
-  }, [courses]);
+  // استخدام الإحصائيات من الـ store
+  const courseStats = useMemo(() => stats.courses, [stats]);
 
   const getStatusLabel = (status: string) => {
     switch (status) {
@@ -299,128 +179,101 @@ const AdminCoursesPage = () => {
     }
   };
 
+  // قفل/فتح دورة - استخدام الـ store مباشرة
   const handleLockCourse = async (courseId: string, lock: boolean) => {
     try {
-      const response = await fetch(`/api/admin/courses/${courseId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ isLocked: lock }),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setCourses(courses.map(c => c.id === courseId ? { ...c, isLocked: lock } : c));
-        alert(lock ? 'تم قفل الدورة بنجاح' : 'تم فتح الدورة بنجاح');
-      } else {
-        alert(result.error || 'فشل تحديث حالة الدورة');
-      }
+      updateCourse(courseId, { isLocked: lock });
+      alert(lock ? 'تم قفل الدورة بنجاح' : 'تم فتح الدورة بنجاح');
     } catch (error) {
       console.error('Error updating course lock:', error);
       alert('حدث خطأ أثناء تحديث حالة الدورة');
     }
   };
 
+  // حذف دورة - استخدام الـ store مباشرة
   const handleDeleteCourse = async (courseId: string) => {
     if (!confirm('هل أنت متأكد من حذف هذه الدورة؟ سيتم حذف جميع الملفات والمحتوى المرتبط بها.')) {
       return;
     }
 
     try {
-      const response = await fetch(`/api/admin/courses/${courseId}`, {
-        method: 'DELETE',
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setCourses(courses.filter(c => c.id !== courseId));
-        if (selectedCourse?.id === courseId) {
-          setSelectedCourse(null);
-          setShowCourseDetails(false);
-        }
-        alert('تم حذف الدورة بنجاح');
-      } else {
-        alert(result.error || 'فشل حذف الدورة');
+      deleteCourse(courseId);
+      if (selectedCourse?.id === courseId) {
+        setSelectedCourse(null);
+        setShowCourseDetails(false);
       }
+      alert('تم حذف الدورة بنجاح');
     } catch (error) {
       console.error('Error deleting course:', error);
       alert('حدث خطأ أثناء حذف الدورة');
     }
   };
 
-  const handleAddCourse = async (courseData: Partial<Course> & { imageFile?: File }) => {
+  // إضافة دورة جديدة - استخدام الـ store مباشرة
+  const handleAddCourse = async (courseData: Partial<AdminCourse> & { imageFile?: File }) => {
     try {
-      const formData = new FormData();
-      formData.append('title', courseData.title || '');
-      formData.append('description', courseData.description || '');
-      formData.append('instructor', courseData.instructor || '');
-      formData.append('type', courseData.type || 'short');
-      if (courseData.startDate) formData.append('startDate', courseData.startDate);
-      if (courseData.endDate) formData.append('endDate', courseData.endDate);
-      if (courseData.imageFile) {
-        formData.append('image', courseData.imageFile);
-      } else if (courseData.image) {
-        formData.append('imageUrl', courseData.image);
+      // التحقق من البيانات المطلوبة
+      if (!courseData.title || !courseData.description || !courseData.instructor || !courseData.type) {
+        alert('العنوان والوصف والمعلم ونوع الدورة مطلوبون');
+        return;
       }
 
-      const response = await fetch('/api/admin/courses', {
-        method: 'POST',
-        body: formData,
-      });
+      const newCourse: AdminCourse = {
+        id: Date.now().toString(),
+        title: courseData.title,
+        description: courseData.description,
+        instructor: courseData.instructor,
+        type: courseData.type as 'short' | 'long',
+        image: courseData.image || '/courses/default.jpg',
+        status: 'review',
+        enrolledStudents: 0,
+        completedStudents: 0,
+        startDate: courseData.startDate || new Date().toISOString().split('T')[0],
+        endDate: courseData.endDate,
+        createdAt: new Date().toISOString().split('T')[0],
+        lastModified: new Date().toISOString().split('T')[0],
+        storageUsed: 0,
+        totalFiles: 0,
+        isLocked: false,
+        tags: courseData.tags || [],
+        modules: []
+      };
 
-      const result = await response.json();
-      if (result.success) {
-        setCourses([result.course, ...courses]);
-        setShowAddCourseModal(false);
-        alert('تم إضافة الدورة بنجاح');
-        loadCourses(); // إعادة تحميل الدورات
-      } else {
-        alert(result.error || 'فشل إضافة الدورة');
-      }
+      addCourse(newCourse);
+      setShowAddCourseModal(false);
+      alert('تم إضافة الدورة بنجاح');
     } catch (error) {
       console.error('Error adding course:', error);
       alert('حدث خطأ أثناء إضافة الدورة');
     }
   };
 
-  const handleEditCourse = async (courseId: string, courseData: Partial<Course> & { imageFile?: File }) => {
+  // تعديل دورة - استخدام الـ store مباشرة
+  const handleEditCourse = async (courseId: string, courseData: Partial<AdminCourse> & { imageFile?: File }) => {
     try {
-      const formData = new FormData();
-      if (courseData.title) formData.append('title', courseData.title);
-      if (courseData.description) formData.append('description', courseData.description);
-      if (courseData.instructor) formData.append('instructor', courseData.instructor);
-      if (courseData.type) formData.append('type', courseData.type);
-      if (courseData.startDate) formData.append('startDate', courseData.startDate);
-      if (courseData.endDate) formData.append('endDate', courseData.endDate);
-      if (courseData.imageFile) {
-        formData.append('image', courseData.imageFile);
-      } else if (courseData.image) {
-        formData.append('imageUrl', courseData.image);
-      }
-
-      const response = await fetch(`/api/admin/courses/${courseId}`, {
-        method: 'PUT',
-        body: formData,
+      updateCourse(courseId, {
+        title: courseData.title,
+        description: courseData.description,
+        instructor: courseData.instructor,
+        type: courseData.type as 'short' | 'long' | undefined,
+        image: courseData.image,
+        startDate: courseData.startDate,
+        endDate: courseData.endDate,
+        tags: courseData.tags
       });
-
-      const result = await response.json();
-      if (result.success) {
-        setCourses(courses.map(c => c.id === courseId ? { ...c, ...courseData } : c));
-        if (selectedCourse?.id === courseId) {
-          setSelectedCourse({ ...selectedCourse, ...courseData });
-        }
-        alert('تم تحديث الدورة بنجاح');
-        loadCourses(); // إعادة تحميل الدورات
-      } else {
-        alert(result.error || 'فشل تحديث الدورة');
+      if (selectedCourse?.id === courseId) {
+        setSelectedCourse({ ...selectedCourse, ...courseData } as AdminCourse);
       }
+      setShowEditCourseModal(false);
+      alert('تم تحديث الدورة بنجاح');
     } catch (error) {
       console.error('Error updating course:', error);
       alert('حدث خطأ أثناء تحديث الدورة');
     }
   };
 
-  const handleDuplicateCourse = async (course: Course) => {
-    const courseData = {
+  const handleDuplicateCourse = async (course: AdminCourse) => {
+    const courseData: Partial<AdminCourse> = {
       title: `${course.title} (نسخة)`,
       description: course.description,
       instructor: course.instructor,
@@ -428,6 +281,7 @@ const AdminCoursesPage = () => {
       image: course.image,
       startDate: course.startDate,
       endDate: course.endDate,
+      tags: course.tags
     };
     await handleAddCourse(courseData);
   };
@@ -468,108 +322,131 @@ const AdminCoursesPage = () => {
         </motion.div>
 
         {/* الإحصائيات */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-6 mb-8"
-        >
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي الدورات</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+        <div className="space-y-6 mb-8">
+          {/* البطاقات القصيرة - صف واحد */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+          >
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي الدورات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                  <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">{courseStats.total}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">دورات نشطة</p>
-                <p className="text-3xl font-bold text-green-600">{stats.active}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-green-50/50 dark:from-neutral-800 dark:to-green-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-green-100/50 dark:border-green-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">دورات نشطة</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-green-600 dark:text-green-400">{courseStats.active}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">قيد المراجعة</p>
-                <p className="text-3xl font-bold text-yellow-600">{stats.review}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-yellow-50/50 dark:from-neutral-800 dark:to-yellow-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-yellow-100/50 dark:border-yellow-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">قيد المراجعة</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Clock className="w-6 h-6 text-yellow-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-yellow-600 dark:text-yellow-400">{courseStats.review}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">معلقة</p>
-                <p className="text-3xl font-bold text-red-600">{stats.suspended}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-red-50/50 dark:from-neutral-800 dark:to-red-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-red-100/50 dark:border-red-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">معلقة</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-md">
+                  <XCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                <XCircle className="w-6 h-6 text-red-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-red-600 dark:text-red-400">{courseStats.suspended}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">دورات قصيرة</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.shortCourses}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-purple-50/50 dark:from-neutral-800 dark:to-purple-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">دورات قصيرة</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Clock className="w-6 h-6 text-purple-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400">{courseStats.shortCourses}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">دورات طويلة</p>
-                <p className="text-3xl font-bold text-indigo-600">{stats.longCourses}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-indigo-50/50 dark:from-neutral-800 dark:to-indigo-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-indigo-100/50 dark:border-indigo-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">دورات طويلة</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-indigo-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-indigo-600 dark:text-indigo-400">{courseStats.longCourses}</p>
+            </motion.div>
+          </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي الطلاب</p>
-                <p className="text-3xl font-bold text-teal-600">{stats.totalStudents}</p>
+          {/* البطاقات الطويلة - أفقية */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            <motion.div
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-teal-50/50 dark:from-neutral-800 dark:to-teal-900/10 rounded-2xl shadow-lg hover:shadow-xl p-6 border border-teal-100/50 dark:border-teal-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2">إجمالي الطلاب</p>
+                  <p className="text-3xl sm:text-4xl font-extrabold text-teal-600 dark:text-teal-400">{courseStats.totalStudents}</p>
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
-                <Users className="w-6 h-6 text-teal-600" />
-              </div>
-            </div>
-          </div>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي التخزين</p>
-                <p className="text-3xl font-bold text-orange-600">{(stats.totalStorage / 1024).toFixed(1)} GB</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-orange-50/50 dark:from-neutral-800 dark:to-orange-900/10 rounded-2xl shadow-lg hover:shadow-xl p-6 border border-orange-100/50 dark:border-orange-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2">إجمالي التخزين</p>
+                  <p className="text-3xl sm:text-4xl font-extrabold text-orange-600 dark:text-orange-400">{(courseStats.totalStorage / 1024).toFixed(1)} GB</p>
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Upload className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <Upload className="w-6 h-6 text-orange-600" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
 
         {/* التبويبات */}
         <motion.div
@@ -578,31 +455,62 @@ const AdminCoursesPage = () => {
           transition={{ delay: 0.3 }}
           className="flex justify-center mb-8"
         >
-          <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100">
+          <div className="inline-flex items-center gap-2 bg-gray-100/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-neutral-700/60 overflow-x-auto scrollbar-hide">
             {[
               { id: 'all', label: 'جميع الدورات', count: courses.length },
-              { id: 'active', label: 'الدورات النشطة', count: stats.active },
-              { id: 'review', label: 'قيد المراجعة', count: stats.review },
-              { id: 'short', label: 'دورات قصيرة', count: stats.shortCourses },
-              { id: 'long', label: 'دورات طويلة', count: stats.longCourses }
+              { id: 'active', label: 'الدورات النشطة', count: courseStats.active },
+              { id: 'review', label: 'قيد المراجعة', count: courseStats.review },
+              { id: 'short', label: 'دورات قصيرة', count: courseStats.shortCourses },
+              { id: 'long', label: 'دورات طويلة', count: courseStats.longCourses }
             ].map((tab) => (
               <motion.button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-                whileHover={{ scale: 1.05 }}
+                className={`
+                  group relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl
+                  font-medium text-sm whitespace-nowrap
+                  transition-all duration-200 ease-out
+                  ${activeTab === tab.id
+                    ? 'bg-white dark:bg-neutral-700 text-gray-900 dark:text-white shadow-sm scale-[1.02]'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-neutral-700/50'
+                  }
+                `}
+                whileHover={{ scale: activeTab === tab.id ? 1.02 : 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {tab.label}
-                <span className={`px-2 py-1 rounded-full text-xs ${
-                  activeTab === tab.id ? 'bg-white/20' : 'bg-gray-200'
-                }`}>
+                {/* Active background with gradient */}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeCourseTab"
+                    className="absolute inset-0 bg-gradient-to-br from-purple-50/50 via-blue-50/30 to-indigo-50/50 dark:from-purple-950/30 dark:via-blue-950/20 dark:to-indigo-950/30 rounded-xl"
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                    style={{ borderRadius: '0.75rem' }}
+                  />
+                )}
+                
+                {/* Label */}
+                <span className="relative z-10 transition-colors duration-200">{tab.label}</span>
+                
+                {/* Count badge */}
+                <span className={`
+                  relative z-10 px-2 py-0.5 rounded-full text-xs font-bold transition-all duration-200
+                  ${activeTab === tab.id
+                    ? 'bg-gradient-to-r from-purple-500/20 to-blue-500/20 text-purple-700 dark:text-purple-300'
+                    : 'bg-gray-200 dark:bg-neutral-700 text-gray-600 dark:text-gray-400'
+                  }
+                `}>
                   {tab.count}
                 </span>
+                
+                {/* Active indicator line */}
+                {activeTab === tab.id && (
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: '60%' }}
+                    transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"
+                  />
+                )}
               </motion.button>
             ))}
           </div>
@@ -752,7 +660,7 @@ const AdminCoursesPage = () => {
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-600">المدة:</span>
                     <span className="font-medium text-gray-900">
-                      {new Date(course.startDate).toLocaleDateString('ar-SA')} - {new Date(course.endDate).toLocaleDateString('ar-SA')}
+                      {new Date(course.startDate).toLocaleDateString('ar-SA')} - {course.endDate ? new Date(course.endDate).toLocaleDateString('ar-SA') : 'مستمرة'}
                     </span>
                   </div>
                 </div>
@@ -930,8 +838,8 @@ const AdminCoursesPage = () => {
 
                           {/* الملفات */}
                           <div className="space-y-2">
-                            <h6 className="text-sm font-medium text-gray-700">الملفات ({module.files.length})</h6>
-                            {module.files.map((file) => (
+                            <h6 className="text-sm font-medium text-gray-700">الملفات ({module.files?.length || 0})</h6>
+                            {module.files?.map((file: any) => (
                               <div key={file.id} className="flex items-center gap-3 bg-white p-2 rounded border">
                                 {getFileIcon(file.type)}
                                 <div className="flex-1">
@@ -949,10 +857,10 @@ const AdminCoursesPage = () => {
                           </div>
 
                           {/* الفيديوهات */}
-                          {module.videos.length > 0 && (
+                          {module.videos && module.videos.length > 0 && (
                             <div className="space-y-2 mt-3">
                               <h6 className="text-sm font-medium text-gray-700">الفيديوهات ({module.videos.length})</h6>
-                              {module.videos.map((video) => (
+                              {module.videos?.map((video: any) => (
                                 <div key={video.id} className="flex items-center gap-3 bg-white p-2 rounded border">
                                   <Play className="w-4 h-4 text-red-500" />
                                   <div className="flex-1">
@@ -1034,7 +942,7 @@ function AddCourseModal({
   onSave 
 }: { 
   onClose: () => void; 
-  onSave: (data: Partial<Course> & { imageFile?: File }) => void;
+  onSave: (data: Partial<AdminCourse> & { imageFile?: File }) => void;
 }) {
   const [formData, setFormData] = useState({
     title: '',
@@ -1293,9 +1201,9 @@ function EditCourseModal({
   onClose, 
   onSave 
 }: { 
-  course: Course; 
+  course: AdminCourse;
   onClose: () => void; 
-  onSave: (courseId: string, data: Partial<Course> & { imageFile?: File }) => void;
+  onSave: (courseId: string, data: Partial<AdminCourse> & { imageFile?: File }) => void;
 }) {
   const [formData, setFormData] = useState({
     title: course.title,

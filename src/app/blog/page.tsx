@@ -92,7 +92,7 @@ const BlogPage = () => {
           className="text-center mb-16"
         >
           <h1 className="heading-1 text-primary mb-4">المدونة</h1>
-          <p className="body-text text-text-secondary max-w-2xl mx-auto text-lg">
+          <p className="body-text text-text-secondary max-w-2xl mx-auto text-base">
             اكتشف أحدث المقالات والمقالات المتخصصة في مجالات المراجعة الداخلية
             والمحاسبة
           </p>

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
-import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai, Cairo } from 'next/font/google';
+import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai, Cairo, Lemonada } from 'next/font/google';
 
 import '../styles/core.css';
 import '../styles/utilities.css';
@@ -14,6 +14,8 @@ import { ThemeProvider } from '../contexts/ThemeProvider';
 import { AuthProvider } from '../contexts/AuthContext';
 import NotificationProvider from '../components/NotificationProvider';
 import ServiceWorkerProvider from '../components/ServiceWorkerProvider';
+import { QueryProvider } from '../components/providers/QueryProvider';
+import { MSWProvider } from '../components/providers/MSWProvider';
 import { SkipLink } from '@/components/ui/accessibility';
 import ConditionalFooter, { ConditionalWidgets } from './ConditionalFooter';
 
@@ -68,6 +70,16 @@ const cairo = Cairo({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
   preload: false,
+  adjustFontFallback: true,
+  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+});
+
+const lemonada = Lemonada({ 
+  subsets: ['arabic', 'latin'], 
+  variable: '--font-lemonada', 
+  weight: ['300', '400', '500', '600', '700'],
+  display: 'swap',
+  preload: true,
   adjustFontFallback: true,
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
@@ -139,6 +151,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/* Performance Hints */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
         <link rel="preload" as="image" href="/banar-cours.webp" />
         <link rel="preload" as="image" href="/globe.svg" />
@@ -174,6 +188,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           ibmPlex.variable,
           almarai.variable,
           cairo.variable,
+          lemonada.variable,
           'antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden',
         ].join(' ')}
         style={{
@@ -184,27 +199,31 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         }}
       >
         <ThemeProvider>
-          <AuthProvider>
-            <NotificationProvider>
-              <ServiceWorkerProvider />
-              <SkipLink href="#main-content">تخطي إلى المحتوى الرئيسي</SkipLink>
-              <LayoutWrapper>{children}</LayoutWrapper>
-              <ConditionalFooter />
-              <Toaster
-                position="top-left"
-                toastOptions={{
-                  duration: 3000,
-                  style: {
-                    background: 'var(--color-background)',
-                    color: 'var(--color-text-primary)',
-                    border: '1px solid var(--color-accent)',
-                    zIndex: 9999,
-                  },
-                }}
-              />
-              <ConditionalWidgets />
-            </NotificationProvider>
-          </AuthProvider>
+          <MSWProvider>
+            <QueryProvider>
+              <AuthProvider>
+                <NotificationProvider>
+                  <ServiceWorkerProvider />
+                  <SkipLink href="#main-content">تخطي إلى المحتوى الرئيسي</SkipLink>
+                  <LayoutWrapper>{children}</LayoutWrapper>
+                  <ConditionalFooter />
+                  <Toaster
+                    position="top-left"
+                    toastOptions={{
+                      duration: 3000,
+                      style: {
+                        background: 'var(--color-background)',
+                        color: 'var(--color-text-primary)',
+                        border: '1px solid var(--color-accent)',
+                        zIndex: 9999,
+                      },
+                    }}
+                  />
+                  <ConditionalWidgets />
+                </NotificationProvider>
+              </AuthProvider>
+            </QueryProvider>
+          </MSWProvider>
         </ThemeProvider>
       </body>
     </html>

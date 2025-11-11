@@ -144,7 +144,7 @@ export default function CIAFellowshipPage() {
     {
       icon: GraduationCap,
       text: 'شهادة معتمدة دولياً من IIA',
-      details: 'معترف بها في 190+ دولة'
+      details: 'شهادة معترف بها عالمياً'
     },
     {
       icon: TrendingUp,
@@ -960,7 +960,7 @@ export default function CIAFellowshipPage() {
         <section id="introduction" className="mb-16">
           {/* Hero Section with Background Image */}
           <motion.div
-            className="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 text-white overflow-hidden rounded-3xl mx-4 lg:mx-8 shadow-2xl mb-12"
+            className="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 text-white overflow-hidden rounded-3xl mx-4 lg:mx-8 shadow-2xl mb-12 border-2 border-white/10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -973,47 +973,68 @@ export default function CIAFellowshipPage() {
                 fill
                 priority
                 quality={90}
-                className="object-cover"
+                className="object-cover opacity-90"
                 style={{ objectPosition: 'center' }}
               />
-              {/* Overlay with reduced opacity */}
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/50 via-blue-900/45 to-purple-900/50"></div>
+              {/* Enhanced Overlay with multiple layers */}
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/60 via-blue-900/55 to-purple-900/60"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20"></div>
+              
+              {/* Decorative Light Effects */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
             </div>
 
             {/* Content */}
             <div className="relative z-10 container mx-auto max-w-7xl px-8 py-20 lg:py-28">
               <div className="text-center">
                 <motion.div
-                  className="inline-flex items-center justify-center gap-4 mb-6 p-4 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 shadow-lg"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="inline-flex items-center justify-center gap-4 mb-6 p-4 bg-white/15 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-2xl hover:bg-white/20 transition-all duration-300"
+                  initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
+                  whileHover={{ scale: 1.02 }}
                 >
-                  <div className="p-4 bg-gradient-to-br from-white/20 to-white/10 rounded-2xl backdrop-blur-md">
-                    <Crown className="w-8 h-8 text-white drop-shadow-lg" />
-                  </div>
+                  <motion.div 
+                    className="p-4 bg-gradient-to-br from-white/30 to-white/15 rounded-2xl backdrop-blur-lg shadow-lg"
+                    animate={{ 
+                      boxShadow: [
+                        '0 0 20px rgba(255, 255, 255, 0.2)',
+                        '0 0 30px rgba(255, 255, 255, 0.3)',
+                        '0 0 20px rgba(255, 255, 255, 0.2)'
+                      ]
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  >
+                    <Crown className="w-8 h-8 text-white drop-shadow-2xl" />
+                  </motion.div>
                   <div>
                     <h1 
-                      className="text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 drop-shadow-2xl"
+                      className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 drop-shadow-2xl"
                       style={{ 
-                        textShadow: '0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3)'
+                        textShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.1)'
                       }}
                     >
                       زمالة المدقق الداخلي المعتمد
-                      <span className="block text-2xl lg:text-3xl text-blue-100 font-normal mt-2 drop-shadow-lg">
+                      <span className="block text-xl lg:text-2xl text-blue-100 font-normal mt-2 drop-shadow-lg">
                         Certified Internal Auditor (CIA)
                       </span>
                     </h1>
                     <div className="flex items-center justify-center gap-2 text-sm text-blue-50 drop-shadow-md">
-                      <Globe className="w-4 h-4" />
+                      <motion.div
+                        animate={{ rotate: [0, 10, -10, 0] }}
+                        transition={{ duration: 4, repeat: Infinity, repeatDelay: 2 }}
+                      >
+                        <Globe className="w-4 h-4" />
+                      </motion.div>
                       <span>معتمدة من معهد المراجعين الداخليين العالمي (IIA)</span>
                     </div>
                   </div>
                 </motion.div>
                 <motion.p 
-                  className="text-xl lg:text-2xl text-blue-50 max-w-4xl mx-auto leading-relaxed drop-shadow-lg"
+                  className="text-xl lg:text-2xl text-blue-50 max-w-4xl mx-auto leading-relaxed drop-shadow-lg bg-white/5 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/10"
                   style={{ 
-                    textShadow: '0 2px 8px rgba(0, 0, 0, 0.3)'
+                    textShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'
                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -1024,508 +1045,295 @@ export default function CIAFellowshipPage() {
               </div>
             </div>
 
-            {/* Bottom Gradient Transition */}
-            <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white dark:from-neutral-50 to-transparent"></div>
+            {/* Enhanced Bottom Gradient Transition */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-neutral-50 via-white/80 dark:via-neutral-50/80 to-transparent"></div>
+            
+            {/* Top Decorative Elements */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+          </motion.div>
+
+          {/* بنك الأسئلة - زر مباشرة تحت الهيرو */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="flex justify-center -mt-8 mb-12 relative z-20"
+          >
+            <motion.a
+              href="#question-bank"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 px-10 py-5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-2xl font-bold text-lg shadow-2xl hover:shadow-blue-500/50 hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all duration-300 relative overflow-hidden group"
+            >
+              {/* Animated Background */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              
+              <Target className="w-6 h-6 relative z-10" />
+              <span className="relative z-10">بنك الأسئلة</span>
+            </motion.a>
           </motion.div>
 
           {/* What is CIA Enhanced */}
           <motion.div
-            className="bg-gradient-to-r from-indigo-50/80 via-blue-50/80 to-purple-50/80 dark:from-indigo-950/30 dark:via-blue-950/30 dark:to-purple-950/30 backdrop-blur-sm rounded-3xl p-8 lg:p-12 mb-16 border border-indigo-200/50 dark:border-indigo-800/50 shadow-lg"
+            className="bg-gradient-to-br from-indigo-50/90 via-blue-50/90 to-purple-50/90 dark:from-indigo-950/40 dark:via-blue-950/40 dark:to-purple-950/40 backdrop-blur-md rounded-3xl p-8 lg:p-12 mb-16 border-2 border-indigo-200/60 dark:border-indigo-800/60 shadow-2xl relative overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="text-center lg:text-right">
-                <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center justify-center lg:justify-start gap-3">
-                  <Shield className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
-                  ما هي شهادة CIA؟
-                </h2>
-                <div className="space-y-4 text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                  <p>
-                    شهادة المدقق الداخلي المعتمد (Certified Internal Auditor) هي الاعتماد المهني الأعلى في مجال المراجعة الداخلية على مستوى العالم. تُمنح من قبل معهد المراجعين الداخليين (IIA) وتُعتبر المعيار الذهبي للمهنيين في هذا المجال.
-                  </p>
-                  <p className="font-medium">
-                    أكثر من 200,000 محترف حول العالم يحملون هذه الشهادة، مما يجعل حامليها مطلوبين بشدة في جميع أنحاء العالم.
-                  </p>
-                  <div className="grid grid-cols-2 gap-4 mt-6 pt-4 border-t border-neutral-200/50 dark:border-neutral-700/50">
-                    <div className="text-center p-3 bg-white/70 dark:bg-neutral-800/70 rounded-xl">
-                      <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-1">190+</div>
-                      <div className="text-sm text-neutral-600 dark:text-neutral-400">دولة معترف بها</div>
+            {/* Decorative Background Elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-indigo-400/10 to-blue-400/10 rounded-full blur-3xl" />
+            
+            <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+              <div className="text-center lg:text-right space-y-6">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <h2 className="text-4xl lg:text-5xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center justify-center lg:justify-start gap-4">
+                    <div className="p-3 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-2xl shadow-lg">
+                      <Shield className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
                     </div>
-                    <div className="text-center p-3 bg-white/70 dark:bg-neutral-800/70 rounded-xl">
-                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-1">3</div>
-                      <div className="text-sm text-neutral-600 dark:text-neutral-400">مستويات احترافية</div>
-                    </div>
+                    <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 dark:from-indigo-400 dark:via-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+                      ما هي شهادة CIA؟
+                    </span>
+                  </h2>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                  className="space-y-6"
+                >
+                  <div className="bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 border border-indigo-100/50 dark:border-indigo-900/50 shadow-md">
+                    <p className="text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium">
+                      شهادة المدقق الداخلي المعتمد <span className="font-bold text-indigo-600 dark:text-indigo-400">(Certified Internal Auditor)</span> هي الاعتماد المهني الأعلى في مجال المراجعة الداخلية على مستوى العالم. تُمنح من قبل <span className="font-semibold text-blue-600 dark:text-blue-400">معهد المراجعين الداخليين (IIA)</span> وتُعتبر <span className="font-bold text-purple-600 dark:text-purple-400">المعيار الذهبي</span> للمهنيين في هذا المجال.
+                    </p>
                   </div>
-                </div>
+                  
+                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/40 rounded-2xl p-6 border-2 border-blue-200/50 dark:border-blue-800/50 shadow-lg">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg">
+                        <Users className="w-5 h-5 text-white" />
+                      </div>
+                      <p className="text-lg lg:text-xl text-neutral-800 dark:text-neutral-200 font-bold">
+                        أكثر من <span className="text-2xl text-blue-600 dark:text-blue-400">200,000</span> محترف حول العالم
+                      </p>
+                    </div>
+                    <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed font-medium">
+                      يحملون هذه الشهادة، مما يجعل حامليها <span className="font-bold text-indigo-600 dark:text-indigo-400">مطلوبين بشدة</span> في جميع أنحاء العالم.
+                    </p>
+                  </div>
+                </motion.div>
               </div>
-              <div className="relative">
-                <div className="relative w-full aspect-[4/3] max-w-md mx-auto rounded-2xl overflow-hidden shadow-xl">
+              
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="relative w-full max-w-md mx-auto"
+              >
+                {/* Decorative Frame */}
+                <div className="absolute -inset-4 bg-gradient-to-br from-indigo-400/20 via-blue-400/20 to-purple-400/20 rounded-3xl blur-xl -z-10" />
+                
+                {/* Image Container */}
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-800">
                   <Image
                     src="/assets/certifed.jpg"
                     alt="شهادة Certified Internal Auditor"
-                    fill
+                    width={500}
+                    height={375}
                     priority
                     quality={95}
-                    className="object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                     style={{ objectPosition: 'center' }}
                   />
+                  {/* Overlay on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-indigo-900/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
-              </div>
+                
+                {/* Badge */}
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-br from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-xl shadow-lg font-bold text-sm flex items-center gap-2 z-10">
+                  <Award className="w-4 h-4" />
+                  <span>معتمدة عالمياً</span>
+                </div>
+              </motion.div>
             </div>
-            <div className="mt-8 text-center">
-              <a
+            
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="mt-10 text-center relative z-10"
+            >
+              <motion.a
                 href="https://www.theiia.org/en/certifications/certified-internal-auditor/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-blue-600 to-purple-600 text-white rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl hover:from-indigo-400 hover:via-blue-400 hover:to-purple-400 transition-all duration-300 relative overflow-hidden group"
               >
-                <span>زيارة موقع IIA الرسمي</span>
-                <ExternalLink className="w-5 h-5" />
-              </a>
-            </div>
+                {/* Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                <Globe className="w-5 h-5 relative z-10" />
+                <span className="relative z-10">زيارة موقع IIA الرسمي</span>
+                <ExternalLink className="w-5 h-5 relative z-10" />
+              </motion.a>
+            </motion.div>
           </motion.div>
         </section>
 
-        {/* Interactive Learning Path */}
+        {/* ثلاث بطاقات - الجزء الأول/الثاني/الثالث */}
         <section className="mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-          >
-            <h3 className="text-3xl font-bold text-neutral-900 dark:text-white mb-12 text-center">
-              مسار التعلم التفاعلي
-            </h3>
-            <div className="relative">
-              {/* Progress Timeline */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-emerald-500 h-full z-0 hidden lg:block opacity-30"></div>
-              <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto">
-                {learningPath.map((level, index) => {
-                  const Icon = level.icon;
-                  return (
-                    <motion.div
-                      key={level.title}
-                      initial={{ opacity: 0, y: 30 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 + index * 0.15, duration: 0.6 }}
-                      className="relative flex flex-col items-center h-full"
-                    >
-                      {/* Level Number Badge */}
-                      <div className="absolute -top-4 right-1/2 transform translate-x-1/2 z-20 w-12 h-12 rounded-full bg-white dark:bg-neutral-800 border-4 border-white dark:border-neutral-800 shadow-lg flex items-center justify-center hidden lg:flex">
-                        <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${level.color} flex items-center justify-center`}>
-                          <span className="text-white text-sm font-bold">{index + 1}</span>
-                        </div>
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                id: 1,
+                title: 'الجزء الأول',
+                subtitle: 'أساسيات المراجعة الداخلية',
+                color: 'from-blue-500 to-cyan-500',
+                bgColor: 'bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-blue-950/40 dark:via-gray-900 dark:to-cyan-950/40',
+                borderColor: 'border-blue-300 dark:border-blue-700',
+                shadowColor: 'shadow-blue-200/50 dark:shadow-blue-900/30',
+                items: [
+                  { type: 'المادة العلمية', icon: FileText, count: 24 },
+                  { type: 'بودكاست', icon: Headphones, count: 12 },
+                  { type: 'فيديو', icon: Video, count: 18 },
+                  { type: 'ملخصات', icon: FileSpreadsheet, count: 8 },
+                ],
+              },
+              {
+                id: 2,
+                title: 'الجزء الثاني',
+                subtitle: 'ممارسة المراجعة الداخلية',
+                color: 'from-purple-500 to-pink-500',
+                bgColor: 'bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-purple-950/40 dark:via-gray-900 dark:to-pink-950/40',
+                borderColor: 'border-purple-300 dark:border-purple-700',
+                shadowColor: 'shadow-purple-200/50 dark:shadow-purple-900/30',
+                items: [
+                  { type: 'المادة العلمية', icon: FileText, count: 28 },
+                  { type: 'بودكاست', icon: Headphones, count: 15 },
+                  { type: 'فيديو', icon: Video, count: 22 },
+                  { type: 'ملخصات', icon: FileSpreadsheet, count: 10 },
+                ],
+              },
+              {
+                id: 3,
+                title: 'الجزء الثالث',
+                subtitle: 'معرفة الأعمال للمراجعين',
+                color: 'from-emerald-500 to-teal-500',
+                bgColor: 'bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-emerald-950/40 dark:via-gray-900 dark:to-teal-950/40',
+                borderColor: 'border-emerald-300 dark:border-emerald-700',
+                shadowColor: 'shadow-emerald-200/50 dark:shadow-emerald-900/30',
+                items: [
+                  { type: 'المادة العلمية', icon: FileText, count: 32 },
+                  { type: 'بودكاست', icon: Headphones, count: 18 },
+                  { type: 'فيديو', icon: Video, count: 25 },
+                  { type: 'ملخصات', icon: FileSpreadsheet, count: 12 },
+                ],
+              },
+            ].map((part) => (
+              <motion.div
+                key={part.id}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: part.id * 0.15, duration: 0.5, type: "spring", stiffness: 100 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className={`${part.bgColor} ${part.borderColor} border-2 rounded-2xl p-6 hover:shadow-2xl ${part.shadowColor} transition-all duration-500 relative overflow-hidden group`}
+              >
+                {/* Background Pattern */}
+                <div className={`absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${part.color}`} />
+                
+                {/* Header */}
+                <div className="relative z-10 mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className={`p-2.5 bg-gradient-to-br ${part.color} rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <Award className="w-6 h-6 text-white" />
+                    </div>
+                    <div className={`px-3 py-1 bg-gradient-to-r ${part.color} rounded-full shadow-md`}>
+                      <span className="text-white text-[10px] font-bold">Part {part.id}</span>
+                    </div>
+                  </div>
+                  <h3 className={`text-2xl font-bold mb-1.5 bg-gradient-to-r ${part.color} bg-clip-text text-transparent`}>
+                    {part.title}
+                  </h3>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">
+                    {part.subtitle}
+                  </p>
+                </div>
 
-                      {/* Card */}
-                      <div className="w-full bg-white dark:bg-neutral-800 rounded-2xl p-6 lg:p-8 shadow-lg hover:shadow-xl border border-neutral-200 dark:border-neutral-700 transition-all duration-300 h-full flex flex-col">
-                        {/* Icon */}
-                        <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${level.color} mb-6 mx-auto`}>
-                          <Icon className="w-8 h-8 text-white" />
-                        </div>
-
-                        {/* Title */}
-                        <h4 className="text-xl lg:text-2xl font-bold text-neutral-900 dark:text-white mb-3 text-center">
-                          {level.title}
-                        </h4>
-
-                        {/* Description */}
-                        <p className="text-neutral-600 dark:text-neutral-400 mb-6 text-center leading-relaxed text-sm lg:text-base flex-1">
-                          {level.description}
-                        </p>
-
-                        {/* Stats */}
-                        <div className="space-y-3 mb-6">
-                          <div className="flex items-center justify-between p-2 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
-                            <span className="text-neutral-600 dark:text-neutral-400 text-sm">المدة:</span>
-                            <span className="font-semibold text-neutral-900 dark:text-white text-sm">{level.duration}</span>
+                {/* Items */}
+                <div className="relative z-10 space-y-3">
+                  {part.items.map((item, index) => {
+                    const Icon = item.icon;
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: part.id * 0.15 + index * 0.1, duration: 0.4 }}
+                        whileHover={{ x: 4, scale: 1.02 }}
+                        className="group/item flex items-center justify-between gap-3 p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg hover:bg-white dark:hover:bg-gray-800 border border-gray-200/50 dark:border-gray-700/50 hover:border-transparent hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden"
+                      >
+                        {/* Hover Effect Background */}
+                        <div className={`absolute inset-0 bg-gradient-to-r ${part.color} opacity-0 group-hover/item:opacity-5 transition-opacity duration-300`} />
+                        
+                        <div className="flex items-center gap-3 flex-1 min-w-0">
+                          <div className={`p-2.5 bg-gradient-to-br ${part.color} rounded-lg shadow-md group-hover/item:scale-110 group-hover/item:rotate-3 transition-all duration-300 flex-shrink-0`}>
+                            <Icon className="w-5 h-5 text-white" />
                           </div>
-                          <div className="flex items-center justify-between p-2 bg-neutral-50 dark:bg-neutral-900/50 rounded-lg">
-                            <span className="text-neutral-600 dark:text-neutral-400 text-sm">الدروس:</span>
-                            <span className="font-semibold text-neutral-900 dark:text-white text-sm">{level.lessons}</span>
+                          <div className="flex-1 min-w-0">
+                            <span className="font-bold text-gray-900 dark:text-white text-sm block mb-1">
+                              {item.type}
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <div className={`h-1.5 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden max-w-[70px]`}>
+                                <motion.div
+                                  className={`h-full bg-gradient-to-r ${part.color} rounded-full`}
+                                  initial={{ width: 0 }}
+                                  animate={{ width: '100%' }}
+                                  transition={{ delay: part.id * 0.15 + index * 0.1 + 0.3, duration: 0.6 }}
+                                />
+                              </div>
+                              <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">
+                                {item.count} ملف
+                              </span>
+                            </div>
                           </div>
                         </div>
+                        
+                        {/* Arrow Icon */}
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: part.id * 0.15 + index * 0.1 + 0.2 }}
+                          className="flex-shrink-0"
+                        >
+                          <ChevronRight className={`w-4 h-4 text-gray-400 group-hover/item:text-transparent group-hover/item:bg-gradient-to-r ${part.color} group-hover/item:bg-clip-text transition-all duration-300`} />
+                        </motion.div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
 
-                        {/* Progress Bar */}
-                        <div className="mb-4">
-                          <div className="flex justify-between text-xs text-neutral-600 dark:text-neutral-400 mb-2">
-                            <span>التقدم</span>
-                            <span className="font-bold">{level.progress}%</span>
-                          </div>
-                          <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2.5">
-                            <motion.div 
-                              className={`bg-gradient-to-r ${level.color} h-2.5 rounded-full shadow-sm`} 
-                              initial={{ width: 0 }}
-                              animate={{ width: `${level.progress}%` }}
-                              transition={{ duration: 1.5, delay: 0.7 + index * 0.2 }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Footer */}
-                        <div className="flex items-center justify-center gap-2 text-xs text-neutral-500 dark:text-neutral-400 mt-auto pt-4 border-t border-neutral-200 dark:border-neutral-700">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span>متوقع الإكمال: {level.duration}</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* Enhanced Benefits and Resources */}
-        <section className="mb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Benefits */}
-            <motion.div
-              className="bg-gradient-to-br from-indigo-50/80 to-purple-50/80 dark:from-indigo-950/30 dark:to-purple-950/30 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-indigo-200/50 dark:border-indigo-800/50 shadow-xl overflow-visible"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-8 flex items-center justify-center gap-3">
-                <TrendingUp className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
-                الفوائد المهنية للحصول على CIA
-              </h3>
-              <div className="space-y-6">
-                {benefits.map((benefit, index) => {
-                  const Icon = benefit.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.7 + index * 0.1, duration: 0.6 }}
-                      className="group flex items-center gap-4 p-4 bg-white/80 dark:bg-neutral-800/80 rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 transition-all duration-300 hover:shadow-md"
-                    >
-                      <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-neutral-900 dark:text-white mb-1">
-                          {benefit.text}
-                        </div>
-                        <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                          {benefit.details}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-
-            {/* Resources */}
-            <motion.div
-              className="bg-gradient-to-br from-emerald-50/80 to-teal-50/80 dark:from-emerald-950/30 dark:to-teal-950/30 backdrop-blur-sm rounded-3xl p-8 lg:p-10 border border-emerald-200/50 dark:border-emerald-800/50 shadow-xl overflow-visible"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-8 flex items-center justify-center gap-3">
-                <BookOpen className="w-8 h-8 text-emerald-600 dark:text-emerald-400" />
-                الموارد التعليمية المتاحة
-              </h3>
-              <div className="space-y-6">
-                {resources.map((resource, index) => {
-                  const Icon = resource.icon;
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: 10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.7 + index * 0.1, duration: 0.6 }}
-                      className="group flex items-center gap-4 p-4 bg-white/80 dark:bg-neutral-800/80 rounded-2xl border border-neutral-200/50 dark:border-neutral-700/50 hover:bg-white dark:hover:bg-neutral-800 transition-all duration-300 hover:shadow-md"
-                    >
-                      <div className="p-3 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl group-hover:scale-110 transition-transform">
-                        <Icon className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-semibold text-neutral-900 dark:text-white mb-1">
-                          {resource.text}
-                        </div>
-                        <div className="text-sm text-neutral-600 dark:text-neutral-400">
-                          <span className="font-medium">{resource.count}</span> - {resource.format}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Level Selection */}
-        <section className="mb-12">
-          <div className="flex justify-center">
-            <div className="bg-gray-50 rounded-xl p-2 inline-flex gap-2 border border-gray-200">
-              {levels.map((level) => (
-                <button
-                  key={level.id}
-                  onClick={() => setSelectedLevel(level.id)}
-                  className={`px-6 py-3 rounded-lg font-semibold text-base transition-all ${
-                    selectedLevel === level.id
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  {level.title}
-                  {typeof level.avgScore === "number" && level.avgScore > 0 && (
-                    <span className="mr-2 text-sm">
-                      {level.avgScore}%
+                {/* Footer Badge */}
+                <div className="relative z-10 mt-5 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className={`p-1 bg-gradient-to-r ${part.color} rounded-full`}>
+                      <CheckCircle2 className="w-3 h-3 text-white" />
+                    </div>
+                    <span className="text-[11px] font-medium text-gray-600 dark:text-gray-400">
+                      {part.items.reduce((acc, item) => acc + item.count, 0)} ملف متاح
                     </span>
-                  )}
-                </button>
-              ))}
-            </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
-
-        {/* Content View */}
-        <div className="space-y-12">
-          {/* Level Content Header */}
-          <section id="curriculum">
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-                <BookOpen className="w-8 h-8 text-blue-600" />
-                المنهج التعليمي - {currentLevel.title}
-              </h2>
-              <p className="text-lg text-gray-600">
-                {currentLevel.description}
-              </p>
-            </div>
-
-            {/* Curriculum */}
-            {currentCurriculum.length > 0 && (
-              <div className="grid gap-6">
-                {currentCurriculum.map((curriculum) => (
-                  <div
-                    key={curriculum.id}
-                    className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
-                  >
-                    <button
-                      onClick={() => toggleCurriculum(curriculum.id)}
-                      className="w-full text-right"
-                    >
-                      <div className={`p-6 transition-colors ${
-                        expandedCurriculum === curriculum.id ? 'bg-blue-50' : 'bg-gray-50 hover:bg-gray-100'
-                      }`}>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            {expandedCurriculum === curriculum.id ? (
-                              <ChevronDown className="w-5 h-5 text-blue-600" />
-                            ) : (
-                              <ChevronRight className="w-5 h-5 text-gray-400" />
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="flex-1">
-                                <h3 className="text-xl font-semibold text-gray-900 mb-1">{curriculum.title}</h3>
-                                {curriculum.description && (
-                                  <p className="text-sm text-gray-600 mb-3">{curriculum.description}</p>
-                                )}
-                              </div>
-                              {curriculum.progress !== undefined && (
-                                <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-                                  {curriculum.progress}%
-                                </span>
-                              )}
-                            </div>
-                            
-                            {/* Curriculum Stats */}
-                            <div className="flex flex-wrap items-center gap-4 mt-4">
-                              {curriculum.lessonsCount && (
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                  <BookOpen className="w-4 h-4 text-blue-600" />
-                                  <span>{curriculum.lessonsCount} درس</span>
-                                </div>
-                              )}
-                              {curriculum.hoursCount && (
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                  <Clock className="w-4 h-4 text-blue-600" />
-                                  <span>{curriculum.hoursCount} ساعة</span>
-                                </div>
-                              )}
-                              {curriculum.difficulty && (
-                                <div className="flex items-center gap-2">
-                                  <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                                    curriculum.difficulty === 'مبتدئ' ? 'bg-green-100 text-green-700' :
-                                    curriculum.difficulty === 'متوسط' ? 'bg-yellow-100 text-yellow-700' :
-                                    'bg-red-100 text-red-700'
-                                  }`}>
-                                    {curriculum.difficulty}
-                                  </span>
-                                </div>
-                              )}
-                              {curriculum.estimatedTime && (
-                                <div className="flex items-center gap-2 text-sm text-gray-600">
-                                  <span>⏱️ {curriculum.estimatedTime}</span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                    {expandedCurriculum === curriculum.id && (
-                      <div className="p-6 border-t border-gray-200">
-                        <div className="space-y-6">
-                          {curriculum.fileGroups.map((fileGroup) => (
-                            <div key={fileGroup.id} className="border border-gray-200 rounded-lg p-4">
-                              <h4 className="font-semibold text-gray-900 mb-2">{fileGroup.title}</h4>
-                              {fileGroup.description && (
-                                <p className="text-sm text-gray-600 mb-4">{fileGroup.description}</p>
-                              )}
-                              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                {fileGroup.files.map((file) => {
-                                  const FileIcon = getFileIcon(file.type);
-                                  return (
-                                    <div key={file.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                                      <FileIcon className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                                      <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
-                                        <p className="text-xs text-gray-500">{file.size}</p>
-                                      </div>
-                                    </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* Files Section */}
-          <section id="files" className="mt-12">
-            <div className="mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-3 flex items-center gap-3">
-                <FileText className="w-8 h-8 text-blue-600" />
-                مجموعة الملفات
-              </h2>
-            </div>
-
-            {currentFileGroups.length > 0 && (
-              <div className="grid gap-6">
-                {currentFileGroups.map((fileGroup) => (
-                  <div
-                    key={fileGroup.id}
-                    className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow"
-                  >
-                    <button
-                      onClick={() => toggleFileGroup(fileGroup.id)}
-                      className="w-full text-right"
-                      aria-label={`${expandedFileGroup === fileGroup.id ? 'إغلاق' : 'فتح'} مجموعة الملفات ${fileGroup.title}`}
-                      aria-expanded={expandedFileGroup === fileGroup.id}
-                      aria-controls={`file-group-${fileGroup.id}`}
-                      role="button"
-                    >
-                      <div className={`p-6 transition-colors ${
-                        expandedFileGroup === fileGroup.id ? 'bg-blue-50' : 'bg-gray-50 hover:bg-gray-100'
-                      }`}>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            {expandedFileGroup === fileGroup.id ? (
-                              <ChevronDown className="w-5 h-5 text-blue-600" aria-hidden="true" />
-                            ) : (
-                              <ChevronRight className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                            )}
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="text-sm text-gray-500">{fileGroup.files.length} ملف</span>
-                              <h3 className="text-xl font-semibold text-gray-900">{fileGroup.title}</h3>
-                            </div>
-                            {fileGroup.description && (
-                              <p className="text-sm text-gray-600">{fileGroup.description}</p>
-                            )}
-                            {fileGroup.progress !== undefined && (
-                              <div className="mt-3">
-                                <div className="flex items-center justify-between text-sm mb-1">
-                                  <span className="text-gray-600">إنجاز المجموعة</span>
-                                  <span className="font-semibold text-blue-600">{fileGroup.progress}%</span>
-                                </div>
-                                <div className="w-full bg-gray-200 rounded-full h-2">
-                                  <div
-                                    className="bg-blue-600 h-2 rounded-full transition-all"
-                                    style={{ width: `${fileGroup.progress}%` }}
-                                  />
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </button>
-                    {expandedFileGroup === fileGroup.id && (
-                      <div className="p-6 border-t border-gray-200" id={`file-group-${fileGroup.id}`} role="region" aria-label={`ملفات ${fileGroup.title}`}>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          {fileGroup.files.map((file) => {
-                            const FileIcon = getFileIcon(file.type);
-                            return (
-                              <div
-                                key={file.id}
-                                className="flex items-center gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
-                              >
-                                <FileIcon className="w-6 h-6 text-blue-600 flex-shrink-0" />
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-gray-900 truncate">{file.name}</p>
-                                  <div className="flex items-center gap-2 mt-1">
-                                    <p className="text-xs text-gray-500">{file.size}</p>
-                                    {file.duration && (
-                                      <p className="text-xs text-gray-500">• {file.duration}</p>
-                                    )}
-                                  </div>
-                                  {file.description && (
-                                    <p className="text-xs text-gray-600 mt-1">{file.description}</p>
-                                  )}
-                                </div>
-                                {file.isProtected && <Lock className="w-4 h-4 text-amber-600 flex-shrink-0" />}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
-
-          {/* Question Bank Section */}
-          <section id="question-bank" className="mt-12 mb-8">
-            <div className="bg-white border border-gray-200 rounded-xl p-8">
-              <div className="flex items-center gap-3 mb-6">
-                <Target className="w-8 h-8 text-blue-600" />
-                <h2 className="text-3xl font-bold text-gray-900">بنك الأسئلة - {currentLevel.title}</h2>
-              </div>
-              <button
-                className={cn(
-                  buttonVariants({ variant: "primary", size: "md", interactive: true }),
-                  "flex items-center gap-2"
-                )}
-                aria-label={`ابدأ التدريب على بنك الأسئلة - ${currentLevel.title}`}
-                role="button"
-              >
-                <BookOpen className="w-5 h-5" aria-hidden="true" />
-                <span>ابدأ التدريب</span>
-              </button>
-            </div>
-          </section>
-        </div>
       </div>
     </PageBackground>
   );

@@ -65,7 +65,6 @@ export function ConditionalWidgets() {
   return (
     <>
       <WhatsappFloatButton />
-      <ChatAssistantWidget />
     </>
   );
 }

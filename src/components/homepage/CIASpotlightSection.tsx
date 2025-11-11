@@ -19,6 +19,7 @@ import {
   Users
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
+import { ROUTES } from '@/lib/routes';
 import { Button } from '@/components/ui/Button';
 
 /**
@@ -269,7 +270,7 @@ const CIASpotlightSection = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.7, duration: 0.6 }}
           >
-            <Link href="/cia" className="inline-block">
+            <Link href={ROUTES.CIA} className="inline-block">
               <Button
                 size="lg"
                 variant="default"

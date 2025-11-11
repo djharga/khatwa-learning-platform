@@ -107,9 +107,8 @@ const FeaturedCoursesSection = () => {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 dark:text-white mb-6">
-            الدورات المميزة
-            <span className="block bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 bg-clip-text text-transparent mt-3">
-              أهم الدورات التعليمية
+            <span className="block bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 bg-clip-text text-transparent">
+              الدورات الأكثر طلبًا
             </span>
           </h2>
           <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
@@ -142,14 +141,6 @@ const FeaturedCoursesSection = () => {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                       
-                      {/* Level Badge - Only show for beginner level */}
-                      {featuredCourses[currentIndex].level === 'مبتدئ' && (
-                        <div className="absolute top-6 right-6">
-                          <span className="inline-block px-5 py-2.5 text-sm font-bold rounded-full shadow-xl backdrop-blur-md border-2 border-white/30 bg-success-500/95 text-white">
-                            {featuredCourses[currentIndex].level}
-                          </span>
-                        </div>
-                      )}
 
                       {/* Play Icon Overlay */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -204,20 +195,34 @@ const FeaturedCoursesSection = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Arrows */}
+            {/* Navigation Arrows - Enhanced Modern Design */}
             <button
               onClick={prevSlide}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-md rounded-full shadow-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center hover:bg-white dark:hover:bg-neutral-800 transition-colors duration-200"
+              className="absolute left-6 top-1/2 -translate-y-1/2 z-20 group"
               aria-label="السابق"
             >
-              <ChevronRight className="w-6 h-6 text-neutral-900 dark:text-white" />
+              <div className="relative">
+                {/* Background with gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                {/* Button */}
+                <div className="relative w-14 h-14 bg-gradient-to-br from-white to-indigo-50 dark:from-neutral-800 dark:to-indigo-900/30 backdrop-blur-md rounded-2xl shadow-xl border-2 border-indigo-200/50 dark:border-indigo-700/50 flex items-center justify-center group-hover:from-indigo-50 group-hover:to-purple-50 dark:group-hover:from-indigo-900/50 dark:group-hover:to-purple-900/50 group-hover:border-indigo-400 dark:group-hover:border-indigo-500 group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300">
+                  <ChevronRight className="w-6 h-6 text-indigo-600 dark:text-indigo-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300" strokeWidth={2.5} />
+                </div>
+              </div>
             </button>
             <button
               onClick={nextSlide}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-md rounded-full shadow-xl border border-neutral-200 dark:border-neutral-700 flex items-center justify-center hover:bg-white dark:hover:bg-neutral-800 transition-colors duration-200"
+              className="absolute right-6 top-1/2 -translate-y-1/2 z-20 group"
               aria-label="التالي"
             >
-              <ChevronLeft className="w-6 h-6 text-neutral-900 dark:text-white" />
+              <div className="relative">
+                {/* Background with gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                {/* Button */}
+                <div className="relative w-14 h-14 bg-gradient-to-br from-white to-purple-50 dark:from-neutral-800 dark:to-purple-900/30 backdrop-blur-md rounded-2xl shadow-xl border-2 border-purple-200/50 dark:border-purple-700/50 flex items-center justify-center group-hover:from-purple-50 group-hover:to-indigo-50 dark:group-hover:from-purple-900/50 dark:group-hover:to-indigo-900/50 group-hover:border-purple-400 dark:group-hover:border-purple-500 group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300">
+                  <ChevronLeft className="w-6 h-6 text-purple-600 dark:text-purple-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300" strokeWidth={2.5} />
+                </div>
+              </div>
             </button>
           </div>
 

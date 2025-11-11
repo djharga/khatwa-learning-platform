@@ -33,6 +33,7 @@ import {
   Save,
   X,
 } from 'lucide-react';
+import { useAdminStore, type AdminProgram } from '@/lib/store/admin-store';
 
 interface TrainingProgram {
   id: string;
@@ -87,298 +88,87 @@ const AdminProgramsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [typeFilter, setTypeFilter] = useState('all');
-  const [selectedProgram, setSelectedProgram] = useState<TrainingProgram | null>(null);
+  const [selectedProgram, setSelectedProgram] = useState<AdminProgram | null>(null);
   const [showProgramDetails, setShowProgramDetails] = useState(false);
   const [showAddProgramModal, setShowAddProgramModal] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
 
-  // جلب البيانات من API
+  // استخدام الـ store مباشرة
+  const { programs, stats, addProgram, updateProgram, deleteProgram, initializeData } = useAdminStore();
+
+  // تهيئة البيانات عند تحميل الصفحة
   useEffect(() => {
-    loadPrograms();
-  }, [statusFilter, typeFilter, searchTerm]);
+    initializeData();
+  }, [initializeData]);
 
-  const loadPrograms = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const params = new URLSearchParams();
-      if (statusFilter !== 'all') params.append('status', statusFilter);
-      if (typeFilter !== 'all') params.append('type', typeFilter);
-      if (searchTerm) params.append('search', searchTerm);
-      
-      const response = await fetch(`/api/admin/programs?${params.toString()}`);
-      if (!response.ok) throw new Error('فشل جلب البرامج');
-      
-      const result = await response.json();
-      if (result.success) {
-        // تحويل البيانات من API إلى التنسيق المطلوب مع schedule و participants
-        const programsWithDetails = result.data.map((program: any) => ({
-          ...program,
-          schedule: program.schedule || [],
-          participants: program.participants || [],
-        }));
-        setPrograms(programsWithDetails);
-      } else {
-        throw new Error(result.error || 'فشل جلب البرامج');
-      }
-    } catch (err: any) {
-      console.error('Error loading programs:', err);
-      setError(err.message || 'حدث خطأ أثناء جلب البرامج');
-      // في حالة الخطأ، استخدم البيانات الافتراضية (fallback)
-      const fallbackData: TrainingProgram[] = [];
-      setPrograms(fallbackData);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // وظائف CRUD
+  // وظائف CRUD - استخدام الـ store مباشرة
   const handleDeleteProgram = async (programId: string) => {
     if (!confirm('هل أنت متأكد من حذف هذا البرنامج؟')) return;
     
     try {
-      setSaving(true);
-      const response = await fetch(`/api/admin/programs/${programId}`, {
-        method: 'DELETE',
-      });
-      
-      if (!response.ok) throw new Error('فشل حذف البرنامج');
-      
-      const result = await response.json();
-      if (result.success) {
-        await loadPrograms(); // إعادة جلب البيانات
-        alert('تم حذف البرنامج بنجاح');
-      } else {
-        throw new Error(result.error || 'فشل حذف البرنامج');
-      }
+      deleteProgram(programId);
+      alert('تم حذف البرنامج بنجاح');
     } catch (err: any) {
       console.error('Error deleting program:', err);
       alert(err.message || 'حدث خطأ أثناء حذف البرنامج');
-    } finally {
-      setSaving(false);
     }
   };
 
-  const handleUpdateProgram = async (programId: string, updates: Partial<TrainingProgram>) => {
+  const handleUpdateProgram = async (programId: string, updates: Partial<AdminProgram>) => {
     try {
-      setSaving(true);
-      const response = await fetch(`/api/admin/programs/${programId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updates),
-      });
-      
-      if (!response.ok) throw new Error('فشل تحديث البرنامج');
-      
-      const result = await response.json();
-      if (result.success) {
-        await loadPrograms(); // إعادة جلب البيانات
-        alert('تم تحديث البرنامج بنجاح');
-        setShowProgramDetails(false);
-      } else {
-        throw new Error(result.error || 'فشل تحديث البرنامج');
-      }
+      updateProgram(programId, updates);
+      alert('تم تحديث البرنامج بنجاح');
+      setShowProgramDetails(false);
     } catch (err: any) {
       console.error('Error updating program:', err);
       alert(err.message || 'حدث خطأ أثناء تحديث البرنامج');
-    } finally {
-      setSaving(false);
     }
   };
 
-  const handleCreateProgram = async (programData: Partial<TrainingProgram>) => {
+  const handleCreateProgram = async (programData: Partial<AdminProgram>) => {
     try {
-      setSaving(true);
-      const response = await fetch('/api/admin/programs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(programData),
-      });
-      
-      if (!response.ok) throw new Error('فشل إنشاء البرنامج');
-      
-      const result = await response.json();
-      if (result.success) {
-        await loadPrograms(); // إعادة جلب البيانات
-        alert('تم إنشاء البرنامج بنجاح');
-        setShowAddProgramModal(false);
-      } else {
-        throw new Error(result.error || 'فشل إنشاء البرنامج');
+      // التحقق من البيانات المطلوبة
+      if (!programData.title || !programData.description || !programData.type) {
+        alert('العنوان والوصف ونوع البرنامج مطلوبون');
+        return;
       }
+
+      const newProgram: AdminProgram = {
+        id: Date.now().toString(),
+        title: programData.title,
+        description: programData.description,
+        type: programData.type,
+        status: programData.status || 'planning',
+        startDate: programData.startDate || new Date().toISOString().split('T')[0],
+        endDate: programData.endDate || new Date().toISOString().split('T')[0],
+        totalHours: programData.totalHours || 0,
+        maxParticipants: programData.maxParticipants || 0,
+        enrolledParticipants: 0,
+        completedParticipants: 0,
+        instructor: programData.instructor || '',
+        price: programData.price || 0,
+        prerequisites: programData.prerequisites || [],
+        objectives: programData.objectives || [],
+        schedule: programData.schedule || [],
+        participants: [],
+        createdAt: new Date().toISOString().split('T')[0],
+        lastModified: new Date().toISOString().split('T')[0]
+      };
+
+      addProgram(newProgram);
+      alert('تم إنشاء البرنامج بنجاح');
+      setShowAddProgramModal(false);
     } catch (err: any) {
       console.error('Error creating program:', err);
       alert(err.message || 'حدث خطأ أثناء إنشاء البرنامج');
-    } finally {
-      setSaving(false);
     }
   };
 
-  // بيانات تجريبية احتياطية (fallback data) - سيتم استبدالها بالبيانات من API
-  const [programs, setPrograms] = useState<TrainingProgram[]>([
-    {
-      id: '1',
-      title: 'زمالة المراجعين الداخليين',
-      description: 'برنامج زمالة شامل للحصول على شهادة معتمدة في المراجعة الداخلية',
-      type: 'fellowship',
-      status: 'active',
-      startDate: '2024-01-01',
-      endDate: '2024-06-30',
-      totalHours: 120,
-      maxParticipants: 50,
-      enrolledParticipants: 35,
-      completedParticipants: 12,
-      instructor: 'د. أحمد محمد',
-      price: 15000,
-      prerequisites: ['بكالوريوس في المحاسبة', 'خبرة 2 سنة في المجال'],
-      objectives: [
-        'فهم أساسيات المراجعة الداخلية',
-        'تطبيق معايير المراجعة الدولية',
-        'إعداد تقارير المراجعة المهنية'
-      ],
-      schedule: [
-        {
-          id: 's1',
-          title: 'مقدمة في المراجعة الداخلية',
-          date: '2024-01-15',
-          startTime: '09:00',
-          endTime: '17:00',
-          type: 'lecture',
-          instructor: 'د. أحمد محمد',
-          location: 'قاعة المحاضرات الرئيسية',
-          isCompleted: true,
-          attendance: 35
-        },
-        {
-          id: 's2',
-          title: 'ورشة عمل تطبيقية',
-          date: '2024-01-22',
-          startTime: '09:00',
-          endTime: '15:00',
-          type: 'workshop',
-          instructor: 'د. فاطمة علي',
-          location: 'معمل الحاسوب',
-          isCompleted: false,
-          attendance: 0
-        }
-      ],
-      participants: [
-        {
-          id: 'p1',
-          userId: 'u1',
-          name: 'سارة أحمد',
-          email: 'sara@example.com',
-          enrollmentDate: '2024-01-01',
-          status: 'active',
-          attendanceRate: 95,
-          grade: 92,
-          certificateIssued: false,
-          paymentStatus: 'paid',
-          notes: 'مشاركة ممتازة في المناقشات'
-        },
-        {
-          id: 'p2',
-          userId: 'u2',
-          name: 'محمد علي',
-          email: 'mohamed@example.com',
-          enrollmentDate: '2024-01-05',
-          status: 'completed',
-          attendanceRate: 88,
-          grade: 85,
-          certificateIssued: true,
-          paymentStatus: 'paid',
-          notes: 'أنهى جميع المتطلبات بنجاح'
-        }
-      ],
-      createdAt: '2023-12-01',
-      lastModified: '2024-01-20'
-    },
-    {
-      id: '2',
-      title: 'دبلوم الإدارة المالية',
-      description: 'دبلوم متخصص في الإدارة المالية والميزانيات',
-      type: 'diploma',
-      status: 'planning',
-      startDate: '2024-03-01',
-      endDate: '2024-08-31',
-      totalHours: 80,
-      maxParticipants: 30,
-      enrolledParticipants: 0,
-      completedParticipants: 0,
-      instructor: 'د. فاطمة علي',
-      price: 8000,
-      prerequisites: ['بكالوريوس في الإدارة أو المحاسبة'],
-      objectives: [
-        'إدارة الميزانيات والتخطيط المالي',
-        'تحليل التكاليف والربحية',
-        'إعداد التقارير المالية'
-      ],
-      schedule: [],
-      participants: [],
-      createdAt: '2024-01-15',
-      lastModified: '2024-01-15'
-    },
-    {
-      id: '3',
-      title: 'ورشة عمل المخاطر المالية',
-      description: 'ورشة عمل تفاعلية حول إدارة المخاطر المالية',
-      type: 'workshop',
-      status: 'completed',
-      startDate: '2024-01-10',
-      endDate: '2024-01-10',
-      totalHours: 6,
-      maxParticipants: 20,
-      enrolledParticipants: 18,
-      completedParticipants: 18,
-      instructor: 'د. محمد حسن',
-      price: 500,
-      prerequisites: [],
-      objectives: [
-        'فهم أنواع المخاطر المالية',
-        'تقنيات إدارة المخاطر',
-        'أدوات التحليل المالي'
-      ],
-      schedule: [
-        {
-          id: 's3',
-          title: 'ورشة المخاطر المالية',
-          date: '2024-01-10',
-          startTime: '09:00',
-          endTime: '15:00',
-          type: 'workshop',
-          instructor: 'د. محمد حسن',
-          location: 'قاعة التدريب',
-          isCompleted: true,
-          attendance: 18
-        }
-      ],
-      participants: [
-        {
-          id: 'p3',
-          userId: 'u3',
-          name: 'فاطمة سالم',
-          email: 'fatima@example.com',
-          enrollmentDate: '2024-01-08',
-          status: 'completed',
-          attendanceRate: 100,
-          grade: 95,
-          certificateIssued: true,
-          paymentStatus: 'paid',
-          notes: 'مشاركة فعالة جداً'
-        }
-      ],
-      createdAt: '2024-01-01',
-      lastModified: '2024-01-10'
-    }
-  ]);
-
+  // فلترة البرامج
   const filteredPrograms = useMemo(() => {
-    return programs.filter(program => {
+    return programs.filter((program: AdminProgram) => {
       const matchesSearch = program.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            program.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            program.instructor.toLowerCase().includes(searchTerm.toLowerCase());

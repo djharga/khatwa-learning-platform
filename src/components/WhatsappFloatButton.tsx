@@ -15,7 +15,7 @@ const WhatsappFloatButton = () => {
   return (
     <motion.button
       onClick={handleClick}
-      className="fixed bottom-6 left-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:shadow-green-500/25 transition-all duration-150 group"
+      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:shadow-green-500/25 transition-all duration-150 group"
       whileHover={{
         scale: 1.02,
       }}
@@ -32,10 +32,10 @@ const WhatsappFloatButton = () => {
 
       {/* أداة التلميح */}
       <div
-        className="absolute right-full mr-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none"
+        className="absolute left-full ml-3 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none"
       >
         تواصل معنا عبر واتساب
-        <div className="absolute left-0 top-1/2 transform -translate-y-1/2 border-4 border-transparent border-l-gray-900"></div>
+        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 border-4 border-transparent border-r-gray-900"></div>
       </div>
     </motion.button>
   );

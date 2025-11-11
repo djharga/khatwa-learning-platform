@@ -23,12 +23,12 @@ import {
   ChevronDown,
   ChevronUp,
   X,
-  Menu,
   Shield,
   Crown,
   RefreshCw,
   Package,
 } from 'lucide-react';
+import SidebarToggleButton from '@/components/ui/SidebarToggleButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { linkVariants, buttonVariants } from '@/lib/variants';
 import { cn } from '@/lib/utils';
@@ -49,7 +49,8 @@ export default function StudentSidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [expandedGroups, setExpandedGroups] = useState<string[]>(['الرئيسية', 'التعليم']);
-  const { hasSubscription } = useSubscription();
+  const { data: subscriptionData } = useSubscription();
+  const hasSubscription = subscriptionData?.hasSubscription || false;
 
   // استخدام navigation.ts مع الحفاظ على بنية الأيقونات
   const navigationItemsFromLib = getSidebarItems('student', hasSubscription);
@@ -123,13 +124,14 @@ export default function StudentSidebar() {
   return (
     <>
       {/* زر القائمة للموبايل */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed top-20 right-4 z-40 lg:hidden p-3 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-colors"
-        aria-label="فتح القائمة"
-      >
-        <Menu className="w-6 h-6" />
-      </button>
+      <div className="lg:hidden">
+        <SidebarToggleButton
+          isOpen={isOpen}
+          onClick={() => setIsOpen(true)}
+          variant="floating"
+          className="!fixed right-6 top-1/2 -translate-y-1/2 z-40"
+        />
+      </div>
 
       {/* Overlay للموبايل */}
       <AnimatePresence>

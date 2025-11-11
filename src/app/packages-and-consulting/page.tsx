@@ -24,6 +24,15 @@ import {
 } from 'lucide-react';
 import StyledButton from '@/components/ui/StyledButton';
 import Image from 'next/image';
+import { useSubscription } from '@/hooks/useSubscription';
+import { createPaymentIntent, subscribe } from '@/lib/apiClient';
+
+interface SubscriptionStatus {
+  hasSubscription: boolean;
+  subscriptionPlan: string | null;
+  hasEnrollment: boolean | null;
+  hasAccess: boolean;
+}
 
 interface SubscriptionPlan {
   id: string;
@@ -56,7 +65,7 @@ function PackagesAndConsultingContent() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'packages' | 'consulting'>('packages');
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
-  const [subscriptionStatus, setSubscriptionStatus] = useState<{ hasSubscription: boolean; subscriptionPlan: string | null } | null>(null);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<{ hasSubscription: boolean; subscriptionPlan: string | null; hasEnrollment: boolean | null; hasAccess: boolean; loading: boolean } | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Read tab from URL params
@@ -67,19 +76,30 @@ function PackagesAndConsultingContent() {
     }
   }, [searchParams]);
 
-  // Check subscription status
+  // Check subscription status using React Query
+  const subscriptionQuery = useSubscription();
+  const subscriptionData: SubscriptionStatus | undefined = subscriptionQuery.data;
+  const subscriptionLoading = subscriptionQuery.isLoading;
+  
   useEffect(() => {
-    const checkStatus = async () => {
-      try {
-        const response = await fetch('/api/enrollment-status');
-        const status = await response.json();
-        setSubscriptionStatus(status);
-      } catch (error) {
-        console.error('Error checking subscription status:', error);
-      }
-    };
-    checkStatus();
-  }, []);
+    if (subscriptionData) {
+      setSubscriptionStatus({
+        hasSubscription: subscriptionData.hasSubscription,
+        subscriptionPlan: subscriptionData.subscriptionPlan,
+        hasEnrollment: subscriptionData.hasEnrollment,
+        hasAccess: subscriptionData.hasAccess,
+        loading: subscriptionLoading,
+      });
+    } else {
+      setSubscriptionStatus({
+        hasSubscription: false,
+        subscriptionPlan: null,
+        hasEnrollment: null,
+        hasAccess: false,
+        loading: subscriptionLoading,
+      });
+    }
+  }, [subscriptionData, subscriptionLoading]);
 
   // Update URL when tab changes
   const handleTabChange = (tab: 'packages' | 'consulting') => {
@@ -227,35 +247,25 @@ function PackagesAndConsultingContent() {
     setLoading(true);
     try {
       // Create payment intent
-      await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          planId: plan.id, 
-          amount: plan.price 
-        }),
-      });
+      await createPaymentIntent(plan.id, plan.price);
 
       // Subscribe
-      const subscribeResponse = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          planId: plan.id,
-          paymentIntentId: `mock_payment_${Date.now()}`,
-        }),
-      });
-
-      if (subscribeResponse.ok) {
-        const result = await subscribeResponse.json();
-        // Update subscription status
-        setSubscriptionStatus({ hasSubscription: true, subscriptionPlan: plan.id });
-        alert(`تم الاشتراك بنجاح في ${plan.name}! سيتم توجيهك إلى صفحة الدورات...`);
-        router.push('/student/courses');
-      } else {
-        const error = await subscribeResponse.json();
-        alert(`فشل الاشتراك: ${error.error || 'حدث خطأ غير متوقع'}`);
+      const subscribeResponse = await subscribe(plan.id, `mock_payment_${Date.now()}`);
+      
+      if (subscribeResponse.error) {
+        throw new Error(subscribeResponse.error.message || 'فشل في الاشتراك');
       }
+
+      // Update subscription status
+      setSubscriptionStatus({ 
+        hasSubscription: true, 
+        subscriptionPlan: plan.id,
+        hasEnrollment: null,
+        hasAccess: true,
+        loading: false,
+      });
+      alert(`تم الاشتراك بنجاح في ${plan.name}! سيتم توجيهك إلى صفحة الدورات...`);
+      router.push('/student/courses');
     } catch (error) {
       console.error('Error subscribing:', error);
       alert('حدث خطأ في معالجة الاشتراك. يرجى المحاولة مرة أخرى.');
@@ -294,7 +304,7 @@ function PackagesAndConsultingContent() {
             transition={{ duration: 0.8 }}
           >
             <h1 
-              className="text-4xl md:text-6xl font-bold mb-6 drop-shadow-2xl text-white"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 drop-shadow-2xl text-white"
               style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8), 0 2px 10px rgba(0,0,0,0.6)' }}
             >
               الباقات والاستشارات

@@ -234,29 +234,67 @@ const AdminGeneralControlPage = () => {
           transition={{ delay: 0.2 }}
           className="flex justify-center mb-8"
         >
-          <div className="bg-white rounded-2xl p-2 shadow-lg border border-gray-100">
+          <div className="inline-flex items-center gap-2 bg-gray-100/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-neutral-700/60 overflow-x-auto scrollbar-hide">
             {[
               { id: 'overview', label: 'نظرة عامة', icon: BarChart3 },
               { id: 'platform', label: 'إعدادات المنصة', icon: Settings },
               { id: 'courses', label: 'إدارة الدورات', icon: BookOpen },
               { id: 'channels', label: 'قنوات الاتصال', icon: MessageSquare },
               { id: 'security', label: 'الأمان والحماية', icon: Shield }
-            ].map((tab) => (
-              <motion.button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-2 ${
-                  activeTab === tab.id
-                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <tab.icon className="w-5 h-5" />
-                {tab.label}
-              </motion.button>
-            ))}
+            ].map((tab) => {
+              const Icon = tab.icon;
+              return (
+                <motion.button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`
+                    group relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl
+                    font-medium text-sm whitespace-nowrap
+                    transition-all duration-200 ease-out
+                    ${activeTab === tab.id
+                      ? 'bg-white dark:bg-neutral-700 text-gray-900 dark:text-white shadow-sm scale-[1.02]'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-neutral-700/50'
+                    }
+                  `}
+                  whileHover={{ scale: activeTab === tab.id ? 1.02 : 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {/* Active background with gradient */}
+                  {activeTab === tab.id && (
+                    <motion.div
+                      layoutId="activeControlTab"
+                      className="absolute inset-0 bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-pink-50/50 dark:from-indigo-950/30 dark:via-purple-950/20 dark:to-pink-950/30 rounded-xl"
+                      transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                      style={{ borderRadius: '0.75rem' }}
+                    />
+                  )}
+                  
+                  {/* Icon */}
+                  <Icon 
+                    className={`
+                      w-4 h-4 transition-all duration-200 relative z-10 flex-shrink-0
+                      ${activeTab === tab.id 
+                        ? 'text-indigo-600 dark:text-indigo-400 scale-110' 
+                        : 'text-gray-500 dark:text-gray-400 group-hover:text-indigo-500 dark:group-hover:text-indigo-400'
+                      }
+                    `} 
+                  />
+                  
+                  {/* Label */}
+                  <span className="relative z-10 transition-colors duration-200">{tab.label}</span>
+                  
+                  {/* Active indicator line */}
+                  {activeTab === tab.id && (
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: '60%' }}
+                      transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"
+                    />
+                  )}
+                </motion.button>
+              );
+            })}
           </div>
         </motion.div>
 
@@ -271,58 +309,62 @@ const AdminGeneralControlPage = () => {
               className="space-y-8"
             >
               {/* إحصائيات النظام */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-600 text-sm">إجمالي المستخدمين</p>
-                      <p className="text-3xl font-bold text-blue-600">{systemStats.totalUsers.toLocaleString()}</p>
-                      <p className="text-sm text-green-600">نشط: {systemStats.activeUsers.toLocaleString()}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Users className="w-6 h-6 text-blue-600" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي المستخدمين</p>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                      <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </div>
-                </div>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400 mb-1">{systemStats.totalUsers.toLocaleString()}</p>
+                  <p className="text-xs text-green-600 dark:text-green-400">نشط: {systemStats.activeUsers.toLocaleString()}</p>
+                </motion.div>
 
-                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-600 text-sm">إجمالي الدورات</p>
-                      <p className="text-3xl font-bold text-purple-600">{systemStats.totalCourses}</p>
-                      <p className="text-sm text-green-600">نشطة: {systemStats.activeCourses}</p>
-                    </div>
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                      <BookOpen className="w-6 h-6 text-purple-600" />
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  className="bg-gradient-to-br from-white to-purple-50/50 dark:from-neutral-800 dark:to-purple-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي الدورات</p>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                      <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </div>
-                </div>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400 mb-1">{systemStats.totalCourses}</p>
+                  <p className="text-xs text-green-600 dark:text-green-400">نشطة: {systemStats.activeCourses}</p>
+                </motion.div>
 
-                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-600 text-sm">استخدام التخزين</p>
-                      <p className="text-3xl font-bold text-green-600">{((systemStats.usedStorage / systemStats.totalStorage) * 100).toFixed(1)}%</p>
-                      <p className="text-sm text-gray-600">{systemStats.usedStorage}GB من {systemStats.totalStorage}GB</p>
-                    </div>
-                    <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                      <Activity className="w-6 h-6 text-green-600" />
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  className="bg-gradient-to-br from-white to-green-50/50 dark:from-neutral-800 dark:to-green-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-green-100/50 dark:border-green-800/30 transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">استخدام التخزين</p>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md">
+                      <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </div>
-                </div>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-green-600 dark:text-green-400 mb-1">{((systemStats.usedStorage / systemStats.totalStorage) * 100).toFixed(1)}%</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">{systemStats.usedStorage}GB من {systemStats.totalStorage}GB</p>
+                </motion.div>
 
-                <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-gray-600 text-sm">أداء النظام</p>
-                      <p className="text-3xl font-bold text-orange-600">{systemStats.serverUptime}%</p>
-                      <p className="text-sm text-gray-600">وقت الاستجابة: {systemStats.responseTime}ms</p>
-                    </div>
-                    <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                      <TrendingUp className="w-6 h-6 text-orange-600" />
+                <motion.div
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  className="bg-gradient-to-br from-white to-orange-50/50 dark:from-neutral-800 dark:to-orange-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-orange-100/50 dark:border-orange-800/30 transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">أداء النظام</p>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-md">
+                      <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                     </div>
                   </div>
-                </div>
+                  <p className="text-2xl sm:text-3xl font-extrabold text-orange-600 dark:text-orange-400 mb-1">{systemStats.serverUptime}%</p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">وقت الاستجابة: {systemStats.responseTime}ms</p>
+                </motion.div>
               </div>
 
               {/* حالة النظام */}

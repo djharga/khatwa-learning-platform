@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion';
 import {
   FileText,
-  Video,
-  Music,
   FileSpreadsheet,
   File,
   Download,
@@ -15,6 +13,7 @@ import {
   Calendar,
 } from 'lucide-react';
 import Image from 'next/image';
+import { WordIcon, PDFIcon, VideoIcon, AudioIcon } from './icons/FileTypeIcons';
 
 /**
  * Unified File Card Component - بطاقة موحدة لجميع أنواع الملفات
@@ -51,13 +50,13 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
     const iconClass = 'w-8 h-8';
     switch (file.type) {
       case 'video':
-        return <Video className={iconClass} />;
+        return <VideoIcon className={iconClass} size={32} />;
       case 'audio':
-        return <Music className={iconClass} />;
+        return <AudioIcon className={iconClass} size={32} />;
       case 'pdf':
-        return <FileText className={iconClass} />;
+        return <PDFIcon className={iconClass} size={32} />;
       case 'word':
-        return <FileText className={iconClass} />;
+        return <WordIcon className={iconClass} size={32} />;
       case 'excel':
         return <FileSpreadsheet className={iconClass} />;
       default:

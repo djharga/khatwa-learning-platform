@@ -31,58 +31,51 @@ const GoalsSection = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden">
+    <section className="relative py-8 lg:py-10 overflow-hidden">
       <Container size="xl" className="relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50">
-            <Target className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50">
+            <Target className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-xs">
               الأهداف (Goals)
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 dark:text-white mb-6 leading-tight">
-            أهدافنا
-            <br />
-            <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 bg-clip-text text-transparent">
-              الاستراتيجية
-            </span>
+          <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white mb-3">
+            أهدافنا <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 bg-clip-text text-transparent">الاستراتيجية</span>
           </h2>
-          <p className="text-base md:text-lg lg:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
             نسعى لتحقيق أهداف واضحة تساهم في تطوير مهاراتك المهنية
           </p>
         </div>
 
-        {/* Goals Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+        {/* Goals Grid - Compact */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
           {goals.map((goal, index) => {
             const Icon = goal.icon;
 
             return (
               <div
                 key={index}
-                className="flex flex-col p-6 lg:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-shadow duration-200"
+                className="flex flex-col p-4 lg:p-5 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-shadow duration-200"
               >
                 {/* Icon */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <div className="relative">
-                    {/* Static Glow Effect */}
-                    <div className={`absolute inset-0 bg-gradient-to-r ${goal.gradient} rounded-2xl blur-xl opacity-30`} />
-
-                    {/* Icon Container */}
-                    <div className={`relative w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-br ${goal.gradient} rounded-2xl flex items-center justify-center shadow-lg`}>
-                      <Icon className="w-10 h-10 lg:w-12 lg:h-12 text-white" />
+                    <div className={`absolute inset-0 bg-gradient-to-r ${goal.gradient} rounded-xl blur-lg opacity-30`} />
+                    <div className={`relative w-14 h-14 bg-gradient-to-br ${goal.gradient} rounded-xl flex items-center justify-center shadow-md`}>
+                      <Icon className="w-7 h-7 text-white" />
                     </div>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="space-y-3 text-center">
-                  <h3 className="text-lg lg:text-xl font-bold text-neutral-900 dark:text-white">
+                <div className="space-y-2 text-center">
+                  <h3 className="text-sm lg:text-base font-bold text-neutral-900 dark:text-white">
                     {goal.title}
                   </h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  <p className="text-xs lg:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {goal.description}
                   </p>
                 </div>

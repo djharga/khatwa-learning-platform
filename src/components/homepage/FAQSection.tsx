@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { HelpCircle, ChevronDown, MessageCircle } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
+import { ROUTES } from '@/lib/routes';
 
 /**
  * FAQ Section - الأسئلة الشائعة
@@ -204,7 +205,7 @@ const FAQSection = () => {
               <p className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">
                 لم تجد إجابة؟{' '}
                 <a
-                  href="/contact"
+                  href={ROUTES.CONTACT}
                   className="underline hover:text-emerald-800 dark:hover:text-emerald-200 transition-colors"
                 >
                   تواصل معنا

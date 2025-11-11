@@ -72,7 +72,7 @@ export default function AboutPage() {
             </motion.div>
 
             <motion.h1
-              className="text-5xl lg:text-7xl xl:text-8xl font-bold text-primary-600 dark:text-primary-400"
+              className="text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-600 dark:text-primary-400"
               initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.4, duration: 0.8 }}
@@ -81,7 +81,7 @@ export default function AboutPage() {
             </motion.h1>
 
             <motion.p
-              className="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 max-w-4xl mx-auto font-medium leading-relaxed"
+              className="text-lg lg:text-xl text-slate-700 dark:text-slate-300 max-w-4xl mx-auto font-medium leading-relaxed"
               initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.6, duration: 0.6 }}
@@ -109,8 +109,8 @@ export default function AboutPage() {
 
             {/* النص */}
             <div className="space-y-8 order-1 lg:order-2">
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900">قصة بدايتنا</h2>
-              <p className="text-lg text-slate-700 leading-relaxed">
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900">قصة بدايتنا</h2>
+              <p className="text-base text-slate-700 leading-relaxed">
                 تأسست منصة خطى في عام 2023 بهدف سد الفجوة بين التعليم الأكاديمي والمتطلبات العملية في سوق العمل السعودي والعربي.
               </p>
 
@@ -139,53 +139,10 @@ export default function AboutPage() {
                     <item.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                    <p className="text-slate-700">{item.text}</p>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{item.title}</h3>
+                    <p className="text-sm text-slate-700">{item.text}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* قسم الفريق */}
-        <section className="relative py-24 lg:py-36 bg-white">
-          <div className="absolute inset-0 opacity-5">
-            <Image src="/assets/founders-team-image.jpg" alt="فريق العمل" fill className="object-cover" quality={60} />
-          </div>
-
-          <div className="container mx-auto max-w-7xl px-8 relative z-10">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">فريق العمل</h2>
-              <p className="text-xl text-slate-700 max-w-3xl mx-auto">
-                نخبة من الخبراء والمتخصصين في مجالات المحاسبة والمراجعة الداخلية
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { name: 'د. أحمد العتيبي', role: 'مؤسس ومدير تنفيذي', specialty: 'خبير مراجعة داخلية معتمد من IIA', experience: '15+ سنة', img: '/avatars/drew-cano.png' },
-                { name: 'د. سارة المحمد', role: 'مديرة التعليم', specialty: 'خبيرة في تحليل المخاطر المالية', experience: '12+ سنة', img: '/avatars/natali-craig.png' },
-                { name: 'د. محمد السالم', role: 'مدير الاستشارات', specialty: 'خبير حوكمة وامتثال', experience: '18+ سنة', img: '/avatars/orlando-diggs.png' },
-              ].map((m, i) => (
-                <motion.div
-                  key={m.name}
-                  className="bg-white dark:bg-neutral-800 rounded-3xl p-8 shadow-lg border border-slate-200 dark:border-neutral-700 text-center"
-                  initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                  whileInView={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
-                  transition={prefersReducedMotion ? { duration: 0 } : { delay: i * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
-                >
-                  <div className="space-y-4">
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full mx-auto flex items-center justify-center">
-                      <User className="w-12 h-12 text-slate-600" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900">{m.name}</h3>
-                    <p className="text-primary-600 font-medium">{m.role}</p>
-                    <p className="text-sm text-slate-600">{m.specialty}</p>
-                    <span className="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">{m.experience}</span>
-                  </div>
-                </motion.div>
               ))}
             </div>
           </div>
@@ -194,8 +151,8 @@ export default function AboutPage() {
         {/* قسم الإنجازات */}
         <section className="py-24 lg:py-36 bg-slate-50">
           <div className="container mx-auto max-w-7xl px-8 text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">إنجازاتنا</h2>
-            <p className="text-xl text-slate-700 max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">إنجازاتنا</h2>
+            <p className="text-lg text-slate-700 max-w-3xl mx-auto mb-16">
               مسيرة من التميز والابتكار في خدمة التعليم المهني
             </p>
 
@@ -219,8 +176,8 @@ export default function AboutPage() {
                       <s.icon className="w-8 h-8" />
                     </div>
                     <div>
-                      <div className="text-3xl font-bold text-slate-900 dark:text-white">{s.number}</div>
-                      <div className="text-slate-600 dark:text-slate-400 font-medium">{s.label}</div>
+                      <div className="text-2xl font-bold text-slate-900 dark:text-white">{s.number}</div>
+                      <div className="text-sm text-slate-600 dark:text-slate-400 font-medium">{s.label}</div>
                     </div>
                   </div>
                 </motion.div>
@@ -232,8 +189,8 @@ export default function AboutPage() {
         {/* قسم التواصل */}
         <section className="py-24 lg:py-36">
           <div className="container mx-auto max-w-7xl px-8 text-center">
-            <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">تواصل معنا</h2>
-            <p className="text-xl text-slate-700 max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">تواصل معنا</h2>
+            <p className="text-lg text-slate-700 max-w-3xl mx-auto mb-16">
               نحن هنا لمساعدتك في رحلتك المهنية وتطوير مهاراتك
             </p>
             <div className="max-w-4xl mx-auto">

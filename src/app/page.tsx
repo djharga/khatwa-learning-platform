@@ -12,11 +12,10 @@ const FeaturedCoursesSection = dynamic(() => import('@/components/homepage/Featu
 const FellowshipSection = dynamic(() => import('@/components/homepage/FellowshipSection'), { ssr: false });
 const FAQSection = dynamic(() => import('@/components/homepage/FAQSection'), { ssr: false });
 const CTASection = dynamic(() => import('@/components/homepage/CTASection'), { ssr: false });
-const IntroductionSection = dynamic(() => import('@/components/homepage/IntroductionSection'), { ssr: false });
 const VisionSection = dynamic(() => import('@/components/homepage/VisionSection'), { ssr: false });
 const MissionSection = dynamic(() => import('@/components/homepage/MissionSection'), { ssr: false });
 const GoalsSection = dynamic(() => import('@/components/homepage/GoalsSection'), { ssr: false });
-const ValuesSection = dynamic(() => import('@/components/homepage/ValuesSection'), { ssr: false });
+const WhatMakesUsSection = dynamic(() => import('@/components/homepage/WhatMakesUsSection'), { ssr: false });
 
 export default function HomePage() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -50,14 +49,12 @@ export default function HomePage() {
   const sections = useMemo(
     () => [
       CreativeHeroSection,
-      IntroductionSection,
       VisionSection,
       MissionSection,
       GoalsSection,
-      ValuesSection,
+      WhatMakesUsSection,
       FeaturedCoursesSection,
       FellowshipSection,
-      FAQSection,
       CTASection,
     ],
     []

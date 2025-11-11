@@ -1111,13 +1111,13 @@ const AdminDashboard = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8 }}
-          className="mt-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-8 text-white shadow-2xl relative overflow-hidden"
+          className="mt-8 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-2xl p-8 shadow-2xl relative overflow-hidden"
         >
           <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/20 to-transparent rounded-full blur-3xl"></div>
           
           <div className="relative z-10">
-          <h3 className="text-2xl font-bold mb-6 text-center">الوصول السريع للأقسام الرئيسية</h3>
+          <h3 className="text-2xl font-bold mb-6 text-center text-white">الوصول السريع للأقسام الرئيسية</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {[
               { name: 'إدارة البرامج', href: '/admin/programs', icon: GraduationCap },
@@ -1137,8 +1137,8 @@ const AdminDashboard = () => {
                       whileHover={{ scale: 1.05, y: -4 }}
                       className="text-center p-4 bg-white/10 backdrop-blur-md rounded-xl hover:bg-white/20 transition-all duration-300 cursor-pointer group border border-white/20"
                   >
-                    <Icon className="w-8 h-8 mx-auto mb-2 group-hover:scale-110 transition-transform" />
-                    <p className="text-sm font-medium">{section.name}</p>
+                    <Icon className="w-8 h-8 mx-auto mb-2 text-white group-hover:scale-110 transition-transform" />
+                    <p className="text-sm font-medium text-white">{section.name}</p>
                   </motion.div>
                 </Link>
               );

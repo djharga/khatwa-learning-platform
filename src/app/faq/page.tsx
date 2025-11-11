@@ -139,7 +139,7 @@ export default function FAQPage() {
               initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.3 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6"
+              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6"
             >
               الأسئلة الشائعة
             </motion.h1>
@@ -425,7 +425,7 @@ export default function FAQPage() {
               <MessageCircle className="w-8 h-8" aria-hidden="true" />
             </motion.div>
             
-            <h2 className="text-3xl sm:text-4xl font-extrabold mb-4">
+            <h2 className="text-2xl sm:text-3xl font-extrabold mb-4">
               لم تجد إجابة لسؤالك؟
             </h2>
             <p className="text-lg text-blue-50 dark:text-blue-100 mb-8 leading-relaxed">

@@ -200,18 +200,47 @@ const AdminContentPage = () => {
     }
   };
 
+  // تحديث الفلاتر عند تغيير activeTab
+  useEffect(() => {
+    if (activeTab === 'all') {
+      setTypeFilter('all');
+    } else if (activeTab === 'documents') {
+      setTypeFilter('all');
+    } else if (activeTab === 'videos') {
+      setTypeFilter('video');
+    } else if (activeTab === 'images') {
+      setTypeFilter('image');
+    } else if (activeTab === 'recent') {
+      setTypeFilter('all');
+    }
+  }, [activeTab]);
+
   const filteredFiles = useMemo(() => {
     return files.filter(file => {
       const matchesSearch = file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            file.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            file.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
+      // استخدام activeTab للفلترة
+      let matchesTab = true;
+      if (activeTab === 'all') {
+        matchesTab = true;
+      } else if (activeTab === 'documents') {
+        matchesTab = ['word', 'excel', 'pdf', 'powerpoint'].includes(file.type);
+      } else if (activeTab === 'videos') {
+        matchesTab = file.type === 'video';
+      } else if (activeTab === 'images') {
+        matchesTab = file.type === 'image';
+      } else if (activeTab === 'recent') {
+        matchesTab = new Date(file.lastModified) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      }
+
       const matchesType = typeFilter === 'all' || file.type === typeFilter;
       const matchesCourse = courseFilter === 'all' || file.courseId === courseFilter;
 
-      return matchesSearch && matchesType && matchesCourse;
+      return matchesSearch && matchesTab && matchesType && matchesCourse;
     });
-  }, [files, searchTerm, typeFilter, courseFilter]);
+  }, [files, searchTerm, typeFilter, courseFilter, activeTab]);
 
   const stats = useMemo(() => {
     const totalFiles = files.length;
@@ -360,96 +389,106 @@ const AdminContentPage = () => {
         </motion.div>
 
         {/* الإحصائيات */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-6 mb-8"
-        >
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي الملفات</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.totalFiles}</p>
+        <div className="space-y-6 mb-8">
+          {/* البطاقات القصيرة - صف واحد */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4"
+          >
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي الملفات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <FileText className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">{stats.totalFiles}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي الحجم</p>
-                <p className="text-3xl font-bold text-green-600">{(stats.totalSize / 1024).toFixed(1)} MB</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-green-50/50 dark:from-neutral-800 dark:to-green-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-green-100/50 dark:border-green-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي الحجم</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Upload className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <Upload className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-green-600 dark:text-green-400">{(stats.totalSize / 1024).toFixed(1)} MB</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">الفيديوهات</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.videos}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-purple-50/50 dark:from-neutral-800 dark:to-purple-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">الفيديوهات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Video className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Video className="w-6 h-6 text-purple-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400">{stats.videos}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">المستندات</p>
-                <p className="text-3xl font-bold text-blue-600">{stats.documents}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المستندات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                  <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <FileText className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400">{stats.documents}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">الصور</p>
-                <p className="text-3xl font-bold text-pink-600">{stats.images}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-pink-50/50 dark:from-neutral-800 dark:to-pink-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-pink-100/50 dark:border-pink-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">الصور</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Image className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                <Image className="w-6 h-6 text-pink-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-pink-600 dark:text-pink-400">{stats.images}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي التحميلات</p>
-                <p className="text-3xl font-bold text-orange-600">{stats.totalDownloads}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-orange-50/50 dark:from-neutral-800 dark:to-orange-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-orange-100/50 dark:border-orange-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">التحميلات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Download className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                <Download className="w-6 h-6 text-orange-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-orange-600 dark:text-orange-400">{stats.totalDownloads}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي المشاهدات</p>
-                <p className="text-3xl font-bold text-teal-600">{stats.totalViews}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-teal-50/50 dark:from-neutral-800 dark:to-teal-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-teal-100/50 dark:border-teal-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المشاهدات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center">
-                <Eye className="w-6 h-6 text-teal-600" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-teal-600 dark:text-teal-400">{stats.totalViews}</p>
+            </motion.div>
+          </motion.div>
+        </div>
 
         {/* التبويبات */}
         <motion.div
@@ -458,32 +497,65 @@ const AdminContentPage = () => {
           transition={{ delay: 0.3 }}
           className="flex justify-center mb-8"
         >
-          {[
-            { id: 'all', label: 'جميع الملفات', count: files.length },
-            { id: 'documents', label: 'المستندات', count: stats.documents },
-            { id: 'videos', label: 'الفيديوهات', count: stats.videos },
-            { id: 'images', label: 'الصور', count: stats.images },
-            { id: 'recent', label: 'المحدثة حديثاً', count: files.filter(f => new Date(f.lastModified) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length }
-          ].map((tab) => (
-            <motion.button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-2 ${
-                activeTab === tab.id
-                  ? 'bg-gradient-to-r from-green-600 to-blue-600 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.label}
-              <span className={`px-2 py-1 rounded-full text-xs ${
-                activeTab === tab.id ? 'bg-white/20' : 'bg-gray-200'
-              }`}>
-                {tab.count}
-              </span>
-            </motion.button>
-          ))}
+          <div className="inline-flex items-center gap-2 bg-gray-100/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-1.5 shadow-sm border border-gray-200/60 dark:border-neutral-700/60 overflow-x-auto scrollbar-hide">
+            {[
+              { id: 'all', label: 'جميع الملفات', count: files.length },
+              { id: 'documents', label: 'المستندات', count: stats.documents },
+              { id: 'videos', label: 'الفيديوهات', count: stats.videos },
+              { id: 'images', label: 'الصور', count: stats.images },
+              { id: 'recent', label: 'المحدثة حديثاً', count: files.filter(f => new Date(f.lastModified) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)).length }
+            ].map((tab) => (
+              <motion.button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`
+                  group relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl
+                  font-medium text-sm whitespace-nowrap
+                  transition-all duration-200 ease-out
+                  ${activeTab === tab.id
+                    ? 'bg-white dark:bg-neutral-700 text-gray-900 dark:text-white shadow-sm scale-[1.02]'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-neutral-700/50'
+                  }
+                `}
+                whileHover={{ scale: activeTab === tab.id ? 1.02 : 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {/* Active background with gradient */}
+                {activeTab === tab.id && (
+                  <motion.div
+                    layoutId="activeContentTab"
+                    className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-blue-50/30 to-emerald-50/50 dark:from-green-950/30 dark:via-blue-950/20 dark:to-emerald-950/30 rounded-xl"
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                    style={{ borderRadius: '0.75rem' }}
+                  />
+                )}
+                
+                {/* Label */}
+                <span className="relative z-10 transition-colors duration-200">{tab.label}</span>
+                
+                {/* Count badge */}
+                <span className={`
+                  relative z-10 px-2 py-0.5 rounded-full text-xs font-bold transition-all duration-200
+                  ${activeTab === tab.id
+                    ? 'bg-gradient-to-r from-green-500/20 to-blue-500/20 text-green-700 dark:text-green-300'
+                    : 'bg-gray-200 dark:bg-neutral-700 text-gray-600 dark:text-gray-400'
+                  }
+                `}>
+                  {tab.count}
+                </span>
+                
+                {/* Active indicator line */}
+                {activeTab === tab.id && (
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: '60%' }}
+                    transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                    className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-green-500 to-blue-500 rounded-full"
+                  />
+                )}
+              </motion.button>
+            ))}
+          </div>
         </motion.div>
 
         {/* شريط التحكم */}

@@ -10,7 +10,8 @@ import type {
   MessagingPlatform,
 } from '@/types/messaging';
 
-const API_BASE = '/api/messaging';
+const API_PREFIX = '/api';
+const API_BASE = `${API_PREFIX}/messaging`;
 
 export class MessagingService {
   /**

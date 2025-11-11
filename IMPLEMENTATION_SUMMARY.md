@@ -1,134 +1,173 @@
-# ملخص تنفيذ نظام صلاحيات المتدربين والإدارة
+# ملخص تنفيذ خطة Agent - Frontend Rebuild
 
 ## ✅ المهام المكتملة
 
-### 1. أنواع البيانات (Types) ✅
-- ✅ تحديث `src/types/course-management.ts` - إضافة أنواع الدورة القصيرة/الطويلة، شجرة الملفات، فيديوهات الشرح
-- ✅ تحديث `src/types/storage.ts` - إضافة تتبع التعديلات
-- ✅ إنشاء `src/types/user.ts` - أنواع المستخدمين والصلاحيات
-- ✅ إنشاء `src/types/zoom.ts` - أنواع جلسات Zoom
-- ✅ إنشاء `src/types/messaging.ts` - أنواع المراسلة
-- ✅ إنشاء `src/types/admin.ts` - أنواع لوحة الإدارة
+### 1️⃣ إدارة المسارات (Routing)
+- ✅ تم إنشاء `src/lib/routes.ts` مع جميع المسارات المركزية
+- ✅ تم إضافة helper functions للتحقق من المسارات
 
-### 2. صلاحيات المتدربين ✅
+### 2️⃣ واجهات البيانات (API Contracts)
+- ✅ تم إنشاء `src/lib/apiTypes.ts` مع جميع الـ Types المطلوبة:
+  - `Course`, `User`, `ApiResponse`, `FileUploadResponse`
+  - Types للـ Pagination والـ Responses
 
-#### مكونات واجهة المستخدم:
-- ✅ `src/components/trainee/CourseFileTree.tsx` - شجرة ملفات خاصة بكل دورة
-- ✅ `src/components/trainee/FileModificationHistory.tsx` - سجل التعديلات
-- ✅ `src/components/trainee/PersonalStorage.tsx` - إدارة المساحة الشخصية (5GB)
-- ✅ `src/components/trainee/ZoomSessionCard.tsx` - بطاقة جلسة Zoom
+### 3️⃣ واجهة API (API Client)
+- ✅ تم إنشاء `src/lib/apiClient.ts` مع:
+  - `fetchCourses()` - جلب جميع الدورات
+  - `fetchCourseById()` - جلب دورة بالـ ID
+  - `fetchCourseBySlug()` - جلب دورة بالـ slug
+- ✅ جاهز للعمل مع MSW أو Backend الحقيقي
 
-#### صفحات:
-- ✅ `src/app/(dashboard)/student/courses/[courseId]/files/page.tsx` - صفحة ملفات الدورة
-- ✅ `src/app/(dashboard)/student/storage/page.tsx` - صفحة التخزين الشخصي
-- ✅ `src/app/(dashboard)/student/modifications/page.tsx` - صفحة سجل التعديلات
-- ✅ `src/app/(dashboard)/student/zoom-sessions/page.tsx` - صفحة الجلسات المباشرة
+### 4️⃣ تثبيت المكتبات
+- ✅ تم تثبيت `@tanstack/react-query`
+- ✅ تم تثبيت `msw` (Mock Service Worker)
+- ✅ تم تثبيت `@tanstack/react-query-devtools` للتطوير
 
-#### APIs:
-- ✅ `src/app/api/trainees/courses/[courseId]/files/route.ts` - جلب ملفات الدورة
-- ✅ `src/app/api/trainees/files/[fileId]/rename/route.ts` - تعديل اسم الملف
-- ✅ `src/app/api/trainees/files/[fileId]/copy/route.ts` - نسخ الملف
-- ✅ `src/app/api/trainees/files/[fileId]/download/route.ts` - تحميل الملف
-- ✅ `src/app/api/storage/files/[fileId]/modifications/route.ts` - تتبع التعديلات
+### 5️⃣ إعداد MSW (Mock Service Worker)
+- ✅ تم إنشاء `mocks/handlers.ts` مع handlers للـ:
+  - `GET /api/courses` - جلب جميع الدورات
+  - `GET /api/courses/:id` - جلب دورة واحدة
+  - `GET /api/courses/slug/:slug` - جلب دورة بالـ slug
+  - `POST /api/files/upload` - رفع ملف
+- ✅ تم إنشاء `mocks/browser.ts` لإعداد MSW للمتصفح
+- ✅ تم إنشاء `src/components/providers/MSWProvider.tsx` لتفعيل MSW في التطوير
+- ✅ تم إضافة MSW Provider إلى `layout.tsx`
 
-### 3. تكامل Zoom والمراسلة ✅
+### 6️⃣ React Query Hooks
+- ✅ تم إنشاء `src/hooks/useCourses.ts` مع:
+  - `useCourses()` - Hook لجلب جميع الدورات
+  - `useCourse(id)` - Hook لجلب دورة واحدة بالـ ID
+  - `useCourseBySlug(slug)` - Hook لجلب دورة بالـ slug
+- ✅ تم إعداد React Query Provider في `src/components/providers/QueryProvider.tsx`
+- ✅ تم إضافة QueryProvider إلى `layout.tsx`
 
-#### خدمات:
-- ✅ `src/services/zoomService.ts` - خدمة Zoom
-- ✅ `src/services/messagingService.ts` - خدمة المراسلة
+### 7️⃣ مكون رفع الملفات (FileUpload)
+- ✅ تم إنشاء `src/components/FileUpload.tsx` مع:
+  - دعم Drag & Drop
+  - تتبع التقدم (Progress tracking)
+  - التحقق من حجم الملف
+  - معالجة الأخطاء
+  - واجهة مستخدم جميلة
 
-#### APIs:
-- ✅ `src/app/api/zoom/sessions/route.ts` - إدارة جلسات Zoom
-- ✅ `src/app/api/zoom/sessions/[sessionId]/route.ts` - جلسة Zoom محددة
-- ✅ `src/app/api/messaging/zoom-link/route.ts` - إرسال روابط Zoom
+### 8️⃣ إعداد Providers
+- ✅ تم إضافة `QueryProvider` إلى `layout.tsx`
+- ✅ تم إضافة `MSWProvider` إلى `layout.tsx`
+- ✅ تم ترتيب الـ Providers بشكل صحيح
 
-### 4. لوحة الإدارة ✅
+## 📁 الملفات الجديدة
 
-#### مكونات:
-- ✅ `src/components/admin/CourseModuleManager.tsx` - إدارة المحاور
-- ✅ `src/components/admin/FileManager.tsx` - إدارة الملفات (رفع، نقل، نسخ، حذف)
-- ✅ `src/components/admin/VideoUploadManager.tsx` - رفع فيديوهات الشرح
-- ✅ `src/components/admin/PageVisibilityControl.tsx` - التحكم في رؤية الصفحات
-- ✅ `src/components/admin/CustomUrlManager.tsx` - إدارة الروابط المخصصة
-- ✅ `src/components/admin/CourseScheduler.tsx` - الجدولة التلقائية
+```
+src/
+├── lib/
+│   ├── routes.ts                    # المسارات المركزية
+│   ├── apiTypes.ts                  # واجهات البيانات
+│   └── apiClient.ts                 # واجهة API
+├── hooks/
+│   └── useCourses.ts               # React Query hooks
+├── components/
+│   ├── FileUpload.tsx               # مكون رفع الملفات
+│   └── providers/
+│       ├── QueryProvider.tsx        # React Query Provider
+│       └── MSWProvider.tsx          # MSW Provider
+mocks/
+├── handlers.ts                      # MSW handlers
+└── browser.ts                       # MSW browser setup
+public/
+└── mockServiceWorker.js             # MSW service worker (تم إنشاؤه تلقائياً)
+```
 
-#### صفحات:
-- ✅ `src/app/admin/courses/[courseId]/modules/page.tsx` - صفحة إدارة المحاور
-- ✅ `src/app/admin/courses/[courseId]/videos/page.tsx` - صفحة رفع الفيديوهات
-- ✅ `src/app/admin/courses/[courseId]/schedule/page.tsx` - صفحة الجدولة التلقائية
-- ✅ `src/app/admin/settings/visibility/page.tsx` - صفحة التحكم في الرؤية
-- ✅ `src/app/admin/settings/custom-urls/page.tsx` - صفحة الروابط المخصصة
+## 🚀 كيفية الاستخدام
 
-#### APIs:
-- ✅ `src/app/api/admin/courses/[courseId]/modules/route.ts` - إدارة المحاور
-- ✅ `src/app/api/admin/courses/[courseId]/modules/[moduleId]/route.ts` - محور محدد
-- ✅ `src/app/api/admin/courses/[courseId]/files/route.ts` - إدارة الملفات
-- ✅ `src/app/api/admin/courses/[courseId]/files/[fileId]/route.ts` - ملف محدد
-- ✅ `src/app/api/admin/courses/[courseId]/files/[fileId]/copy/route.ts` - نسخ الملف
-- ✅ `src/app/api/admin/courses/[courseId]/files/[fileId]/move/route.ts` - نقل الملف
-- ✅ `src/app/api/admin/courses/[courseId]/files/[fileId]/rename/route.ts` - تعديل اسم الملف
-- ✅ `src/app/api/admin/courses/[courseId]/videos/route.ts` - رفع فيديوهات الشرح
-- ✅ `src/app/api/admin/settings/visibility/route.ts` - إدارة رؤية الصفحات
-- ✅ `src/app/api/admin/settings/visibility/[pageId]/route.ts` - صفحة محددة
-- ✅ `src/app/api/admin/invitations/route.ts` - إدارة روابط الدعوة
-- ✅ `src/app/api/admin/companies/branding/route.ts` - العروض المخصصة للشركات
-- ✅ `src/app/api/admin/courses/schedule/route.ts` - الجدولة التلقائية
-- ✅ `src/app/api/admin/courses/schedule/check/route.ts` - التحقق من الجداول
-- ✅ `src/app/api/admin/courses/schedule/[scheduleId]/route.ts` - جدولة محددة
+### استخدام useCourses Hook
 
-#### خدمات:
-- ✅ `src/services/courseSchedulerService.ts` - خدمة الجدولة التلقائية
+```tsx
+'use client';
 
-## الميزات المطبقة
+import { useCourses } from '@/hooks/useCourses';
 
-### صلاحيات المتدربين:
-- ✅ حساب شخصي بصلاحيات محددة
-- ✅ الاشتراك في دورات قصيرة (2-3 أيام) أو طويلة المدى
-- ✅ عرض محتوى الدورة (Word/Excel/PDF, PowerPoint, فيديو/صوت)
-- ✅ تعديل أسماء الملفات على النسخ الشخصية فقط
-- ✅ شجرة ملفات مختلفة لكل دورة
-- ✅ مساحة تخزين 5GB لكل متدرب
-- ✅ متابعة شجرة التعديلات على الملفات
-- ✅ حضور جلسات Zoom مباشرة مع استلام الرابط عبر واتساب/تليجرام
+export default function CoursesPage() {
+  const { data: courses, isLoading, error } = useCourses();
 
-### صلاحيات الأدمن:
-- ✅ إرسال رابط دعائي للموقع
-- ✅ فتح/قفل صفحات وشاشات محددة
-- ✅ إدارة المتدربين والعملاء (إضافة، إنشاء رابط مخصص)
-- ✅ إدارة الدورات (إضافة، تحديد نوع، حذف، فتح/إغلاق تلقائي/يدوي)
-- ✅ إدارة المحاور (تعديل، حذف، إضافة)
-- ✅ إدارة المحتوى (تعديل، رفع، حذف، نقل، نسخ الملفات)
-- ✅ رفع فيديو شرح لكل محور، ملف ورد، وملف إكسيل
-- ✅ التحكم العام (قفل/فتح الكورس، تتبع النسخ والتعديلات)
+  if (isLoading) return <div>جاري التحميل...</div>;
+  if (error) return <div>حدث خطأ: {error.message}</div>;
 
-## ملاحظات مهمة
+  return (
+    <div>
+      {courses?.map((course) => (
+        <div key={course.id}>{course.title}</div>
+      ))}
+    </div>
+  );
+}
+```
 
-### TODO Items في الكود:
-جميع ملفات API تحتوي على تعليقات `TODO` تشير إلى:
-- ربط APIs بقاعدة البيانات الحقيقية
-- تنفيذ التحقق من الصلاحيات
-- ربط التخزين السحابي (S3/Azure)
-- تنفيذ تكامل Zoom API الفعلي
-- تنفيذ تكامل واتساب/تليجرام APIs
+### استخدام FileUpload Component
 
-### الخطوات التالية الموصى بها:
-1. إعداد قاعدة البيانات (PostgreSQL/MySQL)
-2. ربط APIs بقاعدة البيانات
-3. إعداد التخزين السحابي (AWS S3 أو Azure Blob)
-4. تكامل Zoom API الفعلي
-5. تكامل واتساب/تليجرام APIs
-6. إعداد Cron Jobs للجدولة التلقائية
-7. اختبار شامل للنظام
-8. إضافة معالجة الأخطاء المتقدمة
-9. إضافة logging وmonitoring
+```tsx
+'use client';
 
-## الملفات الإجمالية المُنشأة
+import FileUpload from '@/components/FileUpload';
+import { FileUploadResponse } from '@/lib/apiTypes';
 
-- **Types**: 6 ملفات
-- **Components**: 9 مكونات
-- **Pages**: 9 صفحات
-- **APIs**: 25+ endpoint
-- **Services**: 4 خدمات
+export default function UploadPage() {
+  const handleUploadComplete = (file: FileUploadResponse) => {
+    console.log('تم الرفع:', file);
+  };
 
-**المجموع**: 50+ ملف جديد/محدّث
+  return (
+    <FileUpload
+      onUploadComplete={handleUploadComplete}
+      maxSize={10 * 1024 * 1024} // 10MB
+      accept="image/*,application/pdf"
+    />
+  );
+}
+```
 
+### استخدام Routes
+
+```tsx
+import { ROUTES, getRoute } from '@/lib/routes';
+import Link from 'next/link';
+
+export default function Navigation() {
+  return (
+    <Link href={ROUTES.COURSES}>الدورات</Link>
+    // أو
+    <Link href={getRoute('COURSES')}>الدورات</Link>
+  );
+}
+```
+
+## 🔧 الإعدادات
+
+### MSW في التطوير
+MSW يعمل تلقائياً في وضع التطوير (`npm run dev`). لا حاجة لإعدادات إضافية.
+
+### React Query DevTools
+في وضع التطوير، يمكنك فتح React Query DevTools من أيقونة في المتصفح.
+
+## 📝 ملاحظات مهمة
+
+1. **MSW يعمل فقط في التطوير**: في الإنتاج، سيتم استخدام Backend الحقيقي تلقائياً.
+
+2. **API Client جاهز للربط**: `apiClient.ts` يستخدم `/api` كـ prefix، يمكن تغييره لربط Backend الحقيقي.
+
+3. **Types متوافقة**: جميع الـ Types في `apiTypes.ts` جاهزة للاستخدام مع Backend.
+
+4. **الصفحات الموجودة**: 
+   - `/subscribe` موجودة بالفعل
+   - `/unauthorized` موجودة بالفعل
+
+## 🎯 الخطوات التالية (اختيارية)
+
+1. إضافة المزيد من MSW handlers حسب الحاجة
+2. إضافة المزيد من React Query hooks
+3. ربط Backend الحقيقي عند الجاهزية
+4. إضافة اختبارات للـ hooks والمكونات
+
+---
+
+**تم التنفيذ بنجاح! ✅**
+
+جميع المهام المذكورة في `agent.md` تم تنفيذها بالكامل.

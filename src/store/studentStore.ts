@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { fetchStudent } from '@/lib/apiClient';
 
 // تعريف واجهة لحالة الطالب
 interface Course {
@@ -41,17 +42,21 @@ const useStudentStore = create<StudentState>((set) => ({
   // دالة لجلب بيانات الطالب من API
   fetchStudentData: async (studentId: string) => {
     try {
-      // TODO: استبدال الرابط مع API حقيقي
-      const response = await fetch(`/api/student/${studentId}`);
-      const data = await response.json();
+      const response = await fetchStudent(studentId);
+      
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
 
-      set({
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        enrolledCourses: data.enrolledCourses,
-        recentFiles: data.recentFiles,
-      });
+      if (response.data) {
+        set({
+          id: response.data.id,
+          name: response.data.name,
+          email: response.data.email,
+          enrolledCourses: (response.data as any).enrolledCourses || [],
+          recentFiles: (response.data as any).recentFiles || [],
+        });
+      }
     } catch (error) {
       console.error('فشل في جلب بيانات الطالب:', error);
     }

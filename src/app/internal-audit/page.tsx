@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import { generateStructuredData } from '@/lib/seo';
 import PageBackground from '@/components/ui/PageBackground';
+import CourseAxesSystem from '@/components/course-details/CourseAxesSystem';
 
 const InternalAuditPage = () => {
   const [activeLevel, setActiveLevel] = useState<1 | 2 | 3>(1);
@@ -319,28 +320,74 @@ const InternalAuditPage = () => {
 
   const currentLevel = auditLevels.find(level => level.id === activeLevel);
 
-  // Filter modules based on search
-  const filteredModules = currentLevel?.modules.filter(module => {
-    if (!searchQuery) return true;
-    const query = searchQuery.toLowerCase();
-    return (
-      module.title.toLowerCase().includes(query) ||
-      module.description?.toLowerCase().includes(query) ||
-      module.topics.some(topic => topic.toLowerCase().includes(query))
-    );
-  }) || [];
-
-  const toggleModule = (moduleTitle: string) => {
-    setExpandedModules(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(moduleTitle)) {
-        newSet.delete(moduleTitle);
+  // تحويل البيانات إلى تنسيق نظام المحاور
+  const convertModulesToAxes = () => {
+    if (!currentLevel?.modules) return [];
+    
+    // تجميع المحاور الرئيسية (التي تبدأ بـ "المحور")
+    const mainAxesMap = new Map<string, any>();
+    
+    currentLevel.modules.forEach((module) => {
+      // التحقق إذا كان المحور يبدأ بـ "المحور"
+      const isMainAxis = module.title.includes('المحور') && module.title.includes(':');
+      
+      if (isMainAxis) {
+        // استخراج اسم المحور الرئيسي
+        const mainAxisTitle = module.title.split(':')[0].trim();
+        const subAxisTitle = module.title.split(':')[1]?.trim() || module.title;
+        
+        if (!mainAxesMap.has(mainAxisTitle)) {
+          mainAxesMap.set(mainAxisTitle, {
+            id: `main-${mainAxisTitle}`,
+            title: mainAxisTitle,
+            description: module.description,
+            subAxes: [],
+          });
+        }
+        
+        // إضافة المحور الفرعي
+        const mainAxis = mainAxesMap.get(mainAxisTitle);
+        mainAxis.subAxes.push({
+          id: `sub-${module.title}`,
+          title: subAxisTitle,
+          description: module.description,
+          files: module.topics.map((topic, index) => ({
+            id: `file-${module.title}-${index}`,
+            name: topic,
+            type: 'pdf' as const,
+            size: '2 MB',
+            isProtected: false,
+          })),
+        });
       } else {
-        newSet.add(moduleTitle);
+        // إذا لم يكن محور رئيسي، نضعه كمحور رئيسي منفصل
+        const mainAxisId = `main-${module.title}`;
+        if (!mainAxesMap.has(mainAxisId)) {
+          mainAxesMap.set(mainAxisId, {
+            id: mainAxisId,
+            title: module.title,
+            description: module.description,
+            subAxes: [{
+              id: `sub-${module.title}`,
+              title: module.title,
+              description: module.description,
+              files: module.topics.map((topic, index) => ({
+                id: `file-${module.title}-${index}`,
+                name: topic,
+                type: 'pdf' as const,
+                size: '2 MB',
+                isProtected: false,
+              })),
+            }],
+          });
+        }
       }
-      return newSet;
     });
+    
+    return Array.from(mainAxesMap.values());
   };
+
+  const mainAxes = convertModulesToAxes();
 
   // Generate structured data for SEO
   const structuredData = generateStructuredData('course', {
@@ -419,7 +466,7 @@ const InternalAuditPage = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-2xl"
+                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-6 leading-tight tracking-tight drop-shadow-2xl"
               >
                 <span className="block">برنامج زمالة المراجعين الداخليين</span>
               </motion.h1>
@@ -431,7 +478,7 @@ const InternalAuditPage = () => {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="mb-8"
               >
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-white drop-shadow-lg">
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold text-white drop-shadow-lg">
                   <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent">
                     3 مستويات متكاملة
                   </span>
@@ -649,401 +696,19 @@ const InternalAuditPage = () => {
             </div>
           </motion.div>
 
-          {/* Enhanced Help Tooltip */}
-          {showHelpTooltip && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-r from-blue-50 to-indigo-50 border-r-4 border-blue-500 rounded-lg p-6 mb-6 shadow-lg"
-            >
-              <div className="flex items-start gap-3">
-                <FileText className="w-6 h-6 text-blue-600 mt-0.5 flex-shrink-0" />
-                <div className="flex-1">
-                  <h4 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
-                    <Sparkles className="w-4 h-4" />
-                    نصيحة: كيفية استخدام الصفحة
-                  </h4>
-                  <p className="text-base text-blue-800 mb-4 leading-relaxed">
-                    انقر على <span className="font-bold">المحاور الرئيسية</span> و <span className="font-bold">المحاور الفرعية</span> لفتحها وعرض المحتوى. يمكنك أيضاً استخدام الأزرار أدناه لفتح أو إغلاق جميع المحاور دفعة واحدة.
-                  </p>
-                  <div className="flex gap-2 flex-wrap">
-                    <motion.button
-                      onClick={() => {
-                        if (currentLevel) {
-                          setExpandedModules(new Set(currentLevel.modules.map(m => m.title)));
-                        }
-                      }}
-                      className="px-5 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-base font-bold hover:from-blue-700 hover:to-indigo-700 transition-all flex items-center gap-2 shadow-lg"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ChevronDown className="w-4 h-4" />
-                      فتح الكل
-                    </motion.button>
-                    <motion.button
-                      onClick={() => setExpandedModules(new Set())}
-                      className="px-5 py-2.5 bg-blue-100 text-blue-700 rounded-xl text-base font-bold hover:bg-blue-200 transition-all flex items-center gap-2 border-2 border-blue-200"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                      إغلاق الكل
-                    </motion.button>
-                    <motion.button
-                      onClick={() => setShowHelpTooltip(false)}
-                      className="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-xl text-base font-bold hover:bg-gray-200 transition-all border-2 border-gray-200"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      إخفاء
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
 
-          {/* Search Bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="mb-6"
-          >
-            <div className="relative max-w-2xl mx-auto">
-              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="ابحث في المحاور والمواضيع..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-12 py-4 bg-white border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400 shadow-lg text-lg"
-              />
-            </div>
-          </motion.div>
-
-          {/* Enhanced Level Description */}
-          {currentLevel && (
-            <motion.div
-              key={activeLevel}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className={`bg-gradient-to-r ${currentLevel.color} rounded-3xl p-8 mb-12 text-white shadow-2xl relative overflow-hidden`}
-            >
-              {/* Background Pattern */}
-              <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0" style={{
-                  backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)`,
-                  backgroundSize: '30px 30px'
-                }} />
-              </div>
-
-              <div className="text-center relative z-10">
-                <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">{currentLevel.title}</h2>
-                <p className="text-2xl text-white mb-8">{currentLevel.description}</p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {[
-                    { label: 'محور رئيسي', value: currentLevel.modules.length, icon: BookOpen },
-                    { label: 'درس تدريبي', value: currentLevel.modules.reduce((sum, module) => sum + module.lessons, 0), icon: FileText },
-                    { label: 'أسبوع تدريبي', value: currentLevel.modules.reduce((sum, module) => {
-                      const weeks = parseInt(module.duration.split(' ')[0]);
-                      return sum + weeks;
-                    }, 0), icon: Clock },
-                  ].map((stat, index) => {
-                    const Icon = stat.icon;
-                    return (
-                      <motion.div
-                        key={stat.label}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.4 + index * 0.1 }}
-                        className="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20"
-                      >
-                        <Icon className="w-8 h-8 mx-auto mb-3" />
-                        <div className="text-4xl font-bold mb-1">{stat.value}</div>
-                        <div className="text-base opacity-90">{stat.label}</div>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* Enhanced Module Title with Search Results */}
-          <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
-            <h3 className="text-3xl font-bold text-gray-900">
-              المحاور التعليمية - {currentLevel?.title}
-            </h3>
-            {searchQuery && (
-              <div className="text-base text-gray-600">
-                تم العثور على {filteredModules.length} محور
-              </div>
-            )}
-            <div className="flex gap-2">
-              <motion.button
-                onClick={() => {
-                  if (currentLevel) {
-                    setExpandedModules(new Set(currentLevel.modules.map(m => m.title)));
-                  }
-                }}
-                className="px-7 py-3.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition-all flex items-center gap-2 shadow-xl"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ChevronDown className="w-5 h-5" />
-                فتح الكل
-              </motion.button>
-              <motion.button
-                onClick={() => setExpandedModules(new Set())}
-                className="px-7 py-3.5 bg-white text-gray-700 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all flex items-center gap-2 border-2 border-gray-300 shadow-lg"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <ChevronRight className="w-5 h-5" />
-                إغلاق الكل
-              </motion.button>
-            </div>
+          {/* نظام المحاور التعليمية */}
+          <div className="bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-6 border border-neutral-200 dark:border-neutral-700">
+            <CourseAxesSystem
+              mainAxes={mainAxes}
+              hasAccess={false}
+              courseId="internal-audit" // يمكن تغييره إلى courseId الفعلي إذا كان متاحاً
+              onFileClick={(file) => {
+                console.log('File clicked:', file);
+                // Handle file click
+              }}
+            />
           </div>
-
-          {/* Enhanced Modules List */}
-          <div className="space-y-6">
-            {filteredModules.length === 0 && searchQuery ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-12 bg-white rounded-2xl shadow-lg"
-              >
-                <Search className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-600 text-xl">لم يتم العثور على محاور مطابقة</p>
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="mt-4 text-blue-600 hover:text-blue-700 font-medium text-lg"
-                >
-                  إعادة تعيين البحث
-                </button>
-              </motion.div>
-            ) : (
-              filteredModules.map((module, index) => (
-                <motion.div
-                  key={module.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-shadow"
-                >
-                  <div
-                    className="p-6 cursor-pointer hover:bg-gray-50 transition-colors"
-                    onClick={() => toggleModule(module.title)}
-                    role="button"
-                    tabIndex={0}
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        toggleModule(module.title);
-                      }
-                    }}
-                  >
-                    <div className="flex items-center justify-between flex-wrap gap-4">
-                      <div className="flex items-center gap-4 flex-1 min-w-0">
-                        <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                          <BookOpen className="w-7 h-7 text-blue-600" />
-                        </div>
-                        <div className="flex-1 text-right min-w-0">
-                          <h3 className="text-2xl font-bold text-gray-900 mb-1">{module.title}</h3>
-                          {module.description && (
-                            <p className="text-base text-gray-600 mb-3 line-clamp-2">{module.description}</p>
-                          )}
-                          <div className="flex items-center gap-4 text-base text-gray-600 flex-wrap">
-                            <span className="flex items-center gap-1">
-                              <Clock className="w-4 h-4" />
-                              {module.duration}
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <FileText className="w-4 h-4" />
-                              {module.lessons} درس
-                            </span>
-                            <span className="flex items-center gap-1">
-                              <Target className="w-4 h-4" />
-                              {module.topics.length} موضوع
-                            </span>
-                          </div>
-                          {module.progress !== undefined && (
-                            <div className="mt-3 space-y-2">
-                              <div className="flex items-center justify-between text-base">
-                                <span className="text-gray-600">إنجاز المحور</span>
-                                <span className="font-bold text-blue-600 text-lg">{module.progress}%</span>
-                              </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                <motion.div
-                                  className="bg-gradient-to-r from-blue-600 to-purple-600 h-2.5 rounded-full"
-                                  initial={{ width: 0 }}
-                                  animate={{ width: `${module.progress}%` }}
-                                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3 flex-shrink-0">
-                        <motion.button
-                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold text-base transition-all flex items-center gap-2 shadow-lg border border-blue-400/50 dark:border-blue-300/50 hover:border-blue-300 dark:hover:border-blue-200 ring-1 ring-blue-500/20 hover:ring-blue-400/40"
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            // TODO: Navigate to course
-                          }}
-                          type="button"
-                        >
-                          <Play className="w-5 h-5" />
-                          ابدأ التعلم
-                        </motion.button>
-                        <div className="cursor-pointer">
-                          {expandedModules.has(module.title) ? (
-                            <ChevronDown className="w-7 h-7 text-gray-600" />
-                          ) : (
-                            <ChevronRight className="w-7 h-7 text-gray-600" />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <AnimatePresence>
-                    {expandedModules.has(module.title) && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="border-t border-gray-100 bg-gray-50"
-                      >
-                        <div className="p-6">
-                          <h4 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                            <FileText className="w-6 h-6 text-blue-600" />
-                            المحتوى التدريبي:
-                          </h4>
-                          <div className="grid gap-3">
-                            {module.topics.map((topic, topicIndex) => (
-                              <motion.div
-                                key={topicIndex}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: topicIndex * 0.05 }}
-                                className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow"
-                              >
-                                <div className="w-9 h-9 bg-gradient-to-br from-green-100 to-emerald-100 rounded-full flex items-center justify-center flex-shrink-0">
-                                  <CheckCircle className="w-5 h-5 text-green-600" />
-                                </div>
-                                <span className="text-gray-700 flex-1 text-right text-base">{topic}</span>
-                                <div className="mr-auto flex items-center gap-2">
-                                  <motion.button
-                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    title="معاينة"
-                                  >
-                                    <Eye className="w-4 h-4" />
-                                  </motion.button>
-                                  <motion.button
-                                    className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    title="تحميل"
-                                  >
-                                    <Download className="w-4 h-4" />
-                                  </motion.button>
-                                </div>
-                              </motion.div>
-                            ))}
-                          </div>
-
-                          <div className="mt-6 flex items-center justify-between flex-wrap gap-4 pt-6 border-t border-gray-200">
-                            <div className="flex items-center gap-6 flex-wrap">
-                              <div className="flex items-center gap-2">
-                                <Star className="w-6 h-6 text-yellow-500 fill-current" />
-                                <span className="text-gray-600 font-medium text-lg">تقييم المحتوى: 4.8/5</span>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Users className="w-6 h-6 text-blue-500" />
-                                <span className="text-gray-600 font-medium text-lg">1,250 متعلم</span>
-                              </div>
-                            </div>
-                            <motion.button
-                              className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-7 py-3.5 rounded-xl font-bold text-lg transition-all duration-300 flex items-center gap-2 shadow-lg"
-                              whileHover={{ scale: 1.05, y: -2 }}
-                              whileTap={{ scale: 0.95 }}
-                              type="button"
-                            >
-                              <Award className="w-6 h-6" />
-                              احصل على الشهادة
-                              <ArrowRight className="w-6 h-6" />
-                            </motion.button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              ))
-            )}
-          </div>
-
-          {/* Enhanced Additional Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
-            className="mt-16 bg-gradient-to-r from-indigo-50 via-purple-50 to-pink-50 rounded-3xl p-8 md:p-12 shadow-2xl border border-indigo-100"
-          >
-            <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">ما ستحصل عليه</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                شهادات معتمدة وخبرة عملية في المراجعة الداخلية
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              {[
-                { icon: Award, title: 'شهادة معتمدة', description: 'شهادة زمالة معترف بها دولياً', color: 'blue' },
-                { icon: TrendingUp, title: 'تطوير مهني', description: 'مهارات متقدمة في المراجعة والتحليل', color: 'green' },
-                { icon: Star, title: 'خبرة عملية', description: 'تطبيقات عملية وحالات دراسية حقيقية', color: 'purple' },
-              ].map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <motion.div
-                    key={item.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9 + index * 0.1 }}
-                    className="text-center bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow"
-                  >
-                    <div className={`w-16 h-16 bg-gradient-to-br from-${item.color}-100 to-${item.color}-200 rounded-full flex items-center justify-center mx-auto mb-4`}>
-                      <Icon className={`w-8 h-8 text-${item.color}-600`} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-600 text-base">{item.description}</p>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            <div className="text-center">
-              <Link href="/register">
-                <motion.button
-                  className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 shadow-xl hover:shadow-2xl inline-flex items-center gap-3"
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  type="button"
-                >
-                  ابدأ رحلتك التعليمية الآن
-                  <ArrowRight className="w-6 h-6" />
-                </motion.button>
-              </Link>
-            </div>
-          </motion.div>
         </div>
       </PageBackground>
     </>

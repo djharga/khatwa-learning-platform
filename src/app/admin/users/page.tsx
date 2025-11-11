@@ -30,25 +30,7 @@ import {
   Send,
   Globe,
 } from 'lucide-react';
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  userType: 'student' | 'company' | 'admin';
-  companyName?: string;
-  status: 'active' | 'inactive' | 'suspended';
-  storageUsed: number; // MB
-  storageLimit: number; // MB
-  coursesEnrolled: number;
-  coursesCompleted: number;
-  joinDate: string;
-  lastLogin: string;
-  customUrl?: string;
-  whatsappLink?: string;
-  isPremium?: boolean;
-  companyLogo?: string;
-}
+import { useAdminStore, type AdminUser } from '@/lib/store/admin-store';
 
 export default function AdminUsersPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -56,91 +38,16 @@ export default function AdminUsersPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [showAddUserModal, setShowAddUserModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  // بيانات المستخدمين - يتم تحميلها من API
-  const [users, setUsers] = useState<User[]>([
-    {
-      id: '1',
-      name: 'أحمد محمد',
-      email: 'ahmed@example.com',
-      phone: '+966501234567',
-      userType: 'student',
-      status: 'active',
-      storageUsed: 1200,
-      storageLimit: 5120, // 5GB
-      coursesEnrolled: 3,
-      coursesCompleted: 2,
-      joinDate: '2024-01-15',
-      lastLogin: '2024-01-20',
-      customUrl: 'ahmed.audit-sa.com',
-      whatsappLink: 'https://wa.me/966501234567',
-      isPremium: false
-    },
-    {
-      id: '2',
-      name: 'شركة الرياض للمحاسبة',
-      email: 'info@riyadh-accounting.com',
-      phone: '+966112345678',
-      userType: 'company',
-      companyName: 'شركة الرياض للمحاسبة',
-      status: 'active',
-      storageUsed: 8500,
-      storageLimit: 20480, // 20GB
-      coursesEnrolled: 8,
-      coursesCompleted: 5,
-      joinDate: '2024-01-10',
-      lastLogin: '2024-01-19',
-      customUrl: 'riyadh-accounting.audit-sa.com',
-      whatsappLink: 'https://wa.me/966112345678',
-      isPremium: true,
-      companyLogo: '/logos/riyadh-accounting.png'
-    },
-    {
-      id: '3',
-      name: 'سارة أحمد',
-      email: 'sara@example.com',
-      phone: '+966507654321',
-      userType: 'admin',
-      status: 'active',
-      storageUsed: 2560,
-      storageLimit: 10240, // 10GB
-      coursesEnrolled: 15,
-      coursesCompleted: 12,
-      joinDate: '2023-12-01',
-      lastLogin: '2024-01-20',
-      isPremium: true
-    }
-  ]);
+  // استخدام الـ store مباشرة
+  const { users, stats, setUsers, addUser, updateUser, deleteUser, initializeData } = useAdminStore();
 
-  // تحميل المستخدمين من API
+  // تهيئة البيانات عند تحميل الصفحة
   useEffect(() => {
-    loadUsers();
-  }, [userTypeFilter, statusFilter, searchTerm]);
-
-  const loadUsers = async () => {
-    try {
-      setLoading(true);
-      const params = new URLSearchParams();
-      if (searchTerm) params.append('search', searchTerm);
-      if (userTypeFilter !== 'all') params.append('userType', userTypeFilter);
-      if (statusFilter !== 'all') params.append('status', statusFilter);
-
-      const response = await fetch(`/api/admin/users?${params.toString()}`);
-      const result = await response.json();
-
-      if (result.success) {
-        setUsers(result.users || []);
-      } else {
-        console.error('Error loading users:', result.error);
-      }
-    } catch (error) {
-      console.error('Error loading users:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    initializeData();
+  }, [initializeData]);
 
   const filteredUsers = useMemo(() => {
     return users.filter(user => {
@@ -156,17 +63,8 @@ export default function AdminUsersPage() {
     });
   }, [users, searchTerm, userTypeFilter, statusFilter]);
 
-  const stats = useMemo(() => {
-    const total = users.length;
-    const students = users.filter(u => u.userType === 'student').length;
-    const companies = users.filter(u => u.userType === 'company').length;
-    const admins = users.filter(u => u.userType === 'admin').length;
-    const active = users.filter(u => u.status === 'active').length;
-    const premium = users.filter(u => u.isPremium).length;
-    const totalStorage = users.reduce((sum, u) => sum + u.storageUsed, 0);
-
-    return { total, students, companies, admins, active, premium, totalStorage };
-  }, [users]);
+  // استخدام الإحصائيات من الـ store
+  const userStats = useMemo(() => stats.users, [stats]);
 
   const getUserTypeLabel = (type: string) => {
     switch (type) {
@@ -195,113 +93,104 @@ export default function AdminUsersPage() {
     }
   };
 
-  const handleCreateCustomUrl = (user: User) => {
+  const handleCreateCustomUrl = (user: AdminUser) => {
     const customUrl = `${user.name.toLowerCase().replace(/\s+/g, '-')}.audit-sa.com`;
     setUsers(users.map(u => u.id === user.id ? { ...u, customUrl } : u));
     alert(`تم إنشاء الرابط المخصص: ${customUrl}`);
   };
 
-  const handleSendInvitation = (user: User) => {
+  const handleSendInvitation = (user: AdminUser) => {
     alert(`تم إرسال دعوة إلى ${user.email}`);
   };
 
-  const handleSendWhatsappLink = (user: User) => {
+  const handleSendWhatsappLink = (user: AdminUser) => {
     if (user.whatsappLink) {
       window.open(user.whatsappLink, '_blank');
     }
   };
 
-  // إضافة مستخدم جديد
-  const handleAddUser = async (userData: Partial<User>) => {
+  // إضافة مستخدم جديد - استخدام الـ store مباشرة
+  const handleAddUser = async (userData: Partial<AdminUser>) => {
     try {
-      const response = await fetch('/api/admin/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
-      });
+      // التحقق من البيانات المطلوبة
+      if (!userData.name || !userData.email || !userData.phone || !userData.userType) {
+        alert('الاسم والبريد الإلكتروني والهاتف ونوع المستخدم مطلوبون');
+        return;
+      }
 
-              const result = await response.json();
-        if (result.success) {
-          setUsers([result.user, ...users]);
-          setShowAddUserModal(false);
-          alert('تم إضافة المستخدم بنجاح');
-          // إعادة تحميل المستخدمين للتأكد من التحديث
-          loadUsers();
-        } else {
-          alert(result.error || 'فشل إضافة المستخدم');
-        }
+      // التحقق من صحة البريد الإلكتروني
+      const emailRegex = /\S+@\S+\.\S+/;
+      if (!emailRegex.test(userData.email)) {
+        alert('البريد الإلكتروني غير صحيح');
+        return;
+      }
+
+      // التحقق من عدم وجود مستخدم بنفس البريد الإلكتروني
+      if (users.some(u => u.email === userData.email)) {
+        alert('البريد الإلكتروني مستخدم بالفعل');
+        return;
+      }
+
+      const newUser: AdminUser = {
+        id: Date.now().toString(),
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        userType: userData.userType as 'student' | 'company' | 'admin',
+        companyName: userData.companyName,
+        status: 'active',
+        storageUsed: 0,
+        storageLimit: userData.storageLimit || (userData.userType === 'company' ? 20480 : 5120),
+        coursesEnrolled: 0,
+        coursesCompleted: 0,
+        joinDate: new Date().toISOString().split('T')[0],
+        lastLogin: new Date().toISOString().split('T')[0],
+        isPremium: false,
+        customUrl: `${userData.name.toLowerCase().replace(/\s+/g, '-')}.audit-sa.com`,
+        whatsappLink: `https://wa.me/${userData.phone.replace(/\D/g, '')}`
+      };
+
+      addUser(newUser);
+      setShowAddUserModal(false);
+      alert('تم إضافة المستخدم بنجاح');
     } catch (error) {
       console.error('Error adding user:', error);
       alert('حدث خطأ أثناء إضافة المستخدم');
     }
   };
 
-  // تعديل مستخدم
-  const handleEditUser = async (userId: string, userData: Partial<User>) => {
+  // تعديل مستخدم - استخدام الـ store مباشرة
+  const handleEditUser = async (userId: string, userData: Partial<AdminUser>) => {
     try {
-      const response = await fetch(`/api/admin/users/${userId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setUsers(users.map(u => u.id === userId ? { ...u, ...userData } : u));
-        setSelectedUser(null);
-        alert('تم تحديث المستخدم بنجاح');
-        // إعادة تحميل المستخدمين للتأكد من التحديث
-        loadUsers();
-      } else {
-        alert(result.error || 'فشل تحديث المستخدم');
-      }
+      updateUser(userId, userData);
+      setSelectedUser(null);
+      setShowEditUserModal(false);
+      alert('تم تحديث المستخدم بنجاح');
     } catch (error) {
       console.error('Error updating user:', error);
       alert('حدث خطأ أثناء تحديث المستخدم');
     }
   };
 
-  // حذف مستخدم
+  // حذف مستخدم - استخدام الـ store مباشرة
   const handleDeleteUser = async (userId: string) => {
     if (!confirm('هل أنت متأكد من حذف هذا المستخدم؟')) return;
 
     try {
-      const response = await fetch(`/api/admin/users/${userId}`, {
-        method: 'DELETE',
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setUsers(users.filter(u => u.id !== userId));
-        if (selectedUser?.id === userId) setSelectedUser(null);
-        alert('تم حذف المستخدم بنجاح');
-        // إعادة تحميل المستخدمين للتأكد من التحديث
-        loadUsers();
-      } else {
-        alert(result.error || 'فشل حذف المستخدم');
-      }
+      deleteUser(userId);
+      if (selectedUser?.id === userId) setSelectedUser(null);
+      alert('تم حذف المستخدم بنجاح');
     } catch (error) {
       console.error('Error deleting user:', error);
       alert('حدث خطأ أثناء حذف المستخدم');
     }
   };
 
-  // تحديث حالة المستخدم
+  // تحديث حالة المستخدم - استخدام الـ store مباشرة
   const handleUpdateUserStatus = async (userId: string, status: 'active' | 'inactive' | 'suspended') => {
     try {
-      const response = await fetch(`/api/admin/users/${userId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
-      });
-
-      const result = await response.json();
-      if (result.success) {
-        setUsers(users.map(u => u.id === userId ? { ...u, status } : u));
-        alert('تم تحديث حالة المستخدم بنجاح');
-      } else {
-        alert(result.error || 'فشل تحديث حالة المستخدم');
-      }
+      updateUser(userId, { status });
+      alert('تم تحديث حالة المستخدم بنجاح');
     } catch (error) {
       console.error('Error updating user status:', error);
       alert('حدث خطأ أثناء تحديث حالة المستخدم');
@@ -365,96 +254,116 @@ export default function AdminUsersPage() {
         </motion.div>
 
         {/* الإحصائيات */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-6 mb-8"
-        >
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي المستخدمين</p>
-                <p className="text-3xl font-bold text-gray-900">{stats.total}</p>
+        <div className="space-y-6 mb-8">
+          {/* البطاقات القصيرة - صف واحد */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
+          >
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي المستخدمين</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                  <UserPlus className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <UserPlus className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">{userStats.total}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">المتدربين الأفراد</p>
-                <p className="text-3xl font-bold text-blue-600">{stats.students}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المتدربين الأفراد</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                  <UserPlus className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <UserPlus className="w-6 h-6 text-blue-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-blue-600 dark:text-blue-400">{userStats.students}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">الشركات</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.companies}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-purple-50/50 dark:from-neutral-800 dark:to-purple-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-purple-100/50 dark:border-purple-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">الشركات</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Building className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Building className="w-6 h-6 text-purple-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-purple-600 dark:text-purple-400">{userStats.companies}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">المديرين</p>
-                <p className="text-3xl font-bold text-red-600">{stats.admins}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-red-50/50 dark:from-neutral-800 dark:to-red-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-red-100/50 dark:border-red-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المديرين</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                <Shield className="w-6 h-6 text-red-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-red-600 dark:text-red-400">{userStats.admins}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">المستخدمين النشطين</p>
-                <p className="text-3xl font-bold text-green-600">{stats.active}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-green-50/50 dark:from-neutral-800 dark:to-green-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-green-100/50 dark:border-green-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المستخدمين النشطين</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center shadow-md">
+                  <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-green-600 dark:text-green-400">{userStats.active}</p>
+            </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">المشتركين المميزين</p>
-                <p className="text-3xl font-bold text-yellow-600">{stats.premium}</p>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              className="bg-gradient-to-br from-white to-yellow-50/50 dark:from-neutral-800 dark:to-yellow-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-yellow-100/50 dark:border-yellow-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المشتركين المميزين</p>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center shadow-md">
+                  <Key className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
-                <Key className="w-6 h-6 text-yellow-600" />
-              </div>
-            </div>
-          </div>
+              <p className="text-2xl sm:text-3xl font-extrabold text-yellow-600 dark:text-yellow-400">{userStats.premium}</p>
+            </motion.div>
+          </motion.div>
 
-          <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-600 text-sm">إجمالي التخزين</p>
-                <p className="text-3xl font-bold text-indigo-600">{(stats.totalStorage / 1024).toFixed(1)} GB</p>
+          {/* البطاقات الطويلة - أفقية */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-1 gap-4"
+          >
+            <motion.div
+              whileHover={{ y: -4, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-indigo-50/50 dark:from-neutral-800 dark:to-indigo-900/10 rounded-2xl shadow-lg hover:shadow-xl p-6 border border-indigo-100/50 dark:border-indigo-800/30 transition-all duration-300"
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <p className="text-gray-600 dark:text-gray-400 text-sm font-medium mb-2">إجمالي التخزين</p>
+                  <p className="text-3xl sm:text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">{(userStats.totalStorage / 1024).toFixed(1)} GB</p>
+                </div>
+                <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Upload className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <div className="w-12 h-12 bg-indigo-100 rounded-full flex items-center justify-center">
-                <Upload className="w-6 h-6 text-indigo-600" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
 
         {/* شريط التحكم */}
         <motion.div
@@ -854,7 +763,7 @@ export default function AdminUsersPage() {
 }
 
  // نموذج إضافة مستخدم جديد
- function AddUserModal({ onClose, onSave }: { onClose: () => void; onSave: (data: Partial<User>) => void }) {
+ function AddUserModal({ onClose, onSave }: { onClose: () => void; onSave: (data: Partial<AdminUser>) => void }) {
    const [formData, setFormData] = useState({
      name: '',
      email: '',
@@ -1059,9 +968,9 @@ function EditUserModal({
   onClose, 
   onSave 
 }: { 
-  user: User; 
+  user: AdminUser; 
   onClose: () => void; 
-  onSave: (userId: string, data: Partial<User>) => void;
+  onSave: (userId: string, data: Partial<AdminUser>) => void;
 }) {
   const [formData, setFormData] = useState({
     name: user.name,

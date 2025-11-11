@@ -6,6 +6,8 @@ import { useState, useEffect, useCallback } from 'react';
 import type { StorageQuota, StorageUsage, PersonalFile } from '@/types/storage';
 import { storageService } from '@/lib/storage/storage-service';
 
+const API_PREFIX = '/api';
+
 interface UseStorageOptions {
   userId: string;
   autoRefresh?: boolean;
@@ -43,20 +45,20 @@ export function useStorage(options: UseStorageOptions): UseStorageReturn {
       setError(null);
 
       // جلب حصة التخزين
-      const quotaResponse = await fetch(`/api/storage/quota/${userId}`);
+      const quotaResponse = await fetch(`${API_PREFIX}/storage/quota/${userId}`);
       if (!quotaResponse.ok) throw new Error('فشل جلب حصة التخزين');
       const quotaData = await quotaResponse.json();
       setQuota(quotaData.quota);
 
       // جلب إحصائيات الاستخدام
-      const usageResponse = await fetch(`/api/storage/usage/${userId}`);
+      const usageResponse = await fetch(`${API_PREFIX}/storage/usage/${userId}`);
       if (usageResponse.ok) {
         const usageData = await usageResponse.json();
         setUsage(usageData.usage);
       }
 
       // جلب الملفات
-      const filesResponse = await fetch(`/api/storage/files?userId=${userId}`);
+      const filesResponse = await fetch(`${API_PREFIX}/storage/files?userId=${userId}`);
       if (filesResponse.ok) {
         const filesData = await filesResponse.json();
         setFiles(filesData.files || []);
@@ -85,7 +87,7 @@ export function useStorage(options: UseStorageOptions): UseStorageReturn {
           formData.append('folderId', uploadOptions.folderId);
         }
 
-        const response = await fetch('/api/storage/files', {
+        const response = await fetch(`${API_PREFIX}/storage/files`, {
           method: 'POST',
           body: formData,
         });
@@ -127,7 +129,7 @@ export function useStorage(options: UseStorageOptions): UseStorageReturn {
       try {
         setError(null);
 
-        const response = await fetch(`/api/storage/files/${fileId}?userId=${userId}`, {
+        const response = await fetch(`${API_PREFIX}/storage/files/${fileId}?userId=${userId}`, {
           method: 'DELETE',
         });
 
@@ -158,7 +160,7 @@ export function useStorage(options: UseStorageOptions): UseStorageReturn {
       try {
         setError(null);
 
-        const response = await fetch('/api/storage/files/copy', {
+        const response = await fetch(`${API_PREFIX}/storage/files/copy`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

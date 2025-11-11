@@ -69,7 +69,7 @@ export default function WorkshopsPage() {
               </motion.div>
 
               <motion.h1
-                className="text-5xl lg:text-7xl xl:text-8xl font-bold text-blue-600 leading-none tracking-tight"
+                className="text-4xl lg:text-5xl xl:text-6xl font-bold text-blue-600 leading-none tracking-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
@@ -78,7 +78,7 @@ export default function WorkshopsPage() {
               </motion.h1>
 
               <motion.p
-                className="text-xl lg:text-2xl text-slate-700 leading-relaxed max-w-4xl mx-auto font-medium"
+                className="text-lg lg:text-xl text-slate-700 leading-relaxed max-w-4xl mx-auto font-medium"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.6 }}
@@ -93,10 +93,10 @@ export default function WorkshopsPage() {
         <section className="relative py-24 lg:py-36 bg-slate-50">
           <div className="container mx-auto max-w-7xl px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
+              <h2 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6">
                 الورش القادمة
               </h2>
-              <p className="text-xl text-slate-700 max-w-3xl mx-auto">
+              <p className="text-lg text-slate-700 max-w-3xl mx-auto">
                 انضم إلى ورش عملنا التفاعلية وتعلم من خبراء معتمدين في بيئة عملية مباشرة
               </p>
             </div>

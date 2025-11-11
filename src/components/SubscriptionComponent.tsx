@@ -8,6 +8,7 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
+import { createPaymentIntent, subscribe } from '@/lib/apiClient';
 
 // TODO: Replace with actual Stripe publishable key from environment variables
 const stripePromise = loadStripe(
@@ -114,29 +115,18 @@ const MockCheckoutForm = ({
 
     try {
       // Mock mode: directly subscribe without payment confirmation
-      await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId: plan.id, amount: plan.price }),
-      });
+      await createPaymentIntent(plan.id, plan.price);
 
       // Subscribe directly
-      const subscribeResponse = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          planId: plan.id,
-          paymentIntentId: `mock_payment_${Date.now()}`,
-        }),
-      });
+      const subscribeResponse = await subscribe(plan.id, `mock_payment_${Date.now()}`);
 
-      if (!subscribeResponse.ok) {
-        throw new Error('فشل في الاشتراك');
+      if (subscribeResponse.error) {
+        throw new Error(subscribeResponse.error.message || 'فشل في الاشتراك');
       }
 
       onSuccess();
     } catch (err) {
-      setError('حدث خطأ في المعالجة');
+      setError(err instanceof Error ? err.message : 'حدث خطأ في المعالجة');
     } finally {
       setLoading(false);
     }
@@ -189,13 +179,13 @@ const StripeCheckoutForm = ({
     setError('');
 
     try {
-      const response = await fetch('/api/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId: plan.id, amount: plan.price }),
-      });
+      const paymentIntentResponse = await createPaymentIntent(plan.id, plan.price);
+      
+      if (paymentIntentResponse.error || !paymentIntentResponse.data) {
+        throw new Error(paymentIntentResponse.error?.message || 'فشل في إنشاء payment intent');
+      }
 
-      const { clientSecret } = await response.json();
+      const { clientSecret } = paymentIntentResponse.data;
 
       // تأكيد الدفع
       const result = await stripe.confirmCardPayment(clientSecret, {
@@ -212,19 +202,17 @@ const StripeCheckoutForm = ({
       } else {
         if (result.paymentIntent?.status === 'succeeded') {
           // تحديث صلاحيات المستخدم وإضافة الاشتراك
-          await fetch('/api/subscribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              planId: plan.id,
-              paymentIntentId: result.paymentIntent.id,
-            }),
-          });
+          const subscribeResponse = await subscribe(plan.id, result.paymentIntent.id);
+          
+          if (subscribeResponse.error) {
+            throw new Error(subscribeResponse.error.message || 'فشل في الاشتراك');
+          }
+          
           onSuccess();
         }
       }
     } catch (err) {
-      setError('حدث خطأ في المعالجة');
+      setError(err instanceof Error ? err.message : 'حدث خطأ في المعالجة');
     } finally {
       setLoading(false);
     }

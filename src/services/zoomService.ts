@@ -9,7 +9,8 @@ import type {
   ZoomSessionParticipant,
 } from '@/types/zoom';
 
-const API_BASE = '/api/zoom';
+const API_PREFIX = '/api';
+const API_BASE = `${API_PREFIX}/zoom`;
 
 export class ZoomService {
   /**

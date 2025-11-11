@@ -6,6 +6,7 @@ import { ArrowLeft, FileText, BookOpen, Calendar } from 'lucide-react';
 import { Container, Card, Grid } from '@/components/ui/primitives';
 import { Button } from '@/components/ui/Button';
 import Image from 'next/image';
+import { ROUTES } from '@/lib/routes';
 
 /**
  * Latest Content Section - أحدث المحتوى
@@ -80,7 +81,7 @@ const LatestContentSection = () => {
               اطلع على آخر المحتوى التعليمي والمقالات المتخصصة
             </p>
           </div>
-          <Link href="/resources" className="hidden lg:flex">
+          <Link href={ROUTES.RESOURCES} className="hidden lg:flex">
             <Button variant="secondary">
               <span>عرض المكتبة</span>
               <ArrowLeft className="w-5 h-5" />
@@ -150,7 +151,7 @@ const LatestContentSection = () => {
 
         {/* Mobile CTA */}
         <div className="text-center mt-8 lg:hidden">
-          <Link href="/resources">
+          <Link href={ROUTES.RESOURCES}>
             <Button variant="secondary">
               <span>عرض المكتبة الكاملة</span>
               <ArrowLeft className="w-5 h-5" />

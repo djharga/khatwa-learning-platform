@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { safeFormatNumber } from '@/lib/numberUtils';
+import { ROUTES } from '@/lib/routes';
 
 interface CourseHeroProps {
   title: string;
@@ -18,7 +19,7 @@ interface CourseHeroProps {
   category: string;
   image: string;
   videoPreviewUrl?: string;
-  instructor: {
+  instructor?: {
     name: string;
     avatar: string;
   };
@@ -54,15 +55,15 @@ export default function CourseHero({
   const heroImage = image || '/assets/course-hero.jpg';
 
   return (
-    <div className="relative min-h-[85vh] flex items-center justify-center overflow-hidden mx-4 my-6 rounded-[3rem]">
+    <div className="relative min-h-[50vh] flex items-center justify-center overflow-hidden mx-4 my-4 rounded-2xl">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0 rounded-[3rem] overflow-hidden">
+      <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden">
         <Image
           src={heroImage}
           alt={title}
           fill
           priority
-          className="object-cover rounded-[3rem]"
+          className="object-cover rounded-2xl"
           quality={90}
           sizes="100vw"
           loading="eager"
@@ -70,7 +71,7 @@ export default function CourseHero({
         
         {/* Enhanced Overlay Layer with blue tint for better text contrast */}
         <div 
-          className="absolute inset-0 rounded-[3rem]"
+          className="absolute inset-0 rounded-2xl"
           style={{
             background: `linear-gradient(135deg, rgba(30, 58, 138, 0.75) 0%, rgba(37, 99, 235, 0.65) 50%, rgba(29, 78, 216, 0.7) 100%)`,
             transform: 'translateZ(0)',
@@ -78,7 +79,7 @@ export default function CourseHero({
         />
         {/* Additional blue gradient from bottom for text area */}
         <div 
-          className="absolute inset-0 rounded-[3rem]"
+          className="absolute inset-0 rounded-2xl"
           style={{
             background: `linear-gradient(to top, rgba(30, 58, 138, 0.85) 0%, rgba(37, 99, 235, 0.65) 40%, transparent 100%)`,
             transform: 'translateZ(0)',
@@ -88,24 +89,24 @@ export default function CourseHero({
 
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 z-[1]">
-        <div className="absolute inset-0 rounded-[3rem]" style={{
+        <div className="absolute inset-0 rounded-2xl" style={{
           backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
           backgroundSize: '40px 40px'
         }} />
       </div>
 
       {/* Minimal Light Effects */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/8 rounded-full blur-2xl opacity-40 pointer-events-none z-[1]" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
-      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-2xl opacity-40 pointer-events-none z-[1]" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
+      <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-blue-500/8 rounded-full blur-2xl opacity-40 pointer-events-none z-[1]" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
+      <div className="absolute bottom-1/4 left-1/4 w-56 h-56 bg-purple-500/8 rounded-full blur-2xl opacity-40 pointer-events-none z-[1]" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10 lg:py-12 w-full">
         {/* Back Button */}
         <Link
-          href="/courses"
-          className="inline-flex items-center gap-2 text-white hover:text-white mb-6 transition-colors group hover-glow-primary-xs drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]"
+          href={ROUTES.COURSES}
+          className="inline-flex items-center gap-2 text-white hover:text-white mb-4 transition-colors group drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]"
         >
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          <span className="font-medium">العودة إلى الدورات</span>
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+          <span className="text-sm font-medium">العودة إلى الدورات</span>
         </Link>
 
         <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -120,77 +121,79 @@ export default function CourseHero({
             <div className="absolute inset-0 -mx-6 -my-6 bg-gradient-to-br from-blue-900/25 via-blue-800/15 to-transparent rounded-2xl backdrop-blur-[2px] pointer-events-none" />
             <div className="relative z-10">
             {/* Badges */}
-            <div className="flex flex-wrap gap-3">
-              <span className="px-4 py-2 bg-white/25 backdrop-blur-md rounded-full text-sm font-medium text-white hover:bg-white/35 transition-all duration-300 hover-glow-primary-xs border border-white/30 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+            <div className="flex flex-wrap gap-2">
+              <span className="px-3 py-1.5 bg-white/25 backdrop-blur-md rounded-full text-xs font-medium text-white hover:bg-white/35 transition-all duration-300 border border-white/30 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
                 {level}
               </span>
-              <span className="px-4 py-2 bg-white/25 backdrop-blur-md rounded-full text-sm font-medium text-white flex items-center gap-2 hover:bg-white/35 transition-all duration-300 hover-glow-primary-xs border border-white/30 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
-                <Award className="w-4 h-4" />
+              <span className="px-3 py-1.5 bg-white/25 backdrop-blur-md rounded-full text-xs font-medium text-white flex items-center gap-1.5 hover:bg-white/35 transition-all duration-300 border border-white/30 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+                <Award className="w-3.5 h-3.5" />
                 {category}
               </span>
             </div>
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight heading-tech display-tech text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
               {title}
             </h1>
 
             {/* Description */}
-            <p className="text-xl text-white leading-relaxed max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-medium">
+            <p className="text-base md:text-lg text-white leading-relaxed max-w-2xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] font-medium">
               {description}
             </p>
 
             {/* Stats */}
-            <div className="flex flex-wrap gap-6">
-              <div className="flex items-center gap-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-                <Star className="w-5 h-5 fill-current text-yellow-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
-                <span className="font-semibold text-white">{rating}</span>
-                <span className="text-white/95">({safeFormatNumber(students)} طالب)</span>
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center gap-1.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+                <Star className="w-4 h-4 fill-current text-yellow-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
+                <span className="text-sm font-semibold text-white">{rating}</span>
+                <span className="text-sm text-white/95">({safeFormatNumber(students)} طالب)</span>
               </div>
-              <div className="flex items-center gap-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-                <Clock className="w-5 h-5 text-white" />
-                <span className="text-white/95">{duration}</span>
+              <div className="flex items-center gap-1.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+                <Clock className="w-4 h-4 text-white" />
+                <span className="text-sm text-white/95">{duration}</span>
               </div>
-              <div className="flex items-center gap-2 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-                <BookOpen className="w-5 h-5 text-white" />
-                <span className="text-white/95">{lessons} درس</span>
+              <div className="flex items-center gap-1.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
+                <BookOpen className="w-4 h-4 text-white" />
+                <span className="text-sm text-white/95">{lessons} درس</span>
               </div>
             </div>
 
             {/* Instructor */}
-            <div className="flex items-center gap-4 p-4 bg-white/15 backdrop-blur-md rounded-xl border border-white/20 shadow-elevation-2">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-white/40 shadow-elevation-1">
-                <Image
-                  src={instructor.avatar}
-                  alt={instructor.name}
-                  width={48}
-                  height={48}
-                  className="object-cover"
-                />
+            {instructor && (
+              <div className="flex items-center gap-4 p-4 bg-white/15 backdrop-blur-md rounded-xl border border-white/20 shadow-elevation-2">
+                <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-white/40 shadow-elevation-1">
+                  <Image
+                    src={instructor.avatar || '/api/placeholder/48/48'}
+                    alt={instructor.name}
+                    width={48}
+                    height={48}
+                    className="object-cover"
+                  />
+                </div>
+                <div>
+                  <div className="text-sm text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">المدرّس</div>
+                  <div className="font-semibold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">{instructor.name}</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]">المدرّس</div>
-                <div className="font-semibold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">{instructor.name}</div>
-              </div>
-            </div>
+            )}
 
             {/* CTAs */}
-            <div className="flex flex-wrap gap-4 pt-4">
+            <div className="flex flex-wrap gap-3 pt-2">
               {videoPreviewUrl && (
                 <button
                   onClick={handlePlayPreview}
-                  className="flex items-center gap-2 px-6 py-3 bg-white text-blue-600 rounded-xl font-semibold hover:bg-white/90 transition-all hover:scale-105 shadow-primary-md hover:shadow-primary-lg hover-glow-primary-md focus-glow-primary"
+                  className="flex items-center gap-2 px-4 py-2 bg-white text-blue-600 rounded-lg text-sm font-semibold hover:bg-white/90 transition-all hover:scale-105 shadow-md hover:shadow-lg"
                 >
-                  <Play className="w-5 h-5 fill-current" />
+                  <Play className="w-4 h-4 fill-current" />
                   <span>شاهد معاينة</span>
                 </button>
               )}
               {onTryFreeLesson && (
                 <button
                   onClick={onTryFreeLesson}
-                  className="flex items-center gap-2 px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl font-semibold hover:bg-white/30 transition-all border border-white/30 hover-glow-primary-xs focus-glow-primary"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm text-white rounded-lg text-sm font-semibold hover:bg-white/30 transition-all border border-white/30"
                 >
-                  <BookOpen className="w-5 h-5" />
+                  <BookOpen className="w-4 h-4" />
                   <span>جرّب درسًا مجانًا</span>
                 </button>
               )}

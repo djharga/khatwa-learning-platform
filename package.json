@@ -19,6 +19,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.19",
+    "@tanstack/react-query": "^5.90.7",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "@types/dompurify": "^3.0.5",
@@ -31,6 +32,7 @@
     "handsontable": "^16.1.1",
     "lucide-react": "^0.545.0",
     "mammoth": "^1.11.0",
+    "msw": "^2.12.1",
     "next": "14.2.10",
     "quill": "^2.0.3",
     "react": "^18.3.1",
@@ -56,6 +58,7 @@
     "@iconify/tailwind": "^1.2.0",
     "@next/bundle-analyzer": "^16.0.0",
     "@tailwindcss/postcss": "^4.0.0",
+    "@tanstack/react-query-devtools": "^5.90.2",
     "@types/handsontable": "^0.31.2",
     "@types/node": "^20.12.12",
     "@types/react": "^19.2.2",
@@ -73,5 +76,10 @@
     "tailwindcss": "^3.4.18",
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.46.1"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }

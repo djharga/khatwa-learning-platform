@@ -15,6 +15,7 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
+import { ROUTES } from '@/lib/routes';
 
 /**
  * AI Tools Preview Section - قسم معاينة الأدوات الذكية
@@ -118,7 +119,7 @@ const AIToolsPreviewSection = () => {
             return (
               <Link
                 key={tool.id}
-                href="/ai-tools"
+                href={ROUTES.AI_TOOLS}
                 className="group relative overflow-hidden p-6 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:border-indigo-300 dark:hover:border-indigo-700 hover:shadow-xl transition-all duration-200"
               >
                 {/* Background Image for tools with images */}
@@ -159,7 +160,7 @@ const AIToolsPreviewSection = () => {
         {/* CTA Button */}
         <div className="text-center">
           <Link
-            href="/ai-tools"
+            href={ROUTES.AI_TOOLS}
             className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-xl shadow-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/60 transition-shadow duration-200 text-lg"
           >
             <span>استكشف جميع الأدوات الذكية</span>

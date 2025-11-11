@@ -8,9 +8,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Home, BookOpen, FileText, Award, Users, Settings, Brain, FolderOpen,
   BarChart3, HelpCircle, MessageCircle, ChevronDown, ChevronRight,
-  Menu, Video, CreditCard, Shield, Star, LibraryBig, Calculator,
+  Video, CreditCard, Shield, Star, LibraryBig, Calculator,
   ShieldCheck, X
 } from 'lucide-react';
+import SidebarToggleButton from '@/components/ui/SidebarToggleButton';
 import { useState, useEffect } from 'react';
 import { getSidebarItems, isActiveLink } from '@/lib/navigation';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -49,7 +50,8 @@ interface AppSidebarProps {
 const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
   const pathname = usePathname();
   const { isAuthenticated, user, isLoading: authLoading } = useAuth();
-  const { hasSubscription, loading: subscriptionLoading } = useSubscription();
+  const { data: subscriptionData, isLoading: subscriptionLoading } = useSubscription();
+  const hasSubscription = subscriptionData?.hasSubscription || false;
   const prefersReducedMotion = useReducedMotion();
 
   // تحديد role المستخدم أو استخدام 'student' كافتراضي
@@ -267,20 +269,6 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
       </p>
     </div>
   );
-
-  const ToggleButton = ({ onClick }: any) => (
-    <motion.button
-      onClick={onClick}
-      className="hidden lg:flex fixed start-6 top-20 z-50 p-3 bg-primary-600 text-white rounded-full shadow-md hover:bg-primary-700 transition-all"
-      initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.9 }}
-      animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1 }}
-      whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-      whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
-    >
-      <Menu className="w-5 h-5" />
-    </motion.button>
-  );
-
   // لا نعرض أي شيء حتى يتم mount لتجنب مشاكل hydration
   if (!isMounted) {
     return null;
@@ -290,7 +278,15 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
   if (authLoading || subscriptionLoading) {
     return (
       <>
-        {!isOpen && <ToggleButton onClick={() => setIsOpen(true)} />}
+        {!isOpen && (
+          <div className="hidden lg:block">
+            <SidebarToggleButton
+              isOpen={isOpen}
+              onClick={() => setIsOpen(true)}
+              variant="floating"
+            />
+          </div>
+        )}
         <AnimatePresence>
         {isOpen && (
           <motion.aside
@@ -322,7 +318,15 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
 
   return (
     <>
-      {!isOpen && <ToggleButton onClick={() => setIsOpen(true)} />}
+      {!isOpen && (
+        <div className="hidden lg:block">
+          <SidebarToggleButton
+            isOpen={isOpen}
+            onClick={() => setIsOpen(true)}
+            variant="floating"
+          />
+        </div>
+      )}
       <AnimatePresence>
         {isOpen && (
           <motion.aside

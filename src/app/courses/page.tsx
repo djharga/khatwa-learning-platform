@@ -106,7 +106,7 @@ export default function CoursesPage() {
       <div className="grid grid-cols-1 gap-y-12 py-12 lg:py-16">
         
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 dark:from-primary-800 dark:via-primary-900 dark:to-primary-950 text-white overflow-hidden rounded-2xl mx-4 lg:mx-8 shadow-xl">
+        <section className="relative bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 dark:from-primary-800 dark:via-primary-900 dark:to-primary-950 text-white overflow-hidden rounded-3xl mx-4 lg:mx-8 shadow-2xl">
           {/* Background Image */}
           <div className="absolute inset-0 z-0">
             <Image
@@ -118,102 +118,94 @@ export default function CoursesPage() {
               className="object-cover"
               style={{ objectPosition: 'center' }}
             />
-            {/* Simple Overlay with reduced opacity */}
+            {/* Simple Overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-primary-900/40 via-indigo-900/35 to-primary-900/40"></div>
           </div>
 
           {/* Content */}
-          <div className="relative z-10 container mx-auto max-w-7xl px-8 py-24">
+          <div className="relative z-10 container mx-auto max-w-7xl px-6 sm:px-8 lg:px-12 py-16 sm:py-20 lg:py-24">
             <div className="text-center">
               {/* Badge */}
               <motion.div 
-                className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-lg px-5 py-2 mb-6 border border-white/20"
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2.5 bg-white/15 backdrop-blur-md rounded-full px-6 py-3 mb-6 border border-white/30 shadow-lg"
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
               >
-                <BookOpen className="w-5 h-5 text-white" />
-                <span className="font-semibold text-sm tracking-wide drop-shadow-lg">برامج تعليمية متخصصة</span>
+                <BookOpen className="w-5 h-5 text-white drop-shadow-md" />
+                <span className="font-bold text-sm sm:text-base tracking-wide text-white drop-shadow-md">برامج تعليمية متخصصة</span>
               </motion.div>
 
               {/* Title */}
               <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight drop-shadow-2xl"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-white"
                 style={{ 
-                  textShadow: '0 4px 12px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)'
+                  textShadow: '0 4px 20px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3)'
                 }}
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
               >
-                الدورات التدريبية
+                مسارك المهني يبدأ من هنا
               </motion.h1>
 
               {/* Description */}
-              <motion.p 
-                className="text-lg md:text-xl text-blue-50 dark:text-blue-100 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-lg"
+              <motion.p
+                className="text-base sm:text-lg md:text-xl text-white font-medium leading-relaxed mb-8 max-w-3xl mx-auto"
                 style={{ 
-                  textShadow: '0 2px 8px rgba(0, 0, 0, 0.25)'
+                  textShadow: '0 2px 12px rgba(0, 0, 0, 0.3)'
                 }}
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
               >
-                اكتشف دوراتنا المتخصصة في المحاسبة والمراجعة الداخلية والإدارة المالية مع محتوى تعليمي احترافي ومعتمد
+                محتوى تدريبي يقدم لك خبرة واقعية ونماذج تطبيقية تساعدك على التميز مهنياً.
               </motion.p>
 
-              {/* Statistics Grid */}
-              <motion.div 
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
-                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              {/* Stats Cards - Circular */}
+              <motion.div
+                className="flex flex-wrap items-center justify-center gap-4 max-w-4xl mx-auto"
+                initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
+                transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}
               >
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
-                  <div className="flex items-center justify-center mb-3">
-                    <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <Users className="w-6 h-6 text-white drop-shadow-md" />
-                    </div>
-                  </div>
-                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">15,420+</div>
-                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">طالب نشط</div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
-                  <div className="flex items-center justify-center mb-3">
-                    <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <BookOpen className="w-6 h-6 text-white drop-shadow-md" />
-                    </div>
-                  </div>
-                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">15+</div>
-                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">دورة متخصصة</div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
-                  <div className="flex items-center justify-center mb-3">
-                    <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <Star className="w-6 h-6 text-yellow-300 dark:text-yellow-400 fill-yellow-300 dark:fill-yellow-400 drop-shadow-md" />
-                    </div>
-                  </div>
-                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">4.8</div>
-                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">متوسط التقييم</div>
-                </div>
-                
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20 shadow-lg">
-                  <div className="flex items-center justify-center mb-3">
-                    <div className="p-2 bg-blue-600/30 rounded-lg">
-                      <Award className="w-6 h-6 text-white drop-shadow-md" />
-                    </div>
-                  </div>
-                  <div className="text-3xl font-bold mb-1 text-white drop-shadow-md">95%</div>
-                  <div className="text-sm text-blue-50 dark:text-blue-100 font-medium drop-shadow-sm">معدل الرضا</div>
-                </div>
+                {/* برنامج مهني +15 */}
+                <motion.div
+                  className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-5 py-3 border border-white/30 shadow-lg hover:bg-white/25 transition-all duration-300"
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                >
+                  <span className="text-white font-bold text-sm sm:text-base drop-shadow-md">برنامج مهني +15</span>
+                </motion.div>
+
+                {/* تقييم المتعلمين */}
+                <motion.div
+                  className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-5 py-3 border border-white/30 shadow-lg hover:bg-white/25 transition-all duration-300"
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                >
+                  <span className="text-white font-bold text-sm sm:text-base drop-shadow-md">تقييم المتعلمين</span>
+                </motion.div>
+
+                {/* %80 نسبة الثقة */}
+                <motion.div
+                  className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-5 py-3 border border-white/30 shadow-lg hover:bg-white/25 transition-all duration-300"
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                >
+                  <span className="text-white font-bold text-sm sm:text-base drop-shadow-md">%80 نسبة الثقة</span>
+                </motion.div>
+
+                {/* %75 رضا المستخدمين */}
+                <motion.div
+                  className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-5 py-3 border border-white/30 shadow-lg hover:bg-white/25 transition-all duration-300"
+                  whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+                >
+                  <span className="text-white font-bold text-sm sm:text-base drop-shadow-md">%75 رضا المستخدمين</span>
+                </motion.div>
               </motion.div>
             </div>
           </div>
 
           {/* Bottom Gradient Transition */}
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-blue-50 dark:from-blue-950 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white dark:from-neutral-900 via-white/50 dark:via-neutral-900/50 to-transparent"></div>
         </section>
 
         {/* Courses Content Section */}
@@ -360,31 +352,27 @@ export default function CoursesPage() {
                     hover
                     className={`h-full border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 overflow-hidden flex ${
                       viewMode === 'list' ? 'flex-row' : 'flex-col'
-                    } group/card`}
+                    } group/card text-sm`}
                   >
                     {/* Course Image */}
                     <div className={`relative overflow-hidden bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-700 dark:to-neutral-800 ${
-                      viewMode === 'list' ? 'w-64 h-48 flex-shrink-0' : 'h-48 w-full'
+                      viewMode === 'list' ? 'w-48 h-36 flex-shrink-0' : 'h-36 w-full'
                     }`}>
-                      <img 
-                        src={course.image} 
+                      <Image 
+                        src={course.image || '/assets/default-course.jpg'} 
                         alt={course.title}
-                        className="w-full h-full object-cover group-hover/card:scale-110 transition-transform duration-500"
+                        fill
+                        sizes={viewMode === 'list' ? '192px' : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw'}
+                        className="object-cover group-hover/card:scale-110 transition-transform duration-500"
+                        priority={index < 4}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                      {course.level === 'مبتدئ' && (
-                        <div className="absolute top-3 right-3">
-                          <span className="inline-block px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm bg-success-500/90 text-white">
-                            {course.level}
-                          </span>
-                        </div>
-                      )}
                     </div>
 
-                    <CardContent className={`flex-1 flex flex-col ${viewMode === 'list' ? 'p-6' : 'p-4'}`}>
+                    <CardContent className={`flex-1 flex flex-col ${viewMode === 'list' ? 'p-4' : 'p-3'}`}>
                       {/* Title */}
-                      <h3 className={`font-bold text-neutral-900 dark:text-neutral-100 mb-2 group-hover/card:text-primary-600 dark:group-hover/card:text-primary-400 transition-colors ${
-                        viewMode === 'list' ? 'text-xl mb-3' : 'text-base line-clamp-2'
+                      <h3 className={`font-semibold text-neutral-900 dark:text-neutral-100 mb-2 group-hover/card:text-primary-600 dark:group-hover/card:text-primary-400 transition-colors ${
+                        viewMode === 'list' ? 'text-lg mb-2' : 'text-sm line-clamp-2'
                       }`}>
                         {course.title}
                       </h3>

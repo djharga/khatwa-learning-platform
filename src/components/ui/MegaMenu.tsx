@@ -187,7 +187,8 @@ const MegaMenu: React.FC<MegaMenuProps> = ({
   userRole,
   isAuthenticated,
 }) => {
-  const { hasSubscription } = useSubscription();
+  const { data: subscriptionData } = useSubscription();
+  const hasSubscription = subscriptionData?.hasSubscription || false;
   const sections = getNavigationForUser(userRole, isAuthenticated, hasSubscription);
   const learning = sections.find((s) => s.id === 'learning');
 

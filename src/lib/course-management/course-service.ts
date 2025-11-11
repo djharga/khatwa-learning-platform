@@ -20,7 +20,8 @@ import type {
   CourseSchedule,
 } from '@/types/course-management';
 
-const API_BASE = '/api/courses';
+const API_PREFIX = '/api';
+const API_BASE = `${API_PREFIX}/courses`;
 
 /**
  * Course Management Service

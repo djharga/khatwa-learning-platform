@@ -33,13 +33,15 @@ export interface NavigationSection {
   roles?: ('student' | 'instructor' | 'admin' | 'public')[];
 }
 
+import { ROUTES } from './routes';
+
 // تعريف جميع الروابط المتاحة في المنصة
 export const navigationItems: Record<string, NavigationItem> = {
   // الصفحات العامة
   home: {
     id: 'home',
     label: 'الرئيسية',
-    href: '/',
+    href: ROUTES.HOME,
     icon: 'home',
     roles: ['public', 'student', 'instructor', 'admin'],
     priority: 1,
@@ -49,7 +51,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   internalAuditors: {
     id: 'internal-auditors',
     label: 'المراجعون الداخليون',
-    href: '/internal-audit',
+    href: ROUTES.INTERNAL_AUDIT,
     icon: 'audit',
     description: 'كورسات المراجعة الداخلية والمسار المهني',
     roles: ['public', 'student', 'instructor', 'admin'],
@@ -59,7 +61,7 @@ export const navigationItems: Record<string, NavigationItem> = {
   auditorsFellowship: {
     id: 'auditors-fellowship',
     label: 'زمالة CIA',
-    href: '/cia',
+    href: ROUTES.CIA,
     icon: 'fellowship',
     description: 'برنامج زمالة متخصص بالمراجعة الداخلية',
     roles: ['public', 'student', 'instructor', 'admin'],

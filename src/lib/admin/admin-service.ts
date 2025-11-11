@@ -3,6 +3,8 @@
  * توفر وظائف لجلب البيانات الحقيقية من API
  */
 
+const API_PREFIX = '/api';
+
 export interface AdminStats {
   users: {
     total: number;
@@ -87,7 +89,7 @@ export class AdminService {
    */
   async getStats(period: string = 'month'): Promise<AdminStats> {
     try {
-      const response = await fetch(`/api/admin/stats?period=${period}`, {
+      const response = await fetch(`${API_PREFIX}/admin/stats?period=${period}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -192,7 +194,7 @@ export class AdminService {
    */
   async createTask(taskData: any): Promise<any> {
     try {
-      const response = await fetch('/api/admin/tasks', {
+      const response = await fetch(`${API_PREFIX}/admin/tasks`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

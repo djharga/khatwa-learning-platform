@@ -10,7 +10,7 @@ import KhatwaInfoCard from './KhatwaInfoCard';
 
 const IntroductionSection = () => {
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden">
+    <section className="relative py-8 lg:py-10 overflow-hidden">
       <Container size="xl" className="relative z-10">
         <KhatwaInfoCard />
       </Container>

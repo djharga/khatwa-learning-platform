@@ -6,16 +6,14 @@ import Script from 'next/script';
 import { getCourseBySlug, type Course } from '@/data/courses/all-courses';
 import {
   CourseHero,
-  StickyCheckout,
   LearningOutcomes,
-  AudiencePrereqs,
   Curriculum,
-  SocialProof,
-  InstructorCard,
-  FAQ,
 } from '@/components/course-details';
+import CourseAxesSystem from '@/components/course-details/CourseAxesSystem';
 import { generateStructuredData } from '@/lib/seo';
 import Link from 'next/link';
+import { useSubscription } from '@/hooks/useSubscription';
+import { useCourseBySlug } from '@/hooks/useCourses';
 
 interface EnrollmentStatus {
   hasSubscription: boolean;
@@ -37,88 +35,35 @@ export default function CourseLandingPage() {
   const router = useRouter();
   const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
   
+  // استخدام React Query hooks
+  const { data: courseData, isLoading: courseLoading } = useCourseBySlug(slug);
+  const courseId = courseData?.id || getCourseBySlug(slug || '')?.id?.toString();
+  const { data: subscriptionData, isLoading: subscriptionLoading } = useSubscription(courseId);
+  
+  // Fallback للبيانات المحلية
   const [course, setCourse] = useState<Course | undefined>(undefined);
-  const [enrollmentStatus, setEnrollmentStatus] = useState<EnrollmentStatus | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [enrolling, setEnrolling] = useState(false);
-  const [purchasing, setPurchasing] = useState(false);
 
   useEffect(() => {
     if (slug) {
-      const foundCourse = getCourseBySlug(slug);
-      setCourse(foundCourse);
-      checkEnrollmentStatus(foundCourse?.id.toString());
-    }
-  }, [slug]);
-
-  const checkEnrollmentStatus = async (courseId?: string) => {
-    if (!courseId) {
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch(`/api/enrollment-status?courseId=${courseId}`);
-      const status = await response.json();
-      setEnrollmentStatus(status);
-    } catch (error) {
-      console.error('Error checking enrollment status:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleEnroll = async () => {
-    if (!course || enrolling) return;
-
-    setEnrolling(true);
-    try {
-      const response = await fetch('/api/enroll', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ courseId: course.id.toString() }),
-      });
-
-      if (response.ok) {
-        router.push(`/student/courses/${course.id}`);
+      // استخدام البيانات من API إذا كانت متاحة، وإلا استخدام البيانات المحلية
+      if (courseData) {
+        // تحويل courseData إلى Course format إذا لزم الأمر
+        setCourse(getCourseBySlug(slug));
       } else {
-        alert('فشل في التسجيل. يرجى المحاولة مرة أخرى.');
+        const foundCourse = getCourseBySlug(slug);
+        setCourse(foundCourse);
       }
-    } catch (error) {
-      console.error('Error enrolling:', error);
-      alert('حدث خطأ في التسجيل');
-    } finally {
-      setEnrolling(false);
     }
-  };
+  }, [slug, courseData]);
 
-  const handlePurchase = async () => {
-    if (!course || purchasing) return;
+  const enrollmentStatus = subscriptionData ? {
+    hasSubscription: subscriptionData.hasSubscription,
+    subscriptionPlan: subscriptionData.subscriptionPlan,
+    hasAccess: subscriptionData.hasAccess,
+  } : null;
 
-    setPurchasing(true);
-    try {
-      const price = parseInt(course.price.replace(/[^0-9]/g, ''));
-      const response = await fetch('/api/purchase', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          courseId: course.id.toString(),
-          amount: price,
-        }),
-      });
+  const loading = courseLoading || subscriptionLoading;
 
-      if (response.ok) {
-        router.push(`/student/courses/${course.id}`);
-      } else {
-        alert('فشل في الشراء. يرجى المحاولة مرة أخرى.');
-      }
-    } catch (error) {
-      console.error('Error purchasing:', error);
-      alert('حدث خطأ في الشراء');
-    } finally {
-      setPurchasing(false);
-    }
-  };
 
   const handleStartLearning = () => {
     if (course) {
@@ -150,113 +95,75 @@ export default function CourseLandingPage() {
     'الحصول على شهادة معتمدة عند إكمال الدورة',
   ];
 
-  const audience = [
-    'المهنيون الراغبون في تطوير مهاراتهم',
-    'الطلاب والخريجون الجدد',
-    'أصحاب المشاريع والشركات الناشئة',
-    'أي شخص يريد تعلم مجال جديد',
-  ];
 
-  const prerequisites = [
-    'لا توجد متطلبات مسبقة',
-    'الرغبة في التعلم والتحسين',
-  ];
-
-  // Prepare curriculum data with useMemo to avoid reference issues
-  // Calculate hasAccess inside useMemo to ensure proper initialization
-  const curriculumModules = useMemo(() => {
+  // Convert course modules to mainAxes format for CourseAxesSystem
+  const mainAxesData = useMemo(() => {
     const hasAccess = enrollmentStatus?.hasAccess || false;
     
     if (!course?.modules) return [];
     
-    return course.modules.map((module, index) => {
+    return course.modules.map((module, moduleIndex) => {
       // Type assertion for lessons array to handle both string and object types
       const lessonsArray: Lesson[] = module.lessons as unknown as Lesson[];
+      
+      // Convert lessons to files
+      const files = lessonsArray.map((lesson: Lesson, lessonIndex) => {
+        const lessonTitle = typeof lesson === 'string' ? lesson : lesson.title;
+        const lessonId = `${module.id}-${lessonIndex}`;
+        const lessonDuration = typeof lesson === 'string' ? '15 دقيقة' : (lesson.duration || '15 دقيقة');
+        
+        return {
+          id: lessonId, // This will be used as lessonId for navigation
+          name: lessonTitle,
+          type: 'video' as const,
+          duration: lessonDuration,
+          isProtected: !hasAccess && lessonIndex > 0,
+        };
+      });
       
       return {
         id: module.id.toString(),
         title: module.title,
-        description: `الوحدة ${index + 1}: ${module.title}`,
-        lessons: lessonsArray.map((lesson: Lesson, lessonIndex) => ({
-          id: `${module.id}-${lessonIndex}`,
-          title: typeof lesson === 'string' ? lesson : lesson.title,
-          duration: typeof lesson === 'string' ? '15 دقيقة' : (lesson.duration || '15 دقيقة'),
-          type: 'video' as const,
-          isPreview: lessonIndex === 0, // First lesson is preview
-          isLocked: !hasAccess && lessonIndex > 0,
-        })),
+        description: `الوحدة ${moduleIndex + 1}: ${module.title}`,
+        subAxes: [
+          {
+            id: `${module.id}-sub`,
+            title: module.title,
+            description: `جميع دروس ${module.title}`,
+            files: files,
+          },
+        ],
       };
     });
   }, [course?.modules, enrollmentStatus?.hasAccess]);
 
-  // Prepare FAQ data
-  const faqItems = [
-    {
-      id: '1',
-      question: 'هل يمكنني الوصول للمحتوى بعد انتهاء الدورة؟',
-      answer: 'نعم، ستحصل على وصول مدى الحياة لجميع مواد الدورة بعد التسجيل.',
-    },
-    {
-      id: '2',
-      question: 'هل توجد شهادة معتمدة عند إكمال الدورة؟',
-      answer: 'نعم، ستحصل على شهادة إتمام معتمدة يمكنك مشاركتها على LinkedIn وملفك الشخصي.',
-    },
-    {
-      id: '3',
-      question: 'ماذا لو لم أكن راضياً عن الدورة؟',
-      answer: 'نوفر ضمان استرجاع الأموال خلال 30 يوم من تاريخ الشراء.',
-    },
-    {
-      id: '4',
-      question: 'كم مدة الدورة؟',
-      answer: `مدة الدورة ${course?.duration || '8 أسابيع'} وتتضمن ${course?.lessons || 10} دروس.`,
-    },
-  ];
 
-  // Prepare testimonials
-  const testimonials = [
-    {
-      id: '1',
-      name: 'أحمد محمد',
-      avatar: '/api/placeholder/48/48',
-      role: 'محاسب',
-      rating: 5,
-      comment: 'دورة رائعة ومفيدة جداً، ساعدتني في تطوير مهاراتي بشكل كبير.',
-      verified: true,
-    },
-    {
-      id: '2',
-      name: 'فاطمة علي',
-      avatar: '/api/placeholder/48/48',
-      role: 'مديرة مالية',
-      rating: 5,
-      comment: 'المحتوى شامل ومفصل، والشرح واضح جداً. أنصح بها بشدة.',
-      verified: true,
-    },
-  ];
-
-  // Prepare instructor data
-  const instructorData = {
-    id: '1',
-    name: 'د. محمود أحمد',
-    title: 'خبير في المحاسبة المالية',
-    avatar: '/api/placeholder/96/96',
-    bio: 'خبير في مجال المحاسبة المالية مع أكثر من 15 عاماً من الخبرة العملية في الشركات الكبرى.',
-    rating: course?.rating || 4.8,
-    students: course?.students || 1500,
-    courses: 5,
-  };
-
-  // Extract price
-  const price = course?.price ? parseInt(course.price.replace(/[^0-9]/g, '')) || 0 : 0;
-  const originalPrice = price > 0 ? Math.round(price * 1.3) : undefined;
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">جاري التحميل...</p>
+      <div className="min-h-screen relative">
+        <div 
+          className="fixed inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/background-cours-page.jpeg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+          }}
+        >
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.65)',
+            }}
+          />
+        </div>
+        <div className="relative z-10 flex items-center justify-center min-h-screen">
+          <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-neutral-200/50">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">جاري التحميل...</p>
+          </div>
         </div>
       </div>
     );
@@ -264,12 +171,31 @@ export default function CourseLandingPage() {
 
   if (!course) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">الدورة غير موجودة</h2>
-          <Link href="/courses" className="text-blue-600 hover:text-blue-700">
-            العودة إلى قائمة الدورات
-          </Link>
+      <div className="min-h-screen relative">
+        <div 
+          className="fixed inset-0 z-0"
+          style={{
+            backgroundImage: 'url(/background-cours-page.jpeg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed',
+          }}
+        >
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.65)',
+            }}
+          />
+        </div>
+        <div className="relative z-10 flex items-center justify-center min-h-screen">
+          <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-neutral-200/50">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">الدورة غير موجودة</h2>
+            <Link href="/courses" className="text-blue-600 hover:text-blue-700">
+              العودة إلى قائمة الدورات
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -295,18 +221,6 @@ export default function CourseLandingPage() {
     educationalLevel: course.level,
   });
 
-  const faqStructuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqItems.map(item => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
-    })),
-  };
 
   const breadcrumbData = generateStructuredData('breadcrumb', {
     items: [
@@ -325,85 +239,88 @@ export default function CourseLandingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseStructuredData) }}
       />
       <Script
-        id="faq-structured-data"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqStructuredData) }}
-      />
-      <Script
         id="breadcrumb-structured-data"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
-        {/* Hero Section */}
-        <CourseHero
-          title={course.title}
-          description={course.description}
-          rating={course.rating}
-          students={course.students}
-          duration={course.duration}
-          lessons={course.lessons}
-          level={course.level}
-          category={course.category}
-          image={course.image}
-          instructor={{
-            name: instructorData.name,
-            avatar: instructorData.avatar,
-          }}
-          onTryFreeLesson={handleTryFreeLesson}
-        />
+      <div className="min-h-screen">
+        {/* Content wrapper with background - only for main content, not footer */}
+        <div className="relative min-h-[calc(100vh-200px)]">
+          {/* Background Image with overlay - only for content area */}
+          <div 
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: 'url(/background-cours-page.jpeg)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+            }}
+          >
+            {/* Overlay for transparency and better readability */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.65)',
+              }}
+            />
+            {/* Additional gradient overlay for better card visibility */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.7) 100%)',
+              }}
+            />
+          </div>
+        
+          {/* Content wrapper with relative positioning */}
+          <div className="relative z-10">
+            {/* Hero Section */}
+            <CourseHero
+              title={course.title}
+              description={course.description}
+              rating={course.rating}
+              students={course.students}
+              duration={course.duration}
+              lessons={course.lessons}
+              level={course.level}
+              category={course.category}
+              image={course.image}
+              onTryFreeLesson={handleTryFreeLesson}
+            />
 
-        {/* Main Content */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Learning Outcomes */}
-              <LearningOutcomes outcomes={learningOutcomes} />
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              {/* تعريف الكورس */}
+              <div className="mb-12 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-neutral-200/50 dark:border-neutral-700/50">
+                <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">
+                  تعريف الكورس
+                </h2>
+                <p className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                  {course.description}
+                </p>
+              </div>
 
-              {/* Audience & Prerequisites */}
-              <AudiencePrereqs audience={audience} prerequisites={prerequisites} />
+              <div className="space-y-8">
+                {/* Main Content */}
+                <div className="space-y-8">
+                  {/* نظام المحاور التعليمية */}
+                  <div className="bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-neutral-200/50 dark:border-neutral-700/50">
+                    <CourseAxesSystem
+                      mainAxes={mainAxesData}
+                      hasAccess={hasAccess}
+                      courseId={course.id.toString()}
+                      onFileClick={(file) => {
+                        // File click is handled inside CourseAxesSystem with router navigation
+                        console.log('File clicked:', file);
+                      }}
+                    />
+                  </div>
 
-              {/* Curriculum */}
-              <Curriculum
-                modules={curriculumModules}
-                courseId={course.id.toString()}
-                hasAccess={hasAccess}
-                onPreviewLesson={handlePreviewLesson}
-              />
-
-              {/* Social Proof */}
-              <SocialProof
-                stats={{
-                  graduates: course.students,
-                  satisfaction: 98,
-                  companies: 150,
-                }}
-                testimonials={testimonials}
-              />
-
-              {/* Instructor */}
-              <InstructorCard instructor={instructorData} />
-
-              {/* FAQ */}
-              <FAQ items={faqItems} />
-            </div>
-
-            {/* Sidebar */}
-            <div className="lg:col-span-1">
-              <StickyCheckout
-                price={price}
-                originalPrice={originalPrice}
-                hasAccess={hasAccess}
-                onEnroll={handleEnroll}
-                onPurchase={handlePurchase}
-                onStartLearning={handleStartLearning}
-                duration={course.duration}
-                lessons={course.lessons}
-                students={course.students}
-                courseId={course.id.toString()}
-              />
+                  {/* Learning Outcomes */}
+                  <LearningOutcomes outcomes={learningOutcomes} />
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -7,26 +7,27 @@ import { Menu, X, ChevronDown, Home, BookOpen, Award, ShoppingBag, MoreHorizonta
 import { cn } from '@/lib/utils';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { ROUTES } from '@/lib/routes';
 
 const getNavigationItems = (hasSubscription: boolean) => [
   {
     label: 'الرئيسية',
-    href: '/',
+    href: ROUTES.HOME,
     icon: Home,
   },
   {
     label: 'الكورسات',
-    href: '/courses',
+    href: ROUTES.COURSES,
     icon: BookOpen,
   },
   {
     label: 'المراجعة الداخلية',
-    href: '/internal-audit',
+    href: ROUTES.INTERNAL_AUDIT,
     icon: FileText,
   },
   {
     label: 'زمالة CIA',
-    href: '/cia',
+    href: ROUTES.CIA,
     icon: Award,
   },
   {
@@ -39,18 +40,18 @@ const getNavigationItems = (hasSubscription: boolean) => [
     href: '#',
     icon: MoreHorizontal,
     children: [
-      { label: 'المدونة', href: '/blog' },
-      { label: 'الأسئلة الشائعة', href: '/faq' },
-      { label: 'تواصل معنا', href: '/contact' },
-      { label: 'الدعم الفني', href: '/support' },
-      { label: 'عن المنصة', href: '/about' },
+      { label: 'المكتبة', href: '/resources' },
+      { label: 'الموارد', href: '/resources' },
+      { label: 'المجتمع', href: '/community' },
+      { label: 'الأدوات', href: '/ai-tools' },
     ],
   },
 ];
 
 export default function EnhancedNavbar() {
   const pathname = usePathname();
-  const { hasSubscription } = useSubscription();
+  const subscriptionQuery = useSubscription();
+  const hasSubscription = subscriptionQuery.data?.hasSubscription ?? false;
   const prefersReducedMotion = useReducedMotion();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -216,7 +217,7 @@ export default function EnhancedNavbar() {
           {/* Auth Buttons */}
           <div className="hidden lg:flex items-center gap-3">
             <Link
-              href="/login"
+              href={ROUTES.LOGIN}
               className="group relative px-5 py-2.5 rounded-xl text-sm font-semibold border-2 border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-600 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all duration-300 shadow-sm hover:shadow-md flex items-center gap-2 focus:outline-none focus-visible:outline-none active:outline-none"
               aria-label="تسجيل الدخول"
             >
@@ -224,7 +225,7 @@ export default function EnhancedNavbar() {
               <span>دخول</span>
             </Link>
             <Link
-              href="/register"
+              href={ROUTES.REGISTER}
               className="group relative px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-700 hover:via-purple-700 hover:to-indigo-700 shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 flex items-center gap-2 overflow-hidden focus:outline-none focus-visible:outline-none active:outline-none"
               aria-label="إنشاء حساب جديد"
             >
@@ -294,7 +295,7 @@ export default function EnhancedNavbar() {
 
               <div className="pt-4 flex flex-col gap-3 border-t border-neutral-200 dark:border-neutral-800">
                 <Link
-                  href="/login"
+                  href={ROUTES.LOGIN}
                   onClick={() => setMobileOpen(false)}
                   className="group w-full py-3 px-4 text-center rounded-xl border-2 border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-300 bg-white dark:bg-neutral-900 hover:border-primary-400 dark:hover:border-primary-600 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 transition-all duration-300 shadow-sm hover:shadow-md flex items-center justify-center gap-2 font-semibold focus:outline-none focus-visible:outline-none active:outline-none"
                 >
@@ -302,7 +303,7 @@ export default function EnhancedNavbar() {
                   <span>دخول</span>
                 </Link>
                 <Link
-                  href="/register"
+                  href={ROUTES.REGISTER}
                   onClick={() => setMobileOpen(false)}
                   className="group relative w-full py-3 px-4 text-center rounded-xl text-sm font-bold text-white bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 hover:from-indigo-700 hover:via-purple-700 hover:to-indigo-700 shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden focus:outline-none focus-visible:outline-none active:outline-none"
                 >

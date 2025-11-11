@@ -21,7 +21,6 @@ import {
   Shield,
 } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
-import FlyonMenu from '@/components/ui/FlyonMenu';
 import PageBackground from '@/components/ui/PageBackground';
 
 interface AdminLayoutProps {
@@ -190,21 +189,66 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         </div>
       </div>
 
-      {/* Horizontal Navigation Bar - FlyonUI Menu */}
-      <div className="bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm shadow-sm border-b border-gray-200/50 dark:border-neutral-700/50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <nav className="flex justify-center">
-            <FlyonMenu
-              items={navigationItems.map((item) => ({
-                href: item.href,
-                label: item.name,
-                icon: item.icon,
-                status: pathname === item.href ? 'active' : undefined,
-              }))}
-              orientation="horizontal"
-              className="bg-base-200 rounded-2xl p-2"
-              autoActive={true}
-            />
+      {/* Horizontal Navigation Bar - Beautiful Tabs */}
+      <div className="bg-white/95 dark:bg-neutral-900/95 backdrop-blur-md shadow-sm border-b border-gray-200/50 dark:border-neutral-700/50 sticky top-16 z-20">
+        <div className="max-w-[1920px] mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
+          <nav className="flex items-center justify-center overflow-x-auto py-3 scrollbar-hide">
+            <div className="inline-flex items-center gap-2.5 sm:gap-3 bg-gray-100/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-2xl p-1.5 sm:p-2 shadow-sm border border-gray-200/60 dark:border-neutral-700/60 min-w-max">
+              {navigationItems.map((item) => {
+                const Icon = item.icon;
+                const isActive = pathname === item.href || (item.href !== '/admin' && pathname.startsWith(item.href));
+                
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`
+                      group relative flex items-center gap-2.5 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl
+                      font-medium text-[13px] sm:text-sm whitespace-nowrap
+                      transition-all duration-200 ease-out
+                      ${isActive
+                        ? 'bg-white dark:bg-neutral-700 text-gray-900 dark:text-white shadow-sm scale-[1.02]'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-neutral-700/50'
+                      }
+                    `}
+                  >
+                    {/* Active background with gradient */}
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeTab"
+                        className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-indigo-50/50 dark:from-blue-950/30 dark:via-purple-950/20 dark:to-indigo-950/30 rounded-xl"
+                        transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                        style={{ borderRadius: '0.75rem' }}
+                      />
+                    )}
+                    
+                    {/* Icon with smooth color transition */}
+                    <Icon 
+                      className={`
+                        w-4 h-4 sm:w-[18px] sm:h-[18px] transition-all duration-200 relative z-10 flex-shrink-0
+                        ${isActive 
+                          ? 'text-blue-600 dark:text-blue-400 scale-110' 
+                          : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-500 dark:group-hover:text-blue-400'
+                        }
+                      `} 
+                    />
+                    
+                    {/* Label */}
+                    <span className="relative z-10 transition-colors duration-200">{item.name}</span>
+                    
+                    {/* Active indicator line */}
+                    {isActive && (
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: '60%' }}
+                        transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                        className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
+                      />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
           </nav>
         </div>
       </div>

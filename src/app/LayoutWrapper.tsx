@@ -6,11 +6,14 @@ import Script from 'next/script';
 
 import EnhancedNavbar from '../components/layout/EnhancedNavbar';
 import AppSidebar from '../components/layout/AppSidebar';
-import Breadcrumbs from '../components/layout/Breadcrumbs';
 import { PageTransition } from '../components/ui/PageTransition';
+import { ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   // استخدام نفس القيمة الافتراضية مثل AppSidebar لتجنب layout shift
   // على الشاشات الكبيرة، الافتراضي يكون مفتوح
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(() => {
@@ -111,10 +114,18 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
             zIndex: 1
           }}
         >
-          {/* مسار التنقل */}
-          <div className="mb-4 sm:mb-6 max-w-7xl mx-auto">
-            <Breadcrumbs />
-          </div>
+          {/* زر الرجوع */}
+          {pathname !== '/' && (
+            <div className="mb-4 sm:mb-6 max-w-7xl mx-auto">
+              <Link
+                href={pathname?.includes('/courses/') ? '/courses' : '/'}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 font-medium text-sm"
+              >
+                <ArrowRight className="w-4 h-4" />
+                <span>رجوع</span>
+              </Link>
+            </div>
+          )}
 
           {/* المحتوى الرئيسي */}
           <div className="max-w-7xl mx-auto w-full">{children}</div>

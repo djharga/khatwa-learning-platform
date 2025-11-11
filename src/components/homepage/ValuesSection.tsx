@@ -55,52 +55,52 @@ const ValuesSection = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden">
+    <section className="relative py-8 lg:py-10 overflow-hidden">
       <Container size="xl" className="relative z-10">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50">
-            <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50">
+            <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-xs">
               قيمنا (Values)
             </span>
           </div>
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 dark:text-white mb-6">
+          <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white mb-3">
             قيمنا الأساسية
-            <span className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mt-3">
+            <span className="block bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mt-2 text-xl lg:text-2xl">
               ما يميزنا
             </span>
           </h2>
-          <p className="text-lg lg:text-xl text-neutral-600 dark:text-neutral-400 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
             نؤمن بقيم واضحة توجه عملنا وتساهم في نجاحك المهني
           </p>
         </div>
 
-        {/* Values Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        {/* Values Grid - Compact */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
           {values.map((value, index) => {
             const Icon = value.icon;
             return (
               <div
                 key={index}
-                className="p-6 lg:p-8 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-200 dark:border-neutral-700 hover:shadow-xl transition-shadow duration-200"
+                className="p-4 lg:p-5 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-shadow duration-200"
               >
                 {/* Icon */}
-                <div className="mb-6">
+                <div className="mb-4">
                   <div className="relative">
-                    <div className={`absolute inset-0 bg-gradient-to-r ${value.gradient} rounded-2xl blur-xl opacity-30`} />
-                    <div className={`relative w-16 h-16 bg-gradient-to-br ${value.gradient} rounded-2xl flex items-center justify-center shadow-lg`}>
-                      <Icon className="w-8 h-8 text-white" />
+                    <div className={`absolute inset-0 bg-gradient-to-r ${value.gradient} rounded-xl blur-lg opacity-30`} />
+                    <div className={`relative w-12 h-12 bg-gradient-to-br ${value.gradient} rounded-xl flex items-center justify-center shadow-md`}>
+                      <Icon className="w-6 h-6 text-white" />
                     </div>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
+                <div className="space-y-2">
+                  <h3 className="text-sm lg:text-base font-bold text-neutral-900 dark:text-white">
                     {value.title}
                   </h3>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
+                  <p className="text-xs lg:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {value.description}
                   </p>
                 </div>
