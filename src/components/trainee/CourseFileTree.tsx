@@ -266,10 +266,11 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
         <div key={node.id} className={`${level > 0 ? 'mr-6' : ''}`}>
           <motion.div
             className={`
-              flex items-center gap-2 py-2 px-3 rounded-lg cursor-pointer
-              transition-colors duration-200
-              ${isSelected ? 'bg-blue-50 dark:bg-blue-900/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800'}
+              group flex items-center gap-2 py-2 px-3 min-h-[44px] rounded-lg cursor-pointer
+              transition-all duration-200 ease-out
+              ${isSelected ? 'bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800' : 'hover:bg-neutral-50 dark:hover:bg-neutral-800 border border-transparent'}
               ${node.type === 'folder' ? 'font-medium' : ''}
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2
             `}
             onClick={() => {
               if (node.type === 'folder') {
@@ -278,17 +279,19 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                 handleFileSelect(node);
               }
             }}
-            whileHover={{ x: 4 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ x: 4, scale: 1.01 }}
+            whileTap={{ scale: 0.97 }}
           >
             {/* Expand/Collapse Icon */}
             {node.type === 'folder' ? (
               <motion.div
                 animate={{ rotate: isExpanded ? 90 : 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
                 className="flex-shrink-0"
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
               >
-                <ChevronRight className="w-4 h-4 text-gray-400" />
+                <ChevronRight className="w-4 h-4 text-neutral-400 dark:text-neutral-500 transition-colors duration-200 ease-out group-hover:text-primary-500" />
               </motion.div>
             ) : (
               <div className="w-4" />
@@ -312,15 +315,15 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                   }
                 }}
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 px-2 py-1 border border-blue-500 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-2 py-1 min-h-[44px] border border-primary-500 dark:border-primary-400 rounded bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                 autoFocus
               />
             ) : (
               <span
                 className={`
                   flex-1 text-sm
-                  ${node.type === 'folder' ? 'font-semibold text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}
-                  ${!node.canEdit && node.type === 'file' ? 'text-gray-500' : ''}
+                  ${node.type === 'folder' ? 'font-semibold text-neutral-900 dark:text-neutral-100' : 'text-neutral-700 dark:text-neutral-300'}
+                  ${!node.canEdit && node.type === 'file' ? 'text-neutral-500 dark:text-neutral-500' : ''}
                 `}
               >
                 {node.name}
@@ -329,7 +332,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
 
             {/* File Size */}
             {node.type === 'file' && node.size && (
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-neutral-500 dark:text-neutral-400">
                 {formatFileSize(node.size)}
               </span>
             )}
@@ -346,7 +349,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                     e
                   )
                 }
-                className="p-1 text-purple-600 hover:bg-purple-50 rounded transition-colors"
+                className="p-1 min-h-[44px] min-w-[44px] text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                 title={`فيديو شرح: ${node.explanationVideo.title}`}
               >
                 <Play className="w-4 h-4" />
@@ -359,7 +362,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                 {onFileDownload && (
                   <button
                     onClick={(e) => handleDownload(node, e)}
-                    className="p-1 text-blue-600 hover:bg-blue-50 rounded transition-colors"
+                    className="p-1 min-h-[44px] min-w-[44px] text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                     title="تحميل"
                   >
                     <Download className="w-4 h-4" />
@@ -369,7 +372,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                 {node.canEdit && onFileRename && (
                   <button
                     onClick={(e) => handleRenameStart(node, e)}
-                    className="p-1 text-green-600 hover:bg-green-50 rounded transition-colors"
+                    className="p-1 min-h-[44px] min-w-[44px] text-success-600 dark:text-success-400 hover:bg-success-50 dark:hover:bg-success-900/30 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
                     title="تعديل الاسم"
                   >
                     <Edit className="w-4 h-4" />
@@ -379,7 +382,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                 {onFileCopy && (
                   <button
                     onClick={(e) => handleCopy(node, e)}
-                    className="p-1 text-purple-600 hover:bg-purple-50 rounded transition-colors"
+                    className="p-1 min-h-[44px] min-w-[44px] text-secondary-innovate-600 dark:text-secondary-innovate-400 hover:bg-secondary-innovate-50 dark:hover:bg-secondary-innovate-900/30 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-innovate-500 focus-visible:ring-offset-2"
                     title="نسخ إلى مساحتي الشخصية"
                   >
                     <Copy className="w-4 h-4" />
@@ -396,7 +399,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
               >
                 {node.children.map((child) => renderNode(child, level + 1))}
               </motion.div>

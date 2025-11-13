@@ -36,8 +36,9 @@ export function ThemeToggle({
         className={cn(
           'flex items-center justify-center rounded-xl bg-neutral-100 dark:bg-neutral-800',
           'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700',
-          'transition-all duration-200 shadow-sm hover:shadow-md focus-visible:outline-none',
-          'focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          'transition-all duration-[200ms] ease-out shadow-elevation-1 hover:shadow-elevation-2',
+          'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
+          'min-h-[44px] min-w-[44px]',
           sizeMap.wrapper,
           className
         )}
@@ -45,7 +46,7 @@ export function ThemeToggle({
         <motion.div
           initial={false}
           animate={{ rotate: isDark ? 180 : 0 }}
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
         >
           {isDark ? <Sun className={sizeMap.icon} /> : <Moon className={sizeMap.icon} />}
         </motion.div>
@@ -64,15 +65,16 @@ export function ThemeToggle({
         className={cn(
           'flex items-center gap-2 rounded-lg px-4 py-2 font-medium text-sm',
           'bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300',
-          'hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-all duration-200 shadow-sm',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+          'hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-all duration-[200ms] ease-out shadow-elevation-1 hover:shadow-elevation-2',
+          'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
+          'min-h-[44px]',
           className
         )}
       >
         <motion.div
           initial={false}
           animate={{ rotate: isDark ? 180 : 0 }}
-          transition={{ duration: 0.25, ease: 'easeInOut' }}
+          transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
         >
           {isDark ? <Sun className={sizeMap.icon} /> : <Moon className={sizeMap.icon} />}
         </motion.div>
@@ -90,9 +92,10 @@ export function ThemeToggle({
       role="switch"
       aria-checked={isDark}
       className={cn(
-        'relative inline-flex items-center rounded-full transition-colors duration-300 ease-out',
+        'relative inline-flex items-center rounded-full transition-colors duration-[200ms] ease-out',
         'bg-neutral-300/60 dark:bg-neutral-700/70 hover:bg-neutral-400/70 dark:hover:bg-neutral-600/70',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+        'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
+        'min-h-[44px]',
         sizeMap.toggle,
         className
       )}

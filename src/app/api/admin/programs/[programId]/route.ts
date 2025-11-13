@@ -15,7 +15,7 @@ export async function GET(
     // محاكاة
     const program = {
       id: programId,
-      title: 'زمالة المراجعين الداخليين',
+      title: 'المراجعين الداخليين',
       description: 'برنامج زمالة شامل',
       type: 'fellowship',
       status: 'active',

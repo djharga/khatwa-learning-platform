@@ -540,7 +540,7 @@ export default function StudentCoursesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
                 whileHover={{ y: -2, scale: 1.01 }}
-                className={`bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden hover:shadow-lg transition-all duration-200 ease-out ${
+                className={`bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 overflow-hidden hover:shadow-elevation-4 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 ease-out ${
                   viewMode === 'list' ? 'flex flex-col sm:flex-row gap-4' : ''
                 }`}
               >
@@ -549,7 +549,7 @@ export default function StudentCoursesPage() {
                   <img
                     src={course.image}
                     alt={course.title}
-                    className={`${viewMode === 'list' ? 'h-full' : 'w-full h-full'} object-cover transition-transform duration-200 ease-out hover:scale-105`}
+                    className={`${viewMode === 'list' ? 'h-full' : 'w-full h-full'} object-cover transition-transform duration-200 ease-out hover:scale-[1.02]`}
                   />
                   <div className="absolute top-4 start-4">
                     <span className={`px-3 py-1.5 rounded-full text-xs font-semibold ${getStatusColor(course.status)}`}>
@@ -616,7 +616,7 @@ export default function StudentCoursesPage() {
                         }`}
                         initial={{ width: 0 }}
                         animate={{ width: `${course.progress}%` }}
-                        transition={{ duration: 0.8, delay: index * 0.05, ease: 'easeOut' }}
+                        transition={{ duration: 0.4, delay: index * 0.05, ease: 'easeOut' }}
                       />
                     </div>
                     <div className="flex items-center justify-between mt-2 text-xs text-neutral-600 dark:text-neutral-400">

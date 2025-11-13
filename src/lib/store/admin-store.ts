@@ -245,7 +245,7 @@ const defaultCourses: AdminCourse[] = [
   },
   {
     id: '2',
-    title: 'برنامج زمالة المراجعين الداخليين',
+    title: 'برنامج المراجعين الداخليين',
     description: 'برنامج شامل للحصول على شهادة الزمالة',
     image: '/courses/fellowship.jpg',
     instructor: 'د. فاطمة علي',
@@ -268,7 +268,7 @@ const defaultCourses: AdminCourse[] = [
 const defaultPrograms: AdminProgram[] = [
   {
     id: '1',
-    title: 'زمالة المراجعين الداخليين',
+    title: 'المراجعين الداخليين',
     description: 'برنامج زمالة شامل للحصول على شهادة معتمدة في المراجعة الداخلية',
     type: 'fellowship',
     status: 'active',

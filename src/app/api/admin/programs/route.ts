@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
     const allPrograms: TrainingProgram[] = [
       {
         id: '1',
-        title: 'زمالة المراجعين الداخليين',
+        title: 'المراجعين الداخليين',
         description: 'برنامج زمالة شامل للحصول على شهادة معتمدة في المراجعة الداخلية',
         type: 'fellowship',
         status: 'active',

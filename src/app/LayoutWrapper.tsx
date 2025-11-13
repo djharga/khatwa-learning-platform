@@ -108,7 +108,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
           id="main-content"
           role="main"
           tabIndex={-1}
-          className={`px-4 py-6 sm:py-8 ${mainPaddingClass} lg:pe-6 xl:pe-8 lg:py-10 xl:py-12 pt-16 lg:pt-20 pb-20 md:pb-8 min-h-[calc(100vh-5rem)] transition-[padding-inline-start] duration-300 ease-out`}
+          className={`px-4 py-6 sm:py-8 ${mainPaddingClass} lg:pe-6 xl:pe-8 lg:py-10 xl:py-12 pt-16 lg:pt-20 pb-20 md:pb-8 min-h-[calc(100vh-5rem)] transition-[padding-inline-start] duration-[200ms] ease-out`}
           style={{ 
             position: 'relative', 
             zIndex: 1
@@ -119,7 +119,7 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
             <div className="mb-4 sm:mb-6 max-w-7xl mx-auto">
               <Link
                 href={pathname?.includes('/courses/') ? '/courses' : '/'}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 rounded-lg shadow-sm border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 font-medium text-sm"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 rounded-lg shadow-elevation-1 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-[200ms] ease-out font-medium text-sm min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
               >
                 <ArrowRight className="w-4 h-4" />
                 <span>رجوع</span>

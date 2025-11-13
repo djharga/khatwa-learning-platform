@@ -20,11 +20,11 @@ const MissionSection = () => {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="relative max-w-4xl mx-auto"
         >
-          {/* Compact Card */}
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 via-white to-pink-50 dark:from-purple-950/30 dark:via-neutral-900 dark:to-pink-950/30 border border-purple-200/50 dark:border-purple-800/50 shadow-xl">
-            {/* Decorative Background Elements */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/30 to-transparent rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-pink-200/30 to-transparent rounded-full blur-3xl"></div>
+          {/* Compact Card - Lightened with transparent layer for visual separation */}
+          <div className="relative overflow-hidden rounded-2xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-sm border border-purple-100/50 dark:border-purple-800/50 shadow-xl">
+            {/* Decorative Background Elements - Reduced purple glow by 25% */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200/20 to-transparent rounded-full blur-3xl"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-pink-200/20 to-transparent rounded-full blur-3xl"></div>
             
             {/* Content */}
             <div className="relative z-10 p-6 lg:p-8">
@@ -47,9 +47,9 @@ const MissionSection = () => {
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.2, duration: 0.4 }}
-                  className="inline-flex items-center justify-center w-10 h-10 mb-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl shadow-lg"
+                  className="inline-flex items-center justify-center w-14 h-14 mb-3 bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl shadow-lg"
                 >
-                  <Rocket className="w-5 h-5 text-white" />
+                  <Rocket className="w-7 h-7 text-white" strokeWidth={2.5} />
                 </motion.div>
               </div>
 
@@ -59,29 +59,29 @@ const MissionSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-sm rounded-xl p-4 border border-purple-200/30 dark:border-purple-800/30 mb-4"
+                className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-5 border border-purple-200/40 dark:border-purple-800/40 mb-4"
               >
                 <div className="flex items-start gap-3">
                   <Sparkles className="w-5 h-5 text-purple-500 dark:text-purple-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm lg:text-base font-medium text-neutral-900 dark:text-white leading-relaxed text-right flex-1">
+                  <p className="text-sm lg:text-base font-semibold text-neutral-900 dark:text-white leading-loose text-right flex-1">
                     نسعى لتمكين <span className="text-purple-600 dark:text-purple-400 font-bold">الخريجيين ورواد الأعمال</span> من امتلاك المهارات والأدوات اللازمة لرفع جودة أعمال الشركات
                   </p>
                 </div>
               </motion.div>
 
-              {/* Mission Methods - Compact */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {/* Mission Methods - Enhanced with unified height, larger icons, and subtle borders */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-sm rounded-lg p-3 border border-purple-200/30 dark:border-purple-800/30 text-center"
+                  className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 border border-purple-200/50 dark:border-purple-800/50 text-center min-h-[120px] flex flex-col justify-center items-center"
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mx-auto mb-2 shadow-md">
-                    <BookOpen className="w-5 h-5 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                    <BookOpen className="w-6 h-6 text-white" strokeWidth={2} />
                   </div>
-                  <h3 className="text-xs lg:text-sm font-bold text-neutral-900 dark:text-white">
+                  <h3 className="text-sm lg:text-base font-bold text-neutral-900 dark:text-white">
                     برامج تدريبية متكاملة
                   </h3>
                 </motion.div>
@@ -91,12 +91,12 @@ const MissionSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.5 }}
-                  className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-sm rounded-lg p-3 border border-pink-200/30 dark:border-pink-800/30 text-center"
+                  className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 border border-pink-200/50 dark:border-pink-800/50 text-center min-h-[120px] flex flex-col justify-center items-center"
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center mx-auto mb-2 shadow-md">
-                    <Briefcase className="w-5 h-5 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                    <Briefcase className="w-6 h-6 text-white" strokeWidth={2} />
                   </div>
-                  <h3 className="text-xs lg:text-sm font-bold text-neutral-900 dark:text-white">
+                  <h3 className="text-sm lg:text-base font-bold text-neutral-900 dark:text-white">
                     دروس تطبيقية
                   </h3>
                 </motion.div>
@@ -106,12 +106,12 @@ const MissionSection = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.6 }}
-                  className="bg-white/60 dark:bg-neutral-800/60 backdrop-blur-sm rounded-lg p-3 border border-rose-200/30 dark:border-rose-800/30 text-center"
+                  className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-4 border border-rose-200/50 dark:border-rose-800/50 text-center min-h-[120px] flex flex-col justify-center items-center"
                 >
-                  <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-rose-600 rounded-lg flex items-center justify-center mx-auto mb-2 shadow-md">
-                    <Users className="w-5 h-5 text-white" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-rose-500 to-rose-600 rounded-xl flex items-center justify-center mx-auto mb-3 shadow-md">
+                    <Users className="w-6 h-6 text-white" strokeWidth={2} />
                   </div>
-                  <h3 className="text-xs lg:text-sm font-bold text-neutral-900 dark:text-white">
+                  <h3 className="text-sm lg:text-base font-bold text-neutral-900 dark:text-white">
                     حالات عملية مستمدة من الواقع
                   </h3>
                 </motion.div>

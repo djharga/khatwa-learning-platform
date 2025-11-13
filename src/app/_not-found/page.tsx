@@ -34,7 +34,7 @@ export default function NotFound() {
   const quickLinks = [
     { href: '/', label: 'الصفحة الرئيسية', icon: Home, color: 'blue' },
     { href: '/courses', label: 'الكورسات', icon: BookOpen, color: 'green' },
-    { href: '/cia', label: 'زمالة CIA', icon: GraduationCap, color: 'purple' },
+    { href: '/cia', label: 'CIA', icon: GraduationCap, color: 'purple' },
     { href: '/resources', label: 'المكتبة', icon: Library, color: 'orange' },
     { href: '/faq', label: 'الأسئلة الشائعة', icon: HelpCircle, color: 'indigo' },
   ];

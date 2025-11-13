@@ -69,7 +69,7 @@ export default function StudentSidebar() {
       title: 'التعليم',
       links: [
         { href: '/courses', label: 'الكورسات', icon: BookOpen },
-        { href: '/cia', label: 'زمالة CIA', icon: Crown },
+        { href: '/cia', label: 'CIA', icon: Crown },
         { href: '/review', label: 'المراجعة', icon: RefreshCw },
         { href: '/student/exam', label: 'الامتحانات', icon: Edit },
         { href: '/student/certificates', label: 'شهاداتي', icon: Award },

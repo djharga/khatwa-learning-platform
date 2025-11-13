@@ -28,7 +28,6 @@ interface Module {
 interface LessonSidebarProps {
   modules: Module[];
   currentLessonId: string;
-  overallProgress: number;
   onLessonClick: (lessonId: string) => void;
   onClose?: () => void;
 }
@@ -36,7 +35,6 @@ interface LessonSidebarProps {
 export default function LessonSidebar({
   modules,
   currentLessonId,
-  overallProgress,
   onLessonClick,
   onClose,
 }: LessonSidebarProps) {
@@ -109,28 +107,6 @@ export default function LessonSidebar({
             <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
           </motion.button>
         )}
-      </div>
-
-      {/* Progress */}
-      <div className="p-5 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/40 dark:from-blue-950/30 dark:via-indigo-950/20 dark:to-purple-950/20">
-        <div className="flex justify-between items-center mb-3">
-          <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">التقدم الإجمالي</span>
-          <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-            {Math.round(overallProgress)}%
-          </span>
-        </div>
-        <div className="relative h-3 bg-gray-200/70 dark:bg-gray-700/70 rounded-full overflow-hidden shadow-inner">
-          <motion.div
-            className="h-full bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 shadow-lg"
-            initial={{ width: 0 }}
-            animate={{ width: `${overallProgress}%` }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-          />
-        </div>
-        <div className="mt-2 flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-          <CheckCircle2 className="w-3.5 h-3.5 text-green-500" />
-          <span>{modules.reduce((acc, m) => acc + m.lessons.filter(l => l.completed).length, 0)} درس مكتمل من {modules.reduce((acc, m) => acc + m.lessons.length, 0)}</span>
-        </div>
       </div>
 
       {/* Search */}

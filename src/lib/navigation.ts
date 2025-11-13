@@ -60,7 +60,7 @@ export const navigationItems: Record<string, NavigationItem> = {
 
   auditorsFellowship: {
     id: 'auditors-fellowship',
-    label: 'زمالة CIA',
+    label: 'CIA',
     href: ROUTES.CIA,
     icon: 'fellowship',
     description: 'برنامج زمالة متخصص بالمراجعة الداخلية',
@@ -596,7 +596,7 @@ export const navigationSections: NavigationSection[] = [
   },
   {
     id: 'cia-fellowship',
-    title: 'زمالة المراجعين الداخليين',
+    title: 'المراجعين الداخليين',
     priority: 2.1,
     roles: ['public', 'student', 'instructor', 'admin'],
     items: [navigationItems.auditorsFellowship, navigationItems.review],
@@ -841,19 +841,19 @@ export const getBreadcrumbs = (pathname: string) => {
     breadcrumbs.push({ label: 'المراجعة الداخلية', href: '/internal-audit' });
   } else if (pathname.startsWith('/auditors-fellowship')) {
     breadcrumbs.push({
-      label: 'زمالة CIA',
+      label: 'CIA',
       href: '/cia',
     });
     breadcrumbs.push({
-      label: 'زمالة المراجعين الداخليين',
+      label: 'المراجعين الداخليين',
       href: '/auditors-fellowship',
     });
   } else if (pathname.startsWith('/cia')) {
     breadcrumbs.push({
-      label: 'زمالة CIA',
+      label: 'CIA',
       href: '/cia',
     });
-    // إضافة مسارات فرعية لزمالة CIA
+    // إضافة مسارات فرعية لـ CIA
     if (pathname.startsWith('/cia/exams')) {
       breadcrumbs.push({ label: 'الاختبارات', href: '/cia/exams' });
     }

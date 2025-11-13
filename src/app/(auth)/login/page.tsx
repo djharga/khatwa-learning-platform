@@ -266,7 +266,7 @@ const LoginPage = () => {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors p-1"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 min-h-[44px] min-w-[44px] text-neutral-400 dark:text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                       >
                         {showPassword ? (
                           <EyeOff className="w-5 h-5" />
@@ -290,7 +290,7 @@ const LoginPage = () => {
                         type="checkbox"
                         checked={rememberMe}
                         onChange={(e) => setRememberMe(e.target.checked)}
-                        className="w-4 h-4 text-primary-600 border-neutral-300 dark:border-neutral-600 rounded focus:ring-primary-500 focus:ring-2"
+                        className="w-4 h-4 text-primary-600 dark:text-primary-400 border-neutral-300 dark:border-neutral-600 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                       />
                       <span className="mr-2 text-sm text-neutral-700 dark:text-neutral-300">
                         تذكرني

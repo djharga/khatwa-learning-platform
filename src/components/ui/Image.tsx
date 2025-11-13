@@ -70,7 +70,7 @@ export function OptimizedImage({
     src,
     alt,
     className: cn(
-      'transition-opacity duration-300',
+      'transition-opacity duration-200 ease-out',
       isLoading && 'opacity-0',
       !isLoading && 'opacity-100',
       className

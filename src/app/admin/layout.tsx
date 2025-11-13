@@ -102,7 +102,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     {
       id: 2,
       title: 'دورة مكتملة',
-      message: 'انتهى برنامج زمالة المراجعين بنجاح',
+      message: 'انتهى برنامج المراجعين الداخليين بنجاح',
       time: 'منذ 1 ساعة',
       unread: true
     },

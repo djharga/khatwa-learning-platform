@@ -23,8 +23,8 @@ import { ROUTES } from '@/lib/routes';
 import { Button } from '@/components/ui/Button';
 
 /**
- * CIA Spotlight Section - تسليط الضوء على زمالة CIA
- * قسم تعليمي احترافي بسيط لعرض برنامج زمالة المراجعين الداخليين CIA
+ * CIA Spotlight Section - تسليط الضوء على CIA
+ * قسم تعليمي احترافي بسيط لعرض برنامج المراجعين الداخليين CIA
  */
 
 const CIASpotlightSection = () => {
@@ -104,7 +104,7 @@ const CIASpotlightSection = () => {
                 <Crown className="w-7 h-7 text-white" />
               </div>
               <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-neutral-900 dark:text-white">
-                زمالة المدقق الداخلي (CIA)
+                المدقق الداخلي المعتمد (CIA)
               </h2>
             </div>
             <p className="text-lg lg:text-xl text-neutral-600 dark:text-neutral-300 max-w-3xl mx-auto leading-relaxed">

@@ -1,235 +1,235 @@
-/* ==============================================
-   EduTech Advanced Blending Layer - Clean & Modern
-   Unified enhancement for legacy + modern systems
-   ============================================== */
+/* ============================================
+   EduTech Advanced Blending Layer
+   ============================================
+   Clean & Modern - Unified enhancement for legacy + modern systems
+   جميع القيم تستخدم CSS Variables من globals.css
+   ============================================ */
 
-/* =========================
+/* ============================================
    BUTTON ENHANCEMENTS
-   ========================= */
-   .btn-primary,
-   .btn-secondary,
-   .btn-outline,
-   .btn-ghost {
-     position: relative;
-     overflow: hidden;
-     border-radius: var(--radius-md);
-     transition: all var(--duration-normal) var(--ease-out);
-     font-weight: 600;
-     will-change: background, box-shadow, border-color;
-   }
+   ============================================ */
+.btn-primary,
+.btn-secondary,
+.btn-outline,
+.btn-ghost {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-button);
+  transition: all var(--duration-normal) var(--ease-out);
+  font-weight: var(--font-semibold);
+  will-change: background, box-shadow, border-color;
+}
    
-   /* --- Primary --- */
-   .btn-primary {
-     background: var(--color-primary-500);
-     color: #fff;
-     box-shadow: var(--shadow-elevation-2);
-   }
-   .btn-primary:hover {
-     background: var(--color-primary-600);
-     box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-sm);
-   }
-   .btn-primary:focus-visible {
-     outline: 2px solid var(--color-primary-400);
-     outline-offset: 2px;
-     box-shadow: var(--shadow-glow-border-primary);
-   }
-   .btn-primary:active {
-     background: var(--color-primary-700);
-   }
+/* --- Primary --- */
+.btn-primary {
+  background: var(--color-primary-500);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-elevation-2);
+}
+.btn-primary:hover {
+  background: var(--color-primary-600);
+  box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-sm);
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-glow-border-primary);
+}
+.btn-primary:active {
+  background: var(--color-primary-700);
+}
+
+/* --- Secondary --- */
+.btn-secondary {
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+  border: var(--border-width) solid var(--color-primary-200);
+}
+.btn-secondary:hover {
+  background: var(--color-primary-100);
+  box-shadow: var(--shadow-elevation-2);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
+.btn-secondary:active {
+  opacity: var(--opacity-90);
+}
+
+/* --- Outline --- */
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary-600);
+  border: var(--border-width) solid var(--color-primary-400);
+}
+.btn-outline:hover {
+  background: var(--color-primary-50);
+  box-shadow: var(--shadow-elevation-2);
+}
+.btn-outline:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* --- Ghost --- */
+.btn-ghost {
+  background: transparent;
+  color: var(--color-primary-600);
+}
+.btn-ghost:hover {
+  background: var(--color-primary-50);
+  color: var(--color-primary-700);
+}
+.btn-ghost:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+}
+
+.dark .btn-ghost:hover {
+  background: var(--color-neutral-800);
+  color: var(--color-primary-400);
+}
+.dark .btn-outline:hover {
+  background: var(--color-primary-900);
+  color: var(--color-primary-300);
+}
    
-   /* --- Secondary --- */
-   .btn-secondary {
-     background: var(--color-primary-50);
-     color: var(--color-primary-700);
-     border: 1px solid var(--color-primary-200);
-   }
-   .btn-secondary:hover {
-     background: var(--color-primary-100);
-     box-shadow: var(--shadow-elevation-2);
-   }
-   .btn-secondary:focus-visible {
-     outline: 2px solid var(--color-primary-400);
-     outline-offset: 2px;
-   }
-   .btn-secondary:active {
-     opacity: 0.9;
-   }
+/* ============================================
+   CARD ENHANCEMENTS
+   ============================================ */
+.card-base,
+.card-modern,
+.card-elevated,
+.card-glass {
+  position: relative;
+  border: var(--border-width) solid var(--color-neutral-200);
+  border-radius: var(--radius-card);
+  background: var(--color-background-surface);
+  transition: all var(--duration-normal) var(--ease-out);
+  box-shadow: var(--shadow-elevation-1);
+  will-change: box-shadow, border-color;
+  contain: layout style paint;
+}
+
+.card-base:hover,
+.card-modern:hover,
+.card-elevated:hover {
+  border-color: var(--color-primary-300);
+  box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-xs);
+}
+
+.card-base:focus-visible,
+.card-modern:focus-visible,
+.card-elevated:focus-visible {
+  outline: 2px solid var(--color-primary-400);
+  outline-offset: 2px;
+  box-shadow: var(--shadow-glow-border-primary);
+}
+
+.card-modern::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary-400), var(--color-accent-400));
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+.card-modern:hover::after { opacity: 1; }
+
+.card-glass {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: var(--shadow-elevation-2);
+}
+.dark .card-glass {
+  background: rgba(30, 41, 59, 0.7);
+}
    
-   /* --- Outline --- */
-   .btn-outline {
-     background: transparent;
-     color: var(--color-primary-600);
-     border: 1px solid var(--color-primary-400);
-   }
-   .btn-outline:hover {
-     background: var(--color-primary-50);
-     box-shadow: var(--shadow-elevation-2);
-   }
-   .btn-outline:focus-visible {
-     outline: 2px solid var(--color-primary-500);
-     outline-offset: 2px;
-   }
+/* ============================================
+   NAVIGATION ENHANCEMENTS
+   ============================================ */
+nav,
+.navbar,
+[role="navigation"] {
+  background: var(--color-background-surface);
+  border-bottom: var(--border-width) solid var(--color-neutral-200);
+  backdrop-filter: blur(12px);
+  transition: all var(--duration-normal) var(--ease-out);
+}
+nav.scrolled { box-shadow: var(--shadow-elevation-3); }
+
+nav a,
+.navbar a,
+[role="navigation"] a {
+  position: relative;
+  color: var(--color-text-primary);
+  font-weight: var(--font-medium);
+  transition: color var(--duration-normal) var(--ease-out);
+}
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-primary-500);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+nav a:hover::after,
+nav a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+nav a:hover { color: var(--color-primary-600); }
+nav a:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
    
-   /* --- Ghost --- */
-   .btn-ghost {
-     background: transparent;
-     color: var(--color-primary-600);
-   }
-   .btn-ghost:hover {
-     background: var(--color-primary-50);
-     color: var(--color-primary-700);
-   }
-   .btn-ghost:focus-visible {
-     outline: 2px solid var(--color-primary-400);
-     outline-offset: 2px;
-   }
-   
-   .dark .btn-ghost:hover {
-     background: var(--color-neutral-800);
-     color: var(--color-primary-400);
-   }
-   .dark .btn-outline:hover {
-     background: var(--color-primary-900);
-     color: var(--color-primary-300);
-   }
-   
-   /* =========================
-      CARD ENHANCEMENTS
-      ========================= */
-   .card-base,
-   .card-modern,
-   .card-elevated,
-   .card-glass {
-     position: relative;
-     border: 1px solid var(--color-gray-200);
-     border-radius: var(--radius-lg);
-     background: var(--color-surface);
-     transition: all var(--duration-normal) var(--ease-out);
-     box-shadow: var(--shadow-elevation-1);
-     will-change: box-shadow, border-color;
-     contain: layout style paint;
-   }
-   
-   .card-base:hover,
-   .card-modern:hover,
-   .card-elevated:hover {
-     border-color: var(--color-primary-300);
-     box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-xs);
-   }
-   
-   .card-base:focus-visible,
-   .card-modern:focus-visible,
-   .card-elevated:focus-visible {
-     outline: 2px solid var(--color-primary-400);
-     outline-offset: 2px;
-     box-shadow: var(--shadow-glow-border-primary);
-   }
-   
-   .card-modern::after {
-     content: '';
-     position: absolute;
-     top: 0;
-     left: 0;
-     right: 0;
-     height: 3px;
-     background: linear-gradient(90deg, var(--color-primary-400), var(--color-accent-400));
-     opacity: 0;
-     transition: opacity var(--duration-normal) var(--ease-out);
-   }
-   .card-modern:hover::after { opacity: 1; }
-   
-   .card-glass {
-     backdrop-filter: blur(12px);
-     background: rgba(255, 255, 255, 0.7);
-     box-shadow: var(--shadow-elevation-2);
-   }
-   .dark .card-glass {
-     background: rgba(30, 41, 59, 0.7);
-   }
-   
-   /* =========================
-      NAVIGATION ENHANCEMENTS
-      ========================= */
-   nav,
-   .navbar,
-   [role="navigation"] {
-     background: var(--color-surface);
-     border-bottom: 1px solid var(--color-gray-200);
-     backdrop-filter: blur(12px);
-     transition: all var(--duration-normal) var(--ease-out);
-   }
-   nav.scrolled { box-shadow: var(--shadow-elevation-3); }
-   
-   nav a,
-   .navbar a,
-   [role="navigation"] a {
-     position: relative;
-     color: var(--color-text);
-     font-weight: 500;
-     transition: color var(--duration-normal) var(--ease-out);
-   }
-   nav a::after {
-     content: '';
-     position: absolute;
-     bottom: -2px;
-     left: 0;
-     right: 0;
-     height: 2px;
-     background: var(--color-primary-500);
-     transform: scaleX(0);
-     transform-origin: right;
-     transition: transform var(--duration-normal) var(--ease-out);
-   }
-   nav a:hover::after,
-   nav a.active::after {
-     transform: scaleX(1);
-     transform-origin: left;
-   }
-   nav a:hover { color: var(--color-primary-600); }
-   nav a:focus-visible,
-   nav a:focus,
-   nav a:active {
-     outline: none !important;
-     box-shadow: none !important;
-     text-decoration: none !important;
-   }
-   
-   /* =========================
-      ACCESSIBILITY & MOTION
-      ========================= */
-   @media (prefers-reduced-motion: reduce) {
-     * {
-       transition: none !important;
-       animation: none !important;
-     }
-   }
-   
-   /* =========================
-      LEGACY + MODERN UTILS
-      ========================= */
-   .blend-smooth {
-     transition: all var(--duration-normal) var(--ease-out);
-     will-change: box-shadow, border-color, background;
-   }
-   .blend-hover-glow:hover {
-     box-shadow: var(--shadow-elevation-3), var(--shadow-glow-primary-sm);
-   }
-   .legacy-lift:hover {
-     box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-xs);
-     border-color: var(--color-primary-400);
-   }
-   
-   .dark nav,
-   .dark .navbar {
-     background: var(--color-neutral-900);
-     border-color: var(--color-neutral-800);
-   }
-   .dark nav a:hover {
-     color: var(--color-primary-400);
-   }
-   .dark .card-base,
-   .dark .card-modern {
-     background: var(--color-neutral-900);
-     border-color: var(--color-neutral-800);
-     box-shadow: var(--shadow-elevation-1);
-   }
+/* ============================================
+   ACCESSIBILITY & MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   LEGACY + MODERN UTILS
+   ============================================ */
+.blend-smooth {
+  transition: all var(--duration-normal) var(--ease-out);
+  will-change: box-shadow, border-color, background;
+}
+.blend-hover-glow:hover {
+  box-shadow: var(--shadow-elevation-3), var(--shadow-glow-primary-sm);
+}
+.legacy-lift:hover {
+  box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-xs);
+  border-color: var(--color-primary-400);
+}
+
+.dark nav,
+.dark .navbar {
+  background: var(--color-background-primary);
+  border-color: var(--color-neutral-800);
+}
+.dark nav a:hover {
+  color: var(--color-primary-400);
+}
+.dark .card-base,
+.dark .card-modern {
+  background: var(--color-background-surface);
+  border-color: var(--color-neutral-800);
+  box-shadow: var(--shadow-elevation-1);
+}

@@ -15,10 +15,10 @@ interface AnswerOptionProps {
 const AnswerOption: React.FC<AnswerOptionProps> = ({ option, index, questionId, isSelected, onSelect }) => {
   return (
     <label
-      className={`flex items-center p-4 rounded-lg border-2 transition-all cursor-pointer ${
+      className={`flex items-center p-4 min-h-[44px] rounded-lg border-2 transition-all duration-200 ease-out cursor-pointer focus-within:ring-2 focus-within:ring-primary-500 focus-within:ring-offset-2 ${
         isSelected
-          ? 'border-blue-500 bg-blue-50'
-          : 'border-gray-200 hover:border-blue-300'
+          ? 'border-primary-500 dark:border-primary-400 bg-primary-50 dark:bg-primary-900/30'
+          : 'border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 bg-white dark:bg-neutral-800'
       }`}
     >
       <input
@@ -27,9 +27,9 @@ const AnswerOption: React.FC<AnswerOptionProps> = ({ option, index, questionId, 
         value={index}
         checked={isSelected}
         onChange={() => onSelect(index)}
-        className="form-radio text-blue-600 focus:ring-blue-500"
+        className="form-radio text-primary-600 dark:text-primary-400 focus:ring-primary-500 transition-all duration-200 ease-out"
       />
-      <span className="mr-3">{option}</span>
+      <span className="mr-3 text-neutral-900 dark:text-white">{option}</span>
     </label>
   );
 };
@@ -55,15 +55,15 @@ const QuestionView = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-white rounded-xl shadow-lg p-6"
+      transition={{ duration: 0.2, ease: 'easeOut' }}
+      className="bg-white dark:bg-neutral-800 rounded-xl shadow-elevation-2 p-6 border border-neutral-200 dark:border-neutral-700"
     >
       <div className="mb-6">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+        <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4">
           السؤال {examState.currentQuestionIndex + 1} من{' '}
           {examData.questions.length}
         </h3>
-        <p className="text-gray-700">{currentQuestion.question}</p>
+        <p className="text-neutral-700 dark:text-neutral-300">{currentQuestion.question}</p>
       </div>
 
       <div className="space-y-3">

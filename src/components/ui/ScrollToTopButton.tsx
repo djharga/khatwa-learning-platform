@@ -64,9 +64,9 @@ export default function ScrollToTopButton({
   };
 
   const iconSizes = {
-    sm: 'w-4 h-4',
-    md: 'w-5 h-5 md:w-6 md:h-6',
-    lg: 'w-6 h-6 md:w-7 md:h-7',
+    sm: 'w-[18px] h-[18px]',
+    md: 'w-[26px] h-[26px] md:w-[28px] md:h-[28px]',
+    lg: 'w-[28px] h-[28px] md:w-[32px] md:h-[32px]',
   };
 
   // استخدام offset إذا تم توفيره، وإلا استخدام position
@@ -80,25 +80,31 @@ export default function ScrollToTopButton({
           className={`
             fixed ${positionClass}
             z-50 ${sizeClasses[size]} rounded-full
-            bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700
-            dark:from-primary-500 dark:via-primary-600 dark:to-primary-700
-            text-white shadow-lg
-            hover:shadow-xl hover:shadow-primary-500/50
+            bg-gradient-to-br from-purple-600 via-purple-500 to-indigo-600
+            text-white
+            shadow-lg
             active:scale-95
             transition-all duration-200 ease-out
             flex items-center justify-center
-            focus:outline-none focus:ring-2 focus:ring-primary-400/50 focus:ring-offset-2
+            focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:ring-offset-2
             ${className}
           `}
+          style={{
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'
+          }}
           aria-label="العودة إلى الأعلى"
           initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, y: 20 }}
           animate={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: 0 }}
           exit={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, y: 20 }}
           transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeOut' }}
-          whileHover={prefersReducedMotion ? {} : { scale: 1.1, y: -2 }}
+          whileHover={prefersReducedMotion ? {} : { 
+            scale: 1.05,
+            backgroundColor: 'rgba(168, 85, 247, 0.9)',
+            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15)'
+          }}
           whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
         >
-          <ChevronUp className={iconSizes[size]} aria-hidden="true" />
+          <ChevronUp className={iconSizes[size]} aria-hidden="true" strokeWidth={2.5} />
         </motion.button>
       )}
     </AnimatePresence>

@@ -1,10 +1,14 @@
 /* ============================================
    EduTech Background Layer
+   ============================================
    Designed for learning platforms like Khatwa
    Clean + Readable + High Performance
+   جميع القيم تستخدم CSS Variables من globals.css
    ============================================ */
 
-/* ========== BASE GRADIENTS ========== */
+/* ============================================
+   BASE GRADIENTS
+   ============================================ */
 .bg-mesh-gradient {
   background:
     radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15), transparent 50%),
@@ -19,7 +23,9 @@
     radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.05), transparent 70%);
 }
 
-/* ========== ANIMATIONS ========== */
+/* ============================================
+   ANIMATIONS
+   ============================================ */
 @keyframes float {
   0%, 100% { transform: translateY(0) translateX(0); }
   33% { transform: translateY(-20px) translateX(10px); }
@@ -27,43 +33,51 @@
 }
 
 .bg-float {
-  animation: float 18s ease-in-out infinite;
+  animation: float 18s var(--ease-in-out) infinite;
   will-change: transform;
 }
 
-/* ========== GLASS MORPHISM ========== */
+/* ============================================
+   GLASS MORPHISM
+   ============================================ */
 .glass {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-lg);
 }
 
 .glass-strong {
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius-lg);
 }
 
 .glass-dark {
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
 }
 
 .glass-strong-dark {
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: var(--border-width) solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-lg);
 }
 
-/* ========== GRADIENT TRANSITIONS ========== */
+/* ============================================
+   GRADIENT TRANSITIONS
+   ============================================ */
 .bg-gradient-smooth {
   background: linear-gradient(135deg, var(--color-primary-400), var(--color-accent-500));
-  transition: background 0.5s ease;
+  transition: background var(--duration-slower) var(--ease-out);
 }
 
 /* ========== PATTERN BACKGROUNDS ========== */
@@ -119,9 +133,11 @@
   background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
 }
 
-/* ========== SHADOWS & BORDERS ========== */
+/* ============================================
+   SHADOWS & BORDERS
+   ============================================ */
 .shadow-glow {
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25);
+  box-shadow: var(--shadow-glow-accent-md);
 }
 
 .shadow-glow-purple {
@@ -129,34 +145,37 @@
 }
 
 .shadow-soft {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-elevation-1);
 }
 
 .shadow-medium {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-elevation-3);
 }
 
 .shadow-strong {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  box-shadow: var(--shadow-elevation-5);
 }
 
 .border-smooth {
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: var(--border-width) solid var(--color-neutral-200);
 }
 
 .border-smooth-dark {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: var(--border-width) solid var(--color-neutral-700);
 }
 
-/* ========== FOCUS RINGS ========== */
+/* ============================================
+   FOCUS RINGS
+   ============================================ */
 .focus-ring {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  transition: outline-color 0.2s ease;
+  transition: outline-color var(--duration-normal) var(--ease-out);
+  border-radius: var(--radius-sm);
 }
 
 .focus-ring:focus {
-  outline-color: rgba(59, 130, 246, 0.5);
+  outline-color: var(--color-primary-500);
 }
 
 /* ========== RESPONSIVE ========== */
@@ -169,7 +188,9 @@
   }
 }
 
-/* ========== REDUCED MOTION ========== */
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
 @media (prefers-reduced-motion: reduce) {
   .bg-float {
     animation: none;

@@ -23,18 +23,18 @@ import { ROUTES } from '@/lib/routes';
 const CreativeHeroSection = () => {
   return (
     <section
-      className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-black mx-4 my-6 rounded-[3rem]"
+      className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-slate-800 mx-4 my-6 rounded-[3rem]"
     >
       {/* Optimized Background - High-quality image without watermark */}
       <div className="absolute inset-0 z-0 rounded-[3rem] overflow-hidden">
         {/* Static Image Background */}
         <Image
-          src="/assets/hero-main-banner.png"
+          src="/assets/hero-main-banner.jpg"
           alt="خطى للتدريب والاستشارات - منصة التعلم المهني"
           fill
           priority
-          className="object-cover rounded-[3rem]"
-          quality={90}
+          className="object-cover rounded-[3rem] brightness-110 contrast-105"
+          quality={100}
           sizes="100vw"
           loading="eager"
           style={{
@@ -42,33 +42,49 @@ const CreativeHeroSection = () => {
           }}
         />
 
-        {/* Light Overlay Layers - Clear transparency for better text readability */}
-        {/* Dark overlay with clear transparency */}
+        {/* Academic Overlay Layers - Clean blue-gray-white academic colors with reduced blur for logo clarity */}
+        {/* Subtle academic blue overlay for text contrast */}
         <div 
           className="absolute inset-0 rounded-[3rem]"
           style={{
-            background: `linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.5) 100%)`,
+            background: `linear-gradient(135deg, rgba(30, 58, 138, 0.35) 0%, rgba(51, 65, 85, 0.25) 50%, rgba(30, 58, 138, 0.35) 100%)`,
+            transform: 'translateZ(0)',
+          }}
+        />
+        {/* Enhanced gradient overlay from bottom for text area with better contrast */}
+        <div 
+          className="absolute inset-0 rounded-[3rem]"
+          style={{
+            background: `linear-gradient(to top, rgba(30, 58, 138, 0.65) 0%, rgba(51, 65, 85, 0.45) 35%, rgba(30, 58, 138, 0.2) 65%, transparent 85%)`,
+            transform: 'translateZ(0)',
+          }}
+        />
+        {/* Additional subtle white overlay for better logo visibility */}
+        <div 
+          className="absolute inset-0 rounded-[3rem]"
+          style={{
+            background: `linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(255, 255, 255, 0.08) 100%)`,
             transform: 'translateZ(0)',
           }}
         />
       </div>
 
-      {/* Minimal Light Effects - Reduced blur for better performance */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/8 rounded-full blur-2xl opacity-40 pointer-events-none" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
-      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-500/8 rounded-full blur-2xl opacity-40 pointer-events-none" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
+      {/* Minimal Light Effects - Soft academic blue tones */}
+      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl opacity-50 pointer-events-none" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
+      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-slate-400/8 rounded-full blur-3xl opacity-40 pointer-events-none" style={{ transform: 'translateZ(0)', willChange: 'auto' }} />
 
-      <Container size="xl" className="relative z-10 py-12 lg:py-16">
+      <Container size="xl" className="relative z-10 py-16 lg:py-20">
         <div className="max-w-5xl mx-auto">
           {/* Main Content */}
-          <div className="space-y-8 text-center">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-white/10 backdrop-blur-sm border border-white/30 rounded-full hover:bg-white/15 transition-colors">               
-              <Icon name="learning" size="md" className="text-blue-400" />
-              <span className="font-semibold text-xs" style={{ 
+          <div className="space-y-10 text-center">
+            {/* Badge - Enhanced contrast */}
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/95 backdrop-blur-md border border-blue-200/50 rounded-full hover:bg-white transition-all shadow-xl hover:shadow-2xl">               
+              <Icon name="learning" size="md" className="text-blue-700" />
+              <span className="font-semibold text-xs md:text-sm" style={{ 
                 fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                color: '#FFFFFF',
-                textShadow: '0 2px 8px rgba(0,0,0,0.7)',
-                fontWeight: 600,
+                color: '#1E40AF',
+                textShadow: 'none',
+                fontWeight: 700,
                 letterSpacing: 'normal',
                 lineHeight: '1.5'
               }}>
@@ -76,38 +92,37 @@ const CreativeHeroSection = () => {
               </span>
             </div>
 
-            {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-relaxed" style={{ 
+            {/* Main Heading - Enhanced prominence and contrast */}
+            <div className="space-y-8 px-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight" style={{ 
                 fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                color: '#FFFFFF',
-                textShadow: '0 4px 24px rgba(0,0,0,0.9), 0 2px 12px rgba(0,0,0,0.8)',
                 fontWeight: 700,
                 letterSpacing: 'normal',
-                lineHeight: '1.6'
+                lineHeight: '1.4'
               }}>                                   
-                <span className="block mb-3" style={{ 
+                <span className="block mb-5 px-2" style={{ 
                   color: '#FFFFFF',
-                  fontWeight: 800,
-                  textShadow: '0 4px 24px rgba(0,0,0,0.95), 0 2px 12px rgba(0,0,0,0.85)',
+                  fontWeight: 900,
+                  textShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3)',
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  lineHeight: '1.5'
+                  lineHeight: '1.3',
+                  letterSpacing: '-0.01em'
                 }}>
                   خطى للتدريب والاستشارات
                 </span>
-                <span className="block text-xl md:text-2xl lg:text-3xl mt-4" style={{ 
-                  color: '#F8FAFC',
+                <span className="block text-2xl md:text-3xl lg:text-4xl mt-6 px-2" style={{ 
+                  color: '#E0E7FF',
                   fontWeight: 700,
-                  textShadow: '0 3px 18px rgba(0,0,0,0.9), 0 2px 10px rgba(0,0,0,0.75)',
+                  textShadow: '0 3px 15px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.35)',
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  lineHeight: '1.6'
+                  lineHeight: '1.5'
                 }}>             
                   احترف المراجعة الداخلية والمحاسبة
                 </span>
-                <span className="block mt-3 text-xl md:text-2xl lg:text-3xl" style={{ 
-                  color: '#FFFFFF',
+                <span className="block mt-5 text-xl md:text-2xl lg:text-3xl px-2" style={{ 
+                  color: '#F1F5F9',
                   fontWeight: 600,
-                  textShadow: '0 3px 18px rgba(0,0,0,0.85), 0 2px 10px rgba(0,0,0,0.7)',
+                  textShadow: '0 3px 12px rgba(0, 0, 0, 0.4), 0 2px 5px rgba(0, 0, 0, 0.3)',
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
                   lineHeight: '1.6'
                 }}>
@@ -115,36 +130,38 @@ const CreativeHeroSection = () => {
                 </span>
               </h1>
 
-              <p className="text-sm md:text-base lg:text-lg leading-relaxed max-w-3xl mx-auto px-4" style={{ 
+              <p className="text-base md:text-lg lg:text-xl leading-relaxed max-w-3xl mx-auto px-6 pt-2" style={{ 
                 fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                color: '#F1F5F9',
-                textShadow: '0 2px 12px rgba(0,0,0,0.8), 0 1px 4px rgba(0,0,0,0.6)',
+                color: '#F8FAFC',
+                textShadow: '0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3)',
                 fontWeight: 400,
                 letterSpacing: 'normal',
-                lineHeight: '1.75'
+                lineHeight: '1.8'
               }}>       
                 منصة تعليمية متكاملة تجمع بين المحتوى الأكاديمي والتطبيق العملي. انضم إلى آلاف المحترفين الذين حققوا النجاح في مسيرتهم المهنية من خلال برامج تدريبية شاملة وشهادات معتمدة من أبرز المؤسسات الدولية.
               </p>
             </div>
 
-            {/* Site Features */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-10">
-              <Link href={ROUTES.COURSES} className="group px-5 py-6 bg-blue-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-blue-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
-                <BookOpen className="w-8 h-8 text-blue-300 mb-3 flex-shrink-0" />
+            {/* Site Features - Enhanced academic cards with better contrast and shadows */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-5 max-w-5xl mx-auto mt-12">
+              <Link href={ROUTES.COURSES} className="group px-6 py-7 bg-white border-2 border-blue-200 rounded-3xl text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[160px] flex flex-col justify-center items-center shadow-lg" style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                <div className="mb-4 p-3 bg-blue-50 rounded-2xl group-hover:bg-blue-100 transition-colors duration-300">
+                  <BookOpen className="w-9 h-9 text-blue-700 flex-shrink-0" strokeWidth={2} />
+                </div>
                 <div className="text-sm md:text-base font-bold mb-2" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  color: '#1E40AF',
+                  textShadow: 'none',
                   fontWeight: 700,
                   letterSpacing: 'normal',
                   lineHeight: '1.5'
                 }}>
                   كورسات متخصصة
                 </div>
-                <div className="text-[11px] md:text-xs text-center px-1 mt-1" style={{ 
+                <div className="text-xs md:text-sm text-center px-2 mt-1" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#E2E8F0',
-                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  color: '#475569',
+                  textShadow: 'none',
                   fontWeight: 400,
                   lineHeight: '1.6',
                   letterSpacing: 'normal'
@@ -153,22 +170,24 @@ const CreativeHeroSection = () => {
                 </div>
               </Link>
               
-              <Link href={ROUTES.CIA} className="group px-5 py-6 bg-purple-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-purple-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
-                <GraduationCap className="w-8 h-8 text-purple-300 mb-3 flex-shrink-0" />
+              <Link href={ROUTES.CIA} className="group px-6 py-7 bg-white border-2 border-blue-200 rounded-3xl text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[160px] flex flex-col justify-center items-center shadow-lg" style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                <div className="mb-4 p-3 bg-slate-50 rounded-2xl group-hover:bg-slate-100 transition-colors duration-300">
+                  <GraduationCap className="w-9 h-9 text-slate-700 flex-shrink-0" strokeWidth={2} />
+                </div>
                 <div className="text-sm md:text-base font-bold mb-2" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  color: '#1E40AF',
+                  textShadow: 'none',
                   fontWeight: 700,
                   letterSpacing: 'normal',
                   lineHeight: '1.5'
                 }}>
-                  زمالة CIA
+                  CIA
                 </div>
-                <div className="text-[11px] md:text-xs text-center px-1 mt-1" style={{ 
+                <div className="text-xs md:text-sm text-center px-2 mt-1" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#E2E8F0',
-                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  color: '#475569',
+                  textShadow: 'none',
                   fontWeight: 400,
                   lineHeight: '1.6',
                   letterSpacing: 'normal'
@@ -177,22 +196,24 @@ const CreativeHeroSection = () => {
                 </div>
               </Link>
               
-              <Link href={ROUTES.AI_TOOLS} className="group px-5 py-6 bg-emerald-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-emerald-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
-                <Brain className="w-8 h-8 text-emerald-300 mb-3 flex-shrink-0" />
+              <Link href={ROUTES.AI_TOOLS} className="group px-6 py-7 bg-white border-2 border-blue-200 rounded-3xl text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[160px] flex flex-col justify-center items-center shadow-lg" style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                <div className="mb-4 p-3 bg-blue-50 rounded-2xl group-hover:bg-blue-100 transition-colors duration-300">
+                  <Brain className="w-9 h-9 text-blue-700 flex-shrink-0" strokeWidth={2} />
+                </div>
                 <div className="text-sm md:text-base font-bold mb-2" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  color: '#1E40AF',
+                  textShadow: 'none',
                   fontWeight: 700,
                   letterSpacing: 'normal',
                   lineHeight: '1.5'
                 }}>
                   ذكاء اصطناعي
                 </div>
-                <div className="text-[11px] md:text-xs text-center px-1 mt-1" style={{ 
+                <div className="text-xs md:text-sm text-center px-2 mt-1" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#E2E8F0',
-                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  color: '#475569',
+                  textShadow: 'none',
                   fontWeight: 400,
                   lineHeight: '1.6',
                   letterSpacing: 'normal'
@@ -201,22 +222,24 @@ const CreativeHeroSection = () => {
                 </div>
               </Link>
               
-              <Link href={ROUTES.INTERNAL_AUDIT} className="group px-5 py-6 bg-amber-500/15 backdrop-blur-sm border border-white/30 rounded-2xl text-center hover:bg-amber-500/25 hover:border-white/40 transition-colors min-h-[140px] flex flex-col justify-center items-center">
-                <Shield className="w-8 h-8 text-amber-300 mb-3 flex-shrink-0" />
+              <Link href={ROUTES.INTERNAL_AUDIT} className="group px-6 py-7 bg-white border-2 border-blue-200 rounded-3xl text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300 min-h-[160px] flex flex-col justify-center items-center shadow-lg" style={{ boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1)' }}>
+                <div className="mb-4 p-3 bg-slate-50 rounded-2xl group-hover:bg-slate-100 transition-colors duration-300">
+                  <Shield className="w-9 h-9 text-slate-700 flex-shrink-0" strokeWidth={2} />
+                </div>
                 <div className="text-sm md:text-base font-bold mb-2" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#FFFFFF',
-                  textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                  color: '#1E40AF',
+                  textShadow: 'none',
                   fontWeight: 700,
                   letterSpacing: 'normal',
                   lineHeight: '1.5'
                 }}>
                   المراجعة الداخلية
                 </div>
-                <div className="text-[11px] md:text-xs text-center px-1 mt-1" style={{ 
+                <div className="text-xs md:text-sm text-center px-2 mt-1" style={{ 
                   fontFamily: '"Cairo", "Tajawal", "IBM Plex Sans Arabic", "Segoe UI", system-ui, sans-serif',
-                  color: '#E2E8F0',
-                  textShadow: '0 1px 4px rgba(0,0,0,0.6)',
+                  color: '#475569',
+                  textShadow: 'none',
                   fontWeight: 400,
                   lineHeight: '1.6',
                   letterSpacing: 'normal'
@@ -230,8 +253,8 @@ const CreativeHeroSection = () => {
 
         {/* Scroll Indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-          <div className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center p-2 bg-white/10">
-            <div className="w-1 h-3 bg-white/70 rounded-full" />
+          <div className="w-6 h-10 border-2 border-slate-400 rounded-full flex justify-center p-2 bg-white/90 shadow-lg">
+            <div className="w-1 h-3 bg-slate-600 rounded-full" />
           </div>
         </div>
       </Container>

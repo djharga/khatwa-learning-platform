@@ -75,8 +75,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             inputVariants({ variant, size, error }),
             hasLeft && 'ps-10',
             hasRight && 'pe-10',
+            'min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
             className
           )}
+          aria-invalid={error ? 'true' : undefined}
           {...props}
         />
 

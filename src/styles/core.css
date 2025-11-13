@@ -1,70 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  /* Remove all focus/active outlines globally */
-  *:focus,
-  *:active,
-  *:focus-visible {
-    outline: none !important;
-  }
-  
-  a:focus,
-  a:active,
-  a:focus-visible,
-  button:focus,
-  button:active,
-  button:focus-visible {
-    outline: none !important;
-    text-decoration: none !important;
-    box-shadow: none !important;
-  }
-}
-
-/* =============================
+/* ============================================
    🎓 EduTech Theme — Clean & Friendly UI
-   ============================= */
-
-:root {
-  /* Primary Palette */
-  --color-primary-50: #eef6ff;
-  --color-primary-100: #dceeff;
-  --color-primary-200: #b5dbff;
-  --color-primary-300: #7bc2ff;
-  --color-primary-400: #3ea9ff;
-  --color-primary-500: #0d8bff;
-  --color-primary-600: #0073e6;
-  --color-primary-700: #005bbf;
-  --color-primary-800: #004799;
-  --color-primary-900: #003673;
-  --color-primary: var(--color-primary-500);
-  --color-primary-light: var(--color-primary-300);
-  --color-primary-dark: var(--color-primary-700);
-
-  /* Secondary Palette (Warm Accent) */
-  --color-accent-100: #fff7e6;
-  --color-accent-300: #ffdf99;
-  --color-accent-500: #ffb84d;
-  --color-accent-600: #ff9800;
-  --color-accent: var(--color-accent-500);
-
-  /* Neutral Palette */
-  --color-bg: #f9fbff;
-  --color-surface: #ffffff;
-  --color-border: #e2e8f0;
-  --color-text: #1a202c;
-  --color-text-muted: #4a5568;
-
-  /* General Tokens */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --transition: all 0.25s ease-in-out;
-  --font-base: 'Inter', 'Cairo', sans-serif;
-}
+   ============================================
+   هذا الملف يستخدم CSS Variables من globals.css فقط
+   جميع القيم محددة في src/styles/globals.css
+   
+   ملاحظة: @layer base موجود في globals.css
+   ============================================ */
+/* ============================================
+   🎬 Animations
+   ============================================ */
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -77,7 +21,7 @@
 }
 
 .animate-fadeInUp {
-  animation: fadeInUp 0.7s ease-out forwards;
+  animation: fadeInUp var(--duration-slower) var(--ease-out) forwards;
 }
 
 /* Respect prefers-reduced-motion */
@@ -87,209 +31,152 @@
     opacity: 1;
     transform: none;
   }
-  
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
 }
 
-/* =============================
+/* ============================================
    🧩 Base Styling
-   ============================= */
-body {
-  font-family: var(--font-base);
-  background: var(--color-bg);
-  color: var(--color-text);
-  margin: 0;
-  padding: 0;
-  line-height: 1.7;
-  scroll-behavior: smooth;
-}
+   ============================================
+   جميع الأنماط الأساسية تستخدم CSS Variables من globals.css
+   ============================================ */
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-p {
-  color: var(--color-text-muted);
-  margin-bottom: 1rem;
-}
-
-/* Ensure text contrast meets WCAG AA standards */
+/* Text Utilities */
 .text-muted {
-  color: #64748b; /* slate-500 - Contrast: 4.67:1 - AA compliant */
+  color: var(--color-text-muted);
 }
 
-/* =============================
+/* ============================================
    🔘 Buttons
-   ============================= */
+   ============================================
+   جميع الأزرار تستخدم CSS Variables من globals.css
+   ============================================ */
 button {
   font-family: inherit;
-  border-radius: var(--radius-md);
-  transition: var(--transition);
+  border-radius: var(--radius-button);
+  transition: all var(--duration-normal) var(--ease-out);
   cursor: pointer;
 }
 
 .btn-primary {
   background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-600));
-  color: #fff;
-  padding: 0.75rem 1.5rem;
+  color: var(--color-text-inverse);
+  padding: var(--spacing-3) var(--spacing-6);
   border: none;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-elevation-2);
+  font-weight: var(--font-semibold);
 }
 
 .btn-primary:hover {
   background: linear-gradient(to right, var(--color-primary-400), var(--color-primary-600));
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-elevation-4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-elevation-2);
 }
 
 .btn-accent {
-  background: var(--color-accent);
-  color: #fff;
-  padding: 0.75rem 1.5rem;
+  background: var(--color-accent-500);
+  color: var(--color-text-inverse);
+  padding: var(--spacing-3) var(--spacing-6);
   border: none;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-elevation-2);
+  font-weight: var(--font-semibold);
 }
 
 .btn-accent:hover {
   background: var(--color-accent-600);
   transform: translateY(-2px);
+  box-shadow: var(--shadow-elevation-4);
 }
 
-/* =============================
+.btn-accent:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-elevation-2);
+}
+
+/* ============================================
    💬 Inputs & Forms
-   ============================= */
+   ============================================
+   جميع حقول الإدخال تستخدم CSS Variables من globals.css
+   ============================================ */
 input, select, textarea {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 0.75rem 1rem;
-  transition: var(--transition);
+  border: var(--border-width) solid var(--color-neutral-300);
+  border-radius: var(--radius-input);
+  padding: var(--spacing-3) var(--spacing-4);
+  transition: all var(--duration-normal) var(--ease-out);
   width: 100%;
-  background: var(--color-surface);
+  background: var(--color-background-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
 }
 
 input:focus, select:focus, textarea:focus {
-  border-color: var(--color-primary);
+  border-color: var(--color-primary-500);
   box-shadow: 0 0 0 3px var(--color-primary-100);
   outline: none;
 }
 
-/* =============================
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* ============================================
    🔖 Cards & Containers
-   ============================= */
+   ============================================
+   جميع البطاقات تستخدم CSS Variables من globals.css
+   ============================================ */
 .card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  padding: 1.5rem;
-  transition: var(--transition);
+  background: var(--color-background-surface);
+  border: var(--border-width) solid var(--color-neutral-200);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-elevation-1);
+  padding: var(--spacing-6);
+  transition: all var(--duration-normal) var(--ease-out);
 }
 
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-elevation-4);
+  border-color: var(--color-primary-300);
 }
 
-/* =============================
+/* ============================================
    🌈 Links
-   ============================= */
+   ============================================
+   جميع الروابط تستخدم CSS Variables من globals.css
+   ============================================ */
 a {
-  color: var(--color-primary);
+  color: var(--color-primary-500);
   text-decoration: none;
-  transition: var(--transition);
+  transition: color var(--duration-normal) var(--ease-out);
 }
 
 a:hover {
-  color: var(--color-primary-dark);
+  color: var(--color-primary-600);
 }
 
-a:focus,
-a:active,
-a:focus-visible {
-  outline: none !important;
-  text-decoration: none !important;
-  box-shadow: none !important;
-}
-
-/* Remove outline from all buttons and links globally */
-button:focus,
-button:active,
-button:focus-visible,
-a:focus,
-a:active,
-a:focus-visible,
-Link:focus,
-Link:active,
-Link:focus-visible {
-  outline: none !important;
-  text-decoration: none !important;
-  box-shadow: none !important;
-}
-
-/* Improve button contrast on active state */
-button:active:not(:disabled),
 a:active:not([aria-disabled="true"]) {
-  filter: brightness(1.1) !important;
-  transform: scale(0.98) !important;
+  transform: scale(0.98);
 }
 
-/* Ensure text remains visible on active buttons */
-button:active:not(:disabled) *,
-a:active:not([aria-disabled="true"]) * {
-  opacity: 1 !important;
-  color: inherit !important;
-}
-
-/* =============================
+/* ============================================
    🧠 Utility Enhancements
-   ============================= */
+   ============================================
+   جميع التحسينات تستخدم CSS Variables من globals.css
+   ============================================ */
+
+/* Selection styles - محسّنة للتباين */
 ::selection {
   background: var(--color-primary-200);
   color: var(--color-primary-900);
 }
 
-::-webkit-scrollbar {
-  width: 8px;
+.dark ::selection {
+  background: var(--color-primary-800);
+  color: var(--color-primary-100);
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary-400);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-500);
-}
-
-/* =============================
-   🌙 Dark Mode (Optional)
-   ============================= */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0f172a;
-    --color-surface: #1e293b;
-    --color-border: #334155;
-    --color-text: #f8fafc;
-    --color-text-muted: #cbd5e1;
-  }
-
-  body {
-    background: var(--color-bg);
-    color: var(--color-text);
-  }
-
-  .card {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  input, select, textarea {
-    background: var(--color-surface);
-    color: var(--color-text);
-  }
-}
+/* Scrollbar styles - محسّنة */
+/* ملاحظة: Scrollbar styles موجودة في globals.css */

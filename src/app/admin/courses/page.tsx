@@ -331,12 +331,12 @@ const AdminCoursesPage = () => {
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
           >
             <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+              whileHover={{ y: -2, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-primary-50/50 dark:from-neutral-800 dark:to-primary-900/10 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 p-5 border border-primary-100/50 dark:border-primary-800/30 transition-all duration-200 ease-out"
             >
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي الدورات</p>
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-md">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-elevation-2">
                   <BookOpen className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
               </div>
@@ -417,8 +417,8 @@ const AdminCoursesPage = () => {
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
           >
             <motion.div
-              whileHover={{ y: -4, scale: 1.01 }}
-              className="bg-gradient-to-br from-white to-teal-50/50 dark:from-neutral-800 dark:to-teal-900/10 rounded-2xl shadow-lg hover:shadow-xl p-6 border border-teal-100/50 dark:border-teal-800/30 transition-all duration-300"
+              whileHover={{ y: -2, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-teal-50/50 dark:from-neutral-800 dark:to-teal-900/10 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 p-6 border border-teal-100/50 dark:border-teal-800/30 transition-all duration-200 ease-out"
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
@@ -531,7 +531,7 @@ const AdminCoursesPage = () => {
                 placeholder="البحث في الدورات..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
+                className="w-full pl-10 pr-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             </div>
@@ -542,7 +542,7 @@ const AdminCoursesPage = () => {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
+                className="px-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="all">جميع الحالات</option>
                 <option value="active">نشطة</option>
@@ -554,7 +554,7 @@ const AdminCoursesPage = () => {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-300"
+                className="px-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="all">جميع الأنواع</option>
                 <option value="short">قصيرة</option>
@@ -565,9 +565,9 @@ const AdminCoursesPage = () => {
             {/* أزرار التحكم */}
             <div className="flex items-center gap-3">
               <motion.button
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setShowAddCourseModal(true)}
               >
                 <Plus className="w-5 h-5" />
@@ -575,9 +575,9 @@ const AdminCoursesPage = () => {
               </motion.button>
 
               <motion.button
-                className="bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Download className="w-5 h-5" />
                 تصدير البيانات
@@ -599,7 +599,7 @@ const AdminCoursesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300"
+              className="bg-white dark:bg-neutral-800 rounded-2xl shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 overflow-hidden hover:shadow-elevation-4 transition-all duration-200 ease-out"
             >
               {/* صورة الدورة */}
               <div className="relative h-48 bg-gradient-to-br from-purple-500 to-blue-600">
@@ -684,9 +684,9 @@ const AdminCoursesPage = () => {
                 {/* أزرار التحكم */}
                 <div className="grid grid-cols-2 gap-2">
                   <motion.button
-                    className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-1"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 min-h-[44px] rounded-lg font-semibold text-sm transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => {
                       setSelectedCourse(course);
                       setShowCourseDetails(true);
@@ -697,9 +697,9 @@ const AdminCoursesPage = () => {
                   </motion.button>
 
                   <motion.button
-                    className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-1"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="bg-success-600 hover:bg-success-700 text-white py-2 px-4 min-h-[44px] rounded-lg font-semibold text-sm transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setShowFileManager(true)}
                   >
                     <FolderOpen className="w-4 h-4" />
@@ -707,35 +707,35 @@ const AdminCoursesPage = () => {
                   </motion.button>
 
                   <motion.button
-                    className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-1"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="bg-secondary-innovate-600 hover:bg-secondary-innovate-700 text-white py-2 px-4 min-h-[44px] rounded-lg font-semibold text-sm transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-innovate-500 focus-visible:ring-offset-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => handleDuplicateCourse(course)}
                   >
                     <Copy className="w-4 h-4" />
                     نسخ
                   </motion.button>
 
-                                      <motion.button
-                      className="bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-lg font-semibold text-sm transition-colors flex items-center justify-center gap-1"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => {
-                        setSelectedCourse(course);
-                        setShowEditCourseModal(true);
-                      }}
-                    >
-                      <Edit className="w-4 h-4" />
-                      تعديل
-                    </motion.button>
+                  <motion.button
+                    className="bg-warning-600 hover:bg-warning-700 text-white py-2 px-4 min-h-[44px] rounded-lg font-semibold text-sm transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center justify-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-500 focus-visible:ring-offset-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      setSelectedCourse(course);
+                      setShowEditCourseModal(true);
+                    }}
+                  >
+                    <Edit className="w-4 h-4" />
+                    تعديل
+                  </motion.button>
                 </div>
 
                 {/* أزرار إضافية */}
                 <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
                   <motion.button
-                    className="text-red-600 hover:text-red-700 text-sm font-medium transition-colors flex items-center gap-1"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="text-danger-600 dark:text-danger-400 hover:text-danger-700 dark:hover:text-danger-500 text-sm font-medium transition-all duration-200 ease-out flex items-center gap-1 min-h-[44px] px-2 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger-500 focus-visible:ring-offset-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => handleLockCourse(course.id, !course.isLocked)}
                   >
                     {course.isLocked ? <Unlock className="w-4 h-4" /> : <Lock className="w-4 h-4" />}

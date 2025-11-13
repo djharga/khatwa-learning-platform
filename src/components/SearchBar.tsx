@@ -10,7 +10,7 @@ import { Course, CourseFilters, CourseCategory, CourseSortOptions } from '@/type
 import { sortCourses, filterCourses } from '@/utils/courseUtils';
 
 const SUGGESTIONS = {
-  trending: ['المراجعة الداخلية الأساسية', 'زمالة المراجعين الداخليين', 'إدارة المخاطر', 'المعايير الدولية', 'تحليل البيانات'],
+  trending: ['المراجعة الداخلية الأساسية', 'المراجعين الداخليين', 'إدارة المخاطر', 'المعايير الدولية', 'تحليل البيانات'],
   popular: ['المراجعة التشغيلية', 'الحوكمة والامتثال', 'أدوات المراجعة الحديثة', 'التقارير المالية', 'إدارة المشتريات'],
 };
 const QUICK_FILTERS = [

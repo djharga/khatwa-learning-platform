@@ -905,7 +905,7 @@ export default function CIAFellowshipPage() {
               <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-sm">
                 <Award className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">زمالة CIA</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">CIA</span>
             </div>
 
             {/* Desktop Navigation */}
@@ -958,69 +958,61 @@ export default function CIAFellowshipPage() {
       <div className="container mx-auto max-w-7xl px-8 py-8">
         {/* Enhanced Header Section with Hero Image */}
         <section id="introduction" className="mb-16">
-          {/* Hero Section with Background Image */}
+          {/* Hero Section with Background Image - Enhanced: clearer background, smoother purple gradient */}
           <motion.div
-            className="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 text-white overflow-hidden rounded-3xl mx-4 lg:mx-8 shadow-2xl mb-12 border-2 border-white/10"
+            className="relative bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 text-white overflow-hidden rounded-3xl mx-4 lg:mx-8 shadow-2xl mb-16 border-2 border-white/10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Background Image */}
+            {/* Background Image - Enhanced clarity, reduced blur */}
             <div className="absolute inset-0 z-0">
               <Image
                 src="/assets/cia.png"
                 alt="شهادة CIA"
                 fill
                 priority
-                quality={90}
-                className="object-cover opacity-90"
+                quality={95}
+                className="object-cover opacity-95 brightness-105 contrast-105"
                 style={{ objectPosition: 'center' }}
               />
-              {/* Enhanced Overlay with multiple layers */}
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/60 via-blue-900/55 to-purple-900/60"></div>
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20"></div>
+              {/* Enhanced Overlay - smoother purple gradient, less dark */}
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-800/50 via-purple-800/45 to-indigo-800/50"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/15"></div>
               
-              {/* Decorative Light Effects */}
-              <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+              {/* Reduced Decorative Light Effects */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-blue-400/15 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-400/15 rounded-full blur-3xl" />
             </div>
 
-            {/* Content */}
-            <div className="relative z-10 container mx-auto max-w-7xl px-8 py-20 lg:py-28">
+            {/* Content - Enhanced: 3% larger title, increased spacing, improved badge */}
+            <div className="relative z-10 container mx-auto max-w-7xl px-8 py-24 lg:py-32">
               <div className="text-center">
                 <motion.div
-                  className="inline-flex items-center justify-center gap-4 mb-6 p-4 bg-white/15 backdrop-blur-md rounded-2xl border-2 border-white/30 shadow-2xl hover:bg-white/20 transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-4 mb-8 p-5 bg-white/20 backdrop-blur-sm rounded-2xl border-2 border-white/40 shadow-2xl hover:bg-white/25 transition-all duration-300"
                   initial={{ opacity: 0, y: 20, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.6, delay: 0.2, type: "spring" }}
                   whileHover={{ scale: 1.02 }}
                 >
                   <motion.div 
-                    className="p-4 bg-gradient-to-br from-white/30 to-white/15 rounded-2xl backdrop-blur-lg shadow-lg"
-                    animate={{ 
-                      boxShadow: [
-                        '0 0 20px rgba(255, 255, 255, 0.2)',
-                        '0 0 30px rgba(255, 255, 255, 0.3)',
-                        '0 0 20px rgba(255, 255, 255, 0.2)'
-                      ]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
+                    className="p-4 bg-gradient-to-br from-white/35 to-white/20 rounded-2xl backdrop-blur-md shadow-lg"
                   >
-                    <Crown className="w-8 h-8 text-white drop-shadow-2xl" />
+                    <Crown className="w-9 h-9 text-white drop-shadow-2xl" strokeWidth={2.5} />
                   </motion.div>
                   <div>
                     <h1 
-                      className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white mb-3 drop-shadow-2xl"
+                      className="text-3xl lg:text-4xl xl:text-[3.6rem] font-bold text-white mb-4 drop-shadow-2xl"
                       style={{ 
-                        textShadow: '0 4px 20px rgba(0, 0, 0, 0.5), 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.1)'
+                        textShadow: '0 4px 20px rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.15)'
                       }}
                     >
-                      زمالة المدقق الداخلي المعتمد
-                      <span className="block text-xl lg:text-2xl text-blue-100 font-normal mt-2 drop-shadow-lg">
+                      المدقق الداخلي المعتمد
+                      <span className="block text-xl lg:text-2xl text-blue-50 font-normal mt-3 drop-shadow-lg">
                         Certified Internal Auditor (CIA)
                       </span>
                     </h1>
-                    <div className="flex items-center justify-center gap-2 text-sm text-blue-50 drop-shadow-md">
+                    <div className="flex items-center justify-center gap-2 text-sm text-blue-50 drop-shadow-md mt-2">
                       <motion.div
                         animate={{ rotate: [0, 10, -10, 0] }}
                         transition={{ duration: 4, repeat: Infinity, repeatDelay: 2 }}
@@ -1032,7 +1024,7 @@ export default function CIAFellowshipPage() {
                   </div>
                 </motion.div>
                 <motion.p 
-                  className="text-xl lg:text-2xl text-blue-50 max-w-4xl mx-auto leading-relaxed drop-shadow-lg bg-white/5 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/10"
+                  className="text-xl lg:text-2xl text-blue-50 max-w-4xl mx-auto leading-loose drop-shadow-lg bg-white/8 backdrop-blur-sm rounded-2xl px-8 py-5 border border-white/15 mt-6"
                   style={{ 
                     textShadow: '0 2px 10px rgba(0, 0, 0, 0.4)'
                   }}
@@ -1186,9 +1178,9 @@ export default function CIAFellowshipPage() {
           </motion.div>
         </section>
 
-        {/* ثلاث بطاقات - الجزء الأول/الثاني/الثالث */}
-        <section className="mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* ثلاث بطاقات - الجزء الأول/الثاني/الثالث - Enhanced: improved spacing, unified height */}
+        <section className="mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[
               {
                 id: 1,
@@ -1241,32 +1233,42 @@ export default function CIAFellowshipPage() {
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: part.id * 0.15, duration: 0.5, type: "spring", stiffness: 100 }}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className={`${part.bgColor} ${part.borderColor} border-2 rounded-2xl p-6 hover:shadow-2xl ${part.shadowColor} transition-all duration-500 relative overflow-hidden group`}
+                whileHover={{ 
+                  y: -2, 
+                  scale: 1.01,
+                  boxShadow: '0 8px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08)',
+                  borderLeftColor: part.id === 1 ? 'rgba(59, 130, 246, 0.9)' : part.id === 2 ? 'rgba(168, 85, 247, 0.9)' : 'rgba(16, 185, 129, 0.9)'
+                }}
+                className={`${part.bgColor} ${part.borderColor} border-2 rounded-3xl p-8 hover:shadow-xl ${part.shadowColor} transition-all duration-300 relative overflow-hidden group h-full flex flex-col`}
+                style={{
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)',
+                  borderLeftWidth: '4px',
+                  borderLeftColor: part.id === 1 ? 'rgba(59, 130, 246, 0.6)' : part.id === 2 ? 'rgba(168, 85, 247, 0.6)' : 'rgba(16, 185, 129, 0.6)'
+                }}
               >
-                {/* Background Pattern */}
-                <div className={`absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${part.color}`} />
+                {/* Background Pattern - Reduced brightness, more consistent */}
+                <div className={`absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-300 bg-gradient-to-br ${part.color}`} />
                 
-                {/* Header */}
-                <div className="relative z-10 mb-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className={`p-2.5 bg-gradient-to-br ${part.color} rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                      <Award className="w-6 h-6 text-white" />
+                {/* Header - Enhanced: larger title, better spacing, improved icon */}
+                <div className="relative z-10 mb-8">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className={`p-3 bg-gradient-to-br ${part.color} rounded-xl shadow-md group-hover:scale-105 transition-transform duration-300`}>
+                      <Award className="w-7 h-7 text-white" strokeWidth={2.5} />
                     </div>
-                    <div className={`px-3 py-1 bg-gradient-to-r ${part.color} rounded-full shadow-md`}>
-                      <span className="text-white text-[10px] font-bold">Part {part.id}</span>
+                    <div className={`px-3.5 py-1.5 bg-gradient-to-r ${part.color} rounded-full shadow-sm border border-white/20`}>
+                      <span className="text-white text-[11px] font-bold">Part {part.id}</span>
                     </div>
                   </div>
-                  <h3 className={`text-2xl font-bold mb-1.5 bg-gradient-to-r ${part.color} bg-clip-text text-transparent`}>
+                  <h3 className={`text-2xl lg:text-3xl font-bold mb-2 bg-gradient-to-r ${part.color} bg-clip-text text-transparent`} style={{ lineHeight: '1.3' }}>
                     {part.title}
                   </h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">
+                  <p className="text-sm text-gray-700 dark:text-gray-300 font-semibold">
                     {part.subtitle}
                   </p>
                 </div>
 
-                {/* Items */}
-                <div className="relative z-10 space-y-3">
+                {/* Items - Enhanced: larger icons, better spacing, improved text, increased line-height */}
+                <div className="relative z-10 space-y-4 flex-1">
                   {part.items.map((item, index) => {
                     const Icon = item.icon;
                     return (
@@ -1275,22 +1277,22 @@ export default function CIAFellowshipPage() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: part.id * 0.15 + index * 0.1, duration: 0.4 }}
-                        whileHover={{ x: 4, scale: 1.02 }}
-                        className="group/item flex items-center justify-between gap-3 p-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-lg hover:bg-white dark:hover:bg-gray-800 border border-gray-200/50 dark:border-gray-700/50 hover:border-transparent hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden"
+                        whileHover={{ x: 2, scale: 1.01 }}
+                        className="group/item flex items-center justify-between gap-4 p-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl hover:bg-white dark:hover:bg-gray-800 border border-gray-200/60 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md transition-all duration-300 cursor-pointer relative overflow-hidden"
                       >
-                        {/* Hover Effect Background */}
-                        <div className={`absolute inset-0 bg-gradient-to-r ${part.color} opacity-0 group-hover/item:opacity-5 transition-opacity duration-300`} />
+                        {/* Hover Effect Background - Subtle highlight */}
+                        <div className={`absolute inset-0 bg-gradient-to-r ${part.color} opacity-0 group-hover/item:opacity-[0.03] transition-opacity duration-300`} />
                         
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <div className={`p-2.5 bg-gradient-to-br ${part.color} rounded-lg shadow-md group-hover/item:scale-110 group-hover/item:rotate-3 transition-all duration-300 flex-shrink-0`}>
-                            <Icon className="w-5 h-5 text-white" />
+                        <div className="flex items-center gap-4 flex-1 min-w-0">
+                          <div className={`p-3 bg-gradient-to-br ${part.color} rounded-xl shadow-md group-hover/item:scale-105 transition-all duration-300 flex-shrink-0`}>
+                            <Icon className="w-6 h-6 text-white" strokeWidth={2} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <span className="font-bold text-gray-900 dark:text-white text-sm block mb-1">
+                            <span className="font-bold text-gray-900 dark:text-white text-base block mb-2" style={{ lineHeight: '1.5' }}>
                               {item.type}
                             </span>
                             <div className="flex items-center gap-2">
-                              <div className={`h-1.5 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden max-w-[70px]`}>
+                              <div className={`h-2 flex-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden max-w-[80px]`}>
                                 <motion.div
                                   className={`h-full bg-gradient-to-r ${part.color} rounded-full`}
                                   initial={{ width: 0 }}
@@ -1298,7 +1300,7 @@ export default function CIAFellowshipPage() {
                                   transition={{ delay: part.id * 0.15 + index * 0.1 + 0.3, duration: 0.6 }}
                                 />
                               </div>
-                              <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium">
+                              <span className="text-xs text-gray-600 dark:text-gray-400 font-semibold">
                                 {item.count} ملف
                               </span>
                             </div>
@@ -1312,20 +1314,20 @@ export default function CIAFellowshipPage() {
                           transition={{ delay: part.id * 0.15 + index * 0.1 + 0.2 }}
                           className="flex-shrink-0"
                         >
-                          <ChevronRight className={`w-4 h-4 text-gray-400 group-hover/item:text-transparent group-hover/item:bg-gradient-to-r ${part.color} group-hover/item:bg-clip-text transition-all duration-300`} />
+                          <ChevronRight className={`w-5 h-5 text-gray-400 group-hover/item:text-transparent group-hover/item:bg-gradient-to-r ${part.color} group-hover/item:bg-clip-text transition-all duration-300`} strokeWidth={2} />
                         </motion.div>
                       </motion.div>
                     );
                   })}
                 </div>
 
-                {/* Footer Badge */}
-                <div className="relative z-10 mt-5 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
+                {/* Footer Badge - Enhanced spacing */}
+                <div className="relative z-10 mt-6 pt-5 border-t border-gray-200/60 dark:border-gray-700/60">
                   <div className="flex items-center justify-center gap-2">
-                    <div className={`p-1 bg-gradient-to-r ${part.color} rounded-full`}>
-                      <CheckCircle2 className="w-3 h-3 text-white" />
+                    <div className={`p-1.5 bg-gradient-to-r ${part.color} rounded-full`}>
+                      <CheckCircle2 className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
                     </div>
-                    <span className="text-[11px] font-medium text-gray-600 dark:text-gray-400">
+                    <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
                       {part.items.reduce((acc, item) => acc + item.count, 0)} ملف متاح
                     </span>
                   </div>

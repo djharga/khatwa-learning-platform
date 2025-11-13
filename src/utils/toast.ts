@@ -12,9 +12,13 @@ export const showToast = {
     toast.success(message, {
       duration: 3000,
       style: {
-        background: 'var(--color-success)',
+        background: 'var(--color-success-600)',
         color: 'white',
-        border: '1px solid var(--color-success-border)',
+        border: '1px solid var(--color-success-700)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-4) var(--spacing-5)',
+        boxShadow: 'var(--shadow-elevation-2)',
+        transition: 'all 200ms ease-out',
       },
       icon: '✅',
     });
@@ -28,9 +32,13 @@ export const showToast = {
     toast.error(message, {
       duration: 4000,
       style: {
-        background: 'var(--color-error)',
+        background: 'var(--color-danger-600)',
         color: 'white',
-        border: '1px solid var(--color-error-border)',
+        border: '1px solid var(--color-danger-700)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-4) var(--spacing-5)',
+        boxShadow: 'var(--shadow-elevation-2)',
+        transition: 'all 200ms ease-out',
       },
       icon: '❌',
     });
@@ -44,9 +52,13 @@ export const showToast = {
     toast(message, {
       duration: 3000,
       style: {
-        background: 'var(--color-info)',
-        color: 'var(--color-text-primary)',
-        border: '1px solid var(--color-accent)',
+        background: 'var(--color-info-600)',
+        color: 'white',
+        border: '1px solid var(--color-info-700)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-4) var(--spacing-5)',
+        boxShadow: 'var(--shadow-elevation-2)',
+        transition: 'all 200ms ease-out',
       },
       icon: 'ℹ️',
     });
@@ -60,9 +72,13 @@ export const showToast = {
   loading: (message: string) => {
     return toast.loading(message, {
       style: {
-        background: 'var(--color-background)',
-        color: 'var(--color-text-primary)',
-        border: '1px solid var(--color-accent)',
+        background: 'var(--color-neutral-50)',
+        color: 'var(--color-neutral-900)',
+        border: '1px solid var(--color-neutral-200)',
+        borderRadius: 'var(--radius-lg)',
+        padding: 'var(--spacing-4) var(--spacing-5)',
+        boxShadow: 'var(--shadow-elevation-2)',
+        transition: 'all 200ms ease-out',
       },
     });
   },

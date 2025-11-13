@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       },
       {
         id: '2',
-        title: 'برنامج زمالة المراجعين الداخليين',
+        title: 'برنامج المراجعين الداخليين',
         description: 'برنامج شامل للحصول على شهادة الزمالة',
         image: '/courses/fellowship.jpg',
         instructor: 'د. فاطمة علي',

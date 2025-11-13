@@ -104,14 +104,14 @@ const FeaturedCoursesSection = () => {
   return (
     <section className="relative py-12 lg:py-16 overflow-hidden">
       <Container size="xl" className="relative z-10">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-neutral-900 dark:text-white mb-6">
+        {/* Header - Enhanced title size and margin, improved text contrast */}
+        <div className="text-center mb-14 lg:mb-16 mt-4">
+          <h2 className="text-4xl lg:text-5xl xl:text-7xl font-bold text-neutral-900 dark:text-white mb-8">
             <span className="block bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 bg-clip-text text-transparent">
               الدورات الأكثر طلبًا
             </span>
           </h2>
-          <p className="text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xl lg:text-2xl text-neutral-700 dark:text-neutral-300 font-medium max-w-2xl mx-auto leading-relaxed">
             اكتشف أهم الدورات التدريبية المميزة
           </p>
         </div>
@@ -130,21 +130,21 @@ const FeaturedCoursesSection = () => {
                 className="w-full"
               >
                 {featuredCourses[currentIndex] && (
-                  <div className="grid lg:grid-cols-2 gap-8 items-center justify-center bg-gradient-to-br from-white via-indigo-50/30 to-white dark:from-neutral-900 dark:via-indigo-900/20 dark:to-neutral-900 rounded-3xl p-6 lg:p-12 shadow-2xl border border-indigo-100 dark:border-indigo-900/50">
-                  {/* Image Section */}
+                  <div className="grid lg:grid-cols-2 gap-8 items-center justify-center bg-white dark:bg-neutral-900 rounded-3xl p-8 lg:p-14 shadow-xl border-2 border-neutral-200 dark:border-neutral-700">
+                  {/* Image Section - Enhanced clarity, contrast, smoother edges */}
                   <div className="relative group">
-                    <div className="relative h-[300px] lg:h-[400px] rounded-2xl overflow-hidden bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-700 dark:to-neutral-800 shadow-xl">
+                    <div className="relative h-[300px] lg:h-[400px] rounded-3xl overflow-hidden bg-gradient-to-br from-neutral-200 to-neutral-300 dark:from-neutral-700 dark:to-neutral-800 shadow-lg">
                       <img
                         src={featuredCourses[currentIndex].image}
                         alt={featuredCourses[currentIndex].title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover brightness-105 contrast-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                       
 
-                      {/* Play Icon Overlay */}
+                      {/* Play Icon Overlay - Removed blur */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                        <div className="w-20 h-20 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center shadow-2xl">
+                        <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl">
                           <Play className="w-10 h-10 text-indigo-600 fill-indigo-600" />
                         </div>
                       </div>
@@ -183,7 +183,7 @@ const FeaturedCoursesSection = () => {
                       </div>
                       <button
                         onClick={() => router.push(`/courses/${featuredCourses[currentIndex].slug}`)}
-                        className="flex-1 bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 text-white font-bold rounded-xl px-8 py-4 shadow-xl shadow-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/60 transition-shadow duration-200 flex items-center justify-center gap-3 text-lg"
+                        className="flex-1 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white font-bold rounded-xl px-9 py-[18px] shadow-lg hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-3 text-lg"
                       >
                         <span>ابدأ التعلم الآن</span>
                         <ChevronRight className="w-6 h-6" />
@@ -195,18 +195,16 @@ const FeaturedCoursesSection = () => {
               </motion.div>
             </AnimatePresence>
 
-            {/* Navigation Arrows - Enhanced Modern Design */}
+            {/* Navigation Arrows - Enhanced: 10% larger, clearer background, softer edges, lighter shadows */}
             <button
               onClick={prevSlide}
               className="absolute left-6 top-1/2 -translate-y-1/2 z-20 group"
               aria-label="السابق"
             >
               <div className="relative">
-                {/* Background with gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                {/* Button */}
-                <div className="relative w-14 h-14 bg-gradient-to-br from-white to-indigo-50 dark:from-neutral-800 dark:to-indigo-900/30 backdrop-blur-md rounded-2xl shadow-xl border-2 border-indigo-200/50 dark:border-indigo-700/50 flex items-center justify-center group-hover:from-indigo-50 group-hover:to-purple-50 dark:group-hover:from-indigo-900/50 dark:group-hover:to-purple-900/50 group-hover:border-indigo-400 dark:group-hover:border-indigo-500 group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300">
-                  <ChevronRight className="w-6 h-6 text-indigo-600 dark:text-indigo-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300" strokeWidth={2.5} />
+                {/* Button - 10% larger (w-16 h-16 = 64px), clearer background, no blur */}
+                <div className="relative w-16 h-16 bg-white dark:bg-neutral-800 rounded-3xl shadow-lg border-2 border-neutral-200 dark:border-neutral-700 flex items-center justify-center group-hover:bg-indigo-50 dark:group-hover:bg-indigo-900/30 group-hover:border-indigo-300 dark:group-hover:border-indigo-600 group-hover:shadow-xl transition-all duration-200">
+                  <ChevronRight className="w-7 h-7 text-indigo-600 dark:text-indigo-400 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-200" strokeWidth={2.5} />
                 </div>
               </div>
             </button>
@@ -216,11 +214,9 @@ const FeaturedCoursesSection = () => {
               aria-label="التالي"
             >
               <div className="relative">
-                {/* Background with gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-2xl blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
-                {/* Button */}
-                <div className="relative w-14 h-14 bg-gradient-to-br from-white to-purple-50 dark:from-neutral-800 dark:to-purple-900/30 backdrop-blur-md rounded-2xl shadow-xl border-2 border-purple-200/50 dark:border-purple-700/50 flex items-center justify-center group-hover:from-purple-50 group-hover:to-indigo-50 dark:group-hover:from-purple-900/50 dark:group-hover:to-indigo-900/50 group-hover:border-purple-400 dark:group-hover:border-purple-500 group-hover:scale-110 group-hover:shadow-2xl transition-all duration-300">
-                  <ChevronLeft className="w-6 h-6 text-purple-600 dark:text-purple-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300" strokeWidth={2.5} />
+                {/* Button - 10% larger (w-16 h-16 = 64px), clearer background, no blur */}
+                <div className="relative w-16 h-16 bg-white dark:bg-neutral-800 rounded-3xl shadow-lg border-2 border-neutral-200 dark:border-neutral-700 flex items-center justify-center group-hover:bg-purple-50 dark:group-hover:bg-purple-900/30 group-hover:border-purple-300 dark:group-hover:border-purple-600 group-hover:shadow-xl transition-all duration-200">
+                  <ChevronLeft className="w-7 h-7 text-purple-600 dark:text-purple-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-200" strokeWidth={2.5} />
                 </div>
               </div>
             </button>

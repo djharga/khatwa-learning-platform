@@ -32,7 +32,7 @@ const SectionsNavigation = () => {
     {
       id: 'fellowship',
       name: 'الزمالة',
-      description: 'انضم إلى برنامج زمالة المراجعين الداخليين CIA واحصل على شهادة معتمدة',
+      description: 'انضم إلى برنامج المراجعين الداخليين CIA واحصل على شهادة معتمدة',
       href: '/cia',
       icon: Users,
       gradient: 'from-purple-500 to-pink-600',

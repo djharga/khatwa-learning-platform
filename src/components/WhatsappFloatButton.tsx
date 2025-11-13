@@ -15,11 +15,15 @@ const WhatsappFloatButton = () => {
   return (
     <motion.button
       onClick={handleClick}
-      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl hover:shadow-green-500/25 transition-all duration-150 group"
-      whileHover={{
-        scale: 1.02,
+      className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full transition-all duration-200 group"
+      style={{
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'
       }}
-      whileTap={{ scale: 0.98 }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15)'
+      }}
+      whileTap={{ scale: 0.95 }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
@@ -28,7 +32,7 @@ const WhatsappFloatButton = () => {
       }}
       aria-label="تواصل عبر واتساب"
     >
-      <MessageCircle className="w-6 h-6" />
+      <MessageCircle className="w-6 h-6" strokeWidth={2} />
 
       {/* أداة التلميح */}
       <div

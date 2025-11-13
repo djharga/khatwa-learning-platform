@@ -70,8 +70,15 @@ import {
   validateRequired,
   validatePhone,
 } from '../lib/validation';
-import StudentAIToolsComponent from './StudentAIToolsComponent';
 import BadgeSystem from './BadgeSystem';
+import dynamic from 'next/dynamic';
+import { Skeleton } from './ui/Skeleton';
+
+// Lazy load heavy AI tools component
+const StudentAIToolsComponent = dynamic(() => import('./StudentAIToolsComponent'), {
+  ssr: false,
+  loading: () => <Skeleton variant="card" className="h-96" />,
+});
 import mammoth from 'mammoth';
 import * as XLSX from 'xlsx';
 import ProfileHeader from "./ProfileComponent/ProfileHeader";

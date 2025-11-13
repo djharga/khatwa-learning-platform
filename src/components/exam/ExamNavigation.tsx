@@ -14,13 +14,13 @@ const UnauthenticatedPrompt: React.FC = () => {
       <div className="space-x-4 rtl:space-x-reverse">
         <a
           href="/login"
-          className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          className="inline-block px-6 py-2 min-h-[44px] bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
         >
           تسجيل الدخول
         </a>
         <a
           href="/register"
-          className="inline-block px-6 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+          className="inline-block px-6 py-2 min-h-[44px] bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
         >
           إنشاء حساب
         </a>
@@ -39,30 +39,30 @@ const NavigationButtons: React.FC<{
   onNext: () => void;
 }> = ({ currentIndex, totalQuestions, onPrevious, onNext }) => {
   return (
-    <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center gap-4">
       <button
         onClick={onPrevious}
         disabled={currentIndex === 0}
-        className={`px-6 py-2 rounded-lg transition-colors ${
+        className={`px-6 py-2 min-h-[44px] rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
           currentIndex === 0
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            ? 'bg-neutral-100 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed'
+            : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
         }`}
       >
         السؤال السابق
       </button>
 
-      <span className="text-gray-600">
+      <span className="text-neutral-600 dark:text-neutral-400 font-medium">
         {currentIndex + 1} / {totalQuestions}
       </span>
 
       <button
         onClick={onNext}
         disabled={currentIndex === totalQuestions - 1}
-        className={`px-6 py-2 rounded-lg transition-colors ${
+        className={`px-6 py-2 min-h-[44px] rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
           currentIndex === totalQuestions - 1
-            ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-            : 'bg-blue-600 text-white hover:bg-blue-700'
+            ? 'bg-neutral-100 dark:bg-neutral-700 text-neutral-400 dark:text-neutral-500 cursor-not-allowed'
+            : 'bg-primary-600 hover:bg-primary-700 text-white shadow-elevation-2 hover:shadow-elevation-4'
         }`}
       >
         السؤال التالي
@@ -113,10 +113,14 @@ const ExamNavigation: React.FC<{ isAuthenticated: boolean }> = ({
   return (
     <div className="mt-6">
       {/* شريط التقدم */}
-      <div className="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+      <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2.5 mb-6 overflow-hidden">
         <div
-          className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
+          className="bg-primary-600 dark:bg-primary-500 h-2.5 rounded-full transition-all duration-200 ease-out"
           style={{ width: `${progress}%` }}
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
         ></div>
       </div>
 

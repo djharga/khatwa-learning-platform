@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { PlayerShell } from '@/components/learning-player';
 import { learningAnalytics } from '@/lib/analytics';
 import { getCourseById } from '@/data/courses/all-courses';
+import { addLevelsToModules } from '@/lib/course-levels';
 
 // Helper function to parse lesson ID (handles both "1-0" format and direct IDs)
 function parseLessonId(lessonId: string): { moduleIndex: number; lessonIndex: number } | null {
@@ -100,12 +101,20 @@ export default function LessonPage() {
             const data = await response.json();
             // Check if API returned course data directly or wrapped in a 'course' property
             if (data.course && data.course.modules) {
-              setCourseData(data.course);
+              const courseWithLevels = {
+                ...data.course,
+                modules: addLevelsToModules(data.course.modules, data.course.title),
+              };
+              setCourseData(courseWithLevels);
               setLoading(false);
               return;
             } else if (data.modules) {
               // API returned course data directly
-              setCourseData(data);
+              const courseWithLevels = {
+                ...data,
+                modules: addLevelsToModules(data.modules, data.title),
+              };
+              setCourseData(courseWithLevels);
               setLoading(false);
               return;
             }
@@ -139,10 +148,13 @@ export default function LessonPage() {
                 }),
               }));
               
+              // إضافة معلومات المستوى للمحاور
+              const modulesWithLevels = addLevelsToModules(formattedModules, localCourse.title);
+              
               setCourseData({
                 id: localCourse.id.toString(),
                 title: localCourse.title,
-                modules: formattedModules,
+                modules: modulesWithLevels,
               });
               setLoading(false);
               return;
@@ -153,10 +165,8 @@ export default function LessonPage() {
         }
         
         // Fallback to mock data that matches the structure from coursesData
-        const mockData = {
-          id: courseId,
-          title: 'أساسيات المراجعة الداخلية وفق المعايير الدولية',
-          modules: [
+        const mockTitle = 'أساسيات المراجعة الداخلية وفق المعايير الدولية';
+        const mockModules = [
             {
               id: '1',
               title: 'المقدمة وأساسيات المراجعة',
@@ -334,7 +344,15 @@ export default function LessonPage() {
                 },
               ],
             },
-          ],
+          ];
+        
+        // إضافة معلومات المستوى للمحاور
+        const modulesWithLevels = addLevelsToModules(mockModules, mockTitle);
+        
+        const mockData = {
+          id: courseId,
+          title: mockTitle,
+          modules: modulesWithLevels,
         };
         
         setCourseData(mockData);

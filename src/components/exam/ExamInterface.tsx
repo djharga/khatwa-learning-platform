@@ -20,7 +20,7 @@ interface ExamInterfaceProps {
 const ExamInterface = ({ isAuthenticated = false }: ExamInterfaceProps) => {
   return (
     <ExamProvider>
-      <div className="bg-white rounded-xl shadow-lg p-6 max-w-4xl mx-auto">
+      <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-elevation-2 p-6 max-w-4xl mx-auto border border-neutral-200 dark:border-neutral-700">
         <QuestionView />
         <ExamNavigation isAuthenticated={isAuthenticated} />
       </div>

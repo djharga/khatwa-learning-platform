@@ -263,8 +263,8 @@ export default function AdminUsersPage() {
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"
           >
             <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+              whileHover={{ y: -2, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-primary-50/50 dark:from-neutral-800 dark:to-primary-900/10 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 p-5 border border-primary-100/50 dark:border-primary-800/30 transition-all duration-200 ease-out"
             >
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">إجمالي المستخدمين</p>
@@ -276,8 +276,8 @@ export default function AdminUsersPage() {
             </motion.div>
 
             <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              className="bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-blue-100/50 dark:border-blue-800/30 transition-all duration-300"
+              whileHover={{ y: -2, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-primary-50/50 dark:from-neutral-800 dark:to-primary-900/10 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 p-5 border border-primary-100/50 dark:border-primary-800/30 transition-all duration-200 ease-out"
             >
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">المتدربين الأفراد</p>
@@ -380,7 +380,7 @@ export default function AdminUsersPage() {
                 placeholder="البحث في المستخدمين..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                className="w-full pl-10 pr-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             </div>
@@ -391,7 +391,7 @@ export default function AdminUsersPage() {
               <select
                 value={userTypeFilter}
                 onChange={(e) => setUserTypeFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                className="px-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="all">جميع الأنواع</option>
                 <option value="student">متدرب فردي</option>
@@ -402,7 +402,7 @@ export default function AdminUsersPage() {
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                className="px-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="all">جميع الحالات</option>
                 <option value="active">نشط</option>
@@ -414,24 +414,24 @@ export default function AdminUsersPage() {
             {/* أزرار التحكم */}
             <div className="flex items-center gap-3">
               <motion.button
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setShowAddUserModal(true)}
               >
                 <UserPlus className="w-5 h-5" />
                 إضافة مستخدم جديد
               </motion.button>
 
-                              <motion.button
-                  className="bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"    
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleExportUsers}
-                >
-                  <Download className="w-5 h-5" />
-                  تصدير البيانات
-                </motion.button>
+              <motion.button
+                className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"    
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleExportUsers}
+              >
+                <Download className="w-5 h-5" />
+                تصدير البيانات
+              </motion.button>
             </div>
           </div>
         </motion.div>
@@ -441,29 +441,29 @@ export default function AdminUsersPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden"
+          className="bg-white dark:bg-neutral-800 rounded-2xl shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 overflow-hidden"
         >
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-neutral-50 dark:bg-neutral-700/50 border-b border-neutral-200 dark:border-neutral-700">
                 <tr>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">المستخدم</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">النوع</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">الحالة</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">التخزين</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">الدورات</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">آخر دخول</th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold text-gray-900">الإجراءات</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">المستخدم</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">النوع</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">الحالة</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">التخزين</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">الدورات</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">آخر دخول</th>
+                  <th className="px-6 py-4 text-right text-sm font-semibold text-neutral-900 dark:text-white">الإجراءات</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-neutral-200 dark:divide-neutral-700">
                 {filteredUsers.map((user, index) => (
                   <motion.tr
                     key={user.id}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.05 }}
-                    className="hover:bg-gray-50 transition-colors duration-200"
+                    className="hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-all duration-200 ease-out"
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4">
@@ -471,8 +471,8 @@ export default function AdminUsersPage() {
                           {user.name.charAt(0)}
                         </div>
                         <div>
-                          <div className="font-semibold text-gray-900">{user.name}</div>
-                          <div className="text-sm text-gray-600">{user.email}</div>
+                          <div className="font-semibold text-neutral-900 dark:text-white">{user.name}</div>
+                          <div className="text-sm text-neutral-600 dark:text-neutral-400">{user.email}</div>
                           {user.companyName && (
                             <div className="text-sm text-purple-600">{user.companyName}</div>
                           )}
@@ -509,9 +509,9 @@ export default function AdminUsersPage() {
                       <div className="text-sm">
                         <div className="font-semibold">{(user.storageUsed / 1024).toFixed(1)} GB</div>
                         <div className="text-gray-600">من {(user.storageLimit / 1024).toFixed(0)} GB</div>
-                        <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                          <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2 mt-1 overflow-hidden">
                           <div
-                            className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                            className="bg-primary-600 dark:bg-primary-500 h-2 rounded-full transition-all duration-200 ease-out"
                             style={{ width: `${(user.storageUsed / user.storageLimit) * 100}%` }}
                           ></div>
                         </div>
@@ -523,64 +523,68 @@ export default function AdminUsersPage() {
                         <div className="text-gray-600">مكتمل</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-6 py-4 text-sm text-neutral-600 dark:text-neutral-400">
                       {new Date(user.lastLogin).toLocaleDateString('ar-SA')}
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
                         <motion.button
-                          className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
+                          className="p-2 min-h-[44px] min-w-[44px] text-primary-600 dark:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/30 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => setSelectedUser(user)}
+                          title="عرض"
                         >
                           <Eye className="w-4 h-4" />
                         </motion.button>
                         <motion.button
-                          className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
+                          className="p-2 min-h-[44px] min-w-[44px] text-success-600 dark:text-success-400 hover:bg-success-50 dark:hover:bg-success-900/30 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => handleCreateCustomUrl(user)}
+                          title="رابط مخصص"
                         >
                           <Link className="w-4 h-4" />
                         </motion.button>
                         <motion.button
-                          className="p-2 text-purple-600 hover:bg-purple-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
+                          className="p-2 min-h-[44px] min-w-[44px] text-secondary-innovate-600 dark:text-secondary-innovate-400 hover:bg-secondary-innovate-50 dark:hover:bg-secondary-innovate-900/30 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-innovate-500 focus-visible:ring-offset-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => handleSendInvitation(user)}
+                          title="إرسال دعوة"
                         >
                           <Mail className="w-4 h-4" />
                         </motion.button>
                         <motion.button
-                          className="p-2 text-orange-600 hover:bg-orange-50 rounded-lg transition-colors duration-200"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
+                          className="p-2 min-h-[44px] min-w-[44px] text-warning-600 dark:text-warning-400 hover:bg-warning-50 dark:hover:bg-warning-900/30 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-500 focus-visible:ring-offset-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                           onClick={() => handleSendWhatsappLink(user)}
+                          title="واتساب"
                         >
                           <Send className="w-4 h-4" />
                         </motion.button>
-                                                  <motion.button
-                            className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors duration-200"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => {
-                              setSelectedUser(user);
-                              setShowEditUserModal(true);
-                            }}
-                            title="عرض/تعديل"
-                          >
-                            <Edit className="w-4 h-4" />
-                          </motion.button>
-                          <motion.button
-                            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => handleDeleteUser(user.id)}
-                            title="حذف"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </motion.button>
+                        <motion.button
+                          className="p-2 min-h-[44px] min-w-[44px] text-warning-600 dark:text-warning-400 hover:bg-warning-50 dark:hover:bg-warning-900/30 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-500 focus-visible:ring-offset-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => {
+                            setSelectedUser(user);
+                            setShowEditUserModal(true);
+                          }}
+                          title="عرض/تعديل"
+                        >
+                          <Edit className="w-4 h-4" />
+                        </motion.button>
+                        <motion.button
+                          className="p-2 min-h-[44px] min-w-[44px] text-danger-600 dark:text-danger-400 hover:bg-danger-50 dark:hover:bg-danger-900/30 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger-500 focus-visible:ring-offset-2"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => handleDeleteUser(user.id)}
+                          title="حذف"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </motion.button>
                       </div>
                     </td>
                   </motion.tr>

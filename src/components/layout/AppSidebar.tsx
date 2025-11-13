@@ -176,30 +176,47 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
         animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
         transition={prefersReducedMotion ? { duration: 0 } : { delay: idx * 0.03, duration: 0.2 }}
       >
-        <Link
-          href={item.href}
-          className={`group flex items-center gap-3 p-3 rounded-lg text-sm transition-all duration-200 ease-out ${
-            active
-              ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-md shadow-primary-500/20'
-              : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-400'
-          }`}
+        <motion.div
+          whileHover={!active ? { x: 4, scale: 1.02 } : {}}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
         >
+          <Link
+            href={item.href}
+            className={`group flex items-center gap-3.5 p-3.5 rounded-xl text-sm transition-all duration-[200ms] ease-out min-h-[44px] ${
+              active
+                ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-elevation-2 shadow-primary-500/20 border border-primary-500/30'
+                : 'text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-primary-600 dark:hover:text-primary-400 border border-transparent focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2'
+            }`}
+            aria-current={active ? 'page' : undefined}
+            aria-label={item.name}
+          >
           <div
-            className={`p-1.5 rounded-md transition-all ${
+            className={`p-2 rounded-lg transition-all duration-[200ms] ease-out ${
               active
                 ? 'bg-white/25'
                 : 'bg-neutral-100 dark:bg-neutral-700 group-hover:bg-primary-100 dark:group-hover:bg-primary-900/40'
             }`}
           >
             <IconComp
-              className={`w-4 h-4 ${
+              className={`w-[18px] h-[18px] transition-colors duration-[200ms] ease-out ${
                 active ? 'text-white' : 'text-neutral-600 dark:text-neutral-400 group-hover:text-primary-500'
               }`}
+              strokeWidth={2}
+              aria-hidden="true"
             />
           </div>
-          <span className="flex-1 font-medium">{item.name}</span>
-          {active && <div className="w-2 h-2 rounded-full bg-white" />}
-        </Link>
+            <span className="flex-1 font-semibold">{item.name}</span>
+            {active && (
+              <motion.div 
+                className="w-2 h-2 rounded-full bg-white"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              />
+            )}
+          </Link>
+        </motion.div>
       </motion.div>
     );
   };
@@ -211,24 +228,38 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
       transition={prefersReducedMotion ? { duration: 0 } : { delay: idx * 0.05 }}
       className="space-y-2"
     >
-      <button
+      <motion.button
         onClick={toggle}
-        className="w-full flex items-center justify-between p-3.5 rounded-lg text-sm font-semibold text-neutral-900 dark:text-white bg-neutral-50/60 dark:bg-neutral-800/40 hover:bg-neutral-100 dark:hover:bg-neutral-700/50 shadow-sm transition-all"
+        className={`w-full flex items-center justify-between p-4 rounded-xl text-sm font-bold text-neutral-900 dark:text-white border transition-all duration-[200ms] ease-out min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 ${
+          expanded 
+            ? 'bg-primary-50 dark:bg-primary-900/20 border-primary-200 dark:border-primary-800 shadow-elevation-1' 
+            : 'bg-neutral-50 dark:bg-neutral-800/60 border-neutral-200 dark:border-neutral-700 hover:bg-neutral-100 dark:hover:bg-neutral-700/50'
+        }`}
+        whileHover={prefersReducedMotion ? {} : { scale: 1.02, y: -1 }}
+        whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
+        aria-expanded={expanded}
+        aria-controls={`sidebar-section-${section.title}`}
+        aria-label={`${expanded ? 'إغلاق' : 'فتح'} قسم ${section.title}`}
       >
         <span className="flex items-center gap-3">
           <ChevronRight
-            className={`w-4 h-4 text-primary-500 transition-transform ${
+            className={`w-[18px] h-[18px] text-primary-600 dark:text-primary-400 transition-transform duration-[200ms] ease-out ${
               expanded ? 'rotate-0' : '-rotate-90'
             }`}
+            strokeWidth={2.5}
+            aria-hidden="true"
           />
           {section.title}
         </span>
         <ChevronDown
-          className={`w-4 h-4 text-neutral-400 transition-transform ${
+          className={`w-[18px] h-[18px] text-neutral-500 dark:text-neutral-400 transition-transform duration-[200ms] ease-out ${
             expanded ? 'rotate-180' : 'rotate-0'
           }`}
+          strokeWidth={2.5}
+          aria-hidden="true"
         />
-      </button>
+      </motion.button>
 
       <AnimatePresence>
         {expanded && (
@@ -236,8 +267,16 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
             initial={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
             animate={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 'auto', opacity: 1 }}
             exit={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
-            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2 }}
-            className="space-y-1 ps-5"
+            transition={prefersReducedMotion ? { duration: 0 } : { 
+              duration: 0.2,
+              ease: [0, 0, 0.2, 1],
+              opacity: { duration: 0.2 }
+            }}
+            style={{ overflow: 'hidden' }}
+            className="space-y-2 ps-6"
+            id={`sidebar-section-${section.title}`}
+            role="region"
+            aria-label={`عناصر ${section.title}`}
           >
             {section.items.map((item: any, i: number) => (
               <NavigationItem key={item.href} item={item} active={isActive(item.href)} idx={i} />
@@ -249,22 +288,26 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
   );
 
   const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
-    <div className="flex items-center justify-between p-4 border-b border-neutral-200 dark:border-neutral-700 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md">
-      <h2 className="text-lg font-bold text-primary-600 dark:text-primary-400 tracking-tight">
+    <div className="flex items-center justify-between p-5 border-b border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900">
+      <h2 className="text-xl font-extrabold text-primary-600 dark:text-primary-400 tracking-tight">
         خطي التعليمية
       </h2>
-      <button
+      <motion.button
         onClick={onClose}
-        className="p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:ring-2 focus-visible:ring-primary-500"
+        className="p-2.5 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 transition-all duration-[200ms] ease-out min-h-[44px] min-w-[44px] flex items-center justify-center"
+        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
+        whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+        transition={{ duration: 0.2 }}
+        aria-label="إغلاق القائمة الجانبية"
       >
-        <X className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
-      </button>
+        <X className="w-5 h-5 text-neutral-600 dark:text-neutral-400" strokeWidth={2.5} aria-hidden="true" />
+      </motion.button>
     </div>
   );
 
   const SidebarFooter = () => (
-    <div className="p-4 border-t border-neutral-200 dark:border-neutral-700 bg-white/60 dark:bg-neutral-900/60 backdrop-blur-md text-center">
-      <p className="text-xs text-neutral-500 dark:text-neutral-400">
+    <div className="p-5 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-center space-y-3">
+      <p className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
         © 2024 منصة خطي التعليمية
       </p>
     </div>
@@ -293,11 +336,14 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
             initial={prefersReducedMotion ? { x: 0, opacity: 1 } : { x: -320, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={prefersReducedMotion ? { x: 0, opacity: 1 } : { x: -320, opacity: 0 }}
-            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25 }}
-            className="hidden lg:flex flex-col fixed start-0 top-16 h-[calc(100vh-4rem)] w-80 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-e border-neutral-200 dark:border-neutral-700 shadow-xl z-40"
+            transition={prefersReducedMotion ? { duration: 0 } : { 
+              duration: 0.2,
+              ease: [0, 0, 0.2, 1]
+            }}
+            className="hidden lg:flex flex-col fixed start-0 top-16 h-[calc(100vh-4rem)] w-80 bg-white dark:bg-neutral-900 border-e border-neutral-200 dark:border-neutral-700 z-40 rounded-r-2xl shadow-elevation-5"
           >
               <SidebarHeader onClose={() => setIsOpen(false)} />
-              <nav className="flex-1 overflow-y-auto p-4 space-y-4 flex items-center justify-center">
+              <nav className="flex-1 overflow-y-auto p-5 space-y-5 flex items-center justify-center">
                 <div className="text-center text-neutral-500 dark:text-neutral-400">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto mb-2"></div>
                   <p className="text-sm">جاري التحميل...</p>
@@ -333,11 +379,20 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
             initial={prefersReducedMotion ? { x: 0, opacity: 1 } : { x: -320, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={prefersReducedMotion ? { x: 0, opacity: 1 } : { x: -320, opacity: 0 }}
-            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25 }}
-            className="hidden lg:flex flex-col fixed start-0 top-16 h-[calc(100vh-4rem)] w-80 bg-white/90 dark:bg-neutral-900/90 backdrop-blur-xl border-e border-neutral-200 dark:border-neutral-700 shadow-xl z-40"
+            transition={prefersReducedMotion ? { duration: 0 } : { 
+              duration: 0.2,
+              ease: [0, 0, 0.2, 1]
+            }}
+            className="hidden lg:flex flex-col fixed start-0 top-16 h-[calc(100vh-4rem)] w-80 bg-white dark:bg-neutral-900 border-e border-neutral-200 dark:border-neutral-700 z-40 rounded-r-2xl shadow-elevation-5"
           >
             <SidebarHeader onClose={() => setIsOpen(false)} />
-            <nav className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700">
+            <nav 
+              className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar" 
+              style={{
+                scrollbarWidth: 'thin',
+                scrollbarColor: '#cbd5e1 transparent'
+              }}
+            >
               {navigationItems.map((sec: any, i: number) => (
                 <CategorySection
                   key={sec.category || i}

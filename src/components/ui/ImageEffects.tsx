@@ -1,4 +1,7 @@
+'use client';
+
 import React from 'react';
+import Image from 'next/image';
 
 // ImageWithOverlay Component
 interface ImageWithOverlayProps {
@@ -44,17 +47,19 @@ export const ImageWithOverlay: React.FC<ImageWithOverlayProps> = ({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <img
+      <Image
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-smooth"
+        className="w-full h-full object-cover transition-all duration-200 ease-out"
         loading="lazy"
-        width={width}
-        height={height}
+        width={width || 800}
+        height={height || 600}
+        quality={85}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
       {overlay !== 'none' && (
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 transition-all duration-200 ease-out"
           style={getOverlayStyles()}
         />
       )}
@@ -87,13 +92,15 @@ export const ImageWithZoom: React.FC<ImageWithZoomProps> = ({
   if (zoomType === 'none') {
     return (
       <div className={`overflow-hidden ${className}`}>
-        <img
+        <Image
           src={src}
           alt={alt}
-          className="w-full h-full object-cover transition-smooth"
+          className="w-full h-full object-cover transition-all duration-200 ease-out"
           loading="lazy"
-          width={width}
-          height={height}
+          width={width || 800}
+          height={height || 600}
+          quality={85}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
     );
@@ -104,17 +111,19 @@ export const ImageWithZoom: React.FC<ImageWithZoomProps> = ({
 
   return (
     <div
-      className={`overflow-hidden ${className} ${zoomClass} ${cursorClass} transition-smooth`}
+      className={`overflow-hidden ${className} ${zoomClass} ${cursorClass} transition-all duration-200 ease-out`}
       onClick={zoomType === 'click' ? () => setIsZoomed(!isZoomed) : undefined}
       style={zoomType === 'click' && isZoomed ? { transform: `scale(${scale})` } : {}}
     >
-      <img
+      <Image
         src={src}
         alt={alt}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover transition-all duration-200 ease-out"
         loading="lazy"
-        width={width}
-        height={height}
+        width={width || 800}
+        height={height || 600}
+        quality={85}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );
@@ -159,14 +168,16 @@ export const ImageWithFilter: React.FC<ImageWithFilterProps> = ({
 
   return (
     <div className={`overflow-hidden ${className}`}>
-      <img
+      <Image
         src={src}
         alt={alt}
-        className="w-full h-full object-cover transition-smooth"
+        className="w-full h-full object-cover transition-all duration-200 ease-out"
         style={{ filter: getFilterStyles() }}
         loading="lazy"
-        width={width}
-        height={height}
+        width={width || 800}
+        height={height || 600}
+        quality={85}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );
@@ -192,13 +203,15 @@ export const ImageReveal: React.FC<ImageRevealProps> = ({
 }) => {
   return (
     <div className={`overflow-hidden animate-fadeIn ${className}`}>
-      <img
+      <Image
         src={src}
         alt={alt}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover transition-all duration-200 ease-out"
         loading="lazy"
-        width={width}
-        height={height}
+        width={width || 800}
+        height={height || 600}
+        quality={85}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );
@@ -242,13 +255,15 @@ export const ImageFrame: React.FC<ImageFrameProps> = ({
         borderRadius: '8px',
       }}
     >
-      <img
+      <Image
         src={src}
         alt={alt}
-        className="w-full h-full object-cover rounded transition-smooth"
+        className="w-full h-full object-cover rounded transition-all duration-200 ease-out"
         loading="lazy"
-        width={width}
-        height={height}
+        width={width || 800}
+        height={height || 600}
+        quality={85}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       />
     </div>
   );

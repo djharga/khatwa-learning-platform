@@ -8,18 +8,18 @@ import { Loader2 } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold tracking-tight select-none rounded-xl min-h-[44px] min-w-[44px] transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/60 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none will-change-transform active:brightness-110 active:scale-[0.98]',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold tracking-tight select-none rounded-xl min-h-[44px] min-w-[44px] transition-all duration-[200ms] ease-out focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none will-change-transform active:brightness-110 active:scale-[0.98]',
   {
     variants: {
       variant: {
         default:
-          'bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 text-white shadow-[0_4px_12px_rgba(79,70,229,0.25)] hover:shadow-[0_6px_16px_rgba(79,70,229,0.35)] hover:brightness-[1.08] dark:from-primary-500 dark:to-primary-600',
+          'bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 text-white shadow-elevation-2 hover:shadow-elevation-4 hover:brightness-[1.08] dark:from-primary-500 dark:to-primary-600',
         destructive:
           'bg-gradient-to-br from-red-600 to-red-700 text-white shadow-[0_4px_12px_rgba(239,68,68,0.3)] hover:shadow-[0_6px_18px_rgba(239,68,68,0.4)] hover:brightness-[1.08]',
         outline:
-          'border-2 border-primary-500 text-primary-600 dark:text-primary-300 bg-transparent hover:bg-primary-50/70 dark:hover:bg-primary-900/30 hover:shadow-[inset_0_0_10px_rgba(79,70,229,0.1)]',
+          'border-2 border-primary-500 text-primary-600 dark:text-primary-300 bg-transparent hover:bg-primary-50/70 dark:hover:bg-primary-900/30 hover:shadow-elevation-1',
         secondary:
-          'bg-neutral-200 text-neutral-900 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-100 shadow-[0_2px_6px_rgba(0,0,0,0.1)]',
+          'bg-neutral-200 text-neutral-900 hover:bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-100 shadow-elevation-1 hover:shadow-elevation-2',
         ghost:
           'bg-transparent text-neutral-800 dark:text-neutral-200 hover:bg-neutral-100/80 dark:hover:bg-neutral-800/70',
         link:
@@ -80,7 +80,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isDisabled}
         whileHover={!isDisabled ? { scale: 1.04, y: -1.5 } : {}}
         whileTap={!isDisabled ? { scale: 0.98 } : {}}
-        transition={{ duration: 0.18, ease: 'easeOut' }}
+        transition={{ duration: 0.2, ease: [0, 0, 0.2, 1] }}
         {...(props as MotionProps)}
       >
         {content}

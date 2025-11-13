@@ -2,10 +2,29 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PremiumReportsComponent from '@/components/reports/PremiumReportsComponent';
-import ReportHubComponent from '@/components/reports/ReportHubComponent';
-import ExecutiveSummaryComponent from '@/components/reports/ExecutiveSummaryComponent';
-import PeriodicReporterComponent from '@/components/reports/PeriodicReporterComponent';
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/Skeleton';
+
+// Lazy load heavy report components
+const PremiumReportsComponent = dynamic(() => import('@/components/reports/PremiumReportsComponent'), {
+  ssr: false,
+  loading: () => <Skeleton variant="card" className="h-96" />,
+});
+
+const ReportHubComponent = dynamic(() => import('@/components/reports/ReportHubComponent'), {
+  ssr: false,
+  loading: () => <Skeleton variant="card" className="h-96" />,
+});
+
+const ExecutiveSummaryComponent = dynamic(() => import('@/components/reports/ExecutiveSummaryComponent'), {
+  ssr: false,
+  loading: () => <Skeleton variant="card" className="h-96" />,
+});
+
+const PeriodicReporterComponent = dynamic(() => import('@/components/reports/PeriodicReporterComponent'), {
+  ssr: false,
+  loading: () => <Skeleton variant="card" className="h-96" />,
+});
 import {
   FileText,
   Crown,

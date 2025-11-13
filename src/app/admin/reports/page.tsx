@@ -62,7 +62,7 @@ const AdminReportsPage = () => {
       { month: 'يونيو', amount: 75000, programs: 22, avgOrder: 3409 },
     ],
     programStats: [
-      { name: 'زمالة المراجعين', participants: 35, completion: 85, rating: 4.8 },
+      { name: 'المراجعين الداخليين', participants: 35, completion: 85, rating: 4.8 },
       { name: 'دورة الإدارة المالية', participants: 28, completion: 92, rating: 4.6 },
       { name: 'دورة المخاطر المالية', participants: 22, completion: 78, rating: 4.4 },
       { name: 'برنامج الجودة', participants: 18, completion: 95, rating: 4.9 },
@@ -143,7 +143,7 @@ const AdminReportsPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100"
+          className="bg-white dark:bg-neutral-800 rounded-2xl shadow-elevation-2 p-6 mb-8 border border-neutral-200 dark:border-neutral-700"
         >
           <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
             {/* اختيار الفترة الزمنية */}
@@ -152,7 +152,7 @@ const AdminReportsPage = () => {
               <select
                 value={selectedPeriod}
                 onChange={(e) => setSelectedPeriod(e.target.value)}
-                className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all"
+                className="px-4 py-2 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="week">آخر أسبوع</option>
                 <option value="month">آخر شهر</option>
@@ -164,27 +164,27 @@ const AdminReportsPage = () => {
             {/* أزرار التصدير */}
             <div className="flex items-center gap-3">
               <motion.button
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 min-h-[44px] rounded-lg font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => exportReport('PDF')}
               >
                 <Download className="w-4 h-4" />
                 تصدير PDF
               </motion.button>
               <motion.button
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-success-600 hover:bg-success-700 text-white px-4 py-2 min-h-[44px] rounded-lg font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => exportReport('Excel')}
               >
                 <Download className="w-4 h-4" />
                 تصدير Excel
               </motion.button>
               <motion.button
-                className="bg-gray-600 hover:bg-gray-700 text-white p-2 rounded-lg transition-colors"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-neutral-600 hover:bg-neutral-700 text-white p-2 min-h-[44px] min-w-[44px] rounded-lg transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setShowFilters(!showFilters)}
               >
                 <Filter className="w-4 h-4" />
@@ -206,7 +206,7 @@ const AdminReportsPage = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       نوع التقرير
                     </label>
-                    <select className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                    <select className="w-full px-3 py-2 min-h-[44px] border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400">
                       <option>المستخدمين</option>
                       <option>البرامج</option>
                       <option>الإيرادات</option>
@@ -214,21 +214,21 @@ const AdminReportsPage = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                       تاريخ البداية
                     </label>
                     <input
                       type="date"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-3 py-2 min-h-[44px] border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
                       تاريخ النهاية
                     </label>
                     <input
                       type="date"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      className="w-full px-3 py-2 min-h-[44px] border border-neutral-300 dark:border-neutral-600 rounded-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
                     />
                   </div>
                 </div>
@@ -266,15 +266,15 @@ const AdminReportsPage = () => {
                       : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-neutral-700/50'
                     }
                   `}
-                  whileHover={{ scale: selectedReport === tab.id ? 1.02 : 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: selectedReport === tab.id ? 1.01 : 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   {/* Active background with gradient */}
                   {selectedReport === tab.id && (
                     <motion.div
                       layoutId="activeReportTab"
                       className="absolute inset-0 bg-gradient-to-br from-red-50/50 via-orange-50/30 to-yellow-50/50 dark:from-red-950/30 dark:via-orange-950/20 dark:to-yellow-950/30 rounded-xl"
-                      transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                      transition={{ type: "spring", bounce: 0.15, duration: 0.2 }}
                       style={{ borderRadius: '0.75rem' }}
                     />
                   )}

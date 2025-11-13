@@ -395,21 +395,21 @@ const AdminDashboard = () => {
                 className="relative z-10 flex items-center gap-3 flex-wrap"
               >
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => setShowSearch(!showSearch)}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-neutral-700 dark:to-neutral-800 hover:from-gray-200 hover:to-gray-100 dark:hover:from-neutral-600 dark:hover:to-neutral-700 rounded-xl transition-all shadow-md hover:shadow-lg border border-gray-200/50 dark:border-neutral-600/50"
+                  className="flex items-center gap-2 px-4 py-2.5 min-h-[44px] bg-gradient-to-r from-neutral-100 to-neutral-50 dark:from-neutral-700 dark:to-neutral-800 hover:from-neutral-200 hover:to-neutral-100 dark:hover:from-neutral-600 dark:hover:to-neutral-700 rounded-xl transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 border border-neutral-200/50 dark:border-neutral-600/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                 >
-                  <Search className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                  <span className="hidden sm:inline text-sm font-medium text-gray-700 dark:text-gray-300">بحث</span>
+                  <Search className="w-5 h-5 text-neutral-600 dark:text-neutral-400" />
+                  <span className="hidden sm:inline text-sm font-medium text-neutral-700 dark:text-neutral-300">بحث</span>
                 </motion.button>
 
                 <div className="relative">
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setShowNotifications(!showNotifications)}
-                    className="relative flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-neutral-700 dark:to-neutral-800 hover:from-gray-200 hover:to-gray-100 dark:hover:from-neutral-600 dark:hover:to-neutral-700 rounded-xl transition-all shadow-md hover:shadow-lg border border-gray-200/50 dark:border-neutral-600/50"
+                    className="relative flex items-center gap-2 px-4 py-2.5 min-h-[44px] min-w-[44px] bg-gradient-to-r from-neutral-100 to-neutral-50 dark:from-neutral-700 dark:to-neutral-800 hover:from-neutral-200 hover:to-neutral-100 dark:hover:from-neutral-600 dark:hover:to-neutral-700 rounded-xl transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 border border-neutral-200/50 dark:border-neutral-600/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                   >
                     <Bell className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                     {notifications.length > 0 && (
@@ -474,11 +474,11 @@ const AdminDashboard = () => {
                 </div>
 
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={() => loadData(true)}
                   disabled={refreshing}
-                  className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 via-blue-600 to-indigo-600 hover:from-blue-700 hover:via-blue-700 hover:to-indigo-700 text-white rounded-xl transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex items-center gap-2 px-4 py-2.5 min-h-[44px] bg-gradient-to-r from-primary-600 via-primary-600 to-primary-700 hover:from-primary-700 hover:via-primary-700 hover:to-primary-800 text-white rounded-xl transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                 >
                   <RefreshCw className={`w-5 h-5 ${refreshing ? 'animate-spin' : ''}`} />
                   <span className="hidden sm:inline text-sm font-medium">تحديث</span>
@@ -502,7 +502,7 @@ const AdminDashboard = () => {
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="ابحث في النظام (مستخدمين، برامج، دورات، محتوى)..."
-                      className="w-full pr-12 pl-4 py-3 rounded-xl border-2 border-gray-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-gray-900 dark:text-white focus:outline-none focus:border-blue-500 dark:focus:border-blue-400 transition-colors"
+                      className="w-full pr-12 pl-4 py-3 min-h-[44px] rounded-xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
                                             autoFocus
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' && searchQuery.trim()) {
@@ -525,7 +525,7 @@ const AdminDashboard = () => {
                       {searchQuery && (
                         <button
                           onClick={handleSearch}
-                          className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors"
+                          className="px-3 py-1.5 min-h-[44px] bg-primary-600 hover:bg-primary-700 text-white text-xs rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                           title="ابحث (Enter)"
                         >
                           بحث
@@ -545,10 +545,10 @@ const AdminDashboard = () => {
                   <button
                     key={period}
                     onClick={() => setSelectedPeriod(period)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`px-4 py-2 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
                       selectedPeriod === period
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 dark:bg-neutral-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600'
+                        ? 'bg-primary-600 text-white shadow-elevation-2'
+                        : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
                     }`}
                   >
                     {period === 'day' && 'يوم'}
@@ -571,12 +571,12 @@ const AdminDashboard = () => {
         >
           {/* المستخدمين */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.02 }}
-            className="group relative bg-gradient-to-br from-white to-blue-50/50 dark:from-neutral-800 dark:to-blue-900/10 rounded-3xl shadow-lg hover:shadow-2xl p-6 border border-blue-100/50 dark:border-blue-800/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 cursor-pointer overflow-hidden"
+            whileHover={{ y: -2, scale: 1.01 }}
+            className="group relative bg-gradient-to-br from-white to-primary-50/50 dark:from-neutral-800 dark:to-primary-900/10 rounded-3xl shadow-elevation-2 hover:shadow-elevation-4 p-6 border border-primary-100/50 dark:border-primary-800/30 hover:border-primary-300 dark:hover:border-primary-700 transition-all duration-200 ease-out cursor-pointer overflow-hidden"
             onClick={() => window.location.href = '/admin/users'}
           >
             {/* Decorative gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 via-blue-500/0 to-blue-500/5 group-hover:from-blue-500/5 group-hover:via-blue-500/5 group-hover:to-blue-500/10 transition-all duration-300"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary-500/0 via-primary-500/0 to-primary-500/5 group-hover:from-primary-500/5 group-hover:via-primary-500/5 group-hover:to-primary-500/10 transition-all duration-200 ease-out"></div>
             <div className="relative z-10 flex items-center justify-between">
               <div className="flex-1">
                 <p className="text-gray-600 dark:text-gray-400 text-sm mb-1 font-medium">إجمالي المستخدمين</p>
@@ -600,7 +600,7 @@ const AdminDashboard = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-transform duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 dark:from-primary-600 dark:to-primary-700 rounded-2xl flex items-center justify-center shadow-elevation-2 group-hover:shadow-elevation-4 group-hover:scale-105 transition-transform duration-200 ease-out">
                 <Users className="w-8 h-8 text-white" />
               </div>
             </div>
@@ -818,10 +818,10 @@ const AdminDashboard = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    className={`relative ${action.bgColor} dark:bg-neutral-700/50 rounded-2xl p-6 border border-gray-100 dark:border-neutral-700 hover:shadow-lg transition-all duration-300 cursor-pointer group`}
+                    whileHover={{ y: -2, scale: 1.01 }}
+                    className={`relative ${action.bgColor} dark:bg-neutral-700/50 rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 hover:shadow-elevation-4 transition-all duration-200 ease-out cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2`}
                   >
-                    <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg`}>
+                    <div className={`w-12 h-12 bg-gradient-to-r ${action.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-105 transition-transform duration-200 ease-out shadow-elevation-2`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
                     <h4 className="font-bold text-gray-900 dark:text-white mb-2">{action.title}</h4>
@@ -852,10 +852,10 @@ const AdminDashboard = () => {
             </h3>
               <button
                 onClick={() => loadData(true)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-neutral-700 rounded-lg transition-colors"
+                className="p-2 min-h-[44px] min-w-[44px] hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                 title="تحديث"
               >
-                <RefreshCw className={`w-4 h-4 text-gray-600 dark:text-gray-400 ${refreshing ? 'animate-spin' : ''}`} />
+                <RefreshCw className={`w-4 h-4 text-neutral-600 dark:text-neutral-400 ${refreshing ? 'animate-spin' : ''}`} />
               </button>
             </div>
             <div className="space-y-4 max-h-96 overflow-y-auto">
@@ -871,7 +871,7 @@ const AdminDashboard = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
-                      className="flex items-start gap-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                      className="flex items-start gap-4 p-3 min-h-[44px] rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-all duration-200 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                       onClick={() => {
                         // يمكن إضافة تفاصيل أكثر
                         console.log('Activity clicked:', activity);
@@ -989,7 +989,7 @@ const AdminDashboard = () => {
               <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               المهام المعلقة
             </h3>
-            <button className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center gap-2">
+            <button className="text-sm text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 font-medium flex items-center gap-2 min-h-[44px] px-3 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2">
               عرض الكل <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -1004,7 +1004,7 @@ const AdminDashboard = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7 + index * 0.1 }}
-                className="flex items-center justify-between p-3 bg-gray-50 dark:bg-neutral-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                className="flex items-center justify-between p-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-700/50 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-200 ease-out cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
               >
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1">
@@ -1134,10 +1134,10 @@ const AdminDashboard = () => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.05, y: -4 }}
-                      className="text-center p-4 bg-white/10 backdrop-blur-md rounded-xl hover:bg-white/20 transition-all duration-300 cursor-pointer group border border-white/20"
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      className="text-center p-4 min-h-[44px] bg-white/10 backdrop-blur-md rounded-xl hover:bg-white/20 transition-all duration-200 ease-out cursor-pointer group border border-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2"
                   >
-                    <Icon className="w-8 h-8 mx-auto mb-2 text-white group-hover:scale-110 transition-transform" />
+                    <Icon className="w-8 h-8 mx-auto mb-2 text-white group-hover:scale-105 transition-transform duration-200 ease-out" />
                     <p className="text-sm font-medium text-white">{section.name}</p>
                   </motion.div>
                 </Link>

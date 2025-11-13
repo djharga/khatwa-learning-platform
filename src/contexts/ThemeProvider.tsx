@@ -55,8 +55,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Remove existing theme classes
     root.classList.remove('light', 'dark');
     
-    // Add smooth transition for theme change
-    root.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+    // Add smooth transition for theme change - محسّن للسرعة (200ms)
+    root.style.transition = 'background-color 200ms ease-out, color 200ms ease-out, border-color 200ms ease-out';
     
     // Apply new theme
     if (themeToApply === 'dark') {

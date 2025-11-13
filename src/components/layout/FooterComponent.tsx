@@ -73,45 +73,44 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
       transition={{ duration: 0.6, delay: 0.1 }}
     >
       {/* Logo and Brand */}
-      <div className="mb-6">
+      <div className="mb-8">
         <motion.div 
-          className="flex items-center gap-3 mb-3"
+          className="flex items-center gap-3 mb-4"
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
         >
           <motion.div 
-            className="p-3 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl shadow-primary-md relative overflow-hidden hover-glow-primary-md transition-glow"
+            className="p-3.5 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl shadow-lg relative overflow-hidden"
             whileHover={{ 
-              boxShadow: 'var(--shadow-primary-lg)',
+              boxShadow: '0 10px 25px rgba(99, 102, 241, 0.3)',
             }}
             transition={{ duration: 0.3 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-            <span className="text-2xl relative z-10">🎓</span>
+            <span className="text-2xl relative z-10 block" style={{ fontSize: '1.75rem' }}>🎓</span>
           </motion.div>
           <div>
-            <h3 className="text-3xl font-bold bg-gradient-to-r from-white via-white to-blue-200 bg-clip-text text-transparent leading-tight font-heading heading-tech text-shadow-sm">
+            <h3 className="text-3xl font-bold bg-gradient-to-r from-white via-white to-blue-200 bg-clip-text text-transparent leading-tight">
               خطى التعليمية
             </h3>
-            <p className="text-neutral-200 text-base font-medium mt-1">
+            <p className="text-neutral-200 text-base font-medium mt-2">
               منصة التعلم المهني الأولى
             </p>
           </div>
         </motion.div>
       </div>
 
-      {/* Description */}
-      <p className="text-neutral-300 text-base leading-relaxed max-w-md">
+      {/* Description - Enhanced spacing and line-height */}
+      <p className="text-neutral-300 text-base leading-loose max-w-md mb-4">
         منصة تعليمية متخصصة في المراجعة الداخلية والمحاسبة، نقدم محتوى عالي الجودة
         ومسارات تعليمية متكاملة لتطوير المهارات المهنية والارتقاء بالكفاءات العملية.
       </p>
 
-      {/* Trust Badges */}
-      <div className="flex flex-wrap gap-2 pt-2">
+      {/* Trust Badges - Enhanced contrast, no glow, unified height, clean hover */}
+      <div className="flex flex-wrap gap-3 pt-2">
         {[
-          { icon: Award, text: 'شهادات معتمدة', gradient: 'from-yellow-500/20 to-amber-500/20', iconColor: 'text-yellow-400' },
-          { icon: Shield, text: 'آمن ومضمون', gradient: 'from-green-500/20 to-emerald-500/20', iconColor: 'text-green-400' },
-          { icon: Clock, text: 'دعم 24/7', gradient: 'from-blue-500/20 to-cyan-500/20', iconColor: 'text-blue-400' },
+          { icon: Award, text: 'شهادات معتمدة', bgColor: 'bg-yellow-500/20', iconBgColor: 'bg-yellow-500/20', iconColor: 'text-yellow-400', hoverStyle: 'hover:bg-yellow-500/30' },
+          { icon: Shield, text: 'آمن ومضمون', bgColor: 'bg-green-500/20', iconBgColor: 'bg-green-500/20', iconColor: 'text-green-400', hoverStyle: 'hover:bg-green-500/30' },
+          { icon: Clock, text: 'دعم 24/7', bgColor: 'bg-blue-500/20', iconBgColor: 'bg-blue-500/20', iconColor: 'text-blue-400', hoverStyle: 'hover:bg-blue-500/30' },
         ].map((badge, index) => {
           const BadgeIcon = badge.icon;
           return (
@@ -121,22 +120,22 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
               whileHover={{ 
-                scale: 1.05,
+                scale: 1.02,
+                backgroundColor: index === 0 ? 'rgba(234, 179, 8, 0.3)' : index === 1 ? 'rgba(34, 197, 94, 0.3)' : 'rgba(59, 130, 246, 0.3)',
               }}
-              className={`flex items-center gap-2 px-3 py-2 bg-gradient-to-br ${badge.gradient} backdrop-blur-sm rounded-lg border border-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer relative overflow-hidden group hover-glow-primary-xs transition-glow`}
+              className={`flex items-center gap-2.5 px-4 py-2.5 ${badge.bgColor} rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer`}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-x-full group-hover:translate-x-full" />
-              <div className={`p-1.5 bg-gradient-to-br ${badge.gradient} rounded-lg relative z-10`}>
-                <BadgeIcon className={`w-4 h-4 ${badge.iconColor} relative z-10`} />
+              <div className={`p-1.5 ${badge.iconBgColor} rounded-lg`}>
+                <BadgeIcon className={`w-5 h-5 ${badge.iconColor}`} strokeWidth={2} />
               </div>
-              <span className="text-sm text-neutral-200 font-medium relative z-10">{badge.text}</span>
+              <span className="text-sm text-neutral-200 font-medium">{badge.text}</span>
             </motion.div>
           );
         })}
       </div>
 
-      {/* Contact Info */}
-      <div className="space-y-2 pt-4">
+      {/* Contact Info - Unified icon sizes, improved spacing and colors */}
+      <div className="space-y-3 pt-4">
         {contactInfo.map((info, index) => {
           const IconComponent = getContactIcon(info.icon);
           return (
@@ -147,15 +146,14 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
               whileHover={{ x: 5 }}
-              className="flex items-center gap-3 text-neutral-300 hover:text-white transition-colors duration-200 py-2 group"
+              className="flex items-center gap-3 text-neutral-200 hover:text-white transition-colors duration-200 py-2.5 group"
               aria-label={info.text}
             >
               <motion.div 
-                className="p-2 bg-gradient-to-br from-primary-500/10 to-purple-500/10 rounded-lg group-hover:from-primary-500/30 group-hover:to-purple-500/30 transition-all duration-300 relative overflow-hidden"
-                whileHover={{ scale: 1.1 }}
+                className="p-2 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-all duration-200"
+                whileHover={{ scale: 1.05 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <IconComponent className="w-4 h-4 text-primary-300 group-hover:text-primary-200 transition-colors relative z-10" aria-hidden="true" />
+                <IconComponent className="w-5 h-5 text-primary-300 group-hover:text-primary-200 transition-colors" aria-hidden="true" strokeWidth={2} />
               </motion.div>
               <span className="text-base font-medium">{info.text}</span>
             </motion.a>
@@ -217,13 +215,13 @@ const FooterLinksGrid = ({ sections }: FooterLinksGridProps) => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.3 + sectionIndex * 0.1 }}
           >
-            <div className="relative bg-gradient-to-br from-white/5 via-white/3 to-transparent backdrop-blur-sm rounded-lg p-6 border border-white/10 hover:border-white/20 transition-all duration-300 group h-full flex flex-col hover:shadow-elevation-3 hover-glow-primary-xs">
-              <h4 className="text-lg font-bold text-white pb-3 mb-4 relative min-h-[2.5rem] text-shadow-sm heading-tech">
-                <span className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300" />
+            <div className="relative bg-gradient-to-br from-white/5 via-white/3 to-transparent rounded-lg p-8 border border-white/10 hover:border-white/20 transition-all duration-300 group h-full flex flex-col">
+              {/* Top border - subtle white line with 10% opacity */}
+              <div className="absolute top-0 right-0 left-0 h-px bg-white/10" />
+              <h4 className="text-lg font-extrabold text-white pb-3 mb-5 relative min-h-[2.5rem]">
                 <span className="relative z-10 block">{section.title}</span>
-                <span className="absolute bottom-0 right-0 w-full h-px bg-gradient-to-r from-primary-500/30 via-purple-500/30 to-transparent" />
               </h4>
-              <ul className="space-y-2 flex-1">
+              <ul className="space-y-2.5 flex-1">
                 {section.links.map((link, linkIndex) => (
                   <motion.li 
                     key={linkIndex}
@@ -233,14 +231,12 @@ const FooterLinksGrid = ({ sections }: FooterLinksGridProps) => {
                   >
                     <Link
                       href={link.href}
-                      className="text-neutral-200 hover:text-white transition-all duration-200 text-sm py-2 block relative group/link"
+                      className="text-neutral-200 hover:text-white transition-all duration-200 text-sm py-2 block relative group/link leading-relaxed font-normal"
                       aria-label={link.text}
                     >
                       <span className="relative z-10 flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 bg-gradient-to-r from-primary-400 to-purple-400 rounded-full opacity-0 group-hover/link:opacity-100 transition-opacity duration-200" />
                         <span>{link.text}</span>
                       </span>
-                      <span className="absolute right-0 bottom-0 w-0 h-0.5 bg-gradient-to-r from-primary-400 to-purple-400 group-hover/link:w-full transition-all duration-300" />
                     </Link>
                   </motion.li>
                 ))}
@@ -435,25 +431,10 @@ const FooterComponent = () => {
   const currentYear = toEnglishDigits(new Date().getFullYear());
 
   return (
-    <footer className="relative bg-gradient-to-br from-indigo-950 via-purple-950 to-blue-950 text-white overflow-hidden">
+    <footer className="relative bg-gradient-to-br from-indigo-950 via-purple-950 to-indigo-950 text-white overflow-hidden">
       <div className="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent z-20" />
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }}
-        />
-      </div>
-
-      {/* Gradient Overlay for Depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40 pointer-events-none" />
-      
-      {/* Glow Effects */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Gradient Overlay for Depth - Improved contrast */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30 pointer-events-none" />
 
       {/* Main Footer Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8 z-10">

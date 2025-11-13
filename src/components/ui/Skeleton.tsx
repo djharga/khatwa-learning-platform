@@ -26,7 +26,7 @@ export function Skeleton({
   ...props
 }: SkeletonProps) {
   const baseClasses =
-    'relative bg-neutral-200 dark:bg-neutral-700/80 overflow-hidden rounded isolate';
+    'relative bg-neutral-200 dark:bg-neutral-700/80 overflow-hidden rounded isolate transition-all duration-200 ease-out';
   const variantClasses = {
     default: 'rounded-lg',
     text: 'rounded',

@@ -1,0 +1,684 @@
+/* ============================================
+   🎨 Design System - منصة خطى التعليمية
+   ============================================
+   نظام تصميم موحد ومحسّن لتجربة مستخدم متسقة
+   Arabic RTL Educational Platform (Accounting/Audit)
+   
+   ⚠️ هذا هو الملف الوحيد والمصدر الوحيد لـ CSS Variables في المشروع!
+   جميع القيم متزامنة مع src/tokens.ts
+   ============================================ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   🎨 نظام الألوان (Colors System)
+   ============================================ */
+
+:root {
+  /* Primary Brand Colors - أزرق احترافي (slate) */
+  --color-primary-brand-50: #f7fafc;
+  --color-primary-brand-100: #f1f5f9;
+  --color-primary-brand-200: #e2e8f0;
+  --color-primary-brand-300: #cbd5e1;
+  --color-primary-brand-400: #94a3b8;
+  --color-primary-brand-500: #64748b;
+  --color-primary-brand-600: #475569;
+  --color-primary-brand-700: #334155;
+  --color-primary-brand-800: #1e293b;
+  --color-primary-brand-900: #0f172a;
+
+  /* Primary Palette - تدرج أزرق احترافي */
+  --color-primary-50: #f0f4ff;
+  --color-primary-100: #e0e7ff;
+  --color-primary-200: #c7d2fe;
+  --color-primary-300: #a5b4fc;
+  --color-primary-400: #818cf8;
+  --color-primary-500: #6366f1;
+  --color-primary-600: #4f46e5;
+  --color-primary-700: #4338ca;
+  --color-primary-800: #3730a3;
+  --color-primary-900: #312e81;
+  --color-primary: var(--color-primary-500);
+
+  /* Accent Palette - أزرق فاتح للتفاعلات */
+  --color-accent-50: #eff6ff;
+  --color-accent-100: #dbeafe;
+  --color-accent-200: #bfdbfe;
+  --color-accent-300: #93c5fd;
+  --color-accent-400: #60a5fa;
+  --color-accent-500: #3b82f6;
+  --color-accent-600: #2563eb;
+  --color-accent-700: #1d4ed8;
+  --color-accent-800: #1e40af;
+  --color-accent-900: #1e3a8a;
+  --color-accent: var(--color-accent-500);
+
+  /* Neutral Palette - رمادي متوازن */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #3f3f46;
+  --color-neutral-800: #27272a;
+  --color-neutral-900: #18181b;
+
+  /* Secondary Colors - ألوان وظيفية */
+  --color-secondary-learn-50: #f0fdf4;
+  --color-secondary-learn-100: #dcfce7;
+  --color-secondary-learn-200: #bbf7d0;
+  --color-secondary-learn-300: #86efac;
+  --color-secondary-learn-400: #4ade80;
+  --color-secondary-learn-500: #38a169;
+  --color-secondary-learn-600: #16a34a;
+  --color-secondary-learn-700: #15803d;
+  --color-secondary-learn-800: #166534;
+  --color-secondary-learn-900: #14532d;
+  --color-secondary-learn: var(--color-secondary-learn-500);
+
+  --color-secondary-expert-50: #eff6ff;
+  --color-secondary-expert-100: #dbeafe;
+  --color-secondary-expert-200: #bfdbfe;
+  --color-secondary-expert-300: #93c5fd;
+  --color-secondary-expert-400: #60a5fa;
+  --color-secondary-expert-500: #3182ce;
+  --color-secondary-expert-600: #2563eb;
+  --color-secondary-expert-700: #1d4ed8;
+  --color-secondary-expert-800: #1e40af;
+  --color-secondary-expert-900: #1e3a8a;
+  --color-secondary-expert: var(--color-secondary-expert-500);
+
+  --color-secondary-innovate-50: #faf5ff;
+  --color-secondary-innovate-100: #f3e8ff;
+  --color-secondary-innovate-200: #e9d5ff;
+  --color-secondary-innovate-300: #d8b4fe;
+  --color-secondary-innovate-400: #c084fc;
+  --color-secondary-innovate-500: #805ad5;
+  --color-secondary-innovate-600: #7c3aed;
+  --color-secondary-innovate-700: #6d28d9;
+  --color-secondary-innovate-800: #5b21b6;
+  --color-secondary-innovate-900: #4c1d95;
+  --color-secondary-innovate: var(--color-secondary-innovate-500);
+
+  --color-secondary-secure-50: #f8fafc;
+  --color-secondary-secure-100: #f1f5f9;
+  --color-secondary-secure-200: #e2e8f0;
+  --color-secondary-secure-300: #cbd5e1;
+  --color-secondary-secure-400: #94a3b8;
+  --color-secondary-secure-500: #2d3748;
+  --color-secondary-secure-600: #1a202c;
+  --color-secondary-secure-700: #171923;
+  --color-secondary-secure-800: #0f1419;
+  --color-secondary-secure-900: #0a0e14;
+  --color-secondary-secure: var(--color-secondary-secure-500);
+
+  /* Status Colors - ألوان دلالية */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+  --color-success-900: #14532d;
+  --color-success: var(--color-success-500);
+  --color-success-light: #68d391;
+
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+  --color-danger-900: #7f1d1d;
+  --color-danger: var(--color-danger-500);
+  --color-danger-light: #fc8181;
+
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #d97706;
+  --color-warning-600: #b45309;
+  --color-warning-700: #92400e;
+  --color-warning-800: #78350f;
+  --color-warning-900: #78350f;
+  --color-warning: var(--color-warning-500);
+  --color-warning-light: #fbbf24;
+
+  --color-info-50: #eff6ff;
+  --color-info-100: #dbeafe;
+  --color-info-200: #bfdbfe;
+  --color-info-300: #93c5fd;
+  --color-info-400: #60a5fa;
+  --color-info-500: #3b82f6;
+  --color-info-600: #2563eb;
+  --color-info-700: #1d4ed8;
+  --color-info-800: #1e40af;
+  --color-info-900: #1e3a8a;
+  --color-info: var(--color-info-500);
+  --color-info-light: #63b3ed;
+
+  /* Background Colors - هرمية محسّنة */
+  --color-background-primary: #ffffff;
+  --color-background-alt: #fafbfc;
+  --color-background-subtle: #f5f7fa;
+  --color-background-surface: #ffffff;
+  --color-background-surface-alt: #fafbfc;
+  --color-background-surface-elevated: #ffffff;
+  --color-background-surface-glow: #f8f9fb;
+  --color-background: var(--color-background-primary);
+
+  /* Text Colors - تباين محسّن (WCAG AA/AAA compliant) */
+  --color-text-primary: #1a202c;
+  --color-text-secondary: #4a5568;
+  --color-text-tertiary: #718096;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+  --color-text: var(--color-text-primary);
+
+  /* ============================================
+     📏 نظام المسافات (Spacing System - 8px Grid)
+     ============================================ */
+  --spacing-0: 0;
+  --spacing-0-5: 0.125rem; /* 2px */
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-1-5: 0.375rem; /* 6px */
+  --spacing-2: 0.5rem; /* 8px - الوحدة الأساسية */
+  --spacing-2-5: 0.625rem; /* 10px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-3-5: 0.875rem; /* 14px */
+  --spacing-4: 1rem; /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-7: 1.75rem; /* 28px */
+  --spacing-8: 2rem; /* 32px */
+  --spacing-9: 2.25rem; /* 36px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-11: 2.75rem; /* 44px */
+  --spacing-12: 3rem; /* 48px */
+  --spacing-14: 3.5rem; /* 56px */
+  --spacing-16: 4rem; /* 64px */
+  --spacing-20: 5rem; /* 80px */
+  --spacing-24: 6rem; /* 96px */
+  --spacing-28: 7rem; /* 112px */
+  --spacing-32: 8rem; /* 128px */
+  --spacing-36: 9rem; /* 144px */
+  --spacing-40: 10rem; /* 160px */
+  --spacing-44: 11rem; /* 176px */
+  --spacing-48: 12rem; /* 192px */
+  --spacing-52: 13rem; /* 208px */
+  --spacing-56: 14rem; /* 224px */
+  --spacing-60: 15rem; /* 240px */
+  --spacing-64: 16rem; /* 256px */
+  --spacing-72: 18rem; /* 288px */
+  --spacing-80: 20rem; /* 320px */
+  --spacing-96: 24rem; /* 384px */
+
+  /* Semantic Spacing - مسافات دلالية */
+  --spacing-component-tight: var(--spacing-2);
+  --spacing-component-normal: var(--spacing-4);
+  --spacing-component-relaxed: var(--spacing-6);
+  --spacing-component-spacious: var(--spacing-8);
+
+  --spacing-section-compact: var(--spacing-12);
+  --spacing-section-normal: var(--spacing-16);
+  --spacing-section-relaxed: var(--spacing-20);
+  --spacing-section-spacious: var(--spacing-24);
+
+  --spacing-gap-tight: var(--spacing-2);
+  --spacing-gap-normal: var(--spacing-4);
+  --spacing-gap-relaxed: var(--spacing-6);
+  --spacing-gap-spacious: var(--spacing-8);
+
+  --spacing-padding-xs: var(--spacing-1);
+  --spacing-padding-sm: var(--spacing-2);
+  --spacing-padding-md: var(--spacing-4);
+  --spacing-padding-lg: var(--spacing-6);
+  --spacing-padding-xl: var(--spacing-8);
+  --spacing-padding-2xl: var(--spacing-12);
+  --spacing-padding-3xl: var(--spacing-16);
+
+  --spacing-margin-xs: var(--spacing-2);
+  --spacing-margin-sm: var(--spacing-4);
+  --spacing-margin-md: var(--spacing-6);
+  --spacing-margin-lg: var(--spacing-8);
+  --spacing-margin-xl: var(--spacing-12);
+  --spacing-margin-2xl: var(--spacing-16);
+  --spacing-margin-3xl: var(--spacing-24);
+
+  /* ============================================
+     🔲 نظام Border Radius
+     ============================================ */
+  --radius-none: 0;
+  --radius-xs: 0.25rem; /* 4px */
+  --radius-sm: 0.375rem; /* 6px */
+  --radius-md: 0.5rem; /* 8px - الحجم الافتراضي */
+  --radius-lg: 0.75rem; /* 12px */
+  --radius-xl: 1rem; /* 16px */
+  --radius-2xl: 1.5rem; /* 24px */
+  --radius-3xl: 2rem; /* 32px */
+  --radius-4xl: 2.5rem; /* 40px */
+  --radius-full: 9999px;
+  --radius: var(--radius-md);
+
+  /* Semantic Radius */
+  --radius-button: var(--radius-md);
+  --radius-card: var(--radius-lg);
+  --radius-modal: var(--radius-xl);
+  --radius-badge: var(--radius-full);
+  --radius-input: var(--radius-md);
+
+  /* ============================================
+     🔲 نظام Border Width
+     ============================================ */
+  --border-width-0: 0;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+  --border-width-8: 8px;
+  --border-width: var(--border-width-1);
+  --border-width-thick: var(--border-width-2);
+  --border-width-extra-thick: var(--border-width-4);
+
+  /* ============================================
+     🌑 نظام الظلال (Shadows System)
+     ============================================ */
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-3xl: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+  /* Inner Shadows */
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  --shadow-inner-sm: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-inner-md: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-inner-lg: inset 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+  --shadow-inner-xl: inset 0 8px 12px 0 rgba(0, 0, 0, 0.15);
+
+  /* Elevation System */
+  --shadow-elevation-0: none;
+  --shadow-elevation-1: 0 1px 2px 0 rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  --shadow-elevation-2: 0 2px 4px -1px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  --shadow-elevation-3: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-elevation-4: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  --shadow-elevation-5: 0 20px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-elevation-6: 0 25px 50px -12px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  --shadow-elevation-7: 0 35px 60px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-elevation-8: 0 40px 80px -16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.12);
+
+  /* Colored Shadows - Primary */
+  --shadow-primary-xs: 0 1px 4px rgba(99, 102, 241, 0.15), 0 0 0 1px rgba(99, 102, 241, 0.1);
+  --shadow-primary-sm: 0 2px 8px rgba(99, 102, 241, 0.2), 0 0 0 1px rgba(99, 102, 241, 0.15);
+  --shadow-primary-md: 0 4px 12px rgba(99, 102, 241, 0.25), 0 0 0 1px rgba(99, 102, 241, 0.2);
+  --shadow-primary-lg: 0 8px 24px rgba(99, 102, 241, 0.3), 0 0 0 1px rgba(99, 102, 241, 0.25);
+  --shadow-primary-xl: 0 12px 32px rgba(99, 102, 241, 0.35), 0 0 0 1px rgba(99, 102, 241, 0.3);
+  --shadow-primary-2xl: 0 16px 48px rgba(99, 102, 241, 0.4), 0 0 0 1px rgba(99, 102, 241, 0.35);
+  --shadow-primary: var(--shadow-primary-md);
+
+  /* Colored Shadows - Accent */
+  --shadow-accent-xs: 0 1px 4px rgba(59, 130, 246, 0.15), 0 0 0 1px rgba(59, 130, 246, 0.1);
+  --shadow-accent-sm: 0 2px 8px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.15);
+  --shadow-accent-md: 0 4px 12px rgba(59, 130, 246, 0.25), 0 0 0 1px rgba(59, 130, 246, 0.2);
+  --shadow-accent-lg: 0 8px 24px rgba(59, 130, 246, 0.3), 0 0 0 1px rgba(59, 130, 246, 0.25);
+  --shadow-accent-xl: 0 12px 32px rgba(59, 130, 246, 0.35), 0 0 0 1px rgba(59, 130, 246, 0.3);
+  --shadow-accent-2xl: 0 16px 48px rgba(59, 130, 246, 0.4), 0 0 0 1px rgba(59, 130, 246, 0.35);
+  --shadow-accent: var(--shadow-accent-md);
+
+  /* Glow Effects */
+  --shadow-glow-primary-xs: 0 0 4px rgba(99, 102, 241, 0.15), 0 0 8px rgba(99, 102, 241, 0.1);
+  --shadow-glow-primary-sm: 0 0 8px rgba(99, 102, 241, 0.25), 0 0 16px rgba(99, 102, 241, 0.15);
+  --shadow-glow-primary-md: 0 0 16px rgba(99, 102, 241, 0.4), 0 0 32px rgba(99, 102, 241, 0.2);
+  --shadow-glow-primary-lg: 0 0 24px rgba(99, 102, 241, 0.5), 0 0 48px rgba(99, 102, 241, 0.3);
+  --shadow-glow-primary-xl: 0 0 32px rgba(99, 102, 241, 0.6), 0 0 64px rgba(99, 102, 241, 0.4);
+  --shadow-glow-primary-2xl: 0 0 48px rgba(99, 102, 241, 0.7), 0 0 96px rgba(99, 102, 241, 0.5);
+  --shadow-glow-primary: var(--shadow-glow-primary-md);
+
+  --shadow-glow-accent-xs: 0 0 4px rgba(59, 130, 246, 0.15), 0 0 8px rgba(59, 130, 246, 0.1);
+  --shadow-glow-accent-sm: 0 0 8px rgba(59, 130, 246, 0.25), 0 0 16px rgba(59, 130, 246, 0.15);
+  --shadow-glow-accent-md: 0 0 16px rgba(59, 130, 246, 0.4), 0 0 32px rgba(59, 130, 246, 0.2);
+  --shadow-glow-accent-lg: 0 0 24px rgba(59, 130, 246, 0.5), 0 0 48px rgba(59, 130, 246, 0.3);
+  --shadow-glow-accent-xl: 0 0 32px rgba(59, 130, 246, 0.6), 0 0 64px rgba(59, 130, 246, 0.4);
+  --shadow-glow-accent-2xl: 0 0 48px rgba(59, 130, 246, 0.7), 0 0 96px rgba(59, 130, 246, 0.5);
+  --shadow-glow-accent: var(--shadow-glow-accent-md);
+
+  /* Border Glow */
+  --shadow-glow-border-primary: 0 0 0 1px rgba(99, 102, 241, 0.2), 0 0 8px rgba(99, 102, 241, 0.1);
+  --shadow-glow-border-accent: 0 0 0 1px rgba(59, 130, 246, 0.2), 0 0 8px rgba(59, 130, 246, 0.1);
+  --shadow-glow-border-subtle: 0 0 0 1px rgba(99, 102, 241, 0.1), 0 0 4px rgba(99, 102, 241, 0.05);
+  --shadow-glow-border-strong: 0 0 0 1px rgba(99, 102, 241, 0.3), 0 0 12px rgba(99, 102, 241, 0.2);
+
+  /* ============================================
+     ⚡ نظام الحركة والانتقالات (Motion System)
+     ============================================ */
+  --duration-instant: 75ms;
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 500ms;
+  --duration-slowest: 700ms;
+  --duration-transition: var(--duration-normal);
+  --duration-hover: var(--duration-fast);
+  --duration-focus: 100ms;
+  --duration-animation: var(--duration-slow);
+
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+
+  /* ============================================
+     📝 نظام الطباعة (Typography System)
+     ============================================ */
+  /* Font Families */
+  --font-sans: var(--font-nunito-sans), "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: var(--font-nunito-sans), "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-arabic: var(--font-cairo), "Cairo", var(--font-inter), "Inter", "Nunito Sans", system-ui, sans-serif;
+  --font-english: var(--font-inter), "Inter", "Roboto", system-ui, sans-serif;
+  --font-cairo: var(--font-cairo), "Cairo", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier New", monospace;
+
+  /* Font Sizes - Responsive (Fluid Typography) */
+  --text-xs: clamp(0.664rem, 0.638rem + 0.21vw, 0.798rem);
+  --text-sm: clamp(0.798rem, 0.744rem + 0.26vw, 0.93rem);
+  --text-base: clamp(0.93rem, 0.85rem + 0.26vw, 1.063rem);
+  --text-lg: clamp(1.063rem, 0.956rem + 0.33vw, 1.195rem);
+  --text-xl: clamp(1.195rem, 1.063rem + 0.43vw, 1.461rem);
+  --text-2xl: clamp(1.329rem, 1.223rem + 0.64vw, 1.726rem);
+  --text-3xl: clamp(1.594rem, 1.488rem + 0.96vw, 2.125rem);
+  --text-4xl: clamp(1.993rem, 1.754rem + 1.28vw, 2.789rem);
+  --text-5xl: clamp(2.391rem, 2.125rem + 2.13vw, 3.586rem);
+  --text-6xl: clamp(2.923rem, 2.656rem + 3.19vw, 4.781rem);
+  --text-7xl: clamp(3.454rem, 3.188rem + 4.25vw, 5.844rem);
+
+  /* Display Sizes */
+  --text-display-sm: clamp(2.391rem, 2.125rem + 2.13vw, 3.586rem);
+  --text-display-md: clamp(3.188rem, 2.656rem + 4.25vw, 5.18rem);
+  --text-display-lg: clamp(3.985rem, 3.188rem + 6.38vw, 7.173rem);
+
+  /* Font Weights */
+  --font-thin: 100;
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  --font-black: 900;
+
+  /* Line Heights */
+  --line-height-none: 1;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 1.75;
+  --line-height-extra-tight: 1.1;
+  --line-height-extra-loose: 2;
+  --line-height-body: var(--line-height-relaxed);
+  --line-height-heading: var(--line-height-tight);
+
+  /* Letter Spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+  --letter-spacing-tech-tight: -0.02em;
+  --letter-spacing-tech-wide: 0.03em;
+  --letter-spacing-display-tight: -0.03em;
+
+  /* ============================================
+     🎯 أحجام الأيقونات (Icon Sizes)
+     ============================================ */
+  --icon-xs: 0.875rem; /* 14px */
+  --icon-sm: 1rem; /* 16px */
+  --icon-md: 1.25rem; /* 20px */
+  --icon-lg: 1.5rem; /* 24px */
+  --icon-xl: 2rem; /* 32px */
+  --icon-2xl: 2.5rem; /* 40px */
+  --icon-3xl: 3rem; /* 48px */
+
+  /* ============================================
+     🖱️ أحجام مناطق النقر (Touch Targets)
+     ============================================ */
+  --touch-target-min: 40px;
+  --touch-target-comfortable: 44px;
+  --touch-target-spacious: 48px;
+  --touch-target-extra-spacious: 56px;
+
+  /* ============================================
+     📍 نظام Z-Index
+     ============================================ */
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+  --z-toast: 1080;
+  --z-max: 9999;
+
+  /* ============================================
+     👁️ نظام Opacity
+     ============================================ */
+  --opacity-0: 0;
+  --opacity-5: 0.05;
+  --opacity-10: 0.1;
+  --opacity-20: 0.2;
+  --opacity-25: 0.25;
+  --opacity-30: 0.3;
+  --opacity-40: 0.4;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-75: 0.75;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-95: 0.95;
+  --opacity-100: 1;
+  --opacity-disabled: var(--opacity-50);
+  --opacity-hover: var(--opacity-80);
+  --opacity-focus: var(--opacity-90);
+}
+
+/* ============================================
+   🌙 Dark Mode Variables
+   ============================================ */
+.dark {
+  /* Background Colors - Dark Mode */
+  --color-background-primary: #0f172a;
+  --color-background-alt: #1e293b;
+  --color-background-subtle: #334155;
+  --color-background-surface: #1e293b;
+  --color-background-surface-alt: #334155;
+  --color-background-surface-elevated: #475569;
+  --color-background-surface-glow: #1a1f2e;
+  --color-background: var(--color-background-primary);
+
+  /* Text Colors - Dark Mode */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #0f172a;
+  --color-text: var(--color-text-primary);
+}
+
+/* ============================================
+   🎨 Base Styles
+   ============================================ */
+@layer base {
+  html {
+    direction: rtl;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-body);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-bold);
+    line-height: var(--line-height-heading);
+    color: var(--color-text-primary);
+  }
+
+  /* Focus Styles - محسّنة للوصولية WCAG AA */
+  *:focus-visible {
+    outline: 3px solid var(--color-primary-600);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+    box-shadow: 0 0 0 1px var(--color-background-primary), 0 0 0 4px var(--color-primary-500);
+  }
+
+  /* Remove outlines for non-interactive elements */
+  *:focus:not(:focus-visible) {
+    outline: none;
+  }
+  
+  /* Links and Buttons - تحسينات إضافية */
+  a:focus:not(:focus-visible),
+  button:focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Selection Styles */
+  ::selection {
+    background: var(--color-primary-200);
+    color: var(--color-primary-900);
+  }
+
+  .dark ::selection {
+    background: var(--color-primary-800);
+    color: var(--color-primary-100);
+  }
+}
+
+/* ============================================
+   🎨 Scrollbar Styles
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background-subtle);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-400);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-500);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-background-subtle);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-600);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-500);
+}
+
+/* Custom Scrollbar for Sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-300);
+  border-radius: var(--radius-full);
+  transition: background-color var(--duration-fast) var(--ease-out);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-400);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-neutral-500);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral-600);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-500);
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:active {
+  background-color: var(--color-neutral-400);
+}
+
+/* ============================================
+   ⚡ Reduced Motion Support
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   🎨 Global Transition Enhancement
+   ============================================
+   تحسين الانتقالات العامة للعناصر التفاعلية فقط
+   ============================================ */
+/* تحسين transitions للعناصر التفاعلية */
+button, a, input, select, textarea, [role="button"], [role="link"] {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+

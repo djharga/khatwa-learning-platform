@@ -165,8 +165,8 @@ const RegisterPage = () => {
     visible: {
       opacity: 1,
       transition: {
-        duration: 0.8,
-        staggerChildren: 0.2,
+        duration: 0.2,
+        staggerChildren: 0.1,
       },
     },
   };
@@ -176,14 +176,14 @@ const RegisterPage = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
+                    transition: { duration: 0.2, ease: 'easeOut' },
     },
   };
 
   const stepVariants: Variants = {
     hidden: { opacity: 0, x: 50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-    exit: { opacity: 0, x: -50, transition: { duration: 0.3 } },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
+    exit: { opacity: 0, x: -50, transition: { duration: 0.2 } },
   };
 
   return (
@@ -308,10 +308,10 @@ const RegisterPage = () => {
                     {steps.map((step, index) => (
                       <div key={step.id} className="flex items-center">
                         <div
-                          className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-300 ${
+                          className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all duration-200 ease-out ${
                             step.id <= currentStep
-                              ? 'bg-gradient-primary-smooth text-white shadow-lg'
-                              : 'bg-gray-200 text-gray-500'
+                              ? 'bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600 text-white shadow-elevation-2'
+                              : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400'
                           }`}
                         >
                           {step.id < currentStep ? (
@@ -322,10 +322,10 @@ const RegisterPage = () => {
                         </div>
                         {index < steps.length - 1 && (
                           <div
-                            className={`w-16 h-1 mx-2 rounded transition-all duration-300 ${
+                            className={`w-16 h-1 mx-2 rounded transition-all duration-200 ease-out ${
                               step.id < currentStep
-                                ? 'bg-gradient-primary-smooth'
-                                : 'bg-gray-200'
+                                ? 'bg-gradient-to-r from-primary-600 to-primary-700 dark:from-primary-500 dark:to-primary-600'
+                                : 'bg-neutral-200 dark:bg-neutral-700'
                             }`}
                           />
                         )}
@@ -347,21 +347,21 @@ const RegisterPage = () => {
                   <div className="space-y-3 mb-6">
                     <button
                       onClick={() => handleSocialRegister('Google')}
-                      className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all duration-300 hover:scale-105"
+                      className="w-full min-h-[44px] flex items-center justify-center py-3 px-4 border border-neutral-300 dark:border-neutral-600 rounded-xl shadow-elevation-2 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-elevation-4 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                     >
                       <FcGoogle className="h-5 w-5 ml-2" />
                       التسجيل عبر Google
                     </button>
                     <button
                       onClick={() => handleSocialRegister('Facebook')}
-                      className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all duration-300 hover:scale-105"
+                      className="w-full min-h-[44px] flex items-center justify-center py-3 px-4 border border-neutral-300 dark:border-neutral-600 rounded-xl shadow-elevation-2 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-elevation-4 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                     >
                       <FaFacebook className="h-5 w-5 ml-2 text-blue-600" />
                       التسجيل عبر Facebook
                     </button>
                     <button
                       onClick={() => handleSocialRegister('Twitter')}
-                      className="w-full flex items-center justify-center py-3 px-4 border border-gray-300 rounded-xl shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all duration-300 hover:scale-105"
+                      className="w-full min-h-[44px] flex items-center justify-center py-3 px-4 border border-neutral-300 dark:border-neutral-600 rounded-xl shadow-elevation-2 bg-white dark:bg-neutral-800 text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-elevation-4 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                     >
                       <FaTwitter className="h-5 w-5 ml-2 text-blue-400" />
                       التسجيل عبر Twitter
@@ -372,10 +372,10 @@ const RegisterPage = () => {
                 {currentStep === 1 && (
                   <div className="relative mb-6">
                     <div className="absolute inset-0 flex items-center">
-                      <div className="w-full border-t border-gray-300" />
+                      <div className="w-full border-t border-neutral-300 dark:border-neutral-600" />
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <span className="px-4 bg-white text-gray-500">أو</span>
+                      <span className="px-4 bg-white dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">أو</span>
                     </div>
                   </div>
                 )}
@@ -397,10 +397,10 @@ const RegisterPage = () => {
                         <div className="relative">
                           <label
                             htmlFor="firstName"
-                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-300 ${
+                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-200 ease-out ${
                               formData.firstName
-                                ? 'text-accent -top-2 text-xs bg-white px-1'
-                                : 'text-text-muted'
+                                ? 'text-primary-600 dark:text-primary-400 -top-2 text-xs bg-white dark:bg-neutral-800 px-1'
+                                : 'text-neutral-500 dark:text-neutral-400'
                             }`}
                           >
                             الاسم الأول
@@ -412,16 +412,16 @@ const RegisterPage = () => {
                             onChange={(e) =>
                               handleInputChange('firstName', e.target.value)
                             }
-                            className={`w-full pr-10 pl-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-accent/20 focus:border-accent ${
+                            className={`w-full pr-10 pl-4 py-3 min-h-[44px] border rounded-xl bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400 ${
                               errors.firstName
-                                ? 'border-error'
-                                : 'border-gray-300'
+                                ? 'border-danger-500 dark:border-danger-400'
+                                : 'border-neutral-300 dark:border-neutral-600'
                             }`}
                             placeholder="أدخل اسمك الأول"
                           />
-                          <User className="absolute right-3 top-3.5 w-5 h-5 text-text-muted" />
+                          <User className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500" />
                           {errors.firstName && (
-                            <div className="flex items-center mt-1 text-error text-sm">
+                            <div className="flex items-center mt-1 text-danger-600 dark:text-danger-400 text-sm">
                               <AlertCircle className="w-4 h-4 ml-1" />
                               {errors.firstName}
                             </div>
@@ -432,10 +432,10 @@ const RegisterPage = () => {
                         <div className="relative">
                           <label
                             htmlFor="lastName"
-                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-300 ${
+                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-200 ease-out ${
                               formData.lastName
-                                ? 'text-accent -top-2 text-xs bg-white px-1'
-                                : 'text-text-muted'
+                                ? 'text-primary-600 dark:text-primary-400 -top-2 text-xs bg-white dark:bg-neutral-800 px-1'
+                                : 'text-neutral-500 dark:text-neutral-400'
                             }`}
                           >
                             الاسم الأخير
@@ -447,16 +447,16 @@ const RegisterPage = () => {
                             onChange={(e) =>
                               handleInputChange('lastName', e.target.value)
                             }
-                            className={`w-full pr-10 pl-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-accent/20 focus:border-accent ${
+                            className={`w-full pr-10 pl-4 py-3 min-h-[44px] border rounded-xl bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400 ${
                               errors.lastName
-                                ? 'border-error'
-                                : 'border-gray-300'
+                                ? 'border-danger-500 dark:border-danger-400'
+                                : 'border-neutral-300 dark:border-neutral-600'
                             }`}
                             placeholder="أدخل اسمك الأخير"
                           />
-                          <User className="absolute right-3 top-3.5 w-5 h-5 text-text-muted" />
+                          <User className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500" />
                           {errors.lastName && (
-                            <div className="flex items-center mt-1 text-error text-sm">
+                            <div className="flex items-center mt-1 text-danger-600 dark:text-danger-400 text-sm">
                               <AlertCircle className="w-4 h-4 ml-1" />
                               {errors.lastName}
                             </div>
@@ -467,10 +467,10 @@ const RegisterPage = () => {
                         <div className="relative">
                           <label
                             htmlFor="email"
-                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-300 ${
+                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-200 ease-out ${
                               formData.email
-                                ? 'text-accent -top-2 text-xs bg-white px-1'
-                                : 'text-text-muted'
+                                ? 'text-primary-600 dark:text-primary-400 -top-2 text-xs bg-white dark:bg-neutral-800 px-1'
+                                : 'text-neutral-500 dark:text-neutral-400'
                             }`}
                           >
                             البريد الإلكتروني
@@ -482,14 +482,14 @@ const RegisterPage = () => {
                             onChange={(e) =>
                               handleInputChange('email', e.target.value)
                             }
-                            className={`w-full pr-10 pl-4 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-accent/20 focus:border-accent ${
-                              errors.email ? 'border-error' : 'border-gray-300'
+                            className={`w-full pr-10 pl-4 py-3 min-h-[44px] border rounded-xl bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400 ${
+                              errors.email ? 'border-danger-500 dark:border-danger-400' : 'border-neutral-300 dark:border-neutral-600'
                             }`}
                             placeholder="أدخل بريدك الإلكتروني"
                           />
-                          <Mail className="absolute right-3 top-3.5 w-5 h-5 text-text-muted" />
+                          <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500" />
                           {errors.email && (
-                            <div className="flex items-center mt-1 text-error text-sm">
+                            <div className="flex items-center mt-1 text-danger-600 dark:text-danger-400 text-sm">
                               <AlertCircle className="w-4 h-4 ml-1" />
                               {errors.email}
                             </div>
@@ -504,10 +504,10 @@ const RegisterPage = () => {
                         <div className="relative">
                           <label
                             htmlFor="password"
-                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-300 ${
+                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-200 ease-out ${
                               formData.password
-                                ? 'text-accent -top-2 text-xs bg-white px-1'
-                                : 'text-text-muted'
+                                ? 'text-primary-600 dark:text-primary-400 -top-2 text-xs bg-white dark:bg-neutral-800 px-1'
+                                : 'text-neutral-500 dark:text-neutral-400'
                             }`}
                           >
                             كلمة المرور
@@ -519,18 +519,18 @@ const RegisterPage = () => {
                             onChange={(e) =>
                               handleInputChange('password', e.target.value)
                             }
-                            className={`w-full pr-10 pl-10 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-accent/20 focus:border-accent ${
+                            className={`w-full pr-10 pl-10 py-3 min-h-[44px] border rounded-xl bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400 ${
                               errors.password
-                                ? 'border-error'
-                                : 'border-gray-300'
+                                ? 'border-danger-500 dark:border-danger-400'
+                                : 'border-neutral-300 dark:border-neutral-600'
                             }`}
                             placeholder="أدخل كلمة مرور قوية"
                           />
-                          <Lock className="absolute right-3 top-3.5 w-5 h-5 text-text-muted" />
+                          <Lock className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500" />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute left-3 top-3.5 text-text-muted hover:text-accent transition-colors"
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 min-h-[44px] min-w-[44px] text-neutral-400 dark:text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                           >
                             {showPassword ? (
                               <EyeOff className="w-5 h-5" />
@@ -541,36 +541,36 @@ const RegisterPage = () => {
                           {formData.password && (
                             <div className="mt-2">
                               <div className="flex items-center justify-between mb-1">
-                                <span className="text-sm text-text-muted">
+                                <span className="text-sm text-neutral-500 dark:text-neutral-400">
                                   قوة كلمة المرور
                                 </span>
                                 <span
                                   className={`text-sm font-medium ${
                                     getPasswordStrength(formData.password)
                                       .strength <= 1
-                                      ? 'text-error'
+                                      ? 'text-danger-600 dark:text-danger-400'
                                       : getPasswordStrength(formData.password)
                                             .strength <= 2
-                                        ? 'text-warning'
-                                        : 'text-success'
+                                        ? 'text-warning-600 dark:text-warning-400'
+                                        : 'text-success-600 dark:text-success-400'
                                   }`}
                                 >
                                   {getPasswordStrength(formData.password).label}
                                 </span>
                               </div>
-                              <div className="w-full bg-gray-200 rounded-full h-2">
+                              <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-2 overflow-hidden">
                                 <div
-                                  className={`h-2 rounded-full transition-all duration-300 ${
+                                  className={`h-2 rounded-full transition-all duration-200 ease-out ${
                                     getPasswordStrength(formData.password)
                                       .strength <= 1
-                                      ? 'bg-error'
+                                      ? 'bg-danger-500 dark:bg-danger-400'
                                       : getPasswordStrength(formData.password)
                                             .strength <= 2
-                                        ? 'bg-warning'
+                                        ? 'bg-warning-500 dark:bg-warning-400'
                                         : getPasswordStrength(formData.password)
                                               .strength <= 3
-                                          ? 'bg-accent'
-                                          : 'bg-success'
+                                          ? 'bg-primary-500 dark:bg-primary-400'
+                                          : 'bg-success-500 dark:bg-success-400'
                                   }`}
                                   style={{
                                     width: `${(getPasswordStrength(formData.password).strength / 5) * 100}%`,
@@ -580,7 +580,7 @@ const RegisterPage = () => {
                             </div>
                           )}
                           {errors.password && (
-                            <div className="flex items-center mt-1 text-error text-sm">
+                            <div className="flex items-center mt-1 text-danger-600 dark:text-danger-400 text-sm">
                               <AlertCircle className="w-4 h-4 ml-1" />
                               {errors.password}
                             </div>
@@ -591,10 +591,10 @@ const RegisterPage = () => {
                         <div className="relative">
                           <label
                             htmlFor="confirmPassword"
-                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-300 ${
+                            className={`absolute right-3 top-3 text-sm font-medium transition-all duration-200 ease-out ${
                               formData.confirmPassword
-                                ? 'text-accent -top-2 text-xs bg-white px-1'
-                                : 'text-text-muted'
+                                ? 'text-primary-600 dark:text-primary-400 -top-2 text-xs bg-white dark:bg-neutral-800 px-1'
+                                : 'text-neutral-500 dark:text-neutral-400'
                             }`}
                           >
                             تأكيد كلمة المرور
@@ -609,20 +609,20 @@ const RegisterPage = () => {
                                 e.target.value
                               )
                             }
-                            className={`w-full pr-10 pl-10 py-3 border rounded-xl transition-all duration-300 focus:ring-2 focus:ring-accent/20 focus:border-accent ${
+                            className={`w-full pr-10 pl-10 py-3 min-h-[44px] border rounded-xl bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400 ${
                               errors.confirmPassword
-                                ? 'border-error'
-                                : 'border-gray-300'
+                                ? 'border-danger-500 dark:border-danger-400'
+                                : 'border-neutral-300 dark:border-neutral-600'
                             }`}
                             placeholder="أعد إدخال كلمة المرور"
                           />
-                          <Lock className="absolute right-3 top-3.5 w-5 h-5 text-text-muted" />
+                          <Lock className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-neutral-400 dark:text-neutral-500" />
                           <button
                             type="button"
                             onClick={() =>
                               setShowConfirmPassword(!showConfirmPassword)
                             }
-                            className="absolute left-3 top-3.5 text-text-muted hover:text-accent transition-colors"
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 min-h-[44px] min-w-[44px] text-neutral-400 dark:text-neutral-500 hover:text-primary-600 dark:hover:text-primary-400 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                           >
                             {showConfirmPassword ? (
                               <EyeOff className="w-5 h-5" />
@@ -631,7 +631,7 @@ const RegisterPage = () => {
                             )}
                           </button>
                           {errors.confirmPassword && (
-                            <div className="flex items-center mt-1 text-error text-sm">
+                            <div className="flex items-center mt-1 text-danger-600 dark:text-danger-400 text-sm">
                               <AlertCircle className="w-4 h-4 ml-1" />
                               {errors.confirmPassword}
                             </div>
@@ -655,7 +655,7 @@ const RegisterPage = () => {
                                   e.target.checked
                                 )
                               }
-                              className="w-4 h-4 mt-1 text-accent border-gray-300 rounded focus:ring-accent"
+                              className="w-4 h-4 mt-1 text-primary-600 dark:text-primary-400 border-neutral-300 dark:border-neutral-600 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                             />
                             <label
                               htmlFor="agreeToTerms"
@@ -664,21 +664,21 @@ const RegisterPage = () => {
                               أوافق على{' '}
                               <a
                                 href="/terms"
-                                className="text-accent hover:text-accent-dark hover:underline"
+                                className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-500 transition-colors duration-200 ease-out hover:underline"
                               >
                                 الشروط والأحكام
                               </a>{' '}
                               و{' '}
                               <a
                                 href="/privacy"
-                                className="text-accent hover:text-accent-dark hover:underline"
+                                className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-500 transition-colors duration-200 ease-out hover:underline"
                               >
                                 سياسة الخصوصية
                               </a>
                             </label>
                           </div>
                           {errors.agreeToTerms && (
-                            <div className="flex items-center text-error text-sm">
+                            <div className="flex items-center text-danger-600 dark:text-danger-400 text-sm">
                               <AlertCircle className="w-4 h-4 ml-1" />
                               {errors.agreeToTerms}
                             </div>
@@ -716,7 +716,7 @@ const RegisterPage = () => {
                         <button
                           type="button"
                           onClick={handlePrevious}
-                          className="flex items-center px-6 py-3 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 hover:shadow-md transition-all duration-300 hover:scale-105"
+                          className="flex items-center px-6 py-3 min-h-[44px] border border-neutral-300 dark:border-neutral-600 rounded-xl text-sm font-medium text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-elevation-4 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                         >
                           <ChevronRight className="w-4 h-4 ml-2" />
                           السابق
@@ -726,7 +726,7 @@ const RegisterPage = () => {
                         <button
                           type="button"
                           onClick={handleNext}
-                          className="flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ml-auto"
+                          className="flex items-center px-6 py-3 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-xl font-semibold shadow-elevation-2 hover:shadow-elevation-4 transition-all duration-200 ease-out ml-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                         >
                           التالي
                           <ChevronLeft className="w-4 h-4 mr-2" />
@@ -735,7 +735,7 @@ const RegisterPage = () => {
                         <button
                           type="submit"
                           disabled={isLoading}
-                          className="flex items-center px-6 py-3 bg-gradient-to-r from-green-500 to-blue-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ml-auto disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                          className="flex items-center px-6 py-3 min-h-[44px] bg-gradient-to-r from-success-600 to-primary-700 hover:from-success-700 hover:to-primary-800 text-white rounded-xl font-semibold shadow-elevation-2 hover:shadow-elevation-4 transition-all duration-200 ease-out ml-auto disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
                         >
                           <span
                             className={isLoading ? 'opacity-0' : 'opacity-100'}

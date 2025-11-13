@@ -64,21 +64,56 @@ export function getCourseBySlug(slug: string): Course | undefined {
 
 /**
  * الحصول على الكورسات حسب التصنيف
+ * يتم استثناء كورسات CIA من النتائج
  */
 export function getCoursesByCategory(category: string): Course[] {
+  const validCourses = filterValidCourses(allCourses);
   if (category === 'all') {
-    return allCourses;
+    return validCourses;
   }
-  return allCourses.filter(course => course.category === category);
+  return validCourses.filter(course => course.category === category);
+}
+
+/**
+ * فلترة الكورسات (حذف كورسات CIA وكورسات المراجعة الداخلية)
+ * كورسات المراجعة الداخلية متاحة فقط في صفحة المراجعة الداخلية (/internal-audit)
+ */
+export function filterValidCourses(courses: Course[]): Course[] {
+  return courses.filter(course => 
+    // حذف كورسات CIA
+    !course.slug.includes('cia') && 
+    !course.title.includes('زمالة') &&
+    !course.title.includes('CIA') &&
+    course.pageUrl !== '/cia' &&
+    // حذف كورسات المراجعة الداخلية
+    course.category !== 'المراجعة الداخلية' &&
+    !course.title.includes('المراجعة الداخلية') &&
+    !course.title.includes('مراجعة داخلية') &&
+    !course.slug.includes('internal-audit') &&
+    !course.slug.includes('audit')
+  );
+}
+
+/**
+ * الحصول على كورسات المراجعة الداخلية فقط
+ * تستخدم في صفحة المراجعة الداخلية لعرض البطاقة الدعائية
+ */
+export function getInternalAuditCourses(): Course[] {
+  return allCourses.filter(course => course.category === 'المراجعة الداخلية');
 }
 
 /**
  * الحصول على جميع التصنيفات مع عدد الكورسات في كل تصنيف
+ * يتم استثناء كورسات CIA وكورسات المراجعة الداخلية من الحساب
+ * كورسات المراجعة الداخلية متاحة فقط في صفحة المراجعة الداخلية (/internal-audit)
  */
 export function getCategoriesWithCount(): Array<{ id: string; label: string; count: number }> {
+  // فلترة الكورسات (حذف كورسات CIA وكورسات المراجعة الداخلية)
+  const validCourses = filterValidCourses(allCourses);
+  
   const categoryMap = new Map<string, number>();
   
-  allCourses.forEach(course => {
+  validCourses.forEach(course => {
     const count = categoryMap.get(course.category) || 0;
     categoryMap.set(course.category, count + 1);
   });
@@ -90,7 +125,7 @@ export function getCategoriesWithCount(): Array<{ id: string; label: string; cou
   }));
   
   return [
-    { id: 'all', label: 'جميع الدورات', count: allCourses.length },
+    { id: 'all', label: 'جميع الدورات', count: validCourses.length },
     ...categories
   ];
 }

@@ -52,7 +52,7 @@ export default function CourseModulesPage() {
         >
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 mb-4"
+            className="flex items-center gap-2 min-h-[44px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 mb-4 transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
           >
             <ArrowLeft className="w-5 h-5" />
             العودة

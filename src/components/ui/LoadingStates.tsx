@@ -139,7 +139,7 @@ export const SkeletonLoader: React.FC<SkeletonProps> = ({
   const renderSkeleton = (key: number) => (
     <div
       key={key}
-      className={`skeleton rounded-md ${sizeClasses[size]} ${className}`}
+      className={`bg-neutral-200 dark:bg-neutral-700 rounded-md ${sizeClasses[size]} transition-all duration-200 ease-out ${className}`}
       style={{ width, height }}
     />
   );
@@ -147,15 +147,15 @@ export const SkeletonLoader: React.FC<SkeletonProps> = ({
   // Card variant with full structure
   if (variant === 'card') {
     return (
-      <div className="glass-card p-6 space-y-4 animate-pulse">
-        <div className="skeleton rounded-lg h-48 w-full" />
+      <div className="bg-white dark:bg-neutral-800 rounded-2xl p-6 space-y-4 shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 animate-pulse transition-all duration-200 ease-out">
+        <div className="bg-neutral-200 dark:bg-neutral-700 rounded-lg h-48 w-full transition-all duration-200 ease-out" />
         <div className="space-y-2">
-          <div className="skeleton rounded h-4 w-3/4" />
-          <div className="skeleton rounded h-4 w-1/2" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 rounded h-4 w-3/4 transition-all duration-200 ease-out" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 rounded h-4 w-1/2 transition-all duration-200 ease-out" />
         </div>
         <div className="flex space-x-2">
-          <div className="skeleton rounded-full h-8 w-8" />
-          <div className="skeleton rounded-full h-8 w-8" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 rounded-full h-8 w-8 transition-all duration-200 ease-out" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 rounded-full h-8 w-8 transition-all duration-200 ease-out" />
         </div>
       </div>
     );
@@ -165,17 +165,17 @@ export const SkeletonLoader: React.FC<SkeletonProps> = ({
   if (variant === 'image') {
     return (
       <div
-        className="skeleton rounded-lg overflow-hidden"
+        className="bg-neutral-200 dark:bg-neutral-700 rounded-lg overflow-hidden transition-all duration-200 ease-out"
         style={{ width, height }}
       >
-        <div className="w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+        <div className="w-full h-full bg-gradient-to-r from-transparent via-white/20 dark:via-neutral-600/20 to-transparent animate-shimmer transition-all duration-200 ease-out" />
       </div>
     );
   }
 
   // Button-shaped skeleton
   if (variant === 'button') {
-    return <div className="skeleton rounded-xl h-12 w-full max-w-xs" />;
+    return <div className="bg-neutral-200 dark:bg-neutral-700 rounded-xl h-12 w-full max-w-xs transition-all duration-200 ease-out" />;
   }
 
   // Default text variant
@@ -211,9 +211,9 @@ export const SpinnerLoader: React.FC<SpinnerProps> = ({
 
   // Color classes for spinner border
   const colorClasses = {
-    primary: 'border-primary',
-    accent: 'border-accent',
-    secondary: 'border-secondary-expert',
+    primary: 'border-primary-600 dark:border-primary-400',
+    accent: 'border-accent-600 dark:border-accent-400',
+    secondary: 'border-secondary-expert-600 dark:border-secondary-expert-400',
   };
 
   // Gradient or solid color spinner
@@ -230,7 +230,7 @@ export const SpinnerLoader: React.FC<SpinnerProps> = ({
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-sm text-text-secondary animate-pulse"
+          className="text-sm text-neutral-600 dark:text-neutral-400 animate-pulse transition-all duration-200 ease-out"
         >
           {text}
         </motion.p>
@@ -306,7 +306,7 @@ export const ProgressLoader: React.FC<ProgressProps> = ({
             strokeDasharray={strokeDasharray}
             initial={{ strokeDashoffset: strokeDasharray }}
             animate={{ strokeDashoffset }}
-            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
             strokeLinecap="round"
           />
         </svg>
@@ -324,17 +324,17 @@ export const ProgressLoader: React.FC<ProgressProps> = ({
   // Linear progress bar
   return (
     <div
-      className={`w-full bg-background-subtle rounded-full overflow-hidden ${className}`}
+      className={`w-full bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden transition-all duration-200 ease-out ${className}`}
     >
       <motion.div
         className={`h-full ${colorClasses[color]} rounded-full`}
         initial={{ width: 0 }}
         animate={{ width: `${percentage}%` }}
-        transition={{ duration: 0.8, ease: 'easeInOut' }}
+        transition={{ duration: 0.2, ease: 'easeOut' }}
       />
       {showPercentage && (
         <div className="flex justify-center mt-2">
-          <span className="text-sm text-text-secondary">
+          <span className="text-sm text-neutral-600 dark:text-neutral-400 transition-all duration-200 ease-out">
             {Math.round(percentage)}%
           </span>
         </div>
@@ -367,9 +367,9 @@ export const PulseLoader: React.FC<PulseProps> = ({
 
   // Color classes for pulse background
   const colorClasses = {
-    primary: 'bg-primary',
-    accent: 'bg-accent',
-    secondary: 'bg-secondary-expert',
+    primary: 'bg-primary-600 dark:bg-primary-400',
+    accent: 'bg-accent-600 dark:bg-accent-400',
+    secondary: 'bg-secondary-expert-600 dark:bg-secondary-expert-400',
   };
 
   // Optional glow effect
@@ -385,12 +385,12 @@ export const PulseLoader: React.FC<PulseProps> = ({
             opacity: [1, 0.5, 1],
           }}
           transition={{
-            duration: 1.5,
+            duration: 1.2,
             repeat: Infinity,
-            ease: 'easeInOut',
+            ease: 'easeOut',
           }}
         />
-        <span className="text-sm text-text-secondary">جاري المعالجة...</span>
+        <span className="text-sm text-neutral-600 dark:text-neutral-400 transition-all duration-200 ease-out">جاري المعالجة...</span>
       </div>
     );
   }
@@ -398,23 +398,23 @@ export const PulseLoader: React.FC<PulseProps> = ({
   if (variant === 'card') {
     return (
       <motion.div
-        className={`glass-card p-6 ${glowClasses} ${className}`}
+        className={`bg-white dark:bg-neutral-800 rounded-2xl p-6 shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 ${glowClasses} ${className}`}
         animate={{
-          scale: [1, 1.02, 1],
-          opacity: [1, 0.8, 1],
+          scale: [1, 1.01, 1],
+          opacity: [1, 0.9, 1],
         }}
         transition={{
-          duration: 2,
+          duration: 1.2,
           repeat: Infinity,
-          ease: 'easeInOut',
+          ease: 'easeOut',
         }}
       >
         <div className="space-y-3">
-          <div className="skeleton h-4 w-3/4 rounded" />
-          <div className="skeleton h-4 w-1/2 rounded" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 h-4 w-3/4 rounded transition-all duration-200 ease-out" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 h-4 w-1/2 rounded transition-all duration-200 ease-out" />
           <div className="flex space-x-2">
-            <div className="skeleton h-8 w-16 rounded-full" />
-            <div className="skeleton h-8 w-16 rounded-full" />
+            <div className="bg-neutral-200 dark:bg-neutral-700 h-8 w-16 rounded-full transition-all duration-200 ease-out" />
+            <div className="bg-neutral-200 dark:bg-neutral-700 h-8 w-16 rounded-full transition-all duration-200 ease-out" />
           </div>
         </div>
       </motion.div>
@@ -430,9 +430,9 @@ export const PulseLoader: React.FC<PulseProps> = ({
         opacity: [1, 0.3, 1],
       }}
       transition={{
-        duration: 1,
+        duration: 0.8,
         repeat: Infinity,
-        ease: 'easeInOut',
+        ease: 'easeOut',
       }}
     />
   );
@@ -487,16 +487,16 @@ export const CustomLoader: React.FC<CustomLoaderProps> = ({
           <motion.div
             className="absolute inset-0 border-2 border-accent rounded-full"
             animate={{ scale: [1, 1.3, 1], opacity: [1, 0, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 1.2, repeat: Infinity, ease: 'easeOut' }}
           />
           <motion.div
             className="absolute inset-2 border border-primary rounded-full"
             animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
             transition={{
-              duration: 1,
+              duration: 0.8,
               repeat: Infinity,
-              ease: 'easeInOut',
-              delay: 0.5,
+              ease: 'easeOut',
+              delay: 0.3,
             }}
           />
         </motion.div>
@@ -506,7 +506,7 @@ export const CustomLoader: React.FC<CustomLoaderProps> = ({
         className="text-center space-y-2"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+        transition={{ duration: 0.2, delay: 0.1 }}
       >
         <h3 className="text-lg font-semibold text-gradient-primary">
           {message}

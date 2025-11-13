@@ -110,7 +110,7 @@ const AdminGeneralControlPage = () => {
     },
     {
       courseId: '2',
-      courseName: 'برنامج زمالة المراجعين الداخليين',
+      courseName: 'برنامج المراجعين الداخليين',
       startDate: '2024-01-01',
       endDate: '2024-06-30',
       autoLock: false,

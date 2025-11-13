@@ -450,8 +450,8 @@ const AdminContentPage = () => {
             </motion.div>
 
             <motion.div
-              whileHover={{ y: -4, scale: 1.02 }}
-              className="bg-gradient-to-br from-white to-pink-50/50 dark:from-neutral-800 dark:to-pink-900/10 rounded-2xl shadow-lg hover:shadow-xl p-5 border border-pink-100/50 dark:border-pink-800/30 transition-all duration-300"
+              whileHover={{ y: -2, scale: 1.01 }}
+              className="bg-gradient-to-br from-white to-pink-50/50 dark:from-neutral-800 dark:to-pink-900/10 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 p-5 border border-pink-100/50 dark:border-pink-800/30 transition-all duration-200 ease-out"
             >
               <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm font-medium">الصور</p>
@@ -517,15 +517,15 @@ const AdminContentPage = () => {
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-white/70 dark:hover:bg-neutral-700/50'
                   }
                 `}
-                whileHover={{ scale: activeTab === tab.id ? 1.02 : 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: activeTab === tab.id ? 1.01 : 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 {/* Active background with gradient */}
                 {activeTab === tab.id && (
                   <motion.div
                     layoutId="activeContentTab"
                     className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-blue-50/30 to-emerald-50/50 dark:from-green-950/30 dark:via-blue-950/20 dark:to-emerald-950/30 rounded-xl"
-                    transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                    transition={{ type: "spring", bounce: 0.15, duration: 0.2 }}
                     style={{ borderRadius: '0.75rem' }}
                   />
                 )}
@@ -563,7 +563,7 @@ const AdminContentPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100"
+          className="bg-white dark:bg-neutral-800 rounded-2xl shadow-elevation-2 p-6 mb-8 border border-neutral-200 dark:border-neutral-700"
         >
           <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
             {/* شريط البحث */}
@@ -573,7 +573,7 @@ const AdminContentPage = () => {
                 placeholder="البحث في الملفات..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
+                className="w-full pl-10 pr-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
             </div>
@@ -584,7 +584,7 @@ const AdminContentPage = () => {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
+                className="px-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="all">جميع الأنواع</option>
                 <option value="word">Word</option>
@@ -598,11 +598,11 @@ const AdminContentPage = () => {
               <select
                 value={courseFilter}
                 onChange={(e) => setCourseFilter(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-300"
+                className="px-4 py-3 min-h-[44px] bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
               >
                 <option value="all">جميع الدورات</option>
                 <option value="1">دورة المراجعة الداخلية الأولى</option>
-                <option value="2">برنامج زمالة المراجعين</option>
+                <option value="2">برنامج المراجعين الداخليين</option>
                 <option value="3">دورة الإدارة المالية</option>
               </select>
             </div>
@@ -611,9 +611,9 @@ const AdminContentPage = () => {
             <div className="flex items-center gap-3">
               {selectedFiles.length > 0 && (
                 <motion.button
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="bg-danger-600 hover:bg-danger-700 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger-500 focus-visible:ring-offset-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   onClick={handleBulkDelete}
                 >
                   <Trash2 className="w-5 h-5" />
@@ -622,9 +622,9 @@ const AdminContentPage = () => {
               )}
 
               <motion.button
-                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => setShowUploadModal(true)}
               >
                 <Upload className="w-5 h-5" />
@@ -632,9 +632,9 @@ const AdminContentPage = () => {
               </motion.button>
 
               <motion.button
-                className="bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white px-6 py-3 min-h-[44px] rounded-xl font-semibold transition-all duration-200 ease-out shadow-elevation-2 hover:shadow-elevation-4 flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Download className="w-5 h-5" />
                 تصدير البيانات

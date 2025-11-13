@@ -34,16 +34,15 @@ const FellowshipSection = () => {
 
             <div className="relative z-10">
               <div className="flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
-                {/* CIA Logo Section */}
+                {/* CIA Logo Section - Better alignment and balance */}
                 <motion.div
                   initial={{ scale: 0.9, opacity: 0 }}
                   whileInView={{ scale: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1, duration: 0.4 }}
-                  className="flex-shrink-0"
+                  className="flex-shrink-0 flex items-center justify-center"
                 >
                   <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full blur-lg opacity-50"></div>
                     <div className="relative w-20 h-20 lg:w-24 lg:h-24 rounded-full overflow-hidden bg-white shadow-lg border-2 border-indigo-200 dark:border-indigo-800 p-2">
                       <Image
                         src="/cia-logo.jpg"
@@ -60,18 +59,18 @@ const FellowshipSection = () => {
                   </div>
                 </motion.div>
 
-                {/* Content Section */}
-                <div className="flex-1 text-center lg:text-right space-y-4">
-                  {/* Title */}
+                {/* Content Section - Enhanced text distribution and vertical spacing */}
+                <div className="flex-1 text-center lg:text-right space-y-6">
+                  {/* Title - Enhanced clarity and size */}
                   <div>
                     <motion.h2
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: 0.2, duration: 0.5 }}
-                      className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white mb-2"
+                      className="text-2xl lg:text-3xl xl:text-4xl font-bold text-neutral-900 dark:text-white mb-3"
                     >
-                      زمالة المدقق الداخلي المعتمد
+                      المدقق الداخلي المعتمد
                     </motion.h2>
                     <motion.p
                       initial={{ opacity: 0, x: 20 }}
@@ -94,34 +93,33 @@ const FellowshipSection = () => {
                     </motion.div>
                   </div>
 
-                  {/* Description */}
+                  {/* Description - Enhanced spacing */}
                   <motion.p
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5, duration: 0.5 }}
-                    className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl mx-auto lg:mx-0"
+                    className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-2xl mx-auto lg:mx-0 py-2"
                   >
                     البرنامج الأكثر طلباً في مجال المراجعة الداخلية - شهادة معترف بها عالمياً تفتح أبواب الفرص المهنية. اكتشف التفاصيل الكاملة والفوائد والموارد التعليمية المتاحة.
                   </motion.p>
 
-                  {/* CTA Button */}
+                  {/* CTA Button - Enhanced contrast, no glow, better hover, slightly larger */}
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.6, duration: 0.5 }}
-                    className="pt-2"
+                    className="pt-3"
                   >
                     <Link href={ROUTES.CIA}>
                       <motion.button
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="group inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white rounded-xl font-semibold text-sm lg:text-base shadow-lg hover:shadow-xl hover:shadow-indigo-500/50 transition-all duration-300 relative overflow-hidden"
+                        className="group inline-flex items-center gap-2 px-7 py-[14px] bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white rounded-xl font-bold text-sm lg:text-base shadow-lg hover:shadow-xl transition-all duration-200"
                       >
-                        <span className="relative z-10">اكتشف برنامج الزمالة الكامل</span>
-                        <ArrowLeft className="w-4 h-4 relative z-10 group-hover:-translate-x-1 transition-transform duration-300" />
-                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 via-purple-700 to-indigo-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span>اكتشف البرامج والفعاليات الكاملة</span>
+                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
                       </motion.button>
                     </Link>
                   </motion.div>

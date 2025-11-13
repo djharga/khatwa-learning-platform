@@ -4,6 +4,9 @@ import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai, Cairo, Lemonada } from 'next/font/google';
 
+// Import globals.css first - contains all CSS Variables from tokens.ts
+import '../styles/globals.css';
+// Import other style files that use the CSS Variables
 import '../styles/core.css';
 import '../styles/utilities.css';
 import '../styles/backgrounds.css';
@@ -212,9 +215,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     toastOptions={{
                       duration: 3000,
                       style: {
-                        background: 'var(--color-background)',
-                        color: 'var(--color-text-primary)',
-                        border: '1px solid var(--color-accent)',
+                        background: 'var(--color-neutral-50)',
+                        color: 'var(--color-neutral-900)',
+                        border: '1px solid var(--color-neutral-200)',
+                        borderRadius: 'var(--radius-lg)',
+                        padding: 'var(--spacing-4) var(--spacing-5)',
+                        boxShadow: 'var(--shadow-elevation-2)',
+                        transition: 'all 200ms ease-out',
                         zIndex: 9999,
                       },
                     }}
