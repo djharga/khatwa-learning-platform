@@ -36,8 +36,9 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
   const { isBookmarked, isWishlisted, isCompared, isLoadingAction, handleBookmark, handleShare, handleWishlist, handleCompare, handlePreview, handleEnroll } = actions;
 
   // Modern, soft, and attractive card design inspired by global platforms
+  const MotionDiv = motion.div;
   return (
-    <motion.div 
+    <MotionDiv 
       className="group relative bg-white dark:bg-neutral-800 rounded-2xl shadow-elevation-2 hover:shadow-elevation-4 border border-neutral-200 dark:border-neutral-700 hover:border-primary-300 dark:hover:border-primary-600 transition-all duration-200 ease-out overflow-hidden card-tech hover-glow-primary-sm"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -238,7 +239,7 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
           </div>
         </div>
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 
