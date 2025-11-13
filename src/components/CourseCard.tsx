@@ -28,7 +28,7 @@ import { BadgeList, ProgressRing, PriceBadge, CourseImage, QuickActionButtons, I
  * @param isLoading - Whether the card is in a loading state
  * @returns Memoized course card component
  */
-const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onEnroll, isLoading = false }: CourseCardProps) => {
+const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare, onEnroll, isLoading = false }: CourseCardProps) => {
   // Custom hooks for state management and actions
   const cardState = useCourseCardState(course);
   const { progressPercentage, isNew, isPopular, hasCertificate, isBestseller, isLimitedTime } = cardState;
@@ -241,8 +241,10 @@ const CourseCard = memo(({ course, variant = 'default', onBookmark, onShare, onE
       </div>
     </motion.div>
   );
-});
+};
 
-CourseCard.displayName = 'CourseCard';
+CourseCardComponent.displayName = 'CourseCard';
+
+const CourseCard = memo(CourseCardComponent);
 
 export default CourseCard;
