@@ -1,6 +1,5 @@
 'use client';
 
-import { memo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Play,
@@ -245,6 +244,4 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
 
 CourseCardComponent.displayName = 'CourseCard';
 
-const CourseCard = memo(CourseCardComponent);
-
-export default CourseCard;
+export default CourseCardComponent;
