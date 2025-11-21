@@ -30,7 +30,9 @@ const getTransitionType = (pathname: string): PageTransitionProps['transitionTyp
   return 'fadeScale';
 };
 
-const pageVariants: Record<string, Variants> = {
+type TransitionType = NonNullable<PageTransitionProps['transitionType']>;
+
+const pageVariants: Record<TransitionType, Variants> = {
   fade: {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
@@ -103,10 +105,10 @@ export function PageTransition({
   const [isLoading, setIsLoading] = useState(false);
 
   // تحديد نوع الانتقال
-  const selectedTransitionType = transitionType || getTransitionType(pathname);
+  const selectedTransitionType: TransitionType = (transitionType || getTransitionType(pathname) || 'fadeScale') as TransitionType;
   const variants = prefersReducedMotion 
     ? reducedMotionVariants 
-    : pageVariants[selectedTransitionType] || pageVariants.fadeScale;
+    : pageVariants[selectedTransitionType];
   
   const transition = prefersReducedMotion 
     ? reducedMotionTransition 

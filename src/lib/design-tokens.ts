@@ -173,8 +173,11 @@ export const designTokens = {
 } as const;
 
 // Helper functions للوصول السهل للـ tokens
-export const getColor = (color: keyof typeof designTokens.colors, shade: string) => {
-  return designTokens.colors[color][shade as keyof typeof designTokens.colors[typeof color]];
+export const getColor = <T extends keyof typeof designTokens.colors>(
+  color: T,
+  shade: keyof typeof designTokens.colors[T]
+) => {
+  return designTokens.colors[color][shade];
 };
 
 export const getSpacing = (size: keyof typeof designTokens.spacing) => {

@@ -1215,7 +1215,7 @@ export const opacity = {
 // 📦 Default Export - جميع التوكنات
 // ============================================
 
-export default {
+const designTokens = {
   colors,
   spacing,
   semanticSpacing,
@@ -1232,3 +1232,5 @@ export default {
   zIndex,
   opacity,
 };
+
+export default designTokens;

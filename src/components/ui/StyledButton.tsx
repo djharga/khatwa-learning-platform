@@ -368,6 +368,25 @@ const StyledButtonComponent: React.FC<StyledButtonProps> = ({
         transition: motionTokens.press.standard.transition,
       };
 
+  // Exclude all events that conflict with framer-motion types
+  // framer-motion uses different types for animation/drag events vs HTML events
+  const {
+    // Drag events
+    onDrag,
+    onDragEnd,
+    onDragEnter,
+    onDragExit,
+    onDragLeave,
+    onDragOver,
+    onDragStart,
+    onDrop,
+    // Animation events
+    onAnimationStart,
+    onAnimationEnd,
+    onAnimationIteration,
+    ...restProps
+  } = props;
+
   return (
     <Wrapper fullWidth={fullWidth}>
       <MotionStyledButton
@@ -382,7 +401,7 @@ const StyledButtonComponent: React.FC<StyledButtonProps> = ({
           flexDirection: iconPosition === 'right' ? 'row-reverse' : 'row',
         }}
         {...motionProps}
-        {...props}
+        {...restProps}
       >
         {ripples.map(r => (
           <Ripple key={r.id} x={r.x} y={r.y} />

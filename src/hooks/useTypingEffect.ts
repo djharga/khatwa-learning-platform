@@ -51,7 +51,7 @@ export function useTypingEffect({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
-  const timeoutRef = useRef<NodeJS.Timeout>();
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const prefersReducedMotion = useReducedMotion();
 
   // تنظيف الـ timeout
@@ -137,6 +137,7 @@ export function useTypingEffect({
     return () => {
       clearCurrentTimeout();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text, speed, delay, loop, loopDelay, prefersReducedMotion]);
 
   // تنظيف عند إلغاء الـ component

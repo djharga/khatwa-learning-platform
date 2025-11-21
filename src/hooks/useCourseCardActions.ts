@@ -113,7 +113,7 @@ export function useCourseCardActions(props: CourseCardActionsProps): CourseCardA
         setIsLoadingAction(false);
       }
     },
-    [isWishlisted, isLoading, courseId]
+    [isWishlisted, isLoading]
   );
 
   const handleCompare = useCallback(
@@ -132,7 +132,7 @@ export function useCourseCardActions(props: CourseCardActionsProps): CourseCardA
         setIsLoadingAction(false);
       }
     },
-    [isCompared, isLoading, courseId]
+    [isCompared, isLoading]
   );
 
   const handlePreview = useCallback(
