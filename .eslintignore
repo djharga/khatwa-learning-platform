@@ -1,5 +1,9 @@
 node_modules/
 .next/
-src/
+.next/types/
 build/
-public/
+dist/
+out/
+coverage/
+postcss.config.mjs
+tailwind.config.ts

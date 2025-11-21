@@ -1,226 +1,213 @@
 /* ============================================
-   🎓 EduTech Utilities - Modern, Friendly & Scalable
+   🎓 EduTech Utilities - Clean, Static & Scalable
    ============================================
    Unified helper classes for spacing, layout, typography, and UI consistency
-   جميع القيم تستخدم CSS Variables من globals.css
+   تمت إزالة الحركات والانتقالات للحصول على أداء أسرع وتصميم ثابت
    ============================================ */
 
 /* ============================================
    🧭 SPACING UTILITIES (8px Grid)
    ============================================ */
-.space-section {
-  padding-block: var(--spacing-section-normal);
-}
-@media (min-width: 768px) {
-  .space-section {
-    padding-block: var(--spacing-section-relaxed);
+   .space-section {
+    padding-block: var(--spacing-section-normal);
   }
-}
-@media (min-width: 1024px) {
-  .space-section {
-    padding-block: var(--spacing-section-spacious);
+  @media (min-width: 768px) {
+    .space-section {
+      padding-block: var(--spacing-section-relaxed);
+    }
   }
-}
-
-.space-component {
-  padding-block: var(--spacing-component-normal);
-}
-@media (min-width: 768px) {
+  @media (min-width: 1024px) {
+    .space-section {
+      padding-block: var(--spacing-section-spacious);
+    }
+  }
+  
   .space-component {
-    padding-block: var(--spacing-component-relaxed);
+    padding-block: var(--spacing-component-normal);
   }
-}
-@media (min-width: 1024px) {
-  .space-component {
-    padding-block: var(--spacing-component-spacious);
+  @media (min-width: 768px) {
+    .space-component {
+      padding-block: var(--spacing-component-relaxed);
+    }
   }
-}
-
-.space-element { margin-bottom: var(--spacing-margin-sm); }
-.space-element-lg { margin-bottom: var(--spacing-margin-md); }
-.space-element-xl { margin-bottom: var(--spacing-margin-lg); }
-
-.gap-section { gap: var(--spacing-gap-normal); }
-@media (min-width: 768px) {
-  .gap-section { gap: var(--spacing-gap-relaxed); }
-}
-@media (min-width: 1024px) {
-  .gap-section { gap: var(--spacing-gap-spacious); }
-}
-
-.gap-component { gap: var(--spacing-gap-normal); }
-.gap-element { gap: var(--spacing-gap-tight); }
-
-.p-component { padding: var(--spacing-padding-md); }
-.p-component-tight { padding: var(--spacing-padding-sm); }
-.p-component-relaxed { padding: var(--spacing-padding-lg); }
-.p-component-spacious { padding: var(--spacing-padding-xl); }
+  @media (min-width: 1024px) {
+    .space-component {
+      padding-block: var(--spacing-component-spacious);
+    }
+  }
   
-/* ============================================
-   🧩 LAYOUT UTILITIES
-   ============================================ */
-.container {
-  width: 100%;
-  margin-inline: auto;
-  padding-inline: var(--spacing-padding-md);
-}
-@media (min-width: 640px) {
-  .container { padding-inline: var(--spacing-padding-lg); }
-}
-@media (min-width: 1024px) {
-  .container { padding-inline: var(--spacing-padding-xl); }
-}
-
-.container-xs { max-width: 480px; }
-.container-sm { max-width: 640px; }
-.container-md { max-width: 768px; }
-.container-lg { max-width: 1024px; }
-.container-xl { max-width: 1280px; }
-.container-2xl { max-width: 1536px; }
-.container-full { max-width: 100%; }
-.container-prose { max-width: 65ch; }
-
-.grid-container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-inline: var(--spacing-padding-md);
-}
-@media (min-width: 640px) {
-  .grid-container { padding-inline: var(--spacing-padding-lg); }
-}
-@media (min-width: 1024px) {
-  .grid-container { padding-inline: var(--spacing-padding-xl); }
-}
-
-.grid-auto-fit {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--spacing-gap-normal);
-  align-items: start;
-}
-.grid-auto-fill {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: var(--spacing-gap-normal);
-  align-items: start;
-}
-
-.flex-center { display: flex; align-items: center; justify-content: center; }
-.flex-between { display: flex; align-items: center; justify-content: space-between; }
-.flex-start { display: flex; align-items: center; justify-content: flex-start; }
-.flex-end { display: flex; align-items: center; justify-content: flex-end; }
+  .space-element { margin-bottom: var(--spacing-margin-sm); }
+  .space-element-lg { margin-bottom: var(--spacing-margin-md); }
+  .space-element-xl { margin-bottom: var(--spacing-margin-lg); }
   
-/* ============================================
-   ✍️ TYPOGRAPHY UTILITIES
-   ============================================ */
-.display-xl, .display-lg, .display-md,
-.heading-1, .heading-2, .heading-3,
-.heading-4, .heading-5, .heading-6 {
-  text-wrap: balance;
-  font-family: var(--font-heading);
-  color: var(--color-text-primary);
-}
-
-.display-xl { font-size: var(--text-display-lg); font-weight: var(--font-black); }
-.display-lg { font-size: var(--text-display-md); font-weight: var(--font-extrabold); }
-.display-md { font-size: var(--text-display-sm); font-weight: var(--font-bold); }
-
-.heading-1 { font-size: var(--text-4xl); font-weight: var(--font-bold); }
-.heading-2 { font-size: var(--text-4xl); font-weight: var(--font-bold); }
-.heading-3 { font-size: var(--text-3xl); font-weight: var(--font-semibold); }
-.heading-4 { font-size: var(--text-2xl); font-weight: var(--font-semibold); }
-.heading-5 { font-size: var(--text-xl); font-weight: var(--font-semibold); }
-.heading-6 { font-size: var(--text-lg); font-weight: var(--font-medium); }
-
-.body-text, .body-text-lg, .body-text-base, .body-text-sm, .body-text-xs {
-  font-family: var(--font-body);
-  line-height: var(--line-height-relaxed);
-}
-.body-text { font-size: var(--text-lg); }
-.body-text-base { font-size: var(--text-base); }
-.body-text-sm { font-size: var(--text-sm); }
-.body-text-xs { font-size: var(--text-xs); }
-
-.button-text { 
-  font-family: var(--font-body); 
-  font-weight: var(--font-semibold); 
-  text-transform: uppercase; 
-}
-.label-text { 
-  font-size: var(--text-sm); 
-  font-weight: var(--font-bold); 
-  letter-spacing: var(--letter-spacing-wide); 
-}
-
-.line-clamp-1, .line-clamp-2, .line-clamp-3 {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-.line-clamp-1 { -webkit-line-clamp: 1; }
-.line-clamp-2 { -webkit-line-clamp: 2; }
-.line-clamp-3 { -webkit-line-clamp: 3; }
+  .gap-section { gap: var(--spacing-gap-normal); }
+  @media (min-width: 768px) {
+    .gap-section { gap: var(--spacing-gap-relaxed); }
+  }
+  @media (min-width: 1024px) {
+    .gap-section { gap: var(--spacing-gap-spacious); }
+  }
   
-/* ============================================
-   🎨 COLOR UTILITIES
-   ============================================ */
-.text-primary { color: var(--color-primary-500); }
-.text-accent { color: var(--color-accent-500); }
-.bg-primary { background-color: var(--color-primary-500); color: var(--color-text-inverse); }
-.bg-accent { background-color: var(--color-accent-500); color: var(--color-text-inverse); }
-
-.gradient-primary {
-  background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
-}
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ============================================
-   🌈 SHADOWS & INTERACTIONS
-   ============================================ */
-.shadow-soft { box-shadow: var(--shadow-elevation-1); }
-.shadow-md { box-shadow: var(--shadow-elevation-2); }
-.shadow-lg { box-shadow: var(--shadow-elevation-3); }
-.shadow-hover-elevate { 
-  transition: box-shadow var(--duration-normal) var(--ease-out); 
-}
-.shadow-hover-elevate:hover { 
-  box-shadow: var(--shadow-elevation-4); 
-}
-
-.hover-lift { 
-  transition: box-shadow var(--duration-normal) var(--ease-out); 
-}
-.hover-lift:hover { 
-  box-shadow: var(--shadow-elevation-4); 
-}
-
-.transition-smooth { 
-  transition: all var(--duration-normal) var(--ease-out); 
-}
-
-/* ============================================
-   🧱 LAYOUT & ACCESSIBILITY
-   ============================================ */
-.scrollbar-hide { 
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
-}
-.scrollbar-hide::-webkit-scrollbar { 
-  display: none; 
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
+  .gap-component { gap: var(--spacing-gap-normal); }
+  .gap-element { gap: var(--spacing-gap-tight); }
+  
+  .p-component { padding: var(--spacing-padding-md); }
+  .p-component-tight { padding: var(--spacing-padding-sm); }
+  .p-component-relaxed { padding: var(--spacing-padding-lg); }
+  .p-component-spacious { padding: var(--spacing-padding-xl); }
+    
+  /* ============================================
+     🧩 LAYOUT UTILITIES
+     ============================================ */
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--spacing-padding-md);
+  }
+  @media (min-width: 640px) {
+    .container { padding-inline: var(--spacing-padding-lg); }
+  }
+  @media (min-width: 1024px) {
+    .container { padding-inline: var(--spacing-padding-xl); }
+  }
+  
+  .container-xs { max-width: 480px; }
+  .container-sm { max-width: 640px; }
+  .container-md { max-width: 768px; }
+  .container-lg { max-width: 1024px; }
+  .container-xl { max-width: 1280px; }
+  .container-2xl { max-width: 1536px; }
+  .container-full { max-width: 100%; }
+  .container-prose { max-width: 65ch; }
+  
+  .grid-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-inline: var(--spacing-padding-md);
+  }
+  @media (min-width: 640px) {
+    .grid-container { padding-inline: var(--spacing-padding-lg); }
+  }
+  @media (min-width: 1024px) {
+    .grid-container { padding-inline: var(--spacing-padding-xl); }
+  }
+  
+  .grid-auto-fit {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-gap-normal);
+    align-items: start;
+  }
+  .grid-auto-fill {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-gap-normal);
+    align-items: start;
+  }
+  
+  .flex-center { display: flex; align-items: center; justify-content: center; }
+  .flex-between { display: flex; align-items: center; justify-content: space-between; }
+  .flex-start { display: flex; align-items: center; justify-content: flex-start; }
+  .flex-end { display: flex; align-items: center; justify-content: flex-end; }
+    
+  /* ============================================
+     ✍️ TYPOGRAPHY UTILITIES
+     ============================================ */
+  .display-xl, .display-lg, .display-md,
+  .heading-1, .heading-2, .heading-3,
+  .heading-4, .heading-5, .heading-6 {
+    text-wrap: balance;
+    font-family: var(--font-heading);
+    color: var(--color-text-primary);
+  }
+  
+  .display-xl { font-size: var(--text-display-lg); font-weight: var(--font-black); }
+  .display-lg { font-size: var(--text-display-md); font-weight: var(--font-extrabold); }
+  .display-md { font-size: var(--text-display-sm); font-weight: var(--font-bold); }
+  
+  .heading-1 { font-size: var(--text-4xl); font-weight: var(--font-bold); }
+  .heading-2 { font-size: var(--text-4xl); font-weight: var(--font-bold); }
+  .heading-3 { font-size: var(--text-3xl); font-weight: var(--font-semibold); }
+  .heading-4 { font-size: var(--text-2xl); font-weight: var(--font-semibold); }
+  .heading-5 { font-size: var(--text-xl); font-weight: var(--font-semibold); }
+  .heading-6 { font-size: var(--text-lg); font-weight: var(--font-medium); }
+  
+  .body-text, .body-text-lg, .body-text-base, .body-text-sm, .body-text-xs {
+    font-family: var(--font-body);
+    line-height: var(--line-height-relaxed);
+  }
+  .body-text { font-size: var(--text-lg); }
+  .body-text-base { font-size: var(--text-base); }
+  .body-text-sm { font-size: var(--text-sm); }
+  .body-text-xs { font-size: var(--text-xs); }
+  
+  .button-text { 
+    font-family: var(--font-body); 
+    font-weight: var(--font-semibold); 
+    text-transform: uppercase; 
+  }
+  .label-text { 
+    font-size: var(--text-sm); 
+    font-weight: var(--font-bold); 
+    letter-spacing: var(--letter-spacing-wide); 
+  }
+  
+  .line-clamp-1, .line-clamp-2, .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-1 { -webkit-line-clamp: 1; }
+  .line-clamp-2 { -webkit-line-clamp: 2; }
+  .line-clamp-3 { -webkit-line-clamp: 3; }
+    
+  /* ============================================
+     🎨 COLOR UTILITIES
+     ============================================ */
+  .text-primary { color: var(--color-primary-500); }
+  .text-accent { color: var(--color-accent-500); }
+  .bg-primary { background-color: var(--color-primary-500); color: var(--color-text-inverse); }
+  .bg-accent { background-color: var(--color-accent-500); color: var(--color-text-inverse); }
+  
+  .gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* ============================================
+     🌈 SHADOWS (STATIC)
+     ============================================ */
+  .shadow-soft { box-shadow: var(--shadow-elevation-1); }
+  .shadow-md { box-shadow: var(--shadow-elevation-2); }
+  .shadow-lg { box-shadow: var(--shadow-elevation-3); }
+  
+  /* تمت إزالة .shadow-hover-elevate و .hover-lift لأننا نريد تصميم ثابت */
+  /* يمكنك استخدام الكلاسات الأساسية فقط للحصول على ظل ثابت */
+  
+  /* ============================================
+     🧱 LAYOUT & ACCESSIBILITY
+     ============================================ */
+  .scrollbar-hide { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+  }
+  .scrollbar-hide::-webkit-scrollbar { 
+    display: none; 
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  

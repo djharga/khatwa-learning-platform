@@ -310,6 +310,7 @@ export default function CourseLandingPage() {
                       mainAxes={mainAxesData}
                       hasAccess={hasAccess}
                       courseId={course.id.toString()}
+                      courseSlug={course.slug}
                       onFileClick={(file) => {
                         // File click is handled inside CourseAxesSystem with router navigation
                         console.log('File clicked:', file);

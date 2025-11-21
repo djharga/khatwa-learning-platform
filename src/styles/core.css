@@ -1,182 +1,201 @@
 /* ============================================
-   🎓 EduTech Theme — Clean & Friendly UI
+   🎓 EduTech Theme — Enhanced & Component-Based
    ============================================
-   هذا الملف يستخدم CSS Variables من globals.css فقط
-   جميع القيم محددة في src/styles/globals.css
-   
-   ملاحظة: @layer base موجود في globals.css
+   نظام مكونات ثابت ونظيف مع مرونة عالية.
+   تم بناءه على متغيرات CSS لسهولة التخصيص.
    ============================================ */
+
 /* ============================================
-   🎬 Animations
+   🔘 Button System
    ============================================ */
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(24px);
+   .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2, 0.5rem); /* فجوة بين الأيقونة والنص */
+    font-family: var(--font-body, inherit);
+    font-weight: var(--font-semibold, 600);
+    border-radius: var(--radius-button, 0.5rem);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
+  
+  /* --- Button Sizes --- */
+  .btn-sm {
+    padding: var(--spacing-2, 0.5rem) var(--spacing-4, 1rem);
+    font-size: 0.875rem;
   }
-}
-
-.animate-fadeInUp {
-  animation: fadeInUp var(--duration-slower) var(--ease-out) forwards;
-}
-
-/* Respect prefers-reduced-motion */
-@media (prefers-reduced-motion: reduce) {
-  .animate-fadeInUp {
-    animation: none;
-    opacity: 1;
-    transform: none;
+  
+  .btn-md {
+    padding: var(--spacing-3, 0.75rem) var(--spacing-6, 1.5rem);
+    font-size: 1rem;
   }
-}
+  
+  .btn-lg {
+    padding: var(--spacing-4, 1rem) var(--spacing-8, 2rem);
+    font-size: 1.125rem;
+  }
+  
+  /* --- Button Variants --- */
+  .btn-primary {
+    background-color: var(--color-primary-600);
+    color: var(--color-text-inverse, #ffffff);
+    box-shadow: var(--shadow-elevation-2, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--color-primary-700);
+    box-shadow: var(--shadow-elevation-3, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  }
+  
+  .btn-accent {
+    background-color: var(--color-accent-500);
+    color: var(--color-text-inverse, #ffffff);
+    box-shadow: var(--shadow-elevation-2, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  }
+  
+  .btn-accent:hover {
+    background-color: var(--color-accent-600);
+    box-shadow: var(--shadow-elevation-3, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  }
+  
+  .btn-secondary {
+    background-color: var(--color-background-surface, #ffffff);
+    color: var(--color-text-primary, #111827);
+    border-color: var(--color-neutral-300, #d1d5db);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--color-neutral-50, #f9fafb);
+    border-color: var(--color-neutral-400, #9ca3af);
+  }
+  
+  .btn-ghost {
+    background-color: transparent;
+    color: var(--color-text-secondary, #6b7280);
+  }
+  
+  .btn-ghost:hover {
+    background-color: var(--color-neutral-100, #f3f4f6);
+    color: var(--color-text-primary, #111827);
+  }
+  
+  /* --- Button States --- */
+  .btn:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  /* ============================================
+     💬 Input & Form System
+     ============================================ */
+  .input {
+    width: 100%;
+    border: var(--border-width, 1px) solid var(--color-neutral-300, #d1d5db);
+    border-radius: var(--radius-input, 0.5rem);
+    padding: var(--spacing-3, 0.75rem) var(--spacing-4, 1rem);
+    background: var(--color-background-surface, #ffffff);
+    color: var(--color-text-primary, #111827);
+    font-family: var(--font-body, inherit);
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: var(--color-primary-500, #3b82f6);
+    box-shadow: 0 0 0 3px var(--color-primary-100, #dbeafe);
+  }
+  
+  .input::placeholder {
+    color: var(--color-text-tertiary, #9ca3af);
+  }
+  
+  /* ============================================
+     🔖 Card & Container System
+     ============================================ */
+  .card {
+    background: var(--color-background-surface, #ffffff);
+    border: var(--border-width, 1px) solid var(--color-neutral-200, #e5e7eb);
+    border-radius: var(--radius-card, 0.75rem);
+    box-shadow: var(--shadow-elevation-1, 0 1px 3px 0 rgba(0, 0, 0, 0.1));
+    padding: var(--spacing-6, 1.5rem);
+    transition: box-shadow 0.2s ease;
+  }
+  
+  .card-elevated {
+    box-shadow: var(--shadow-elevation-2, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  }
+  
+  .card-elevated:hover {
+    box-shadow: var(--shadow-elevation-3, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  }
+  
+  /* ============================================
+     🌈 Link System
+     ============================================ */
+  .link {
+    color: var(--color-primary-500, #3b82f6);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .link:hover {
+    color: var(--color-primary-700, #1d4ed8);
+    text-decoration: underline;
+  }
+  
+  .link-muted {
+    color: var(--color-text-secondary, #6b7280);
+  }
+  
+  .link-muted:hover {
+    color: var(--color-text-primary, #111827);
+  }
+  
+  /* ============================================
+     🧠 Utility Enhancements
+     ============================================ */
+  
+  /* Text Utilities */
+  .text-muted {
+    color: var(--color-text-secondary, #6b7280);
+  }
+  
+  .text-title {
+    font-family: var(--font-heading, inherit);
+    font-weight: var(--font-bold, 700);
+  }
+  
+  /* Selection styles */
+  ::selection {
+    background-color: var(--color-primary-200, #dbeafe);
+    color: var(--color-primary-900, #1e3a8a);
+  }
+  
+  .dark ::selection {
+    background-color: var(--color-primary-800, #1e3a8a);
+    color: var(--color-primary-100, #dbeafe);
+  }
 
-/* ============================================
-   🧩 Base Styling
-   ============================================
-   جميع الأنماط الأساسية تستخدم CSS Variables من globals.css
-   ============================================ */
+  /* ============================================
+     ✨ Glassmorphism Utilities
+     ============================================ */
+  :root {
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-blur: 12px;
+  }
 
-/* Text Utilities */
-.text-muted {
-  color: var(--color-text-muted);
-}
+  .dark {
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-bg: rgba(15, 23, 42, 0.6);
+  }
 
-/* ============================================
-   🔘 Buttons
-   ============================================
-   جميع الأزرار تستخدم CSS Variables من globals.css
-   ============================================ */
-button {
-  font-family: inherit;
-  border-radius: var(--radius-button);
-  transition: all var(--duration-normal) var(--ease-out);
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: linear-gradient(to right, var(--color-primary-500), var(--color-primary-600));
-  color: var(--color-text-inverse);
-  padding: var(--spacing-3) var(--spacing-6);
-  border: none;
-  box-shadow: var(--shadow-elevation-2);
-  font-weight: var(--font-semibold);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(to right, var(--color-primary-400), var(--color-primary-600));
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-elevation-4);
-}
-
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-elevation-2);
-}
-
-.btn-accent {
-  background: var(--color-accent-500);
-  color: var(--color-text-inverse);
-  padding: var(--spacing-3) var(--spacing-6);
-  border: none;
-  box-shadow: var(--shadow-elevation-2);
-  font-weight: var(--font-semibold);
-}
-
-.btn-accent:hover {
-  background: var(--color-accent-600);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-elevation-4);
-}
-
-.btn-accent:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-elevation-2);
-}
-
-/* ============================================
-   💬 Inputs & Forms
-   ============================================
-   جميع حقول الإدخال تستخدم CSS Variables من globals.css
-   ============================================ */
-input, select, textarea {
-  border: var(--border-width) solid var(--color-neutral-300);
-  border-radius: var(--radius-input);
-  padding: var(--spacing-3) var(--spacing-4);
-  transition: all var(--duration-normal) var(--ease-out);
-  width: 100%;
-  background: var(--color-background-surface);
-  color: var(--color-text-primary);
-  font-family: var(--font-body);
-}
-
-input:focus, select:focus, textarea:focus {
-  border-color: var(--color-primary-500);
-  box-shadow: 0 0 0 3px var(--color-primary-100);
-  outline: none;
-}
-
-input::placeholder, textarea::placeholder {
-  color: var(--color-text-tertiary);
-}
-
-/* ============================================
-   🔖 Cards & Containers
-   ============================================
-   جميع البطاقات تستخدم CSS Variables من globals.css
-   ============================================ */
-.card {
-  background: var(--color-background-surface);
-  border: var(--border-width) solid var(--color-neutral-200);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-elevation-1);
-  padding: var(--spacing-6);
-  transition: all var(--duration-normal) var(--ease-out);
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-elevation-4);
-  border-color: var(--color-primary-300);
-}
-
-/* ============================================
-   🌈 Links
-   ============================================
-   جميع الروابط تستخدم CSS Variables من globals.css
-   ============================================ */
-a {
-  color: var(--color-primary-500);
-  text-decoration: none;
-  transition: color var(--duration-normal) var(--ease-out);
-}
-
-a:hover {
-  color: var(--color-primary-600);
-}
-
-a:active:not([aria-disabled="true"]) {
-  transform: scale(0.98);
-}
-
-/* ============================================
-   🧠 Utility Enhancements
-   ============================================
-   جميع التحسينات تستخدم CSS Variables من globals.css
-   ============================================ */
-
-/* Selection styles - محسّنة للتباين */
-::selection {
-  background: var(--color-primary-200);
-  color: var(--color-primary-900);
-}
-
-.dark ::selection {
-  background: var(--color-primary-800);
-  color: var(--color-primary-100);
-}
-
-/* Scrollbar styles - محسّنة */
-/* ملاحظة: Scrollbar styles موجودة في globals.css */
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }

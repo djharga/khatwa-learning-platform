@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 
 interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'text' | 'circular' | 'rectangular';
-  animation?: 'pulse' | 'wave' | 'none';
+  animation?: 'pulse' | 'wave' | 'shimmer' | 'none';
   height?: string;
   width?: string;
   lines?: number;
@@ -36,6 +36,7 @@ export function Skeleton({
   const animationClasses = {
     pulse: 'animate-pulse',
     wave: 'skeleton-wave',
+    shimmer: 'skeleton-shimmer',
     none: '',
   };
 
@@ -132,15 +133,15 @@ export function CourseCardSkeleton({ className, ...props }: React.HTMLAttributes
       {...props}
     >
       <div className="flex items-start gap-4 mb-4">
-        <Skeleton variant="rectangular" height="4rem" width="4rem" className="rounded-xl" />
+        <Skeleton variant="rectangular" height="4rem" width="4rem" className="rounded-xl" animation="shimmer" />
         <div className="flex-1 space-y-2">
-          <Skeleton height="1.5rem" width="80%" />
-          <Skeleton height="1rem" width="60%" />
-          <Skeleton height="1rem" width="40%" />
+          <Skeleton height="1.5rem" width="80%" animation="shimmer" />
+          <Skeleton height="1rem" width="60%" animation="shimmer" />
+          <Skeleton height="1rem" width="40%" animation="shimmer" />
         </div>
       </div>
-      <Skeleton variant="rectangular" height="0.75rem" width="100%" className="mb-2 rounded-full" />
-      <Skeleton variant="rectangular" height="2.5rem" width="100%" className="rounded-xl" />
+      <Skeleton variant="rectangular" height="0.75rem" width="100%" className="mb-2 rounded-full" animation="shimmer" />
+      <Skeleton variant="rectangular" height="2.5rem" width="100%" className="rounded-xl" animation="shimmer" />
     </div>
   );
 }
@@ -176,22 +177,173 @@ export function TableSkeleton({
 }
 
 /* -------------------------------------------------------------------------- */
+/*                             Demo Component                                 */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Demo component to showcase different skeleton loading effects
+ */
+export function SkeletonDemo() {
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!loading) return null;
+
+  return (
+    <div className="space-y-8 p-6">
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Pulse Animation (Default)</h3>
+        <div className="space-y-2">
+          <Skeleton animation="pulse" height="20px" width="100%" />
+          <Skeleton animation="pulse" height="20px" width="80%" />
+          <Skeleton animation="pulse" height="20px" width="60%" />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Wave Animation</h3>
+        <div className="space-y-2">
+          <Skeleton animation="wave" height="20px" width="100%" />
+          <Skeleton animation="wave" height="20px" width="80%" />
+          <Skeleton animation="wave" height="20px" width="60%" />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Shimmer Animation ✨</h3>
+        <div className="space-y-2">
+          <Skeleton animation="shimmer" height="20px" width="100%" />
+          <Skeleton animation="shimmer" height="20px" width="80%" />
+          <Skeleton animation="shimmer" height="20px" width="60%" />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Card Skeletons with Shimmer</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <CourseCardSkeleton />
+          <CourseCardSkeleton />
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold mb-4">Full Skeleton Screen</h3>
+        <ShimmerSkeletonScreen variant="cards" count={3} />
+      </div>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
+/*                             Shimmer Skeleton Screen                        */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Full skeleton screen with shimmer effect for loading states
+ */
+export function ShimmerSkeletonScreen({
+  variant = 'cards',
+  count = 6,
+  className,
+  ...props
+}: {
+  variant?: 'cards' | 'list' | 'table';
+  count?: number;
+} & React.HTMLAttributes<HTMLDivElement>) {
+  const renderCardSkeleton = (index: number) => (
+    <div key={index} className="animate-in fade-in-50 slide-in-from-bottom-4 duration-300" style={{ animationDelay: `${index * 100}ms` }}>
+      <CourseCardSkeleton />
+    </div>
+  );
+
+  const renderListSkeleton = (index: number) => (
+    <div key={index} className="animate-in fade-in-50 slide-in-from-left-4 duration-300" style={{ animationDelay: `${index * 50}ms` }}>
+      <div className="flex items-center gap-4 p-4 bg-white dark:bg-neutral-800/80 rounded-xl border border-neutral-200 dark:border-neutral-700">
+        <Skeleton variant="circular" height="3rem" width="3rem" animation="shimmer" />
+        <div className="flex-1 space-y-2">
+          <Skeleton height="1.25rem" width="60%" animation="shimmer" />
+          <Skeleton height="0.875rem" width="40%" animation="shimmer" />
+        </div>
+        <Skeleton variant="rectangular" height="2rem" width="4rem" animation="shimmer" />
+      </div>
+    </div>
+  );
+
+  const renderTableSkeleton = () => (
+    <TableSkeleton rows={count} columns={4} />
+  );
+
+  const renderContent = () => {
+    switch (variant) {
+      case 'list':
+        return (
+          <div className="space-y-3">
+            {Array.from({ length: count }).map((_, index) => renderListSkeleton(index))}
+          </div>
+        );
+      case 'table':
+        return renderTableSkeleton();
+      default:
+        return (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: count }).map((_, index) => renderCardSkeleton(index))}
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className={cn('w-full', className)} {...props}>
+      {renderContent()}
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*                              Extra Styling (CSS)                           */
 /* -------------------------------------------------------------------------- */
 /**
- * Add this CSS once in your global stylesheet (e.g. globals.css)
- * to enable the wave animation.
- * 
- * @example
- * .skeleton-wave::after {
- *   content: "";
- *   position: absolute;
- *   inset: 0;
- *   background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
- *   transform: translateX(-100%);
- *   animation: skeleton-wave 1.6s infinite ease-in-out;
- * }
- * @keyframes skeleton-wave {
- *   100% { transform: translateX(100%); }
- * }
+ * 🎭 Skeleton Loading Effects Documentation
+ *
+ * This component provides multiple loading animation types:
+ *
+ * ✨ Shimmer Effect: Modern Facebook/Twitter style loading animation
+ * 🌊 Wave Effect: Traditional skeleton wave animation
+ * 💓 Pulse Effect: Subtle opacity pulsing animation
+ * 🚫 None: Static placeholder without animation
+ *
+ * Usage Examples:
+ *
+ * // Basic shimmer skeleton
+ * <Skeleton animation="shimmer" width="200px" height="20px" />
+ *
+ * // Shimmer card skeleton
+ * <CourseCardSkeleton />
+ *
+ * // Full shimmer skeleton screen
+ * <ShimmerSkeletonScreen variant="cards" count={6} />
+ *
+ * // Different animation types
+ * <Skeleton animation="pulse" />      // Default pulse
+ * <Skeleton animation="wave" />       // Wave effect
+ * <Skeleton animation="shimmer" />    // Shimmer effect ✨
+ * <Skeleton animation="none" />       // No animation
+ *
+ * // Responsive variants
+ * <Skeleton variant="text" lines={3} animation="shimmer" />
+ * <Skeleton variant="circular" animation="shimmer" />
+ * <Skeleton variant="rectangular" animation="shimmer" />
+ *
+ * Features:
+ * - 🎨 Modern shimmer effect with gradient animation
+ * - 🌙 Dark mode support
+ * - ♿ Accessibility compliant (respects prefers-reduced-motion)
+ * - 📱 Responsive design
+ * - 🎯 TypeScript support
+ *
+ * The shimmer CSS is automatically included in globals.css, so no additional setup is needed.
  */

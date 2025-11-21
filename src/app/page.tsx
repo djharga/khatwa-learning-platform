@@ -5,9 +5,11 @@ import dynamic from 'next/dynamic';
 import PageBackground from '@/components/ui/PageBackground';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
+import { ScrollAnimation } from '@/components/ui';
+import UnifiedHeroSection from '@/components/ui/UnifiedHeroSection';
+import { heroPresets, heroSectionSpacing } from '@/data/hero-presets';
 
 // ✦ Lazy Loading للأقسام ✦
-const CreativeHeroSection = dynamic(() => import('@/components/homepage/CreativeHeroSection'), { ssr: true });
 const FeaturedCoursesSection = dynamic(() => import('@/components/homepage/FeaturedCoursesSection'), { ssr: false });
 const FellowshipSection = dynamic(() => import('@/components/homepage/FellowshipSection'), { ssr: false });
 const FAQSection = dynamic(() => import('@/components/homepage/FAQSection'), { ssr: false });
@@ -48,7 +50,6 @@ export default function HomePage() {
 
   const sections = useMemo(
     () => [
-      CreativeHeroSection,
       VisionSection,
       MissionSection,
       GoalsSection,
@@ -75,23 +76,34 @@ export default function HomePage() {
         />
       </div>
 
-      {/* ✦ أقسام الصفحة ✦ */}
+      {/* ✦ Hero Section الموحّد ✦ */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
+        <UnifiedHeroSection {...heroPresets.home} className="mx-auto" />
+      </div>
+
+      {/* ✦ أقسام الصفحة ✦ - مع Scroll Animations المحسّنة */}
       <div className="relative z-10">
-        {sections.map((Section, i) => (
-          <section
-            key={i}
-            className={`
-              container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16
-              ${prefersReducedMotion || !isMounted 
-                ? 'opacity-100' 
-                : 'animate-fadeInUp opacity-0'
-              }
-            `}
-            style={prefersReducedMotion || !isMounted ? {} : { animationDelay: `${i * 0.08}s` }}
-          >
-            <Section />
-          </section>
-        ))}
+        {sections.map((Section, i) => {
+          // تنويع التأثيرات حسب القسم
+          const getDirection = (index: number) => {
+            const directions: Array<'up' | 'down' | 'left' | 'right' | 'fade' | 'scale'> = ['up', 'right', 'left', 'fade', 'scale', 'up', 'up'];
+            return directions[index] || 'up';
+          };
+
+          return (
+            <ScrollAnimation
+              key={i}
+              direction={getDirection(i)}
+              delay={i * 0.15}
+              duration={0.8}
+              className={`container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${heroSectionSpacing}`}
+              threshold={0.1}
+              triggerOnce={true}
+            >
+              <Section />
+            </ScrollAnimation>
+          );
+        })}
       </div>
 
       {/* ✦ زر العودة إلى الأعلى ✦ */}

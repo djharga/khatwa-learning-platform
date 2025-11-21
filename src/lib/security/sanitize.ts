@@ -57,10 +57,11 @@ export function sanitizeFilename(filename: string): string {
   if (!filename) return 'file';
   
   // إزالة path separators
-  let clean = filename.replace(/[\/\\]/g, '_');
+  let clean = filename.replace(/[/\\]/g, '_');
   
   // إزالة أحرف خاصة خطرة
-  clean = clean.replace(/[<>:"|?*\x00-\x1f]/g, '');
+  // eslint-disable-next-line no-control-regex
+  clean = clean.replace(/[<>:"|?*\u0000-\u001f]/g, '');
   
   // إزالة spaces من البداية والنهاية
   clean = clean.trim();
@@ -138,6 +139,7 @@ export function sanitizePhone(phone: string): string | null {
   if (!phone) return null;
   
   // إزالة كل شيء ما عدا الأرقام و + و -
+  // eslint-disable-next-line no-useless-escape
   const clean = phone.replace(/[^\d+\-]/g, '');
   
   if (clean.length < 9 || clean.length > 15) {

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import PageBackground from '@/components/ui/PageBackground';
+import HeroSection from '@/components/ui/HeroSection';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
@@ -54,42 +55,22 @@ export default function AboutPage() {
 
       <div className="relative z-10">
         {/* قسم الهيرو */}
-        <section className="relative bg-gradient-to-br from-white dark:from-neutral-900 via-neutral-50/30 dark:via-neutral-800/30 to-neutral-100/50 dark:to-neutral-800/50 py-24 lg:py-36 xl:py-48 overflow-hidden">
-            <div className="absolute inset-0 overflow-hidden">
-            <div className={`absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-primary-100/40 to-secondary-innovate-100/40 dark:from-primary-900/40 dark:to-secondary-innovate-900/40 rounded-full blur-3xl ${prefersReducedMotion ? '' : 'animate-pulse'}`} />
-            <div className={`absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-success-100/30 to-primary-100/30 dark:from-success-900/30 dark:to-primary-900/30 rounded-full blur-3xl ${prefersReducedMotion ? '' : 'animate-pulse delay-1000'}`} />
-          </div>
-
-          <div className="container mx-auto max-w-7xl px-8 relative z-10 text-center space-y-8">
-            <motion.div
-              className="inline-flex items-center gap-3 px-4 py-2 bg-white/80 backdrop-blur-sm border border-slate-200/60 rounded-full shadow-lg"
-              initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2, duration: 0.5 }}
-            >
-              <div className={`w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full ${prefersReducedMotion ? '' : 'animate-pulse'}`} />
-              <span className="text-slate-700 dark:text-slate-300 font-medium text-sm">منصة خطى للتعليم والتدريب</span>
-            </motion.div>
-
-            <motion.h1
-              className="text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-600 dark:text-primary-400"
-              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.4, duration: 0.8 }}
-            >
-              عن خطى
-            </motion.h1>
-
-            <motion.p
-              className="text-lg lg:text-xl text-slate-700 dark:text-slate-300 max-w-4xl mx-auto font-medium leading-relaxed"
-              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.6, duration: 0.6 }}
-            >
-              منصة تعليمية رائدة تجمع بين الخبرة العملية والمعرفة الأكاديمية لتطوير المهارات المهنية في المجال المالي والمراجعي.
-            </motion.p>
-          </div>
-        </section>
+        <HeroSection
+          title="عن خطى"
+          description="منصة تعليمية رائدة تجمع بين الخبرة العملية والمعرفة الأكاديمية لتطوير المهارات المهنية في المجال المالي والمراجعي."
+          variant="light"
+          size="lg"
+          badges={[
+            { 
+              label: 'منصة خطى للتعليم والتدريب',
+              variant: 'default'
+            }
+          ]}
+          backgroundGradient="bg-gradient-to-br from-white dark:from-neutral-900 via-neutral-50/30 dark:via-neutral-800/30 to-neutral-100/50 dark:to-neutral-800/50"
+          overlayOpacity={0}
+          className="mx-0 my-0 rounded-none"
+          enableAnimation={!prefersReducedMotion}
+        />
 
         {/* قسم القصة */}
         <section className="relative py-24 lg:py-36 bg-slate-50">

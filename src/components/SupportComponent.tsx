@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useNotifications } from './NotificationProvider';
 import { supportFaqs, supportArticles, supportTickets, SupportFAQ, SupportArticle, SupportTicket } from './support-data';
+import Input from '@/components/ui/Input';
 
 /** FAQ item with question, answer, and category classification */
 type FAQ = SupportFAQ;
@@ -303,17 +304,15 @@ const SupportComponent = () => {
         transition={{ delay: 0.2 }}
         className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-gray-700 transition-all duration-300"
       >
-        <div className="relative">
-          <Search className="absolute left-4 top-4 h-6 w-6 text-gray-400 transition-all duration-300" />
-          <input
-            type="text"
-            placeholder="ابحث عن سؤال أو موضوع..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-6 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 text-lg"
-            aria-label="ابحث عن سؤال أو موضوع"
-          />
-        </div>
+        <Input
+          type="text"
+          placeholder="ابحث عن سؤال أو موضوع..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          leftIcon={Search}
+          aria-label="ابحث عن سؤال أو موضوع"
+          className="text-lg"
+        />
       </motion.div>
 
       {/* Tabs */}

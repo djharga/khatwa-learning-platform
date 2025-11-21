@@ -507,16 +507,6 @@ export const navigationItems: Record<string, NavigationItem> = {
   },
 
   // صفحات إضافية
-  onboardingDemo: {
-    id: 'onboarding-demo',
-    label: 'عرض توضيحي للبدء',
-    href: '/onboarding-demo',
-    icon: 'play',
-    description: 'دليل تفاعلي للتعرف على المنصة',
-    roles: ['public', 'student', 'instructor', 'admin'],
-    requiresAuth: false,
-    priority: 18,
-  },
 
   about: {
     id: 'about',
@@ -526,16 +516,6 @@ export const navigationItems: Record<string, NavigationItem> = {
     description: 'تعرف على منصة خطى التعليمية',
     roles: ['public', 'student', 'instructor', 'admin'],
     priority: 19,
-  },
-
-  learningHub: {
-    id: 'learning-hub',
-    label: 'مركز التعلم',
-    href: '/learning-hub',
-    icon: 'graduation-cap',
-    description: 'مركز شامل للتعلم والتطوير',
-    roles: ['public', 'student', 'instructor', 'admin'],
-    priority: 19.5,
   },
 
 
@@ -740,7 +720,6 @@ export const getPublicNavbarItems = () => [
         label: 'المحتوى التعليمي',
         icon: 'learning',
         children: [
-          navigationItems.learningHub,
           navigationItems.workshops,
           navigationItems.review,
           navigationItems.advancedFeatures,
@@ -783,8 +762,8 @@ export const getPublicNavbarItems = () => [
 ];
 
 // الحصول على روابط الـ Sidebar للمستخدمين المسجلين
-export const getSidebarItems = (userRole = 'student', hasSubscription = false) => {
-  const userNav = getNavigationForUser(userRole, true, hasSubscription);
+export const getSidebarItems = (userRole = 'student', hasSubscription = false, isAuthenticated = true) => {
+  const userNav = getNavigationForUser(userRole, isAuthenticated, hasSubscription);
   return userNav.map((section) => ({
     category: section.id,
     title: section.title,
@@ -919,8 +898,6 @@ export const getBreadcrumbs = (pathname: string) => {
     breadcrumbs.push({ label: 'تقارير الإدارة', href: '/admin/reports' });
   } else if (pathname.startsWith('/blog')) {
     breadcrumbs.push({ label: 'المدونة', href: '/blog' });
-  } else if (pathname.startsWith('/services')) {
-    breadcrumbs.push({ label: 'الباقات والاستشارات', href: '/packages-and-consulting' });
   } else if (pathname.startsWith('/files')) {
     breadcrumbs.push({ label: 'ملفاتي', href: '/files' });
   } else if (pathname.startsWith('/courses/financial-management')) {
@@ -961,16 +938,10 @@ export const getBreadcrumbs = (pathname: string) => {
     });
   } else if (pathname.startsWith('/review')) {
     breadcrumbs.push({ label: 'بنك الأسئلة التفاعلي', href: '/review' });
-  } else if (pathname.startsWith('/advanced-features')) {
-    breadcrumbs.push({ label: 'الميزات المتقدمة', href: '/advanced-features' });
   } else if (pathname.startsWith('/ai-tools')) {
     breadcrumbs.push({ label: 'الميزات المتقدمة', href: '/ai-tools' });
-  } else if (pathname.startsWith('/onboarding-demo')) {
-    breadcrumbs.push({ label: 'عرض توضيحي للبدء', href: '/onboarding-demo' });
   } else if (pathname.startsWith('/meeting-room')) {
     breadcrumbs.push({ label: 'غرفة الاجتماعات', href: '/meeting-room' });
-  } else if (pathname.startsWith('/learning-hub')) {
-    breadcrumbs.push({ label: 'مركز التعلم', href: '/learning-hub' });
   } else if (pathname.startsWith('/workshops')) {
     breadcrumbs.push({ label: 'ورش العمل', href: '/workshops' });
   } else if (pathname.startsWith('/about')) {
@@ -1013,7 +984,6 @@ export const getQuickAccessLinks = (
         navigationItems.studentExam,
         navigationItems.meetingRoom,
         navigationItems.resourceCourseFiles,
-        navigationItems.learningHub,
         navigationItems.accountingSimulation
       );
     } else if (userRole === 'admin') {
@@ -1027,7 +997,6 @@ export const getQuickAccessLinks = (
     quickLinks.push(
       navigationItems.internalAuditors,
       navigationItems.auditorsFellowship,
-      navigationItems.learningHub,
       navigationItems.workshops,
       navigationItems.subscription
     );

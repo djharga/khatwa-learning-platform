@@ -47,7 +47,7 @@ export type ButtonVariants = VariantProps<typeof buttonVariants>;
  */
 export const linkVariants = cva(
   // Base styles
-  "inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-300 ease-in-out focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2",
+  "inline-flex items-center justify-center gap-2 font-semibold rounded-xl transition-all duration-300 ease-in-out focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 no-underline hover:no-underline",
   {
     variants: {
       variant: {

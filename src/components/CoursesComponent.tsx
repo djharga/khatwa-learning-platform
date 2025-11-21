@@ -288,19 +288,24 @@ const CoursesComponent = () => {
               جاري تحميل الدورات...
             </motion.div>
           ) : (
-            <motion.div
-              key="courses"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.4 }}
-              className={state.viewMode === 'grid' ? 'grid gap-6 md:grid-cols-2 xl:grid-cols-3' : 'space-y-5'}
-            >
+            <div className="relative">
+              {/* Global Background Effect Layer */}
+              <div className="course-page-bg-effect fixed inset-0 w-full h-full -z-0 pointer-events-none" />
+              
+              <motion.div
+                key="courses"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4 }}
+                className={`relative z-10 ${state.viewMode === 'grid' ? 'grid gap-6 md:grid-cols-2 xl:grid-cols-3 items-stretch' : 'space-y-5'}`}
+              >
               {filteredAndSortedCourses.map((course, i) => (
                 <motion.div
                   key={course.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}
+                  className={state.viewMode === 'grid' ? 'h-full' : ''}
                 >
                   <CourseCard
                     course={course}
@@ -309,7 +314,8 @@ const CoursesComponent = () => {
                   />
                 </motion.div>
               ))}
-            </motion.div>
+              </motion.div>
+            </div>
           )}
         </AnimatePresence>
       </div>

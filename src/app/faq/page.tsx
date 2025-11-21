@@ -10,6 +10,7 @@ import {
 import Link from 'next/link';
 import { faqs } from '@/components/faq-data';
 import PageBackground from '@/components/ui/PageBackground';
+import HeroSection from '@/components/ui/HeroSection';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 interface FAQ {
@@ -113,87 +114,57 @@ export default function FAQPage() {
   return (
     <PageBackground variant="home">
       {/* Hero Section */}
-      <motion.div
-        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.6 }}
-        className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white"
+      <HeroSection
+        title="الأسئلة الشائعة"
+        description="إجابات شاملة على جميع استفساراتك حول منصة خطى التعليمية"
+        variant="gradient"
+        size="md"
+        backgroundGradient="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600"
+        badges={[
+          {
+            label: 'مركز المساعدة',
+            icon: <Sparkles className="w-5 h-5" />,
+            variant: 'default'
+          }
+        ]}
+        className="mx-0 my-0 rounded-none"
+        contentClassName="py-12 sm:py-16 lg:py-20"
+        enableAnimation={!prefersReducedMotion}
       >
-        <div className="absolute inset-0 bg-grid-pattern opacity-10"></div>
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/20 to-transparent rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tl from-white/20 to-transparent rounded-full blur-3xl"></div>
-        
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="text-center max-w-3xl mx-auto">
-            <motion.div
-              initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full mb-6"
-            >
-              <Sparkles className="w-5 h-5" />
-              <span className="text-sm font-semibold">مركز المساعدة</span>
-            </motion.div>
-            
-            <motion.h1
-              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.3 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-6"
-            >
-              الأسئلة الشائعة
-            </motion.h1>
-            
-            <motion.p
-              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.4 }}
-              className="text-lg sm:text-xl text-blue-50 dark:text-blue-100 mb-8 leading-relaxed"
-            >
-              إجابات شاملة على جميع استفساراتك حول منصة خطى التعليمية
-            </motion.p>
-
-            {/* Search Bar */}
-            <motion.div
-              initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? { duration: 0 } : { delay: 0.5 }}
-              className="relative max-w-2xl mx-auto"
-            >
-              <div className="relative">
-                <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-200 dark:text-blue-300" aria-hidden="true" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="ابحث في الأسئلة الشائعة..."
-                  className="w-full pr-12 pl-4 py-4 text-lg rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-md text-white placeholder:text-blue-50 dark:placeholder:text-blue-200 focus:outline-none focus:border-white/40 focus:bg-white/20 transition-all"
-                  aria-label="البحث في الأسئلة الشائعة"
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
-                    aria-label="مسح البحث"
-                  >
-                    <X className="w-4 h-4 text-white" />
-                  </button>
-                )}
-              </div>
-              
-              {searchQuery && (
-                <motion.div
-                  initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="mt-2 text-sm text-blue-50 dark:text-blue-100"
-                >
-                  تم العثور على {filteredFAQs.length} سؤال
-                </motion.div>
-              )}
-            </motion.div>
+        {/* Search Bar - Custom Content */}
+        <div className="relative max-w-2xl mx-auto mt-8">
+          <div className="relative">
+            <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-blue-200 dark:text-blue-300" aria-hidden="true" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="ابحث في الأسئلة الشائعة..."
+              className="w-full pr-12 pl-4 py-4 text-lg rounded-xl border-2 border-white/20 bg-white/10 backdrop-blur-md text-white placeholder:text-blue-50 dark:placeholder:text-blue-200 focus:outline-none focus:border-white/40 focus:bg-white/20 transition-all"
+              aria-label="البحث في الأسئلة الشائعة"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors"
+                aria-label="مسح البحث"
+              >
+                <X className="w-4 h-4 text-white" />
+              </button>
+            )}
           </div>
+          
+          {searchQuery && (
+            <motion.div
+              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="mt-2 text-sm text-blue-50 dark:text-blue-100 text-center"
+            >
+              تم العثور على {filteredFAQs.length} سؤال
+            </motion.div>
+          )}
         </div>
-      </motion.div>
+      </HeroSection>
 
       {/* Main Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">

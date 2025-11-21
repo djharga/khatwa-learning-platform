@@ -1,87 +1,60 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-
 import { cn } from "@/lib/utils"
 
 /**
- * Class variance authority configuration for badge variants. Defines styles for different badge types with consistent sizing and focus states.
- *
- * Variant options:
- * - `default`: Primary badge with primary color background and text
- * - `secondary`: Secondary badge with secondary color background and text
- * - `destructive`: Destructive/error badge with red background and text
- * - `outline`: Outlined badge with transparent background and border
- *
- * Default styling: Rounded-full shape, small padding, extra small text, semibold font, focus ring
- * Hover behavior: All variants have hover state that reduces opacity to 80%
+ * Badge Component - Clean & Static Design System
+ * Optimized for Arabic content and clear status indication.
  */
-// Focus ring appears when badge is focusable (e.g., with onClick or tabIndex)
-// Pill-shaped design with fully rounded corners
-// Most variants use transparent border, outline variant overrides this
+
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center justify-center rounded-full border font-medium whitespace-nowrap select-none focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
         default:
-          "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+          "border-transparent bg-primary-600 text-white shadow hover:bg-primary-700",
         secondary:
           "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
         destructive:
-          "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-        outline: "text-foreground",
+          "border-transparent bg-red-500 text-white shadow hover:bg-red-600",
+        success:
+          "border-transparent bg-emerald-500 text-white shadow hover:bg-emerald-600",
+        warning:
+          "border-transparent bg-amber-500 text-white shadow hover:bg-amber-600",
+        info:
+          "border-transparent bg-sky-500 text-white shadow hover:bg-sky-600",
+        outline:
+          "text-foreground border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800",
+        ghost:
+          "border-transparent bg-transparent text-neutral-600 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800",
       },
+      size: {
+        sm: "h-5 px-2 text-[10px]",      // Ultra compact
+        default: "h-6 px-2.5 text-xs",   // Standard
+        lg: "h-7 px-3 text-sm",          // Prominent
+      },
+      rounded: {
+        default: "rounded-full",         // Pill shape (Standard)
+        md: "rounded-md",                // Rounded rectangle (Tag style)
+        sm: "rounded-sm",                // Slightly rounded (Chip style)
+      }
     },
     defaultVariants: {
       variant: "default",
+      size: "default",
+      rounded: "default",
     },
   }
 )
 
-/**
- * Props for the Badge component extending native div HTML attributes with variant styling options.
- *
- * @property {string} variant - Visual style variant (default: 'default')
- * @property {string} className - Additional CSS classes to merge with variant styles
- * @property {React.ReactNode} children - Badge content (typically short text or numbers)
- *
- * Note: Extends all standard div attributes (onClick, onMouseEnter, etc.)
- */
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof badgeVariants> {}
 
-// Common uses: notification counts, status labels, tags, category indicators
-// For clickable badges, add onClick handler and cursor-pointer class
-// For interactive badges, consider adding role="button" and keyboard handlers
-// Badge size is determined by text size (xs) and padding (2.5 horizontal, 0.5 vertical)
-/**
- * Flexible badge component for labels, status indicators, and counts. Uses pill-shaped design with multiple color variants. Supports focus states for interactive badges.
- *
- * @example
- * <Badge>New</Badge>
- *
- * @example
- * <Badge variant="default">Primary</Badge>
- * <Badge variant="secondary">Secondary</Badge>
- * <Badge variant="destructive">Error</Badge>
- * <Badge variant="outline">Outlined</Badge>
- *
- * @example
- * <Badge
- *   variant="secondary"
- *   onClick={handleClick}
- *   className="cursor-pointer"
- * >
- *   Clickable
- * </Badge>
- *
- * @example
- * <Badge variant="destructive">{unreadCount}</Badge>
- */
-function Badge({ className, variant, ...props }: BadgeProps) {
+function Badge({ className, variant, size, rounded, ...props }: BadgeProps) {
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+    <div className={cn(badgeVariants({ variant, size, rounded }), className)} {...props} />
   )
 }
 

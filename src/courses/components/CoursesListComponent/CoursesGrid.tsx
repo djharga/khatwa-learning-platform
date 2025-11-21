@@ -22,7 +22,7 @@ export interface CoursesGridProps {
 }
 
 const CoursesGrid: React.FC<CoursesGridProps> = ({ courses, viewMode, isLoading, onBookmark, onShare, onEnroll }) => {
-  const gridClasses = viewMode === 'grid' ? 'grid gap-8 lg:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid gap-8 lg:gap-10 grid-cols-1';
+  const gridClasses = viewMode === 'grid' ? 'grid gap-8 lg:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch' : 'grid gap-8 lg:gap-10 grid-cols-1';
 
   return (
     <motion.div
@@ -57,6 +57,7 @@ const CoursesGrid: React.FC<CoursesGridProps> = ({ courses, viewMode, isLoading,
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: index * 0.1, duration: 0.4 }}
             whileHover={{ y: -10, scale: 1.03 }}
+            className="h-full"
           >
             <CourseCard
               course={course}

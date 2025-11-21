@@ -22,30 +22,33 @@ const CTASection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="relative bg-white dark:bg-neutral-900 rounded-2xl p-8 lg:p-12 border-2 border-neutral-200 dark:border-neutral-700 shadow-xl"
+            className="relative bg-white dark:bg-neutral-900 rounded-2xl p-8 lg:p-12 border border-neutral-200 dark:border-neutral-700 shadow-xl"
+            dir="rtl"
           >
-            {/* Content - Enhanced internal spacing */}
-            <div className="text-center space-y-8">
+            {/* Content */}
+            <div className="text-center space-y-6">
               {/* Title */}
-              <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white">
-                جاهز لبدء رحلتك التعليمية؟
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white">
+                <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 bg-clip-text text-transparent">
+                  جاهز لبدء رحلتك التعليمية؟
+                </span>
               </h2>
               
-              {/* Simple Description - Enhanced spacing */}
-              <p className="text-base lg:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl mx-auto py-2">
+              {/* Description */}
+              <p className="text-lg lg:text-xl text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-xl mx-auto">
                 انضم إلينا اليوم وابدأ رحلتك نحو التميز المهني
               </p>
 
-              {/* CTA Button - Consistent with other sections, no glow, smooth transition */}
-              <div className="pt-4">
+              {/* CTA Button */}
+              <div className="pt-2">
                 <Link href={ROUTES.REGISTER}>
                   <motion.button
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="group inline-flex items-center gap-2 px-7 py-[14px] bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 text-white rounded-xl font-bold text-sm lg:text-base shadow-lg hover:shadow-xl transition-all duration-200"
+                    className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 text-white rounded-xl font-bold text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     <span>ابدأ الآن</span>
-                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+                    <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" />
                   </motion.button>
                 </Link>
               </div>

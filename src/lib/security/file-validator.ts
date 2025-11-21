@@ -270,10 +270,11 @@ export function validateFile(
  */
 function sanitizeFilename(filename: string): string {
   // إزالة path separators
-  let clean = filename.replace(/[\/\\]/g, '_');
+  let clean = filename.replace(/[/\\]/g, '_');
   
   // إزالة أحرف خاصة خطرة
-  clean = clean.replace(/[<>:"|?*\x00-\x1f]/g, '');
+  // eslint-disable-next-line no-control-regex
+  clean = clean.replace(/[<>:"|?*\u0000-\u001f]/g, '');
   
   // إزالة spaces من البداية والنهاية
   clean = clean.trim();

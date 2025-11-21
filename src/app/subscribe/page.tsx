@@ -17,7 +17,7 @@ export default function SubscribePage() {
   };
 
   const handleSuccess = () => {
-    router.push('/student/courses');
+    router.push('/courses');
   };
 
   return (

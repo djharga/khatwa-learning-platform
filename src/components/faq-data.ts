@@ -1,5 +1,5 @@
 /**
- * Frequently asked questions data for FAQComponent. Contains 40 comprehensive Q&A items covering platform features, pricing, certifications, support, and institutional services. Content in Arabic.
+ * Frequently asked questions data for FAQSection. Contains 40 comprehensive Q&A items covering platform features, pricing, certifications, support, and institutional services. Content in Arabic.
  */
 
 interface FAQ {

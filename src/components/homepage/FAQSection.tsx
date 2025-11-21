@@ -75,7 +75,7 @@ const FAQSection = () => {
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-lg"
+              className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-lg"
             >
               <HelpCircle className="w-8 h-8 text-white" />
             </motion.div>
@@ -85,9 +85,10 @@ const FAQSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4"
+              className="text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4"
+              dir="rtl"
             >
-              <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 bg-clip-text text-transparent">
                 الأسئلة الشائعة
               </span>
             </motion.h2>
@@ -97,7 +98,8 @@ const FAQSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto"
+              className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed"
+              dir="rtl"
             >
               أجوبة على الأسئلة الأكثر شيوعاً حول المنصة والخدمات
             </motion.p>
@@ -114,10 +116,10 @@ const FAQSection = () => {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <div
-                  className={`relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-emerald-50/20 to-teal-50/10 dark:from-neutral-800 dark:via-emerald-900/10 dark:to-teal-900/10 border transition-all duration-300 ${
+                  className={`relative overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border transition-all duration-300 ${
                     openIndex === index
-                      ? 'border-emerald-300 dark:border-emerald-700 shadow-xl'
-                      : 'border-emerald-200/50 dark:border-emerald-800/30 shadow-md hover:shadow-lg'
+                      ? 'border-primary-300 dark:border-primary-700 shadow-xl bg-primary-50/50 dark:bg-primary-900/10'
+                      : 'border-neutral-200 dark:border-neutral-700 shadow-md hover:shadow-lg hover:border-primary-200 dark:hover:border-primary-800'
                   }`}
                 >
                   {/* Decorative Gradient Overlay */}
@@ -130,17 +132,18 @@ const FAQSection = () => {
                     onClick={() => toggleFAQ(index)}
                     className="w-full p-6 lg:p-8 flex items-center justify-between gap-4 text-right group"
                     aria-expanded={openIndex === index}
+                    dir="rtl"
                   >
                     <div className="flex-1">
                       <div className="flex items-start gap-4">
                         <div className={`flex-shrink-0 mt-1 transition-colors duration-200 ${
                           openIndex === index
-                            ? 'text-emerald-600 dark:text-emerald-400'
-                            : 'text-emerald-500 dark:text-emerald-500'
+                            ? 'text-primary-600 dark:text-primary-400'
+                            : 'text-primary-500 dark:text-primary-500'
                         }`}>
                           <MessageCircle className="w-5 h-5 lg:w-6 lg:h-6" />
                         </div>
-                        <h3 className="text-lg lg:text-xl font-semibold text-neutral-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-200">
+                        <h3 className="text-lg lg:text-xl font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors duration-200">
                           {faq.question}
                         </h3>
                       </div>
@@ -149,9 +152,9 @@ const FAQSection = () => {
                     <motion.div
                       animate={{ rotate: openIndex === index ? 180 : 0 }}
                       transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className={`flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-200 ${
+                      className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-colors duration-200 ${
                         openIndex === index
-                          ? 'bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400'
+                          ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400'
                           : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-600 dark:text-neutral-400'
                       }`}
                     >
@@ -170,8 +173,8 @@ const FAQSection = () => {
                         className="overflow-hidden"
                       >
                         <div className="px-6 lg:px-8 pb-6 lg:pb-8 pt-0">
-                          <div className="border-t border-emerald-200/50 dark:border-emerald-800/30 pt-6">
-                            <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                          <div className="border-t border-primary-200/50 dark:border-primary-800/30 pt-6">
+                            <p className="text-base lg:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed" dir="rtl">
                               {faq.answer}
                             </p>
                           </div>
@@ -183,8 +186,8 @@ const FAQSection = () => {
                   {/* Subtle Corner Accents */}
                   {openIndex === index && (
                     <>
-                      <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-emerald-500/10 to-transparent rounded-br-full pointer-events-none" />
-                      <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-teal-500/10 to-transparent rounded-tl-full pointer-events-none" />
+                      <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary-500/10 to-transparent rounded-br-full pointer-events-none" />
+                      <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-primary-500/10 to-transparent rounded-tl-full pointer-events-none" />
                     </>
                   )}
                 </div>
@@ -200,13 +203,13 @@ const FAQSection = () => {
             transition={{ duration: 0.5, delay: 0.6 }}
             className="mt-8 text-center"
           >
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-full border border-emerald-200/50 dark:border-emerald-700/50">
-              <MessageCircle className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <p className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-200/50 dark:border-primary-700/50" dir="rtl">
+              <MessageCircle className="w-5 h-5 text-primary-600 dark:text-primary-400" />
+              <p className="text-sm text-primary-700 dark:text-primary-300 font-medium">
                 لم تجد إجابة؟{' '}
                 <a
                   href={ROUTES.CONTACT}
-                  className="underline hover:text-emerald-800 dark:hover:text-emerald-200 transition-colors"
+                  className="underline hover:text-primary-800 dark:hover:text-primary-200 transition-colors"
                 >
                   تواصل معنا
                 </a>

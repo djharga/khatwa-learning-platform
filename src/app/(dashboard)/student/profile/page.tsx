@@ -92,86 +92,87 @@ export default function StudentProfilePage() {
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className="max-w-6xl mx-auto w-full"
         >
-          {/* Hero Header */}
+          {/* Profile Header - Academic Design: Height 240px, Avatar 120px, Name 32px bold */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="mb-6 sm:mb-8 relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white p-6 sm:p-8 lg:p-12 shadow-lg"
+            className="mb-6 sm:mb-8 relative overflow-hidden rounded-[20px] bg-gradient-to-r from-[#5B36E8] via-[#6D4AFF] to-[#5B36E8] text-white shadow-elevation-2"
+            style={{ height: '240px' }}
           >
             <div className="absolute top-0 end-0 w-96 h-96 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl"></div>
-            <div className="relative z-10">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6 mb-6 sm:mb-8">
-                <div className="flex items-center gap-4 sm:gap-6">
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    className="relative group cursor-pointer flex-shrink-0"
-                  >
-                    <div className="w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold border-4 border-white shadow-2xl">
-                      {profile.name.charAt(0)}
-                    </div>
-                    {editMode && (
-                      <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <Camera className="w-8 h-8 text-white" />
-                      </div>
-                    )}
-                  </motion.div>
-                  <div>
-                    <motion.h1
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 }}
-                      className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-2 break-words"
-                    >
-                      {profile.name}
-                    </motion.h1>
-                    <motion.p
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2 }}
-                      className="text-base sm:text-lg text-indigo-100 mb-2 break-all"
-                    >
-                      {profile.email}
-                    </motion.p>
-                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs sm:text-sm">
-                      <span className="flex items-center gap-2">
-                        <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                        <span className="break-words">{profile.location}</span>
-                      </span>
-                      <span className="hidden sm:inline">•</span>
-                      <span>عضو منذ {formattedDate}</span>
-                    </div>
-                  </div>
-                </div>
-                <motion.button
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => editMode ? handleSaveProfile() : setEditMode(true)}
-                  className="group hidden md:flex items-center gap-2 px-6 py-3 min-h-[44px] bg-white/20 backdrop-blur-md rounded-xl hover:bg-white/30 transition-all duration-200 ease-out border-2 border-white/40 hover:border-white/60 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary-600"
-                  aria-label={editMode ? 'حفظ التغييرات' : 'تعديل الملف الشخصي'}
-                  type="button"
-                >
-                  {editMode ? (
-                    <>
-                      <Save className="w-5 h-5" aria-hidden="true" />
-                      <span className="font-semibold">حفظ</span>
-                    </>
-                  ) : saved ? (
-                    <>
-                      <CheckCircle2 className="w-5 h-5 text-green-300" aria-hidden="true" />
-                      <span className="font-semibold">تم الحفظ</span>
-                    </>
-                  ) : (
-                    <>
-                      <Edit2 className="w-5 h-5" aria-hidden="true" />
-                      <span className="font-semibold">تعديل</span>
-                    </>
-                  )}
-                </motion.button>
-              </div>
+            <div className="relative z-10 h-full flex flex-col items-center justify-center p-8" dir="rtl">
+              {/* Edit Profile Button - Top-right corner */}
+              <motion.button
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => editMode ? handleSaveProfile() : setEditMode(true)}
+                className="absolute top-4 left-4 group flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white/20 backdrop-blur-md rounded-[10px] hover:bg-white/30 transition-all duration-200 border-[1.5px] border-white/40 hover:border-white/60 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(255,255,255,0.3)]"
+                aria-label={editMode ? 'حفظ التغييرات' : 'تعديل الملف الشخصي'}
+                type="button"
+              >
+                {editMode ? (
+                  <>
+                    <Save className="w-5 h-5" aria-hidden="true" />
+                    <span className="font-semibold text-sm">حفظ</span>
+                  </>
+                ) : saved ? (
+                  <>
+                    <CheckCircle2 className="w-5 h-5 text-green-300" aria-hidden="true" />
+                    <span className="font-semibold text-sm">تم الحفظ</span>
+                  </>
+                ) : (
+                  <>
+                    <Edit2 className="w-5 h-5" aria-hidden="true" />
+                    <span className="font-semibold text-sm">تعديل</span>
+                  </>
+                )}
+              </motion.button>
 
-              {/* Stats Bar */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+              {/* Avatar - 120px circular, centered, border 4px white */}
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="relative group cursor-pointer flex-shrink-0 mb-4"
+              >
+                <div className="w-[120px] h-[120px] bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-extrabold border-4 border-white shadow-elevation-4">
+                  {profile.name.charAt(0)}
+                </div>
+                {editMode && (
+                  <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Camera className="w-8 h-8 text-white" />
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Name - 32px bold, white text */}
+              <motion.h1
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="text-[32px] font-bold mb-2 break-words text-center"
+              >
+                {profile.name}
+              </motion.h1>
+
+              {/* Role - 18px regular, white text with reduced opacity */}
+              <motion.p
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-[18px] font-normal text-white/80 break-words text-center"
+              >
+                طالب
+              </motion.p>
+            </div>
+          </motion.div>
+
+          {/* Stats Bar - Below Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8"
+          >
                 <motion.div 
                   whileHover={{ y: -2, scale: 1.02 }}
                   className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 transition-all duration-200 ease-out"
@@ -200,21 +201,16 @@ export default function StudentProfilePage() {
                   <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.averageScore}%</div>
                   <div className="text-xs sm:text-sm text-blue-100">متوسط الدرجات</div>
                 </motion.div>
-              </div>
-            </div>
           </motion.div>
 
-          {/* Modern Tabs Navigation */}
+          {/* Profile Content Tabs - Academic Design from agent.md */}
           <div className="mb-6 sm:mb-8 w-full">
             <ModernTabs
               tabs={[
                 { id: 'overview', label: 'نظرة عامة', icon: User, count: undefined },
-                { id: 'personal', label: 'المعلومات الشخصية', icon: User, count: undefined },
-                { id: 'professional', label: 'المهنية', icon: Briefcase, count: undefined },
                 { id: 'achievements', label: 'الإنجازات', icon: Award, count: stats.certificates },
-                { id: 'certificates', label: 'الشهادات', icon: Award, count: stats.certificates },
-                { id: 'activity', label: 'الأنشطة', icon: Activity, count: undefined },
-                { id: 'settings', label: 'الإعدادات', icon: Settings, count: undefined },
+                { id: 'activity', label: 'النشاط', icon: Activity, count: undefined },
+                { id: 'statistics', label: 'الإحصائيات', icon: Star, count: undefined },
               ]}
               activeTab={activeTab}
               onChange={setActiveTab}

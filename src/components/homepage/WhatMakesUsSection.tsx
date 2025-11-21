@@ -19,19 +19,19 @@ const WhatMakesUsSection = () => {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-indigo-950/30 dark:via-neutral-900 dark:to-purple-950/30 rounded-2xl p-6 lg:p-8 border border-indigo-200/50 dark:border-indigo-800/50 shadow-xl">
-            <div className="text-center space-y-4">
-              <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white mb-6">
-                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+          <div className="bg-white dark:bg-neutral-900 rounded-2xl p-6 lg:p-8 border border-neutral-200 dark:border-neutral-700 shadow-xl" dir="rtl">
+            <div className="text-center space-y-5">
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-6">
+                <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 bg-clip-text text-transparent">
                   ما يميزنا
                 </span>
               </h2>
               
-              <div className="space-y-4 text-base lg:text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+              <div className="space-y-4 text-lg lg:text-xl text-neutral-700 dark:text-neutral-300 leading-relaxed">
                 <p>
                   نمنحك الأدوات والمعرفة والدعم لتتطور... خطوة بخطوة نحو نجاحك المهني
                 </p>
-                <p className="font-medium">
+                <p className="font-semibold text-primary-600 dark:text-primary-400">
                   نحن لا نعلّمك فقط المعلومة...
                 </p>
                 <p>

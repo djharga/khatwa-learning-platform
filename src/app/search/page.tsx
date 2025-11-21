@@ -117,7 +117,7 @@ function SearchContent() {
           <div className="text-center py-12">
             <Search className="w-16 h-16 text-gray-400 mx-auto mb-4" />
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              لم يتم العثور على نتائج لـ "{query}"
+              لم يتم العثور على نتائج لـ &ldquo;{query}&rdquo;
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">
               جرب البحث بكلمات مختلفة أو استخدم مصطلحات أكثر عمومية

@@ -4,8 +4,19 @@ export { default as StyledButton } from './StyledButton'; // @deprecated - Use B
 export { default as Checkbox } from './Checkbox';
 export { default as Select } from './Select';
 export { default as FormField } from './FormField';
-export { default as LoadingSkeleton } from './LoadingSkeleton';
 export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent } from './Card';
 export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 export { Badge } from './Badge';
 export { Label } from './Label';
+export { Table, TableHeader, TableBody, TableFooter, TableHead, TableRow, TableCell, TableCaption, EmptyTableState } from './Table';
+
+// New Academic UI Components
+export { default as SmartHeader } from './SmartHeader';
+export { GlassCard, glassCardVariants } from './GlassCard';
+export { ProgressRing } from './ProgressRing';
+export { AcademicBadge, academicBadgeVariants } from './AcademicBadge';
+export { AnimatedSection } from './AnimatedSection';
+
+// Enhanced Components
+export { default as AdvancedCourseFilters } from './AdvancedCourseFilters';
+export { ScrollAnimation, ScrollAnimationContainer } from './ScrollAnimation';

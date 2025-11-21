@@ -24,6 +24,7 @@ import {
   X,
 } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
+import HeroSection from '@/components/ui/HeroSection';
 import dynamic from 'next/dynamic';
 import PageBackground from '@/components/ui/PageBackground';
 
@@ -225,61 +226,23 @@ export default function AIToolsPage() {
   return (
     <PageBackground variant="home" pattern overlay>
       {/* Hero Section */}
-      <section className="relative py-16 lg:py-24 overflow-hidden bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
-        
-        <Container size="xl" className="relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center space-y-6"
-          >
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/30 rounded-full">
-              <Brain className="w-5 h-5 text-white" />
-              <span className="text-white font-semibold text-sm">
-                أدوات ذكاء اصطناعي متخصصة
-              </span>
-        </div>
-
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-              <span className="block mb-2">أدوات الذكاء الاصطناعي</span>
-              <span className="block text-3xl md:text-4xl lg:text-5xl font-bold text-white/90">
-                للمحاسبة والمراجعة الداخلية
-              </span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              استخدم أحدث تقنيات الذكاء الاصطناعي لتحليل البيانات المالية، إجراء المراجعات، 
-              وتوليد التقارير الاحترافية بسرعة ودقة عالية
-            </p>
-
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12">
-              {[
-                { icon: Users, value: '5,000+', label: 'مستخدم نشط' },
-                { icon: Activity, value: '50,000+', label: 'تحليل منجز' },
-                { icon: Award, value: '98%', label: 'معدل الرضا' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  className="text-center"
-                >
-                  <stat.icon className="w-8 h-8 text-white/80 mx-auto mb-2" />
-                  <div className="text-2xl md:text-3xl font-bold text-white mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-white/80">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </Container>
-      </section>
+      <HeroSection
+        title="أدوات الذكاء الاصطناعي"
+        subtitle="للمحاسبة والمراجعة الداخلية"
+        description="استخدم أحدث تقنيات الذكاء الاصطناعي لتحليل البيانات المالية، إجراء المراجعات، وتوليد التقارير الاحترافية بسرعة ودقة عالية"
+        variant="gradient"
+        size="lg"
+        backgroundGradient="bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600"
+        badges={[
+          {
+            label: 'أدوات ذكاء اصطناعي متخصصة',
+            icon: <Brain className="w-5 h-5" />,
+            variant: 'default'
+          }
+        ]}
+        className="mx-0 my-0 rounded-none"
+        contentClassName="py-16 lg:py-24"
+      />
 
       {/* Main Content */}
       <Container size="xl" className="py-12 lg:py-16">

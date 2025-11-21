@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { Target, BookOpen, Globe, CheckCircle } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 
@@ -31,58 +32,65 @@ const GoalsSection = () => {
   ];
 
   return (
-    <section className="relative py-12 lg:py-16 overflow-hidden bg-[#FAFAFA] dark:bg-neutral-900">
+    <section className="relative py-12 lg:py-16 overflow-hidden bg-gradient-to-br from-neutral-50 via-white to-neutral-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950">
       <Container size="xl" className="relative z-10">
-        {/* Header - Enlarged title with increased spacing */}
-        <div className="text-center mb-10 lg:mb-12 pt-4">
-          <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 bg-indigo-50 dark:bg-indigo-900/20 rounded-full border border-indigo-200/50 dark:border-indigo-700/50">
-            <Target className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-            <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-xs">
+        {/* Header */}
+        <div className="text-center mb-10 lg:mb-12 pt-4" dir="rtl">
+          <div className="inline-flex items-center gap-2 mb-5 px-4 py-2 bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-200/50 dark:border-primary-700/50">
+            <Target className="w-4 h-4 text-primary-600 dark:text-primary-400" />
+            <span className="text-primary-600 dark:text-primary-400 font-semibold text-xs">
               الأهداف (Goals)
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-neutral-900 dark:text-white mb-4">
-            أهدافنا <span className="bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 bg-clip-text text-transparent">الاستراتيجية</span>
+          <h2 className="text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4">
+            <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 bg-clip-text text-transparent">
+              أهدافنا الاستراتيجية
+            </span>
           </h2>
-          <p className="text-base lg:text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed">
             نسعى لتحقيق أهداف واضحة تساهم في تطوير مهاراتك المهنية
           </p>
         </div>
 
-        {/* Goals Grid - Enhanced with increased padding, gap, no blur, solid colors */}
+        {/* Goals Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {goals.map((goal, index) => {
             const Icon = goal.icon;
-            // Unified simple gradients without glow
-            const simpleGradients = [
-              'from-blue-600 to-blue-700',
-              'from-indigo-600 to-indigo-700',
+            // Unified gradients using primary/accent colors
+            const gradients = [
+              'from-primary-600 to-primary-700',
+              'from-accent-600 to-accent-700',
               'from-emerald-600 to-emerald-700'
             ];
 
             return (
-              <div
+              <motion.div
                 key={index}
-                className="flex flex-col p-6 lg:p-8 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-shadow duration-200"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="flex flex-col p-6 lg:p-8 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-300"
+                dir="rtl"
               >
-                {/* Icon - Simple without glow/blur */}
+                {/* Icon */}
                 <div className="mb-5">
-                  <div className={`w-16 h-16 bg-gradient-to-br ${simpleGradients[index]} rounded-xl flex items-center justify-center shadow-md`}>
+                  <div className={`w-16 h-16 bg-gradient-to-br ${gradients[index]} rounded-xl flex items-center justify-center shadow-lg`}>
                     <Icon className="w-8 h-8 text-white" strokeWidth={2} />
                   </div>
                 </div>
 
-                {/* Content - Improved text size and width */}
+                {/* Content */}
                 <div className="space-y-3 text-center">
-                  <h3 className="text-base lg:text-lg font-bold text-neutral-900 dark:text-white">
+                  <h3 className="text-lg lg:text-xl font-bold text-neutral-900 dark:text-white">
                     {goal.title}
                   </h3>
-                  <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed max-w-sm mx-auto">
+                  <p className="text-base text-neutral-600 dark:text-neutral-400 leading-relaxed">
                     {goal.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -92,4 +100,3 @@ const GoalsSection = () => {
 };
 
 export default GoalsSection;
-

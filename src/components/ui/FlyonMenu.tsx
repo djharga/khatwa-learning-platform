@@ -2,8 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { LucideIcon } from 'lucide-react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { motion as motionTokens } from '@/tokens';
 
 export interface MenuItem {
   href: string;
@@ -39,10 +42,20 @@ const FlyonMenu: React.FC<FlyonMenuProps> = ({
   autoActive = true,
 }) => {
   const pathname = usePathname();
+  const prefersReducedMotion = useReducedMotion();
   
   const baseClasses = orientation === 'horizontal' 
     ? 'menu lg:menu-horizontal' 
     : 'menu menu-vertical';
+
+  // Motion props for menu items
+  const itemMotionProps = prefersReducedMotion
+    ? {}
+    : {
+        whileHover: { scale: 1.05 },
+        whileTap: motionTokens.press.soft,
+        transition: motionTokens.linkTransitions.hover.transition,
+      };
 
   const getBadgeClasses = (variant: string = 'primary') => {
     const variants = {
@@ -81,21 +94,23 @@ const FlyonMenu: React.FC<FlyonMenuProps> = ({
         
         return (
           <li key={index}>
-            <Link 
-              href={item.href}
-              className={active ? 'active' : ''}
-            >
-              {item.icon && renderIcon(item.icon)}
-              {item.label}
-              {item.badge && (
-                <span className={getBadgeClasses(item.badgeVariant)}>
-                  {item.badge}
-                </span>
-              )}
-              {item.status === 'inactive' && (
-                <span className="badge badge-success size-3 p-0"></span>
-              )}
-            </Link>
+            <motion.div {...itemMotionProps}>
+              <Link 
+                href={item.href}
+                className={active ? 'active' : ''}
+              >
+                {item.icon && renderIcon(item.icon)}
+                {item.label}
+                {item.badge && (
+                  <span className={getBadgeClasses(item.badgeVariant)}>
+                    {item.badge}
+                  </span>
+                )}
+                {item.status === 'inactive' && (
+                  <span className="badge badge-success size-3 p-0"></span>
+                )}
+              </Link>
+            </motion.div>
           </li>
         );
       })}

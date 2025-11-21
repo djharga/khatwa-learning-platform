@@ -1,6 +1,8 @@
 /**
  * صفحة ملفات الطالب في لوحة التحكم - Placeholder مؤقت لحين اكتمال التكامل.
  */
+'use client';
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';

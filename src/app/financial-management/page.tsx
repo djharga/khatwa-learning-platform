@@ -488,7 +488,7 @@ const FinancialManagementPage = () => {
                 <Link href="/courses" aria-label="تصفح جميع برامج الإدارة المالية والتشغيل" role="link">
                   <motion.button
                     className={cn(
-                      buttonVariants({ variant: "outline", size: "xl", interactive: true }),
+                      buttonVariants({ variant: "secondary", size: "lg", interactive: true }),
                       "font-bold"
                     )}
                     whileHover={{ scale: 1.05 }}

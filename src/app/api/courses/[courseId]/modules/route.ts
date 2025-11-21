@@ -72,7 +72,7 @@ export async function POST(
     //   }
     // });
 
-    const module = {
+    const courseModule = {
       id: `module-${Date.now()}`,
       ...moduleData,
       lessons: [],
@@ -83,7 +83,7 @@ export async function POST(
       createdBy: 'current-user-id',
     };
 
-    return NextResponse.json({ module }, { status: 201 });
+    return NextResponse.json({ module: courseModule }, { status: 201 });
   } catch (error: any) {
     console.error('Error creating module:', error);
     return NextResponse.json(

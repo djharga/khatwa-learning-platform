@@ -178,34 +178,79 @@ export const colors = {
     'info-light': '#63b3ed', // blue-400
   },
 
-  // Primary Palette - تدرج أزرق احترافي محسّن للعلامة التجارية
+  // Primary Palette - تدرج بنفسجي أكاديمي عميق للعلامة التجارية
   primary: {
-    50: '#f0f4ff', // أفتح درجة - للخلفيات الخفيفة
-    100: '#e0e7ff', // خلفيات ثانوية
-    200: '#c7d2fe', // حدود خفيفة
-    300: '#a5b4fc', // عناصر غير نشطة
-    400: '#818cf8', // عناصر ثانوية
-    500: '#6366f1', // اللون الأساسي - الأزرار والروابط
-    600: '#4f46e5', // hover states
-    700: '#4338ca', // active states
-    800: '#3730a3', // نصوص داكنة
-    900: '#312e81', // أغمق درجة - عناوين
-    DEFAULT: '#6366f1', // اللون الافتراضي
+    50: '#f5f3ff', // أفتح درجة - للخلفيات الخفيفة
+    100: '#ede9fe', // خلفيات ثانوية
+    200: '#ddd6fe', // حدود خفيفة
+    300: '#c4b5fd', // عناصر غير نشطة
+    400: '#a78bfa', // عناصر ثانوية
+    500: '#5B36E8', // اللون الأساسي - بنفسجي أكاديمي عميق
+    600: '#4C2EC7', // hover states - أغمق قليلاً
+    700: '#3d28a8', // active states
+    800: '#2e1f7d', // نصوص داكنة
+    900: '#1f1654', // أغمق درجة - عناوين
+    DEFAULT: '#5B36E8', // اللون الافتراضي
+  },
+  
+  // Academic Accent - لهجة أكاديمية فاتحة
+  academicAccent: {
+    50: '#f0f4ff',
+    100: '#e0e7ff',
+    200: '#d4d9ff',
+    300: '#b8c0ff',
+    400: '#9da8ff',
+    500: '#6D4AFF', // لهجة بنفسجية فاتحة
+    600: '#5B36E8',
+    700: '#4C2EC7',
+    800: '#3d28a8',
+    900: '#2e1f7d',
+    DEFAULT: '#6D4AFF',
   },
 
-  // Accent Palette - أزرق فاتح للتفاعلات والعناصر النشطة
+  // Accent Palette - أزرق أكاديمي للتفاعلات والعناصر النشطة
   accent: {
     50: '#eff6ff',
     100: '#dbeafe',
     200: '#bfdbfe',
     300: '#93c5fd',
     400: '#60a5fa',
-    500: '#3b82f6', // اللون الرئيسي للتفاعلات
-    600: '#2563eb',
-    700: '#1d4ed8',
-    800: '#1e40af',
-    900: '#1e3a8a',
-    DEFAULT: '#3b82f6', // اللون الافتراضي
+    500: '#1E40AF', // أزرق أكاديمي عميق
+    600: '#1d4ed8',
+    700: '#1e3a8a',
+    800: '#1e3a8a',
+    900: '#172554',
+    DEFAULT: '#1E40AF', // اللون الافتراضي
+  },
+  
+  // Gold Accent - ذهبي دافئ للنجاحات والإنجازات
+  gold: {
+    50: '#fffbeb',
+    100: '#fef3c7',
+    200: '#fde68a',
+    300: '#fcd34d',
+    400: '#fbbf24',
+    500: '#F59E0B', // ذهبي دافئ
+    600: '#d97706',
+    700: '#b45309',
+    800: '#92400e',
+    900: '#78350f',
+    DEFAULT: '#F59E0B',
+  },
+  
+  // Mint Green - أخضر نعناعي للنمو والتقدم
+  mint: {
+    50: '#ecfdf5',
+    100: '#d1fae5',
+    200: '#a7f3d0',
+    300: '#6ee7b7',
+    400: '#34d399',
+    500: '#10B981', // أخضر نعناعي
+    600: '#059669',
+    700: '#047857',
+    800: '#065f46',
+    900: '#064e3b',
+    DEFAULT: '#10B981',
   },
 
   // Neutral Palette - رمادي متوازن للعناصر المحايدة
@@ -654,42 +699,42 @@ export const motion = {
     fadeIn: {
       initial: { opacity: 0 },
       animate: { opacity: 1 },
-      transition: { duration: 0.3, ease: 'easeOut' },
+      transition: { duration: 0.3,  },
     },
     fadeOut: {
       initial: { opacity: 1 },
       animate: { opacity: 0 },
-      transition: { duration: 0.2, ease: 'easeIn' },
+      transition: { duration: 0.2,  },
     },
     slideUp: {
       initial: { opacity: 0, y: 20 },
       animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4,  },
     },
     slideDown: {
       initial: { opacity: 0, y: -20 },
       animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4,  },
     },
     slideLeft: {
       initial: { opacity: 0, x: 20 },
       animate: { opacity: 1, x: 0 },
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4,  },
     },
     slideRight: {
       initial: { opacity: 0, x: -20 },
       animate: { opacity: 1, x: 0 },
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4,  },
     },
     scaleIn: {
       initial: { opacity: 0, scale: 0.9 },
       animate: { opacity: 1, scale: 1 },
-      transition: { duration: 0.3, ease: 'easeOut' },
+      transition: { duration: 0.3,  },
     },
     scaleOut: {
       initial: { opacity: 1, scale: 1 },
       animate: { opacity: 0, scale: 0.9 },
-      transition: { duration: 0.2, ease: 'easeIn' },
+      transition: { duration: 0.2,  },
     },
     bounceIn: {
       initial: { opacity: 0, scale: 0.3 },
@@ -702,7 +747,7 @@ export const motion = {
     rotateIn: {
       initial: { opacity: 0, rotate: -180 },
       animate: { opacity: 1, rotate: 0 },
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5,  },
     },
     // Stagger animations for lists
     staggerContainer: {
@@ -715,7 +760,140 @@ export const motion = {
     staggerItem: {
       initial: { opacity: 0, y: 20 },
       animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.4, ease: 'easeOut' },
+      transition: { duration: 0.4,  },
+    },
+  },
+
+  // Press effects - تأثيرات الضغط
+  press: {
+    // Standard press effect
+    standard: {
+      scale: 0.97,
+      transition: { duration: 0.1 },
+    },
+    // Soft press effect
+    soft: {
+      scale: 0.98,
+      transition: { duration: 0.15 },
+    },
+    // Strong press effect
+    strong: {
+      scale: 0.95,
+      transition: { duration: 0.08,  },
+    },
+    // Press with lift
+    lift: {
+      scale: 0.97,
+      y: 1,
+      transition: { duration: 0.1,  },
+    },
+  },
+
+  // Hover effects - تأثيرات التحويم
+  hover: {
+    // Standard hover lift
+    lift: {
+      y: -2,
+      transition: { duration: 0.2,  },
+    },
+    // Hover scale
+    scale: {
+      scale: 1.02,
+      transition: { duration: 0.2,  },
+    },
+    // Hover glow
+    glow: {
+      boxShadow: '0 0 20px rgba(91, 54, 232, 0.3)',
+      transition: { duration: 0.2,  },
+    },
+    // Combined hover
+    combined: {
+      y: -2,
+      scale: 1.02,
+      transition: { duration: 0.2,  },
+    },
+  },
+
+  // Page transitions - تأثيرات انتقال الصفحات
+  pageTransitions: {
+    // Fade transition
+    fade: {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    // Slide up transition
+    slideUp: {
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: -20 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    // Slide down transition
+    slideDown: {
+      initial: { opacity: 0, y: -20 },
+      animate: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: 20 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    // Slide left (RTL support)
+    slideLeft: {
+      initial: { opacity: 0, x: 20 },
+      animate: { opacity: 1, x: 0 },
+      exit: { opacity: 0, x: -20 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    // Slide right (RTL support)
+    slideRight: {
+      initial: { opacity: 0, x: -20 },
+      animate: { opacity: 1, x: 0 },
+      exit: { opacity: 0, x: 20 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    // Scale transition
+    scale: {
+      initial: { opacity: 0, scale: 0.95 },
+      animate: { opacity: 1, scale: 1 },
+      exit: { opacity: 0, scale: 0.95 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+    // Fade with scale
+    fadeScale: {
+      initial: { opacity: 0, scale: 0.98 },
+      animate: { opacity: 1, scale: 1 },
+      exit: { opacity: 0, scale: 0.98 },
+      transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] },
+    },
+  },
+
+  // Link transitions - تأثيرات الروابط
+  linkTransitions: {
+    // Standard link hover
+    hover: {
+      transition: { duration: 0.2 },
+    },
+    // Link press
+    press: {
+      scale: 0.98,
+      transition: { duration: 0.1 },
+    },
+  },
+
+  // Card interactions - تفاعلات الكروت
+  cardInteractions: {
+    // Card hover
+    hover: {
+      y: -4,
+      scale: 1.02,
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+      transition: { duration: 0.2 },
+    },
+    // Card press
+    press: {
+      scale: 0.98,
+      y: -2,
+      transition: { duration: 0.1 },
     },
   },
 };

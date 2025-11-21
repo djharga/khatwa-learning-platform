@@ -33,16 +33,37 @@ import {
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import PageBackground from '@/components/ui/PageBackground';
+import { ScrollAnimation } from '@/components/ui';
+import { ShimmerSkeletonScreen } from '@/components/ui/Skeleton';
 
 // Lazy load heavy components
 const UnifiedFileCard = dynamic(() => import('@/components/ui/UnifiedFileCard').then(mod => ({ default: mod.default })), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-32 rounded-lg" />,
+  loading: () => (
+    <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 p-6 shadow-sm">
+      <div className="animate-pulse space-y-3">
+        <div className="bg-neutral-200 dark:bg-neutral-700 h-4 w-3/4 rounded" />
+        <div className="bg-neutral-200 dark:bg-neutral-700 h-4 w-1/2 rounded" />
+        <div className="bg-neutral-200 dark:bg-neutral-700 h-32 w-full rounded-lg" />
+      </div>
+    </div>
+  ),
 });
 
 const ContentFilters = dynamic(() => import('@/components/ui/ContentFilters').then(mod => ({ default: mod.default })), {
   ssr: false,
-  loading: () => <div className="animate-pulse bg-gray-200 dark:bg-gray-700 h-12 rounded" />,
+  loading: () => (
+    <div className="bg-white dark:bg-neutral-800 rounded-lg p-4 shadow-sm">
+      <div className="animate-pulse space-y-2">
+        <div className="bg-neutral-200 dark:bg-neutral-700 h-4 w-24 rounded" />
+        <div className="flex gap-2">
+          <div className="bg-neutral-200 dark:bg-neutral-700 h-8 w-16 rounded" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 h-8 w-20 rounded" />
+          <div className="bg-neutral-200 dark:bg-neutral-700 h-8 w-18 rounded" />
+        </div>
+      </div>
+    </div>
+  ),
 });
 
 import type { UnifiedFile, FileType } from '@/components/ui/UnifiedFileCard';
@@ -235,11 +256,18 @@ const categories = {
 };
 
 const ResourcesPage = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedContentType, setSelectedContentType] = useState<ContentType>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState<'recent' | 'popular' | 'rating' | 'name'>('recent');
+
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Convert resources to unified files format
   const unifiedResources = useMemo<UnifiedFile[]>(() => {
@@ -335,6 +363,26 @@ const ResourcesPage = () => {
       featured: sampleResources.filter(r => r.featured).length,
     };
   }, [unifiedResources]);
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <PageBackground variant="resources">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <ScrollAnimation direction="up" delay={0.1}>
+            <div className="text-center mb-8">
+              <div className="animate-pulse bg-neutral-200 dark:bg-neutral-700 h-8 w-48 rounded-lg mx-auto mb-2" />
+              <div className="animate-pulse bg-neutral-200 dark:bg-neutral-700 h-4 w-64 rounded-lg mx-auto" />
+            </div>
+          </ScrollAnimation>
+
+          <ScrollAnimation direction="up" delay={0.2}>
+            <ShimmerSkeletonScreen variant="cards" count={6} />
+          </ScrollAnimation>
+        </div>
+      </PageBackground>
+    );
+  }
 
   return (
     <PageBackground variant="resources">
@@ -501,7 +549,7 @@ const ResourcesPage = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 className={viewMode === 'grid' 
-                  ? 'grid grid-cols-1 sm:grid-cols-2 gap-6'
+                  ? 'grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch'
                   : 'space-y-4'
                 }
               >
@@ -515,9 +563,9 @@ const ResourcesPage = () => {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ delay: index * 0.05 }}
-                        className={viewMode === 'list' ? 'flex gap-4' : ''}
+                        className={viewMode === 'list' ? 'flex gap-4' : viewMode === 'grid' ? 'h-full' : ''}
                       >
-                        <div className={viewMode === 'list' ? 'flex-1' : ''}>
+                        <div className={viewMode === 'list' ? 'flex-1' : viewMode === 'grid' ? 'h-full flex flex-col' : ''}>
                           <UnifiedFileCard
                             file={file}
                             index={index}

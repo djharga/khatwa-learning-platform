@@ -267,8 +267,8 @@ const RegisterPage = () => {
                 ))}
               </div>
               <p className="text-text-secondary italic mb-4">
-                "منصة خطى غيرت حياتي المهنية تماماً. تعلمت مهارات جديدة
-                واكتسبت ثقة في نفسي"
+                &ldquo;منصة خطى غيرت حياتي المهنية تماماً. تعلمت مهارات جديدة
+                واكتسبت ثقة في نفسي&rdquo;
               </p>
               <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="w-10 h-10 bg-gradient-primary-smooth rounded-full flex items-center justify-center">

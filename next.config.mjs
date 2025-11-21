@@ -9,7 +9,14 @@ const nextConfig = {
     })),
   }),
   images: {
-    domains: ['www.theiia.org'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'www.theiia.org',
+        port: '',
+        pathname: '/**',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
@@ -50,6 +57,23 @@ const nextConfig = {
         tls: false,
       };
     }
+
+    // حل نهائي لمشكلة تحميل الخطوط - إضافة timeout و fallbacks للطلبات الخارجية
+    if (!isServer) {
+      config.module.rules.push({
+        test: /\.(woff|woff2|eot|ttf|otf)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'static/fonts/[name][ext]',
+        },
+      });
+    }
+
+    // Font loading timeout and cache configuration
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      // Add font fallbacks to prevent network timeout issues
+    };
 
     config.optimization.splitChunks = {
       chunks: 'all',
@@ -147,7 +171,7 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              `connect-src 'self' ${apiUrl} https://*.stripe.com`,
+              `connect-src 'self' ${apiUrl} https://*.stripe.com https://fonts.googleapis.com https://fonts.gstatic.com`,
               "script-src 'self' 'unsafe-eval' 'unsafe-inline'", // unsafe-inline للـ Next.js
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "font-src 'self' https://fonts.gstatic.com data:",

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Calendar, User, ArrowRight } from 'lucide-react';
 import PageBackground from '@/components/ui/PageBackground';
+import HeroSection from '@/components/ui/HeroSection';
 
 const articles = [
   {
@@ -85,18 +86,14 @@ const BlogPage = () => {
     <PageBackground variant="resources">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="heading-1 text-primary mb-4">المدونة</h1>
-          <p className="body-text text-text-secondary max-w-2xl mx-auto text-base">
-            اكتشف أحدث المقالات والمقالات المتخصصة في مجالات المراجعة الداخلية
-            والمحاسبة
-          </p>
-        </motion.div>
+        <HeroSection
+          title="المدونة"
+          description="اكتشف أحدث المقالات والمقالات المتخصصة في مجالات المراجعة الداخلية والمحاسبة"
+          variant="primary"
+          size="sm"
+          className="mx-0 my-0 rounded-none mb-16"
+          contentClassName="py-8"
+        />
 
         {/* Articles Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

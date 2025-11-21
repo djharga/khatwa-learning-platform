@@ -47,7 +47,7 @@ interface UnifiedFileCardProps {
 
 const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCardProps) => {
   const getFileIcon = () => {
-    const iconClass = 'w-8 h-8';
+    const iconClass = 'w-8 h-8 transition-transform duration-200 group-hover:scale-110';
     switch (file.type) {
       case 'video':
         return <VideoIcon className={iconClass} size={32} />;
@@ -149,7 +149,7 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ delay: index * 0.05, duration: 0.4, type: "spring", stiffness: 100 }}
       whileHover={{ y: -8, scale: 1.02 }}
-      className={`group relative bg-white dark:bg-neutral-800 rounded-2xl border-2 ${colors.border} ${colors.bg} overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500`}
+      className={`group relative bg-white dark:bg-neutral-800 rounded-2xl border-2 ${colors.border} ${colors.bg} overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 h-full flex flex-col`}
     >
       {/* Decorative Background Pattern */}
       <div className={`absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${colors.gradient} to-transparent`} />
@@ -218,7 +218,7 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
       </div>
 
       {/* File Info */}
-      <div className="p-5 relative z-10">
+      <div className="p-5 relative z-10 flex-1 flex flex-col">
         <h3 className="font-bold text-neutral-900 dark:text-white mb-3 line-clamp-2 text-base lg:text-lg group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
           {file.name}
         </h3>
@@ -252,7 +252,7 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-3 pt-4 border-t-2 border-neutral-200/50 dark:border-neutral-700/50">
+        <div className="flex items-center gap-3 pt-4 border-t-2 border-neutral-200/50 dark:border-neutral-700/50 mt-auto">
           {onOpen && (
             <motion.button
               onClick={() => onOpen(file)}

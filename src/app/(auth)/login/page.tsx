@@ -52,7 +52,7 @@ const LoginPage = () => {
   };
 
   const handleSocialLogin = (provider: string) => {
-    alert(`تسجيل الدخول عبر ${provider} قيد التطوير`);
+    console.info(`Social login via ${provider} is under development`);
   };
 
   const containerVariants = {
@@ -154,7 +154,7 @@ const LoginPage = () => {
                 ))}
               </div>
               <p className="text-neutral-700 dark:text-neutral-300 italic mb-4">
-                "منصة رائعة ساعدتني في تطوير مهاراتي وتحقيق أهدافي المهنية"
+                &ldquo;منصة رائعة ساعدتني في تطوير مهاراتي وتحقيق أهدافي المهنية&rdquo;
               </p>
               <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="w-10 h-10 bg-primary-600 dark:bg-primary-500 rounded-full flex items-center justify-center">
@@ -190,27 +190,30 @@ const LoginPage = () => {
                 {/* Social Login */}
                 <div className="space-y-3 mb-6">
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     onClick={() => handleSocialLogin('Google')}
-                    className="w-full"
+                    className="w-full bg-white text-neutral-900 border-neutral-200 hover:bg-neutral-50"
+                    aria-label="تسجيل الدخول عبر Google"
                   >
                     <FcGoogle className="h-5 w-5 ml-2" />
                     تسجيل الدخول عبر Google
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     onClick={() => handleSocialLogin('Facebook')}
-                    className="w-full"
+                    className="w-full bg-blue-600 text-white border-transparent hover:bg-blue-500"
+                    aria-label="تسجيل الدخول عبر Facebook"
                   >
-                    <FaFacebook className="h-5 w-5 ml-2 text-blue-600" />
+                    <FaFacebook className="h-5 w-5 ml-2" />
                     تسجيل الدخول عبر Facebook
                   </Button>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     onClick={() => handleSocialLogin('Twitter')}
-                    className="w-full"
+                    className="w-full bg-sky-500 text-white border-transparent hover:bg-sky-400"
+                    aria-label="تسجيل الدخول عبر Twitter"
                   >
-                    <FaTwitter className="h-5 w-5 ml-2 text-blue-400" />
+                    <FaTwitter className="h-5 w-5 ml-2" />
                     تسجيل الدخول عبر Twitter
                   </Button>
                 </div>

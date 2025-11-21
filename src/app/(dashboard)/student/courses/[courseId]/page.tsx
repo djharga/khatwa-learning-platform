@@ -92,8 +92,8 @@ export default async function CoursePage({ params }: CoursePageProps) {
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <Link
-            href="/student/courses"
-            className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600 dark:hover:text-primary-400 mb-4 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-lg px-2 py-1"
+            href="/courses"
+            className="inline-flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 mb-4 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-lg px-2 py-1"
             aria-label="العودة إلى الدورات"
           >
             <ArrowRight className="w-4 h-4 rotate-180" aria-hidden="true" />

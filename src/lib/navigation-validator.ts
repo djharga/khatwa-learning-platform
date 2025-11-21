@@ -50,15 +50,11 @@ const existingPages = [
   '/resources/course-files',
   '/files',
   '/community',
-  '/learning-hub',
   '/workshops',
   '/ai-tools',
-  '/advanced-features',
-  '/onboarding-demo',
   '/search',
   '/notifications',
   '/review',
-  '/services',
   
   // صفحات المصادقة (Auth)
   '/login',

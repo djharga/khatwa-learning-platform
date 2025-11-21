@@ -210,3 +210,130 @@
     0 0 30px rgba(59, 130, 246, 0.4),
     0 0 60px rgba(59, 130, 246, 0.2);
 }
+
+/* ========================================
+   PRESS EFFECTS - تأثيرات الضغط
+   ======================================== */
+
+.press-standard {
+  transition: transform 0.1s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.press-standard:active {
+  transform: scale(0.97);
+}
+
+.press-soft {
+  transition: transform 0.15s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.press-soft:active {
+  transform: scale(0.98);
+}
+
+.press-strong {
+  transition: transform 0.08s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.press-strong:active {
+  transform: scale(0.95);
+}
+
+/* ========================================
+   LINK TRANSITIONS - تأثيرات الروابط
+   ======================================== */
+
+.link-hover {
+  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.link-hover:hover {
+  transform: scale(1.05);
+}
+
+.link-press {
+  transition: transform 0.1s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.link-press:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   CARD INTERACTIONS - تفاعلات الكروت
+   ======================================== */
+
+.card-interactive {
+  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.card-interactive:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-interactive:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+.card-compact-hover {
+  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.card-compact-hover:hover {
+  transform: translateX(-4px) scale(1.01);
+}
+
+.card-compact-hover:active {
+  transform: translateX(-2px) scale(0.98);
+}
+
+/* ========================================
+   NAVIGATION TRANSITIONS - تأثيرات التنقل
+   ======================================== */
+
+.nav-link {
+  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.nav-link:hover {
+  transform: scale(1.05);
+}
+
+.nav-link:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   REDUCED MOTION SUPPORT - دعم تقليل الحركة
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .press-standard,
+  .press-soft,
+  .press-strong,
+  .link-hover,
+  .link-press,
+  .card-interactive,
+  .card-compact-hover,
+  .nav-link {
+    transition: none;
+  }
+
+  .press-standard:active,
+  .press-soft:active,
+  .press-strong:active,
+  .link-press:active,
+  .card-interactive:active,
+  .card-compact-hover:active,
+  .nav-link:active {
+    transform: none;
+  }
+
+  .link-hover:hover,
+  .card-interactive:hover,
+  .card-compact-hover:hover,
+  .nav-link:hover {
+    transform: none;
+  }
+}

@@ -2,10 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Home } from 'lucide-react';
+import { ChevronLeft, Home } from 'lucide-react';
 import { getBreadcrumbs } from '@/lib/navigation';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { cn } from '@/lib/utils';
 
 interface BreadcrumbsProps {
   className?: string;
@@ -18,7 +17,6 @@ export default function Breadcrumbs({
   showHome = true,
   maxItems = 5,
 }: BreadcrumbsProps) {
-  const prefersReducedMotion = useReducedMotion();
   const pathname = usePathname();
   const router = useRouter();
   const breadcrumbs = getBreadcrumbs(pathname);
@@ -28,6 +26,8 @@ export default function Breadcrumbs({
 
   const truncate = (label: string, maxLength = 18) =>
     label.length <= maxLength ? label : `${label.slice(0, maxLength)}...`;
+
+  const canGoBack = typeof window !== 'undefined' && window.history.length > 1;
 
   const structuredData = {
     '@context': 'https://schema.org',
@@ -46,81 +46,61 @@ export default function Breadcrumbs({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <motion.div
-        className={`relative ${className}`}
-        initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25 }}
-      >
-        <div className="relative flex flex-wrap items-center gap-2 rounded-2xl bg-white/70 dark:bg-neutral-900/70 backdrop-blur-md border border-neutral-200/60 dark:border-neutral-700/60 shadow-md px-4 py-2.5 hover:shadow-lg transition-all duration-300">
-          {/* زر الرجوع */}
-          <motion.button
-            onClick={() => router.back()}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100/70 dark:bg-neutral-800/60 hover:bg-neutral-200/80 dark:hover:bg-neutral-700/60 text-xs font-medium text-neutral-700 dark:text-neutral-300 border border-transparent hover:border-neutral-300 dark:hover:border-neutral-600 transition-all duration-200"
-            title="رجوع"
-            aria-label="العودة إلى الصفحة السابقة"
-            whileHover={prefersReducedMotion ? {} : { scale: 1.05, x: -2 }}
-            whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
-            type="button"
-          >
-            <ChevronLeft className="w-4 h-4 text-primary-600 dark:text-primary-400" aria-hidden="true" />
-            <span className="hidden sm:inline">رجوع</span>
-          </motion.button>
 
-          {/* روابط المسار */}
+      <div className={cn('relative w-full', className)}>
+        <div className="relative flex flex-wrap items-center gap-2 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 px-4 py-2.5">
+          {canGoBack && (
+            <>
+              <button
+                onClick={() => router.back()}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:text-neutral-900 dark:hover:text-white transition-colors duration-200 text-sm font-medium"
+                aria-label="العودة للصفحة السابقة"
+                type="button"
+              >
+                <ChevronLeft className="w-3.5 h-3.5 rtl:rotate-180" aria-hidden />
+                <span className="hidden sm:inline">رجوع</span>
+              </button>
+              <div className="w-px h-4 bg-neutral-200 dark:bg-neutral-700 mx-1" aria-hidden />
+            </>
+          )}
+
           <nav className="flex items-center flex-wrap gap-1" aria-label="breadcrumbs">
             {showHome && (
               <Link
                 href="/"
-                className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-semibold text-primary-600 dark:text-primary-400 hover:bg-primary-50/60 dark:hover:bg-primary-900/30 border border-transparent hover:border-primary-200 dark:hover:border-primary-700 transition-all duration-200"
+                className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-sm font-medium text-neutral-500 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
                 aria-label="الصفحة الرئيسية"
               >
-                <Home className="w-4 h-4" aria-hidden="true" />
-                <span>الرئيسية</span>
+                <Home className="w-3.5 h-3.5" aria-hidden />
+                <span className="sr-only md:not-sr-only">الرئيسية</span>
               </Link>
             )}
 
-            {display.map((crumb, index) => {
-              const isLast = index === display.length - 1;
+            {display.map((crumb, i) => {
+              if (!crumb.href || crumb.href === '#') return null;
+              const isLast = i === display.length - 1;
               return (
-                <motion.div
-                  key={crumb.href}
-                  className="flex items-center gap-1"
-                  initial={prefersReducedMotion ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={prefersReducedMotion ? { duration: 0 } : { delay: index * 0.05, duration: 0.25 }}
-                >
-                  <ChevronRight className="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-500" aria-hidden="true" />
+                <div key={crumb.href} className="flex items-center gap-1">
+                  <ChevronLeft className="w-3 h-3 text-neutral-400 rtl:rotate-180" aria-hidden />
                   {isLast ? (
-                    <span className="relative px-3 py-1.5 rounded-lg bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 text-white text-xs font-medium shadow-md" aria-current="page">
-                      {!prefersReducedMotion && (
-                        <motion.span
-                          className="absolute inset-0 bg-gradient-to-r from-white/15 via-transparent to-white/15"
-                          animate={{ x: ['-100%', '100%'] }}
-                          transition={{
-                            duration: 2.5,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                          }}
-                        />
-                      )}
-                      <span className="relative z-10">{truncate(crumb.label)}</span>
+                    <span className="px-2.5 py-1.5 rounded-lg bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-sm font-semibold" aria-current="page">
+                      {truncate(crumb.label)}
                     </span>
                   ) : (
                     <Link
                       href={crumb.href}
-                      className="px-2.5 py-1.5 rounded-lg text-xs font-medium text-neutral-700 dark:text-neutral-300 hover:text-primary-600 dark:hover:text-primary-400 hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60 border border-transparent hover:border-primary-200 dark:hover:border-primary-700 transition-all duration-200"
+                      className="px-2.5 py-1.5 rounded-lg text-sm font-medium text-neutral-600 hover:text-primary-600 dark:text-neutral-400 dark:hover:text-primary-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
                       aria-label={`الانتقال إلى ${crumb.label}`}
                     >
                       {truncate(crumb.label)}
                     </Link>
                   )}
-                </motion.div>
+                </div>
               );
             })}
           </nav>
         </div>
-      </motion.div>
+      </div>
     </>
   );
 }

@@ -265,7 +265,7 @@ function PackagesAndConsultingContent() {
         loading: false,
       });
       alert(`تم الاشتراك بنجاح في ${plan.name}! سيتم توجيهك إلى صفحة الدورات...`);
-      router.push('/student/courses');
+      router.push('/courses');
     } catch (error) {
       console.error('Error subscribing:', error);
       alert('حدث خطأ في معالجة الاشتراك. يرجى المحاولة مرة أخرى.');
@@ -394,9 +394,9 @@ function PackagesAndConsultingContent() {
                       </div>
                     </div>
                     <StyledButton
-                      onClick={() => router.push('/student/courses')}
+                      onClick={() => router.push('/courses')}
                       variant="success"
-                      size="medium"
+                      size="default"
                     >
                       عرض الدورات
                     </StyledButton>
@@ -507,7 +507,7 @@ function PackagesAndConsultingContent() {
                       onClick={() => handleSubscribe(plan.id)}
                       disabled={plan.id === 'free' || loading || (subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id)}
                       variant={plan.id === 'free' ? 'secondary' : subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id ? 'success' : 'primary'}
-                      size="large"
+                      size="lg"
                       fullWidth
                     >
                       {loading ? (
@@ -640,7 +640,7 @@ function PackagesAndConsultingContent() {
                           <StyledButton
                             onClick={() => router.push('/student/consulting')}
                             variant="primary"
-                            size="large"
+                            size="lg"
                             fullWidth
                           >
                             ابدأ استشارتك
@@ -661,7 +661,7 @@ function PackagesAndConsultingContent() {
                     </p>
                     <StyledButton
                       variant="primary"
-                      size="large"
+                      size="lg"
                       onClick={() => router.push('/student/consulting')}
                     >
                       <MessageSquare className="w-5 h-5 ml-2" />
@@ -683,7 +683,7 @@ function PackagesAndConsultingContent() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <StyledButton
                       variant="primary"
-                      size="large"
+                      size="lg"
                       onClick={() => {
                         setActiveTab('packages');
                         router.push('/packages-and-consulting?tab=packages');
@@ -694,7 +694,7 @@ function PackagesAndConsultingContent() {
                     </StyledButton>
                     <StyledButton
                       variant="secondary"
-                      size="large"
+                      size="lg"
                       onClick={() => router.push('/register')}
                     >
                       <User className="w-5 h-5 ml-2" />

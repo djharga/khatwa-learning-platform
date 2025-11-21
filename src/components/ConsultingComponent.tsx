@@ -12,6 +12,7 @@ import {
   Plus,
   CheckCircle,
 } from 'lucide-react';
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell, EmptyTableState } from '@/components/ui/Table';
 
 /**
  * Represents a consultation session with expert including scheduling, status, files, and comments
@@ -34,44 +35,45 @@ interface SessionRowProps {
 
 /**
  * Table row displaying consultation session information with status badge and view details action.
+ * Academic Design: TableRow, TableCell from agent.md
  */
 const SessionRow: React.FC<SessionRowProps> = ({ session, onViewDetails }) => (
-  <tr className="hover:bg-gray-50 dark:hover:bg-gray-700">
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="flex items-center">
-        <FileText className="w-5 h-5 text-primary ml-2" />
-        <span className="text-sm font-medium text-gray-900 dark:text-white">
+  <TableRow>
+    <TableCell className="whitespace-nowrap">
+      <div className="flex items-center" dir="rtl">
+        <FileText className="w-5 h-5 text-primary-600 ml-2" />
+        <span className="font-medium text-neutral-900">
           {session.title}
         </span>
       </div>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="flex items-center">
-        <User className="w-5 h-5 text-gray-400 ml-2" />
-        <span className="text-sm text-gray-500 dark:text-gray-300">
+    </TableCell>
+    <TableCell className="whitespace-nowrap">
+      <div className="flex items-center" dir="rtl">
+        <User className="w-5 h-5 text-neutral-500 ml-2" />
+        <span className="text-neutral-500">
           {session.expert}
         </span>
       </div>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap">
-      <div className="flex flex-col text-sm text-gray-500 dark:text-gray-300">
+    </TableCell>
+    <TableCell className="whitespace-nowrap">
+      <div className="flex flex-col" dir="rtl">
         <div className="flex items-center mb-1">
-          <Calendar className="w-4 h-4 ml-1" />
-          {session.date}
+          <Calendar className="w-4 h-4 ml-1 text-neutral-500" />
+          <span className="text-sm text-neutral-500">{session.date}</span>
         </div>
         <div className="flex items-center">
-          <Clock className="w-4 h-4 ml-1" />
-          {session.time}
+          <Clock className="w-4 h-4 ml-1 text-neutral-500" />
+          <span className="text-sm text-neutral-500">{session.time}</span>
         </div>
       </div>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap">
+    </TableCell>
+    <TableCell className="whitespace-nowrap">
       <span
-        className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+        className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full ${
           session.status === 'scheduled'
-            ? 'bg-yellow-100 text-yellow-800'
+            ? 'bg-amber-100 text-amber-900'
             : session.status === 'completed'
-              ? 'bg-green-100 text-green-800'
+              ? 'bg-emerald-50 text-emerald-700'
               : 'bg-red-100 text-red-800'
         }`}
       >
@@ -81,16 +83,16 @@ const SessionRow: React.FC<SessionRowProps> = ({ session, onViewDetails }) => (
             ? 'مكتمل'
             : 'ملغي'}
       </span>
-    </td>
-    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+    </TableCell>
+    <TableCell className="whitespace-nowrap">
       <button
         onClick={() => onViewDetails(session)}
-        className="text-primary hover:text-primary/80"
+        className="text-primary-600 hover:text-primary-500 font-medium transition-colors duration-200"
       >
         عرض التفاصيل
       </button>
-    </td>
-  </tr>
+    </TableCell>
+  </TableRow>
 );
 
 interface BookingFormModalProps {
@@ -124,13 +126,13 @@ const BookingFormModal: React.FC<BookingFormModalProps> = ({ isOpen, onClose, on
             </label>
             <input
               type="text"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
               placeholder="اكتب موضوع الاستشارة"
             />
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">الخبير</label>
-            <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+            <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500">
               <option>د. أحمد محمد</option>
               <option>د. فاطمة علي</option>
               <option>د. محمد حسن</option>
@@ -142,20 +144,20 @@ const BookingFormModal: React.FC<BookingFormModalProps> = ({ isOpen, onClose, on
             </label>
             <input
               type="date"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
           </div>
           <div>
             <label className="block text-sm font-medium mb-2">الوقت</label>
             <input
               type="time"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500"
             />
           </div>
           <div className="flex gap-4">
             <button
               type="submit"
-              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90"
+              className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-500"
             >
               حجز الجلسة
             </button>
@@ -272,7 +274,7 @@ const SessionDetailsModal: React.FC<SessionDetailsModalProps> = ({ session, onCl
                 }}
               />
               <button
-                className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90"
+                className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-500"
                 onClick={(e) => {
                   const input = (e.target as HTMLElement)
                     .previousElementSibling as HTMLInputElement;
@@ -377,47 +379,41 @@ const ConsultingComponent = () => {
         animate={{ opacity: 1, y: 0 }}
         className="flex justify-between items-center"
       >
-        <h2 className="text-2xl font-bold text-primary">جلساتك الاستشارية</h2>
+        <h2 className="text-2xl font-bold text-primary-600">جلساتك الاستشارية</h2>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowBookingForm(true)}
-          className="bg-primary text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-primary/90"
+          className="bg-primary-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-primary-500"
         >
           <Plus className="w-5 h-5" />
           حجز جلسة جديدة
         </motion.button>
       </motion.div>
 
-      {/* Sessions Table */}
+      {/* Sessions Table - Academic Design from agent.md */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden"
       >
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-gray-700">
-              <tr>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  الموضوع
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  الخبير
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  التاريخ والوقت
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  الحالة
-                </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  الإجراءات
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+        {sessions.length === 0 ? (
+          <EmptyTableState
+            message="لا توجد جلسات استشارية"
+            description="لم يتم حجز أي جلسات استشارية بعد"
+          />
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>الموضوع</TableHead>
+                <TableHead>الخبير</TableHead>
+                <TableHead>التاريخ والوقت</TableHead>
+                <TableHead>الحالة</TableHead>
+                <TableHead>الإجراءات</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {sessions.map((session) => (
                 <SessionRow
                   key={session.id}
@@ -425,9 +421,9 @@ const ConsultingComponent = () => {
                   onViewDetails={setSelectedSession}
                 />
               ))}
-            </tbody>
-          </table>
-        </div>
+            </TableBody>
+          </Table>
+        )}
       </motion.div>
 
       <BookingFormModal

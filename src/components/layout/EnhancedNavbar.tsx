@@ -3,11 +3,20 @@
 import Link from 'next/link';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ChevronDown, Home, BookOpen, Award, ShoppingBag, MoreHorizontal, LogIn, UserPlus, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Menu, X, ChevronDown, Home, BookOpen, Award, MoreHorizontal, LogIn, UserPlus, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSubscription } from '@/hooks/useSubscription';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ROUTES } from '@/lib/routes';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { motion as motionTokens } from '@/tokens';
+import { buttonVariants } from '@/components/ui/Button';
+
+// --- Constants & Types ---
+const NAVIGATION_CONFIG = {
+  scrollThreshold: 10,
+  mobileBreakpoint: 1024,
+};
 
 const getNavigationItems = (hasSubscription: boolean) => [
   {
@@ -31,19 +40,15 @@ const getNavigationItems = (hasSubscription: boolean) => [
     icon: Award,
   },
   {
-    label: 'الاستشارات',
-    href: '/packages-and-consulting',
-    icon: ShoppingBag,
-  },
-  {
     label: 'المزيد',
     href: '#',
     icon: MoreHorizontal,
     children: [
-      { label: 'المكتبة', href: '/resources' },
+      { label: 'المكتبة', href: '/library' },
       { label: 'الموارد', href: '/resources' },
       { label: 'المجتمع', href: '/community' },
       { label: 'الأدوات', href: '/ai-tools' },
+      { label: 'عرض التأثيرات', href: '/demo' },
     ],
   },
 ];
@@ -53,277 +58,264 @@ export default function EnhancedNavbar() {
   const subscriptionQuery = useSubscription();
   const hasSubscription = subscriptionQuery.data?.hasSubscription ?? false;
   const prefersReducedMotion = useReducedMotion();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const closeTimerRef = useRef<Record<string, NodeJS.Timeout>>({});
+
+  const navRef = useRef<HTMLDivElement>(null);
 
   const navItems = useMemo(() => getNavigationItems(hasSubscription), [hasSubscription]);
 
+  // Motion props for links
+  const linkMotionProps = prefersReducedMotion
+    ? {}
+    : {
+      whileHover: { scale: 1.05 },
+      whileTap: motionTokens.press.soft,
+      transition: motionTokens.linkTransitions.hover.transition,
+    };
+
+  // --- Effects ---
+
+  // Handle Scroll
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
+    const onScroll = () => {
+      const scrolled = window.scrollY > NAVIGATION_CONFIG.scrollThreshold;
+      if (scrolled !== isScrolled) setIsScrolled(scrolled);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  }, [isScrolled]);
 
-  const toggleDropdown = (label: string) => {
-    setOpenDropdown(openDropdown === label ? null : label);
-    // إغلاق جميع الـ timers السابقة
-    Object.values(closeTimerRef.current).forEach(timer => clearTimeout(timer));
-    closeTimerRef.current = {};
-  };
-
-  // إغلاق dropdown عند النقر خارجها
+  // Handle Click Outside
   useEffect(() => {
-    if (!openDropdown) return;
-
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-      const dropdownElement = document.querySelector(`[data-dropdown="${openDropdown}"]`);
-      const buttonElement = document.querySelector(`[data-dropdown-button="${openDropdown}"]`);
-
-      if (
-        dropdownElement &&
-        !dropdownElement.contains(target) &&
-        buttonElement &&
-        !buttonElement.contains(target)
-      ) {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
         setOpenDropdown(null);
-        Object.values(closeTimerRef.current).forEach(timer => clearTimeout(timer));
-        closeTimerRef.current = {};
+        setMobileOpen(false);
       }
     };
 
-    const timeoutId = setTimeout(() => {
+    if (openDropdown || mobileOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-    }, 0);
+    }
 
-    return () => {
-      clearTimeout(timeoutId);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [openDropdown]);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [openDropdown, mobileOpen]);
 
-  // إغلاق dropdown عند تغيير الصفحة
+  // Reset on Route Change
   useEffect(() => {
     setOpenDropdown(null);
     setMobileOpen(false);
-    Object.values(closeTimerRef.current).forEach(timer => clearTimeout(timer));
-    closeTimerRef.current = {};
   }, [pathname]);
 
+  // --- Helpers ---
+
+  const toggleDropdown = (label: string) => {
+    setOpenDropdown(prev => (prev === label ? null : label));
+  };
+
+  const isLinkActive = (href: string) => {
+    if (href === ROUTES.HOME) return pathname === ROUTES.HOME;
+    return pathname.startsWith(href) && href !== '#';
+  };
+
+  // --- Render ---
+
   return (
-    <>
+    <div ref={navRef} className="relative z-50 print:hidden" dir="rtl">
       <nav
         className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-[200ms] ease-out',
-          'border-b border-transparent',
-          'backdrop-blur-sm',
+          'fixed top-0 left-0 right-0 transition-colors duration-200',
+          'border-b h-16 lg:h-20', // Taller height for desktop elegance
           isScrolled
-            ? 'bg-white/95 dark:bg-neutral-900/95 shadow-elevation-3 border-neutral-200/50 dark:border-neutral-800/50'
-            : 'bg-white/90 dark:bg-neutral-900/90'
+            ? 'bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md border-neutral-200/50 dark:border-neutral-800/50 shadow-sm supports-[backdrop-filter]:bg-white/60'
+            : 'bg-transparent border-transparent'
         )}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-          {/* Logo - Better alignment */}
-          <Link href="/" className="text-2xl font-extrabold bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 bg-clip-text text-transparent tracking-tight flex items-center">
-            خطى
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
+
+          {/* Logo Section */}
+          <Link
+            href="/"
+            className="flex items-center gap-2 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-lg px-1"
+            aria-label="خطى - الصفحة الرئيسية"
+          >
+            <div className="text-2xl font-black tracking-tighter text-primary-600 dark:text-primary-400 select-none">
+              خطى
+            </div>
           </Link>
 
-          {/* Desktop Menu - Improved spacing and alignment */}
-          <div className="hidden lg:flex items-center gap-7">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-1 xl:gap-2">
             {navItems.map((item) => {
-              const isActive = pathname === item.href || (item.href !== '#' && pathname.startsWith(item.href));
-              const hasChildren = item.children && item.children.length > 0;
-              
-              return (
-                <div key={item.label} className="relative">
-                  {hasChildren ? (
+              const isActive = isLinkActive(item.href);
+              const hasChildren = !!item.children?.length;
+              const isOpen = openDropdown === item.label;
+
+              if (hasChildren) {
+                return (
+                  <div key={item.label} className="relative group/dropdown">
                     <button
                       onClick={() => toggleDropdown(item.label)}
-                      data-dropdown-button={item.label}
                       className={cn(
-                        'flex items-center gap-2 text-sm font-semibold transition-all duration-[200ms] ease-out py-2 px-1 rounded-lg',
-                        'hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20',
-                        'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
-                        isActive && 'text-primary-600 dark:text-primary-400 bg-primary-50/50 dark:bg-primary-900/10'
+                        'flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors',
+                        'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white',
+                        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500',
+                        isOpen && 'text-primary-600 bg-primary-50 dark:text-primary-300 dark:bg-primary-900/20'
                       )}
-                      aria-expanded={openDropdown === item.label}
-                      aria-haspopup="true"
+                      aria-expanded={isOpen}
                     >
-                      <item.icon className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
                       <span>{item.label}</span>
                       <ChevronDown
-                        className={cn(
-                          'w-4 h-4 flex-shrink-0 transition-transform duration-[200ms] ease-out',
-                          openDropdown === item.label && 'rotate-180'
-                        )}
-                        aria-hidden="true"
+                        className={cn("w-4 h-4 transition-transform duration-200", isOpen && "rotate-180")}
                       />
                     </button>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        'flex items-center gap-2 text-sm font-semibold transition-all duration-[200ms] ease-out py-2 px-1 rounded-lg',
-                        'hover:text-primary-600 dark:hover:text-primary-400 hover:bg-primary-50 dark:hover:bg-primary-900/20',
-                        'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
-                        isActive && 'text-primary-600 dark:text-primary-400 bg-primary-50/50 dark:bg-primary-900/10'
-                      )}
-                      aria-current={isActive ? 'page' : undefined}
-                    >
-                      <item.icon className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-                      <span>{item.label}</span>
-                    </Link>
-                  )}
 
-                  {/* Dropdown - Enhanced clarity, subtle shadow, increased spacing, better icons */}
-                  {hasChildren && openDropdown === item.label && (
-                    <div
-                      data-dropdown={item.label}
-                      className="absolute top-full mt-2 start-0 w-56 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-xl shadow-elevation-4 overflow-hidden z-50 backdrop-blur-sm transition-all duration-[200ms] ease-out"
-                      role="menu"
-                      aria-label={`قائمة ${item.label}`}
-                    >
-                      {item.children!.map((child) => {
-                        const isChildActive = pathname === child.href || pathname.startsWith(child.href);
-                        return (
+                    {/* Dropdown Menu */}
+                    {isOpen && (
+                      <div className="absolute top-full mt-2 right-0 w-56 bg-white dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 rounded-xl shadow-lg py-2 animate-in fade-in zoom-in-95 duration-100">
+                        {item.children!.map((child) => (
                           <Link
                             key={child.href}
                             href={child.href}
-                            onClick={() => setOpenDropdown(null)}
                             className={cn(
-                              'block px-5 py-3.5 text-sm transition-all duration-[200ms] ease-out',
-                              'text-neutral-700 dark:text-neutral-300',
-                              'hover:bg-primary-50 dark:hover:bg-primary-900/30',
-                              'hover:text-primary-600 dark:hover:text-primary-400',
-                              'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
-                              isChildActive && 'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 font-medium'
+                              'block px-4 py-2.5 text-sm text-neutral-600 dark:text-neutral-300',
+                              'hover:bg-neutral-50 hover:text-primary-600 dark:hover:bg-neutral-700/50 dark:hover:text-primary-400',
+                              pathname === child.href && 'bg-primary-50 text-primary-700 font-medium'
                             )}
-                            role="menuitem"
-                            aria-current={isChildActive ? 'page' : undefined}
                           >
                             {child.label}
                           </Link>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <motion.div key={item.label} {...linkMotionProps}>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'relative px-4 py-2 rounded-full text-sm font-medium transition-colors block',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500',
+                      isActive
+                        ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                        : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                </motion.div>
               );
             })}
           </div>
 
-          {/* Auth Buttons - Enhanced: increased weight, softer borders, no blur, better contrast, smoother hover */}
+          {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-3">
             <Link
               href={ROUTES.LOGIN}
-              className="group relative px-5 py-2.5 rounded-xl text-sm font-semibold border-2 border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300 bg-white dark:bg-neutral-900 hover:border-primary-500 dark:hover:border-primary-500 hover:text-primary-800 dark:hover:text-primary-200 hover:bg-primary-50 dark:hover:bg-primary-900/40 transition-all duration-[200ms] ease-out shadow-elevation-1 hover:shadow-elevation-3 flex items-center gap-2 min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-              aria-label="تسجيل الدخول"
+              className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), "text-primary-600 hover:text-primary-700 hover:bg-primary-50")}
             >
-              <LogIn className="w-4 h-4 group-hover:translate-x-[-2px] transition-transform duration-[200ms] ease-out" aria-hidden="true" />
-              <span>دخول</span>
+              تسجيل دخول
             </Link>
             <Link
               href={ROUTES.REGISTER}
-              className="group relative px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 hover:from-primary-700 hover:via-primary-600 hover:to-primary-700 shadow-elevation-2 hover:shadow-elevation-4 transition-all duration-[200ms] ease-out flex items-center gap-2 min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-              aria-label="إنشاء حساب جديد"
+              className={cn(buttonVariants({ variant: 'default', size: 'default' }), "relative z-10 shadow-primary-sm hover:shadow-primary-md")}
             >
-              <UserPlus className="w-4 h-4 group-hover:scale-105 transition-transform duration-[200ms] ease-out" aria-hidden="true" />
-              <span>ابدأ الآن</span>
+              ابدأ مجاناً
             </Link>
           </div>
 
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-[200ms] ease-out min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-            aria-label="فتح/إغلاق القائمة"
-            aria-expanded={mobileOpen}
+            className="lg:hidden p-2 text-neutral-600 hover:bg-neutral-100 rounded-lg transition-colors"
+            aria-label="القائمة الرئيسية"
           >
-            {mobileOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
+            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Menu - Removed blur */}
+        {/* Mobile Menu */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900">
-            <div className="px-4 py-3 space-y-2">
+          <div className="lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-800 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div className="px-4 py-6 space-y-4">
               {navItems.map((item) => (
                 <div key={item.label}>
-                    <button
-                      onClick={() =>
-                        item.children ? toggleDropdown(item.label) : setMobileOpen(false)
-                      }
-                      className={cn(
-                        'w-full flex justify-between items-center text-sm font-semibold py-2 px-3 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 min-h-[44px]',
-                        'focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2',
-                        pathname.startsWith(item.href) && 'text-primary-600'
+                  {item.children ? (
+                    <div className="space-y-2">
+                      <button
+                        onClick={() => toggleDropdown(item.label)}
+                        className="flex items-center justify-between w-full py-2 text-base font-semibold text-neutral-800 dark:text-neutral-200"
+                      >
+                        <span className="flex items-center gap-3">
+                          <item.icon className="w-5 h-5 text-neutral-500" />
+                          {item.label}
+                        </span>
+                        <ChevronDown className={cn("w-5 h-5 transition-transform", openDropdown === item.label && "rotate-180")} />
+                      </button>
+                      {openDropdown === item.label && (
+                        <div className="mr-8 space-y-2 border-r-2 border-neutral-100 pr-4">
+                          {item.children.map(child => (
+                            <Link
+                              key={child.href}
+                              href={child.href}
+                              className="block py-2 text-sm text-neutral-600 dark:text-neutral-400 hover:text-primary-600"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
                       )}
-                      aria-expanded={item.children ? openDropdown === item.label : undefined}
-                      aria-haspopup={item.children ? 'true' : undefined}
-                      aria-label={item.children ? `فتح قائمة ${item.label}` : item.label}
-                    >
-                    <span className="flex items-center gap-2">
-                      <item.icon className="w-4 h-4" />
-                      {item.label}
-                    </span>
-                    {item.children && (
-                      <ChevronDown
-                        className={cn(
-                          'w-4 h-4 transition-transform',
-                          openDropdown === item.label && 'rotate-180'
-                        )}
-                      />
-                    )}
-                  </button>
-                  {item.children && openDropdown === item.label && (
-                    <div className="pl-6 mt-1 space-y-1" role="menu" aria-label={`قائمة ${item.label}`}>
-                      {item.children.map((child) => {
-                        const isChildActive = pathname === child.href || pathname.startsWith(child.href);
-                        return (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="block py-1.5 text-sm text-neutral-700 dark:text-neutral-300 hover:text-primary-600 min-h-[44px] flex items-center focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-                            role="menuitem"
-                            aria-current={isChildActive ? 'page' : undefined}
-                          >
-                            {child.label}
-                          </Link>
-                        );
-                      })}
                     </div>
+                  ) : (
+                    <motion.div {...linkMotionProps}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          "flex items-center gap-3 py-2 text-base font-semibold",
+                          isLinkActive(item.href)
+                            ? "text-primary-600 bg-primary-50 px-3 -mx-3 rounded-lg"
+                            : "text-neutral-800 dark:text-neutral-200"
+                        )}
+                      >
+                        <item.icon className={cn("w-5 h-5", isLinkActive(item.href) ? "text-primary-600" : "text-neutral-500")} />
+                        {item.label}
+                      </Link>
+                    </motion.div>
                   )}
                 </div>
               ))}
 
-              <div className="pt-4 flex flex-col gap-3 border-t border-neutral-200 dark:border-neutral-800">
-                <Link
-                  href={ROUTES.LOGIN}
-                  onClick={() => setMobileOpen(false)}
-                  className="group w-full py-3 px-4 text-center rounded-xl border-2 border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300 bg-white dark:bg-neutral-900 hover:border-primary-500 dark:hover:border-primary-500 hover:text-primary-800 dark:hover:text-primary-200 hover:bg-primary-50 dark:hover:bg-primary-900/40 transition-all duration-[200ms] ease-out shadow-elevation-1 hover:shadow-elevation-3 flex items-center justify-center gap-2 font-semibold min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-                >
-                  <LogIn className="w-4 h-4 group-hover:translate-x-[-2px] transition-transform duration-[200ms] ease-out" aria-hidden="true" />
-                  <span>دخول</span>
-                </Link>
-                <Link
-                  href={ROUTES.REGISTER}
-                  onClick={() => setMobileOpen(false)}
-                  className="group relative w-full py-3 px-4 text-center rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 hover:from-primary-700 hover:via-primary-600 hover:to-primary-700 shadow-elevation-2 hover:shadow-elevation-4 transition-all duration-[200ms] ease-out flex items-center justify-center gap-2 min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-                >
-                  <UserPlus className="w-4 h-4 group-hover:scale-105 transition-transform duration-[200ms] ease-out" aria-hidden="true" />
-                  <span>ابدأ الآن</span>
-                </Link>
+              <div className="pt-6 mt-6 border-t border-neutral-100 dark:border-neutral-800 grid grid-cols-2 gap-4">
+                <motion.div {...linkMotionProps}>
+                  <Link
+                    href={ROUTES.LOGIN}
+                    className="flex items-center justify-center py-3 text-sm font-semibold text-primary-600 bg-primary-50 rounded-xl"
+                  >
+                    تسجيل دخول
+                  </Link>
+                </motion.div>
+                <motion.div {...linkMotionProps}>
+                  <Link
+                    href={ROUTES.REGISTER}
+                    className="flex items-center justify-center py-3 text-sm font-semibold text-white bg-primary-600 rounded-xl"
+                  >
+                    إنشاء حساب
+                  </Link>
+                </motion.div>
               </div>
             </div>
           </div>
         )}
       </nav>
-
-      <div className="h-16" />
-    </>
+      {/* Spacer for fixed navbar */}
+      <div className="h-16 lg:h-20" aria-hidden="true" />
+    </div>
   );
 }

@@ -401,7 +401,7 @@ const InternalAuditPage = () => {
 
   const mainAxes = convertModulesToAxes();
 
-  // تحويل المحاور إلى تنسيق PlayerShell
+  // تحويل المحاور إلى تنسيق الوحدات
   const convertToPlayerModules = () => {
     if (!currentLevel?.modules) return [];
     
@@ -831,15 +831,8 @@ const InternalAuditPage = () => {
                           // استخدام معرف الكورس للمراجعة الداخلية (14)
                           const courseId = '14';
                           
-                          // استخدام level.id كـ moduleId (1, 2, أو 3)
-                          const moduleId = level.id;
-                          const lessonIndex = 0; // أول درس في المحور
-                          
-                          // تنسيق lessonId: "moduleId-lessonIndex" (مثل "1-0" أو "2-0" أو "3-0")
-                          const lessonId = `${moduleId}-${lessonIndex}`;
-                          
-                          // الانتقال إلى صفحة الدرس
-                          const lessonPath = `/student/courses/${courseId}/lesson/${lessonId}`;
+                          // الانتقال إلى صفحة الدروس مع تمرير معرف المستوى
+                          const lessonPath = `/student/courses/${courseId}/lesson?level=${level.id}`;
                           router.push(lessonPath);
                         }}
                         className={`w-full mt-5 px-6 py-3.5 rounded-xl font-bold text-base transition-all duration-300 ${
@@ -982,7 +975,8 @@ const InternalAuditPage = () => {
                                 onClick={(e) => {
                                   e.preventDefault();
                                   e.stopPropagation();
-                                  const lessonPath = `/student/courses/${courseId}/lesson/${lessonId}`;
+                                  // الانتقال إلى صفحة الدروس مع تمرير معرف المستوى
+                                  const lessonPath = `/student/courses/${courseId}/lesson?level=${activeLevel}`;
                                   router.push(lessonPath);
                                 }}
                                 className="w-full flex items-center gap-4 p-5 bg-white dark:bg-gray-800/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 cursor-pointer group"
@@ -1081,21 +1075,8 @@ const InternalAuditPage = () => {
                               // استخدام معرف الكورس للمراجعة الداخلية (14)
                               const courseId = '14';
                               
-                              // في الكورس 14، هناك 3 modules فقط:
-                              // module.id = 1: المستوى الأول
-                              // module.id = 2: المستوى الثاني  
-                              // module.id = 3: المستوى الثالث
-                              // تنسيق lessonId: "module.id-lessonIndex"
-                              
-                              // استخدام activeLevel مباشرة كـ module.id
-                              const moduleId = activeLevel; // 1, 2, أو 3
-                              const lessonIndex = 0; // أول درس في المحور
-                              
-                              // تنسيق lessonId: "moduleId-lessonIndex" (مثل "1-0" أو "2-0" أو "3-0")
-                              const lessonId = `${moduleId}-${lessonIndex}`;
-                              
-                              // الانتقال إلى صفحة الدرس
-                              const lessonPath = `/student/courses/${courseId}/lesson/${lessonId}`;
+                              // الانتقال إلى صفحة الدروس مع تمرير معرف المستوى
+                              const lessonPath = `/student/courses/${courseId}/lesson?level=${activeLevel}`;
                               
                               console.log('Navigating to lesson:', lessonPath, 'for level:', activeLevel);
                               

@@ -24,7 +24,7 @@ export default function SidebarToggleButton({
     return (
       <motion.button
         onClick={onClick}
-        className={`fixed right-6 top-1/2 -translate-y-1/2 z-50 ${className}`}
+        className={`fixed left-6 top-1/2 -translate-y-1/2 z-50 ${className}`}
         initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8, y: -20 }}
         animate={prefersReducedMotion ? {} : { opacity: 1, scale: 1, y: 0 }}
         whileHover={prefersReducedMotion ? {} : { scale: 1.1, y: -1 }}
@@ -37,38 +37,21 @@ export default function SidebarToggleButton({
         aria-label={isOpen ? 'إغلاق القائمة الجانبية' : 'فتح القائمة الجانبية'}
       >
         <div className="relative group">
-          {/* حلقة خارجية متوهجة - Pulse Effect */}
-          <motion.div
-            className="absolute inset-0 rounded-full"
-            animate={prefersReducedMotion ? {} : {
-              scale: [1, 1.3, 1],
-              opacity: [0.4, 0, 0.4],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 2.5,
-              ease: 'easeInOut',
-            }}
-          >
-            <div className="w-full h-full rounded-full bg-gradient-to-r from-primary-400 via-primary-500 to-primary-600 blur-md" />
-          </motion.div>
-
-          {/* خلفية متوهجة متعددة الطبقات - أصغر */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-full blur-xl opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
-          <div className="absolute -inset-0.5 bg-gradient-to-br from-primary-400/20 via-primary-500/20 to-primary-600/20 rounded-full blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+          {/* خلفية متوهجة محسنة - طبقة واحدة فقط */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary-500/30 via-primary-600/20 to-primary-700/30 rounded-full blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none" />
           
-          {/* الزر الرئيسي - Glassmorphism Design - حجم أصغر */}
-          <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 shadow-xl shadow-primary-500/40 flex items-center justify-center group-hover:shadow-primary-500/60 transition-all duration-500 backdrop-blur-sm border border-white/10 group-hover:border-white/20 overflow-hidden">
+          {/* الزر الرئيسي - Glassmorphism Design - حجم محسّن */}
+          <div className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 shadow-lg shadow-primary-500/30 flex items-center justify-center group-hover:shadow-xl group-hover:shadow-primary-500/50 transition-all duration-300 backdrop-blur-sm border border-white/10 group-hover:border-white/20 overflow-hidden">
             {/* خلفية داخلية متدرجة */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 rounded-xl" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 rounded-xl pointer-events-none" />
             
             {/* تأثير لامع متحرك محسّن */}
             <motion.div
-              className="absolute inset-0 rounded-xl"
+              className="absolute inset-0 rounded-xl pointer-events-none"
               animate={prefersReducedMotion ? {} : {
                 background: [
-                  'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
-                  'linear-gradient(270deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',
+                  'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%)',
+                  'linear-gradient(270deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%)',
                 ],
                 backgroundPosition: ['0% 50%', '100% 50%'],
               }}
@@ -108,42 +91,17 @@ export default function SidebarToggleButton({
               </motion.div>
             </motion.div>
 
-            {/* نقاط زخرفية في الزوايا */}
-            <div className="absolute top-0.5 right-0.5 w-1.5 h-1.5 bg-white/40 rounded-full blur-sm" />
-            <div className="absolute bottom-0.5 left-0.5 w-1 h-1 bg-white/30 rounded-full blur-sm" />
-          </div>
-          
-          {/* حلقة خارجية متحركة - Orbit Effect - أصغر */}
-          <div className="absolute -inset-2 flex items-center justify-center pointer-events-none">
-            {[...Array(4)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-primary-400 rounded-full"
-                style={{
-                  transform: `rotate(${i * 90}deg) translateY(-28px)`,
-                }}
-                animate={prefersReducedMotion ? {} : {
-                  opacity: [0.2, 0.5, 0.2],
-                  scale: [0.8, 1.2, 0.8],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2.5,
-                  delay: i * 0.2,
-                  ease: 'easeInOut',
-                }}
-              />
-            ))}
           </div>
 
-          {/* Tooltip - تلميح عند hover */}
+          {/* Tooltip محسّن لـ RTL */}
           <motion.div
-            initial={{ opacity: 0, x: 10 }}
+            initial={{ opacity: 0, x: -10 }}
             whileHover={{ opacity: 1, x: 0 }}
-            className="absolute left-full ml-4 px-3 py-1.5 bg-neutral-900/90 dark:bg-neutral-100/90 text-white dark:text-neutral-900 text-xs font-medium rounded-lg whitespace-nowrap pointer-events-none backdrop-blur-sm border border-white/10 shadow-xl"
+            className="absolute right-full mr-4 px-3 py-1.5 bg-neutral-900/95 dark:bg-neutral-100/95 text-white dark:text-neutral-900 text-xs font-medium rounded-lg whitespace-nowrap pointer-events-none backdrop-blur-sm border border-white/10 shadow-xl"
+            dir="rtl"
           >
             {isOpen ? 'إغلاق القائمة' : 'فتح القائمة'}
-            <div className="absolute right-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-r-4 border-r-neutral-900/90 dark:border-r-neutral-100/90 border-b-4 border-b-transparent" />
+            <div className="absolute left-full top-1/2 -translate-y-1/2 w-0 h-0 border-t-4 border-t-transparent border-l-4 border-l-neutral-900/95 dark:border-l-neutral-100/95 border-b-4 border-b-transparent" />
           </motion.div>
         </div>
       </motion.button>
@@ -197,7 +155,7 @@ export default function SidebarToggleButton({
       <div className="relative group">
         {/* خلفية متوهجة متعددة الطبقات */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-full blur-xl opacity-40"
+          className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-full blur-xl opacity-40 pointer-events-none"
           animate={prefersReducedMotion ? {} : {
             scale: [1, 1.2, 1],
             opacity: [0.4, 0.6, 0.4],
@@ -208,16 +166,16 @@ export default function SidebarToggleButton({
             ease: 'easeInOut',
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 rounded-full blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-500 via-primary-600 to-primary-700 rounded-full blur-lg opacity-50 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none" />
         
         {/* الزر الرئيسي - حجم أصغر */}
         <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-800 shadow-xl shadow-primary-500/40 flex items-center justify-center group-hover:shadow-primary-500/60 transition-all duration-500 backdrop-blur-sm border border-white/10 group-hover:border-white/20 overflow-hidden">
           {/* خلفية داخلية */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 rounded-xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 rounded-xl pointer-events-none" />
           
           {/* تأثير لامع متحرك */}
           <motion.div
-            className="absolute inset-0 rounded-xl"
+            className="absolute inset-0 rounded-xl pointer-events-none"
             animate={prefersReducedMotion ? {} : {
               background: [
                 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%)',

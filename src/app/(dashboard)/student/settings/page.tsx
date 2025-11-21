@@ -91,7 +91,7 @@ export default function StudentSettingsPage() {
     setTimeout(() => setSaved(false), 3000);
   };
 
-  const tabConfig = [
+  const tabConfig: Array<{ id: string; label: string; icon: React.ComponentType<{ className?: string }> }> = [
     { id: 'account', label: 'الحساب', icon: User },
     { id: 'notifications', label: 'الإشعارات', icon: Bell },
     { id: 'privacy', label: 'الخصوصية', icon: Lock },
@@ -101,38 +101,59 @@ export default function StudentSettingsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
+    <div className="min-h-screen bg-[#F7F8FC] dark:bg-neutral-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="max-w-5xl mx-auto"
+          className="max-w-7xl mx-auto"
         >
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
-            className="mb-6 sm:mb-8 text-center"
-          >
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-neutral-900 dark:text-white mb-2">
-              إعدادات الحساب
-            </h1>
-            <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400">
-              إدارة حسابك وتفضيلاتك الشخصية بكل سهولة
-            </p>
-          </motion.div>
+          {/* Settings Layout - Academic Design: Sidebar + Content Area */}
+          <div className="flex flex-col lg:flex-row gap-6" dir="rtl">
+            {/* Sidebar Navigation - Fixed right (RTL), Width: 240px */}
+            <motion.aside
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
+              className="w-full lg:w-[240px] flex-shrink-0"
+            >
+              <div className="bg-white dark:bg-neutral-800 rounded-[14px] shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 p-4 sticky top-6">
+                <h2 className="text-lg font-semibold text-[#111827] dark:text-white mb-4">الإعدادات</h2>
+                <nav className="space-y-1">
+                  {tabConfig.map((tab) => {
+                    const Icon = tab.icon;
+                    const isActive = activeTab === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 rounded-[10px] text-base font-medium transition-all duration-200 ${
+                          isActive
+                            ? 'bg-[#5B36E8] text-white shadow-elevation-2'
+                            : 'text-[#6B7280] hover:bg-[#F7F8FC] hover:text-[#111827] dark:text-neutral-400 dark:hover:bg-neutral-700'
+                        }`}
+                      >
+                        <Icon className="w-5 h-5" aria-hidden="true" />
+                        <span>{tab.label}</span>
+                      </button>
+                    );
+                  })}
+                </nav>
+              </div>
+            </motion.aside>
 
-          {/* Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
-          >
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6 sm:space-y-8">
-              {/* Tabs List */}
-              <div className="bg-white dark:bg-neutral-800 rounded-xl sm:rounded-2xl p-2 shadow-md border border-neutral-200 dark:border-neutral-700">
+            {/* Settings Content Area - White background, Max-width: 800px, Padding: space-8 (32px) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
+              className="flex-1 max-w-[800px]"
+            >
+              <div className="bg-white dark:bg-neutral-800 rounded-[14px] shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 p-8">
+                <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+                  {/* Tabs List - Hidden in sidebar layout, shown for mobile */}
+                  <div className="lg:hidden bg-[#F7F8FC] rounded-[14px] p-2 border border-neutral-200 dark:border-neutral-700">
                 <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 bg-transparent h-auto">
                   {tabConfig.map((tab) => {
                     const Icon = tab.icon;
@@ -151,23 +172,13 @@ export default function StudentSettingsPage() {
                 </TabsList>
               </div>
 
-              {/* Account Tab */}
-              <TabsContent value="account" className="space-y-4 sm:space-y-6">
-                <Card className="shadow-md border border-neutral-200 dark:border-neutral-700 overflow-hidden">
-                  <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 text-white">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3">
-                        <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-md rounded-xl">
-                          <User className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
-                        </div>
-                        المعلومات الأساسية
-                      </CardTitle>
-                      <CardDescription className="text-blue-100">
-                        تحديث بيانات حسابك الشخصية
-                      </CardDescription>
-                    </CardHeader>
-                  </div>
-                  <CardContent className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+              {/* Account Tab - Academic Design: Section titles 24px semibold, descriptions 16px regular #6B7280 */}
+              <TabsContent value="account" className="space-y-6">
+                <div>
+                  <h2 className="text-[24px] font-semibold text-[#111827] dark:text-white mb-2" dir="rtl">الحساب</h2>
+                  <p className="text-base text-[#6B7280] dark:text-neutral-400 mb-6" dir="rtl">تحديث بيانات حسابك الشخصية</p>
+                  <Card className="shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 overflow-hidden">
+                    <CardContent className="p-8 space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -290,6 +301,7 @@ export default function StudentSettingsPage() {
                     </motion.div>
                   </CardContent>
                 </Card>
+                </div>
 
                 {/* Danger Zone */}
                 <Card className="border-2 border-danger-200 dark:border-danger-800 bg-danger-50 dark:bg-danger-900/20 shadow-md">
@@ -486,7 +498,7 @@ export default function StudentSettingsPage() {
                     ))}
                     <StyledButton
                       onClick={handleSave}
-                      size="large"
+                      size="lg"
                       className="w-full md:w-auto bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg px-8"
                     >
                       {saved ? (
@@ -593,7 +605,7 @@ export default function StudentSettingsPage() {
 
                     <StyledButton
                       onClick={handleSave}
-                      size="large"
+                      size="lg"
                       className="w-full md:w-auto bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-700 hover:to-amber-700 text-lg px-8"
                     >
                       {saved ? (
@@ -686,7 +698,7 @@ export default function StudentSettingsPage() {
 
                     <StyledButton
                       onClick={handleSave}
-                      size="large"
+                      size="lg"
                       className="w-full md:w-auto bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-lg px-8"
                     >
                       {saved ? (
@@ -727,10 +739,10 @@ export default function StudentSettingsPage() {
                       <h3 className="text-2xl font-bold text-gray-900 mb-2">اشتراك مميز</h3>
                       <p className="text-gray-600 mb-6">أنت مشترك حالياً في الخطة المميزة</p>
                       <div className="flex items-center justify-center gap-4">
-                        <StyledButton size="large" variant="secondary">
+                        <StyledButton size="lg" variant="secondary">
                           إدارة الاشتراك
                         </StyledButton>
-                        <StyledButton size="large" variant="primary" className="bg-gradient-to-r from-indigo-600 to-purple-600">
+                        <StyledButton size="lg" variant="primary" className="bg-gradient-to-r from-indigo-600 to-purple-600">
                           ترقية الخطة
                         </StyledButton>
                       </div>
@@ -739,7 +751,30 @@ export default function StudentSettingsPage() {
                 </Card>
               </TabsContent>
             </Tabs>
-          </motion.div>
+
+                {/* Sticky Footer with Save Changes Button - Academic Design from agent.md */}
+                <div className="sticky bottom-0 mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-800 -mx-8 px-8 pb-8">
+                  <StyledButton
+                    onClick={handleSave}
+                    size="lg"
+                    className="w-full md:w-auto h-[48px] px-6 bg-[#5B36E8] hover:bg-[#6D4AFF] text-white font-semibold rounded-[10px] shadow-elevation-2 hover:shadow-elevation-3 transition-all duration-200"
+                  >
+                    {saved ? (
+                      <>
+                        <Check className="w-5 h-5 ml-2" />
+                        تم الحفظ
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-5 h-5 ml-2" />
+                        حفظ التغييرات
+                      </>
+                    )}
+                  </StyledButton>
+                </div>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </div>
     </div>

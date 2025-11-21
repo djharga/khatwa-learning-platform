@@ -1,0 +1,953 @@
+{
+  "auditDate": "2025-01-27",
+  "auditor": "AI Design System Agent",
+  "scope": "Hero/Landing Sections Audit",
+  "totalHeroSectionsFound": 8,
+  "sections": [
+    {
+      "filePath": "src/components/homepage/CreativeHeroSection.tsx",
+      "sectionName": "CreativeHeroSection",
+      "page": "Homepage",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Multiple gradient overlays (3 layers) reduce text contrast",
+            "Text color rgba(255,255,255) may not meet 4.5:1 ratio on all backgrounds",
+            "Badge text color #1E40AF on white/30 background may fail contrast check",
+            "Light effects opacity-60 and opacity-50 may interfere with readability"
+          ],
+          "recommendations": [
+            "Add 60% dark overlay (bg-black/60) as primary overlay",
+            "Use rgba(255, 255, 255, 0.95) for text to ensure 4.5:1 contrast",
+            "Reduce decorative elements opacity to 0.15",
+            "Add stronger drop shadows for text elements"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Inconsistent spacing between elements (space-y-10, space-y-8 mixed)",
+            "No standardized 32px spacing system",
+            "Gap values vary (gap-5, gap-3, gap-2) without clear system"
+          ],
+          "recommendations": [
+            "Implement consistent 32px (space-y-8) spacing between all elements",
+            "Use standardized gap system based on 8px base unit"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "high",
+          "issues": [
+            "3 gradient overlay layers creating visual complexity",
+            "Multiple light effects with high opacity (opacity-60, opacity-50)",
+            "Shimmer overlay adds unnecessary complexity",
+            "Background pattern not visible but adds rendering cost"
+          ],
+          "recommendations": [
+            "Simplify to single 60% dark overlay",
+            "Reduce decorative elements opacity to 0.15",
+            "Remove shimmer overlay or reduce to minimal",
+            "Optimize background pattern rendering"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size varies: text-3xl to text-6xl without consistent scale",
+            "Font weight not explicitly set to 800",
+            "No consistent typography scale ratio (1.25 Minor Third)",
+            "Line heights vary without system"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem (56px) at lg/xl breakpoints with weight 800",
+            "Implement typography scale with 1.25 ratio",
+            "Standardize line heights across all text elements"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present but not fully optimized",
+            "Some elements may overflow on mobile (640px)",
+            "Text sizes may be too small on mobile"
+          ],
+          "recommendations": [
+            "Ensure all elements work at 640px (sm), 768px (md), 1024px (lg), 1280px (xl)",
+            "Test mobile-first approach",
+            "Optimize text sizes for each breakpoint"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on interactive elements",
+            "No semantic HTML structure (should use <section> with proper heading hierarchy)",
+            "Animation may not respect prefers-reduced-motion"
+          ],
+          "recommendations": [
+            "Add proper ARIA labels and roles",
+            "Use semantic HTML (<section>, <h1>, etc.)",
+            "Respect prefers-reduced-motion for animations"
+          ]
+        },
+        "performance": {
+          "severity": "medium",
+          "issues": [
+            "Image quality set to 100 (should be optimized)",
+            "Multiple backdrop-blur effects may impact performance",
+            "Complex gradient calculations on every render"
+          ],
+          "recommendations": [
+            "Optimize image quality to 75-85",
+            "Use CSS transforms for GPU acceleration",
+            "Consider lazy loading for below-fold content"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/components/course-details/CourseHero.tsx",
+      "sectionName": "CourseHero",
+      "page": "Course Details",
+      "issues": {
+        "contrast": {
+          "severity": "low",
+          "issues": [
+            "Recently fixed with 60% overlay and improved text colors",
+            "May need verification of all text elements"
+          ],
+          "recommendations": [
+            "Verify all text meets 4.5:1 contrast ratio",
+            "Test with actual background images"
+          ]
+        },
+        "spacing": {
+          "severity": "low",
+          "issues": [
+            "Recently updated to use space-y-8 (32px)",
+            "May need verification of spacing consistency"
+          ],
+          "recommendations": [
+            "Verify 32px spacing is consistent throughout",
+            "Check spacing on all breakpoints"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "low",
+          "issues": [
+            "Recently simplified with 60% overlay",
+            "Decorative elements reduced to 0.15 opacity"
+          ],
+          "recommendations": [
+            "Monitor performance impact",
+            "Consider further optimization if needed"
+          ]
+        },
+        "typography": {
+          "severity": "low",
+          "issues": [
+            "Title set to 3.5rem with weight 800",
+            "Responsive scaling implemented"
+          ],
+          "recommendations": [
+            "Verify typography scale consistency",
+            "Ensure all text follows scale ratio"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints implemented",
+            "May need testing on all devices"
+          ],
+          "recommendations": [
+            "Test on actual devices at all breakpoints",
+            "Verify mobile experience"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on buttons",
+            "Video player may need accessibility improvements"
+          ],
+          "recommendations": [
+            "Add ARIA labels to all interactive elements",
+            "Ensure video player is keyboard accessible"
+          ]
+        },
+        "performance": {
+          "severity": "low",
+          "issues": [
+            "Image optimization in place",
+            "May need further optimization"
+          ],
+          "recommendations": [
+            "Monitor LCP performance",
+            "Consider lazy loading for video preview"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/about/page.tsx",
+      "sectionName": "About Hero Section",
+      "page": "About",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Gradient background may not provide sufficient contrast",
+            "Text color text-primary-600 may not meet 4.5:1 on gradient",
+            "No dark overlay on background",
+            "Light effects may interfere with text readability"
+          ],
+          "recommendations": [
+            "Add 60% dark overlay if using background image",
+            "Ensure text colors meet WCAG AA standards",
+            "Add drop shadows to text for better contrast"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Spacing uses space-y-8 but not consistently applied",
+            "Gap values vary (gap-3, gap-4, gap-6)"
+          ],
+          "recommendations": [
+            "Standardize to 32px (space-y-8) spacing",
+            "Use consistent gap system"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "medium",
+          "issues": [
+            "Multiple gradient backgrounds",
+            "Animated blur effects (animate-pulse)",
+            "No background image overlay system"
+          ],
+          "recommendations": [
+            "Simplify background if not using image",
+            "Reduce animation complexity",
+            "Add overlay system if background image is added"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size text-4xl to text-6xl without consistent scale",
+            "No explicit font weight 800",
+            "Typography scale not consistent"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Implement consistent typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "May need optimization for mobile"
+          ],
+          "recommendations": [
+            "Test all breakpoints thoroughly",
+            "Optimize mobile experience"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels",
+            "Animation may not respect prefers-reduced-motion (partially implemented)"
+          ],
+          "recommendations": [
+            "Add comprehensive ARIA labels",
+            "Ensure all animations respect prefers-reduced-motion"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/advanced-features/page.tsx",
+      "sectionName": "Advanced Features Hero",
+      "page": "Advanced Features",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Gradient background from-blue-50 may not provide sufficient contrast",
+            "Text color text-gray-900 may not meet 4.5:1 on light backgrounds",
+            "No dark overlay system",
+            "Badge colors may not meet contrast requirements"
+          ],
+          "recommendations": [
+            "Add overlay system if using background image",
+            "Verify all text meets contrast requirements",
+            "Add drop shadows where needed"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Inconsistent spacing (mb-16, mb-12, mb-6 mixed)",
+            "No standardized 32px spacing system"
+          ],
+          "recommendations": [
+            "Implement 32px spacing system",
+            "Standardize all margins and padding"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "low",
+          "issues": [
+            "Simple gradient background",
+            "No complex overlays"
+          ],
+          "recommendations": [
+            "Maintain simplicity",
+            "Add overlay only if background image is used"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size text-4xl to text-5xl without 3.5rem target",
+            "No explicit font weight 800",
+            "Typography scale inconsistent"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Implement typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "Grid layouts may need optimization"
+          ],
+          "recommendations": [
+            "Test grid layouts on all breakpoints",
+            "Ensure mobile-first approach"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on interactive cards",
+            "No semantic structure for hero section"
+          ],
+          "recommendations": [
+            "Add ARIA labels to all interactive elements",
+            "Use semantic HTML structure"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/ai-tools/page.tsx",
+      "sectionName": "AI Tools Hero",
+      "page": "AI Tools",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Gradient background with bg-black/20 overlay may not be sufficient",
+            "Text color white may not meet 4.5:1 on gradient backgrounds",
+            "Radial gradient overlay may reduce contrast",
+            "Badge with bg-white/10 may not meet contrast"
+          ],
+          "recommendations": [
+            "Increase overlay to 60% (bg-black/60)",
+            "Use rgba(255, 255, 255, 0.95) for text",
+            "Add stronger drop shadows",
+            "Reduce decorative elements opacity to 0.15"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Spacing uses space-y-6, not standardized to 32px",
+            "Gap values vary"
+          ],
+          "recommendations": [
+            "Standardize to 32px spacing",
+            "Use consistent gap system"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "high",
+          "issues": [
+            "Multiple gradient layers",
+            "Radial gradient overlay",
+            "Multiple blur effects (blur-3xl)",
+            "Grid pattern overlay"
+          ],
+          "recommendations": [
+            "Simplify to single 60% dark overlay",
+            "Reduce decorative elements opacity to 0.15",
+            "Remove unnecessary overlays"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size text-4xl to text-6xl without 3.5rem target",
+            "Font-extrabold used but not explicitly 800",
+            "Typography scale inconsistent"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Implement consistent typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "Stats grid may need mobile optimization"
+          ],
+          "recommendations": [
+            "Test stats grid on mobile",
+            "Ensure all breakpoints work correctly"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on category buttons",
+            "Search input needs proper labeling"
+          ],
+          "recommendations": [
+            "Add ARIA labels to all interactive elements",
+            "Ensure search is properly labeled"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/auditors-fellowship/page.tsx",
+      "sectionName": "Auditors Fellowship Hero",
+      "page": "Auditors Fellowship",
+      "issues": {
+        "contrast": {
+          "severity": "medium",
+          "issues": [
+            "Gradient text may not meet contrast on all backgrounds",
+            "Text colors need verification",
+            "No overlay system for background images"
+          ],
+          "recommendations": [
+            "Add overlay system if background image is used",
+            "Verify all text meets contrast requirements",
+            "Add drop shadows where needed"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Inconsistent spacing throughout",
+            "No standardized 32px system"
+          ],
+          "recommendations": [
+            "Implement 32px spacing system",
+            "Standardize all spacing"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "low",
+          "issues": [
+            "Simple gradient background",
+            "No complex overlays"
+          ],
+          "recommendations": [
+            "Maintain simplicity",
+            "Add overlay only if needed"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size varies without 3.5rem target",
+            "No explicit font weight 800",
+            "Gradient text may affect readability"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Ensure gradient text maintains contrast"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "May need mobile optimization"
+          ],
+          "recommendations": [
+            "Test on all breakpoints",
+            "Optimize mobile experience"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels",
+            "Interactive elements need proper labeling"
+          ],
+          "recommendations": [
+            "Add comprehensive ARIA labels",
+            "Ensure keyboard navigation works"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/blog/page.tsx",
+      "sectionName": "Blog Hero",
+      "page": "Blog",
+      "issues": {
+        "contrast": {
+          "severity": "low",
+          "issues": [
+            "Simple design with good contrast",
+            "May need verification on different backgrounds"
+          ],
+          "recommendations": [
+            "Verify contrast on all background variations",
+            "Add drop shadows if needed"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Spacing uses mb-16, not standardized",
+            "No 32px spacing system"
+          ],
+          "recommendations": [
+            "Implement 32px spacing system",
+            "Standardize spacing"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "low",
+          "issues": [
+            "Simple background",
+            "No complex overlays"
+          ],
+          "recommendations": [
+            "Maintain simplicity",
+            "No changes needed"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title uses heading-1 class, size not explicitly 3.5rem",
+            "No explicit font weight 800"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Verify typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "Grid layout may need optimization"
+          ],
+          "recommendations": [
+            "Test grid on all breakpoints",
+            "Optimize mobile experience"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on article cards",
+            "Links need proper labeling"
+          ],
+          "recommendations": [
+            "Add ARIA labels to cards",
+            "Ensure links are properly labeled"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/certificates/page.tsx",
+      "sectionName": "Certificates Hero",
+      "page": "Certificates",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Gradient background may not provide sufficient contrast",
+            "Text color text-gray-900 may not meet 4.5:1 on light gradients",
+            "No overlay system",
+            "Badge colors need verification"
+          ],
+          "recommendations": [
+            "Add overlay system if using background image",
+            "Verify all text meets contrast requirements",
+            "Add drop shadows where needed"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Inconsistent spacing (mb-12, mb-6, mb-4 mixed)",
+            "No standardized 32px system"
+          ],
+          "recommendations": [
+            "Implement 32px spacing system",
+            "Standardize all spacing"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "low",
+          "issues": [
+            "Simple gradient background",
+            "No complex overlays"
+          ],
+          "recommendations": [
+            "Maintain simplicity",
+            "Add overlay only if needed"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size text-4xl to text-5xl without 3.5rem target",
+            "No explicit font weight 800"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Implement typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "Grid and filter layouts may need optimization"
+          ],
+          "recommendations": [
+            "Test all layouts on breakpoints",
+            "Optimize mobile experience"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on filter buttons",
+            "Certificate cards need proper labeling",
+            "Modal needs accessibility improvements"
+          ],
+          "recommendations": [
+            "Add ARIA labels to all interactive elements",
+            "Ensure modal is keyboard accessible",
+            "Add proper focus management"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/cia/page.tsx",
+      "sectionName": "CIA Hero Section",
+      "page": "CIA Fellowship",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Multiple gradient overlays (2 layers) reduce contrast",
+            "Text color white may not meet 4.5:1 on all gradient backgrounds",
+            "Overlay opacity-95 and multiple gradients create complexity",
+            "Decorative light effects opacity-15 is good but may need adjustment"
+          ],
+          "recommendations": [
+            "Add 60% dark overlay (bg-black/60) as primary overlay",
+            "Use rgba(255, 255, 255, 0.95) for text",
+            "Simplify overlay system to single 60% overlay",
+            "Reduce decorative elements opacity to 0.15 (already done)"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Spacing uses py-24 lg:py-32, not standardized to 32px",
+            "Content spacing varies"
+          ],
+          "recommendations": [
+            "Implement 32px spacing system between elements",
+            "Standardize padding and margins"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "high",
+          "issues": [
+            "Multiple gradient overlays (2 layers)",
+            "Image with opacity-95 and brightness/contrast adjustments",
+            "Decorative light effects (good opacity at 0.15)",
+            "Complex gradient calculations"
+          ],
+          "recommendations": [
+            "Simplify to single 60% dark overlay",
+            "Reduce overlay complexity",
+            "Maintain decorative elements at 0.15 opacity"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size text-3xl to text-[3.6rem] close to 3.5rem but not exact",
+            "Font-bold used, should be explicitly 800",
+            "Typography scale not consistent"
+          ],
+          "recommendations": [
+            "Set title to exactly 3.5rem with weight 800",
+            "Implement consistent typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "May need optimization for mobile"
+          ],
+          "recommendations": [
+            "Test on all breakpoints",
+            "Optimize mobile experience"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on interactive elements",
+            "Badge needs proper labeling"
+          ],
+          "recommendations": [
+            "Add ARIA labels to all interactive elements",
+            "Ensure semantic HTML structure"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/faq/page.tsx",
+      "sectionName": "FAQ Hero Section",
+      "page": "FAQ",
+      "issues": {
+        "contrast": {
+          "severity": "high",
+          "issues": [
+            "Gradient background with bg-black/20 overlay insufficient",
+            "Text color white may not meet 4.5:1 on gradient",
+            "Radial gradient and blur effects reduce contrast",
+            "Search input bg-white/10 may not meet contrast"
+          ],
+          "recommendations": [
+            "Increase overlay to 60% (bg-black/60)",
+            "Use rgba(255, 255, 255, 0.95) for text",
+            "Add stronger drop shadows",
+            "Reduce decorative elements opacity to 0.15"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Spacing uses space-y-6, not standardized to 32px",
+            "Padding py-12 to py-20 varies"
+          ],
+          "recommendations": [
+            "Standardize to 32px spacing",
+            "Use consistent padding system"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "high",
+          "issues": [
+            "Multiple gradient layers",
+            "Radial gradient overlay",
+            "Multiple blur effects",
+            "Grid pattern overlay"
+          ],
+          "recommendations": [
+            "Simplify to single 60% dark overlay",
+            "Reduce decorative elements opacity to 0.15",
+            "Remove unnecessary overlays"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size text-3xl to text-5xl without 3.5rem target",
+            "Font-extrabold used but not explicitly 800"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Implement typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "Search bar may need mobile optimization"
+          ],
+          "recommendations": [
+            "Test search functionality on mobile",
+            "Ensure all breakpoints work correctly"
+          ]
+        },
+        "accessibility": {
+          "severity": "low",
+          "issues": [
+            "Good ARIA labels on search input",
+            "May need improvements on category buttons"
+          ],
+          "recommendations": [
+            "Add ARIA labels to category buttons",
+            "Ensure keyboard navigation works"
+          ]
+        }
+      }
+    },
+    {
+      "filePath": "src/app/learning-hub/page.tsx",
+      "sectionName": "Learning Hub Hero",
+      "page": "Learning Hub",
+      "issues": {
+        "contrast": {
+          "severity": "medium",
+          "issues": [
+            "Gradient background may not provide sufficient contrast",
+            "Text colors need verification",
+            "No overlay system"
+          ],
+          "recommendations": [
+            "Add overlay system if background image is used",
+            "Verify all text meets contrast requirements"
+          ]
+        },
+        "spacing": {
+          "severity": "medium",
+          "issues": [
+            "Inconsistent spacing throughout",
+            "No standardized 32px system"
+          ],
+          "recommendations": [
+            "Implement 32px spacing system",
+            "Standardize all spacing"
+          ]
+        },
+        "backgroundComplexity": {
+          "severity": "low",
+          "issues": [
+            "Simple gradient background",
+            "No complex overlays"
+          ],
+          "recommendations": [
+            "Maintain simplicity",
+            "Add overlay only if needed"
+          ]
+        },
+        "typography": {
+          "severity": "medium",
+          "issues": [
+            "Title size varies without 3.5rem target",
+            "No explicit font weight 800"
+          ],
+          "recommendations": [
+            "Set title to 3.5rem with weight 800",
+            "Implement typography scale"
+          ]
+        },
+        "responsive": {
+          "severity": "low",
+          "issues": [
+            "Responsive breakpoints present",
+            "Tabs and grids may need optimization"
+          ],
+          "recommendations": [
+            "Test tabs on mobile",
+            "Optimize grid layouts"
+          ]
+        },
+        "accessibility": {
+          "severity": "medium",
+          "issues": [
+            "Missing ARIA labels on tabs",
+            "Interactive elements need proper labeling"
+          ],
+          "recommendations": [
+            "Add ARIA labels to tabs",
+            "Ensure keyboard navigation works"
+          ]
+        }
+      }
+    }
+  ],
+  "summary": {
+    "totalIssues": {
+      "contrast": 10,
+      "spacing": 10,
+      "backgroundComplexity": 8,
+      "typography": 10,
+      "responsive": 10,
+      "accessibility": 10,
+      "performance": 3
+    },
+    "severityBreakdown": {
+      "high": 15,
+      "medium": 45,
+      "low": 18
+    },
+    "commonIssues": [
+      "Missing 60% dark overlay on background images",
+      "Inconsistent 32px spacing system",
+      "Title not set to 3.5rem with weight 800",
+      "Multiple gradient overlays creating complexity",
+      "Missing ARIA labels on interactive elements",
+      "Typography scale not consistent (1.25 ratio)",
+      "Decorative elements opacity too high (>0.15)",
+      "Text contrast may not meet WCAG AA 4.5:1"
+    ],
+    "priorityFixes": [
+      "Implement standardized HeroSection component",
+      "Add 60% dark overlay system",
+      "Standardize spacing to 32px (8px base unit)",
+      "Set all titles to 3.5rem with weight 800",
+      "Reduce decorative elements opacity to 0.15",
+      "Improve text contrast to meet WCAG AA",
+      "Add comprehensive ARIA labels",
+      "Implement typography scale (1.25 ratio)"
+    ]
+  },
+  "recommendations": {
+    "immediate": [
+      "Create reusable HeroSection component with standardized props",
+      "Implement design system with consistent spacing (8px base)",
+      "Add 60% dark overlay as default for all hero sections",
+      "Set typography scale with 1.25 ratio (Minor Third)",
+      "Ensure all text meets WCAG AA contrast (4.5:1)"
+    ],
+    "shortTerm": [
+      "Replace all hero sections with new HeroSection component",
+      "Add fade-in animations (respecting prefers-reduced-motion)",
+      "Optimize performance (LCP < 2.5s, CLS = 0)",
+      "Add comprehensive ARIA labels",
+      "Test on all breakpoints (640, 768, 1024, 1280)"
+    ],
+    "longTerm": [
+      "Create Storybook stories for all variants",
+      "Write unit tests for HeroSection component",
+      "Document design system guidelines",
+      "Create accessibility testing suite",
+      "Performance monitoring and optimization"
+    ]
+  }
+}
+

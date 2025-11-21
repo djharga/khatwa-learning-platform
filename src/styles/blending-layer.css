@@ -2,39 +2,14 @@
    EduTech Advanced Blending Layer
    ============================================
    Clean & Modern - Unified enhancement for legacy + modern systems
-   جميع القيم تستخدم CSS Variables من globals.css
-   ============================================ */
+}
 
-/* ============================================
-   BUTTON ENHANCEMENTS
-   ============================================ */
-.btn-primary,
-.btn-secondary,
-.btn-outline,
-.btn-ghost {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-button);
-  transition: all var(--duration-normal) var(--ease-out);
-  font-weight: var(--font-semibold);
-  will-change: background, box-shadow, border-color;
-}
-   
-/* --- Primary --- */
-.btn-primary {
-  background: var(--color-primary-500);
-  color: var(--color-text-inverse);
-  box-shadow: var(--shadow-elevation-2);
-}
-.btn-primary:hover {
-  background: var(--color-primary-600);
-  box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-sm);
-}
 .btn-primary:focus-visible {
   outline: 2px solid var(--color-primary-400);
   outline-offset: 2px;
   box-shadow: var(--shadow-glow-border-primary);
 }
+
 .btn-primary:active {
   background: var(--color-primary-700);
 }
@@ -45,14 +20,17 @@
   color: var(--color-primary-700);
   border: var(--border-width) solid var(--color-primary-200);
 }
+
 .btn-secondary:hover {
   background: var(--color-primary-100);
   box-shadow: var(--shadow-elevation-2);
 }
+
 .btn-secondary:focus-visible {
   outline: 2px solid var(--color-primary-400);
   outline-offset: 2px;
 }
+
 .btn-secondary:active {
   opacity: var(--opacity-90);
 }
@@ -63,10 +41,12 @@
   color: var(--color-primary-600);
   border: var(--border-width) solid var(--color-primary-400);
 }
+
 .btn-outline:hover {
   background: var(--color-primary-50);
   box-shadow: var(--shadow-elevation-2);
 }
+
 .btn-outline:focus-visible {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
@@ -77,10 +57,12 @@
   background: transparent;
   color: var(--color-primary-600);
 }
+
 .btn-ghost:hover {
   background: var(--color-primary-50);
   color: var(--color-primary-700);
 }
+
 .btn-ghost:focus-visible {
   outline: 2px solid var(--color-primary-400);
   outline-offset: 2px;
@@ -90,11 +72,12 @@
   background: var(--color-neutral-800);
   color: var(--color-primary-400);
 }
+
 .dark .btn-outline:hover {
   background: var(--color-primary-900);
   color: var(--color-primary-300);
 }
-   
+
 /* ============================================
    CARD ENHANCEMENTS
    ============================================ */
@@ -138,17 +121,21 @@
   opacity: 0;
   transition: opacity var(--duration-normal) var(--ease-out);
 }
-.card-modern:hover::after { opacity: 1; }
+
+.card-modern:hover::after {
+  opacity: 1;
+}
 
 .card-glass {
   backdrop-filter: blur(12px);
   background: rgba(255, 255, 255, 0.7);
   box-shadow: var(--shadow-elevation-2);
 }
+
 .dark .card-glass {
   background: rgba(30, 41, 59, 0.7);
 }
-   
+
 /* ============================================
    NAVIGATION ENHANCEMENTS
    ============================================ */
@@ -160,7 +147,10 @@ nav,
   backdrop-filter: blur(12px);
   transition: all var(--duration-normal) var(--ease-out);
 }
-nav.scrolled { box-shadow: var(--shadow-elevation-3); }
+
+nav.scrolled {
+  box-shadow: var(--shadow-elevation-3);
+}
 
 nav a,
 .navbar a,
@@ -170,30 +160,29 @@ nav a,
   font-weight: var(--font-medium);
   transition: color var(--duration-normal) var(--ease-out);
 }
+
+/* Removed ::after underline effect - using hover background instead */
 nav a::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--color-primary-500);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform var(--duration-normal) var(--ease-out);
+  display: none !important;
 }
+
 nav a:hover::after,
 nav a.active::after {
-  transform: scaleX(1);
-  transform-origin: left;
+  display: none !important;
 }
-nav a:hover { color: var(--color-primary-600); }
+
+nav a:hover {
+  color: var(--color-primary-600);
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
 nav a:focus-visible {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
-   
+
 /* ============================================
    ACCESSIBILITY & MOTION
    ============================================ */
@@ -211,9 +200,11 @@ nav a:focus-visible {
   transition: all var(--duration-normal) var(--ease-out);
   will-change: box-shadow, border-color, background;
 }
+
 .blend-hover-glow:hover {
   box-shadow: var(--shadow-elevation-3), var(--shadow-glow-primary-sm);
 }
+
 .legacy-lift:hover {
   box-shadow: var(--shadow-elevation-4), var(--shadow-glow-primary-xs);
   border-color: var(--color-primary-400);
@@ -224,9 +215,11 @@ nav a:focus-visible {
   background: var(--color-background-primary);
   border-color: var(--color-neutral-800);
 }
+
 .dark nav a:hover {
   color: var(--color-primary-400);
 }
+
 .dark .card-base,
 .dark .card-modern {
   background: var(--color-background-surface);

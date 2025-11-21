@@ -25,6 +25,7 @@ import {
   Target,
   Sparkles,
 } from 'lucide-react';
+import HeroSection from '@/components/ui/HeroSection';
 import { generateQRCodeFromNumber } from '@/lib/certificates/generateQR';
 import { calculateLevel, POINTS_REWARDS, AVAILABLE_BADGES } from '@/lib/gamification/points';
 
@@ -221,18 +222,16 @@ export default function CertificatesPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* رأس الصفحة */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            شهاداتي وإنجازاتي
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            تابع شهاداتك المعتمدة وأبرز إنجازاتك المهنية في مجال المراجعة الداخلية
-          </p>
-        </motion.div>
+        <HeroSection
+          title="شهاداتي وإنجازاتي"
+          description="تابع شهاداتك المعتمدة وأبرز إنجازاتك المهنية في مجال المراجعة الداخلية"
+          variant="light"
+          size="sm"
+          backgroundGradient="bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50"
+          overlayOpacity={0}
+          className="mx-0 my-0 rounded-none mb-12"
+          contentClassName="py-8"
+        />
 
         {/* شريط الأدوات */}
         <motion.div

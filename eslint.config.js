@@ -7,10 +7,24 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    ignores: [
+      ".next/**",
+      ".next/**/*",
+      ".next/types/**",
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      "out/**",
+      "coverage/**",
+      "postcss.config.mjs",
+      "tailwind.config.ts",
+    ],
     files: ["**/*.{ts,tsx,js,jsx}"],
-    ignores: [".next/**", "node_modules/**", "dist/**"],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
       parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",

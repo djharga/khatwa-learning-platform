@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
-import { Inter, Nunito_Sans, IBM_Plex_Sans_Arabic, Almarai, Cairo, Lemonada } from 'next/font/google';
+import { Inter, Rubik, Almarai, Tajawal, Cairo, Lemonada, Noto_Kufi_Arabic } from 'next/font/google';
 
 // Import globals.css first - contains all CSS Variables from tokens.ts
 import '../styles/globals.css';
@@ -11,6 +11,7 @@ import '../styles/core.css';
 import '../styles/utilities.css';
 import '../styles/backgrounds.css';
 import '../styles/blending-layer.css';
+import '../styles/academic-theme.css';
 
 import LayoutWrapper from './LayoutWrapper';
 import { ThemeProvider } from '../contexts/ThemeProvider';
@@ -26,6 +27,7 @@ import { generateSEOMetadata, generateStructuredData } from '@/lib/seo';
 
 /* =======================
    Fonts Configuration
+   حل نهائي لمشكلة تحميل الخطوط - استخدام fallback قوي وتعطيل preload للخطوط غير الأساسية
 ======================= */
 const inter = Inter({ 
   subsets: ['latin'], 
@@ -37,22 +39,12 @@ const inter = Inter({
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
-const nunitoSans = Nunito_Sans({ 
-  subsets: ['latin'], 
-  variable: '--font-nunito-sans', 
-  weight: ['400', '500', '600', '700', '800'],
+const rubik = Rubik({ 
+  subsets: ['latin', 'arabic'], 
+  variable: '--font-rubik', 
+  weight: ['300', '400', '500', '600', '700', '800'],
   display: 'swap',
-  preload: false,
-  adjustFontFallback: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
-});
-
-const ibmPlex = IBM_Plex_Sans_Arabic({ 
-  subsets: ['arabic', 'latin'], 
-  variable: '--font-ibm-plex', 
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  preload: false,
+  preload: false, // تعطيل preload لتجنب محاولات التحميل الفاشلة
   adjustFontFallback: true,
   fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
@@ -64,7 +56,17 @@ const almarai = Almarai({
   display: 'swap',
   preload: false,
   adjustFontFallback: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+  fallback: ['Tajawal', 'Cairo', 'Arial', 'Tahoma', 'Verdana', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+});
+
+const tajawal = Tajawal({ 
+  subsets: ['arabic', 'latin'], 
+  variable: '--font-tajawal', 
+  weight: ['300', '400', '500', '700', '800', '900'],
+  display: 'swap',
+  preload: false, // تعطيل preload لتجنب محاولات التحميل الفاشلة
+  adjustFontFallback: true,
+  fallback: ['Cairo', 'Arial', 'Tahoma', 'Verdana', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 });
 
 const cairo = Cairo({ 
@@ -74,17 +76,40 @@ const cairo = Cairo({
   display: 'swap',
   preload: false,
   adjustFontFallback: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+  fallback: ['Tajawal', 'Arial', 'Tahoma', 'Verdana', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
 });
+
+// IBM Plex Sans Arabic - using Tajawal as fallback due to loading issues
+// Using Tajawal variable as it supports Arabic and is more modern
+const ibmPlex: {
+  variable: string;
+  className: string;
+  style?: React.CSSProperties;
+} = {
+  variable: tajawal.variable,
+  className: tajawal.className,
+  style: tajawal.style,
+};
 
 const lemonada = Lemonada({ 
   subsets: ['arabic', 'latin'], 
   variable: '--font-lemonada', 
   weight: ['300', '400', '500', '600', '700'],
   display: 'swap',
-  preload: true,
+  preload: false, // تعطيل preload لتجنب محاولات التحميل الفاشلة
   adjustFontFallback: true,
-  fallback: ['system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+  fallback: ['Tajawal', 'Cairo', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
+});
+
+// Noto Kufi Arabic - للعناوين الأكاديمية الأنيقة
+const notoKufiArabic = Noto_Kufi_Arabic({
+  subsets: ['arabic'],
+  variable: '--font-noto-kufi-arabic',
+  weight: ['400', '500', '600', '700', '800', '900'],
+  display: 'swap',
+  preload: false, // تعطيل preload لتجنب محاولات التحميل الفاشلة
+  adjustFontFallback: true,
+  fallback: ['Cairo', 'Tajawal', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Arial', 'sans-serif'],
 });
 
 /* =======================
@@ -152,13 +177,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ar" dir="rtl" className="rtl">
       <head>
-        {/* Performance Hints */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
-        <link rel="preload" as="image" href="/banar-cours.webp" />
-        <link rel="preload" as="image" href="/globe.svg" />
+        {/* Performance Hints - تحسين تحميل الخطوط */}
+        {/* Next.js Font Loader يدير تحميل الخطوط تلقائياً - تم إزالة preconnect لتجنب محاولات الاتصال الفاشلة */}
 
         {/* Manifest & Icons */}
         <link rel="manifest" href="/manifest.json" />
@@ -169,8 +189,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
         {/* Theme initialization */}
-        <Script id="theme-init" strategy="beforeInteractive">
-          {`
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{
+          __html: `
             (function() {
               try {
                 const theme = localStorage.getItem('theme') || 'system';
@@ -179,22 +199,25 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 if (resolved === 'dark') document.documentElement.classList.add('dark');
               } catch (e) {}
             })();
-          `}
-        </Script>
+          `
+        }} />
       </head>
 
       <body
         dir="rtl"
         className={[
           inter.variable,
-          nunitoSans.variable,
+          rubik.variable,
           ibmPlex.variable,
           almarai.variable,
+          tajawal.variable,
           cairo.variable,
           lemonada.variable,
+          notoKufiArabic.variable,
           'antialiased min-h-screen grid grid-rows-[auto_1fr_auto] relative overflow-x-hidden',
         ].join(' ')}
         style={{
+          fontFamily: 'var(--font-tajawal), var(--font-cairo), system-ui, sans-serif',
           fontFeatureSettings: '"rlig" 1, "calt" 1, "liga" 1, "kern" 1',
           textRendering: 'optimizeLegibility',
           WebkitFontSmoothing: 'antialiased',

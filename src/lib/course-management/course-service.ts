@@ -73,6 +73,12 @@ export class CourseManagementService {
     }
     
     const data = await response.json();
+    
+    // التحقق من وجود البيانات
+    if (!data || !data.course) {
+      throw new Error('الدورة غير موجودة أو لم يتم تنفيذ الاتصال بقاعدة البيانات بعد');
+    }
+    
     return data.course;
   }
 

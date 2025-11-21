@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import ConsultingDashboard from '@/components/ConsultingSystem/ConsultingDashboard';
 
 export default function ConsultingPage() {
@@ -26,18 +27,24 @@ export default function ConsultingPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600 dark:border-primary-800 dark:border-t-primary-400 mx-auto mb-4"></div>
-          <p className="text-neutral-600 dark:text-neutral-400">جاري التحميل...</p>
+      <div className="min-h-screen bg-[#F7F8FC] dark:bg-neutral-900 flex items-center justify-center">
+        <div className="text-center bg-white dark:bg-neutral-800 rounded-[14px] shadow-elevation-2 border border-neutral-200 dark:border-neutral-700 p-8">
+          <div className="animate-spin rounded-full h-12 w-12 border-[3px] border-[#E5E7EB] border-t-[#5B36E8] mx-auto mb-4"></div>
+          <p className="text-base text-[#6B7280] dark:text-neutral-400" dir="rtl">جاري التحميل...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
-      <ConsultingDashboard hasSubscription={hasSubscription || false} />
+    <div className="min-h-screen bg-[#F7F8FC] dark:bg-neutral-900">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <ConsultingDashboard hasSubscription={hasSubscription || false} />
+      </motion.div>
     </div>
   );
 }

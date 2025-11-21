@@ -1,0 +1,4798 @@
+{
+  "duplicates": {
+    "byName": [
+      {
+        "name": "page.tsx",
+        "files": [
+          {
+            "path": "app\\(auth)\\forgot-password\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(auth)\\forgot-password\\page.tsx",
+            "size": 9406,
+            "modified": "2025-11-13T19:16:05.667Z"
+          },
+          {
+            "path": "app\\(auth)\\login\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(auth)\\login\\page.tsx",
+            "size": 14339,
+            "modified": "2025-11-15T21:58:39.486Z"
+          },
+          {
+            "path": "app\\(auth)\\register\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(auth)\\register\\page.tsx",
+            "size": 39343,
+            "modified": "2025-11-15T21:58:39.486Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\accounting-simulation\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\accounting-simulation\\page.tsx",
+            "size": 25737,
+            "modified": "2025-11-09T21:48:36.729Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\certificates\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\certificates\\page.tsx",
+            "size": 27921,
+            "modified": "2025-11-10T05:21:26.249Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\consulting\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\consulting\\page.tsx",
+            "size": 1756,
+            "modified": "2025-11-14T04:23:49.708Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\course-files\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\course-files\\page.tsx",
+            "size": 5262,
+            "modified": "2025-11-16T01:38:47.804Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\courses\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\page.tsx",
+            "size": 31606,
+            "modified": "2025-11-13T18:51:05.623Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\content\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\[courseId]\\content\\page.tsx",
+            "size": 7539,
+            "modified": "2025-11-15T21:58:39.490Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\files\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\[courseId]\\files\\page.tsx",
+            "size": 9738,
+            "modified": "2025-11-10T01:06:32.028Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\page.tsx",
+            "size": 18138,
+            "modified": "2025-11-15T21:58:39.491Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\[courseId]\\page.tsx",
+            "size": 9075,
+            "modified": "2025-11-09T21:40:58.724Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\exam\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\exam\\page.tsx",
+            "size": 44174,
+            "modified": "2025-11-10T01:06:31.763Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\file-manager\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\file-manager\\page.tsx",
+            "size": 35600,
+            "modified": "2025-11-10T16:38:37.564Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\gallery\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\gallery\\page.tsx",
+            "size": 33579,
+            "modified": "2025-11-09T21:48:36.725Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\inbox\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\inbox\\page.tsx",
+            "size": 115,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\modifications\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\modifications\\page.tsx",
+            "size": 4705,
+            "modified": "2025-11-10T01:06:31.819Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\page.tsx",
+            "size": 24249,
+            "modified": "2025-11-16T02:51:56.947Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\profile\\cms\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\profile\\cms\\page.tsx",
+            "size": 845,
+            "modified": "2025-11-16T01:38:47.803Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\profile\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\profile\\page.tsx",
+            "size": 54118,
+            "modified": "2025-11-14T04:17:49.124Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\progress\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\progress\\page.tsx",
+            "size": 33105,
+            "modified": "2025-11-09T20:51:17.005Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\reports\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\reports\\page.tsx",
+            "size": 22563,
+            "modified": "2025-11-13T22:25:29.254Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\settings\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\settings\\page.tsx",
+            "size": 44302,
+            "modified": "2025-11-15T21:58:39.533Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\storage\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\storage\\page.tsx",
+            "size": 1793,
+            "modified": "2025-11-10T01:06:31.934Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\storage-calculator\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\storage-calculator\\page.tsx",
+            "size": 26261,
+            "modified": "2025-11-09T21:51:46.555Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\support\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\support\\page.tsx",
+            "size": 39829,
+            "modified": "2025-11-09T21:28:49.408Z"
+          },
+          {
+            "path": "app\\(dashboard)\\student\\zoom-sessions\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\zoom-sessions\\page.tsx",
+            "size": 6860,
+            "modified": "2025-11-10T01:06:31.878Z"
+          },
+          {
+            "path": "app\\about\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\about\\page.tsx",
+            "size": 10814,
+            "modified": "2025-11-11T16:29:36.884Z"
+          },
+          {
+            "path": "app\\admin\\content\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\content\\page.tsx",
+            "size": 43664,
+            "modified": "2025-11-13T18:58:41.499Z"
+          },
+          {
+            "path": "app\\admin\\controls\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\controls\\page.tsx",
+            "size": 52179,
+            "modified": "2025-11-12T02:15:39.844Z"
+          },
+          {
+            "path": "app\\admin\\courses\\new\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\courses\\new\\page.tsx",
+            "size": 12518,
+            "modified": "2025-11-13T18:58:41.499Z"
+          },
+          {
+            "path": "app\\admin\\courses\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\courses\\page.tsx",
+            "size": 65671,
+            "modified": "2025-11-13T18:58:41.490Z"
+          },
+          {
+            "path": "app\\admin\\courses\\[courseId]\\modules\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\courses\\[courseId]\\modules\\page.tsx",
+            "size": 2398,
+            "modified": "2025-11-13T18:58:41.499Z"
+          },
+          {
+            "path": "app\\admin\\courses\\[courseId]\\schedule\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\courses\\[courseId]\\schedule\\page.tsx",
+            "size": 1709,
+            "modified": "2025-11-06T20:17:53.894Z"
+          },
+          {
+            "path": "app\\admin\\courses\\[courseId]\\videos\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\courses\\[courseId]\\videos\\page.tsx",
+            "size": 5651,
+            "modified": "2025-11-06T20:17:53.894Z"
+          },
+          {
+            "path": "app\\admin\\dashboard\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\dashboard\\page.tsx",
+            "size": 384,
+            "modified": "2025-11-07T14:37:58.655Z"
+          },
+          {
+            "path": "app\\admin\\navigation\\edit\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\navigation\\edit\\page.tsx",
+            "size": 11000,
+            "modified": "2025-11-10T04:18:37.752Z"
+          },
+          {
+            "path": "app\\admin\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\page.tsx",
+            "size": 63284,
+            "modified": "2025-11-13T18:58:41.489Z"
+          },
+          {
+            "path": "app\\admin\\programs\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\programs\\page.tsx",
+            "size": 35590,
+            "modified": "2025-11-11T18:15:53.664Z"
+          },
+          {
+            "path": "app\\admin\\reports\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\reports\\page.tsx",
+            "size": 45154,
+            "modified": "2025-11-13T18:58:41.499Z"
+          },
+          {
+            "path": "app\\admin\\reports\\performance\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\reports\\performance\\page.tsx",
+            "size": 10083,
+            "modified": "2025-11-10T04:18:37.753Z"
+          },
+          {
+            "path": "app\\admin\\reports\\revenue\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\reports\\revenue\\page.tsx",
+            "size": 12651,
+            "modified": "2025-11-10T04:18:37.757Z"
+          },
+          {
+            "path": "app\\admin\\roles\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\roles\\page.tsx",
+            "size": 11566,
+            "modified": "2025-11-10T04:18:37.752Z"
+          },
+          {
+            "path": "app\\admin\\settings\\custom-urls\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\settings\\custom-urls\\page.tsx",
+            "size": 1266,
+            "modified": "2025-11-06T20:17:53.894Z"
+          },
+          {
+            "path": "app\\admin\\settings\\visibility\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\settings\\visibility\\page.tsx",
+            "size": 1244,
+            "modified": "2025-11-06T20:17:53.882Z"
+          },
+          {
+            "path": "app\\admin\\users\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\users\\page.tsx",
+            "size": 57608,
+            "modified": "2025-11-13T18:58:41.491Z"
+          },
+          {
+            "path": "app\\advanced-features\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\advanced-features\\page.tsx",
+            "size": 30522,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\ai-tools\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\ai-tools\\page.tsx",
+            "size": 19914,
+            "modified": "2025-11-08T23:10:34.191Z"
+          },
+          {
+            "path": "app\\auditors-fellowship\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\auditors-fellowship\\page.tsx",
+            "size": 46072,
+            "modified": "2025-11-12T02:15:40.987Z"
+          },
+          {
+            "path": "app\\auth\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\auth\\page.tsx",
+            "size": 25988,
+            "modified": "2025-11-13T19:16:05.667Z"
+          },
+          {
+            "path": "app\\blog\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\blog\\page.tsx",
+            "size": 6930,
+            "modified": "2025-11-11T16:05:16.621Z"
+          },
+          {
+            "path": "app\\certificates\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\certificates\\page.tsx",
+            "size": 34025,
+            "modified": "2025-11-06T11:55:15.925Z"
+          },
+          {
+            "path": "app\\cia\\exams\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\cia\\exams\\page.tsx",
+            "size": 7307,
+            "modified": "2025-11-10T04:18:37.773Z"
+          },
+          {
+            "path": "app\\cia\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\cia\\page.tsx",
+            "size": 59676,
+            "modified": "2025-11-13T17:48:28.265Z"
+          },
+          {
+            "path": "app\\community\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\community\\page.tsx",
+            "size": 249,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\consulting\\group\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\consulting\\group\\page.tsx",
+            "size": 9065,
+            "modified": "2025-11-10T04:18:37.773Z"
+          },
+          {
+            "path": "app\\consulting\\individual\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\consulting\\individual\\page.tsx",
+            "size": 8160,
+            "modified": "2025-11-10T04:18:37.773Z"
+          },
+          {
+            "path": "app\\consulting\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\consulting\\page.tsx",
+            "size": 1097,
+            "modified": "2025-11-11T16:05:16.625Z"
+          },
+          {
+            "path": "app\\contact\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\contact\\page.tsx",
+            "size": 887,
+            "modified": "2025-11-08T23:15:11.001Z"
+          },
+          {
+            "path": "app\\cookies\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\cookies\\page.tsx",
+            "size": 12436,
+            "modified": "2025-11-15T21:58:39.499Z"
+          },
+          {
+            "path": "app\\courses\\ai-audit\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\ai-audit\\page.tsx",
+            "size": 25213,
+            "modified": "2025-11-10T04:28:57.409Z"
+          },
+          {
+            "path": "app\\courses\\basics\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\basics\\page.tsx",
+            "size": 6815,
+            "modified": "2025-11-05T02:14:50.702Z"
+          },
+          {
+            "path": "app\\courses\\cia-preparation\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\cia-preparation\\page.tsx",
+            "size": 23619,
+            "modified": "2025-11-10T04:30:12.175Z"
+          },
+          {
+            "path": "app\\courses\\compliance\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\compliance\\page.tsx",
+            "size": 24382,
+            "modified": "2025-11-10T04:29:57.554Z"
+          },
+          {
+            "path": "app\\courses\\digital-audit\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\digital-audit\\page.tsx",
+            "size": 25109,
+            "modified": "2025-11-10T04:30:00.202Z"
+          },
+          {
+            "path": "app\\courses\\financial-projects\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\financial-projects\\page.tsx",
+            "size": 25965,
+            "modified": "2025-11-10T04:30:02.567Z"
+          },
+          {
+            "path": "app\\courses\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\page.tsx",
+            "size": 29808,
+            "modified": "2025-11-16T02:54:56.235Z"
+          },
+          {
+            "path": "app\\courses\\risk-analysis\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\risk-analysis\\page.tsx",
+            "size": 24835,
+            "modified": "2025-11-10T04:29:55.402Z"
+          },
+          {
+            "path": "app\\courses\\[slug]\\lesson\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\[slug]\\lesson\\page.tsx",
+            "size": 10046,
+            "modified": "2025-11-15T21:58:39.527Z"
+          },
+          {
+            "path": "app\\courses\\[slug]\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\courses\\[slug]\\page.tsx",
+            "size": 11703,
+            "modified": "2025-11-15T20:25:12.561Z"
+          },
+          {
+            "path": "app\\faq\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\faq\\page.tsx",
+            "size": 21861,
+            "modified": "2025-11-11T16:05:16.626Z"
+          },
+          {
+            "path": "app\\files\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\files\\page.tsx",
+            "size": 395,
+            "modified": "2025-11-13T22:25:29.254Z"
+          },
+          {
+            "path": "app\\finance-basics\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\finance-basics\\page.tsx",
+            "size": 32082,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\financial-management\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\financial-management\\page.tsx",
+            "size": 23158,
+            "modified": "2025-11-16T00:17:27.649Z"
+          },
+          {
+            "path": "app\\financial-reporting\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\financial-reporting\\page.tsx",
+            "size": 38427,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\internal-audit\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\internal-audit\\page.tsx",
+            "size": 58981,
+            "modified": "2025-11-15T18:44:33.493Z"
+          },
+          {
+            "path": "app\\inventory-reconciliations\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\inventory-reconciliations\\page.tsx",
+            "size": 29650,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\learning-hub\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\learning-hub\\page.tsx",
+            "size": 42228,
+            "modified": "2025-11-08T21:20:45.484Z"
+          },
+          {
+            "path": "app\\meeting-room\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\meeting-room\\page.tsx",
+            "size": 22224,
+            "modified": "2025-11-06T11:55:15.925Z"
+          },
+          {
+            "path": "app\\notifications\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\notifications\\page.tsx",
+            "size": 31504,
+            "modified": "2025-11-07T19:48:00.532Z"
+          },
+          {
+            "path": "app\\onboarding-demo\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\onboarding-demo\\page.tsx",
+            "size": 2773,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\packages-and-consulting\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\packages-and-consulting\\page.tsx",
+            "size": 31964,
+            "modified": "2025-11-16T00:17:27.618Z"
+          },
+          {
+            "path": "app\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\page.tsx",
+            "size": 3949,
+            "modified": "2025-11-16T02:51:56.961Z"
+          },
+          {
+            "path": "app\\privacy\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\privacy\\page.tsx",
+            "size": 18043,
+            "modified": "2025-11-07T14:15:45.207Z"
+          },
+          {
+            "path": "app\\procurement-management\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\procurement-management\\page.tsx",
+            "size": 44166,
+            "modified": "2025-11-07T14:58:55.361Z"
+          },
+          {
+            "path": "app\\refund-policy\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\refund-policy\\page.tsx",
+            "size": 9491,
+            "modified": "2025-11-07T14:15:45.207Z"
+          },
+          {
+            "path": "app\\resources\\books\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\resources\\books\\page.tsx",
+            "size": 8235,
+            "modified": "2025-11-10T04:18:37.773Z"
+          },
+          {
+            "path": "app\\resources\\course-files\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\resources\\course-files\\page.tsx",
+            "size": 1079,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\resources\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\resources\\page.tsx",
+            "size": 26304,
+            "modified": "2025-11-08T23:15:10.986Z"
+          },
+          {
+            "path": "app\\resources\\tools\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\resources\\tools\\page.tsx",
+            "size": 7747,
+            "modified": "2025-11-10T04:18:37.773Z"
+          },
+          {
+            "path": "app\\restaurant-management\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\restaurant-management\\page.tsx",
+            "size": 31549,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\review\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\review\\page.tsx",
+            "size": 668,
+            "modified": "2025-11-10T16:38:37.561Z"
+          },
+          {
+            "path": "app\\search\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\search\\page.tsx",
+            "size": 7096,
+            "modified": "2025-11-15T21:58:39.499Z"
+          },
+          {
+            "path": "app\\services\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\services\\page.tsx",
+            "size": 4492,
+            "modified": "2025-11-08T23:15:10.981Z"
+          },
+          {
+            "path": "app\\subscribe\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\subscribe\\page.tsx",
+            "size": 813,
+            "modified": "2025-11-04T23:47:48.594Z"
+          },
+          {
+            "path": "app\\support\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\support\\page.tsx",
+            "size": 1229,
+            "modified": "2025-11-08T23:10:34.191Z"
+          },
+          {
+            "path": "app\\terms\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\terms\\page.tsx",
+            "size": 13438,
+            "modified": "2025-11-15T21:58:39.499Z"
+          },
+          {
+            "path": "app\\typography-demo\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\typography-demo\\page.tsx",
+            "size": 20242,
+            "modified": "2025-11-15T21:58:39.506Z"
+          },
+          {
+            "path": "app\\unauthorized\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\unauthorized\\page.tsx",
+            "size": 2697,
+            "modified": "2025-11-10T04:09:18.635Z"
+          },
+          {
+            "path": "app\\usage-policy\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\usage-policy\\page.tsx",
+            "size": 10472,
+            "modified": "2025-11-15T21:58:39.525Z"
+          },
+          {
+            "path": "app\\warehouse-management\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\warehouse-management\\page.tsx",
+            "size": 41058,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\workshops\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\workshops\\page.tsx",
+            "size": 20659,
+            "modified": "2025-11-11T16:05:16.626Z"
+          },
+          {
+            "path": "app\\_not-found\\page.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\_not-found\\page.tsx",
+            "size": 6816,
+            "modified": "2025-11-12T02:15:39.447Z"
+          }
+        ],
+        "count": 103
+      },
+      {
+        "name": "layout.tsx",
+        "files": [
+          {
+            "path": "app\\(auth)\\layout.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(auth)\\layout.tsx",
+            "size": 272,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\admin\\layout.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\admin\\layout.tsx",
+            "size": 10292,
+            "modified": "2025-11-12T02:15:40.550Z"
+          },
+          {
+            "path": "app\\layout.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\layout.tsx",
+            "size": 10059,
+            "modified": "2025-11-16T02:31:58.384Z"
+          }
+        ],
+        "count": 3
+      },
+      {
+        "name": "FileList.tsx",
+        "files": [
+          {
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\FileList.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\FileList.tsx",
+            "size": 8885,
+            "modified": "2025-11-14T17:54:25.305Z"
+          },
+          {
+            "path": "components\\course-content\\FileList.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\course-content\\FileList.tsx",
+            "size": 4211,
+            "modified": "2025-11-14T03:53:23.116Z"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "name": "ModuleSidebar.tsx",
+        "files": [
+          {
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\ModuleSidebar.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\ModuleSidebar.tsx",
+            "size": 12257,
+            "modified": "2025-11-14T17:54:25.304Z"
+          },
+          {
+            "path": "components\\course-content\\ModuleSidebar.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\course-content\\ModuleSidebar.tsx",
+            "size": 12743,
+            "modified": "2025-11-14T03:54:32.513Z"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "name": "route.ts",
+        "files": [
+          {
+            "path": "app\\api\\admin\\activities\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\activities\\route.ts",
+            "size": 3531,
+            "modified": "2025-11-07T14:42:46.502Z"
+          },
+          {
+            "path": "app\\api\\admin\\companies\\branding\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\companies\\branding\\route.ts",
+            "size": 706,
+            "modified": "2025-11-06T20:17:53.892Z"
+          },
+          {
+            "path": "app\\api\\admin\\content\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\content\\route.ts",
+            "size": 4952,
+            "modified": "2025-11-04T00:27:00.208Z"
+          },
+          {
+            "path": "app\\api\\admin\\content\\[fileId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\content\\[fileId]\\route.ts",
+            "size": 1691,
+            "modified": "2025-11-04T00:27:00.210Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\route.ts",
+            "size": 5175,
+            "modified": "2025-11-12T02:15:41.041Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\schedule\\check\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\schedule\\check\\route.ts",
+            "size": 1894,
+            "modified": "2025-11-06T20:17:53.890Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\schedule\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\schedule\\route.ts",
+            "size": 1821,
+            "modified": "2025-11-06T20:17:53.890Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\schedule\\[scheduleId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\schedule\\[scheduleId]\\route.ts",
+            "size": 1762,
+            "modified": "2025-11-06T20:17:53.890Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\files\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\files\\route.ts",
+            "size": 1973,
+            "modified": "2025-11-06T20:17:53.865Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\copy\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\copy\\route.ts",
+            "size": 1164,
+            "modified": "2025-11-06T20:17:53.872Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\move\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\move\\route.ts",
+            "size": 1042,
+            "modified": "2025-11-06T20:17:53.872Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\rename\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\rename\\route.ts",
+            "size": 1070,
+            "modified": "2025-11-06T20:17:53.872Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\files\\[fileId]\\route.ts",
+            "size": 852,
+            "modified": "2025-11-06T20:17:53.872Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\modules\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\modules\\route.ts",
+            "size": 2178,
+            "modified": "2025-11-06T20:06:27.309Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\modules\\[moduleId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\modules\\[moduleId]\\route.ts",
+            "size": 2508,
+            "modified": "2025-11-06T20:06:27.309Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\route.ts",
+            "size": 3228,
+            "modified": "2025-11-04T00:39:36.615Z"
+          },
+          {
+            "path": "app\\api\\admin\\courses\\[courseId]\\videos\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\courses\\[courseId]\\videos\\route.ts",
+            "size": 3283,
+            "modified": "2025-11-06T20:17:53.872Z"
+          },
+          {
+            "path": "app\\api\\admin\\invitations\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\invitations\\route.ts",
+            "size": 2039,
+            "modified": "2025-11-06T20:17:53.886Z"
+          },
+          {
+            "path": "app\\api\\admin\\programs\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\programs\\route.ts",
+            "size": 6080,
+            "modified": "2025-11-12T02:15:41.173Z"
+          },
+          {
+            "path": "app\\api\\admin\\programs\\[programId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\programs\\[programId]\\route.ts",
+            "size": 2724,
+            "modified": "2025-11-12T02:15:41.091Z"
+          },
+          {
+            "path": "app\\api\\admin\\search\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\search\\route.ts",
+            "size": 1825,
+            "modified": "2025-11-04T00:27:00.280Z"
+          },
+          {
+            "path": "app\\api\\admin\\settings\\visibility\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\settings\\visibility\\route.ts",
+            "size": 2525,
+            "modified": "2025-11-06T20:17:53.876Z"
+          },
+          {
+            "path": "app\\api\\admin\\settings\\visibility\\[pageId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\settings\\visibility\\[pageId]\\route.ts",
+            "size": 1015,
+            "modified": "2025-11-06T20:17:53.882Z"
+          },
+          {
+            "path": "app\\api\\admin\\stats\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\stats\\route.ts",
+            "size": 2370,
+            "modified": "2025-11-07T14:42:46.502Z"
+          },
+          {
+            "path": "app\\api\\admin\\tasks\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\tasks\\route.ts",
+            "size": 5058,
+            "modified": "2025-11-03T23:48:51.433Z"
+          },
+          {
+            "path": "app\\api\\admin\\users\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\users\\route.ts",
+            "size": 6688,
+            "modified": "2025-11-11T18:13:29.786Z"
+          },
+          {
+            "path": "app\\api\\admin\\users\\[userId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\admin\\users\\[userId]\\route.ts",
+            "size": 3477,
+            "modified": "2025-11-04T00:22:14.648Z"
+          },
+          {
+            "path": "app\\api\\cia\\questions\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\cia\\questions\\route.ts",
+            "size": 2674,
+            "modified": "2025-10-31T15:37:53.468Z"
+          },
+          {
+            "path": "app\\api\\cia\\quiz-results\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\cia\\quiz-results\\route.ts",
+            "size": 1081,
+            "modified": "2025-10-31T15:38:17.357Z"
+          },
+          {
+            "path": "app\\api\\contact\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\contact\\route.ts",
+            "size": 1482,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "app\\api\\courses\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\route.ts",
+            "size": 5279,
+            "modified": "2025-11-11T13:38:27.486Z"
+          },
+          {
+            "path": "app\\api\\courses\\scheduled\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\scheduled\\route.ts",
+            "size": 3034,
+            "modified": "2025-11-01T23:00:13.586Z"
+          },
+          {
+            "path": "app\\api\\courses\\[courseId]\\content\\upload\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\[courseId]\\content\\upload\\route.ts",
+            "size": 3314,
+            "modified": "2025-11-01T23:00:13.586Z"
+          },
+          {
+            "path": "app\\api\\courses\\[courseId]\\modules\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\[courseId]\\modules\\route.ts",
+            "size": 2498,
+            "modified": "2025-11-15T21:58:39.525Z"
+          },
+          {
+            "path": "app\\api\\courses\\[courseId]\\modules\\[moduleId]\\lessons\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\[courseId]\\modules\\[moduleId]\\lessons\\route.ts",
+            "size": 1832,
+            "modified": "2025-11-01T23:00:13.582Z"
+          },
+          {
+            "path": "app\\api\\courses\\[courseId]\\modules\\[moduleId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\[courseId]\\modules\\[moduleId]\\route.ts",
+            "size": 1986,
+            "modified": "2025-11-01T23:00:13.582Z"
+          },
+          {
+            "path": "app\\api\\courses\\[courseId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\courses\\[courseId]\\route.ts",
+            "size": 4184,
+            "modified": "2025-11-01T23:00:13.582Z"
+          },
+          {
+            "path": "app\\api\\create-payment-intent\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\create-payment-intent\\route.ts",
+            "size": 1337,
+            "modified": "2025-11-04T23:47:48.590Z"
+          },
+          {
+            "path": "app\\api\\enroll\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\enroll\\route.ts",
+            "size": 1506,
+            "modified": "2025-11-04T23:47:48.590Z"
+          },
+          {
+            "path": "app\\api\\enrollment-status\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\enrollment-status\\route.ts",
+            "size": 1511,
+            "modified": "2025-11-04T23:47:48.594Z"
+          },
+          {
+            "path": "app\\api\\messaging\\zoom-link\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\messaging\\zoom-link\\route.ts",
+            "size": 1920,
+            "modified": "2025-11-06T20:06:27.289Z"
+          },
+          {
+            "path": "app\\api\\purchase\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\purchase\\route.ts",
+            "size": 1873,
+            "modified": "2025-11-04T23:47:48.590Z"
+          },
+          {
+            "path": "app\\api\\storage\\files\\copy\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\files\\copy\\route.ts",
+            "size": 1103,
+            "modified": "2025-11-01T22:46:24.354Z"
+          },
+          {
+            "path": "app\\api\\storage\\files\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\files\\route.ts",
+            "size": 2363,
+            "modified": "2025-11-01T22:46:24.354Z"
+          },
+          {
+            "path": "app\\api\\storage\\files\\[fileId]\\download\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\files\\[fileId]\\download\\route.ts",
+            "size": 1047,
+            "modified": "2025-11-01T22:46:24.354Z"
+          },
+          {
+            "path": "app\\api\\storage\\files\\[fileId]\\modifications\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\files\\[fileId]\\modifications\\route.ts",
+            "size": 5540,
+            "modified": "2025-11-07T17:54:45.492Z"
+          },
+          {
+            "path": "app\\api\\storage\\files\\[fileId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\files\\[fileId]\\route.ts",
+            "size": 1797,
+            "modified": "2025-11-01T22:46:24.354Z"
+          },
+          {
+            "path": "app\\api\\storage\\quota\\[userId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\quota\\[userId]\\route.ts",
+            "size": 1781,
+            "modified": "2025-11-01T22:46:24.354Z"
+          },
+          {
+            "path": "app\\api\\storage\\usage\\[userId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\storage\\usage\\[userId]\\route.ts",
+            "size": 879,
+            "modified": "2025-11-01T22:46:24.354Z"
+          },
+          {
+            "path": "app\\api\\subscribe\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\subscribe\\route.ts",
+            "size": 1989,
+            "modified": "2025-11-04T23:47:48.590Z"
+          },
+          {
+            "path": "app\\api\\trainees\\courses\\[courseId]\\files\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\trainees\\courses\\[courseId]\\files\\route.ts",
+            "size": 3160,
+            "modified": "2025-11-06T20:00:32.964Z"
+          },
+          {
+            "path": "app\\api\\trainees\\files\\[fileId]\\copy\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\trainees\\files\\[fileId]\\copy\\route.ts",
+            "size": 1352,
+            "modified": "2025-11-06T20:00:32.967Z"
+          },
+          {
+            "path": "app\\api\\trainees\\files\\[fileId]\\download\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\trainees\\files\\[fileId]\\download\\route.ts",
+            "size": 990,
+            "modified": "2025-11-06T20:00:32.968Z"
+          },
+          {
+            "path": "app\\api\\trainees\\files\\[fileId]\\rename\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\trainees\\files\\[fileId]\\rename\\route.ts",
+            "size": 1354,
+            "modified": "2025-11-06T20:00:32.964Z"
+          },
+          {
+            "path": "app\\api\\zoom\\sessions\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\zoom\\sessions\\route.ts",
+            "size": 5101,
+            "modified": "2025-11-07T17:57:50.818Z"
+          },
+          {
+            "path": "app\\api\\zoom\\sessions\\[sessionId]\\route.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\app\\api\\zoom\\sessions\\[sessionId]\\route.ts",
+            "size": 3484,
+            "modified": "2025-11-06T20:06:27.289Z"
+          }
+        ],
+        "count": 56
+      },
+      {
+        "name": "index.ts",
+        "files": [
+          {
+            "path": "components\\ConsultingSystem\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ConsultingSystem\\index.ts",
+            "size": 360,
+            "modified": "2025-11-06T16:15:56.434Z"
+          },
+          {
+            "path": "components\\course-details\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\course-details\\index.ts",
+            "size": 535,
+            "modified": "2025-11-11T15:21:53.499Z"
+          },
+          {
+            "path": "components\\CourseCard\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\CourseCard\\index.ts",
+            "size": 1090,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "components\\homepage\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\homepage\\index.ts",
+            "size": 1417,
+            "modified": "2025-11-09T23:40:06.434Z"
+          },
+          {
+            "path": "components\\learning-player\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\learning-player\\index.ts",
+            "size": 368,
+            "modified": "2025-11-13T22:58:11.171Z"
+          },
+          {
+            "path": "components\\SupportSystem\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\SupportSystem\\index.ts",
+            "size": 285,
+            "modified": "2025-11-06T16:15:56.434Z"
+          },
+          {
+            "path": "components\\ui\\accessibility\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\accessibility\\index.ts",
+            "size": 101,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "components\\ui\\effects\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\effects\\index.ts",
+            "size": 203,
+            "modified": "2025-11-04T01:02:24.098Z"
+          },
+          {
+            "path": "components\\ui\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\index.ts",
+            "size": 1588,
+            "modified": "2025-11-16T02:45:35.960Z"
+          },
+          {
+            "path": "components\\ui\\learning-paths\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\learning-paths\\index.ts",
+            "size": 213,
+            "modified": "2025-11-10T03:48:52.590Z"
+          },
+          {
+            "path": "components\\ui\\modal\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\modal\\index.ts",
+            "size": 57,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "components\\ui\\primitives\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\primitives\\index.ts",
+            "size": 475,
+            "modified": "2025-11-07T19:35:04.193Z"
+          },
+          {
+            "path": "components\\ui\\progress\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\progress\\index.ts",
+            "size": 160,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "courses\\components\\CoursesListComponent\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\courses\\components\\CoursesListComponent\\index.ts",
+            "size": 779,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "hooks\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\index.ts",
+            "size": 48,
+            "modified": "2025-11-07T20:50:10.483Z"
+          },
+          {
+            "path": "hooks\\performance\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\performance\\index.ts",
+            "size": 111,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "lib\\ai-assistant\\index.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\ai-assistant\\index.ts",
+            "size": 295,
+            "modified": "2025-11-06T15:54:38.479Z"
+          }
+        ],
+        "count": 17
+      },
+      {
+        "name": "ProgressRing.tsx",
+        "files": [
+          {
+            "path": "components\\CourseCard\\ProgressRing.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\CourseCard\\ProgressRing.tsx",
+            "size": 3071,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "components\\ui\\ProgressRing.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\ProgressRing.tsx",
+            "size": 5557,
+            "modified": "2025-11-16T02:27:33.675Z"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "name": "Card.tsx",
+        "files": [
+          {
+            "path": "components\\ui\\Card.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\Card.tsx",
+            "size": 5216,
+            "modified": "2025-11-16T01:38:47.804Z"
+          },
+          {
+            "path": "components\\ui\\primitives\\Card.tsx",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\primitives\\Card.tsx",
+            "size": 6683,
+            "modified": "2025-11-10T04:12:39.656Z"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "name": "useDebounce.ts",
+        "files": [
+          {
+            "path": "hooks\\performance\\useDebounce.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\performance\\useDebounce.ts",
+            "size": 1094,
+            "modified": "2025-10-25T23:10:32.000Z"
+          },
+          {
+            "path": "hooks\\useDebounce.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useDebounce.ts",
+            "size": 408,
+            "modified": "2025-10-25T23:10:32.000Z"
+          }
+        ],
+        "count": 2
+      },
+      {
+        "name": "validation.ts",
+        "files": [
+          {
+            "path": "lib\\security\\validation.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\security\\validation.ts",
+            "size": 6498,
+            "modified": "2025-11-07T18:53:23.879Z"
+          },
+          {
+            "path": "lib\\validation.ts",
+            "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\validation.ts",
+            "size": 1885,
+            "modified": "2025-10-25T23:10:32.000Z"
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "byContent": []
+  },
+  "oldFiles": [],
+  "unusedFiles": [
+    {
+      "path": "components\\layout\\Breadcrumbs.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\layout\\Breadcrumbs.tsx",
+      "size": 5759,
+      "modified": "2025-11-10T03:02:03.277Z"
+    },
+    {
+      "path": "components\\ui\\ImageEffects.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\ImageEffects.tsx",
+      "size": 6925,
+      "modified": "2025-11-13T19:48:18.971Z"
+    },
+    {
+      "path": "components\\ui\\LoadingIndicator.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\LoadingIndicator.tsx",
+      "size": 1650,
+      "modified": "2025-11-13T19:19:50.653Z"
+    },
+    {
+      "path": "components\\ui\\MegaMenu.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\MegaMenu.tsx",
+      "size": 8045,
+      "modified": "2025-11-11T19:48:31.397Z"
+    },
+    {
+      "path": "components\\ui\\progress\\ProgressTypes.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\progress\\ProgressTypes.ts",
+      "size": 230,
+      "modified": "2025-10-25T23:10:32.000Z"
+    },
+    {
+      "path": "components\\ui\\Radio.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\Radio.tsx",
+      "size": 3460,
+      "modified": "2025-11-14T04:01:15.199Z"
+    },
+    {
+      "path": "components\\ui\\ResponsivePlayer.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\ResponsivePlayer.tsx",
+      "size": 11121,
+      "modified": "2025-11-06T19:07:39.670Z"
+    },
+    {
+      "path": "components\\ui\\RTLCard.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\RTLCard.tsx",
+      "size": 2057,
+      "modified": "2025-11-06T18:56:19.639Z"
+    },
+    {
+      "path": "components\\ui\\RTLNavbar.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\RTLNavbar.tsx",
+      "size": 4372,
+      "modified": "2025-11-06T18:56:19.639Z"
+    },
+    {
+      "path": "components\\ui\\RTLVideoPlayerSimple.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\RTLVideoPlayerSimple.tsx",
+      "size": 10913,
+      "modified": "2025-11-06T19:00:46.538Z"
+    },
+    {
+      "path": "components\\ui\\ThemeToggle.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\components\\ui\\ThemeToggle.tsx",
+      "size": 4936,
+      "modified": "2025-11-13T18:44:30.302Z"
+    },
+    {
+      "path": "contexts\\SidebarContext.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\contexts\\SidebarContext.tsx",
+      "size": 1526,
+      "modified": "2025-11-09T20:58:46.478Z"
+    },
+    {
+      "path": "courses\\components\\CourseSlider.tsx",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\courses\\components\\CourseSlider.tsx",
+      "size": 5105,
+      "modified": "2025-10-25T23:10:32.000Z"
+    },
+    {
+      "path": "hooks\\useExamState.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useExamState.ts",
+      "size": 10067,
+      "modified": "2025-11-10T16:38:37.562Z"
+    },
+    {
+      "path": "hooks\\useIntersectionObserver.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useIntersectionObserver.ts",
+      "size": 1669,
+      "modified": "2025-11-10T16:38:37.561Z"
+    },
+    {
+      "path": "hooks\\useLocalStorage.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useLocalStorage.ts",
+      "size": 1376,
+      "modified": "2025-11-02T21:38:34.933Z"
+    },
+    {
+      "path": "hooks\\useOnboarding.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useOnboarding.ts",
+      "size": 1151,
+      "modified": "2025-10-25T23:10:32.000Z"
+    },
+    {
+      "path": "hooks\\useSecureAuth.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useSecureAuth.ts",
+      "size": 1823,
+      "modified": "2025-11-06T16:49:34.934Z"
+    },
+    {
+      "path": "hooks\\useStorage.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useStorage.ts",
+      "size": 7374,
+      "modified": "2025-11-11T14:23:29.226Z"
+    },
+    {
+      "path": "hooks\\useStudent.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useStudent.ts",
+      "size": 808,
+      "modified": "2025-11-11T14:23:29.226Z"
+    },
+    {
+      "path": "hooks\\useThrottle.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\hooks\\useThrottle.ts",
+      "size": 707,
+      "modified": "2025-11-08T21:20:45.484Z"
+    },
+    {
+      "path": "lib\\colorContrast.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\colorContrast.ts",
+      "size": 4130,
+      "modified": "2025-10-31T23:26:28.902Z"
+    },
+    {
+      "path": "lib\\course-levels.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\course-levels.ts",
+      "size": 14432,
+      "modified": "2025-11-12T05:14:04.324Z"
+    },
+    {
+      "path": "lib\\error-handler.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\error-handler.ts",
+      "size": 6246,
+      "modified": "2025-11-06T16:49:34.928Z"
+    },
+    {
+      "path": "lib\\image-optimization.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\image-optimization.ts",
+      "size": 1460,
+      "modified": "2025-10-25T23:10:32.000Z"
+    },
+    {
+      "path": "lib\\motionHelpers.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\motionHelpers.ts",
+      "size": 728,
+      "modified": "2025-10-31T23:18:50.595Z"
+    },
+    {
+      "path": "lib\\performance-monitoring.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\performance-monitoring.ts",
+      "size": 213,
+      "modified": "2025-10-25T23:10:32.000Z"
+    },
+    {
+      "path": "lib\\performance.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\performance.ts",
+      "size": 3694,
+      "modified": "2025-10-31T23:39:08.776Z"
+    },
+    {
+      "path": "lib\\progress-tracking.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\progress-tracking.ts",
+      "size": 2933,
+      "modified": "2025-11-05T02:09:17.010Z"
+    },
+    {
+      "path": "lib\\security\\file-validator.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\security\\file-validator.ts",
+      "size": 10901,
+      "modified": "2025-11-15T21:09:00.944Z"
+    },
+    {
+      "path": "lib\\security\\sanitize.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\lib\\security\\sanitize.ts",
+      "size": 6012,
+      "modified": "2025-11-15T21:14:29.316Z"
+    },
+    {
+      "path": "services\\messagingService.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\services\\messagingService.ts",
+      "size": 2629,
+      "modified": "2025-11-11T14:26:49.865Z"
+    },
+    {
+      "path": "store\\studentStore.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\store\\studentStore.ts",
+      "size": 1580,
+      "modified": "2025-11-11T14:18:27.049Z"
+    },
+    {
+      "path": "types\\react-player.d.ts",
+      "fullPath": "C:\\Users\\azrael.JUDES-LAPTOP\\Desktop\\khatwa-learning-platform-main\\src\\types\\react-player.d.ts",
+      "size": 1589,
+      "modified": "2025-11-07T18:48:37.912Z"
+    }
+  ],
+  "conflicts": {
+    "naming": [
+      {
+        "name": "ConsultingPage",
+        "exports": [
+          {
+            "name": "ConsultingPage",
+            "path": "app\\(dashboard)\\student\\consulting\\page.tsx",
+            "type": "default"
+          },
+          {
+            "name": "ConsultingPage",
+            "path": "app\\consulting\\page.tsx",
+            "type": "default"
+          }
+        ],
+        "paths": [
+          "app\\(dashboard)\\student\\consulting\\page.tsx",
+          "app\\consulting\\page.tsx"
+        ],
+        "count": 2
+      },
+      {
+        "name": "CourseFilesPage",
+        "exports": [
+          {
+            "name": "CourseFilesPage",
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\files\\page.tsx",
+            "type": "default"
+          },
+          {
+            "name": "CourseFilesPage",
+            "path": "app\\resources\\course-files\\page.tsx",
+            "type": "default"
+          }
+        ],
+        "paths": [
+          "app\\(dashboard)\\student\\courses\\[courseId]\\files\\page.tsx",
+          "app\\resources\\course-files\\page.tsx"
+        ],
+        "count": 2
+      },
+      {
+        "name": "FileList",
+        "exports": [
+          {
+            "name": "FileList",
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\FileList.tsx",
+            "type": "default"
+          },
+          {
+            "name": "FileList",
+            "path": "components\\course-content\\FileList.tsx",
+            "type": "default"
+          }
+        ],
+        "paths": [
+          "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\FileList.tsx",
+          "components\\course-content\\FileList.tsx"
+        ],
+        "count": 2
+      },
+      {
+        "name": "ModuleSidebar",
+        "exports": [
+          {
+            "name": "ModuleSidebar",
+            "path": "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\ModuleSidebar.tsx",
+            "type": "default"
+          },
+          {
+            "name": "ModuleSidebar",
+            "path": "components\\course-content\\ModuleSidebar.tsx",
+            "type": "default"
+          }
+        ],
+        "paths": [
+          "app\\(dashboard)\\student\\courses\\[courseId]\\lesson\\ModuleSidebar.tsx",
+          "components\\course-content\\ModuleSidebar.tsx"
+        ],
+        "count": 2
+      },
+      {
+        "name": "SupportPage",
+        "exports": [
+          {
+            "name": "SupportPage",
+            "path": "app\\(dashboard)\\student\\support\\page.tsx",
+            "type": "default"
+          },
+          {
+            "name": "SupportPage",
+            "path": "app\\support\\page.tsx",
+            "type": "default"
+          }
+        ],
+        "paths": [
+          "app\\(dashboard)\\student\\support\\page.tsx",
+          "app\\support\\page.tsx"
+        ],
+        "count": 2
+      },
+      {
+        "name": "export",
+        "exports": [
+          {
+            "name": "export",
+            "path": "app\\community\\page.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "app\\community\\page.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "app\\ConditionalFooter.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "app\\ConditionalFooter.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "app\\layout.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "app\\layout.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\admin\\AdminCharts.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\admin\\AdminCharts.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\admin\\AdminCharts.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\admin\\AdminCharts.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ai-tools\\FileUploader.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ai-tools\\FileUploader.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ai-tools\\FinancialCharts.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ai-tools\\FinancialCharts.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\community\\community-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\contact-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\contact-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\ActionButtons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\BadgeList.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\CourseImage.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\CourseMeta.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\InstructorInfoCard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\PriceBadge.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\ProgressRing.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\CourseCard\\QuickActionButtons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\exam\\Calculator.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\exam\\ExamContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\exam\\ExamContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\exam\\ExamContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\exam\\ExamContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\faq-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\files\\VoiceNotesComponent.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\inbox-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\inbox-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\inbox-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\inbox-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\layout\\layout-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\layout\\layout-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\layout\\layout-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\layout\\layout-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\layout\\layout-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\layout\\layout-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\NotificationProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\NotificationProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\NotificationProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\ActivityTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\ActivityTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\AIToolsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\AIToolsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\AnalyticsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\AnalyticsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\BadgesTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\BadgesTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\CertificatesTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\CertificatesTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\CoursesTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\CoursesTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\ExamsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\ExamsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\FileEditorTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\FileEditorTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\ProfileInfoTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\ProfileInfoTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\SettingsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProfileComponent\\SettingsTab.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProgressNotification.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProgressNotification.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ProgressNotification.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\providers\\MSWProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\providers\\QueryProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\support-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\support-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\support-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\support-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\support-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\support-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\SupportSystem\\SupportTicketSystem.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\SupportSystem\\SupportTicketSystem.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\SupportSystem\\SupportTicketSystem.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\SupportSystem\\SupportTicketSystem.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\SupportSystem\\SupportTicketSystem.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\AcademicBadge.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\AccessibilityHelpers.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\AccessibilityHelpers.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\AccessibilityHelpers.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\AccessibilityHelpers.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\AnimatedSection.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\BackgroundPatterns.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Badge.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Button.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Card.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Checkbox.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ContentFilters.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\effects\\AnimatedText.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\effects\\CountUp.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\effects\\MagneticButton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\effects\\ParallaxElement.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\FlyonMenu.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\FormField.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\GlassCard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Icon.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Icon.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\icons\\FileTypeIcons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\icons\\FileTypeIcons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\icons\\FileTypeIcons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\icons\\FileTypeIcons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\icons\\FileTypeIcons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\icons\\FileTypeIcons.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Image.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Image.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ImageEffects.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ImageEffects.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ImageEffects.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ImageEffects.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ImageEffects.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Input.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\LearningPathTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\LearningPathTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\LearningPathTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\LearningPathTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\LearningPathVisual.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\PathProgressTracker.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\PathProgressTracker.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\learning-paths\\RecommendedPaths.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\LoadingStates.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\LoadingStates.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\LoadingStates.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\LoadingStates.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\LoadingStates.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\MetricCard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ModernTabs.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ModernTabs.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PageBackground.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PageBackground.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PageTransition.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PerformanceOptimizer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PerformanceOptimizer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PerformanceOptimizer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PerformanceOptimizer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PerformanceOptimizer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\PerformanceOptimizer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\primitives\\Card.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\primitives\\Container.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\primitives\\Grid.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\CircularProgress.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\CircularProgress.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\index.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\index.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\index.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\LinearProgress.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\LinearProgress.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\ProgressTracker.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\ProgressTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\progress\\ProgressTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ProgressRing.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Radio.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ResponsivePlayer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ResponsiveVideoPlayer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\RTLCard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\RTLNavbar.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\RTLVideoPlayer.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\RTLVideoPlayerSimple.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ScrollAnimation.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ScrollAnimation.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Select.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Select.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Skeleton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Skeleton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Skeleton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Skeleton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Skeleton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\StyledButton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\StyledButton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\StyledButton.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\Textarea.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\ThemeToggle.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\UnifiedFileCard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "components\\ui\\UnifiedFileCard.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\AuthContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\AuthContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\AuthContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\AuthContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\SidebarContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\SidebarContext.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\ThemeProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "contexts\\ThemeProvider.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\courses-list-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\courses-list-data.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\CoursesListComponent\\ActiveFiltersChips.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\CoursesListComponent\\CoursesGrid.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\CoursesListComponent\\EmptyState.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\CoursesListComponent\\PaginationControls.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "courses\\components\\CoursesListComponent\\SearchFilters.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\all-courses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\courses\\course-modules-converter.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "data\\internal-audit-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\performance\\useDebounce.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\performance\\useDebounce.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\performance\\useLazyLoad.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseCardActions.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseCardActions.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseCardActions.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseCardState.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseCardState.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseFilters.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseModules.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseModules.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseModules.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCoursePagination.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourses.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useCourseSort.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useExamState.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useExamState.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useExamState.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useIntersectionObserver.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useModalStack.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useOnboarding.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useReducedMotion.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useReducedMotion.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useRippleEffect.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useSecureAuth.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useSecureAuth.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useStorage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useStudent.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useSubscription.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "hooks\\useThrottle.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\admin\\admin-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\admin\\admin-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\admin\\admin-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\admin\\admin-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\ai-assistant\\intelligent-reply.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\analytics.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\analytics.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\analytics.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\api\\client.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\apiTypes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\certificates\\generateQR.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\certificates\\generateQR.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\certificates\\generateQR.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\certificates\\generateQR.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\certificates\\generateQR.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\colorContrast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\colorContrast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\colorContrast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\colorContrast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\colorContrast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\colorContrast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-levels.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-management\\course-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-management\\course-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-page-template.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\course-page-template.tsx",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\error-handler.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\error-handler.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\error-handler.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\error-handler.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\error-handler.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\error-handler.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\formHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\formHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\gamification\\points.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\image-optimization.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\image-optimization.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\image-optimization.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\image-optimization.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\motionHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\motionHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\motionHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\motionHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\motionHelpers.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\navigation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\numberUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\numberUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\numberUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\numberUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance-monitoring.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\performance.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\progress-tracking.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\progress-tracking.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\progress-tracking.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\progress-tracking.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\routes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\routes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\routes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\routes.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\file-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\file-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\file-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\file-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\file-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\file-validator.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\sanitize.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\security\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\seo.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\seo.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\seo.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\seo.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\storage\\storage-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\storage\\storage-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-data-service.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-store.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-store.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-store.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-store.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\store\\admin-store.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\utils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\validation.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "lib\\variants.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\courseSchedulerService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\courseSchedulerService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\courseService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\courseService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\messagingService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\messagingService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\zoomService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "services\\zoomService.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "tokens.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\admin.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\admin.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\admin.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\admin.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course-management.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\course.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\messaging.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\react-player.d.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\storage.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\user.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\user.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\user.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\user.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\zoom.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\zoom.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\zoom.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\zoom.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "types\\zoom.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\courseUtils.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\toast.ts",
+            "type": "named"
+          },
+          {
+            "name": "export",
+            "path": "utils\\toast.ts",
+            "type": "named"
+          }
+        ],
+        "paths": [
+          "app\\community\\page.tsx",
+          "app\\ConditionalFooter.tsx",
+          "app\\layout.tsx",
+          "components\\admin\\AdminCharts.tsx",
+          "components\\ai-tools\\FileUploader.tsx",
+          "components\\ai-tools\\FinancialCharts.tsx",
+          "components\\community\\community-data.ts",
+          "components\\ConsultingSystem\\ConsultingDashboard.tsx",
+          "components\\contact-data.ts",
+          "components\\CourseCard\\ActionButtons.tsx",
+          "components\\CourseCard\\BadgeList.tsx",
+          "components\\CourseCard\\CourseImage.tsx",
+          "components\\CourseCard\\CourseMeta.tsx",
+          "components\\CourseCard\\InstructorInfoCard.tsx",
+          "components\\CourseCard\\PriceBadge.tsx",
+          "components\\CourseCard\\ProgressRing.tsx",
+          "components\\CourseCard\\QuickActionButtons.tsx",
+          "components\\exam\\Calculator.tsx",
+          "components\\exam\\ExamContext.tsx",
+          "components\\faq-data.ts",
+          "components\\files\\VoiceNotesComponent.tsx",
+          "components\\inbox-data.ts",
+          "components\\layout\\layout-data.ts",
+          "components\\NotificationProvider.tsx",
+          "components\\ProfileComponent\\ActivityTab.tsx",
+          "components\\ProfileComponent\\AIToolsTab.tsx",
+          "components\\ProfileComponent\\AnalyticsTab.tsx",
+          "components\\ProfileComponent\\BadgesTab.tsx",
+          "components\\ProfileComponent\\CertificatesTab.tsx",
+          "components\\ProfileComponent\\CoursesTab.tsx",
+          "components\\ProfileComponent\\ExamsTab.tsx",
+          "components\\ProfileComponent\\FileEditorTab.tsx",
+          "components\\ProfileComponent\\ProfileInfoTab.tsx",
+          "components\\ProfileComponent\\SettingsTab.tsx",
+          "components\\ProgressNotification.tsx",
+          "components\\providers\\MSWProvider.tsx",
+          "components\\providers\\QueryProvider.tsx",
+          "components\\support-data.ts",
+          "components\\SupportSystem\\SupportTicketSystem.tsx",
+          "components\\ui\\AcademicBadge.tsx",
+          "components\\ui\\AccessibilityHelpers.tsx",
+          "components\\ui\\AnimatedSection.tsx",
+          "components\\ui\\BackgroundPatterns.tsx",
+          "components\\ui\\Badge.tsx",
+          "components\\ui\\Button.tsx",
+          "components\\ui\\Card.tsx",
+          "components\\ui\\Checkbox.tsx",
+          "components\\ui\\ContentFilters.tsx",
+          "components\\ui\\effects\\AnimatedText.tsx",
+          "components\\ui\\effects\\CountUp.tsx",
+          "components\\ui\\effects\\MagneticButton.tsx",
+          "components\\ui\\effects\\ParallaxElement.tsx",
+          "components\\ui\\FlyonMenu.tsx",
+          "components\\ui\\FormField.tsx",
+          "components\\ui\\GlassCard.tsx",
+          "components\\ui\\Icon.tsx",
+          "components\\ui\\icons\\FileTypeIcons.tsx",
+          "components\\ui\\Image.tsx",
+          "components\\ui\\ImageEffects.tsx",
+          "components\\ui\\Input.tsx",
+          "components\\ui\\learning-paths\\LearningPathTypes.ts",
+          "components\\ui\\learning-paths\\LearningPathVisual.tsx",
+          "components\\ui\\learning-paths\\PathProgressTracker.tsx",
+          "components\\ui\\learning-paths\\RecommendedPaths.tsx",
+          "components\\ui\\LoadingStates.tsx",
+          "components\\ui\\MetricCard.tsx",
+          "components\\ui\\ModernTabs.tsx",
+          "components\\ui\\PageBackground.tsx",
+          "components\\ui\\PageTransition.tsx",
+          "components\\ui\\PerformanceOptimizer.tsx",
+          "components\\ui\\primitives\\Card.tsx",
+          "components\\ui\\primitives\\Container.tsx",
+          "components\\ui\\primitives\\Grid.tsx",
+          "components\\ui\\progress\\CircularProgress.tsx",
+          "components\\ui\\progress\\index.tsx",
+          "components\\ui\\progress\\LinearProgress.tsx",
+          "components\\ui\\progress\\ProgressTracker.tsx",
+          "components\\ui\\progress\\ProgressTypes.ts",
+          "components\\ui\\ProgressRing.tsx",
+          "components\\ui\\Radio.tsx",
+          "components\\ui\\ResponsivePlayer.tsx",
+          "components\\ui\\ResponsiveVideoPlayer.tsx",
+          "components\\ui\\RTLCard.tsx",
+          "components\\ui\\RTLNavbar.tsx",
+          "components\\ui\\RTLVideoPlayer.tsx",
+          "components\\ui\\RTLVideoPlayerSimple.tsx",
+          "components\\ui\\ScrollAnimation.tsx",
+          "components\\ui\\Select.tsx",
+          "components\\ui\\Skeleton.tsx",
+          "components\\ui\\StyledButton.tsx",
+          "components\\ui\\Textarea.tsx",
+          "components\\ui\\ThemeToggle.tsx",
+          "components\\ui\\UnifiedFileCard.tsx",
+          "contexts\\AuthContext.tsx",
+          "contexts\\SidebarContext.tsx",
+          "contexts\\ThemeProvider.tsx",
+          "courses\\components\\courses-list-data.ts",
+          "courses\\components\\CoursesListComponent\\ActiveFiltersChips.tsx",
+          "courses\\components\\CoursesListComponent\\CoursesGrid.tsx",
+          "courses\\components\\CoursesListComponent\\EmptyState.tsx",
+          "courses\\components\\CoursesListComponent\\PaginationControls.tsx",
+          "courses\\components\\CoursesListComponent\\SearchFilters.tsx",
+          "data\\courses\\all-courses.ts",
+          "data\\courses\\course-modules-converter.ts",
+          "data\\internal-audit-levels.ts",
+          "hooks\\performance\\useDebounce.ts",
+          "hooks\\performance\\useLazyLoad.ts",
+          "hooks\\useCourseCardActions.ts",
+          "hooks\\useCourseCardState.ts",
+          "hooks\\useCourseFilters.ts",
+          "hooks\\useCourseModules.ts",
+          "hooks\\useCoursePagination.ts",
+          "hooks\\useCourses.ts",
+          "hooks\\useCourseSort.ts",
+          "hooks\\useExamState.ts",
+          "hooks\\useIntersectionObserver.ts",
+          "hooks\\useModalStack.ts",
+          "hooks\\useOnboarding.ts",
+          "hooks\\useReducedMotion.ts",
+          "hooks\\useRippleEffect.ts",
+          "hooks\\useSecureAuth.ts",
+          "hooks\\useStorage.ts",
+          "hooks\\useStudent.ts",
+          "hooks\\useSubscription.ts",
+          "hooks\\useThrottle.ts",
+          "lib\\admin\\admin-service.ts",
+          "lib\\ai-assistant\\intelligent-reply.ts",
+          "lib\\analytics.ts",
+          "lib\\api\\client.ts",
+          "lib\\apiTypes.ts",
+          "lib\\certificates\\generateQR.ts",
+          "lib\\colorContrast.ts",
+          "lib\\course-levels.ts",
+          "lib\\course-management\\course-service.ts",
+          "lib\\course-page-template.tsx",
+          "lib\\error-handler.ts",
+          "lib\\formHelpers.ts",
+          "lib\\gamification\\points.ts",
+          "lib\\image-optimization.ts",
+          "lib\\motionHelpers.ts",
+          "lib\\navigation-validator.ts",
+          "lib\\navigation.ts",
+          "lib\\numberUtils.ts",
+          "lib\\performance-monitoring.ts",
+          "lib\\performance.ts",
+          "lib\\progress-tracking.ts",
+          "lib\\routes.ts",
+          "lib\\security\\file-validator.ts",
+          "lib\\security\\sanitize.ts",
+          "lib\\security\\validation.ts",
+          "lib\\seo.ts",
+          "lib\\storage\\storage-service.ts",
+          "lib\\store\\admin-data-service.ts",
+          "lib\\store\\admin-store.ts",
+          "lib\\utils.ts",
+          "lib\\validation.ts",
+          "lib\\variants.ts",
+          "services\\courseSchedulerService.ts",
+          "services\\courseService.ts",
+          "services\\messagingService.ts",
+          "services\\zoomService.ts",
+          "tokens.ts",
+          "types\\admin.ts",
+          "types\\course-management.ts",
+          "types\\course.ts",
+          "types\\messaging.ts",
+          "types\\react-player.d.ts",
+          "types\\storage.ts",
+          "types\\user.ts",
+          "types\\zoom.ts",
+          "utils\\courseUtils.ts",
+          "utils\\toast.ts"
+        ],
+        "count": 602
+      },
+      {
+        "name": "Component",
+        "exports": [
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\ChatTeardropIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\DeviceTrafficIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\FolderIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\IDBadgeIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\IDCardIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\LineGraphIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\LocationTrafficIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\NotebookIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\OverviewIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\ShoppingBagIcon.tsx",
+            "type": "default"
+          },
+          {
+            "name": "Component",
+            "path": "components\\ui\\icons\\UsersThreeIcon.tsx",
+            "type": "default"
+          }
+        ],
+        "paths": [
+          "components\\ui\\icons\\ChatTeardropIcon.tsx",
+          "components\\ui\\icons\\DeviceTrafficIcon.tsx",
+          "components\\ui\\icons\\FolderIcon.tsx",
+          "components\\ui\\icons\\IDBadgeIcon.tsx",
+          "components\\ui\\icons\\IDCardIcon.tsx",
+          "components\\ui\\icons\\LineGraphIcon.tsx",
+          "components\\ui\\icons\\LocationTrafficIcon.tsx",
+          "components\\ui\\icons\\NotebookIcon.tsx",
+          "components\\ui\\icons\\OverviewIcon.tsx",
+          "components\\ui\\icons\\ShoppingBagIcon.tsx",
+          "components\\ui\\icons\\UsersThreeIcon.tsx"
+        ],
+        "count": 11
+      }
+    ],
+    "imports": [],
+    "circular": []
+  },
+  "dependencies": {
+    "orphaned": [],
+    "broken": []
+  },
+  "stats": {
+    "totalFiles": 499,
+    "totalSize": 4672500
+  }
+}

@@ -22,16 +22,9 @@ const ChatAssistantWidget = dynamic(() => import('../components/ChatAssistantWid
 
 /**
  * Conditionally renders FooterComponent based on current page
- * Hidden on lesson pages for full-screen experience
+ * Footer is now shown on all pages including lesson pages
  */
 export default function ConditionalFooter() {
-  const pathname = usePathname();
-  const isLessonPage = pathname?.includes('/lesson/');
-  
-  if (isLessonPage) {
-    return null;
-  }
-  
   return <FooterComponent />;
 }
 
@@ -41,7 +34,10 @@ export default function ConditionalFooter() {
  */
 export function ConditionalBottomNav() {
   const pathname = usePathname();
-  const isLessonPage = pathname?.includes('/lesson/');
+  // Check for both /lesson/ and /lesson to cover all lesson page variants
+  // استثناء صفحة /courses/[slug]/lesson لأنها تحتاج BottomNavigation
+  const isLessonPage = pathname?.includes('/lesson') && 
+                       !pathname?.startsWith('/courses/');
   
   if (isLessonPage) {
     return null;
@@ -56,7 +52,10 @@ export function ConditionalBottomNav() {
  */
 export function ConditionalWidgets() {
   const pathname = usePathname();
-  const isLessonPage = pathname?.includes('/lesson/');
+  // Check for both /lesson/ and /lesson to cover all lesson page variants
+  // استثناء صفحة /courses/[slug]/lesson لأنها تحتاج WhatsApp button
+  const isLessonPage = pathname?.includes('/lesson') && 
+                       !pathname?.startsWith('/courses/');
   
   if (isLessonPage) {
     return null;

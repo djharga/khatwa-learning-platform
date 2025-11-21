@@ -16,7 +16,6 @@ export const ROUTES = {
   BLOG: '/blog',
   LEARNING_HUB: '/learning-hub',
   WORKSHOPS: '/workshops',
-  ONBOARDING_DEMO: '/onboarding-demo',
   
   // المصادقة
   LOGIN: '/login',

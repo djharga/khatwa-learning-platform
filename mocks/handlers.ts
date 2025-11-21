@@ -24,6 +24,18 @@ const fakeCourses: Course[] = Array.from({ length: 8 }).map((_, i) => ({
 }));
 
 export const handlers = [
+  // GET /api/auth/me - معلومات المستخدم الحالي
+  http.get('http://localhost:3000/api/auth/me', () => {
+    return HttpResponse.json({
+      data: {
+        id: '1',
+        name: 'مستخدم تجريبي',
+        email: 'test@example.com',
+        role: 'student',
+      },
+    });
+  }),
+
   // GET /api/courses - جلب جميع الدورات
   http.get('/api/courses', () => {
     return HttpResponse.json({
