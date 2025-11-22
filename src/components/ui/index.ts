@@ -1,6 +1,5 @@
 export { default as Input } from './Input';
 export { Button, buttonVariants } from './Button';
-export { default as StyledButton } from './StyledButton'; // @deprecated - Use Button instead
 export { default as Checkbox } from './Checkbox';
 export { default as Select } from './Select';
 export { default as FormField } from './FormField';
@@ -20,3 +19,7 @@ export { AnimatedSection } from './AnimatedSection';
 // Enhanced Components
 export { default as AdvancedCourseFilters } from './AdvancedCourseFilters';
 export { ScrollAnimation, ScrollAnimationContainer } from './ScrollAnimation';
+export { MotionWrapper, default as MotionWrapperDefault } from './MotionWrapper';
+// New Motion System
+export { MotionWrapper as MotionWrapperNew, type MotionWrapperProps, type AnimationType } from './motion';
+export * from './motion';

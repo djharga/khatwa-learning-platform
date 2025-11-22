@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { FileText } from 'lucide-react';
-import FileCard from './FileCard';
+import UnifiedFileCard from '@/components/ui/UnifiedFileCard';
 import type { CourseContent } from '@/types/course-management';
 
 interface FileListProps {
@@ -84,10 +84,19 @@ export default function FileList({
                   ease: [0.21, 1.11, 0.81, 0.99]
                 }}
               >
-                <FileCard
+                <UnifiedFileCard
                   file={file}
-                  onOpen={onFileOpen}
-                  onDownload={onFileDownload}
+                  onOpen={onFileOpen ? (file) => {
+                    // UnifiedFileCard passes the file object, extract id for CourseContent
+                    const fileId = 'id' in file ? file.id : (file as CourseContent).id;
+                    onFileOpen(fileId);
+                  } : undefined}
+                  onDownload={onFileDownload ? (file) => {
+                    // UnifiedFileCard passes the file object, extract id for CourseContent
+                    const fileId = 'id' in file ? file.id : (file as CourseContent).id;
+                    onFileDownload(fileId);
+                  } : undefined}
+                  index={index}
                 />
               </motion.div>
             ))}

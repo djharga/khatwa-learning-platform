@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Settings, Bell, Shield, Trash2 } from 'lucide-react';
-import StyledButton from '../ui/StyledButton';
+import { Button } from '../ui/Button';
 
 export interface SettingsTabProps {
   settings: any;
@@ -43,9 +43,9 @@ export const SettingsTab = ({
           </div>
           
           <div className="flex justify-end space-x-4">
-            <StyledButton onClick={handleSaveSettings} disabled={isLoading} variant="primary" size="default">
+            <Button onClick={handleSaveSettings} disabled={isLoading} variant="default" size="default">
               {isLoading ? 'جاري الحفظ...' : 'حفظ الإعدادات'}
-            </StyledButton>
+            </Button>
           </div>
         </div>
       </div>

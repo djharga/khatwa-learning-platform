@@ -15,8 +15,8 @@ export function useThrottle<T extends (...args: any[]) => any>(
     callbackRef.current = callback;
   }, [callback]);
 
-  return useCallback(
-    ((...args: Parameters<T>) => {
+  const throttledCallback = useCallback(
+    (...args: Parameters<T>) => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
@@ -27,8 +27,10 @@ export function useThrottle<T extends (...args: any[]) => any>(
           lastRun.current = Date.now();
         }
       }, delay - (Date.now() - lastRun.current));
-    }) as T,
+    },
     [delay]
   );
+
+  return throttledCallback as T;
 }
 

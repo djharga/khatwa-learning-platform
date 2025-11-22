@@ -18,7 +18,8 @@ import {
 import { toEnglishDigits } from '../../lib/numberUtils';
 import { footerSections, socialLinks, contactInfo } from './layout-data';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * Maps social media icon identifiers to their corresponding lucide-react icon components
@@ -66,28 +67,18 @@ interface BrandSectionProps {
 
 const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
   return (
-    <motion.div 
+    <MotionWrapper
+      animation="slideDown"
+      delay={0.1}
+      duration={0.6}
       className="lg:col-span-4 space-y-6"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.1 }}
     >
       {/* Logo and Brand */}
       <div className="mb-8">
-        <motion.div 
-          className="flex items-center gap-3 mb-4"
-          whileHover={{ scale: 1.02 }}
-          transition={{ duration: 0.2 }}
-        >
-          <motion.div 
-            className="p-3.5 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl shadow-lg relative overflow-hidden"
-            whileHover={{ 
-              boxShadow: '0 10px 25px rgba(99, 102, 241, 0.3)',
-            }}
-            transition={{ duration: 0.3 }}
-          >
+        <div className="flex items-center gap-3 mb-4 hover:scale-[1.02] transition-transform duration-200">
+          <div className="p-3.5 bg-gradient-to-br from-primary-500 to-purple-600 rounded-xl shadow-lg relative overflow-hidden hover:shadow-[0_10px_25px_rgba(99,102,241,0.3)] transition-shadow duration-300">
             <span className="text-2xl relative z-10 block" style={{ fontSize: '1.75rem' }}>🎓</span>
-          </motion.div>
+          </div>
           <div>
             <h3 className="text-3xl font-bold bg-gradient-to-r from-white via-white to-blue-200 bg-clip-text text-transparent leading-tight">
               خطى التعليمية
@@ -96,7 +87,7 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
               منصة التعلم المهني الأولى
             </p>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Description - Enhanced spacing and line-height */}
@@ -113,23 +104,20 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
           { icon: Clock, text: 'دعم 24/7', bgColor: 'bg-blue-500/20', iconBgColor: 'bg-blue-500/20', iconColor: 'text-blue-400', hoverStyle: 'hover:bg-blue-500/30' },
         ].map((badge, index) => {
           const BadgeIcon = badge.icon;
+          const hoverBgColor = index === 0 ? 'hover:bg-yellow-500/30' : index === 1 ? 'hover:bg-green-500/30' : 'hover:bg-blue-500/30';
           return (
-            <motion.div
+            <MotionWrapper
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.2 + index * 0.1 }}
-              whileHover={{ 
-                scale: 1.02,
-                backgroundColor: index === 0 ? 'rgba(234, 179, 8, 0.3)' : index === 1 ? 'rgba(34, 197, 94, 0.3)' : 'rgba(59, 130, 246, 0.3)',
-              }}
-              className={`flex items-center gap-2.5 px-4 py-2.5 ${badge.bgColor} rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer`}
+              animation="scale"
+              delay={0.2 + index * 0.1}
+              duration={0.4}
+              className={`flex items-center gap-2.5 px-4 py-2.5 ${badge.bgColor} ${hoverBgColor} rounded-xl border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer hover:scale-[1.02]`}
             >
               <div className={`p-1.5 ${badge.iconBgColor} rounded-lg`}>
                 <BadgeIcon className={`w-5 h-5 ${badge.iconColor}`} strokeWidth={2} />
               </div>
               <span className="text-sm text-neutral-200 font-medium">{badge.text}</span>
-            </motion.div>
+            </MotionWrapper>
           );
         })}
       </div>
@@ -139,24 +127,23 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
         {contactInfo.map((info, index) => {
           const IconComponent = getContactIcon(info.icon);
           return (
-            <motion.a
+            <MotionWrapper
               key={index}
-              href={info.href}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-              whileHover={{ x: 5 }}
-              className="flex items-center gap-3 text-neutral-200 hover:text-white transition-colors duration-200 py-2.5 group"
-              aria-label={info.text}
+              animation="slide"
+              delay={0.3 + index * 0.1}
+              duration={0.4}
             >
-              <motion.div 
-                className="p-2 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-all duration-200"
-                whileHover={{ scale: 1.05 }}
+              <a
+                href={info.href}
+                className="flex items-center gap-3 text-neutral-200 hover:text-white transition-all duration-200 py-2.5 group hover:translate-x-1"
+                aria-label={info.text}
               >
-                <IconComponent className="w-5 h-5 text-primary-300 group-hover:text-primary-200 transition-colors" aria-hidden="true" strokeWidth={2} />
-              </motion.div>
-              <span className="text-base font-medium">{info.text}</span>
-            </motion.a>
+                <div className="p-2 bg-primary-500/10 rounded-lg group-hover:bg-primary-500/20 transition-all duration-200 group-hover:scale-105">
+                  <IconComponent className="w-5 h-5 text-primary-300 group-hover:text-primary-200 transition-colors" aria-hidden="true" strokeWidth={2} />
+                </div>
+                <span className="text-base font-medium">{info.text}</span>
+              </a>
+            </MotionWrapper>
           );
         })}
       </div>
@@ -166,28 +153,27 @@ const BrandSection = ({ contactInfo, socialLinks }: BrandSectionProps) => {
         {socialLinks.map((social, index) => {
           const IconComponent = getSocialIcon(social.icon);
           return (
-            <motion.a
+            <MotionWrapper
               key={index}
-              href={social.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4, delay: 0.4 + index * 0.05 }}
-              whileHover={{ 
-                scale: 1.1,
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-primary-500/30 hover:to-purple-500/30 rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-primary-400/50 relative overflow-hidden group hover-glow-primary-xs transition-glow"
-              aria-label={social.label}
+              animation="scale"
+              delay={0.4 + index * 0.05}
+              duration={0.4}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <IconComponent className="w-5 h-5 text-neutral-300 group-hover:text-white transition-colors relative z-10" aria-hidden="true" />
-            </motion.a>
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-gradient-to-br from-white/10 to-white/5 hover:from-primary-500/30 hover:to-purple-500/30 rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-primary-400/50 relative overflow-hidden group hover-glow-primary-xs transition-glow hover:scale-110 active:scale-95"
+                aria-label={social.label}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <IconComponent className="w-5 h-5 text-neutral-300 group-hover:text-white transition-colors relative z-10" aria-hidden="true" />
+              </a>
+            </MotionWrapper>
           );
         })}
       </div>
-    </motion.div>
+    </MotionWrapper>
   );
 };
 
@@ -200,20 +186,20 @@ interface FooterLinksGridProps {
 
 const FooterLinksGrid = ({ sections }: FooterLinksGridProps) => {
   return (
-    <motion.div 
+    <MotionWrapper
+      animation="slideDown"
+      delay={0.2}
+      duration={0.6}
       className="lg:col-span-8"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.2 }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {sections.map((section, sectionIndex) => (
-          <motion.div 
-            key={section.title} 
+          <MotionWrapper
+            key={section.title}
+            animation="slide"
+            delay={0.3 + sectionIndex * 0.1}
+            duration={0.5}
             className="flex flex-col h-full"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 + sectionIndex * 0.1 }}
           >
             <div className="relative bg-gradient-to-br from-white/5 via-white/3 to-transparent rounded-lg p-8 border border-white/10 hover:border-white/20 transition-all duration-300 group h-full flex flex-col">
               {/* Top border - subtle white line with 10% opacity */}
@@ -223,29 +209,31 @@ const FooterLinksGrid = ({ sections }: FooterLinksGridProps) => {
               </h4>
               <ul className="space-y-2.5 flex-1">
                 {section.links.map((link, linkIndex) => (
-                  <motion.li 
+                  <MotionWrapper
                     key={linkIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.4 + sectionIndex * 0.1 + linkIndex * 0.05 }}
+                    animation="fade"
+                    delay={0.4 + sectionIndex * 0.1 + linkIndex * 0.05}
+                    duration={0.3}
                   >
-                    <Link
-                      href={link.href}
-                      className="text-neutral-200 hover:text-white transition-all duration-200 text-sm py-2 block relative group/link leading-relaxed font-normal"
-                      aria-label={link.text}
-                    >
-                      <span className="relative z-10 flex items-center gap-2">
-                        <span>{link.text}</span>
-                      </span>
-                    </Link>
-                  </motion.li>
+                    <li>
+                      <Link
+                        href={link.href}
+                        className="text-neutral-200 hover:text-white transition-all duration-200 text-sm py-2 block relative group/link leading-relaxed font-normal"
+                        aria-label={link.text}
+                      >
+                        <span className="relative z-10 flex items-center gap-2">
+                          <span>{link.text}</span>
+                        </span>
+                      </Link>
+                    </li>
+                  </MotionWrapper>
                 ))}
               </ul>
             </div>
-          </motion.div>
+          </MotionWrapper>
         ))}
       </div>
-    </motion.div>
+    </MotionWrapper>
   );
 };
 
@@ -267,11 +255,11 @@ const NewsletterSection = () => {
   };
 
   return (
-    <motion.div 
+    <MotionWrapper
+      animation="slideDown"
+      delay={0.4}
+      duration={0.6}
       className="mt-8 pt-8 relative"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.4 }}
     >
       <div className="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="max-w-2xl mx-auto">
@@ -284,31 +272,20 @@ const NewsletterSection = () => {
           <div className="relative z-10 text-center space-y-6">
             {/* Header */}
             <div className="space-y-3">
-              <motion.h4 
-                className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent font-heading heading-tech text-shadow-primary"
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.5 }}
-              >
-                سجل بريدك ليصلك كل جديد
-              </motion.h4>
-              <motion.p 
-                className="text-neutral-300 text-base leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-              >
-                احصل على آخر التحديثات والدورات الجديدة مباشرة في بريدك الإلكتروني
-              </motion.p>
+              <MotionWrapper animation="slideDown" delay={0.5} duration={0.5}>
+                <h4 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent font-heading heading-tech text-shadow-primary">
+                  سجل بريدك ليصلك كل جديد
+                </h4>
+              </MotionWrapper>
+              <MotionWrapper animation="fade" delay={0.6} duration={0.5}>
+                <p className="text-neutral-300 text-base leading-relaxed">
+                  احصل على آخر التحديثات والدورات الجديدة مباشرة في بريدك الإلكتروني
+                </p>
+              </MotionWrapper>
             </div>
 
             {/* Email Input */}
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
-            >
+            <MotionWrapper animation="slideDown" delay={0.7} duration={0.5} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
               <div className="relative flex-1">
                 <Mail className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-primary-300 z-10" />
                 <input
@@ -322,12 +299,10 @@ const NewsletterSection = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-400/10 to-purple-500/0 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
-              <motion.button
+              <button
                 onClick={handleSubscribe}
                 disabled={isSubscribed || !email}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-500 hover:to-purple-500 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 min-h-[44px] shadow-primary-md hover:shadow-primary-lg hover-glow-primary-md focus-glow-primary relative overflow-hidden group/btn"
+                className="px-8 py-3.5 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-500 hover:to-purple-500 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center justify-center gap-2 min-h-[44px] shadow-primary-md hover:shadow-primary-lg hover-glow-primary-md focus-glow-primary relative overflow-hidden group/btn hover:scale-105 active:scale-95"
                 aria-label={isSubscribed ? "تم الاشتراك في النشرة الإخبارية" : "اشتراك في النشرة الإخبارية"}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 -translate-x-full group-hover/btn:translate-x-full" />
@@ -344,22 +319,19 @@ const NewsletterSection = () => {
                     </>
                   )}
                 </span>
-              </motion.button>
-            </motion.div>
+              </button>
+            </MotionWrapper>
 
             {/* Privacy Notice */}
-            <motion.p 
-              className="text-sm text-neutral-400 max-w-md mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              نحن نحترم خصوصيتك. لن نشارك بريدك الإلكتروني مع أي طرف ثالث
-            </motion.p>
+            <MotionWrapper animation="fade" delay={0.8} duration={0.5}>
+              <p className="text-sm text-neutral-400 max-w-md mx-auto">
+                نحن نحترم خصوصيتك. لن نشارك بريدك الإلكتروني مع أي طرف ثالث
+              </p>
+            </MotionWrapper>
           </div>
         </div>
       </div>
-    </motion.div>
+    </MotionWrapper>
   );
 };
 
@@ -372,22 +344,17 @@ interface BottomBarProps {
 
 const BottomBar = ({ currentYear }: BottomBarProps) => {
   return (
-    <motion.div 
+    <MotionWrapper
+      animation="fade"
+      delay={0.5}
+      duration={0.6}
       className="relative bg-gradient-to-r from-neutral-900/80 via-purple-950/50 to-neutral-900/80 backdrop-blur-sm mt-8"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, delay: 0.5 }}
     >
       <div className="absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
           {/* Copyright */}
-          <motion.div 
-            className="text-neutral-300 text-sm text-center lg:text-right"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
+          <MotionWrapper animation="slide" delay={0.6} duration={0.5} className="text-neutral-300 text-sm text-center lg:text-right">
             <p>
               © {currentYear} <span 
                 className="text-[#5B36E8] dark:text-[#6D4AFF] font-semibold"
@@ -400,7 +367,7 @@ const BottomBar = ({ currentYear }: BottomBarProps) => {
                 dir="rtl"
               >خطى التعليمية</span>. جميع الحقوق محفوظة.
             </p>
-          </motion.div>
+          </MotionWrapper>
 
           {/* Legal Links */}
           <div className="flex items-center flex-wrap justify-center gap-4 text-sm">
@@ -410,11 +377,11 @@ const BottomBar = ({ currentYear }: BottomBarProps) => {
               { href: '/cookies', text: 'سياسة الكوكيز' },
               { href: '/sitemap.xml', text: 'خريطة الموقع' },
             ].map((link, index) => (
-              <motion.div
+              <MotionWrapper
                 key={link.href}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                animation="slideDown"
+                delay={0.7 + index * 0.1}
+                duration={0.4}
               >
                 <Link
                   href={link.href}
@@ -424,12 +391,12 @@ const BottomBar = ({ currentYear }: BottomBarProps) => {
                   <span className="relative z-10">{link.text}</span>
                   <span className="absolute bottom-0 right-0 w-0 h-0.5 bg-gradient-to-r from-primary-400 to-purple-400 group-hover/link:w-full transition-all duration-300" />
                 </Link>
-              </motion.div>
+              </MotionWrapper>
             ))}
           </div>
         </div>
       </div>
-    </motion.div>
+    </MotionWrapper>
   );
 };
 

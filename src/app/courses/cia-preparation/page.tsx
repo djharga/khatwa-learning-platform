@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building, ChevronUp, Crown, GraduationCap, HelpCircle, Star, TrendingUp, User, Users, BookOpen, Brain, Shield, CheckCircle, CreditCard, Warehouse, FileText, Calculator, Award, Lock, EyeOff, FileX, HardDrive, Smartphone, Target, Heart, Zap, Globe, Calendar, Clock, MapPin, Play, Download, ArrowRight, Trophy } from 'lucide-react';
 import ChatAssistantWidget from '@/components/ChatAssistantWidget';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
 export default function CIAPreparationCoursePage() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   useEffect(() => {
     // التحقق من أننا في المتصفح (client-side)
@@ -19,19 +19,11 @@ export default function CIAPreparationCoursePage() {
         document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.pageYOffset / totalHeight) * 100;
       setScrollProgress(progress);
-
-      setShowScrollToTop(window.pageYOffset > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const scrollToTop = () => {
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
 
   return (
     <div className="relative min-h-screen bg-white overflow-hidden">
@@ -447,19 +439,12 @@ export default function CIAPreparationCoursePage() {
 
       <ChatAssistantWidget />
 
-      {/* زر العودة للأعلى */}
-      <AnimatePresence>
-        {showScrollToTop && (
-          <button
-            className="fixed bottom-8 right-8 z-40 bg-indigo-600 text-white p-4 rounded-full shadow transition hover:scale-105"
-            onClick={scrollToTop}
-            aria-label="العودة إلى الأعلى"
-            style={{ transition: 'all 0.2s' }}
-          >
-            <ChevronUp className="w-6 h-6" />
-          </button>
-        )}
-      </AnimatePresence>
+      <ScrollToTopButton 
+        threshold={300}
+        position="right"
+        offset="bottom-8 right-8"
+        size="md"
+      />
     </div>
   );
 }

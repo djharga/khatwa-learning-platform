@@ -1,9 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Star, Users, Award, TrendingUp, Shield, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import { safeFormatNumber } from '@/lib/numberUtils';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 interface Testimonial {
   id: string;
@@ -29,11 +29,9 @@ export default function SocialProof({ stats, testimonials = [] }: SocialProofPro
     <div className="space-y-8">
       {/* Stats */}
       {stats && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <MotionWrapper
+          animation="slideDown"
+          duration={0.5}
           className="grid md:grid-cols-3 gap-6"
         >
           {stats.graduates && (
@@ -63,27 +61,24 @@ export default function SocialProof({ stats, testimonials = [] }: SocialProofPro
               <div className="text-sm text-gray-600 dark:text-gray-400">شركة توظف خريجينا</div>
             </div>
           )}
-        </motion.div>
+        </MotionWrapper>
       )}
 
       {/* Testimonials */}
       {testimonials.length > 0 && (
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <MotionWrapper
+          animation="slideDown"
+          duration={0.5}
           className="bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-6 lg:p-8 border border-gray-200 dark:border-neutral-700"
         >
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">ماذا يقول طلابنا</h2>
           <div className="grid md:grid-cols-2 gap-6">
-            {testimonials.map((testimonial) => (
-              <motion.div
+            {testimonials.map((testimonial, index) => (
+              <MotionWrapper
                 key={testimonial.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3 }}
+                animation="scale"
+                delay={index * 0.1}
+                duration={0.3}
                 className="p-6 bg-gray-50 dark:bg-neutral-700/50 rounded-xl border border-gray-200 dark:border-neutral-600"
               >
                 <div className="flex items-center gap-3 mb-4">
@@ -123,18 +118,16 @@ export default function SocialProof({ stats, testimonials = [] }: SocialProofPro
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                   {testimonial.comment}
                 </p>
-              </motion.div>
+              </MotionWrapper>
             ))}
           </div>
-        </motion.section>
+        </MotionWrapper>
       )}
 
       {/* Trust Badges */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+      <MotionWrapper
+        animation="slideDown"
+        duration={0.5}
         className="flex flex-wrap items-center justify-center gap-6 p-6 bg-gray-50 dark:bg-neutral-700/50 rounded-2xl border border-gray-200 dark:border-neutral-600"
       >
         <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
@@ -149,7 +142,7 @@ export default function SocialProof({ stats, testimonials = [] }: SocialProofPro
           <Award className="w-5 h-5 text-purple-600 dark:text-purple-400" />
           <span className="font-medium">وصول مدى الحياة</span>
         </div>
-      </motion.div>
+      </MotionWrapper>
     </div>
   );
 }

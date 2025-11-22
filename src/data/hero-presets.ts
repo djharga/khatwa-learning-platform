@@ -1,4 +1,4 @@
-import type { UnifiedHeroSectionProps } from '@/components/ui/UnifiedHeroSection';
+import type { HeroSectionProps } from '@/components/ui/HeroSection';
 import { ROUTES } from '@/lib/routes';
 
 export type HeroPresetKey =
@@ -12,7 +12,7 @@ export type HeroPresetKey =
   | 'dashboard';
 
 type HeroPreset = Pick<
-  UnifiedHeroSectionProps,
+  HeroSectionProps,
   | 'variant'
   | 'layout'
   | 'eyebrow'
@@ -52,7 +52,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     backgroundImage: '/assets/hero-background.jpg',
     particles: true,
     patternIntensity: 'soft',
-    enableAnimation: false,
+    enableAnimation: true,
     typingEffect: true,
     typingSpeed: 150,
     typingDelay: 500,
@@ -74,7 +74,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     backgroundImage: '/assets/hero-background.jpg',
     particles: true,
     patternIntensity: 'soft',
-    enableAnimation: false,
+    enableAnimation: true,
   },
   reports: {
     variant: 'reports',
@@ -94,7 +94,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     particles: false,
     patternIntensity: 'soft',
     backgroundMode: 'light',
-    enableAnimation: false,
+    enableAnimation: true,
   },
   community: {
     variant: 'community',
@@ -113,7 +113,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     backgroundImage: '/assets/hero-background.jpg',
     particles: true,
     patternIntensity: 'soft',
-    enableAnimation: false,
+    enableAnimation: true,
   },
   files: {
     variant: 'files',
@@ -133,7 +133,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     particles: false,
     patternIntensity: 'soft',
     backgroundMode: 'light',
-    enableAnimation: false,
+    enableAnimation: true,
   },
   support: {
     variant: 'support',
@@ -152,7 +152,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     backgroundImage: '/assets/hero-background.jpg',
     particles: true,
     patternIntensity: 'soft',
-    enableAnimation: false,
+    enableAnimation: true,
   },
   paths: {
     variant: 'paths',
@@ -165,7 +165,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     backgroundImage: '/assets/hero-background.jpg',
     particles: true,
     patternIntensity: 'soft',
-    enableAnimation: false,
+    enableAnimation: true,
   },
   dashboard: {
     variant: 'dashboard',
@@ -184,7 +184,7 @@ export const heroPresets: Record<HeroPresetKey, HeroPreset> = {
     backgroundImage: '/assets/hero-background.jpg',
     particles: true,
     patternIntensity: 'soft',
-    enableAnimation: false,
+    enableAnimation: true,
   },
 };
 

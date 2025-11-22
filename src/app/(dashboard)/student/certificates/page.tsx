@@ -21,7 +21,7 @@ import {
   Target,
 } from 'lucide-react';
 import Image from 'next/image';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 
 export default function StudentCertificatesPage() {

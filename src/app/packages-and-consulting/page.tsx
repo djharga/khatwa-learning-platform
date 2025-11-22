@@ -22,7 +22,7 @@ import {
   TrendingUp,
   Lock,
 } from 'lucide-react';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import Image from 'next/image';
 import { useSubscription } from '@/hooks/useSubscription';
 import { createPaymentIntent, subscribe } from '@/lib/apiClient';
@@ -393,13 +393,13 @@ function PackagesAndConsultingContent() {
                         </p>
                       </div>
                     </div>
-                    <StyledButton
+                    <Button
                       onClick={() => router.push('/courses')}
                       variant="success"
                       size="default"
                     >
                       عرض الدورات
-                    </StyledButton>
+                    </Button>
                   </div>
                 </motion.div>
               )}
@@ -503,12 +503,12 @@ function PackagesAndConsultingContent() {
                       ))}
                     </div>
 
-                    <StyledButton
+                    <Button
                       onClick={() => handleSubscribe(plan.id)}
                       disabled={plan.id === 'free' || loading || (subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id)}
-                      variant={plan.id === 'free' ? 'secondary' : subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id ? 'success' : 'primary'}
+                      variant={plan.id === 'free' ? 'secondary' : subscriptionStatus?.hasSubscription && subscriptionStatus?.subscriptionPlan === plan.id ? 'success' : 'default'}
                       size="lg"
-                      fullWidth
+                      className="w-full"
                     >
                       {loading ? (
                         <>
@@ -528,7 +528,7 @@ function PackagesAndConsultingContent() {
                           <ArrowRight className="w-5 h-5 inline-block mr-2" />
                         </>
                       )}
-                    </StyledButton>
+                    </Button>
                   </motion.div>
                 ))}
               </div>
@@ -637,15 +637,15 @@ function PackagesAndConsultingContent() {
                             ))}
                           </div>
 
-                          <StyledButton
+                          <Button
                             onClick={() => router.push('/student/consulting')}
-                            variant="primary"
+                            variant="default"
                             size="lg"
-                            fullWidth
+                            className="w-full"
                           >
                             ابدأ استشارتك
                             <MessageSquare className="w-5 h-5 inline-block mr-2" />
-                          </StyledButton>
+                          </Button>
                         </motion.div>
                       ))}
                     </div>
@@ -659,14 +659,14 @@ function PackagesAndConsultingContent() {
                     <p className="text-gray-600 dark:text-gray-400 mb-4">
                       احجز جلسات استشارية مباشرة مع خبرائنا المعتمدين
                     </p>
-                    <StyledButton
-                      variant="primary"
+                    <Button
+                      variant="default"
                       size="lg"
                       onClick={() => router.push('/student/consulting')}
                     >
                       <MessageSquare className="w-5 h-5 ml-2" />
                       الانتقال إلى نظام الاستشارات
-                    </StyledButton>
+                    </Button>
                   </div>
                 </div>
               ) : (
@@ -681,8 +681,8 @@ function PackagesAndConsultingContent() {
                     احصل على استشارات متخصصة من خبرائنا المعتمدين. اشترك الآن للوصول إلى نظام الاستشارات الكامل مع إمكانية حجز الجلسات والتواصل المباشر مع الخبراء.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <StyledButton
-                      variant="primary"
+                    <Button
+                      variant="default"
                       size="lg"
                       onClick={() => {
                         setActiveTab('packages');
@@ -691,15 +691,15 @@ function PackagesAndConsultingContent() {
                     >
                       <Crown className="w-5 h-5 ml-2" />
                       عرض الباقات والاشتراك
-                    </StyledButton>
-                    <StyledButton
+                    </Button>
+                    <Button
                       variant="secondary"
                       size="lg"
                       onClick={() => router.push('/register')}
                     >
                       <User className="w-5 h-5 ml-2" />
                       إنشاء حساب
-                    </StyledButton>
+                    </Button>
                   </div>
                 </div>
               )}

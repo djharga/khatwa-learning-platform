@@ -31,7 +31,7 @@ import {
 import ExamInterface from '@/components/exam/ExamInterface';
 import AuthGuard from '@/components/auth/AuthGuard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 
 interface UpcomingExam {
   id: string;

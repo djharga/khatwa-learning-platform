@@ -392,14 +392,13 @@ export default function FileManagerPage() {
               transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
               className="mb-4 sm:mb-6"
             >
-              <div className="flex border-b border-neutral-200 dark:border-neutral-700">
+              <div className="flex border-b border-neutral-200 dark:border-neutral-700" role="tablist">
                 <button
                   onClick={() => setActiveTab('files')}
-                  className={`px-4 sm:px-6 py-2 sm:py-3 min-h-[44px] font-medium text-sm sm:text-base transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
-                    activeTab === 'files'
+                  className={`px-4 sm:px-6 py-2 sm:py-3 min-h-[44px] font-medium text-sm sm:text-base transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${activeTab === 'files'
                       ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400'
                       : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300'
-                  }`}
+                    }`}
                   aria-label="الملفات"
                   aria-selected={activeTab === 'files'}
                   role="tab"
@@ -412,11 +411,10 @@ export default function FileManagerPage() {
                     setActiveTab('projects');
                     setIsProjectsTab(true);
                   }}
-                  className={`px-4 sm:px-6 py-2 sm:py-3 min-h-[44px] font-medium text-sm sm:text-base transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
-                    (activeTab as 'files' | 'projects') === 'projects'
+                  className={`px-4 sm:px-6 py-2 sm:py-3 min-h-[44px] font-medium text-sm sm:text-base transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${(activeTab as 'files' | 'projects') === 'projects'
                       ? 'text-primary-600 dark:text-primary-400 border-b-2 border-primary-600 dark:border-primary-400'
                       : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300'
-                  }`}
+                    }`}
                   aria-label="المشاريع"
                   aria-selected={(activeTab as 'files' | 'projects') === 'projects'}
                   role="tab"
@@ -452,13 +450,12 @@ export default function FileManagerPage() {
                   </div>
                   <div className="w-32 bg-neutral-200 dark:bg-neutral-700 rounded-full h-2 mt-2">
                     <motion.div
-                      className={`h-2 rounded-full transition-colors duration-200 ease-out ${
-                        storagePercentage > 80 
-                          ? 'bg-danger-500' 
-                          : storagePercentage > 60 
-                            ? 'bg-warning-500' 
+                      className={`h-2 rounded-full transition-colors duration-200 ease-out ${storagePercentage > 80
+                          ? 'bg-danger-500'
+                          : storagePercentage > 60
+                            ? 'bg-warning-500'
                             : 'bg-success-500'
-                      }`}
+                        }`}
                       initial={{ width: 0 }}
                       animate={{ width: `${storagePercentage}%` }}
                       transition={{ duration: 1, ease: 'easeOut' }}
@@ -518,11 +515,10 @@ export default function FileManagerPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
-              className={`mb-4 sm:mb-6 border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all duration-200 ease-out ${
-                isDragOver 
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20' 
+              className={`mb-4 sm:mb-6 border-2 border-dashed rounded-xl p-6 sm:p-8 text-center transition-all duration-200 ease-out ${isDragOver
+                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
                   : 'border-neutral-300 dark:border-neutral-700 bg-neutral-50/50 dark:bg-neutral-800/50'
-              }`}
+                }`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}
@@ -575,19 +571,17 @@ export default function FileManagerPage() {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.7 + index * 0.05, duration: 0.2, ease: 'easeOut' }}
                       whileHover={{ y: -2, scale: 1.01 }}
-                      className={`bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6 hover:shadow-lg transition-all duration-200 ease-out cursor-pointer ${
-                        viewMode === 'list' ? 'flex items-center justify-between' : ''
-                      }`}
+                      className={`bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-4 sm:p-6 hover:shadow-lg transition-all duration-200 ease-out cursor-pointer ${viewMode === 'list' ? 'flex items-center justify-between' : ''
+                        }`}
                       role="button"
                       tabIndex={0}
                       aria-label={`فتح مجلد ${course.name}`}
                     >
                       <div className={`flex items-center gap-3 sm:gap-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                          course.color === 'blue' ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' :
-                          course.color === 'green' ? 'bg-success-100 dark:bg-success-900/20 text-success-600 dark:text-success-400' :
-                          'bg-secondary-innovate-100 dark:bg-secondary-innovate-900/20 text-secondary-innovate-600 dark:text-secondary-innovate-400'
-                        }`}>
+                        <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center flex-shrink-0 ${course.color === 'blue' ? 'bg-primary-100 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' :
+                            course.color === 'green' ? 'bg-success-100 dark:bg-success-900/20 text-success-600 dark:text-success-400' :
+                              'bg-secondary-innovate-100 dark:bg-secondary-innovate-900/20 text-secondary-innovate-600 dark:text-secondary-innovate-400'
+                          }`}>
                           <Folder className="w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                         </div>
 
@@ -602,7 +596,7 @@ export default function FileManagerPage() {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <button 
+                        <button
                           className="p-2 text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                           aria-label={`خيارات ${course.name}`}
                           type="button"
@@ -622,66 +616,64 @@ export default function FileManagerPage() {
                   {recentFiles
                     .filter(file => file.name.toLowerCase().includes(searchTerm.toLowerCase()))
                     .map((file, index) => (
-                    <motion.div
-                      key={file.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.8 + index * 0.05, duration: 0.2, ease: 'easeOut' }}
-                      whileHover={{ y: -2, scale: 1.01 }}
-                      className={`bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-3 sm:p-4 hover:shadow-lg transition-all duration-200 ease-out cursor-pointer ${
-                        selectedFiles.includes(file.id) ? 'ring-2 ring-primary-500 dark:ring-primary-400' : ''
-                      } ${viewMode === 'list' ? 'flex items-center justify-between' : ''}`}
-                      onClick={() => {
-                        if (selectedFiles.includes(file.id)) {
-                          setSelectedFiles(prev => prev.filter(id => id !== file.id));
-                        } else {
-                          setSelectedFiles(prev => [...prev, file.id]);
-                        }
-                        handleFileSelect(file);
-                      }}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`اختيار ${file.name}`}
-                      aria-selected={selectedFiles.includes(file.id)}
-                    >
-                      <div className={`flex items-center gap-2 sm:gap-3 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${
-                          file.isProtected 
-                            ? 'bg-warning-100 dark:bg-warning-900/20 text-warning-600 dark:text-warning-400' 
-                            : 'bg-primary-100 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
-                        }`}>
-                          {file.isProtected ? (
-                            <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                          ) : (
-                            <File className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                          )}
-                        </div>
+                      <motion.div
+                        key={file.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.8 + index * 0.05, duration: 0.2, ease: 'easeOut' }}
+                        whileHover={{ y: -2, scale: 1.01 }}
+                        className={`bg-white dark:bg-neutral-800 rounded-xl shadow-md border border-neutral-200 dark:border-neutral-700 p-3 sm:p-4 hover:shadow-lg transition-all duration-200 ease-out cursor-pointer ${selectedFiles.includes(file.id) ? 'ring-2 ring-primary-500 dark:ring-primary-400' : ''
+                          } ${viewMode === 'list' ? 'flex items-center justify-between' : ''}`}
+                        onClick={() => {
+                          if (selectedFiles.includes(file.id)) {
+                            setSelectedFiles(prev => prev.filter(id => id !== file.id));
+                          } else {
+                            setSelectedFiles(prev => [...prev, file.id]);
+                          }
+                          handleFileSelect(file);
+                        }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`اختيار ${file.name}`}
+                        aria-selected={selectedFiles.includes(file.id)}
+                      >
+                        <div className={`flex items-center gap-2 sm:gap-3 ${viewMode === 'list' ? 'flex-1' : ''}`}>
+                          <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center flex-shrink-0 ${file.isProtected
+                              ? 'bg-warning-100 dark:bg-warning-900/20 text-warning-600 dark:text-warning-400'
+                              : 'bg-primary-100 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400'
+                            }`}>
+                            {file.isProtected ? (
+                              <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                            ) : (
+                              <File className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                            )}
+                          </div>
 
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-xs sm:text-sm text-neutral-900 dark:text-white truncate">{file.name}</h4>
-                          <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400 mt-1">
-                            <span>{file.size}</span>
-                            <span>•</span>
-                            <span>{file.modifiedDate}</span>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-medium text-xs sm:text-sm text-neutral-900 dark:text-white truncate">{file.name}</h4>
+                            <div className="flex items-center gap-2 text-xs text-neutral-600 dark:text-neutral-400 mt-1">
+                              <span>{file.size}</span>
+                              <span>•</span>
+                              <span>{file.modifiedDate}</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="flex items-center gap-2">
-                        {file.isFavorite && (
-                          <Star className="w-4 h-4 text-warning-500 dark:text-warning-400 fill-current" aria-hidden="true" />
-                        )}
-                        <button 
-                          className="p-1 text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
-                          aria-label={`خيارات ${file.name}`}
-                          type="button"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <MoreHorizontal className="w-4 h-4" aria-hidden="true" />
-                        </button>
-                      </div>
-                    </motion.div>
-                  ))}
+                        <div className="flex items-center gap-2">
+                          {file.isFavorite && (
+                            <Star className="w-4 h-4 text-warning-500 dark:text-warning-400 fill-current" aria-hidden="true" />
+                          )}
+                          <button
+                            className="p-1 text-neutral-400 dark:text-neutral-500 hover:text-neutral-600 dark:hover:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                            aria-label={`خيارات ${file.name}`}
+                            type="button"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <MoreHorizontal className="w-4 h-4" aria-hidden="true" />
+                          </button>
+                        </div>
+                      </motion.div>
+                    ))}
                 </div>
               </div>
 

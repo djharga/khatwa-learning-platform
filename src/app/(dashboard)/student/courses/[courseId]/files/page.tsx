@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import CourseFileTree from '@/components/trainee/CourseFileTree';
@@ -19,12 +19,7 @@ export default function CourseFilesPage() {
   const [loading, setLoading] = useState(true);
   const [selectedFile, setSelectedFile] = useState<CourseFileNode | null>(null);
 
-  // Load course file tree
-  useEffect(() => {
-    loadFileTree();
-  }, [courseId]);
-
-  const loadFileTree = async () => {
+  const loadFileTree = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/trainees/courses/${courseId}/files`);
@@ -39,7 +34,12 @@ export default function CourseFilesPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [courseId]);
+
+  // Load course file tree
+  useEffect(() => {
+    loadFileTree();
+  }, [loadFileTree]);
 
   const handleFileSelect = (file: CourseFileNode) => {
     setSelectedFile(file);

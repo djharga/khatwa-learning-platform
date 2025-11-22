@@ -26,7 +26,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 
 export type TicketStatus = 'open' | 'in_progress' | 'resolved' | 'closed';
 export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
@@ -366,14 +366,14 @@ export default function SupportTicketSystem({
             إدارة تذاكر الدعم والاستفسارات
           </p>
         </div>
-        <StyledButton
-          variant="primary"
+        <Button
+          variant="default"
           onClick={() => setShowNewTicketModal(true)}
           className="flex items-center gap-2"
         >
           <Plus className="w-5 h-5" />
           تذكرة جديدة
-        </StyledButton>
+        </Button>
       </div>
 
       {/* إحصائيات سريعة */}
@@ -635,13 +635,13 @@ export default function SupportTicketSystem({
                       placeholder="اكتب رسالتك..."
                       className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-700"
                     />
-                    <StyledButton
-                      variant="primary"
+                    <Button
+                      variant="default"
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim()}
                     >
                       <Send className="w-5 h-5" />
-                    </StyledButton>
+                    </Button>
                   </div>
                 </div>
               </CardContent>
@@ -731,19 +731,19 @@ export default function SupportTicketSystem({
                   </div>
                 </div>
                 <div className="flex gap-3 pt-4">
-                  <StyledButton
-                    variant="primary"
+                  <Button
+                    variant="default"
                     onClick={handleCreateTicket}
                     className="flex-1"
                   >
                     إنشاء التذكرة
-                  </StyledButton>
-                  <StyledButton
+                  </Button>
+                  <Button
                     variant="secondary"
                     onClick={() => setShowNewTicketModal(false)}
                   >
                     إلغاء
-                  </StyledButton>
+                  </Button>
                 </div>
               </div>
             </motion.div>

@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 import {
   FileText,
   DollarSign,
@@ -67,6 +68,7 @@ const ContentFilters = dynamic(() => import('@/components/ui/ContentFilters').th
 });
 
 import type { UnifiedFile, FileType } from '@/components/ui/UnifiedFileCard';
+import type { CourseContent } from '@/types/course-management';
 import type { ContentType } from '@/components/ui/ContentFilters';
 
 interface LocalResource {
@@ -388,9 +390,8 @@ const ResourcesPage = () => {
     <PageBackground variant="resources">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header Section */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+        <MotionWrapper
+          animation="slideDown"
           className="text-center mb-12"
         >
           <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 mb-6">
@@ -404,51 +405,30 @@ const ResourcesPage = () => {
           </p>
 
           {/* Statistics Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 }}
-              className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700"
-            >
+          <MotionWrapper stagger staggerDelay={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mt-8">
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700">
               <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stats.total}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">إجمالي الموارد</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700"
-            >
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700">
               <div className="text-2xl font-bold text-green-600 dark:text-green-400">{stats.totalDownloads.toLocaleString()}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">تحميل</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700"
-            >
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700">
               <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">{stats.totalViews.toLocaleString()}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">مشاهدة</div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700"
-            >
+            </div>
+            <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg border border-gray-200 dark:border-neutral-700">
               <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">{stats.featured}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">مميز</div>
-            </motion.div>
-          </div>
-        </motion.div>
+            </div>
+          </MotionWrapper>
+        </MotionWrapper>
 
         {/* Filters and Controls */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+        <MotionWrapper
+          animation="fade"
+          delay={0.2}
           className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-200/50 dark:border-neutral-700/50 mb-8"
         >
           <div className="flex flex-col lg:flex-row gap-4">
@@ -460,7 +440,7 @@ const ResourcesPage = () => {
                 placeholder="ابحث في الموارد..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pr-10 pl-4 py-3 bg-gray-50 dark:bg-neutral-700 border border-gray-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                className="w-full pr-10 pl-4 py-3 bg-gray-50 dark:bg-neutral-700 border border-gray-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 ease-out"
               />
             </div>
 
@@ -468,7 +448,7 @@ const ResourcesPage = () => {
             <div className="flex gap-2 flex-wrap">
               <button
                 onClick={() => setSelectedCategory('all')}
-                className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ease-out ${
                   selectedCategory === 'all'
                     ? 'bg-blue-600 text-white shadow-lg'
                     : 'bg-gray-100 dark:bg-neutral-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600'
@@ -480,7 +460,7 @@ const ResourcesPage = () => {
                 <button
                   key={key}
                   onClick={() => setSelectedCategory(key)}
-                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all flex items-center gap-2 ${
+                  className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-300 ease-out flex items-center gap-2 ${
                     selectedCategory === key
                       ? 'bg-blue-600 text-white shadow-lg'
                       : 'bg-gray-100 dark:bg-neutral-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-neutral-600'
@@ -507,7 +487,7 @@ const ResourcesPage = () => {
 
               <button
                 onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-all ${
+                className={`p-2 rounded-lg transition-all duration-300 ease-out ${
                   viewMode === 'grid'
                     ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 dark:bg-neutral-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-neutral-600'
@@ -518,7 +498,7 @@ const ResourcesPage = () => {
 
               <button
                 onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-all ${
+                className={`p-2 rounded-lg transition-all duration-300 ease-out ${
                   viewMode === 'list'
                     ? 'bg-blue-600 text-white'
                     : 'bg-gray-100 dark:bg-neutral-700 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-neutral-600'
@@ -538,31 +518,27 @@ const ResourcesPage = () => {
               showSearch={false}
             />
           </div>
-        </motion.div>
+        </MotionWrapper>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Resources Grid */}
           <div className="lg:col-span-3">
             {filteredAndSortedResources.length > 0 ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+              <MotionWrapper
+                animation="fade"
+                stagger
+                staggerDelay={0.05}
                 className={viewMode === 'grid' 
                   ? 'grid grid-cols-1 sm:grid-cols-2 gap-6 items-stretch'
                   : 'space-y-4'
                 }
               >
-                <AnimatePresence mode="wait">
-                  {filteredAndSortedResources.map((file, index) => {
+                {filteredAndSortedResources.map((file, index) => {
                     const resource = sampleResources.find(r => r.id === file.id);
                     return (
-                      <motion.div
+                      <div
                         key={file.id}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ delay: index * 0.05 }}
                         className={viewMode === 'list' ? 'flex gap-4' : viewMode === 'grid' ? 'h-full' : ''}
                       >
                         <div className={viewMode === 'list' ? 'flex-1' : viewMode === 'grid' ? 'h-full flex flex-col' : ''}>
@@ -570,13 +546,16 @@ const ResourcesPage = () => {
                             file={file}
                             index={index}
                             onOpen={(f) => {
-                              if (f.url) window.open(f.url, '_blank');
+                              const url = 'url' in f ? f.url : (f as CourseContent).fileUrl;
+                              if (url) window.open(url, '_blank');
                             }}
                             onDownload={(f) => {
-                              if (f.url) {
+                              const url = 'url' in f ? f.url : (f as CourseContent).fileUrl;
+                              const name = 'name' in f ? f.name : (f as CourseContent).title;
+                              if (url) {
                                 const link = document.createElement('a');
-                                link.href = f.url;
-                                link.download = f.name;
+                                link.href = url;
+                                link.download = name;
                                 link.click();
                               }
                             }}
@@ -610,15 +589,13 @@ const ResourcesPage = () => {
                             )}
                           </div>
                         )}
-                      </motion.div>
+                      </div>
                     );
                   })}
-                </AnimatePresence>
-              </motion.div>
+              </MotionWrapper>
             ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+              <MotionWrapper
+                animation="fade"
                 className="text-center py-16 bg-white dark:bg-neutral-800 rounded-xl shadow-lg border border-gray-200 dark:border-neutral-700"
               >
                 <File className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
@@ -628,15 +605,14 @@ const ResourcesPage = () => {
                 <p className="text-gray-600 dark:text-gray-400">
                   جرب تغيير معايير البحث أو الفلاتر
                 </p>
-              </motion.div>
+              </MotionWrapper>
             )}
           </div>
 
           {/* Sidebar - External Links */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
+          <MotionWrapper
+            animation="fade"
+            delay={0.3}
             className="lg:col-span-1"
           >
             <div className="bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-gray-200/50 dark:border-neutral-700/50 sticky top-24">
@@ -646,18 +622,14 @@ const ResourcesPage = () => {
                   مصادر إضافية موصى بها
                 </h3>
               </div>
-              <div className="space-y-4">
+              <MotionWrapper stagger staggerDelay={0.1} className="space-y-4">
                 {sampleExternalLinks.map((link, index) => (
-                  <motion.a
+                  <a
                     key={link.id}
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    whileHover={{ x: -4 }}
-                    className="block p-4 border border-gray-200 dark:border-neutral-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-lg transition-all bg-gradient-to-r from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-700"
+                    className="block p-4 border border-gray-200 dark:border-neutral-700 rounded-lg hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-lg hover:-translate-x-1 transition-all duration-300 ease-out bg-gradient-to-r from-white to-gray-50 dark:from-neutral-800 dark:to-neutral-700"
                   >
                     <div className="flex items-start gap-3">
                       <ExternalLink className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
@@ -676,11 +648,11 @@ const ResourcesPage = () => {
                       </div>
                       <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
                     </div>
-                  </motion.a>
+                  </a>
                 ))}
-              </div>
+              </MotionWrapper>
             </div>
-          </motion.div>
+          </MotionWrapper>
         </div>
       </div>
     </PageBackground>

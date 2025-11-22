@@ -63,7 +63,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { Input, Checkbox, Select, FormField } from './ui';
-import StyledButton from './ui/StyledButton';
+import { Button } from './ui/Button';
 import { useFormValidation } from '../lib/formHelpers';
 import {
   validateEmail,

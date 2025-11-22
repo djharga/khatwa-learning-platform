@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Brain } from 'lucide-react';
-import StyledButton from '../ui/StyledButton';
+import { Button } from '../ui/Button';
 
 export interface AIToolsTabProps {
   aiInsights: any[];
@@ -24,9 +24,9 @@ export const AIToolsTab = ({
         
         {/* محتوى تبويب أدوات الذكاء الاصطناعي */}
         <div className="space-y-4">
-          <StyledButton onClick={handleGenerateAIInsight} disabled={isLoading} variant="primary" size="default">
+          <Button onClick={handleGenerateAIInsight} disabled={isLoading} variant="default" size="default">
             {isLoading ? 'جاري التوليد...' : 'توليد تحليل جديد'}
-          </StyledButton>
+          </Button>
           
           {aiInsights.map((insight) => (
             <div key={insight.id} className="border rounded-lg p-4">

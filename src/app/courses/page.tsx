@@ -24,8 +24,9 @@ import PageBackground from '@/components/ui/PageBackground';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import CourseCard from '@/components/CourseCard';
 import { adaptCourse } from '@/lib/courseAdapter';
-import UnifiedHeroSection from '@/components/ui/UnifiedHeroSection';
+import HeroSection from '@/components/ui/HeroSection';
 import { heroPresets, heroSectionSpacing } from '@/data/hero-presets';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
 // Lazy load heavy components
 const ModernTabsLazy = dynamic(() => import('@/components/ui/ModernTabs').then(mod => ({ default: mod.ModernTabs })), {
@@ -170,7 +171,7 @@ export default function CoursesPage() {
         
       {/* Hero Section */}
         <section className="container mx-auto max-w-7xl px-6 sm:px-8 lg:px-12">
-          <UnifiedHeroSection {...courseHeroProps} />
+          <HeroSection {...courseHeroProps} />
         </section>
 
         {/* Courses Content Section - Enhanced spacing */}
@@ -427,6 +428,13 @@ export default function CoursesPage() {
           </main>
         </section>
       </div>
+
+      <ScrollToTopButton 
+        threshold={300}
+        position="left"
+        offset="bottom-20 left-6"
+        size="md"
+      />
     </PageBackground>
   );
 }

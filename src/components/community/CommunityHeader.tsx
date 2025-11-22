@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Users, MessageSquare, TrendingUp, Award, PenSquare } from 'lucide-react';
-import UnifiedHeroSection from '@/components/ui/UnifiedHeroSection';
+import HeroSection from '@/components/ui/HeroSection';
 import { heroPresets } from '@/data/hero-presets';
 import CreatePostModal from './CreatePostModal';
 
@@ -67,7 +67,7 @@ export default function CommunityHeader() {
 
   return (
     <>
-      <UnifiedHeroSection {...heroProps} />
+      <HeroSection {...heroProps} />
       <CreatePostModal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}

@@ -3,13 +3,12 @@
 import Link from 'next/link';
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Home, BookOpen, Award, MoreHorizontal, LogIn, UserPlus, FileText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useSubscription } from '@/hooks/useSubscription';
 import { ROUTES } from '@/lib/routes';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { motion as motionTokens } from '@/tokens';
 import { buttonVariants } from '@/components/ui/Button';
 
 // --- Constants & Types ---
@@ -66,15 +65,6 @@ export default function EnhancedNavbar() {
   const navRef = useRef<HTMLDivElement>(null);
 
   const navItems = useMemo(() => getNavigationItems(hasSubscription), [hasSubscription]);
-
-  // Motion props for links
-  const linkMotionProps = prefersReducedMotion
-    ? {}
-    : {
-      whileHover: { scale: 1.05 },
-      whileTap: motionTokens.press.soft,
-      transition: motionTokens.linkTransitions.hover.transition,
-    };
 
   // --- Effects ---
 
@@ -175,42 +165,56 @@ export default function EnhancedNavbar() {
                     </button>
 
                     {/* Dropdown Menu */}
-                    {isOpen && (
-                      <div className="absolute top-full mt-2 right-0 w-56 bg-white dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 rounded-xl shadow-lg py-2 animate-in fade-in zoom-in-95 duration-100">
-                        {item.children!.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className={cn(
-                              'block px-4 py-2.5 text-sm text-neutral-600 dark:text-neutral-300',
-                              'hover:bg-neutral-50 hover:text-primary-600 dark:hover:bg-neutral-700/50 dark:hover:text-primary-400',
-                              pathname === child.href && 'bg-primary-50 text-primary-700 font-medium'
-                            )}
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
+                    <AnimatePresence>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                          className="absolute top-full mt-2 right-0 w-56 bg-white dark:bg-neutral-800 border border-neutral-100 dark:border-neutral-700 rounded-xl shadow-lg py-2 z-50"
+                        >
+                          {item.children!.map((child, index) => (
+                            <motion.div
+                              key={child.href}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.05, duration: 0.2 }}
+                            >
+                              <Link
+                                href={child.href}
+                                className={cn(
+                                  'block px-4 py-2.5 text-sm text-neutral-600 dark:text-neutral-300 transition-colors',
+                                  'hover:bg-neutral-50 hover:text-primary-600 dark:hover:bg-neutral-700/50 dark:hover:text-primary-400',
+                                  pathname === child.href && 'bg-primary-50 text-primary-700 font-medium'
+                                )}
+                              >
+                                {child.label}
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 );
               }
 
               return (
-                <motion.div key={item.label} {...linkMotionProps}>
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'relative px-4 py-2 rounded-full text-sm font-medium transition-colors block',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500',
-                      isActive
-                        ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
-                        : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                </motion.div>
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={cn(
+                    'relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 block',
+                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500',
+                    !prefersReducedMotion && 'hover:scale-105 active:scale-95',
+                    isActive
+                      ? 'text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20'
+                      : 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
+                  )}
+                >
+                  {item.label}
+                </Link>
               );
             })}
           </div>
@@ -234,17 +238,54 @@ export default function EnhancedNavbar() {
           {/* Mobile Toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-neutral-600 hover:bg-neutral-100 rounded-lg transition-colors"
+            className={cn(
+              "lg:hidden p-2 text-neutral-600 hover:bg-neutral-100 rounded-lg transition-all duration-200",
+              !prefersReducedMotion && "hover:scale-110 active:scale-90"
+            )}
             aria-label="القائمة الرئيسية"
           >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <AnimatePresence mode="wait">
+              {mobileOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-6 h-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-6 h-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {mobileOpen && (
-          <div className="lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-800 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <div className="px-4 py-6 space-y-4">
+        <AnimatePresence>
+          {mobileOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:hidden absolute top-16 left-0 right-0 bg-white dark:bg-neutral-900 border-b border-neutral-100 dark:border-neutral-800 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto z-50"
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1, duration: 0.2 }}
+                className="px-4 py-6 space-y-4"
+              >
               {navItems.map((item) => (
                 <div key={item.label}>
                   {item.children ? (
@@ -274,45 +315,47 @@ export default function EnhancedNavbar() {
                       )}
                     </div>
                   ) : (
-                    <motion.div {...linkMotionProps}>
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "flex items-center gap-3 py-2 text-base font-semibold",
-                          isLinkActive(item.href)
-                            ? "text-primary-600 bg-primary-50 px-3 -mx-3 rounded-lg"
-                            : "text-neutral-800 dark:text-neutral-200"
-                        )}
-                      >
-                        <item.icon className={cn("w-5 h-5", isLinkActive(item.href) ? "text-primary-600" : "text-neutral-500")} />
-                        {item.label}
-                      </Link>
-                    </motion.div>
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        "flex items-center gap-3 py-2 text-base font-semibold transition-all duration-200",
+                        !prefersReducedMotion && "hover:scale-105 active:scale-95",
+                        isLinkActive(item.href)
+                          ? "text-primary-600 bg-primary-50 px-3 -mx-3 rounded-lg"
+                          : "text-neutral-800 dark:text-neutral-200"
+                      )}
+                    >
+                      <item.icon className={cn("w-5 h-5", isLinkActive(item.href) ? "text-primary-600" : "text-neutral-500")} />
+                      {item.label}
+                    </Link>
                   )}
                 </div>
               ))}
 
               <div className="pt-6 mt-6 border-t border-neutral-100 dark:border-neutral-800 grid grid-cols-2 gap-4">
-                <motion.div {...linkMotionProps}>
-                  <Link
-                    href={ROUTES.LOGIN}
-                    className="flex items-center justify-center py-3 text-sm font-semibold text-primary-600 bg-primary-50 rounded-xl"
-                  >
-                    تسجيل دخول
-                  </Link>
-                </motion.div>
-                <motion.div {...linkMotionProps}>
-                  <Link
-                    href={ROUTES.REGISTER}
-                    className="flex items-center justify-center py-3 text-sm font-semibold text-white bg-primary-600 rounded-xl"
-                  >
-                    إنشاء حساب
-                  </Link>
-                </motion.div>
+                <Link
+                  href={ROUTES.LOGIN}
+                  className={cn(
+                    "flex items-center justify-center py-3 text-sm font-semibold text-primary-600 bg-primary-50 rounded-xl transition-all duration-200",
+                    !prefersReducedMotion && "hover:scale-105 active:scale-95"
+                  )}
+                >
+                  تسجيل دخول
+                </Link>
+                <Link
+                  href={ROUTES.REGISTER}
+                  className={cn(
+                    "flex items-center justify-center py-3 text-sm font-semibold text-white bg-primary-600 rounded-xl transition-all duration-200",
+                    !prefersReducedMotion && "hover:scale-105 active:scale-95"
+                  )}
+                >
+                  إنشاء حساب
+                </Link>
               </div>
-            </div>
-          </div>
-        )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
       {/* Spacer for fixed navbar */}
       <div className="h-16 lg:h-20" aria-hidden="true" />

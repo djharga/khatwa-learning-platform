@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import DiscussionPost from './DiscussionPost';
 import DiscussionFilter from './DiscussionFilter';
 import { discussionPosts, DiscussionPost as PostType } from './community-data';
@@ -99,13 +99,13 @@ export default function DiscussionBoard() {
 
       {visiblePosts.length < filteredPosts.length && (
         <div className="p-4 bg-gradient-to-r from-indigo-50 to-blue-50 text-center border-t-2 border-indigo-200">
-          <StyledButton 
+          <Button 
             variant="secondary" 
             onClick={handleLoadMore}
             className="border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-600 hover:text-white font-bold"
           >
             عرض المزيد من المناقشات ({filteredPosts.length - visibleCount} متبقية)
-          </StyledButton>
+          </Button>
         </div>
       )}
     </div>

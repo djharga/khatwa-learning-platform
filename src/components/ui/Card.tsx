@@ -1,10 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 /**
  * Card component with academic design system from agent.md
@@ -15,7 +13,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
  * Box-shadow: elevation-2 (default), elevation-3 (hover)
  */
 const cardVariants = cva(
-  'bg-white border rounded-[16px] transition-all duration-300 dark:bg-neutral-800 dark:border-neutral-700',
+  'bg-white border rounded-[16px] transition-all duration-300 ease-out dark:bg-neutral-800 dark:border-neutral-700 will-change-transform',
   {
     variants: {
       variant: {
@@ -69,17 +67,6 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     },
     ref
   ) => {
-    const prefersReducedMotion = useReducedMotion();
-    const MotionDiv = hover && !prefersReducedMotion ? motion.div : 'div';
-
-    const motionProps = hover && !prefersReducedMotion
-      ? {
-        whileHover: { y: -2, scale: 1.01 },
-        whileTap: { scale: 0.98 },
-        transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] },
-      }
-      : {};
-
     const glowColors = {
       true: 'hover:shadow-[0_4px_16px_rgba(91,54,232,0.15)]',
       primary: 'hover:shadow-[0_4px_16px_rgba(91,54,232,0.15)]',
@@ -91,22 +78,21 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     };
 
     return (
-      <MotionDiv
+      <div
         ref={ref}
         className={cn(
           cardVariants({ variant, size, elevation }),
-          hover && 'hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer',
+          hover && 'hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer hover:-translate-y-1 hover:scale-[1.02] active:scale-[0.97] active:translate-y-0',
           shimmer &&
           'relative overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent before:translate-x-[-100%] hover:before:animate-[shimmer_1.5s_linear_infinite]',
           glow && glowColors[glow as keyof typeof glowColors],
-          'relative overflow-hidden will-change-transform',
+          'relative overflow-hidden will-change-transform transition-transform duration-300 ease-out',
           className
         )}
-        {...(hover ? (motionProps as any) : {})}
         {...props}
       >
         <div className="relative z-10">{children}</div>
-      </MotionDiv>
+      </div>
     );
   }
 );

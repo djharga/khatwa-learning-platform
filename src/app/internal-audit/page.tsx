@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Script from 'next/script';
-import Link from 'next/link';
 import {
   BookOpen,
   Shield,
@@ -12,41 +11,17 @@ import {
   FileText,
   CheckCircle,
   ArrowRight,
-  ChevronDown,
-  ChevronRight,
   Award,
-  Clock,
-  Star,
-  Play,
-  Download,
   Eye,
-  Lock,
-  Search,
-  Sparkles,
-  Target,
   Zap,
 } from 'lucide-react';
 import { generateStructuredData } from '@/lib/seo';
 import PageBackground from '@/components/ui/PageBackground';
-import CourseAxesSystem from '@/components/course-details/CourseAxesSystem';
-import CourseMaterialsSidebar from '@/components/learning-player/CourseMaterialsSidebar';
-import ModuleMaterialsPanel from '@/components/learning-player/ModuleMaterialsPanel';
 import { useRouter } from 'next/navigation';
-import { getInternalAuditCourses } from '@/data/courses/all-courses';
-import { WordIcon, PDFIcon, VideoIcon } from '@/components/ui/icons/FileTypeIcons';
-import { FileSpreadsheet } from 'lucide-react';
 
 const InternalAuditPage = () => {
   const router = useRouter();
   const [activeLevel, setActiveLevel] = useState<1 | 2 | 3>(1);
-  const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
-  const [showHelpTooltip, setShowHelpTooltip] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [materialsSidebarOpen, setMaterialsSidebarOpen] = useState(false);
-  const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
-
-  // الحصول على كورسات المراجعة الداخلية
-  const internalAuditCourses = useMemo(() => getInternalAuditCourses(), []);
 
   // Scroll progress tracking
   useEffect(() => {
@@ -332,96 +307,6 @@ const InternalAuditPage = () => {
 
   const currentLevel = auditLevels.find(level => level.id === activeLevel);
 
-  // تحويل البيانات إلى تنسيق نظام المحاور
-  const convertModulesToAxes = () => {
-    if (!currentLevel?.modules) return [];
-    
-    // تجميع المحاور الرئيسية (التي تبدأ بـ "المحور")
-    const mainAxesMap = new Map<string, any>();
-    
-    currentLevel.modules.forEach((module) => {
-      // التحقق إذا كان المحور يبدأ بـ "المحور"
-      const isMainAxis = module.title.includes('المحور') && module.title.includes(':');
-      
-      if (isMainAxis) {
-        // استخراج اسم المحور الرئيسي
-        const mainAxisTitle = module.title.split(':')[0].trim();
-        const subAxisTitle = module.title.split(':')[1]?.trim() || module.title;
-        
-        if (!mainAxesMap.has(mainAxisTitle)) {
-          mainAxesMap.set(mainAxisTitle, {
-            id: `main-${mainAxisTitle}`,
-            title: mainAxisTitle,
-            description: module.description,
-            subAxes: [],
-          });
-        }
-        
-        // إضافة المحور الفرعي
-        const mainAxis = mainAxesMap.get(mainAxisTitle);
-        mainAxis.subAxes.push({
-          id: `sub-${module.title}`,
-          title: subAxisTitle,
-          description: module.description,
-          files: module.topics.map((topic, index) => ({
-            id: `file-${module.title}-${index}`,
-            name: topic,
-            type: 'pdf' as const,
-            size: '2 MB',
-            isProtected: false,
-          })),
-        });
-      } else {
-        // إذا لم يكن محور رئيسي، نضعه كمحور رئيسي منفصل
-        const mainAxisId = `main-${module.title}`;
-        if (!mainAxesMap.has(mainAxisId)) {
-          mainAxesMap.set(mainAxisId, {
-            id: mainAxisId,
-            title: module.title,
-            description: module.description,
-            subAxes: [{
-              id: `sub-${module.title}`,
-              title: module.title,
-              description: module.description,
-              files: module.topics.map((topic, index) => ({
-                id: `file-${module.title}-${index}`,
-                name: topic,
-                type: 'pdf' as const,
-                size: '2 MB',
-                isProtected: false,
-              })),
-            }],
-          });
-        }
-      }
-    });
-    
-    return Array.from(mainAxesMap.values());
-  };
-
-  const mainAxes = convertModulesToAxes();
-
-  // تحويل المحاور إلى تنسيق الوحدات
-  const convertToPlayerModules = () => {
-    if (!currentLevel?.modules) return [];
-    
-    return currentLevel.modules.map((module, index) => ({
-      id: `level-${activeLevel}-module-${index + 1}`,
-      title: module.title,
-      lessons: module.topics?.map((topic, topicIndex) => ({
-        id: `level-${activeLevel}-module-${index + 1}-lesson-${topicIndex + 1}`,
-        title: topic,
-        duration: module.duration || 'غير محدد',
-        type: 'reading' as const,
-        completed: false,
-        progress: 0,
-        resources: [],
-      })) || [],
-    }));
-  };
-
-  const playerModules = convertToPlayerModules();
-
   // Generate structured data for SEO
   const structuredData = generateStructuredData('course', {
     name: 'برنامج المراجعين الداخليين',
@@ -458,7 +343,7 @@ const InternalAuditPage = () => {
           {/* Modern & Simple Hero Section - Enhanced: clearer background, smoother purple gradient */}
           <div className="relative rounded-3xl overflow-hidden mb-16">
             {/* Background Image - Enhanced clarity, reduced blur */}
-            <div 
+            <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-105 contrast-105"
               style={{
                 backgroundImage: 'url(/assets/internal-audit-hero.jpg)',
@@ -466,15 +351,15 @@ const InternalAuditPage = () => {
             >
               {/* Enhanced Overlay - smoother purple gradient, less dark */}
               <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-indigo-800/45 to-purple-800/50" />
-              
+
               {/* Additional gradient overlay for depth - reduced opacity */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </div>
-            
+
             {/* Reduced Background Glow Effects */}
             <div className="absolute -top-20 -right-20 w-96 h-96 bg-primary-500/15 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl pointer-events-none" />
-            
+
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -500,7 +385,7 @@ const InternalAuditPage = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
                 className="text-3xl md:text-4xl lg:text-5xl xl:text-[3.7rem] font-bold text-white mb-8 leading-tight tracking-tight drop-shadow-2xl"
-                style={{ 
+                style={{
                   textShadow: '0 4px 20px rgba(0, 0, 0, 0.6), 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 255, 255, 0.15)'
                 }}
               >
@@ -534,206 +419,206 @@ const InternalAuditPage = () => {
           </div>
 
           {/* المحتوى التعريفي الإلزامي - Enhanced Design: increased padding, softer edges, soft shadow, improved spacing */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7 }}
-              className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-[2rem] p-10 md:p-14 mb-12 text-right max-w-5xl mx-auto border border-blue-100"
-              style={{
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)'
-              }}
-            >
-              <div className="space-y-8 text-gray-800 leading-relaxed">
-                {/* المقطع الافتتاحي - كسر الحواجز - Enhanced: larger title, better spacing, improved icon, unified height */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.8 }}
-                  className="border-r-4 border-blue-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
-                  style={{
-                    borderRightColor: 'rgba(59, 130, 246, 0.6)',
-                    borderRightWidth: '4px'
-                  }}
-                  whileHover={{ 
-                    y: -2,
-                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
-                    borderRightColor: 'rgba(59, 130, 246, 0.9)'
-                  }}
-                >
-                  <p className="text-xl md:text-2xl font-bold text-blue-700 mb-4 flex items-center gap-3">
-                    <Zap className="w-7 h-7" strokeWidth={2.5} />
-                    كسر الحواجز التقليدية
-                  </p>
-                  <p className="text-base md:text-lg leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
-                    مهنة المراجعة الداخلية لم تعد حكراً على متخصصين محددين – إنها فرصة حقيقية لأي شخص يسعى لتطوير مساره المهني، حتى لو كنت تفكر في تغيير تخصصك الحالي او تطوير تخصصك واكتساب مهارات مطلوبة لسوق العمل.
-                  </p>
-                </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-[2rem] p-10 md:p-14 mb-12 text-right max-w-5xl mx-auto border border-blue-100"
+            style={{
+              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)'
+            }}
+          >
+            <div className="space-y-8 text-gray-800 leading-relaxed">
+              {/* المقطع الافتتاحي - كسر الحواجز - Enhanced: larger title, better spacing, improved icon, unified height */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+                className="border-r-4 border-blue-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
+                style={{
+                  borderRightColor: 'rgba(59, 130, 246, 0.6)',
+                  borderRightWidth: '4px'
+                }}
+                whileHover={{
+                  y: -2,
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
+                  borderRightColor: 'rgba(59, 130, 246, 0.9)'
+                }}
+              >
+                <p className="text-xl md:text-2xl font-bold text-blue-700 mb-4 flex items-center gap-3">
+                  <Zap className="w-7 h-7" strokeWidth={2.5} />
+                  كسر الحواجز التقليدية
+                </p>
+                <p className="text-base md:text-lg leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
+                  مهنة المراجعة الداخلية لم تعد حكراً على متخصصين محددين – إنها فرصة حقيقية لأي شخص يسعى لتطوير مساره المهني، حتى لو كنت تفكر في تغيير تخصصك الحالي او تطوير تخصصك واكتساب مهارات مطلوبة لسوق العمل.
+                </p>
+              </motion.div>
 
-                {/* المقطع الثاني - التعريف الاستراتيجي - Enhanced */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="border-r-4 border-green-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
-                  style={{
-                    borderRightColor: 'rgba(34, 197, 94, 0.6)',
-                    borderRightWidth: '4px'
-                  }}
-                  whileHover={{ 
-                    y: -2,
-                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
-                    borderRightColor: 'rgba(34, 197, 94, 0.9)'
-                  }}
-                >
-                  <p className="text-xl md:text-2xl font-bold text-green-700 mb-4 flex items-center gap-3">
-                    <Eye className="w-7 h-7" strokeWidth={2.5} />
-                    عين الإدارة اليقظة
-                  </p>
-                  <p className="text-base md:text-lg leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
-                    المراجعة الداخلية اليوم هي عين الإدارة اليقظة، التي ترى ما وراء الأرقام والبيانات، وتكشف المخاطر قبل أن تتحول إلى أزمات، وتحوّلها إلى فرص للتحسين والابتكار. إنها الشريك الصامت الذي يحمي مسيرة المؤسسة، ويقودها نحو التميز.
-                  </p>
-                </motion.div>
+              {/* المقطع الثاني - التعريف الاستراتيجي - Enhanced */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.9 }}
+                className="border-r-4 border-green-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
+                style={{
+                  borderRightColor: 'rgba(34, 197, 94, 0.6)',
+                  borderRightWidth: '4px'
+                }}
+                whileHover={{
+                  y: -2,
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
+                  borderRightColor: 'rgba(34, 197, 94, 0.9)'
+                }}
+              >
+                <p className="text-xl md:text-2xl font-bold text-green-700 mb-4 flex items-center gap-3">
+                  <Eye className="w-7 h-7" strokeWidth={2.5} />
+                  عين الإدارة اليقظة
+                </p>
+                <p className="text-base md:text-lg leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
+                  المراجعة الداخلية اليوم هي عين الإدارة اليقظة، التي ترى ما وراء الأرقام والبيانات، وتكشف المخاطر قبل أن تتحول إلى أزمات، وتحوّلها إلى فرص للتحسين والابتكار. إنها الشريك الصامت الذي يحمي مسيرة المؤسسة، ويقودها نحو التميز.
+                </p>
+              </motion.div>
 
-                {/* المقطع الثالث - شرح الشراكة - Enhanced */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.0 }}
-                  className="border-r-4 border-purple-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
-                  style={{
-                    borderRightColor: 'rgba(168, 85, 247, 0.6)',
-                    borderRightWidth: '4px'
-                  }}
-                  whileHover={{ 
-                    y: -2,
-                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
-                    borderRightColor: 'rgba(168, 85, 247, 0.9)'
-                  }}
-                >
-                  <p className="text-xl md:text-2xl font-bold text-purple-700 mb-4 flex items-center gap-3">
-                    <TrendingUp className="w-7 h-7" strokeWidth={2.5} />
-                    الشراكة التكاملية
-                  </p>
-                  <p className="text-base md:text-lg mb-4 leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
-                    المراجعة الداخلية والمراجع الداخلي… شراكة تصنع التفوق المؤسسي. معًا يشكلان قوة استراتيجية تدعم استقرار مؤسستك وتدفعها نحو الريادة. فالمراجعة الداخلية تمنحك الحماية والشفافية، بينما يحوّل المراجع الداخلي المحترف هذه الحماية إلى قيمة مستدامة تضمن التميز وتبقي مؤسستك دائمًا في موقع المبادرة، مستبقة للمخاطر، وسبّاقة لاغتنام الفرص.
-                  </p>
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1.1 }}
-                    className="text-base font-semibold text-purple-700 bg-purple-50 p-5 rounded-xl border-r-4 border-purple-500 mt-auto"
-                    style={{ lineHeight: '1.7' }}
-                  >
-                    إن الاستثمار في بناء منظومة مراجعة داخلية قوية، وتطوير كفاءات المراجع الداخلي، ليس رفاهية أو خيارًا تكميليًا… بل قرار استراتيجي يحمي أعمالك اليوم ويصنع نجاحك المستقبلي.
-                  </motion.div>
-                </motion.div>
-
-                {/* المقطع الرابع - تعريف المراجع الحديث - Enhanced */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.2 }}
-                  className="border-r-4 border-orange-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
-                  style={{
-                    borderRightColor: 'rgba(249, 115, 22, 0.6)',
-                    borderRightWidth: '4px'
-                  }}
-                  whileHover={{ 
-                    y: -2,
-                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
-                    borderRightColor: 'rgba(249, 115, 22, 0.9)'
-                  }}
-                >
-                  <p className="text-xl md:text-2xl font-bold text-orange-700 mb-4 flex items-center gap-3">
-                    <Award className="w-7 h-7" strokeWidth={2.5} />
-                    المراجع الداخلي: قيمة مضافة لا تُقدّر بثمن
-                  </p>
-                  <p className="text-base md:text-lg mb-5 leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
-                    المراجع الداخلي هو قيمة مضافة لا تُقدّر بثمن، وشريك استراتيجي للإدارة في رسم ملامح المستقبل. ليس مجرد مدقق يركز على الأخطاء، بل رائد يساهم بفعالية في:
-                  </p>
-                  <ul className="space-y-3 text-base flex-1" style={{ lineHeight: '1.7' }}>
-                    {[
-                      'الكشف المبكر وتحليل المخاطر قبل أن تتحول إلى أزمات.',
-                      'تقييم كفاءة وفعالية الضوابط الداخلية لضمان حماية المؤسسة.',
-                      'تقديم توصيات عملية ومبتكرة تعزز الأداء وتحقق التحسين المستمر.',
-                      'دعم الإدارة في تحقيق أهدافها الاستراتيجية بكفاءة وثقة.',
-                    ].map((item, index) => (
-                      <motion.li
-                        key={index}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 1.3 + index * 0.1 }}
-                        className="flex items-start gap-3"
-                      >
-                        <CheckCircle className="w-[22px] h-[22px] text-orange-500 mt-0.5 flex-shrink-0" strokeWidth={2.5} />
-                        <span className="text-gray-700">{item}</span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </motion.div>
-
-                {/* المقطع الخامس - عامل الاستعجال - Enhanced */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.6 }}
-                  className="border-r-4 border-red-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
-                  style={{
-                    borderRightColor: 'rgba(239, 68, 68, 0.6)',
-                    borderRightWidth: '4px'
-                  }}
-                  whileHover={{ 
-                    y: -2,
-                    boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
-                    borderRightColor: 'rgba(239, 68, 68, 0.9)'
-                  }}
-                >
-                  <p className="text-xl md:text-2xl font-bold text-red-700 mb-4 flex items-center gap-3">
-                    <Shield className="w-7 h-7" strokeWidth={2.5} />
-                    التأمين المستدام لمستقبل أعمالك
-                  </p>
-                  <p className="text-base md:text-lg leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
-                    الاستثمار في تطوير قدرات المراجعة الداخلية يعني أكثر من حماية الأصول… إنه تأمين مستدام لمستقبل أعمالك. فالمراجع الداخلي المحترف يحول كل تقرير إلى خطة إنقاذ وتحسين فعّالة، تجعلك دائمًا على أتم الاستعداد لمواجهة التحديات. المستقبل لا ينتظر أحدًا، ومن يتأخر في بناء منظومة مراجعة قوية سيواجه تكاليف مضاعفة.
-                  </p>
-                </motion.div>
-
-                {/* المقطع الختامي - CTA - Enhanced: golden professional touch, larger text, better spacing, deeper shadow */}
+              {/* المقطع الثالث - شرح الشراكة - Enhanced */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.0 }}
+                className="border-r-4 border-purple-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
+                style={{
+                  borderRightColor: 'rgba(168, 85, 247, 0.6)',
+                  borderRightWidth: '4px'
+                }}
+                whileHover={{
+                  y: -2,
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
+                  borderRightColor: 'rgba(168, 85, 247, 0.9)'
+                }}
+              >
+                <p className="text-xl md:text-2xl font-bold text-purple-700 mb-4 flex items-center gap-3">
+                  <TrendingUp className="w-7 h-7" strokeWidth={2.5} />
+                  الشراكة التكاملية
+                </p>
+                <p className="text-base md:text-lg mb-4 leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
+                  المراجعة الداخلية والمراجع الداخلي… شراكة تصنع التفوق المؤسسي. معًا يشكلان قوة استراتيجية تدعم استقرار مؤسستك وتدفعها نحو الريادة. فالمراجعة الداخلية تمنحك الحماية والشفافية، بينما يحوّل المراجع الداخلي المحترف هذه الحماية إلى قيمة مستدامة تضمن التميز وتبقي مؤسستك دائمًا في موقع المبادرة، مستبقة للمخاطر، وسبّاقة لاغتنام الفرص.
+                </p>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.7, duration: 0.5 }}
-                  className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white p-10 rounded-2xl text-center relative overflow-hidden group"
-                  style={{
-                    boxShadow: '0 12px 32px rgba(99, 102, 241, 0.25), 0 6px 16px rgba(0, 0, 0, 0.15)'
-                  }}
-                  whileHover={{ 
-                    y: -3,
-                    boxShadow: '0 16px 40px rgba(99, 102, 241, 0.3), 0 8px 20px rgba(0, 0, 0, 0.2)',
-                    transition: { duration: 0.25 }
-                  }}
-                  whileTap={{ scale: 0.98 }}
+                  transition={{ delay: 1.1 }}
+                  className="text-base font-semibold text-purple-700 bg-purple-50 p-5 rounded-xl border-r-4 border-purple-500 mt-auto"
+                  style={{ lineHeight: '1.7' }}
                 >
-                  {/* Light Sweep Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                  
-                  <motion.p 
-                    className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-4 text-white relative z-10"
-                    style={{ 
-                      fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
-                      lineHeight: '1.3'
-                    }}
-                  >
-                    احترف مهنة المراجعة الداخلية بالتدريب العملى
-                  </motion.p>
-                  <motion.p 
-                    className="text-lg md:text-xl text-white/95 relative z-10"
-                    style={{ lineHeight: '1.6' }}
-                  >
-                    ابدأ رحلتك نحو التميز المهني اليوم
-                  </motion.p>
+                  إن الاستثمار في بناء منظومة مراجعة داخلية قوية، وتطوير كفاءات المراجع الداخلي، ليس رفاهية أو خيارًا تكميليًا… بل قرار استراتيجي يحمي أعمالك اليوم ويصنع نجاحك المستقبلي.
                 </motion.div>
-              </div>
-            </motion.div>
+              </motion.div>
+
+              {/* المقطع الرابع - تعريف المراجع الحديث - Enhanced */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.2 }}
+                className="border-r-4 border-orange-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
+                style={{
+                  borderRightColor: 'rgba(249, 115, 22, 0.6)',
+                  borderRightWidth: '4px'
+                }}
+                whileHover={{
+                  y: -2,
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
+                  borderRightColor: 'rgba(249, 115, 22, 0.9)'
+                }}
+              >
+                <p className="text-xl md:text-2xl font-bold text-orange-700 mb-4 flex items-center gap-3">
+                  <Award className="w-7 h-7" strokeWidth={2.5} />
+                  المراجع الداخلي: قيمة مضافة لا تُقدّر بثمن
+                </p>
+                <p className="text-base md:text-lg mb-5 leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
+                  المراجع الداخلي هو قيمة مضافة لا تُقدّر بثمن، وشريك استراتيجي للإدارة في رسم ملامح المستقبل. ليس مجرد مدقق يركز على الأخطاء، بل رائد يساهم بفعالية في:
+                </p>
+                <ul className="space-y-3 text-base flex-1" style={{ lineHeight: '1.7' }}>
+                  {[
+                    'الكشف المبكر وتحليل المخاطر قبل أن تتحول إلى أزمات.',
+                    'تقييم كفاءة وفعالية الضوابط الداخلية لضمان حماية المؤسسة.',
+                    'تقديم توصيات عملية ومبتكرة تعزز الأداء وتحقق التحسين المستمر.',
+                    'دعم الإدارة في تحقيق أهدافها الاستراتيجية بكفاءة وثقة.',
+                  ].map((item, index) => (
+                    <motion.li
+                      key={index}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 1.3 + index * 0.1 }}
+                      className="flex items-start gap-3"
+                    >
+                      <CheckCircle className="w-[22px] h-[22px] text-orange-500 mt-0.5 flex-shrink-0" strokeWidth={2.5} />
+                      <span className="text-gray-700">{item}</span>
+                    </motion.li>
+                  ))}
+                </ul>
+              </motion.div>
+
+              {/* المقطع الخامس - عامل الاستعجال - Enhanced */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 1.6 }}
+                className="border-r-4 border-red-400 pr-8 bg-white/60 rounded-2xl p-8 h-full flex flex-col hover:shadow-md transition-all duration-300 group"
+                style={{
+                  borderRightColor: 'rgba(239, 68, 68, 0.6)',
+                  borderRightWidth: '4px'
+                }}
+                whileHover={{
+                  y: -2,
+                  boxShadow: '0 6px 16px rgba(0, 0, 0, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)',
+                  borderRightColor: 'rgba(239, 68, 68, 0.9)'
+                }}
+              >
+                <p className="text-xl md:text-2xl font-bold text-red-700 mb-4 flex items-center gap-3">
+                  <Shield className="w-7 h-7" strokeWidth={2.5} />
+                  التأمين المستدام لمستقبل أعمالك
+                </p>
+                <p className="text-base md:text-lg leading-loose text-gray-700 max-w-2xl" style={{ lineHeight: '1.7' }}>
+                  الاستثمار في تطوير قدرات المراجعة الداخلية يعني أكثر من حماية الأصول… إنه تأمين مستدام لمستقبل أعمالك. فالمراجع الداخلي المحترف يحول كل تقرير إلى خطة إنقاذ وتحسين فعّالة، تجعلك دائمًا على أتم الاستعداد لمواجهة التحديات. المستقبل لا ينتظر أحدًا، ومن يتأخر في بناء منظومة مراجعة قوية سيواجه تكاليف مضاعفة.
+                </p>
+              </motion.div>
+
+              {/* المقطع الختامي - CTA - Enhanced: golden professional touch, larger text, better spacing, deeper shadow */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.7, duration: 0.5 }}
+                className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white p-10 rounded-2xl text-center relative overflow-hidden group"
+                style={{
+                  boxShadow: '0 12px 32px rgba(99, 102, 241, 0.25), 0 6px 16px rgba(0, 0, 0, 0.15)'
+                }}
+                whileHover={{
+                  y: -3,
+                  boxShadow: '0 16px 40px rgba(99, 102, 241, 0.3), 0 8px 20px rgba(0, 0, 0, 0.2)',
+                  transition: { duration: 0.25 }
+                }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Light Sweep Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
+                <motion.p
+                  className="text-2xl md:text-3xl lg:text-4xl font-extrabold mb-4 text-white relative z-10"
+                  style={{
+                    fontSize: 'clamp(1.5rem, 4vw, 2.25rem)',
+                    lineHeight: '1.3'
+                  }}
+                >
+                  احترف مهنة المراجعة الداخلية بالتدريب العملى
+                </motion.p>
+                <motion.p
+                  className="text-lg md:text-xl text-white/95 relative z-10"
+                  style={{ lineHeight: '1.6' }}
+                >
+                  ابدأ رحلتك نحو التميز المهني اليوم
+                </motion.p>
+              </motion.div>
+            </div>
+          </motion.div>
 
           {/* Enhanced Level Selection - Professional touch, visual depth, smooth motion */}
           <motion.div
@@ -747,17 +632,16 @@ const InternalAuditPage = () => {
                 <motion.button
                   key={level.id}
                   onClick={() => setActiveLevel(level.id as 1 | 2 | 3)}
-                  className={`p-8 rounded-[2rem] border-2 transition-all duration-300 text-right relative overflow-hidden cursor-pointer ${
-                    activeLevel === level.id
-                      ? `border-transparent bg-gradient-to-br ${level.color} text-white scale-105`
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
+                  className={`p-8 rounded-[2rem] border-2 transition-all duration-300 text-right relative overflow-hidden cursor-pointer ${activeLevel === level.id
+                    ? `border-transparent bg-gradient-to-br ${level.color} text-white scale-105`
+                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    }`}
                   style={{
-                    boxShadow: activeLevel === level.id 
-                      ? '0 12px 32px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.1)' 
+                    boxShadow: activeLevel === level.id
+                      ? '0 12px 32px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.1)'
                       : '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)'
                   }}
-                  whileHover={{ 
+                  whileHover={{
                     y: -2,
                     scale: activeLevel === level.id ? 1.05 : 1.02,
                     boxShadow: activeLevel === level.id
@@ -772,7 +656,7 @@ const InternalAuditPage = () => {
                       '0 12px 32px rgba(0, 0, 0, 0.15), 0 6px 16px rgba(0, 0, 0, 0.1)'
                     ]
                   } : {}}
-                  transition={{ 
+                  transition={{
                     boxShadow: { duration: 3, repeat: Infinity, ease: 'easeInOut' },
                     duration: 0.3
                   }}
@@ -800,15 +684,14 @@ const InternalAuditPage = () => {
 
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-xl ${
-                        activeLevel === level.id
-                          ? 'bg-white/25 backdrop-blur-md text-white border border-white/30'
-                          : `bg-gradient-to-br ${level.color} text-white`
-                      }`}>
+                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-extrabold text-xl shadow-xl ${activeLevel === level.id
+                        ? 'bg-white/25 backdrop-blur-md text-white border border-white/30'
+                        : `bg-gradient-to-br ${level.color} text-white`
+                        }`}>
                         {level.id}
                       </div>
                       <div className="flex-1 mr-4">
-                        <h3 className={`text-2xl md:text-3xl font-extrabold mb-2 ${activeLevel === level.id ? 'text-white' : 'text-gray-900'}`} style={{ 
+                        <h3 className={`text-2xl md:text-3xl font-extrabold mb-2 ${activeLevel === level.id ? 'text-white' : 'text-gray-900'}`} style={{
                           letterSpacing: '-0.02em',
                           lineHeight: '1.3'
                         }}>{level.title}</h3>
@@ -827,19 +710,18 @@ const InternalAuditPage = () => {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          
+
                           // استخدام معرف الكورس للمراجعة الداخلية (14)
                           const courseId = '14';
-                          
+
                           // الانتقال إلى صفحة الدروس مع تمرير معرف المستوى
                           const lessonPath = `/student/courses/${courseId}/lesson?level=${level.id}`;
                           router.push(lessonPath);
                         }}
-                        className={`w-full mt-5 px-6 py-3.5 rounded-xl font-bold text-base transition-all duration-300 ${
-                          activeLevel === level.id
-                            ? 'bg-white text-indigo-600 hover:bg-white/90 shadow-lg'
-                            : `bg-gradient-to-r ${level.color} text-white hover:shadow-lg`
-                        }`}
+                        className={`w-full mt-5 px-6 py-3.5 rounded-xl font-bold text-base transition-all duration-300 ${activeLevel === level.id
+                          ? 'bg-white text-indigo-600 hover:bg-white/90 shadow-lg'
+                          : `bg-gradient-to-r ${level.color} text-white hover:shadow-lg`
+                          }`}
                       >
                         ابدأ التعلم
                       </button>
@@ -851,257 +733,11 @@ const InternalAuditPage = () => {
           </motion.div>
 
 
-          {/* نظام المحاور التعليمية - Enhanced: increased padding, softer radius, better shadow */}
-          <div className="relative bg-white dark:bg-neutral-800 rounded-[2rem] border border-neutral-200 dark:border-neutral-700 overflow-hidden" style={{ 
-            minHeight: '600px',
-            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)'
-          }} dir="rtl">
-            <div className="flex h-full">
-              {/* البار الأيمن - المحاور */}
-              <motion.div
-                initial={false}
-                animate={{ width: materialsSidebarOpen ? 320 : 0 }}
-                transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="overflow-hidden border-r border-gray-200 dark:border-gray-700"
-              >
-                {materialsSidebarOpen && (
-                  <CourseMaterialsSidebar
-                    modules={playerModules}
-                    currentLessonId=""
-                    selectedModuleId={selectedModuleId}
-                    onModuleSelect={(moduleId) => {
-                      setSelectedModuleId(moduleId);
-                      setMaterialsSidebarOpen(true);
-                    }}
-                    onClose={() => setMaterialsSidebarOpen(false)}
-                  />
-                )}
-              </motion.div>
-
-              {/* المحتوى الرئيسي */}
-              <div className="flex-1 flex flex-col">
-                {/* Header - Enhanced: larger icon, stronger contrast, increased spacing */}
-                <div className="p-8 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="flex items-center gap-4 mb-3">
-                        <div className={`w-14 h-14 bg-gradient-to-br ${currentLevel?.color || 'from-indigo-500 to-blue-600'} rounded-2xl flex items-center justify-center shadow-lg`}>
-                          <BookOpen className="w-8 h-8 text-white" strokeWidth={2.5} />
-                        </div>
-                        <div>
-                          <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white mb-1">
-                            محاور المستوى {activeLevel}
-                          </h2>
-                          <p className="text-gray-700 dark:text-gray-300 font-semibold text-base">
-                            {currentLevel?.title}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    {!materialsSidebarOpen && (
-                      <button
-                        onClick={() => setMaterialsSidebarOpen(true)}
-                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors flex items-center gap-2"
-                      >
-                        <BookOpen className="w-5 h-5" />
-                        عرض المحاور
-                      </button>
-                    )}
-                  </div>
-                </div>
-
-                {/* المحتوى - Enhanced: increased padding */}
-                <div className="flex-1 p-8 overflow-y-auto">
-                  {selectedModuleId ? (
-                    <ModuleMaterialsPanel
-                      module={playerModules.find(m => m.id === selectedModuleId) || null}
-                      currentLessonId=""
-                      onClose={() => setSelectedModuleId(null)}
-                    />
-                  ) : (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5 }}
-                      className="max-w-2xl mx-auto"
-                    >
-                      {/* بطاقة محاور المستوى - Enhanced: increased padding, softer radius, better shadow */}
-                      <div className={`bg-gradient-to-br ${
-                        activeLevel === 1 ? 'from-blue-50 via-indigo-50 to-blue-50' :
-                        activeLevel === 2 ? 'from-purple-50 via-indigo-50 to-purple-50' :
-                        'from-green-50 via-emerald-50 to-green-50'
-                      } dark:from-indigo-950/30 dark:via-blue-950/30 dark:to-purple-950/30 rounded-[2rem] border-2 border-indigo-200 dark:border-indigo-800/50 p-10`}
-                      style={{
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.05)'
-                      }}>
-                        {/* العنوان - Enhanced: larger icon 15%, stronger contrast, increased spacing */}
-                        <div className="text-center mb-8">
-                          <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br ${currentLevel?.color || 'from-indigo-500 to-blue-600'} rounded-2xl mb-5 shadow-xl`}>
-                            <BookOpen className="w-10 h-10 text-white" strokeWidth={2.5} />
-                          </div>
-                          <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white mb-3">
-                            {currentLevel?.title || 'المستوى'}
-                          </h3>
-                          <p className="text-indigo-600 dark:text-indigo-400 font-bold text-lg">
-                            {currentLevel?.modules?.length || 0} محور متاح
-                          </p>
-                        </div>
-
-                        {/* قائمة المحاور - Enhanced: increased height, larger icons, unified colors, better hover */}
-                        <div className="space-y-4 mb-8">
-                          {currentLevel?.modules?.map((module, index) => {
-                            // حساب عدد الملفات بناءً على عدد الدروس
-                            const totalFiles = module.lessons || module.topics?.length || 0;
-                            const wordFiles = Math.floor(totalFiles * 0.3);
-                            const pdfFiles = Math.floor(totalFiles * 0.4);
-                            const excelFiles = Math.floor(totalFiles * 0.3);
-                            const videoFiles = Math.floor(totalFiles * 0.2);
-
-                            // حساب moduleId للانتقال إلى الدرس
-                            // في الكورس 14، module.id = activeLevel (1, 2, أو 3)
-                            // كل محور في المستوى يوجه إلى نفس module.id ولكن يمكن التمييز لاحقاً
-                            const courseId = '14';
-                            const moduleId = activeLevel; // المستوى الحالي
-                            const lessonIndex = 0; // أول درس في المحور
-                            const lessonId = `${moduleId}-${lessonIndex}`;
-
-                            return (
-                              <motion.button
-                                key={`module-${index}`}
-                                type="button"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: index * 0.1, duration: 0.3 }}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                                  // الانتقال إلى صفحة الدروس مع تمرير معرف المستوى
-                                  const lessonPath = `/student/courses/${courseId}/lesson?level=${activeLevel}`;
-                                  router.push(lessonPath);
-                                }}
-                                className="w-full flex items-center gap-4 p-5 bg-white dark:bg-gray-800/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 cursor-pointer group"
-                                whileHover={{ y: -1, scale: 1.01 }}
-                                whileTap={{ scale: 0.99 }}
-                              >
-                                <div className={`flex-shrink-0 w-12 h-12 bg-gradient-to-br ${currentLevel?.color || 'from-indigo-500 to-blue-600'} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md`}>
-                                  <CheckCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
-                                </div>
-                                <div className="flex-1 text-right">
-                                  <h4 className="font-bold text-gray-900 dark:text-white text-base mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors" style={{ lineHeight: '1.5' }}>
-                                    {module.title}
-                                  </h4>
-                                  <div className="flex items-center gap-3 mt-2 justify-end flex-wrap">
-                                    {/* أيقونات أنواع الملفات - Enhanced: larger icons, unified colors, higher contrast */}
-                                    {/* Word */}
-                                    {wordFiles > 0 && (
-                                      <motion.div 
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: index * 0.1 + 0.2, duration: 0.3 }}
-                                        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-blue-100 dark:bg-blue-950/40 rounded-lg border border-blue-200 dark:border-blue-800"
-                                      >
-                                        <WordIcon className="w-5 h-5" size={20} />
-                                        <span className="text-xs font-bold text-blue-700 dark:text-blue-400">
-                                          {wordFiles}
-                                        </span>
-                                      </motion.div>
-                                    )}
-                                    {/* PDF */}
-                                    {pdfFiles > 0 && (
-                                      <motion.div 
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: index * 0.1 + 0.25, duration: 0.3 }}
-                                        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-red-100 dark:bg-red-950/40 rounded-lg border border-red-200 dark:border-red-800"
-                                      >
-                                        <PDFIcon className="w-5 h-5" size={20} />
-                                        <span className="text-xs font-bold text-red-700 dark:text-red-400">
-                                          {pdfFiles}
-                                        </span>
-                                      </motion.div>
-                                    )}
-                                    {/* Excel */}
-                                    {excelFiles > 0 && (
-                                      <motion.div 
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: index * 0.1 + 0.3, duration: 0.3 }}
-                                        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-green-100 dark:bg-green-950/40 rounded-lg border border-green-200 dark:border-green-800"
-                                      >
-                                        <FileSpreadsheet className="w-5 h-5 text-green-600 dark:text-green-400" strokeWidth={2.5} />
-                                        <span className="text-xs font-bold text-green-700 dark:text-green-400">
-                                          {excelFiles}
-                                        </span>
-                                      </motion.div>
-                                    )}
-                                    {/* Video */}
-                                    {videoFiles > 0 && (
-                                      <motion.div 
-                                        initial={{ opacity: 0, scale: 0.8 }}
-                                        animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: index * 0.1 + 0.35, duration: 0.3 }}
-                                        className="flex items-center gap-1.5 px-2.5 py-1.5 bg-purple-100 dark:bg-purple-950/40 rounded-lg border border-purple-200 dark:border-purple-800"
-                                      >
-                                        <VideoIcon className="w-5 h-5" size={20} />
-                                        <span className="text-xs font-bold text-purple-700 dark:text-purple-400">
-                                          {videoFiles}
-                                        </span>
-                                      </motion.div>
-                                    )}
-                                  </div>
-                                </div>
-                                <div className="flex-shrink-0">
-                                  <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition-all duration-300" strokeWidth={2.5} />
-                                </div>
-                              </motion.button>
-                            );
-                          })}
-                        </div>
-
-                        {/* زر ابدأ التعلم - Enhanced */}
-                        <motion.button
-                          type="button"
-                          whileHover={{ 
-                            scale: 1.02,
-                            y: -3,
-                            boxShadow: '0 12px 28px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.1)'
-                          }}
-                          whileTap={{ scale: 0.97 }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            
-                            try {
-                              // استخدام معرف الكورس للمراجعة الداخلية (14)
-                              const courseId = '14';
-                              
-                              // الانتقال إلى صفحة الدروس مع تمرير معرف المستوى
-                              const lessonPath = `/student/courses/${courseId}/lesson?level=${activeLevel}`;
-                              
-                              console.log('Navigating to lesson:', lessonPath, 'for level:', activeLevel);
-                              
-                              // استخدام router.push مع replace للتأكد من التوجيه
-                              router.push(lessonPath);
-                            } catch (error) {
-                              console.error('Error navigating to lesson:', error);
-                            }
-                          }}
-                          className={`w-full bg-gradient-to-r ${currentLevel?.color || 'from-indigo-600 to-blue-600'} text-white font-extrabold py-5 px-8 rounded-2xl shadow-xl flex items-center justify-center gap-3 relative overflow-hidden group`}
-                          style={{
-                            boxShadow: '0 8px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.08)'
-                          }}
-                        >
-                          {/* Light Sweep Effect */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                          <span className="relative z-10 text-lg">ابدأ التعلم</span>
-                          <ArrowRight className="w-5 h-5 relative z-10" strokeWidth={2.5} />
-                        </motion.button>
-                      </div>
-                    </motion.div>
-                  )}
-                </div>
-              </div>
-            </div>
+          {/* Placeholder for future content */}
+          <div className="text-center py-16">
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
+              اختر مستوى من الأعلى لعرض التفاصيل
+            </p>
           </div>
         </div>
       </PageBackground>

@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Heart, Target, Sparkles, Award, Users, Shield, Lightbulb } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * Values Section - قسم القيم والهدف
@@ -90,12 +90,11 @@ const ValuesSection = () => {
               'from-purple-600 to-purple-700',
             ];
             return (
-              <motion.div
+              <MotionWrapper
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                animation="slideDown"
+                delay={index * 0.1}
+                duration={0.4}
                 className="p-5 lg:p-6 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-300"
                 dir="rtl"
               >
@@ -115,7 +114,7 @@ const ValuesSection = () => {
                     {value.description}
                   </p>
                 </div>
-              </motion.div>
+              </MotionWrapper>
             );
           })}
         </div>

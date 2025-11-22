@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 import Link from 'next/link';
 import {
   User,
@@ -23,7 +23,7 @@ import {
   Settings,
   Play,
 } from 'lucide-react';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import { Label } from '@/components/ui/Label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
@@ -86,28 +86,23 @@ export default function StudentProfilePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-50 via-white to-primary-50/30 dark:from-neutral-900 dark:via-neutral-800 dark:to-neutral-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
+        <MotionWrapper
+          animation="fade"
           className="max-w-6xl mx-auto w-full"
         >
           {/* Profile Header - Academic Design: Height 240px, Avatar 120px, Name 32px bold */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+          <MotionWrapper
+            animation="slideDown"
+            delay={0.1}
             className="mb-6 sm:mb-8 relative overflow-hidden rounded-[20px] bg-gradient-to-r from-[#5B36E8] via-[#6D4AFF] to-[#5B36E8] text-white shadow-elevation-2"
             style={{ height: '240px' }}
           >
             <div className="absolute top-0 end-0 w-96 h-96 bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl"></div>
             <div className="relative z-10 h-full flex flex-col items-center justify-center p-8" dir="rtl">
               {/* Edit Profile Button - Top-right corner */}
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
+              <button
                 onClick={() => editMode ? handleSaveProfile() : setEditMode(true)}
-                className="absolute top-4 left-4 group flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white/20 backdrop-blur-md rounded-[10px] hover:bg-white/30 transition-all duration-200 border-[1.5px] border-white/40 hover:border-white/60 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(255,255,255,0.3)]"
+                className="absolute top-4 left-4 group flex items-center gap-2 px-4 py-2 min-h-[44px] bg-white/20 backdrop-blur-md rounded-[10px] hover:bg-white/30 hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 border-[1.5px] border-white/40 hover:border-white/60 shadow-md hover:shadow-lg focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-[rgba(255,255,255,0.3)]"
                 aria-label={editMode ? 'حفظ التغييرات' : 'تعديل الملف الشخصي'}
                 type="button"
               >
@@ -127,13 +122,10 @@ export default function StudentProfilePage() {
                     <span className="font-semibold text-sm">تعديل</span>
                   </>
                 )}
-              </motion.button>
+              </button>
 
               {/* Avatar - 120px circular, centered, border 4px white */}
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="relative group cursor-pointer flex-shrink-0 mb-4"
-              >
+              <div className="relative group cursor-pointer flex-shrink-0 mb-4 hover:scale-105 transition-transform duration-200">
                 <div className="w-[120px] h-[120px] bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-4xl font-extrabold border-4 border-white shadow-elevation-4">
                   {profile.name.charAt(0)}
                 </div>
@@ -142,66 +134,45 @@ export default function StudentProfilePage() {
                     <Camera className="w-8 h-8 text-white" />
                   </div>
                 )}
-              </motion.div>
+              </div>
 
               {/* Name - 32px bold, white text */}
-              <motion.h1
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-[32px] font-bold mb-2 break-words text-center"
-              >
+              <h1 className="text-[32px] font-bold mb-2 break-words text-center">
                 {profile.name}
-              </motion.h1>
+              </h1>
 
               {/* Role - 18px regular, white text with reduced opacity */}
-              <motion.p
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-[18px] font-normal text-white/80 break-words text-center"
-              >
+              <p className="text-[18px] font-normal text-white/80 break-words text-center">
                 طالب
-              </motion.p>
+              </p>
             </div>
-          </motion.div>
+          </MotionWrapper>
 
           {/* Stats Bar - Below Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
+          <MotionWrapper
+            animation="fade"
+            delay={0.2}
+            stagger
+            staggerDelay={0.05}
             className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8"
           >
-                <motion.div 
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 transition-all duration-200 ease-out"
-                >
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.completedCourses}</div>
                   <div className="text-xs sm:text-sm text-blue-100">دورة مكتملة</div>
-                </motion.div>
-                <motion.div 
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 transition-all duration-200 ease-out"
-                >
+                </div>
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.certificates}</div>
                   <div className="text-xs sm:text-sm text-blue-100">شهادة</div>
-                </motion.div>
-                <motion.div 
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 transition-all duration-200 ease-out"
-                >
+                </div>
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.hoursLearned}</div>
                   <div className="text-xs sm:text-sm text-blue-100">ساعة تعلم</div>
-                </motion.div>
-                <motion.div 
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 transition-all duration-200 ease-out"
-                >
+                </div>
+                <div className="bg-white/20 backdrop-blur-md rounded-xl p-3 sm:p-4 border-2 border-white/30 hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-extrabold mb-1">{stats.averageScore}%</div>
                   <div className="text-xs sm:text-sm text-blue-100">متوسط الدرجات</div>
-                </motion.div>
-          </motion.div>
+                </div>
+          </MotionWrapper>
 
           {/* Profile Content Tabs - Academic Design from agent.md */}
           <div className="mb-6 sm:mb-8 w-full">
@@ -246,19 +217,16 @@ export default function StudentProfilePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-2">
+                  <MotionWrapper stagger staggerDelay={0.05} className="flex flex-wrap gap-2">
                     {profile.skills.map((skill, index) => (
-                      <motion.span
+                      <span
                         key={index}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
                         className="px-3 py-1.5 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 text-warning-700 dark:text-warning-400 rounded-lg text-sm font-bold"
                       >
                         {skill}
-                      </motion.span>
+                      </span>
                     ))}
-                  </div>
+                  </MotionWrapper>
                 </CardContent>
               </Card>
 
@@ -271,23 +239,19 @@ export default function StudentProfilePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2 sm:space-y-3">
+                  <MotionWrapper stagger staggerDelay={0.05} className="space-y-2 sm:space-y-3">
                     {profile.certifications.map((cert, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
-                        whileHover={{ y: -2, scale: 1.01 }}
-                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 rounded-xl transition-all duration-200 ease-out cursor-pointer"
+                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 rounded-xl hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-200 ease-out cursor-pointer"
                       >
                         <div className="p-2 bg-warning-500 dark:bg-warning-600 rounded-lg">
                           <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" aria-hidden="true" />
                         </div>
                         <span className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">{cert}</span>
-                      </motion.div>
+                      </div>
                     ))}
-                  </div>
+                  </MotionWrapper>
                 </CardContent>
               </Card>
 
@@ -326,48 +290,24 @@ export default function StudentProfilePage() {
             {/* Profile Main Content - Overview Tab */}
             <div className="lg:col-span-2 space-y-4 sm:space-y-6">
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.1, duration: 0.2, ease: 'easeOut' }}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg transition-all duration-200 ease-out"
-                >
+              <MotionWrapper stagger staggerDelay={0.1} className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                <div className="bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-bold mb-1">{stats.completedCourses}</div>
                   <div className="text-xs sm:text-sm text-blue-100">دورة مكتملة</div>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-gradient-to-br from-success-600 to-success-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg transition-all duration-200 ease-out"
-                >
+                </div>
+                <div className="bg-gradient-to-br from-success-600 to-success-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-bold mb-1">{stats.certificates}</div>
                   <div className="text-xs sm:text-sm text-green-100">شهادة</div>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-gradient-to-br from-secondary-innovate-600 to-secondary-innovate-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg transition-all duration-200 ease-out"
-                >
+                </div>
+                <div className="bg-gradient-to-br from-secondary-innovate-600 to-secondary-innovate-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-bold mb-1">{stats.hoursLearned}</div>
                   <div className="text-xs sm:text-sm text-purple-100">ساعة تعلم</div>
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
-                  whileHover={{ y: -2, scale: 1.02 }}
-                  className="bg-gradient-to-br from-warning-600 to-warning-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg transition-all duration-200 ease-out"
-                >
+                </div>
+                <div className="bg-gradient-to-br from-warning-600 to-warning-700 text-white rounded-xl p-3 sm:p-4 text-center shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.02] transition-all duration-200 ease-out">
                   <div className="text-2xl sm:text-3xl font-bold mb-1">{stats.averageScore}%</div>
                   <div className="text-xs sm:text-sm text-orange-100">متوسط الدرجات</div>
-                </motion.div>
-              </div>
+                </div>
+              </MotionWrapper>
 
               {/* Recent Activity Preview */}
               <Card className="shadow-md border border-neutral-200 dark:border-neutral-700">
@@ -378,19 +318,15 @@ export default function StudentProfilePage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2 sm:space-y-3">
+                  <MotionWrapper stagger staggerDelay={0.05} className="space-y-2 sm:space-y-3">
                     {[
                       { action: 'أكملت دورة', course: 'أساسيات المراجعة الداخلية', date: 'منذ يومين', icon: CheckCircle2, color: 'text-success-600 dark:text-success-400' },
                       { action: 'حصلت على شهادة', course: 'CIA Part 1', date: 'منذ أسبوع', icon: Award, color: 'text-warning-600 dark:text-warning-400' },
                       { action: 'بدأت دورة جديدة', course: 'تحليل المخاطر', date: 'منذ أسبوعين', icon: Play, color: 'text-primary-600 dark:text-primary-400' },
                     ].map((activity, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
-                        whileHover={{ y: -2, scale: 1.01 }}
-                        className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-200 ease-out"
+                        className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-200 ease-out"
                       >
                         <activity.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${activity.color}`} aria-hidden="true" />
                         <div className="flex-1 min-w-0">
@@ -398,9 +334,9 @@ export default function StudentProfilePage() {
                           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 truncate">{activity.course}</p>
                         </div>
                         <span className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">{activity.date}</span>
-                      </motion.div>
+                      </div>
                     ))}
-                  </div>
+                  </MotionWrapper>
                   <Link
                     href="/student/profile?tab=activity"
                     onClick={() => setActiveTab('activity')}
@@ -433,12 +369,7 @@ export default function StudentProfilePage() {
                 </div>
                 <CardContent className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
-                      className="space-y-2"
-                    >
+                    <div className="space-y-2">
                       <Label htmlFor="name" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                         <User className="w-4 h-4" aria-hidden="true" />
                         الاسم الكامل
@@ -456,14 +387,9 @@ export default function StudentProfilePage() {
                           {profile.name}
                         </div>
                       )}
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
-                      className="space-y-2"
-                    >
+                    <div className="space-y-2">
                       <Label htmlFor="email" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                         <Mail className="w-4 h-4" aria-hidden="true" />
                         البريد الإلكتروني
@@ -485,14 +411,9 @@ export default function StudentProfilePage() {
                           {profile.email}
                         </div>
                       )}
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
-                      className="space-y-2"
-                    >
+                    <div className="space-y-2">
                       <Label htmlFor="phone" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                         <Phone className="w-4 h-4" aria-hidden="true" />
                         رقم الهاتف
@@ -513,14 +434,9 @@ export default function StudentProfilePage() {
                           {profile.phone}
                         </div>
                       )}
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.5, duration: 0.2, ease: 'easeOut' }}
-                      className="space-y-2"
-                    >
+                    <div className="space-y-2">
                       <Label htmlFor="location" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                         <MapPin className="w-4 h-4" aria-hidden="true" />
                         الموقع
@@ -541,15 +457,10 @@ export default function StudentProfilePage() {
                           {profile.location}
                         </div>
                       )}
-                    </motion.div>
+                    </div>
                   </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.2, ease: 'easeOut' }}
-                    className="space-y-2"
-                  >
+                  <div className="space-y-2">
                     <Label htmlFor="bio" className="text-sm sm:text-base font-semibold text-neutral-900 dark:text-white">نبذة شخصية</Label>
                     {editMode ? (
                       <textarea
@@ -566,7 +477,7 @@ export default function StudentProfilePage() {
                         {profile.bio}
                       </div>
                     )}
-                  </motion.div>
+                  </div>
 
                 {editMode && (
                   <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-neutral-200 dark:border-neutral-700">
@@ -578,11 +489,9 @@ export default function StudentProfilePage() {
                     >
                       إلغاء
                     </button>
-                    <motion.button
-                      whileHover={{ scale: 1.02, y: -1 }}
-                      whileTap={{ scale: 0.98 }}
+                    <button
                       onClick={handleSaveProfile}
-                      className="px-6 py-2.5 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white rounded-lg font-medium text-base sm:text-lg shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                      className="px-6 py-2.5 min-h-[44px] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] text-white rounded-lg font-medium text-base sm:text-lg shadow-md shadow-primary-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                       aria-label="حفظ التغييرات"
                       type="button"
                     >
@@ -597,7 +506,7 @@ export default function StudentProfilePage() {
                           حفظ التغييرات
                         </>
                       )}
-                    </motion.button>
+                    </button>
                   </div>
                 )}
                 </CardContent>
@@ -621,12 +530,7 @@ export default function StudentProfilePage() {
                   </CardHeader>
                 </div>
                 <CardContent className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.2, ease: 'easeOut' }}
-                    className="space-y-2"
-                  >
+                  <div className="space-y-2">
                     <Label htmlFor="experience" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                       <Briefcase className="w-4 h-4" aria-hidden="true" />
                       الخبرة
@@ -644,14 +548,9 @@ export default function StudentProfilePage() {
                         {profile.experience}
                       </div>
                     )}
-                  </motion.div>
+                  </div>
 
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.2, ease: 'easeOut' }}
-                    className="space-y-2"
-                  >
+                  <div className="space-y-2">
                     <Label htmlFor="education" className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                       <GraduationCap className="w-4 h-4" aria-hidden="true" />
                       التعليم
@@ -669,63 +568,46 @@ export default function StudentProfilePage() {
                         {profile.education}
                       </div>
                     )}
-                  </motion.div>
+                  </div>
 
                 {/* Skills */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.2, ease: 'easeOut' }}
-                  className="space-y-2"
-                >
+                <div className="space-y-2">
                   <Label className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                     <Star className="w-4 h-4 text-warning-600 dark:text-warning-400" aria-hidden="true" />
                     المهارات
                   </Label>
-                  <div className="flex flex-wrap gap-2">
+                  <MotionWrapper stagger staggerDelay={0.05} className="flex flex-wrap gap-2">
                     {profile.skills.map((skill, index) => (
-                      <motion.span
+                      <span
                         key={index}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
                         className="px-3 py-1.5 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 text-warning-700 dark:text-warning-400 rounded-lg text-sm font-bold"
                       >
                         {skill}
-                      </motion.span>
+                      </span>
                     ))}
-                  </div>
-                </motion.div>
+                  </MotionWrapper>
+                </div>
 
                 {/* Certifications */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.2, ease: 'easeOut' }}
-                  className="space-y-2"
-                >
+                <div className="space-y-2">
                   <Label className="text-sm sm:text-base font-semibold flex items-center gap-2 text-neutral-900 dark:text-white">
                     <Award className="w-4 h-4 text-warning-600 dark:text-warning-400" aria-hidden="true" />
                     الشهادات المهنية
                   </Label>
-                  <div className="space-y-2 sm:space-y-3">
+                  <MotionWrapper stagger staggerDelay={0.05} className="space-y-2 sm:space-y-3">
                     {profile.certifications.map((cert, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
-                        whileHover={{ y: -2, scale: 1.01 }}
-                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 rounded-xl transition-all duration-200 ease-out cursor-pointer"
+                        className="flex items-center gap-3 p-3 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 rounded-xl hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-200 ease-out cursor-pointer"
                       >
                         <div className="p-2 bg-warning-500 dark:bg-warning-600 rounded-lg">
                           <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" aria-hidden="true" />
                         </div>
                         <span className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">{cert}</span>
-                      </motion.div>
+                      </div>
                     ))}
-                  </div>
-                </motion.div>
+                  </MotionWrapper>
+                </div>
 
               {editMode && (
                   <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t border-neutral-200 dark:border-neutral-700">
@@ -737,11 +619,9 @@ export default function StudentProfilePage() {
                   >
                     إلغاء
                   </button>
-                  <motion.button
-                    whileHover={{ scale: 1.02, y: -1 }}
-                    whileTap={{ scale: 0.98 }}
+                  <button
                     onClick={handleSaveProfile}
-                    className="px-6 py-2.5 min-h-[44px] bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 text-white rounded-lg font-medium text-base sm:text-lg shadow-md shadow-success-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                    className="px-6 py-2.5 min-h-[44px] bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] text-white rounded-lg font-medium text-base sm:text-lg shadow-md shadow-success-500/20 hover:shadow-lg transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                     aria-label="حفظ التغييرات"
                     type="button"
                   >
@@ -753,10 +633,10 @@ export default function StudentProfilePage() {
                     ) : (
                       <>
                         <Save className="w-5 h-5 inline ms-2" aria-hidden="true" />
-                        حفظ التغييرات
-                      </>
-                    )}
-                  </motion.button>
+                          حفظ التغييرات
+                        </>
+                      )}
+                    </button>
                 </div>
               )}
               </CardContent>
@@ -772,26 +652,22 @@ export default function StudentProfilePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <MotionWrapper stagger staggerDelay={0.1} className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   {[
                     { title: 'متعلم نشط', description: 'أكملت 5 دورات في شهر', icon: Star, color: 'from-primary-600 to-primary-700' },
                     { title: 'خبير المراجعة', description: 'حصلت على شهادة CIA Part 1', icon: Award, color: 'from-secondary-innovate-600 to-secondary-innovate-700' },
                     { title: 'متسابق سريع', description: 'أكملت دورة في أقل من أسبوع', icon: Activity, color: 'from-success-600 to-success-700' },
                   ].map((achievement, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.2, ease: 'easeOut' }}
-                      whileHover={{ y: -2, scale: 1.01 }}
-                      className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br ${achievement.color} text-white shadow-md hover:shadow-lg transition-all duration-200 ease-out`}
+                      className={`p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-br ${achievement.color} text-white shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-200 ease-out`}
                     >
                       <achievement.icon className="w-10 h-10 sm:w-12 sm:h-12 mb-3 sm:mb-4" aria-hidden="true" />
                       <h3 className="text-lg sm:text-xl font-bold mb-2">{achievement.title}</h3>
                       <p className="text-sm sm:text-base text-white/90">{achievement.description}</p>
-                    </motion.div>
+                    </div>
                   ))}
-                </div>
+                </MotionWrapper>
               </CardContent>
             </Card>
           </ModernTabContent>
@@ -805,15 +681,11 @@ export default function StudentProfilePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3 sm:space-y-4">
+                <MotionWrapper stagger staggerDelay={0.05} className="space-y-3 sm:space-y-4">
                   {profile.certifications.map((cert, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
-                      whileHover={{ y: -2, scale: 1.01 }}
-                      className="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 rounded-xl hover:shadow-lg transition-all duration-200 ease-out"
+                      className="flex items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-gradient-to-r from-warning-50 to-warning-100/50 dark:from-warning-900/20 dark:to-warning-800/20 border-2 border-warning-200 dark:border-warning-800 rounded-xl hover:shadow-lg hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-200 ease-out"
                     >
                       <div className="p-3 sm:p-4 bg-warning-500 dark:bg-warning-600 rounded-xl">
                         <Award className="w-6 h-6 sm:w-8 sm:h-8 text-white" aria-hidden="true" />
@@ -825,9 +697,9 @@ export default function StudentProfilePage() {
                       <button className="px-4 py-2 min-h-[44px] border-2 border-warning-500 dark:border-warning-600 text-warning-700 dark:text-warning-400 hover:bg-warning-50 dark:hover:bg-warning-900/30 rounded-lg font-medium transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-warning-500 focus-visible:ring-offset-2" aria-label={`عرض شهادة ${cert}`}>
                         عرض
                       </button>
-                    </motion.div>
+                    </div>
                   ))}
-                </div>
+                </MotionWrapper>
               </CardContent>
             </Card>
           </ModernTabContent>
@@ -841,29 +713,25 @@ export default function StudentProfilePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2 sm:space-y-3">
+                <MotionWrapper stagger staggerDelay={0.05} className="space-y-2 sm:space-y-3">
                   {[
                     { action: 'أكملت دورة', course: 'أساسيات المراجعة الداخلية', date: 'منذ يومين', icon: CheckCircle2, color: 'text-success-600 dark:text-success-400' },
                     { action: 'حصلت على شهادة', course: 'CIA Part 1', date: 'منذ أسبوع', icon: Award, color: 'text-warning-600 dark:text-warning-400' },
                     { action: 'بدأت دورة جديدة', course: 'تحليل المخاطر', date: 'منذ أسبوعين', icon: Play, color: 'text-primary-600 dark:text-primary-400' },
                   ].map((activity, index) => (
-                    <motion.div
+                    <div
                       key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.05, duration: 0.2, ease: 'easeOut' }}
-                      whileHover={{ y: -2, scale: 1.01 }}
-                      className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-200 ease-out"
+                      className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-neutral-50 dark:bg-neutral-800 rounded-xl hover:bg-neutral-100 dark:hover:bg-neutral-700 hover:-translate-y-0.5 hover:scale-[1.01] transition-all duration-200 ease-out"
                     >
                       <activity.icon className={`w-5 h-5 sm:w-6 sm:h-6 ${activity.color}`} aria-hidden="true" />
                       <div className="flex-1 min-w-0">
                         <p className="font-semibold text-neutral-900 dark:text-white text-sm sm:text-base">{activity.action}</p>
                         <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 truncate">{activity.course}</p>
                       </div>
-                      <span className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">{activity.date}</span>
-                    </motion.div>
-                  ))}
-                </div>
+                        <span className="text-xs sm:text-sm text-neutral-500 dark:text-neutral-400 whitespace-nowrap">{activity.date}</span>
+                      </div>
+                    ))}
+                  </MotionWrapper>
               </CardContent>
             </Card>
           </ModernTabContent>
@@ -916,7 +784,7 @@ export default function StudentProfilePage() {
             </Card>
           </ModernTabContent>
 
-        </motion.div>
+        </MotionWrapper>
       </div>
     </div>
   );

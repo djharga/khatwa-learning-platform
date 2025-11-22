@@ -1,8 +1,8 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Target, BookOpen, Globe, CheckCircle } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * Goals Section - قسم الأهداف
@@ -65,12 +65,11 @@ const GoalsSection = () => {
             ];
 
             return (
-              <motion.div
+              <MotionWrapper
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                animation="slideDown"
+                delay={index * 0.1}
+                duration={0.4}
                 className="flex flex-col p-6 lg:p-8 bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 hover:shadow-lg transition-all duration-300"
                 dir="rtl"
               >
@@ -90,7 +89,7 @@ const GoalsSection = () => {
                     {goal.description}
                   </p>
                 </div>
-              </motion.div>
+              </MotionWrapper>
             );
           })}
         </div>

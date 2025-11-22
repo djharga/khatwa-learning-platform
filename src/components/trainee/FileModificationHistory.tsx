@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState, useEffect, useMemo } from 'react';
+import { FC, useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   History,
@@ -54,11 +54,7 @@ const FileModificationHistory: FC<FileModificationHistoryProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [viewMode, setViewMode] = useState<'list' | 'tree'>('list');
 
-  useEffect(() => {
-    loadModificationHistory();
-  }, [currentUserId, courseId, fileId]);
-
-  const loadModificationHistory = async () => {
+  const loadModificationHistory = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams();
@@ -83,7 +79,11 @@ const FileModificationHistory: FC<FileModificationHistoryProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentUserId, courseId, fileId]);
+
+  useEffect(() => {
+    loadModificationHistory();
+  }, [loadModificationHistory]);
 
   const getActionIcon = (action: FileModification['action']) => {
     switch (action) {

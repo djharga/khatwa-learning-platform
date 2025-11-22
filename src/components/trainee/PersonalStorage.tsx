@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useState, useEffect, useMemo } from 'react';
+import { FC, useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   HardDrive,
@@ -54,11 +54,7 @@ const PersonalStorage: FC<PersonalStorageProps> = ({
   const [selectedFiles, setSelectedFiles] = useState<Set<string>>(new Set());
   const [currentFolder, setCurrentFolder] = useState<string | null>(null);
 
-  useEffect(() => {
-    loadStorageData();
-  }, [currentUserId]);
-
-  const loadStorageData = async () => {
+  const loadStorageData = useCallback(async () => {
     try {
       setLoading(true);
       const [quotaResponse, filesResponse] = await Promise.all([
@@ -81,7 +77,11 @@ const PersonalStorage: FC<PersonalStorageProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [currentUserId, currentFolder]);
+
+  useEffect(() => {
+    loadStorageData();
+  }, [loadStorageData]);
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
@@ -268,13 +268,12 @@ const PersonalStorage: FC<PersonalStorageProps> = ({
                 استخدام التخزين
               </span>
               <span
-                className={`text-sm font-semibold ${
-                  isStorageFull
-                    ? 'text-red-600'
-                    : isStorageWarning
+                className={`text-sm font-semibold ${isStorageFull
+                  ? 'text-red-600'
+                  : isStorageWarning
                     ? 'text-yellow-600'
                     : 'text-green-600'
-                }`}
+                  }`}
               >
                 {storagePercentage.toFixed(1)}%
               </span>
@@ -284,13 +283,12 @@ const PersonalStorage: FC<PersonalStorageProps> = ({
                 initial={{ width: 0 }}
                 animate={{ width: `${storagePercentage}%` }}
                 transition={{ duration: 0.5 }}
-                className={`h-full rounded-full ${
-                  isStorageFull
-                    ? 'bg-red-600'
-                    : isStorageWarning
+                className={`h-full rounded-full ${isStorageFull
+                  ? 'bg-red-600'
+                  : isStorageWarning
                     ? 'bg-yellow-600'
                     : 'bg-green-600'
-                }`}
+                  }`}
               />
             </div>
             <div className="flex items-center justify-between mt-2 text-xs text-gray-500 dark:text-gray-400">
@@ -299,11 +297,10 @@ const PersonalStorage: FC<PersonalStorageProps> = ({
             </div>
             {isStorageWarning && (
               <div
-                className={`mt-3 p-3 rounded-lg flex items-center gap-2 ${
-                  isStorageFull
-                    ? 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300'
-                    : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300'
-                }`}
+                className={`mt-3 p-3 rounded-lg flex items-center gap-2 ${isStorageFull
+                  ? 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-300'
+                  : 'bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300'
+                  }`}
               >
                 <AlertCircle className="w-5 h-5" />
                 <p className="text-sm">

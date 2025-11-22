@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import { Award, Trophy, Users, Calendar, Clock, ChevronDown, ChevronUp } from 'lucide-react';
 import { challenges } from './community-data';
 
@@ -77,10 +77,10 @@ export default function WeeklyChallenges() {
           </div>
         </div>
         
-        <StyledButton className="w-full bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-lg">
+        <Button className="w-full bg-white text-orange-600 hover:bg-orange-50 font-bold shadow-lg">
           <Award className="w-4 h-4 mr-2" />
           عرض جميع التحديات
-        </StyledButton>
+        </Button>
       </div>
 
       {/* Challenges List */}
@@ -156,8 +156,8 @@ export default function WeeklyChallenges() {
               </div>
 
               {/* Action Button */}
-              <StyledButton
-                variant={isJoined ? 'secondary' : 'primary'}
+              <Button
+                variant={isJoined ? 'secondary' : 'default'}
                 className={`w-full font-bold ${
                   isJoined
                     ? 'border-2 border-green-500 text-green-700 hover:bg-green-500 hover:text-white'
@@ -176,7 +176,7 @@ export default function WeeklyChallenges() {
                     انضم للتحدي
                   </>
                 )}
-              </StyledButton>
+              </Button>
             </div>
           );
         })}

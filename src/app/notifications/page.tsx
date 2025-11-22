@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Bell,
@@ -79,7 +79,7 @@ export default function NotificationsPage() {
   const [showArchived, setShowArchived] = useState(false);
 
   // Mock data - in real app, this would come from API
-  const mockNotifications: NotificationItem[] = [
+  const mockNotifications: NotificationItem[] = useMemo(() => [
     {
       id: '1',
       title: 'نتيجة امتحان جديدة متاحة',
@@ -180,7 +180,7 @@ export default function NotificationsPage() {
         instructorName: 'د. فاطمة خالد',
       },
     },
-  ];
+  ], []);
 
   useEffect(() => {
     // Simulate loading
@@ -379,11 +379,10 @@ export default function NotificationsPage() {
               {/* Sound Toggle */}
               <button
                 onClick={() => setSoundEnabled(!soundEnabled)}
-                className={`p-2 rounded-lg transition-colors ${
-                  soundEnabled
-                    ? 'bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400'
-                    : 'bg-gray-100 text-gray-600 dark:bg-gray-900/20 dark:text-gray-400'
-                }`}
+                className={`p-2 rounded-lg transition-colors ${soundEnabled
+                  ? 'bg-green-100 text-green-600 dark:bg-green-900/20 dark:text-green-400'
+                  : 'bg-gray-100 text-gray-600 dark:bg-gray-900/20 dark:text-gray-400'
+                  }`}
               >
                 {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
@@ -402,11 +401,10 @@ export default function NotificationsPage() {
               {/* Filters Toggle */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className={`p-2 rounded-lg transition-colors ${
-                  showFilters
-                    ? 'bg-primary text-white'
-                    : 'bg-surface-alt text-text-secondary hover:text-text-primary'
-                }`}
+                className={`p-2 rounded-lg transition-colors ${showFilters
+                  ? 'bg-primary text-white'
+                  : 'bg-surface-alt text-text-secondary hover:text-text-primary'
+                  }`}
               >
                 <SlidersHorizontal className="w-4 h-4" />
               </button>
@@ -476,11 +474,10 @@ export default function NotificationsPage() {
                   <div className="flex space-x-2 space-x-reverse">
                     <button
                       onClick={() => setViewMode('list')}
-                      className={`p-2 rounded-lg transition-colors ${
-                        viewMode === 'list'
-                          ? 'bg-primary text-white'
-                          : 'bg-surface-alt text-text-secondary'
-                      }`}
+                      className={`p-2 rounded-lg transition-colors ${viewMode === 'list'
+                        ? 'bg-primary text-white'
+                        : 'bg-surface-alt text-text-secondary'
+                        }`}
                     >
                       <div className="flex flex-col space-y-1">
                         <div className="w-4 h-0.5 bg-current"></div>
@@ -490,11 +487,10 @@ export default function NotificationsPage() {
                     </button>
                     <button
                       onClick={() => setViewMode('grid')}
-                      className={`p-2 rounded-lg transition-colors ${
-                        viewMode === 'grid'
-                          ? 'bg-primary text-white'
-                          : 'bg-surface-alt text-text-secondary'
-                      }`}
+                      className={`p-2 rounded-lg transition-colors ${viewMode === 'grid'
+                        ? 'bg-primary text-white'
+                        : 'bg-surface-alt text-text-secondary'
+                        }`}
                     >
                       <div className="grid grid-cols-2 gap-1">
                         <div className="w-2 h-2 bg-current rounded-sm"></div>
@@ -586,9 +582,8 @@ export default function NotificationsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
-                    className={`group relative glass-card rounded-xl border-l-4 ${colors.border} hover-lift-smooth cursor-pointer transition-all duration-200 ${
-                      !notification.read ? 'bg-blue-50/50 dark:bg-blue-900/10' : ''
-                    } ${isSelected ? 'ring-2 ring-primary' : ''}`}
+                    className={`group relative glass-card rounded-xl border-l-4 ${colors.border} hover-lift-smooth cursor-pointer transition-all duration-200 ${!notification.read ? 'bg-blue-50/50 dark:bg-blue-900/10' : ''
+                      } ${isSelected ? 'ring-2 ring-primary' : ''}`}
                     onClick={() => {
                       if (!notification.read) {
                         markAsRead(notification.id);
@@ -625,9 +620,8 @@ export default function NotificationsPage() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between mb-2">
                             <div className="flex-1">
-                              <h3 className={`font-medium mb-1 ${
-                                !notification.read ? 'text-text-primary' : 'text-text-secondary'
-                              }`}>
+                              <h3 className={`font-medium mb-1 ${!notification.read ? 'text-text-primary' : 'text-text-secondary'
+                                }`}>
                                 {notification.title}
                               </h3>
                               {notification.metadata?.courseName && (
@@ -671,11 +665,10 @@ export default function NotificationsPage() {
                                   e.stopPropagation();
                                   toggleStar(notification.id);
                                 }}
-                                className={`p-1 rounded ${
-                                  notification.starred
-                                    ? 'text-yellow-600 hover:bg-yellow-100'
-                                    : 'text-gray-600 hover:bg-gray-100'
-                                }`}
+                                className={`p-1 rounded ${notification.starred
+                                  ? 'text-yellow-600 hover:bg-yellow-100'
+                                  : 'text-gray-600 hover:bg-gray-100'
+                                  }`}
                                 title={notification.starred ? 'إلغاء التمييز' : 'تمييز'}
                               >
                                 <Star className={`w-4 h-4 ${notification.starred ? 'fill-current' : ''}`} />

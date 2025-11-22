@@ -45,12 +45,8 @@ const ProgressRing = ({
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <motion.div
-      className={`absolute top-4 right-4 z-20 ${className}`}
-      initial={{ scale: 0, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0, opacity: 0 }}
-      transition={{ duration: 0.3 }}
+    <div
+      className={`absolute top-4 right-4 z-20 animate-in fade-in zoom-in duration-300 ${className}`}
     >
       <div className="relative">
         <svg
@@ -93,7 +89,7 @@ const ProgressRing = ({
           </motion.span>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

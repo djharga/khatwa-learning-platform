@@ -2,7 +2,7 @@
 
 import SupportComponent from '../../components/SupportComponent';
 import PageBackground from '@/components/ui/PageBackground';
-import UnifiedHeroSection from '@/components/ui/UnifiedHeroSection';
+import HeroSection from '@/components/ui/HeroSection';
 import { heroPresets, heroSectionSpacing } from '@/data/hero-presets';
 
 const supportHeroPreset = heroPresets.support;
@@ -11,7 +11,7 @@ const SupportPage = () => {
   return (
     <PageBackground variant="support" pattern>
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 lg:py-20">
-        <UnifiedHeroSection {...supportHeroPreset} />
+        <HeroSection {...supportHeroPreset} />
       </div>
 
       <section

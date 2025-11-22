@@ -60,9 +60,15 @@ const QuickActionButtons: React.FC<QuickActionButtonsProps> = ({
         >
           <motion.button
             className="p-2 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-lg shadow-gray-500/20 border border-white/20 dark:border-gray-700/20 hover:bg-white dark:hover:bg-gray-800 hover:shadow-xl transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-500/50"
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
-            transition={{ duration: 0.1 }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: '0px 5px 10px rgba(0,0,0,0.1)',
+              transition: { duration: 0.2, ease: 'easeOut' }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
             onClick={onPreview}
             aria-label="معاينة الدورة"
           >
@@ -74,9 +80,15 @@ const QuickActionButtons: React.FC<QuickActionButtonsProps> = ({
                 ? 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40'
                 : 'bg-white/90 dark:bg-gray-800/90 text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800'
             }`}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
-            transition={{ duration: 0.1 }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: '0px 5px 10px rgba(0,0,0,0.1)',
+              transition: { duration: 0.2, ease: 'easeOut' }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
             onClick={onWishlist}
             aria-label={isWishlisted ? "إزالة من المفضلة" : "إضافة إلى المفضلة"}
           >
@@ -88,9 +100,15 @@ const QuickActionButtons: React.FC<QuickActionButtonsProps> = ({
                 ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40'
                 : 'bg-white/90 dark:bg-gray-800/90 text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-800'
             }`}
-            whileHover={{ scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
-            transition={{ duration: 0.1 }}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: '0px 5px 10px rgba(0,0,0,0.1)',
+              transition: { duration: 0.2, ease: 'easeOut' }
+            }}
+            whileTap={{ 
+              scale: 0.95,
+              transition: { duration: 0.1 }
+            }}
             onClick={onCompare}
             aria-label={isCompared ? "إزالة من المقارنة" : "إضافة إلى المقارنة"}
           >

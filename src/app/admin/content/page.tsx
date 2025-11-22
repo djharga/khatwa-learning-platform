@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload,
@@ -153,12 +153,7 @@ const AdminContentPage = () => {
     }
   ]);
 
-  // تحميل الملفات من API
-  useEffect(() => {
-    loadFiles();
-  }, [typeFilter, courseFilter, searchTerm]);
-
-  const loadFiles = async () => {
+  const loadFiles = useCallback(async () => {
     try {
       setLoading(true);
       const params = new URLSearchParams();
@@ -174,9 +169,9 @@ const AdminContentPage = () => {
         const mappedFiles = result.files.map((f: any) => ({
           id: f.id,
           name: f.name,
-          type: f.type === 'video' ? 'video' : 
-                f.type === 'pdf' ? 'pdf' :
-                f.type === 'excel' ? 'excel' :
+          type: f.type === 'video' ? 'video' :
+            f.type === 'pdf' ? 'pdf' :
+              f.type === 'excel' ? 'excel' :
                 f.type === 'word' ? 'word' : 'other',
           size: Math.round(f.size / 1024), // تحويل من bytes إلى KB
           uploadedAt: f.uploadedAt ? f.uploadedAt.split('T')[0] : new Date().toISOString().split('T')[0],
@@ -198,7 +193,12 @@ const AdminContentPage = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchTerm, typeFilter, courseFilter]);
+
+  // تحميل الملفات من API
+  useEffect(() => {
+    loadFiles();
+  }, [loadFiles]);
 
   // تحديث الفلاتر عند تغيير activeTab
   useEffect(() => {
@@ -218,8 +218,8 @@ const AdminContentPage = () => {
   const filteredFiles = useMemo(() => {
     return files.filter(file => {
       const matchesSearch = file.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           file.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           file.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+        file.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        file.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
 
       // استخدام activeTab للفلترة
       let matchesTab = true;
@@ -294,7 +294,7 @@ const AdminContentPage = () => {
     );
   };
 
-    const handleDeleteFile = async (fileId: string) => {
+  const handleDeleteFile = async (fileId: string) => {
     if (!confirm('هل أنت متأكد من حذف هذا الملف؟')) return;
 
     try {
@@ -328,7 +328,7 @@ const AdminContentPage = () => {
       const deletePromises = selectedFiles.map(fileId =>
         fetch(`/api/admin/content/${fileId}`, { method: 'DELETE' })
       );
-      
+
       const results = await Promise.all(deletePromises);
       const jsonResults = await Promise.all(results.map(res => res.json()));
       const allSuccess = jsonResults.every(data => data.success);
@@ -362,7 +362,7 @@ const AdminContentPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="inline-flex items-center gap-3 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-green-200/50 dark:border-green-700/50"
@@ -370,7 +370,7 @@ const AdminContentPage = () => {
             <Upload className="w-6 h-6 text-green-600 dark:text-green-400" />
             <span className="text-green-700 dark:text-green-300 font-bold">إدارة المحتوى والملفات</span>
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -378,7 +378,7 @@ const AdminContentPage = () => {
           >
             نظام إدارة المحتوى الشامل
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -529,10 +529,10 @@ const AdminContentPage = () => {
                     style={{ borderRadius: '0.75rem' }}
                   />
                 )}
-                
+
                 {/* Label */}
                 <span className="relative z-10 transition-colors duration-200">{tab.label}</span>
-                
+
                 {/* Count badge */}
                 <span className={`
                   relative z-10 px-2 py-0.5 rounded-full text-xs font-bold transition-all duration-200
@@ -543,7 +543,7 @@ const AdminContentPage = () => {
                 `}>
                   {tab.count}
                 </span>
-                
+
                 {/* Active indicator line */}
                 {activeTab === tab.id && (
                   <motion.div
@@ -656,9 +656,8 @@ const AdminContentPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 ${
-                selectedFiles.includes(file.id) ? 'ring-2 ring-green-500' : ''
-              }`}
+              className={`bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300 ${selectedFiles.includes(file.id) ? 'ring-2 ring-green-500' : ''
+                }`}
             >
               {/* رأس الملف */}
               <div className="p-4 border-b border-gray-100">

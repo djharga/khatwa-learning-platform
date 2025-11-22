@@ -1,12 +1,14 @@
 'use client';
 
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { LucideIcon, Loader2, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const inputVariants = cva(
-  'w-full border bg-white text-[#111827] rounded-[10px] transition-all duration-200 placeholder:text-[#9CA3AF] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#F3F4F6] disabled:text-[#9CA3AF] dark:bg-neutral-800 dark:text-white dark:placeholder:text-neutral-500 direction-rtl unicode-bidi-plaintext',
+  'w-full border bg-white text-[#111827] rounded-[10px] transition-all duration-300 ease-out placeholder:text-[#9CA3AF] focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-[#F3F4F6] disabled:text-[#9CA3AF] dark:bg-neutral-800 dark:text-white dark:placeholder:text-neutral-500 direction-rtl unicode-bidi-plaintext will-change-transform',
   {
     variants: {
       variant: {
@@ -29,7 +31,7 @@ const inputVariants = cva(
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    VariantProps<typeof inputVariants> {
+  VariantProps<typeof inputVariants> {
   leftIcon?: LucideIcon;
   rightIcon?: LucideIcon;
   loading?: boolean;
@@ -67,7 +69,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const hasLeft = !!LeftIcon;
     const hasRight = !!RightIcon || loading;
-    
+    const [isFocused, setIsFocused] = useState(false);
+    const prefersReducedMotion = useReducedMotion();
+
     // Determine variant based on error/success states
     let inputVariant: 'default' | 'error' | 'success' = variant || 'default';
     if (error) inputVariant = 'error';
@@ -106,6 +110,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               inputVariants({ variant: inputVariant, size }),
               hasLeft && 'ps-10',
               hasRight && 'pe-10',
+              !prefersReducedMotion && 'focus:scale-[1.01] transition-transform duration-200',
               className
             )}
             aria-invalid={error ? 'true' : undefined}
@@ -113,11 +118,19 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               error && errorMessage
                 ? `${inputId}-error`
                 : success && successMessage
-                ? `${inputId}-success`
-                : helperText
-                ? `${inputId}-helper`
-                : undefined
+                  ? `${inputId}-success`
+                  : helperText
+                    ? `${inputId}-helper`
+                    : undefined
             }
+            onFocus={(e) => {
+              setIsFocused(true);
+              props.onFocus?.(e);
+            }}
+            onBlur={(e) => {
+              setIsFocused(false);
+              props.onBlur?.(e);
+            }}
             {...props}
           />
 
@@ -138,41 +151,59 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
 
         {/* Helper Text / Error Message / Success Message */}
-        {(helperText || errorMessage || successMessage) && (
-          <div
-            id={
-              error && errorMessage
-                ? `${inputId}-error`
-                : success && successMessage
-                ? `${inputId}-success`
-                : helperText
-                ? `${inputId}-helper`
-                : undefined
-            }
-            className={cn(
-              'mt-1 flex items-center gap-1.5 text-xs',
-              error && errorMessage
-                ? 'text-[#EF4444]'
-                : success && successMessage
-                ? 'text-[#10B981]'
-                : 'text-[#6B7280] dark:text-neutral-400'
-            )}
-          >
-            {error && errorMessage && (
-              <>
-                <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
-                <span>{errorMessage}</span>
-              </>
-            )}
-            {success && successMessage && (
-              <>
-                <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0" />
-                <span>{successMessage}</span>
-              </>
-            )}
-            {!error && !success && helperText && <span>{helperText}</span>}
-          </div>
-        )}
+        <AnimatePresence>
+          {(helperText || errorMessage || successMessage) && (
+            <motion.div
+              id={
+                error && errorMessage
+                  ? `${inputId}-error`
+                  : success && successMessage
+                    ? `${inputId}-success`
+                    : helperText
+                      ? `${inputId}-helper`
+                      : undefined
+              }
+              initial={!prefersReducedMotion ? { opacity: 0, y: -5 } : {}}
+              animate={!prefersReducedMotion ? { opacity: 1, y: 0 } : {}}
+              exit={!prefersReducedMotion ? { opacity: 0, y: -5 } : {}}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className={cn(
+                'mt-1 flex items-center gap-1.5 text-xs',
+                error && errorMessage
+                  ? 'text-[#EF4444]'
+                  : success && successMessage
+                    ? 'text-[#10B981]'
+                    : 'text-[#6B7280] dark:text-neutral-400'
+              )}
+            >
+              {error && errorMessage && (
+                <>
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+                  </motion.div>
+                  <span>{errorMessage}</span>
+                </>
+              )}
+              {success && successMessage && (
+                <>
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0" />
+                  </motion.div>
+                  <span>{successMessage}</span>
+                </>
+              )}
+              {!error && !success && helperText && <span>{helperText}</span>}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }

@@ -123,9 +123,7 @@ export default function AcademicDashboard({ userName, stats }: AcademicDashboard
             <div className="flex flex-col items-center">
               <ProgressRing 
                 progress={stats.overallProgress} 
-                size="lg" 
-                color="primary"
-                showLabel
+                size={64}
               />
               <p className="mt-4 text-sm font-semibold text-neutral-700 dark:text-neutral-300">
                 التقدم الكلي

@@ -1,10 +1,8 @@
 'use client';
 
 import * as React from 'react';
-import { motion, type HTMLMotionProps } from 'framer-motion';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 /**
  * GlassCard - بطاقة زجاجية عصرية مع تأثير Glassmorphism
@@ -70,28 +68,9 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
     },
     ref
   ) => {
-    const prefersReducedMotion = useReducedMotion();
-    const shouldAnimate = hover && !prefersReducedMotion;
-
-    const motionProps: Partial<HTMLMotionProps<'div'>> = shouldAnimate
-      ? {
-          whileHover: {
-            y: -4,
-            scale: 1.02,
-            boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-            transition: { duration: 0.2, ease: [0.4, 0, 0.2, 1] }
-          },
-          whileTap: {
-            scale: 0.98,
-            y: -2,
-            transition: { duration: 0.1, ease: [0.4, 0, 1, 1] }
-          },
-        }
-      : {};
-
     const baseClassName = cn(
       glassCardVariants({ variant, size, glow }),
-      hover && 'cursor-pointer hover:shadow-elevation-4 card-interactive',
+      hover && 'cursor-pointer hover:shadow-elevation-4 hover:-translate-y-1 hover:scale-[1.02] active:scale-[0.98] active:-translate-y-0.5 card-interactive',
       shimmer &&
         'overflow-hidden before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/10 before:to-transparent before:-translate-x-full hover:before:animate-[shimmer_1.5s_ease-in-out]',
       className
@@ -100,20 +79,6 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
     const gradientOverlay = variant === 'gradient' && (
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-500/10 via-primary-400/10 to-accent-500/10 -z-10" />
     );
-
-    if (shouldAnimate) {
-      return (
-        <motion.div
-          ref={ref}
-          className={baseClassName}
-          {...motionProps}
-          {...(props as Omit<HTMLMotionProps<'div'>, 'ref'>)}
-        >
-          {gradientOverlay}
-          {children}
-        </motion.div>
-      );
-    }
 
     return (
       <div

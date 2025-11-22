@@ -48,7 +48,7 @@ import {
   BookOpen,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import { ModernTabs, ModernTabContent } from '@/components/ui/ModernTabs';
 
 export default function ReportsPage() {

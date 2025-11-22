@@ -128,10 +128,13 @@ const FeaturedCoursesSection = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                initial={{ opacity: 0, y: 30, scale: 0.96, filter: 'blur(8px)' }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -30, scale: 0.96, filter: 'blur(8px)' }}
+                transition={{ 
+                  duration: 0.7, 
+                  ease: [0.22, 1, 0.36, 1], // Custom easeOut
+                }}
                 className="w-full p-4 lg:p-6"
               >
                 {featuredCourses[currentIndex] && (
@@ -205,34 +208,40 @@ const FeaturedCoursesSection = () => {
             </AnimatePresence>
 
             {/* Navigation Arrows - Enhanced: 10% larger, clearer background, softer edges, lighter shadows */}
-            <button
+            <motion.button
               onClick={prevSlide}
               className="absolute left-6 top-1/2 -translate-y-1/2 z-20 group"
               aria-label="السابق"
+              whileHover={{ scale: 1.1, x: -2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="relative">
                 <div className="relative w-14 h-14 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg border-2 border-neutral-200 dark:border-neutral-700 flex items-center justify-center group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 group-hover:border-primary-300 dark:group-hover:border-primary-600 group-hover:shadow-xl transition-all duration-300">
                   <ChevronRight className="w-6 h-6 text-primary-600 dark:text-primary-400 group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors duration-300" strokeWidth={2.5} />
                 </div>
               </div>
-            </button>
-            <button
+            </motion.button>
+            <motion.button
               onClick={nextSlide}
               className="absolute right-6 top-1/2 -translate-y-1/2 z-20 group"
               aria-label="التالي"
+              whileHover={{ scale: 1.1, x: 2 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className="relative">
                 <div className="relative w-14 h-14 bg-white dark:bg-neutral-800 rounded-2xl shadow-lg border-2 border-neutral-200 dark:border-neutral-700 flex items-center justify-center group-hover:bg-accent-50 dark:group-hover:bg-accent-900/30 group-hover:border-accent-300 dark:group-hover:border-accent-600 group-hover:shadow-xl transition-all duration-300">
                   <ChevronLeft className="w-6 h-6 text-accent-600 dark:text-accent-400 group-hover:text-accent-700 dark:group-hover:text-accent-300 transition-colors duration-300" strokeWidth={2.5} />
                 </div>
               </div>
-            </button>
+            </motion.button>
           </div>
 
           {/* Dots Indicator */}
           <div className="flex items-center justify-center gap-3 mt-8">
             {featuredCourses.map((_, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => goToSlide(index)}
                 className={`transition-colors duration-200 ${index === currentIndex
@@ -240,6 +249,9 @@ const FeaturedCoursesSection = () => {
                   : 'w-3 h-3 bg-neutral-300 dark:bg-neutral-700 rounded-full hover:bg-neutral-400 dark:hover:bg-neutral-600'
                   }`}
                 aria-label={`انتقل إلى الشريحة ${index + 1}`}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.2 }}
               />
             ))}
           </div>

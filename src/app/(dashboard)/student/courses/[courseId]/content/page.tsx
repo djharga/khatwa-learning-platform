@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import ModuleSidebar from '@/components/course-content/ModuleSidebar';
+import SharedModuleSidebar from '@/components/course-content/SharedModuleSidebar';
 import UnitSidebar from '@/components/course-content/UnitSidebar';
 import FileList from '@/components/course-content/FileList';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 import { useCourseModules, useModuleUnits, useUnitFiles } from '@/hooks/useCourseModules';
 import type { Module, Lesson, CourseContent } from '@/types/course-management';
 
@@ -153,7 +154,7 @@ export default function CourseContentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-50 dark:bg-neutral-900 flex flex-col" dir="rtl">
+    <MotionWrapper animation="fade" className="min-h-screen bg-neutral-50 dark:bg-neutral-900 flex flex-col" dir="rtl">
       {/* Page Header */}
       <div className="bg-white dark:bg-neutral-800 border-b border-neutral-200 dark:border-neutral-700 px-6 py-4">
         <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">
@@ -167,13 +168,15 @@ export default function CourseContentPage() {
       {/* Main Content - Three Column Layout */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left Column - Modules */}
-        <ModuleSidebar
+        <SharedModuleSidebar
           modules={modules}
           selectedModuleId={selectedModuleId}
           selectedUnitId={selectedUnitId}
           onModuleSelect={handleModuleSelect}
           onUnitSelect={handleUnitSelect}
           isLoading={modulesLoading}
+          variant="content"
+          showProgress={true}
         />
 
         {/* Middle Column - Units */}
@@ -219,6 +222,6 @@ export default function CourseContentPage() {
           </div>
         )}
       </div>
-    </div>
+    </MotionWrapper>
   );
 }

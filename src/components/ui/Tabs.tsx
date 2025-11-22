@@ -69,10 +69,13 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, T
 
         {!disableIndicator && (
           <motion.div
-            className="absolute bottom-0 h-0.5 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"
+            className="absolute bottom-0 h-0.5 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full shadow-[0_0_8px_rgba(91,54,232,0.4)]"
             initial={false}
             animate={indicatorStyle}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{ 
+              duration: 0.3, 
+              ease: [0.22, 1, 0.36, 1], // Custom easeOut
+            }}
             style={{ transformOrigin: 'left' }}
           />
         )}
@@ -85,36 +88,49 @@ TabsList.displayName = TabsPrimitive.List.displayName;
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>
->(({ className, ...props }, ref) => (
-  <TabsPrimitive.Trigger
-    ref={ref}
-    className={cn(
-      'flex-1 min-w-[100px] select-none rounded-lg px-4 py-2 text-sm font-medium transition',
-      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-      'data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-900 data-[state=active]:text-primary-600 dark:data-[state=active]:text-primary-400 data-[state=active]:shadow-sm',
-      'hover:bg-neutral-50 dark:hover:bg-neutral-800/80 hover:text-primary-600 dark:hover:text-primary-400',
-      'text-neutral-700 dark:text-neutral-300 disabled:opacity-50 disabled:pointer-events-none',
-      className
-    )}
-    {...props}
-  />
-));
+>(({ className, ...props }, ref) => {
+  const prefersReducedMotion = React.useContext(React.createContext(false));
+  
+  return (
+    <TabsPrimitive.Trigger
+      ref={ref}
+      className={cn(
+        'flex-1 min-w-[100px] select-none rounded-lg px-4 py-2 text-sm font-medium transition-all duration-300 ease-out',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
+        'data-[state=active]:bg-white dark:data-[state=active]:bg-neutral-900 data-[state=active]:text-primary-600 dark:data-[state=active]:text-primary-400 data-[state=active]:shadow-sm',
+        'hover:bg-neutral-50 dark:hover:bg-neutral-800/80 hover:text-primary-600 dark:hover:text-primary-400 hover:scale-105',
+        'text-neutral-700 dark:text-neutral-300 disabled:opacity-50 disabled:pointer-events-none',
+        'active:scale-95',
+        className
+      )}
+      {...props}
+    />
+  );
+});
 TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
       'mt-4 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 bg-white/90 dark:bg-neutral-900/80 backdrop-blur-sm',
       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-      'data-[state=active]:animate-fade-in', // تأكد من تعريف animate-fade-in في CSS
       className
     )}
     {...props}
-  />
+  >
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  </TabsPrimitive.Content>
 ));
 TabsContent.displayName = TabsPrimitive.Content.displayName;
 

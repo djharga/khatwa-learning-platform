@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { GraduationCap, Sparkles, Target } from 'lucide-react';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * Khatwa Info Card - بطاقة معلومات خطى
@@ -10,11 +10,9 @@ import { GraduationCap, Sparkles, Target } from 'lucide-react';
 
 const KhatwaInfoCard = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
+    <MotionWrapper
+      animation="slideDown"
+      duration={0.5}
       className="relative max-w-4xl mx-auto"
     >
       {/* Compact Card */}
@@ -27,34 +25,23 @@ const KhatwaInfoCard = () => {
         <div className="relative z-10 p-6 lg:p-8">
           {/* Header */}
           <div className="text-center mb-6">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.4 }}
-              className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg"
-            >
+            <MotionWrapper animation="scale" delay={0.1} duration={0.4} className="inline-flex items-center justify-center w-12 h-12 mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-lg">
               <GraduationCap className="w-6 h-6 text-white" />
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white mb-4"
-            >
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                ما يميزنا
-              </span>
-            </motion.h2>
+            </MotionWrapper>
+            <MotionWrapper animation="slideDown" delay={0.2} duration={0.5}>
+              <h2 className="text-2xl lg:text-3xl font-bold text-neutral-900 dark:text-white mb-4">
+                <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                  ما يميزنا
+                </span>
+              </h2>
+            </MotionWrapper>
           </div>
 
           {/* Description */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
+          <MotionWrapper
+            animation="slideDown"
+            delay={0.3}
+            duration={0.5}
             className="space-y-3 mb-6"
           >
             <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed text-center">
@@ -63,14 +50,13 @@ const KhatwaInfoCard = () => {
             <p className="text-sm lg:text-base text-neutral-600 dark:text-neutral-400 leading-relaxed text-center">
               نحن لا نعلّمك فقط المعلومة، بل نمنحك الخبرة التي تبني مسارك المهني واقعيًا.
             </p>
-          </motion.div>
+          </MotionWrapper>
 
           {/* Footer Icons - Compact */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
+          <MotionWrapper
+            animation="fade"
+            delay={0.4}
+            duration={0.5}
             className="flex items-center justify-center gap-6 pt-4 border-t border-indigo-200/30 dark:border-indigo-800/30"
           >
             <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400">
@@ -87,10 +73,10 @@ const KhatwaInfoCard = () => {
               <Sparkles className="w-4 h-4 text-pink-500" />
               <span className="text-xs lg:text-sm font-medium">استشارات</span>
             </div>
-          </motion.div>
+          </MotionWrapper>
         </div>
       </div>
-    </motion.div>
+    </MotionWrapper>
   );
 };
 

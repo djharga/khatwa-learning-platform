@@ -108,7 +108,7 @@ const BackgroundPatterns: React.FC<BackgroundPatternsProps> = memo(({
       default:
         return null;
     }
-  }, [variant, GridPattern, DotPattern, CircularPattern, DiagonalPattern]);
+  }, [variant, GridPattern, DotPattern, CircularPattern]);
 
   return patternComponent;
 });

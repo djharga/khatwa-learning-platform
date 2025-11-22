@@ -25,11 +25,12 @@ interface Module {
 interface CurriculumProps {
   modules: Module[];
   courseId: string;
+  courseSlug?: string; // إضافة slug للكورس
   hasAccess?: boolean;
   onPreviewLesson?: (lessonId: string) => void;
 }
 
-export default function Curriculum({ modules, courseId, hasAccess = false, onPreviewLesson }: CurriculumProps) {
+export default function Curriculum({ modules, courseId, courseSlug, hasAccess = false, onPreviewLesson }: CurriculumProps) {
   const [expandedModules, setExpandedModules] = useState<Set<string>>(new Set());
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -166,7 +167,11 @@ export default function Curriculum({ modules, courseId, hasAccess = false, onPre
                             transition={{ duration: 0.2, ease: 'easeOut' }}
                           >
                             <LessonComponent
-                              href={canAccess && !lesson.isLocked ? `/student/courses/${courseId}/lesson/${lesson.id}` : '#'}
+                              href={canAccess && !lesson.isLocked 
+                                ? (courseSlug 
+                                    ? `/courses/${courseSlug}/lesson/${lesson.id}` 
+                                    : `/student/courses/${courseId}/lesson/${lesson.id}`)
+                                : '#'}
                               className={`flex items-center justify-between p-3 min-h-[44px] rounded-lg transition-all duration-200 ease-out ${
                                 lesson.isLocked || !canAccess
                                   ? 'bg-neutral-50 dark:bg-neutral-700/30 opacity-60 cursor-not-allowed'

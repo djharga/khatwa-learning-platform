@@ -2,11 +2,10 @@
 
 import { usePathname } from 'next/navigation';
 import { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
 
 import EnhancedNavbar from '../components/layout/EnhancedNavbar';
 import AppSidebar from '../components/layout/AppSidebar';
-import { PageTransition } from '../components/ui/PageTransition';
+import { MotionWrapper } from '../components/ui/motion/MotionWrapper';
 import { ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -104,12 +103,12 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
       <EnhancedNavbar />
       {isAppShellRoute && <AppSidebar />}
 
-      <PageTransition>
+      <MotionWrapper>
         <main
           id="main-content"
           role="main"
           tabIndex={-1}
-          className={`px-4 py-6 sm:py-8 ${resolvedPaddingClass} lg:pe-6 xl:pe-8 lg:py-10 xl:py-12 pt-16 lg:pt-20 pb-20 md:pb-8 min-h-[calc(100vh-5rem)] transition-[padding-inline-start] duration-[200ms] ease-out`}
+          className={`px-4 py-6 sm:py-8 ${resolvedPaddingClass} lg:pe-6 xl:pe-8 lg:py-10 xl:py-12 pt-16 lg:pt-20 pb-20 md:pb-8 min-h-[calc(100vh-5rem)] transition-[padding-inline-start] duration-200 ease-out`}
           style={{ 
             position: 'relative', 
             zIndex: 1
@@ -118,26 +117,20 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
           {/* زر الرجوع */}
           {pathname !== '/' && (
             <div className="mb-4 sm:mb-6 max-w-7xl mx-auto">
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
+              <Link
+                href={pathname?.includes('/courses/') ? '/courses' : '/'}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 rounded-lg shadow-elevation-1 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-elevation-2 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 ease-out font-medium text-sm min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
               >
-                <Link
-                  href={pathname?.includes('/courses/') ? '/courses' : '/'}
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-neutral-800 rounded-lg shadow-elevation-1 border border-neutral-200 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 hover:shadow-elevation-2 transition-all duration-[200ms] ease-out font-medium text-sm min-h-[44px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                  <span>رجوع</span>
-                </Link>
-              </motion.div>
+                <ArrowRight className="w-4 h-4" />
+                <span>رجوع</span>
+              </Link>
             </div>
           )}
 
           {/* المحتوى الرئيسي */}
           <div className="max-w-7xl mx-auto w-full">{children}</div>
         </main>
-      </PageTransition>
+      </MotionWrapper>
     </>
   );
 }

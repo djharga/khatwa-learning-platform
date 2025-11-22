@@ -40,6 +40,7 @@ import {
   Save,
   X,
 } from 'lucide-react';
+import NextImage from 'next/image';
 import { useAdminStore, type AdminCourse } from '@/lib/store/admin-store';
 
 interface Module {
@@ -118,8 +119,8 @@ const AdminCoursesPage = () => {
   const filteredCourses = useMemo(() => {
     return courses.filter(course => {
       const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
+        course.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.instructor.toLowerCase().includes(searchTerm.toLowerCase());
 
       // استخدام activeTab للفلترة
       let matchesTab = true;
@@ -295,7 +296,7 @@ const AdminCoursesPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-12"
         >
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/30 dark:to-indigo-900/30 px-6 py-3 rounded-full mb-6 shadow-lg border border-purple-200/50 dark:border-purple-700/50"
@@ -303,7 +304,7 @@ const AdminCoursesPage = () => {
             <BookOpen className="w-6 h-6 text-purple-600 dark:text-purple-400" />
             <span className="text-purple-700 dark:text-purple-300 font-bold">إدارة الدورات والمحتوى</span>
           </motion.div>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -311,7 +312,7 @@ const AdminCoursesPage = () => {
           >
             نظام إدارة الدورات الشامل
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -487,10 +488,10 @@ const AdminCoursesPage = () => {
                     style={{ borderRadius: '0.75rem' }}
                   />
                 )}
-                
+
                 {/* Label */}
                 <span className="relative z-10 transition-colors duration-200">{tab.label}</span>
-                
+
                 {/* Count badge */}
                 <span className={`
                   relative z-10 px-2 py-0.5 rounded-full text-xs font-bold transition-all duration-200
@@ -501,7 +502,7 @@ const AdminCoursesPage = () => {
                 `}>
                   {tab.count}
                 </span>
-                
+
                 {/* Active indicator line */}
                 {activeTab === tab.id && (
                   <motion.div
@@ -607,16 +608,15 @@ const AdminCoursesPage = () => {
                 <div className="absolute top-4 right-4">
                   <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(course.status)}`}>
                     {course.status === 'active' ? <CheckCircle className="w-3 h-3" /> :
-                     course.status === 'review' ? <Clock className="w-3 h-3" /> :
-                     course.status === 'suspended' ? <XCircle className="w-3 h-3" /> :
-                     <XCircle className="w-3 h-3" />}
+                      course.status === 'review' ? <Clock className="w-3 h-3" /> :
+                        course.status === 'suspended' ? <XCircle className="w-3 h-3" /> :
+                          <XCircle className="w-3 h-3" />}
                     {getStatusLabel(course.status)}
                   </span>
                 </div>
                 <div className="absolute bottom-4 right-4">
-                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    course.type === 'short' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
-                  }`}>
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${course.type === 'short' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                    }`}>
                     {getTypeLabel(course.type)}
                   </span>
                 </div>
@@ -810,7 +810,14 @@ const AdminCoursesPage = () => {
                 <div className="p-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
-                      <img src={selectedCourse.image} alt={selectedCourse.title} className="w-full h-48 object-cover rounded-lg" />
+                      <div className="relative w-full h-48">
+                        <NextImage
+                          src={selectedCourse.image}
+                          alt={selectedCourse.title}
+                          fill
+                          className="object-cover rounded-lg"
+                        />
+                      </div>
                     </div>
                     <div>
                       <h4 className="text-2xl font-bold text-gray-900 mb-2">{selectedCourse.title}</h4>
@@ -880,15 +887,15 @@ const AdminCoursesPage = () => {
 
                   <div className="flex gap-3">
                     <motion.button
-                                              className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => {
-                          setShowEditCourseModal(true);
-                        }}
-                      >
-                        تعديل الدورة
-                      </motion.button>
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => {
+                        setShowEditCourseModal(true);
+                      }}
+                    >
+                      تعديل الدورة
+                    </motion.button>
                     <motion.button
                       className="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-semibold transition-colors"
                       whileHover={{ scale: 1.05 }}
@@ -937,11 +944,11 @@ const AdminCoursesPage = () => {
 };
 
 // نموذج إضافة دورة جديدة
-function AddCourseModal({ 
-  onClose, 
-  onSave 
-}: { 
-  onClose: () => void; 
+function AddCourseModal({
+  onClose,
+  onSave
+}: {
+  onClose: () => void;
   onSave: (data: Partial<AdminCourse> & { imageFile?: File }) => void;
 }) {
   const [formData, setFormData] = useState({
@@ -960,25 +967,25 @@ function AddCourseModal({
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.title.trim()) {
       newErrors.title = 'عنوان الدورة مطلوب';
     }
-    
+
     if (!formData.description.trim()) {
       newErrors.description = 'وصف الدورة مطلوب';
     } else if (formData.description.trim().length < 50) {
       newErrors.description = 'الوصف يجب أن يكون 50 حرفاً على الأقل';
     }
-    
+
     if (!formData.instructor.trim()) {
       newErrors.instructor = 'اسم المعلم مطلوب';
     }
-    
+
     if (formData.type === 'long' && !formData.endDate) {
       newErrors.endDate = 'تاريخ الانتهاء مطلوب للدورات الطويلة';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -1007,7 +1014,7 @@ function AddCourseModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    
+
     setLoading(true);
     try {
       await onSave({
@@ -1058,9 +1065,8 @@ function AddCourseModal({
                 setFormData({ ...formData, title: e.target.value });
                 if (errors.title) setErrors({ ...errors, title: '' });
               }}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.title ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.title ? 'border-red-500' : 'border-gray-300'
+                }`}
               placeholder="مثال: دورة المراجعة الداخلية المستوى الأول"
             />
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
@@ -1076,9 +1082,8 @@ function AddCourseModal({
                 setFormData({ ...formData, description: e.target.value });
                 if (errors.description) setErrors({ ...errors, description: '' });
               }}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.description ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.description ? 'border-red-500' : 'border-gray-300'
+                }`}
               placeholder="وصف شامل للدورة..."
             />
             {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
@@ -1095,9 +1100,8 @@ function AddCourseModal({
                   setFormData({ ...formData, instructor: e.target.value });
                   if (errors.instructor) setErrors({ ...errors, instructor: '' });
                 }}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.instructor ? 'border-red-500' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.instructor ? 'border-red-500' : 'border-gray-300'
+                  }`}
                 placeholder="مثال: د. أحمد محمد"
               />
               {errors.instructor && <p className="text-red-500 text-sm mt-1">{errors.instructor}</p>}
@@ -1137,9 +1141,8 @@ function AddCourseModal({
                   setFormData({ ...formData, endDate: e.target.value });
                   if (errors.endDate) setErrors({ ...errors, endDate: '' });
                 }}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.endDate ? 'border-red-500' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.endDate ? 'border-red-500' : 'border-gray-300'
+                  }`}
                 min={formData.startDate}
               />
               {errors.endDate && <p className="text-red-500 text-sm mt-1">{errors.endDate}</p>}
@@ -1163,10 +1166,12 @@ function AddCourseModal({
                 {imageFile ? 'تغيير الصورة' : 'اختر صورة'}
               </label>
               {imagePreview && (
-                <img
+                <NextImage
                   src={imagePreview}
                   alt="Preview"
-                  className="w-24 h-24 object-cover rounded-lg"
+                  width={96}
+                  height={96}
+                  className="object-cover rounded-lg"
                 />
               )}
             </div>
@@ -1196,13 +1201,13 @@ function AddCourseModal({
 }
 
 // نموذج تعديل دورة
-function EditCourseModal({ 
-  course, 
-  onClose, 
-  onSave 
-}: { 
+function EditCourseModal({
+  course,
+  onClose,
+  onSave
+}: {
   course: AdminCourse;
-  onClose: () => void; 
+  onClose: () => void;
   onSave: (courseId: string, data: Partial<AdminCourse> & { imageFile?: File }) => void;
 }) {
   const [formData, setFormData] = useState({
@@ -1221,21 +1226,21 @@ function EditCourseModal({
 
   const validate = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.title.trim()) {
       newErrors.title = 'عنوان الدورة مطلوب';
     }
-    
+
     if (!formData.description.trim()) {
       newErrors.description = 'وصف الدورة مطلوب';
     } else if (formData.description.trim().length < 50) {
       newErrors.description = 'الوصف يجب أن يكون 50 حرفاً على الأقل';
     }
-    
+
     if (!formData.instructor.trim()) {
       newErrors.instructor = 'اسم المعلم مطلوب';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -1264,7 +1269,7 @@ function EditCourseModal({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    
+
     setLoading(true);
     try {
       await onSave(course.id, {
@@ -1316,9 +1321,8 @@ function EditCourseModal({
                 setFormData({ ...formData, title: e.target.value });
                 if (errors.title) setErrors({ ...errors, title: '' });
               }}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.title ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.title ? 'border-red-500' : 'border-gray-300'
+                }`}
             />
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
           </div>
@@ -1333,9 +1337,8 @@ function EditCourseModal({
                 setFormData({ ...formData, description: e.target.value });
                 if (errors.description) setErrors({ ...errors, description: '' });
               }}
-              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                errors.description ? 'border-red-500' : 'border-gray-300'
-              }`}
+              className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.description ? 'border-red-500' : 'border-gray-300'
+                }`}
             />
             {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
           </div>
@@ -1351,9 +1354,8 @@ function EditCourseModal({
                   setFormData({ ...formData, instructor: e.target.value });
                   if (errors.instructor) setErrors({ ...errors, instructor: '' });
                 }}
-                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                  errors.instructor ? 'border-red-500' : 'border-gray-300'
-                }`}
+                className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${errors.instructor ? 'border-red-500' : 'border-gray-300'
+                  }`}
               />
               {errors.instructor && <p className="text-red-500 text-sm mt-1">{errors.instructor}</p>}
             </div>
@@ -1411,10 +1413,12 @@ function EditCourseModal({
                 {imageFile ? 'تغيير الصورة' : 'اختر صورة جديدة'}
               </label>
               {imagePreview && (
-                <img
+                <NextImage
                   src={imagePreview}
                   alt="Preview"
-                  className="w-24 h-24 object-cover rounded-lg"
+                  width={96}
+                  height={96}
+                  className="object-cover rounded-lg"
                 />
               )}
             </div>

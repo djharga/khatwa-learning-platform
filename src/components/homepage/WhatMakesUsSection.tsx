@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { Container } from '@/components/ui/primitives';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * What Makes Us Section - قسم ما يميزنا
@@ -12,11 +12,9 @@ const WhatMakesUsSection = () => {
   return (
     <section className="relative py-8 lg:py-10 overflow-hidden">
       <Container size="xl" className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <MotionWrapper
+          animation="slideDown"
+          duration={0.5}
           className="max-w-4xl mx-auto"
         >
           <div className="bg-white dark:bg-neutral-900 rounded-2xl p-6 lg:p-8 border border-neutral-200 dark:border-neutral-700 shadow-xl" dir="rtl">
@@ -40,7 +38,7 @@ const WhatMakesUsSection = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </MotionWrapper>
       </Container>
     </section>
   );

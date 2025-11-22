@@ -243,9 +243,7 @@ export default function AcademicDashboardEnhanced({ userName, stats }: AcademicD
             <div className="flex flex-col items-center">
               <ProgressRing
                 progress={stats.overallProgress}
-                size="xl"
-                color="primary"
-                showLabel
+                size={80}
               />
               <div className="mt-6 grid grid-cols-3 gap-4 w-full">
                 <div className="text-center">

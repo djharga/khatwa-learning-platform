@@ -12,5 +12,11 @@ export type {
   HeroCTA,
   HeroBadge,
   HeroStat,
+  HeroAction,
+  HeroVisual,
+  LegacyHeroVariant,
+  UnifiedHeroVariant,
+  UnifiedHeroLayout,
+  UnifiedHeroSectionProps, // Backward compatibility alias
 } from './HeroSection.types';
 

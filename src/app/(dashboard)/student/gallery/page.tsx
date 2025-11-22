@@ -30,7 +30,7 @@ import {
   Heart,
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/Card';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 
 interface ImageItem {
   id: string;

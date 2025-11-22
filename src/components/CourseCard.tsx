@@ -16,9 +16,9 @@ import { useCourseCardState } from '@/hooks/useCourseCardState';
 import { CourseCardActionsProps, useCourseCardActions } from '@/hooks/useCourseCardActions';
 import { useRippleEffect } from '@/hooks/useRippleEffect';
 import { safeFormatNumber } from '@/lib/numberUtils';
-import { BadgeList, ProgressRing, PriceBadge, CourseImage, QuickActionButtons, InstructorInfoCard, CourseMeta, ActionButtons } from './CourseCard/';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
-import { motion as motionTokens } from '@/tokens';
+import { BadgeList, ProgressRing, PriceBadge, CourseImage, QuickActionButtons, InstructorInfoCard, CourseMeta, ActionButtons } from './CourseCard/';
+import { MotionWrapper } from './ui/motion/MotionWrapper';
 
 /**
  * Course card component with two display variants (compact and default). Features animated progress indicators, interactive badges, instructor information with hover card, course statistics, file type breakdown, and action buttons. Supports bookmark, wishlist, compare, and enrollment actions with loading states and ripple effects.
@@ -51,35 +51,29 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
   const courseIndex = parseInt(course.id?.toString().slice(-1) || '0', 10) % 3;
   const gradientIndex = courseIndex + 1;
 
-  // Motion props for card interactions
-  const cardMotionProps = prefersReducedMotion || isLoading
-    ? {}
-    : {
-      whileHover: isCompact
-        ? { x: -4, scale: 1.01, transition: motionTokens.cardInteractions.hover.transition }
-        : { y: -8, scale: 1.02, transition: motionTokens.cardInteractions.hover.transition },
-      whileTap: motionTokens.cardInteractions.press,
-      transition: motionTokens.cardInteractions.hover.transition,
-    };
+  // Hover classes for card interactions
+  const hoverClasses = isCompact
+    ? 'hover:-translate-x-1.5 hover:scale-[1.02]'
+    : 'hover:-translate-y-2.5 hover:scale-[1.03]';
 
   // Compute className using discrete segments for readability
   const baseCardClassName =
-    'group course-card-box relative bg-white/95 dark:bg-neutral-800/95 backdrop-blur-xl rounded-2xl shadow-elevation-2 hover:shadow-elevation-5 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-primary-300/70 dark:hover:border-primary-600/70 transition-all duration-300 ease-out overflow-hidden h-full flex flex-col';
+    'group course-card-box relative bg-white/95 dark:bg-neutral-800/95 backdrop-blur-xl rounded-2xl shadow-elevation-2 hover:shadow-elevation-5 border border-neutral-200/50 dark:border-neutral-700/50 hover:border-primary-300/70 dark:hover:border-primary-600/70 transition-all duration-300 ease-out overflow-hidden h-full flex flex-col active:scale-[0.97]';
   const layoutClassName = isCompact
     ? 'flex-row'
     : '';
-  const animationClassName = isMounted ? 'animate-fadeInUp' : 'opacity-0';
-  const cardClassName = `${baseCardClassName} ${layoutClassName} ${animationClassName}`;
+  const cardClassName = `${baseCardClassName} ${layoutClassName} ${hoverClasses}`;
   return (
     <div className="course-card-wrapper relative" data-gradient-index={gradientIndex}>
-      <motion.div
+      <MotionWrapper
+        animation="scale"
+        delay={0.1}
         className={cardClassName}
         style={{
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(91, 54, 232, 0.05)',
         }}
         role="article"
         aria-label={`دورة: ${course.title}`}
-        {...cardMotionProps}
       >
         {/* Gradient Border Glow on Hover */}
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary-500/0 via-academic-accent-500/0 to-accent-500/0 group-hover:from-primary-500/10 group-hover:via-academic-accent-500/10 group-hover:to-accent-500/10 transition-all duration-300 pointer-events-none -z-10" />
@@ -112,23 +106,14 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
           )}
 
           {/* Enhanced Hover Overlay with Academic Style - Improved Animation */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/30 to-transparent"
-            initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.3, ease: 'easeOut' }}
-          >
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-900/80 via-primary-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="absolute bottom-4 left-4 right-4">
-              <motion.div
-                className="flex items-center gap-2 text-white text-sm font-semibold backdrop-blur-sm bg-white/10 px-3 py-2 rounded-lg border border-white/20"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <div className="flex items-center gap-2 text-white text-sm font-semibold backdrop-blur-sm bg-white/10 px-3 py-2 rounded-lg border border-white/20 hover:scale-105 active:scale-95 transition-transform duration-200">
                 <Play className="w-5 h-5" />
                 <span>معاينة الدورة</span>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         {/* Content Section */}
@@ -278,7 +263,7 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
             )}
           </div>
         </div>
-      </motion.div>
+      </MotionWrapper>
     </div>
   );
 };

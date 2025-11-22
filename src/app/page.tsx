@@ -6,7 +6,7 @@ import PageBackground from '@/components/ui/PageBackground';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 import { ScrollAnimation } from '@/components/ui';
-import UnifiedHeroSection from '@/components/ui/UnifiedHeroSection';
+import HeroSection from '@/components/ui/HeroSection';
 import { heroPresets, heroSectionSpacing } from '@/data/hero-presets';
 
 // ✦ Lazy Loading للأقسام ✦
@@ -78,7 +78,7 @@ export default function HomePage() {
 
       {/* ✦ Hero Section الموحّد ✦ */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16">
-        <UnifiedHeroSection {...heroPresets.home} className="mx-auto" />
+        <HeroSection {...heroPresets.home} className="mx-auto" />
       </div>
 
       {/* ✦ أقسام الصفحة ✦ - مع Scroll Animations المحسّنة */}

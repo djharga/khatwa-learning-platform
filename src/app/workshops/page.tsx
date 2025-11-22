@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Building, ChevronUp, Crown, GraduationCap, HelpCircle, Star, TrendingUp, User, Users, BookOpen, Brain, Shield, CheckCircle, CreditCard, Warehouse, FileText, Calculator, Award, Lock, EyeOff, FileX, HardDrive, Smartphone, Target, Heart, Zap, Globe, Calendar, Clock, MapPin } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import PageBackground from '@/components/ui/PageBackground';
+import ScrollToTopButton from '@/components/ui/ScrollToTopButton';
 
 // Lazy load heavy components
 const ChatAssistantWidget = dynamic(() => import('@/components/ChatAssistantWidget'), {
@@ -20,7 +21,6 @@ const ContactComponent = dynamic(() => import('@/components/ContactComponent'), 
 
 export default function WorkshopsPage() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,17 +28,11 @@ export default function WorkshopsPage() {
         document.documentElement.scrollHeight - window.innerHeight;
       const progress = (window.pageYOffset / totalHeight) * 100;
       setScrollProgress(progress);
-
-      setShowScrollToTop(window.pageYOffset > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
 
   return (
     <PageBackground variant="home">
@@ -368,17 +362,12 @@ export default function WorkshopsPage() {
       <ChatAssistantWidget />
 
       {/* زر العودة للأعلى */}
-      <AnimatePresence>
-        {showScrollToTop && (
-          <button
-            className="group fixed bottom-8 right-8 z-40 bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:scale-105"
-            onClick={scrollToTop}
-            aria-label="العودة إلى الأعلى"
-          >
-            <ChevronUp className="w-6 h-6 transition-transform group-hover:-translate-y-0.5" />
-          </button>
-        )}
-      </AnimatePresence>
+      <ScrollToTopButton 
+        threshold={300}
+        position="right"
+        offset="bottom-8 right-8"
+        size="md"
+      />
     </PageBackground>
   );
 }

@@ -93,16 +93,19 @@ export default function ScrollToTopButton({
             boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1)'
           }}
           aria-label="العودة إلى الأعلى"
-          initial={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, y: 20 }}
-          animate={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1, y: 0 }}
-          exit={prefersReducedMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8, y: 20 }}
-          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.2, ease: 'easeOut' }}
+          initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1 }}
+          exit={prefersReducedMotion ? { opacity: 1 } : { opacity: 0 }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.25, ease: 'easeOut' }}
           whileHover={prefersReducedMotion ? {} : { 
             scale: 1.05,
-            backgroundColor: 'rgba(168, 85, 247, 0.9)',
-            boxShadow: '0 6px 16px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15)'
+            boxShadow: '0px 5px 10px rgba(0,0,0,0.1)',
+            transition: { duration: 0.2 }
           }}
-          whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
+          whileTap={prefersReducedMotion ? {} : { 
+            scale: 0.95,
+            transition: { duration: 0.1 }
+          }}
         >
           <ChevronUp className={iconSizes[size]} aria-hidden="true" strokeWidth={2.5} />
         </motion.button>

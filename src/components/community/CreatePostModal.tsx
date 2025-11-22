@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import StyledButton from '@/components/ui/StyledButton';
+import { Button } from '@/components/ui/Button';
 import { X, Hash, AlertCircle } from 'lucide-react';
 
 interface CreatePostModalProps {
@@ -183,7 +183,7 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit }: CreatePos
                   disabled={tags.length >= 5}
                 />
               </div>
-              <StyledButton
+              <Button
                 type="button"
                 onClick={handleAddTag}
                 disabled={!tagInput.trim() || tags.length >= 5}
@@ -191,7 +191,7 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit }: CreatePos
                 size="default"
               >
                 إضافة
-              </StyledButton>
+              </Button>
             </div>
 
             {/* Tags Display */}
@@ -221,22 +221,22 @@ export default function CreatePostModal({ isOpen, onClose, onSubmit }: CreatePos
 
           {/* Action Buttons */}
           <div className="flex gap-3 pt-3">
-            <StyledButton 
+            <Button 
               type="submit" 
-              variant="primary"
+              variant="default"
               size="lg"
-              fullWidth
+              className="w-full"
             >
               نشر المنشور
-            </StyledButton>
-            <StyledButton 
+            </Button>
+            <Button 
               type="button" 
               variant="secondary" 
               onClick={handleClose} 
               size="lg"
             >
               إلغاء
-            </StyledButton>
+            </Button>
           </div>
         </form>
       </div>

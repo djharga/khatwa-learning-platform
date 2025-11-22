@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ROUTES } from '@/lib/routes';
 import { ArrowLeft } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
-import { motion } from 'framer-motion';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * CTA Section - دعوة للعمل النهائية
@@ -17,11 +17,9 @@ const CTASection = () => {
       <Container size="xl" className="relative z-10">
         <div className="max-w-4xl mx-auto">
           {/* Compact Card - Lightened background, clearer border */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+          <MotionWrapper
+            animation="slideDown"
+            duration={0.5}
             className="relative bg-white dark:bg-neutral-900 rounded-2xl p-8 lg:p-12 border border-neutral-200 dark:border-neutral-700 shadow-xl"
             dir="rtl"
           >
@@ -42,18 +40,14 @@ const CTASection = () => {
               {/* CTA Button */}
               <div className="pt-2">
                 <Link href={ROUTES.REGISTER}>
-                  <motion.button
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 text-white rounded-xl font-bold text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
+                  <button className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 text-white rounded-xl font-bold text-base lg:text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 active:scale-[0.98]">
                     <span>ابدأ الآن</span>
                     <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" />
-                  </motion.button>
+                  </button>
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </MotionWrapper>
         </div>
       </Container>
     </section>

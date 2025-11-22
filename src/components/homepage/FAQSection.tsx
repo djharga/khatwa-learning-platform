@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { HelpCircle, ChevronDown, MessageCircle } from 'lucide-react';
 import { Container } from '@/components/ui/primitives';
 import { ROUTES } from '@/lib/routes';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 
 /**
  * FAQ Section - الأسئلة الشائعة
@@ -61,59 +62,40 @@ const FAQSection = () => {
   return (
     <section className="relative py-12 lg:py-16 overflow-hidden">
       <Container size="xl" className="relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+        <MotionWrapper
+          animation="slideDown"
+          duration={0.5}
           className="relative max-w-5xl mx-auto"
         >
           {/* Header Card */}
           <div className="text-center mb-8">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-lg"
-            >
+            <MotionWrapper animation="scale" delay={0.2} duration={0.4} className="inline-flex items-center justify-center w-16 h-16 mb-6 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl shadow-lg">
               <HelpCircle className="w-8 h-8 text-white" />
-            </motion.div>
+            </MotionWrapper>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4"
-              dir="rtl"
-            >
-              <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 bg-clip-text text-transparent">
-                الأسئلة الشائعة
-              </span>
-            </motion.h2>
+            <MotionWrapper animation="slideDown" delay={0.1} duration={0.5}>
+              <h2 className="text-3xl lg:text-4xl font-extrabold text-neutral-900 dark:text-white mb-4" dir="rtl">
+                <span className="bg-gradient-to-r from-primary-600 via-primary-500 to-primary-600 bg-clip-text text-transparent">
+                  الأسئلة الشائعة
+                </span>
+              </h2>
+            </MotionWrapper>
 
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed"
-              dir="rtl"
-            >
-              أجوبة على الأسئلة الأكثر شيوعاً حول المنصة والخدمات
-            </motion.p>
+            <MotionWrapper animation="slideDown" delay={0.2} duration={0.5}>
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto leading-relaxed" dir="rtl">
+                أجوبة على الأسئلة الأكثر شيوعاً حول المنصة والخدمات
+              </p>
+            </MotionWrapper>
           </div>
 
           {/* FAQ Items */}
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
+              <MotionWrapper
                 key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
+                animation="slideDown"
+                delay={index * 0.1}
+                duration={0.4}
               >
                 <div
                   className={`relative overflow-hidden rounded-2xl bg-white dark:bg-neutral-800 border transition-all duration-300 ${
@@ -191,16 +173,15 @@ const FAQSection = () => {
                     </>
                   )}
                 </div>
-              </motion.div>
+              </MotionWrapper>
             ))}
           </div>
 
           {/* CTA Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+          <MotionWrapper
+            animation="slideDown"
+            delay={0.6}
+            duration={0.5}
             className="mt-8 text-center"
           >
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-primary-50 dark:bg-primary-900/20 rounded-full border border-primary-200/50 dark:border-primary-700/50" dir="rtl">
@@ -215,8 +196,8 @@ const FAQSection = () => {
                 </a>
               </p>
             </div>
-          </motion.div>
-        </motion.div>
+          </MotionWrapper>
+        </MotionWrapper>
       </Container>
     </section>
   );

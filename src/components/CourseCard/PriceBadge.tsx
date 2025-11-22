@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { formatCoursePrice } from '@/utils/courseUtils';
 
 /**
@@ -36,14 +35,13 @@ const PriceBadge = ({
   };
 
   return (
-    <motion.div
-      className={`bg-white/90 rounded-lg px-3 py-2 shadow-lg border border-white/20 ${positionClasses[position]} ${className}`}
-      transition={{ duration: 0.2 }}
+    <div
+      className={`bg-white/90 rounded-lg px-3 py-2 shadow-lg border border-white/20 transition-all duration-200 ${positionClasses[position]} ${className}`}
     >
       <span className="text-sm font-bold text-gray-900 drop-shadow-sm">
         {formatCoursePrice(price, currency)}
       </span>
-    </motion.div>
+    </div>
   );
 };
 

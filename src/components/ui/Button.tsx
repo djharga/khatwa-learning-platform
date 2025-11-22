@@ -2,11 +2,12 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold select-none rounded-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 disabled:pointer-events-none disabled:cursor-not-allowed no-underline direction-rtl transition-all duration-200 ease-out isolate z-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold select-none rounded-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900 disabled:pointer-events-none disabled:cursor-not-allowed no-underline direction-rtl transition-all duration-300 ease-out isolate z-0 will-change-transform',
   {
     variants: {
       variant: {
@@ -42,9 +43,10 @@ const buttonVariants = cva(
 );
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'ref' | 'children'>,
+    VariantProps<typeof buttonVariants> {
   loading?: boolean;
+  children?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -54,18 +56,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <button
         ref={ref}
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          !isDisabled && 'hover:scale-105 hover:shadow-[0px_5px_10px_rgba(0,0,0,0.1)] active:scale-95'
+        )}
         data-component="button"
         disabled={isDisabled}
         {...props}
       >
         <span className="relative z-10 flex items-center gap-2">
           {loading && (
-            <Loader2
-              className="h-4 w-4 animate-spin text-current opacity-90"
-              aria-hidden="true"
-              aria-label="جاري التحميل"
-            />
+            <motion.span
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2 }}
+            >
+              <Loader2
+                className="h-4 w-4 animate-spin text-current opacity-90"
+                aria-hidden="true"
+                aria-label="جاري التحميل"
+              />
+            </motion.span>
           )}
           {children}
         </span>

@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -39,14 +38,12 @@ export default function MetricCard({
   onClick,
 }: MetricCardProps) {
   const content = (
-    <motion.div
+    <div
       className={cn(
         'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-[14px] p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)] transition-all duration-300',
-        'hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer',
+        'hover:shadow-[0_4px_16px_rgba(0,0,0,0.12)] cursor-pointer hover:-translate-y-0.5 hover:scale-[1.01] active:scale-[0.98]',
         className
       )}
-      whileHover={{ y: -2, scale: 1.01 }}
-      whileTap={{ scale: 0.98 }}
       onClick={onClick}
       dir="rtl"
     >
@@ -73,7 +70,7 @@ export default function MetricCard({
           {secondary}
         </p>
       )}
-    </motion.div>
+    </div>
   );
 
   if (href) {

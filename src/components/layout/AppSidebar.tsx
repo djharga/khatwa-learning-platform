@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSubscription } from '@/hooks/useSubscription';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MotionWrapper } from '@/components/ui/motion/MotionWrapper';
 import {
   Home, BookOpen, FileText, Award, Users, Settings, Brain, FolderOpen,
   BarChart3, HelpCircle, MessageCircle, ChevronDown, ChevronRight,
@@ -158,74 +159,59 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
   const NavigationItem = ({ item, active, idx }: any) => {
     const IconComp = iconMap[item.icon as keyof typeof iconMap] || Home;
     return (
-      <motion.div
-        initial={prefersReducedMotion ? {} : { opacity: 0, x: -5 }}
-        animate={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
-        transition={prefersReducedMotion ? { duration: 0 } : { delay: idx * 0.03, duration: 0.2 }}
+      <MotionWrapper
+        animation="slide"
+        delay={prefersReducedMotion ? 0 : idx * 0.03}
+        duration={0.2}
       >
-        <motion.div
-          whileHover={!active ? { x: 4, scale: 1.01 } : {}}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
+        <Link
+          href={item.href}
+          className={`group flex items-center gap-4 p-4 rounded-xl text-sm transition-all duration-200 ease-out min-h-[48px] ${
+            active
+              ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-500/25 border border-primary-500/40'
+              : 'text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 border border-transparent hover:border-neutral-200 hover:translate-x-1 hover:scale-[1.01] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2'
+          }`}
+          aria-current={active ? 'page' : undefined}
+          aria-label={item.name}
+          dir="rtl"
         >
-          <Link
-            href={item.href}
-            className={`group flex items-center gap-4 p-4 rounded-xl text-sm transition-all duration-200 ease-out min-h-[48px] ${
+          <div
+            className={`p-2.5 rounded-lg transition-all duration-200 ease-out ${
               active
-                ? 'bg-gradient-to-r from-primary-600 to-primary-700 text-white shadow-lg shadow-primary-500/25 border border-primary-500/40'
-                : 'text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 border border-transparent hover:border-neutral-200 focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2'
+                ? 'bg-white/20'
+                : 'bg-neutral-100 group-hover:bg-primary-50'
             }`}
-            aria-current={active ? 'page' : undefined}
-            aria-label={item.name}
-            dir="rtl"
           >
-            <div
-              className={`p-2.5 rounded-lg transition-all duration-200 ease-out ${
-                active
-                  ? 'bg-white/20'
-                  : 'bg-neutral-100 group-hover:bg-primary-50'
+            <IconComp
+              className={`w-5 h-5 transition-colors duration-200 ease-out ${
+                active ? 'text-white' : 'text-neutral-600 group-hover:text-primary-600'
               }`}
-            >
-              <IconComp
-                className={`w-5 h-5 transition-colors duration-200 ease-out ${
-                  active ? 'text-white' : 'text-neutral-600 group-hover:text-primary-600'
-                }`}
-                strokeWidth={2}
-                aria-hidden="true"
-              />
-            </div>
-            <span className="flex-1 font-semibold">{item.name}</span>
-            {active && (
-              <motion.div 
-                className="w-2 h-2 rounded-full bg-white shadow-sm"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-              />
-            )}
-          </Link>
-        </motion.div>
-      </motion.div>
+              strokeWidth={2}
+              aria-hidden="true"
+            />
+          </div>
+          <span className="flex-1 font-semibold">{item.name}</span>
+          {active && (
+            <div className="w-2 h-2 rounded-full bg-white shadow-sm scale-100 animate-in fade-in duration-200" />
+          )}
+        </Link>
+      </MotionWrapper>
     );
   };
 
   const CategorySection = ({ section, expanded, toggle, idx }: any) => (
-    <motion.div
-      initial={prefersReducedMotion ? {} : { opacity: 0, y: 5 }}
-      animate={prefersReducedMotion ? {} : { opacity: 1, y: 0 }}
-      transition={prefersReducedMotion ? { duration: 0 } : { delay: idx * 0.05 }}
+    <MotionWrapper
+      animation="slideDown"
+      delay={prefersReducedMotion ? 0 : idx * 0.05}
       className="space-y-2"
     >
       <motion.button
         onClick={toggle}
-        className={`w-full flex items-center justify-between p-4 rounded-xl text-sm font-bold text-neutral-900 border transition-all duration-200 ease-out min-h-[48px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 ${
+        className={`w-full flex items-center justify-between p-4 rounded-xl text-sm font-bold text-neutral-900 border transition-all duration-300 ease-out min-h-[48px] focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 ${
           expanded 
             ? 'bg-primary-50 border-primary-300 shadow-md' 
             : 'bg-neutral-50 border-neutral-200 hover:bg-neutral-100 hover:border-neutral-300'
-        }`}
-        whileHover={prefersReducedMotion ? {} : { scale: 1.01, y: -1 }}
-        whileTap={prefersReducedMotion ? {} : { scale: 0.98 }}
-        transition={{ duration: 0.2, ease: 'easeOut' }}
+        } ${!prefersReducedMotion ? 'hover:scale-[1.01] hover:-translate-y-0.5 active:scale-[0.98]' : ''}`}
         aria-expanded={expanded}
         aria-controls={`sidebar-section-${section.title}`}
         aria-label={`${expanded ? 'إغلاق' : 'فتح'} قسم ${section.title}`}
@@ -233,7 +219,7 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
       >
         <span className="flex items-center gap-3">
           <ChevronRight
-            className={`w-[18px] h-[18px] text-primary-600 transition-transform duration-[200ms] ease-out ${
+            className={`w-[18px] h-[18px] text-primary-600 transition-transform duration-300 ease-out ${
               expanded ? 'rotate-0' : '-rotate-90'
             }`}
             strokeWidth={2.5}
@@ -242,7 +228,7 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
           {section.title}
         </span>
         <ChevronDown
-          className={`w-[18px] h-[18px] text-neutral-500 transition-transform duration-[200ms] ease-out ${
+          className={`w-[18px] h-[18px] text-neutral-500 transition-transform duration-300 ease-out ${
             expanded ? 'rotate-180' : 'rotate-0'
           }`}
           strokeWidth={2.5}
@@ -257,9 +243,9 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
             animate={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 'auto', opacity: 1 }}
             exit={prefersReducedMotion ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
             transition={prefersReducedMotion ? { duration: 0 } : { 
-              duration: 0.2,
+              duration: 0.3,
               ease: [0, 0, 0.2, 1],
-              opacity: { duration: 0.2 }
+              opacity: { duration: 0.3 }
             }}
             style={{ overflow: 'hidden' }}
             className="space-y-2 ps-6"
@@ -273,7 +259,7 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </MotionWrapper>
   );
 
   const SidebarHeader = ({ onClose }: { onClose: () => void }) => (
@@ -281,16 +267,13 @@ const AppSidebar = ({ disabled = false }: AppSidebarProps) => {
       <h2 className="text-xl font-extrabold text-primary-600 tracking-tight" dir="rtl">
         خطي التعليمية
       </h2>
-      <motion.button
+      <button
         onClick={onClose}
-        className="p-2.5 rounded-xl hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 transition-all duration-[200ms] ease-out min-h-[44px] min-w-[44px] flex items-center justify-center"
-        whileHover={prefersReducedMotion ? {} : { scale: 1.05 }}
-        whileTap={prefersReducedMotion ? {} : { scale: 0.95 }}
-        transition={{ duration: 0.2 }}
+        className={`p-2.5 rounded-xl hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-primary-500 focus-visible:outline-offset-2 transition-all duration-300 ease-out min-h-[44px] min-w-[44px] flex items-center justify-center ${!prefersReducedMotion ? 'hover:scale-105 active:scale-95' : ''}`}
         aria-label="إغلاق القائمة الجانبية"
       >
         <X className="w-5 h-5 text-neutral-600" strokeWidth={2.5} aria-hidden="true" />
-      </motion.button>
+      </button>
     </div>
   );
 
