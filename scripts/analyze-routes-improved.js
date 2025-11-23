@@ -510,7 +510,7 @@ function analyzeRoutes() {
   fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
   
   console.log('\n✅ Analysis complete!');
-  console.log(`   📄 Report saved to ROUTES_ANALYSIS.json\n`);
+  console.log("   📄 Report saved to ROUTES_ANALYSIS.json\n");
   
   // طباعة الملخص
   console.log('📊 Summary:');

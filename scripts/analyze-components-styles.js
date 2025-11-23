@@ -353,13 +353,13 @@ function main() {
   // Print summary
   console.log('='.repeat(60));
   console.log('📊 ملخص التحليل:\n');
-  console.log(`المكونات:`);
+  console.log("المكونات:");
   console.log(`  - الإجمالي: ${report.summary.components.total}`);
   console.log(`  - المستخدمة: ${report.summary.components.used}`);
   console.log(`  - غير المستخدمة: ${report.summary.components.unused}`);
   console.log(`  - المكررة: ${report.summary.components.duplicates}`);
   console.log(`  - تعارضات الأسماء: ${report.summary.components.namingConflicts}`);
-  console.log(`\nالأنماط:`);
+  console.log("\nالأنماط:");
   console.log(`  - الإجمالي: ${report.summary.styles.total}`);
   console.log(`  - المستوردة: ${report.summary.styles.imported}`);
   console.log(`  - غير المستوردة: ${report.summary.styles.unused}`);
