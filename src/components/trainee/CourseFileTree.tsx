@@ -316,7 +316,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
                 }}
                 onClick={(e) => e.stopPropagation()}
                 className="flex-1 px-2 py-1 min-h-[44px] border border-primary-500 dark:border-primary-400 rounded bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
-                autoFocus
+                
               />
             ) : (
               <span

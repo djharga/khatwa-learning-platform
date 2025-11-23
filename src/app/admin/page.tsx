@@ -503,7 +503,7 @@ const AdminDashboard = () => {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="ابحث في النظام (مستخدمين، برامج، دورات، محتوى)..."
                       className="w-full pr-12 pl-4 py-3 min-h-[44px] rounded-xl border-2 border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white transition-all duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:border-primary-500 dark:focus-visible:border-primary-400"
-                                            autoFocus
+                                            
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' && searchQuery.trim()) {
                           handleSearch();
