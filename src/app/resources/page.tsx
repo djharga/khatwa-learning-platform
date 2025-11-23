@@ -328,7 +328,7 @@ const ResourcesPage = () => {
       filtered = filtered.filter(r => 
         r.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (r.description && r.description.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (r.tags && r.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
+        (r.tags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
       );
     }
     
