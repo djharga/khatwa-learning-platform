@@ -64,3 +64,4 @@ src/fonts/microsoft-powertoys-0-95-1.exe
 *.exe
 *.zip
 src.zip
+.env
