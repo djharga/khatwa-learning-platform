@@ -117,7 +117,7 @@ function extractRoutesFromFile(filePath) {
     let match;
     while ((match = pattern.exec(content)) !== null) {
       const route = match[2].trim();
-      if (route && route.startsWith('/')) {
+      if (route?.startsWith('/')) {
         const lineNum = content.substring(0, match.index).split('\n').length;
         routes.push({
           path: route,
@@ -136,7 +136,7 @@ function extractRoutesFromFile(filePath) {
   let match;
   while ((match = templateLiteralPattern.exec(content)) !== null) {
     const route = match[1].trim();
-    if (route && route.startsWith('/')) {
+    if (route?.startsWith('/')) {
       const lineNum = content.substring(0, match.index).split('\n').length;
       // استبدال ${...} بـ * للتحقق
       const cleanRoute = route.replace(/\$\{[^}]+\}/g, '*');
@@ -156,7 +156,7 @@ function extractRoutesFromFile(filePath) {
   const hrefInObject = /href\s*:\s*["'](\/[^"']+)["']/g;
   while ((match = hrefInObject.exec(content)) !== null) {
     const route = match[1].trim();
-    if (route && route.startsWith('/')) {
+    if (route?.startsWith('/')) {
       const lineNum = content.substring(0, match.index).split('\n').length;
       routes.push({
         path: route,

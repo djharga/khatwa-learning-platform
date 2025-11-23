@@ -57,7 +57,7 @@ export function useCourseModules(courseId: string | undefined) {
       try {
         // محاولة جلب البيانات من API
         const course = await courseManagementService.getCourse(courseId);
-        if (course && course.modules && course.modules.length > 0) {
+        if (course?.modules && course.modules.length > 0) {
           return course.modules;
         }
       } catch (apiError) {
@@ -69,7 +69,7 @@ export function useCourseModules(courseId: string | undefined) {
         const courseIdNum = parseInt(courseId, 10);
         if (!isNaN(courseIdNum)) {
           const localCourse = getCourseById(courseIdNum);
-          if (localCourse && localCourse.modules) {
+          if (localCourse?.modules) {
             return convertCourseModulesToModule(localCourse.modules);
           }
         }
@@ -98,9 +98,9 @@ export function useModuleUnits(courseId: string | undefined, moduleId: string | 
       try {
         // محاولة جلب البيانات من API
         const course = await courseManagementService.getCourse(courseId);
-        if (course && course.modules) {
+        if (course?.modules) {
           const courseModule = course.modules.find(m => m.id === moduleId);
-          if (courseModule && courseModule.lessons) {
+          if (courseModule?.lessons) {
             return courseModule.lessons;
           }
         }
@@ -113,7 +113,7 @@ export function useModuleUnits(courseId: string | undefined, moduleId: string | 
         const courseIdNum = parseInt(courseId, 10);
         if (!isNaN(courseIdNum)) {
           const localCourse = getCourseById(courseIdNum);
-          if (localCourse && localCourse.modules) {
+          if (localCourse?.modules) {
             const courseModule = localCourse.modules.find((m: any, index: number) => {
               const mId = m.id?.toString() || `module-${index + 1}`;
               return mId === moduleId || m.id === moduleId;
@@ -171,11 +171,11 @@ export function useUnitFiles(
       try {
         // محاولة جلب البيانات من API
         const course = await courseManagementService.getCourse(courseId);
-        if (course && course.modules) {
+        if (course?.modules) {
           const courseModule = course.modules.find(m => m.id === moduleId);
-          if (courseModule && courseModule.lessons) {
+          if (courseModule?.lessons) {
             const lesson = courseModule.lessons.find(l => l.id === lessonId);
-            if (lesson && lesson.content) {
+            if (lesson?.content) {
               return lesson.content;
             }
           }
@@ -189,12 +189,12 @@ export function useUnitFiles(
         const courseIdNum = parseInt(courseId, 10);
         if (!isNaN(courseIdNum)) {
           const localCourse = getCourseById(courseIdNum);
-          if (localCourse && localCourse.modules) {
+          if (localCourse?.modules) {
             const courseModule = localCourse.modules.find((m: any, index: number) => {
               const mId = m.id?.toString() || `module-${index + 1}`;
               return mId === moduleId || m.id === moduleId;
             });
-            if (courseModule && courseModule.lessons) {
+            if (courseModule?.lessons) {
               const lessons = Array.isArray(courseModule.lessons) ? courseModule.lessons : [];
               const lessonIndex = lessons.findIndex((l: any, idx: number) => {
                 const lId = typeof l === 'object' && l.id 

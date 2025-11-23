@@ -59,7 +59,7 @@ function analyzeDependencies() {
 
   // Check for duplicate packages (same package in dependencies and devDependencies)
   Object.keys(packageJson.dependencies || {}).forEach(dep => {
-    if (packageJson.devDependencies && packageJson.devDependencies[dep]) {
+    if (packageJson.devDependencies?.[dep]) {
       results.duplicate.push({
         name: dep,
         inDependencies: packageJson.dependencies[dep],

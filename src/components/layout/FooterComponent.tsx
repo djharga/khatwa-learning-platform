@@ -245,7 +245,7 @@ const NewsletterSection = () => {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
   const handleSubscribe = () => {
-    if (email && email.includes('@')) {
+    if (email?.includes('@')) {
       setIsSubscribed(true);
       setTimeout(() => {
         setIsSubscribed(false);
