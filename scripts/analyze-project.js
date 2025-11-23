@@ -66,7 +66,7 @@ function getAllFiles(dirPath, arrayOfFiles = []) {
  */
 function getFileHash(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  return crypto.createHash('md5').update(content).digest('hex');
+  return crypto.createHash("sha256").update(content).digest('hex');
 }
 
 /**
