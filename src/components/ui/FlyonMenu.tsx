@@ -57,7 +57,7 @@ const FlyonMenu: React.FC<FlyonMenuProps> = ({
         transition: motionTokens.linkTransitions.hover.transition,
       };
 
-  const getBadgeClasses = (variant: string = 'primary') => {
+  const getBadgeClasses = (variant = 'primary') => {
     const variants = {
       primary: 'badge-primary',
       warning: 'badge-warning',

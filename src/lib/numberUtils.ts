@@ -7,7 +7,7 @@ export const formatNumber = (num: number, options?: Intl.NumberFormatOptions): s
 };
 
 // Format number with locale string but force English digits
-export const formatNumberLocale = (num: number, locale: string = 'en-US', options?: Intl.NumberFormatOptions): string => {
+export const formatNumberLocale = (num: number, locale = 'en-US', options?: Intl.NumberFormatOptions): string => {
   return new Intl.NumberFormat(locale, options).format(num);
 };
 

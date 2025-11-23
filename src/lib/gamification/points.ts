@@ -173,7 +173,7 @@ export const AVAILABLE_BADGES: Badge[] = [
  */
 export function calculatePointsEarned(
   action: keyof typeof POINTS_REWARDS,
-  bonusMultiplier: number = 1
+  bonusMultiplier = 1
 ): number {
   const basePoints = POINTS_REWARDS[action] || 0;
   return Math.floor(basePoints * bonusMultiplier);
