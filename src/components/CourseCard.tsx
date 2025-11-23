@@ -228,7 +228,7 @@ const CourseCardComponent = ({ course, variant = 'default', onBookmark, onShare,
               </Link>
             ) : course.progress === 100 ? (
               <Link
-                href={`/certificates`}
+                href={"/certificates"}
                 className={`${isCompact ? 'px-6 py-2.5' : 'flex-1'} flex items-center justify-center gap-2 min-h-[44px] bg-gradient-to-r from-success-600 to-success-700 hover:from-success-700 hover:to-success-800 active:from-success-500 active:to-success-600 active:brightness-110 text-white rounded-xl font-semibold text-sm transition-all duration-200 ease-out hover:shadow-lg hover:shadow-success-500/25 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-success-500 focus-visible:ring-offset-2`}
                 aria-label="عرض الشهادة"
               >

@@ -666,7 +666,7 @@ const InternalAuditPage = () => {
                   {activeLevel === level.id && (
                     <div className="absolute inset-0 opacity-10">
                       <div className="absolute inset-0" style={{
-                        backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+                        backgroundImage: "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)",
                         backgroundSize: '20px 20px'
                       }} />
                     </div>
