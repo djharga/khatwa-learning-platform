@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 /**
  * تحليل شامل لمجلدي /components و /styles
