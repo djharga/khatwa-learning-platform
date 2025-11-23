@@ -122,7 +122,7 @@ export default function CourseHero({
         {/* Background Pattern - Reduced opacity to 0.15 */}
         <div className="absolute inset-0 opacity-[0.15] z-[1]">
           <div className="absolute inset-0 rounded-2xl" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)`,
+            backgroundImage: "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)",
             backgroundSize: '40px 40px'
           }} />
         </div>
