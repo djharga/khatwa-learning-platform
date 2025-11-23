@@ -127,7 +127,7 @@ export default function LessonNotes({ lessonId }: LessonNotesProps) {
             placeholder="اكتب ملاحظتك هنا..."
             rows={3}
             dir="rtl"
-            autoFocus
+            
           />
           <div className={styles.noteActions}>
             <button
@@ -170,7 +170,7 @@ export default function LessonNotes({ lessonId }: LessonNotesProps) {
                     onChange={(e) => setEditingText(e.target.value)}
                     rows={3}
                     dir="rtl"
-                    autoFocus
+                    
                   />
                   <div className={styles.noteActions}>
                     <button
