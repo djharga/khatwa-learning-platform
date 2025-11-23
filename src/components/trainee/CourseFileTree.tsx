@@ -257,7 +257,7 @@ const CourseFileTree: FC<CourseFileTreeProps> = ({
 
   // Render file node
   const renderNode = useCallback(
-    (node: CourseFileNode, level: number = 0) => {
+    (node: CourseFileNode, level = 0) => {
       const isExpanded = expandedFolders.has(node.id);
       const isSelected = selectedFile === node.id;
       const isEditing = editingFileId === node.id;

@@ -87,7 +87,7 @@ export class AdminService {
   /**
    * الحصول على إحصائيات النظام
    */
-  async getStats(period: string = 'month'): Promise<AdminStats> {
+  async getStats(period = 'month'): Promise<AdminStats> {
     try {
       const response = await fetch(`${API_PREFIX}/admin/stats?period=${period}`, {
         method: 'GET',
@@ -111,7 +111,7 @@ export class AdminService {
   /**
    * الحصول على الأنشطة الأخيرة
    */
-  async getActivities(limit: number = 20, type?: string, severity?: string): Promise<Activity[]> {
+  async getActivities(limit = 20, type?: string, severity?: string): Promise<Activity[]> {
     try {
       const params = new URLSearchParams();
       params.append('limit', limit.toString());

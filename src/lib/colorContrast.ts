@@ -56,7 +56,7 @@ export function getContrastRatio(color1: string, color2: string): number {
  * @param ratio - Contrast ratio
  * @param isLargeText - Whether the text is large (18pt+ or 14pt+ bold)
  */
-export function meetsWCAGAA(ratio: number, isLargeText: boolean = false): boolean {
+export function meetsWCAGAA(ratio: number, isLargeText = false): boolean {
   return isLargeText ? ratio >= 3.0 : ratio >= 4.5;
 }
 
@@ -65,7 +65,7 @@ export function meetsWCAGAA(ratio: number, isLargeText: boolean = false): boolea
  * @param ratio - Contrast ratio
  * @param isLargeText - Whether the text is large (18pt+ or 14pt+ bold)
  */
-export function meetsWCAGAAA(ratio: number, isLargeText: boolean = false): boolean {
+export function meetsWCAGAAA(ratio: number, isLargeText = false): boolean {
   return isLargeText ? ratio >= 4.5 : ratio >= 7.0;
 }
 
@@ -74,7 +74,7 @@ export function meetsWCAGAAA(ratio: number, isLargeText: boolean = false): boole
  */
 export function getWCAGLevel(
   ratio: number,
-  isLargeText: boolean = false
+  isLargeText = false
 ): 'fail' | 'AA (large)' | 'AA' | 'AAA (large)' | 'AAA' {
   if (isLargeText) {
     if (ratio >= 4.5) return 'AAA';
@@ -93,7 +93,7 @@ export function getWCAGLevel(
 export function isSafeTextCombination(
   textColor: string,
   backgroundColor: string,
-  isLargeText: boolean = false
+  isLargeText = false
 ): { safe: boolean; ratio: number; level: string } {
   const ratio = getContrastRatio(textColor, backgroundColor);
   const level = getWCAGLevel(ratio, isLargeText);
@@ -108,7 +108,7 @@ export function isSafeTextCombination(
  */
 export function getBestTextColor(
   backgroundColor: string,
-  isLargeText: boolean = false
+  isLargeText = false
 ): {
   color: string;
   ratio: number;
