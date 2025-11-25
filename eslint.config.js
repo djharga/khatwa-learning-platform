@@ -2,23 +2,24 @@ import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 
-export default tseslint.config(
-  js.configs.recommended,
-  ...tseslint.configs.recommended,
+export default [
   {
     ignores: [
       ".next/**",
-      ".next/**/*",
-      ".next/types/**",
       "node_modules/**",
       "dist/**",
       "build/**",
       "out/**",
       "coverage/**",
       "postcss.config.mjs",
-      "tailwind.config.ts",
+      "temp_check.js",
     ],
+  },
+  ...tseslint.configs.recommended,
+  js.configs.recommended,
+  {
     files: ["**/*.{ts,tsx,js,jsx}"],
     languageOptions: {
       globals: {
@@ -33,6 +34,7 @@ export default tseslint.config(
     },
     plugins: {
       react,
+      "react-hooks": reactHooks,
     },
     settings: {
       react: { version: "detect" },
@@ -46,6 +48,8 @@ export default tseslint.config(
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
       "react/display-name": "off",
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
-  }
-);
+  },
+];
