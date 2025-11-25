@@ -22,7 +22,7 @@ import {
   Info,
 } from 'lucide-react';
 import type {
-  FileModificationHistory,
+  FileModificationHistory as FileModificationHistoryModel,
   FileModification,
   FileModificationTree,
 } from '@/types/storage';
@@ -47,7 +47,7 @@ const FileModificationHistory: FC<FileModificationHistoryProps> = ({
   const { user } = useAuth();
   const currentUserId = userId || user?.id || '';
 
-  const [modificationHistory, setModificationHistory] = useState<FileModificationHistory | null>(null);
+  const [modificationHistory, setModificationHistory] = useState<FileModificationHistoryModel | null>(null);
   const [modificationTree, setModificationTree] = useState<FileModificationTree | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedAction, setSelectedAction] = useState<string>('all');

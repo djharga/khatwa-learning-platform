@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import {
   FileText,
   FileSpreadsheet,
@@ -89,9 +89,11 @@ interface UnifiedFileCardProps {
 
 const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCardProps) => {
   // Normalize file to UnifiedFile format
-  const normalizedFile: UnifiedFile = 'name' in file 
-    ? file as UnifiedFile 
+  const normalizedFile: UnifiedFile = 'name' in file
+    ? file as UnifiedFile
     : convertCourseContentToUnifiedFile(file as CourseContent);
+
+  const prefersReducedMotion = useReducedMotion();
 
   // Create callback wrappers for CourseContent compatibility
   const handleOpen = () => {
@@ -211,17 +213,31 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
   };
 
   const colors = getFileColor();
+  const cardMotionClass = prefersReducedMotion
+    ? 'shadow-md transition-colors duration-200'
+    : 'shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300';
+  const mediaHoverClass = prefersReducedMotion ? '' : 'group-hover:scale-110 transition-transform duration-500';
+  const patternClass = prefersReducedMotion ? 'opacity-5' : 'opacity-5 group-hover:opacity-10 transition-opacity duration-500';
+  const primaryButtonMotion = prefersReducedMotion
+    ? 'transition-colors duration-200'
+    : 'hover:shadow-lg hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300';
+  const secondaryButtonMotion = prefersReducedMotion
+    ? 'transition-colors duration-200'
+    : 'hover:shadow-lg hover:scale-110 hover:rotate-3 active:scale-90 transition-all duration-300';
+  const shimmerClass = prefersReducedMotion
+    ? 'hidden'
+    : 'absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000';
 
   return (
     <MotionWrapper
-      animation="scale"
+      animation={prefersReducedMotion ? 'fade' : 'scale'}
       delay={index * 0.05}
-      duration={0.4}
-      className={`group relative bg-white dark:bg-neutral-800 rounded-2xl border-2 ${colors.border} ${colors.bg} overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 h-full flex flex-col`}
+      duration={prefersReducedMotion ? 0.25 : 0.4}
+      className={`group relative bg-white dark:bg-neutral-800 rounded-2xl border-2 ${colors.border} ${colors.bg} overflow-hidden ${cardMotionClass} h-full flex flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900`}
     >
       {/* Decorative Background Pattern */}
-      <div className={`absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500 bg-gradient-to-br ${colors.gradient} to-transparent`} />
-      
+      <div className={`absolute inset-0 ${patternClass} bg-gradient-to-br ${colors.gradient} to-transparent`} />
+
       {/* Thumbnail or Icon Area */}
       <div className="relative aspect-video bg-gradient-to-br from-neutral-100 via-neutral-50 to-neutral-100 dark:from-neutral-700 dark:via-neutral-800 dark:to-neutral-700 overflow-hidden">
         {normalizedFile.thumbnail ? (
@@ -230,7 +246,7 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
               src={normalizedFile.thumbnail}
               alt={normalizedFile.name}
               fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
+              className={`object-cover ${mediaHoverClass}`}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent group-hover:from-black/50 transition-colors" />
             {normalizedFile.type === 'video' && (
@@ -242,13 +258,13 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
             )}
           </>
         ) : (
-          <div className={`absolute inset-0 flex items-center justify-center ${colors.iconBg} group-hover:scale-110 transition-transform duration-500`}>
-            <motion.div 
+          <div className={`absolute inset-0 flex items-center justify-center ${colors.iconBg} ${mediaHoverClass}`}>
+            <motion.div
               className={colors.text}
-              animate={{ 
+              animate={prefersReducedMotion ? undefined : {
                 scale: [1, 1.1, 1],
               }}
-              transition={{ 
+              transition={prefersReducedMotion ? undefined : {
                 duration: 2,
                 repeat: Infinity,
                 repeatDelay: 3,
@@ -321,10 +337,10 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
           {onOpen && (
             <button
               onClick={handleOpen}
-              className={`flex-1 px-4 py-2.5 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-sm hover:shadow-lg hover:scale-[1.02] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden group/btn`}
+              className={`flex-1 px-4 py-2.5 bg-gradient-to-r ${colors.gradient} text-white rounded-xl font-semibold text-sm ${primaryButtonMotion} flex items-center justify-center gap-2 relative overflow-hidden group/btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-400 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900`}
             >
               {/* Shimmer Effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-1000" />
+              <div className={shimmerClass} />
               {normalizedFile.type === 'video' ? (
                 <>
                   <Play className="w-4 h-4 relative z-10" fill="currentColor" />
@@ -341,7 +357,7 @@ const UnifiedFileCard = ({ file, onOpen, onDownload, index = 0 }: UnifiedFileCar
           {onDownload && (
             <button
               onClick={handleDownload}
-              className={`px-4 py-2.5 ${colors.iconBg} ${colors.text} rounded-xl hover:shadow-lg hover:scale-110 hover:rotate-3 active:scale-90 transition-all duration-300 border-2 ${colors.border} relative overflow-hidden group/download`}
+              className={`px-4 py-2.5 ${colors.iconBg} ${colors.text} rounded-xl ${secondaryButtonMotion} border-2 ${colors.border} relative overflow-hidden group/download focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-400 focus-visible:ring-offset-white dark:focus-visible:ring-offset-neutral-900`}
             >
               <Download className="w-5 h-5 relative z-10" />
             </button>

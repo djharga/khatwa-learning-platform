@@ -4,8 +4,6 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import type { StorageQuota, StorageUsage, PersonalFile } from '@/types/storage';
-import { storageService } from '@/lib/storage/storage-service';
-
 const API_PREFIX = '/api';
 
 interface UseStorageOptions {

@@ -29,13 +29,13 @@ import {
   AlertCircle,
   Info,
 } from 'lucide-react';
-import type { CourseFileNode, CourseFileTree } from '@/types/course-management';
+import type { CourseFileNode, CourseFileTree as CourseFileTreeModel } from '@/types/course-management';
 import { useAuth } from '@/contexts/AuthContext';
 import toast from 'react-hot-toast';
 
 interface CourseFileTreeProps {
   courseId: string;
-  fileTree: CourseFileTree;
+  fileTree: CourseFileTreeModel;
   onFileSelect?: (file: CourseFileNode) => void;
   onFileDownload?: (file: CourseFileNode) => void;
   onFileRename?: (fileId: string, newName: string) => Promise<void>;

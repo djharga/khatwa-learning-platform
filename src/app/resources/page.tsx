@@ -87,7 +87,7 @@ interface LocalResource {
   featured?: boolean;
 }
 
-interface ExternalLink {
+interface ResourceLink {
   id: string;
   title: string;
   url: string;
@@ -213,7 +213,7 @@ const sampleResources: LocalResource[] = [
   },
 ];
 
-const sampleExternalLinks: ExternalLink[] = [
+const sampleExternalLinks: ResourceLink[] = [
   {
     id: '1',
     title: 'معهد المدققين الداخليين',

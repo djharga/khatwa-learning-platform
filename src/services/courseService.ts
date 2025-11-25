@@ -195,6 +195,18 @@ export class CourseService {
    */
   public getCoursesStats() {
     const totalCourses = this.courses.length;
+
+    if (totalCourses === 0) {
+      return {
+        totalCourses: 0,
+        totalStudents: 0,
+        averageRating: 0,
+        categories: 0,
+        featuredCourses: 0,
+        popularCourses: 0
+      };
+    }
+
     const totalStudents = this.courses.reduce((sum, course) => sum + course.students, 0);
     const averageRating = this.courses.reduce((sum, course) => sum + course.rating, 0) / totalCourses;
     const categories = [...new Set(this.courses.map(course => course.category))];
