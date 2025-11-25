@@ -64,9 +64,12 @@ export default function HomePage() {
   return (
     <PageBackground variant="home">
       {/* ✦ مؤشر تقدم التمرير ✦ */}
-      <div className="fixed top-0 left-0 right-0 h-[3px] z-50 bg-transparent backdrop-blur-[1px]">
+      <div
+        className="fixed top-0 left-0 right-0 h-[3px] z-50 bg-transparent backdrop-blur-[1px]"
+        aria-hidden="true"
+      >
         <div
-          className={`h-full bg-gradient-to-r from-primary-600 via-accent-500 to-primary-600 
+          className={`h-full bg-gradient-to-r from-primary-600 via-accent-500 to-primary-600
                      shadow-[0_0_15px_rgba(99,102,241,0.35)]
                      ${prefersReducedMotion 
                        ? 'transition-none' 
