@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
-    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-tabs": "^1.1.13",
     "@stripe/react-stripe-js": "^2.6.2",
     "@stripe/stripe-js": "^2.4.0",
